@@ -32,6 +32,7 @@ export const fetchData = ({funcName, url, params, stateName}) => dispatch => {  
 		console.log('sss',params)
     !stateName && (stateName = funcName); 
     dispatch(requestData(stateName));
+    
     const dayta={
       success:1,
       data:{
