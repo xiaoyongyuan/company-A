@@ -1,14 +1,34 @@
 import React from 'react';
 import {Form, Row, Col,Icon } from 'antd';
 import '../../style/sjg/home.css';
+import {post} from "../../axios/tools";
 class Userdeveice extends React.Component{
     constructor(props){
         super(props);
         this.state={
             portvalue:"827317",
             ipvalue:"192.168.1.67",
+            code:"1000001",
         };
     }
+
+    componentDidMount() {             
+        //取数据
+        this.requestdata()
+    }
+
+    requestdata=(params) => {//取数据
+        post({url:"/api/camera/getone",data:{code:this.state.code}}, (res)=>{
+            if(res.success){
+                console.log("列表数据：",res.data);
+                this.setState({
+                    list: res.data
+                })
+            }
+        })
+    }
+
+
     onChangeip=(e)=> {//ip  input 修改ip
         this.setState({
             ipvalue:e.target.value,
