@@ -48,7 +48,7 @@ class Userhome extends React.Component{
                                 <a href="#" className="actionsBbottom colCen">
                                         <Icon type="clock-circle" /> 布防中
                                 </a>, 
-                                 <a href="/app/Userhome/Userdeveice" className="colCen actionsBbottom ">
+                                 <a href="#/app/userhome/Userdeveice" className="colCen actionsBbottom ">
                                      <Icon type="setting" />
                                  </a>
                         ]}
@@ -75,7 +75,7 @@ class Userhome extends React.Component{
                                <a href="#" className="actionsBbottom colCen">
                                        <Icon type="clock-circle" /> 布防中
                                </a>, 
-                                <a href="/app/Userhome/Userdeveice" className="colCen actionsBbottom ">
+                                <a href="#/app/userhome/Userdeveice" className="colCen actionsBbottom ">
                                     <Icon type="setting" />
                                 </a>
                         ]}

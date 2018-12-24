@@ -11,14 +11,13 @@ class Equipment extends React.Component{
                         <Card                       
                             cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
                             actions={[
-                               <div className="actionsBbottom"><p>2条</p><p>布防区域</p> </div>,
-                               <div className="actionsBbottom colCen">
-                                       <Icon type="clock-circle" /> 布防中
-                               </div>                                            
-                            , 
-                                <div className="colCen actionsBbottom ">
-                                    <Icon type="setting" />
-                                </div>
+                                <a href="#" className="actionsBbottom"><p>2条</p><p>布防区域</p> </a>,
+                                <a href="#" className="actionsBbottom colCen">
+                                        <Icon type="clock-circle" /> 布防中
+                                </a>, 
+                                 <a href="#/app/userhome/Userdeveice" className="colCen actionsBbottom ">
+                                     <Icon type="setting" />
+                                 </a>
                         ]}
                         >                       
                             <Row className="paddRow">  
@@ -43,7 +42,7 @@ class Equipment extends React.Component{
                                 <a href="#" className="actionsBbottom colCen">
                                         <Icon type="clock-circle" /> 布防中
                                 </a>, 
-                                 <a href="/app/Userhome/Userdeveice" className="colCen actionsBbottom ">
+                                 <a href="#/app/userhome/Userdeveice" className="colCen actionsBbottom ">
                                      <Icon type="setting" />
                                  </a>
                         ]}
