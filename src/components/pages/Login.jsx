@@ -17,13 +17,17 @@ class Login extends React.Component {
     }
     componentDidUpdate(prevProps) { 
         const { auth: nextAuth = {}, history } = this.props;
-        console.log('this.props',this.props)
         if (nextAuth.data && nextAuth.data.success) {
             localStorage.setItem('token', nextAuth.data.token);
             localStorage.setItem('user', JSON.stringify(nextAuth.data.data));
             localStorage.setItem('comid', nextAuth.data.data.companycode);
             localStorage.setItem('account', nextAuth.data.data.account);
-            history.push('/');
+            if(nextAuth.data.data.ctype=='5'){
+                history.push('/app/userhome/index');
+            }else{
+                history.push('/app/companyhome/index');
+            }
+            
         }
     }
     handleSubmit = (e) => {
