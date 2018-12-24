@@ -9,13 +9,13 @@ class Userdeveice extends React.Component{
             ipvalue:"192.168.1.67",
         };
     }
-    onChangeip=(e)=> {
+    onChangeip=(e)=> {//ip  input 修改ip
         this.setState({
             ipvalue:e.target.value,
         });
         console.log('ip= ', e.target.value );
     }
-    onChangeport=(e)=> {
+    onChangeport=(e)=> {//ip  input 修改端口
         this.setState({
             portvalue:e.target.value,
         });
