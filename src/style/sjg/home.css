@@ -225,3 +225,101 @@ margin: 20px 0;
 .clearInfo row col{
     text-align: center;
 }
+/* //总览和设备部分 */
+
+.onLine{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    line-height:50px;
+    background:#96FF66;
+    padding-right: 0;
+    margin-right: 14px;
+    padding: 0 10px;
+}
+.offLine{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    line-height:50px;
+    background:#ECECEC;
+    padding-right: 0;
+    margin-right: 14px;
+    padding: 0 10px;
+}
+.ant-card-body{
+    position: relative;
+    
+}
+.bell{
+        width:60px;
+        height:34px;
+        line-height: 31px;
+        color:red;
+        position:absolute;
+        right:0; 
+        top:24px;
+        border:1px solid red;
+        border-top-left-radius:17px;
+        border-top-right-radius:0;
+        border-bottom-right-radius:0;
+        border-bottom-left-radius:17px;   
+        padding-left: 10px;
+}
+.actionsBbottom{
+    height:40px;
+    
+}
+.colCen{
+    line-height: 40px !important;
+}
+
+.titcon p:nth-of-type(1){
+    height: 30px;
+    line-height: 30px;
+    color: #000;
+    font-weight: 600;
+    font-size: 16px;
+    margin: 0;
+}
+.titcon p:nth-of-type(2){
+    height: 30px;
+    line-height: 30px;
+    color: #666;
+    font-weight: 300;
+    font-size: 12px;
+    margin: 0;
+}
+.actionsBbottom p:nth-of-type(1){
+    color: #000;
+    font-weight: 600;
+    font-size: 16px;
+    margin: 0;
+}
+.actionsBbottom p:nth-of-type(2){
+    color: #666;
+    font-weight: 300;
+    font-size: 12px;
+    margin: 0;
+}
+.ant-card-actions li{
+    margin:10px 0;
+}
+.paddRow{     
+     position:relative;
+     padding:0;
+     box-sizing: border-box;
+  
+}
+
+.cardPdd{
+    margin:60px 0 0 0;
+    padding-left:45px;
+    box-sizing:content-box;
+}
+.paddL{
+    padding-left:45px;
+}
+.ant-card-body{
+    padding: 10px 24px;
+}
