@@ -3,11 +3,11 @@ export default {
         //企业用户
         { key: '/app/companyhome/index', title: '首页', icon: 'mobile', component: 'Companyhome' },
         //个人用户总览
-        { key: '/app/Userhome/index', title: '总览', icon: 'mobile', component: 'Userhome' },
+        { key: '/app/userhome/index', title: '总览', icon: 'mobile', component: 'Userhome' },
         //设备
-        { key: '/app/Userhome/Equipment', title: '设备', icon: 'bars', component: 'Equipment' },
+        { key: '/app/userhome/Equipment', title: '设备', icon: 'bars', component: 'Equipment' },
         //报警
-        { key: '/app/Userhome/Alarmlist', title: '报警', icon: 'bars', component: 'Alarmlist' },
+        { key: '/app/userhome/Alarmlist', title: '报警', icon: 'bars', component: 'Alarmlist' },
         //系统管理
         {
             key: '/app/settings', title: '系统管理', icon: 'bars',
@@ -26,6 +26,9 @@ export default {
         { key: '/app/companyhome/settime', title: '设置布防时间', component: 'Settime'},
         { key: '/app/companyhome/calling', title: '点名', component: 'Calling'},
         { key: '/app/companyhome/connent', title: '关系网', component: 'Connent'},
+        { key: '/app/userhome/Alarmdetails', title: '报警详情', component: 'Alarmdetails'},
+        { key: '/app/userhome/Userdeveice', title: '设备信息', component: 'Userdeveice'},
+
             {
         key: '/subs4', title: '页面', icon: 'switcher',
         subs: [

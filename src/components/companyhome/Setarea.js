@@ -177,8 +177,6 @@ class Setarea extends Component {
                 area.stroke();
                 area.closePath(); 
             }
-            
-
 
         }
 

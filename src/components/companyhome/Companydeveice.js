@@ -112,7 +112,7 @@ class Companydeveice extends Component{
     }
     alarmdeal=(type)=>{ //报警处理
 
-        post({url:'/api/alarm/updata',data:{code:this.state.alarmcode,status:2}},(res)=>{
+        post({url:'/api/alarm/updata',data:{code:this.state.alarmcode,status:type}},(res)=>{
             if(res){
                 let untreated='';
                 if(this.state.alarmtype){

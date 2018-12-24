@@ -23,6 +23,7 @@ import Alarmdetails from './userhome/Alarmdetails';
 import Alarmlist from './userhome/Alarmlist';
 import Equipment from './userhome/Equipment';
 import Userhome from './userhome/Userhome';
+import Userdeveice from './userhome/Userdeveice'; //设备信息
 
 //系统管理
 import Loglist from './settings/Loglist';
@@ -38,7 +39,7 @@ export default {
     WysiwygBundle
 
     , Companyhome, Companyscene, Companydeveice, Calling, Connent, Deveicedet, Settime, Setarea
-    , Alarmdetails, Alarmlist, Equipment, Userhome
+    , Alarmdetails, Alarmlist, Equipment, Userhome, Userdeveice
     , Employeelist, Loglist
 
 }
