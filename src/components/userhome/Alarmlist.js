@@ -1,11 +1,16 @@
 import React from 'react';
 import { DatePicker,Row,Col,Select,Button,Icon } from "antd";
 import "../../style/ztt/css/police.css";
-import {Link} from "react-router-dom";
+import {post} from "../../axios/tools";
 const { RangePicker } = DatePicker;
 const Option = Select.Option;
 
 class Alarmlist extends React.Component{
+    componentDidMount() {
+        post({url:'api/alarm/getlist'},(res)=>{
+            console.log(res,"aaaaaaaaaaaa");
+        })
+    }
     //时间选择
     onChange = (date, dateString)=> {
         console.log(date, dateString);
