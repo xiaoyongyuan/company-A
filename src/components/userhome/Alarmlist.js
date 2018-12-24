@@ -2,13 +2,30 @@ import React from 'react';
 import { DatePicker,Row,Col,Select,Button,Icon } from "antd";
 import "../../style/ztt/css/police.css";
 import {post} from "../../axios/tools";
+import nodata from "../../style/imgs/nodata.png";
 const { RangePicker } = DatePicker;
 const Option = Select.Option;
 
 class Alarmlist extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+            type:0
+        };
+    }
     componentDidMount() {
-        post({url:'api/alarm/getlist'},(res)=>{
-            console.log(res,"aaaaaaaaaaaa");
+        post({url:'/api/alarm/getlist'},(res)=>{
+            if(res.success){
+                if(res.data>1){
+                    this.setState({
+                        type:1
+                    })
+                }else{
+                    this.setState({
+                        type:0
+                    })
+                }
+            }
         })
     }
     //时间选择
@@ -41,7 +58,10 @@ class Alarmlist extends React.Component{
                         <Button type="primary">一键处理</Button>
                     </Col>
                 </Row>
-                <Row>
+                <Row style={{marginTop:"70px",display:this.state.type==1?"none":"block"}}>
+                    <Col style={{width:"100%",textAlign:"center"}}><img src={nodata} alt=""/></Col>
+                </Row>
+                <Row style={{display:this.state.type==1?"block":"none"}}>
                     <Col xl={12} xxl={12} style={{marginTop:"40px"}}>
                         <Row>
                             <Col xl={3} xxl={2}>
