@@ -9,7 +9,7 @@ export default () => {
         <Router>
         <Switch>
             <Route exact path="/" render={
-                () => <Redirect to={user&&user.ctype=='3'
+                () => <Redirect to={user&&user.ctype=='5'
                 ?'/app/userhome/index'
                 :'/app/companyhome/index'
             } push />

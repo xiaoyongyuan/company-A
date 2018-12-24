@@ -61,13 +61,14 @@ class SiderCustom extends Component {
         popoverHide && popoverHide();
     };
     openMenu = v => {
-        console.log(v);
         this.setState({
             openKey: v[v.length - 1],
             firstHide: false,
         })
     };
     render() {
+        let user=JSON.parse(localStorage.getItem('user'));
+        let identify=user&&user.ctype=='5'?'user':'comp'
         return (
             <Sider
                 trigger={null}
@@ -79,7 +80,7 @@ class SiderCustom extends Component {
                     <img src={this.props.collapsed?logoicon:logofont} />
                 </div>
                 <SiderMenu
-                    identify="admin"
+                    identify={identify}
                     menus={routes.menus}
                     onClick={this.menuClick}
                     mode="inline"
