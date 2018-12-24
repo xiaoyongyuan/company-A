@@ -1,14 +1,28 @@
 import React from 'react';
 import { Card ,Row, Col,Timeline, Icon, } from 'antd';
 import '../../style/sjg/home.css';
+import {post} from "../../axios/tools";
 class Userhome extends React.Component{
     constructor(props){
       super(props);
       this.state={
+        list:[1,2,3,4,7],
         data:{ //请求的数据
             list:[1,2,3,4,7]
         },
       };
+    }
+
+    componentDidMount() {        
+        post({url:'/api/company/getone'},(res)=>{ //获取团队列表
+            if(res){
+                this.setState({
+                    data:res.data,
+                    
+                }); 
+            }   
+        })
+        
     }
 
     render(){
@@ -49,7 +63,7 @@ class Userhome extends React.Component{
                 </Row>
                 <Row className="paddRow"> 
                 {
-                    this.state.data.list.map((el,i)=>{
+                    this.state.list.map((el,i)=>{
                         return (
                             <Col xxl={{ span: 5}} xs={{ span: 6}}className="cardPdd">
                                 <Card                       
