@@ -31,13 +31,13 @@ export default ({ menus, ...props }) => (
     <Menu {...props} theme="dark">
         {     
             menus && menus.map(function(item){
-                return(item.subs ? renderSubMenu(item) : renderMenuItem(item))
+                if(item.identi.indexOf({...props}.identify)>-1){
+                  return( item.subs ? renderSubMenu(item) : renderMenuItem(item) )
+                }
             } 
         )}
     </Menu>
 );
 
 // 权限验证
-                // if({...props}.identify==item.identi){
-                //   return( item.subs ? renderSubMenu(item) : renderMenuItem(item) )
-                // }
+                

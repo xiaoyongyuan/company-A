@@ -1,19 +1,19 @@
 export default {
     menus: [ 
         //企业用户
-        { key: '/app/companyhome/index', title: '首页', icon: 'mobile', component: 'Companyhome' },
+        { key: '/app/companyhome/index', identi:['comp'], title: '首页', icon: 'mobile', component: 'Companyhome' },
         //个人用户总览
-        { key: '/app/userhome/index', title: '总览', icon: 'mobile', component: 'Userhome' },
+        { key: '/app/Userhome/index',  identi:['user'], title: '总览', icon: 'mobile', component: 'Userhome' },
         //设备
-        { key: '/app/userhome/Equipment', title: '设备', icon: 'bars', component: 'Equipment' },
+        { key: '/app/Userhome/Equipment', identi:['user'], title: '设备', icon: 'bars', component: 'Equipment' },
         //报警
-        { key: '/app/userhome/Alarmlist', title: '报警', icon: 'bars', component: 'Alarmlist' },
+        { key: '/app/Userhome/Alarmlist', identi:['comp','user'], title: '报警', icon: 'bars', component: 'Alarmlist' },
         //系统管理
         {
-            key: '/app/settings', title: '系统管理', icon: 'bars',
+            key: '/app/settings', title: '系统管理' , identi:['comp','user'], icon: 'bars',
             subs: [
-                { key: '/app/settings/employeelist', title: '用户管理', component: 'Employeelist'}, 
-                { key: '/app/settings/loglist', title: '日志', component: 'Loglist'},             
+                { key: '/app/settings/employeelist', identi:['comp','user'], title: '用户管理', component: 'Employeelist'}, 
+                { key: '/app/settings/loglist', identi:['comp','user'], title: '日志', component: 'Loglist'},             
             ],
         },
     ],
@@ -27,8 +27,6 @@ export default {
         { key: '/app/companyhome/calling', title: '点名', component: 'Calling'},
         { key: '/app/companyhome/connent', title: '关系网', component: 'Connent'},
         { key: '/app/userhome/Alarmdetails', title: '报警详情', component: 'Alarmdetails'},
-        { key: '/app/userhome/Userdeveice', title: '设备信息', component: 'Userdeveice'},
-
             {
         key: '/subs4', title: '页面', icon: 'switcher',
         subs: [

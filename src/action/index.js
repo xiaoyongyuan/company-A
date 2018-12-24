@@ -33,31 +33,31 @@ export const fetchData = ({funcName, url, params, stateName}) => dispatch => {  
     !stateName && (stateName = funcName); 
     dispatch(requestData(stateName));
     
-    const dayta={
-      success:1,
-      data:{
-        token:'2111',
-        user:'user',
-        companycode:'1000006',
-        account:'10044',
-      }
-    }
-    dispatch(receiveData(dayta, stateName))
-    return dayta
+    // const dayta={
+    //   success:1,
+    //   data:{
+    //     token:'2111',
+    //     user:'user',
+    //     companycode:'1000006',
+    //     account:'10044',
+    //   }
+    // }
+    // dispatch(receiveData(dayta, stateName))
+    // return dayta
 
 
 
-  //   axios.post('http://login.aokecloud.cn'+url,params).then(res => {
-  //     if(res.data.success==1){
-  //       dispatch(receiveData(res.data, stateName))
-  //       return res.data
-  //     }else if(res.data.success==2){
-  //       message.warn(res.data.errorinfo);
-  //     }else{
-  //       message.warn(res.data.errorinfo);
-  //     }    	
-  //   }).catch(err => {
-  //     console.log('err',err);
-  //     message.warn('接口异常');
-		// });
+    axios.post('http://login.aokecloud.cn'+url,params).then(res => {
+      if(res.data.success==1){
+        dispatch(receiveData(res.data, stateName))
+        return res.data
+      }else if(res.data.success==2){
+        message.warn(res.data.errorinfo);
+      }else{
+        message.warn(res.data.errorinfo);
+      }    	
+    }).catch(err => {
+      console.log('err',err);
+      message.warn('接口异常');
+		});
 };

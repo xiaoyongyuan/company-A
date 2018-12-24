@@ -20,7 +20,7 @@ class Alarmdetails extends React.Component{
       	filed:true, //是否显示围界信息
       	obj:true, //是否显示报警对象
       	prev:23, //上一条数据code
-      	next:0, //下一条数据code
+      	next:24, //下一条数据code
       	code:22 //当前数据的code
       };
   }
