@@ -3,13 +3,13 @@ import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import NotFound from './components/pages/NotFound';
 import Login from './components/pages/Login';
 import App from './App';
-// const user=JSON.parse(localStorage.getItem('user'));
+const user=JSON.parse(localStorage.getItem('user'));
 export default () => {
 	return (
 		<Router>
         <Switch>
             <Route exact path="/" render={
-            	() => <Redirect to={JSON.parse(localStorage.getItem('user')).ctype=='3'
+            	() => <Redirect to={user&&user.ctype=='3'
             	?'/app/userhome/index'
             	:'/app/companyhome/index'
             } push />

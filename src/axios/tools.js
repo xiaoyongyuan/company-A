@@ -26,7 +26,7 @@ export const post = async({url, msg = '接口异常',data={}},callback) =>{
 
   if(!account||account=='undefined'||!token||!comid || token=='undefined' || comid=='undefined'){
       console.log('sssssss',comid)
-    window.location.href="#/login"
+    // window.location.href="#/login"
     return callback(false);
   }
   const head={
