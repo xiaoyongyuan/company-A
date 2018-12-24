@@ -26,6 +26,7 @@ export default {
         { key: '/app/companyhome/settime', title: '设置布防时间', component: 'Settime'},
         { key: '/app/companyhome/calling', title: '点名', component: 'Calling'},
         { key: '/app/companyhome/connent', title: '关系网', component: 'Connent'},
+        { key: '/app/userhome/Alarmdetails', title: '报警详情', component: 'Alarmdetails'},
             {
         key: '/subs4', title: '页面', icon: 'switcher',
         subs: [
