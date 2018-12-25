@@ -137,8 +137,8 @@ class Alarmdetails extends React.Component{
         return(
             <div className="alarmDetails">
             	<Row>
-            		<Col xl={12} xxl={12}>
-            			<canvas id="canvasobj" width="200px" height="200px" style={{backgroundImage:'url('+this.state.data.src+')',backgroundSize:"100% 100%"}} />
+            		<Col xl={14} xxl={14}>
+            			<canvas id="canvasobj" width="600px" height="600px" style={{backgroundImage:'url('+this.state.data.src+')',backgroundSize:"100% 100%"}} />
             			<div>
             				<ButtonGroup>
 							  <Button type="primary" onClick={()=>this.looknew('prev')} disabled={this.state.prev?false:true}>
@@ -150,7 +150,7 @@ class Alarmdetails extends React.Component{
 							</ButtonGroup>
             			</div>
             		</Col>	
-            		<Col xl={8} xxl={12}>
+            		<Col xl={8} xxl={8}>
             				<h4>{this.state.data.name}</h4>
             				<p><label>报警对象：<span>{this.state.data.objtext}</span></label></p>
             				<p><label>围界信息: <Switch size='small' checked={this.state.filed} onChange={(checked)=>this.onChange(checked,'filed')} /></label></p>

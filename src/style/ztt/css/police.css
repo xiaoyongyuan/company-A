@@ -85,16 +85,16 @@
     height: 100%;
 }
 .stateBackground1{
-    background: red;
+    background: #FB7575;
 }
 .stateBackground2{
     background: #C0C0C0;
 }
 .stateBackground3{
-    background: green;
+    background: #F7C35D;
 }
 .stateBackground4{
-    background: #C0C0C0;
+    background: #5DCB9A;
 }
 /*省略号*/
 .overflow{
@@ -102,4 +102,8 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.cursor{
+    cursor: pointer;
+}
+
 
