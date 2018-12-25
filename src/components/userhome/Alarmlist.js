@@ -10,7 +10,7 @@ class Alarmlist extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            type:0,
+            type:[],
             visible: false,
             alarm:false,
             policeList:[],
@@ -78,13 +78,13 @@ class Alarmlist extends React.Component{
     //报警状态背景
     typeBack =(code)=>{
         if(code==0){
-            return "未处理";
+            return "stateBackground3 handle";
         }else if(code==1){
-            return "确认";
+            return "stateBackground4 handle";
         }else if(code==2){
-            return "忽略";
+            return "stateBackground2 handle";
         }else if(code==3){
-            return "虚警";
+            return "stateBackground1 handle";
         }
     }
     componentDidMount() {
@@ -129,6 +129,17 @@ class Alarmlist extends React.Component{
     handleChange = (value)=> {
         console.log(`selected ${value}`);
     }
+    alarmdeal=(code,index,type)=>{ //报警处理
+        post({url:'/api/alarm/update',data:{code:code,status:type}},(res)=>{
+        	if(res){
+                const policeList=this.state.policeList
+                policeList[index].status=type
+        this.setState({
+            policeList:policeList
+        })
+        	}
+        })
+    }
     render(){
         return(
             <div>
@@ -162,8 +173,8 @@ class Alarmlist extends React.Component{
                             <Col xl={12} xxl={12} style={{marginTop:"40px"}} key={i}>
                                 <Row>
                                     <Col xl={3} xxl={2}>
-                                        <div className="handle">
-                                            <div className="handle-right" className={this.typeBack(v.atype)}>{this.handleState(v.atype)}</div>
+                                        <div className={this.typeBack(v.status)}>
+                                            <div className="handle-right" >{this.handleState(v.status)}</div>
                                         </div>
                                     </Col>
                                     <Col xl={9} xxl={7} className="policeIcon">
@@ -177,16 +188,16 @@ class Alarmlist extends React.Component{
                                             <div className="triangle"></div>
                                             <Row className="line-police">
                                                 <Col xl={12} xxl={12} className="policeName">{v.ip}</Col>
-                                                <Col xl={12} xxl={12}>{v.status==1?"":"入侵检测"}</Col>
+                                                <Col xl={12} xxl={12}>{v.atype==1?"入侵检测":""}</Col>
                                             </Row>
                                             <Row className="line-police">
                                                 <Col xl={12} xxl={12} className="overflow" title={v.atime}>{v.atime}</Col>
-                                                <Col xl={12} xxl={12}>报警对象：{v.tags}</Col>
+                                                <Col xl={12} xxl={12}>报警对象：{v.tags?"":"无"}</Col>
                                             </Row>
                                             <Row className="line-police" style={{borderTop:"1px solid #efefef",paddingTop:'5px'}}>
-                                                <Col xl={8} xxl={8} ><Icon type="redo" />确认</Col>
-                                                <Col xl={8} xxl={8} ><Icon type="redo" />虚报</Col>
-                                                <Col xl={8} xxl={8}><Icon type="redo" />忽略</Col>
+                                                <Col xl={8} xxl={8} ><span onClick={()=>this.alarmdeal(v.code,i,1)} className="cursor"><Icon type="redo" />确认</span></Col>
+                                                <Col xl={8} xxl={8} ><span className="cursor"><Icon type="redo" />虚报</span></Col>
+                                                <Col xl={8} xxl={8}><span className="cursor"><Icon type="redo" />忽略</span></Col>
                                             </Row>
                                         </div>
                                     </Col>
@@ -195,7 +206,7 @@ class Alarmlist extends React.Component{
                         ))
                     }
                 </Row>
-                <Pagination defaultCurrent={6} total={500} style={{width:"100%",textAlign:"center"}}/>
+                <Pagination defaultCurrent={6} total={500} style={{width:"100%",textAlign:"center",display:this.state.type==0?"block":"none"}}/>
                 <Modal
                     title="播放视频"
                     visible={this.state.visible}
@@ -224,14 +235,17 @@ class Alarmlist extends React.Component{
 
                     </p>
                 </Modal>
-                <Modal
-                    title="报警详情"
-                    visible={this.state.alarmImgType}
-                    onOk={this.handleOkAlarmImg}
-                    onCancel={this.handleCancelAlarmImg}
-                >
-                  <div><Alarmdetails/></div>
-                </Modal>
+                <div>
+                    <Modal
+                        width={1100}
+                        title="报警详情"
+                        visible={this.state.alarmImgType}
+                        onOk={this.handleOkAlarmImg}
+                        onCancel={this.handleCancelAlarmImg}
+                    >
+                    <Alarmdetails/>
+                    </Modal>
+                </div>
             </div>
         )
     }
