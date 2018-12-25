@@ -43,8 +43,13 @@ class Userhome extends React.Component{
             return "未设置"           
         }
     }
-    field=(i)=>{ //布防区域的个数     
+    field=(i)=>{ //布防区域的个数 
+        if(this.state.camera[i].field ===""){
+           
+        }else{
             var jsonData= JSON.parse(this.state.camera[i].field)
+        }    
+            
             var count = 0;
             for(var j in jsonData){
               count++;
