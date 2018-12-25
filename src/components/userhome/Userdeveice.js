@@ -13,7 +13,6 @@ class Userdeveice extends React.Component{
             edata:{},
             heartdata:{},
             workingtime:[],
-             
         };
     }
     componentDidMount() {             
@@ -65,7 +64,6 @@ class Userdeveice extends React.Component{
                 console.log("列表数据：",);
             }
         })
-
         this.setState({
              focus: false
              });
@@ -79,10 +77,8 @@ class Userdeveice extends React.Component{
         }
          return count;
     }
-
     status=()=>{ //报警类型 
         if(this.state.edata.status=="stop"){
-
             return "停止运行"
         }else if(this.state.edata.status=="run"){
             return "运行中";
@@ -90,8 +86,6 @@ class Userdeveice extends React.Component{
             return "摄像头未连接";
         }          
 }
-   
-    
     render(){
         function on_port()
             {
