@@ -8,22 +8,31 @@ class Userhome extends React.Component{
       this.state={
         camera:[],
         data:{},
+        usercount:"0",
+        alarmdata:[]
       };
     }
 
     componentDidMount() {        
         post({url:'/api/company/getone'},(res)=>{ //获取团队列表
             if(res){
-
-                console.log('1res.data',res.data);
-                console.log('2res.camera',res.camera);
                 this.setState({
                     data:res.data, //用户信息
-                    res:res, //用户信息
+                    usercount:res.usercount, //用户信息
                     camera:res.camera, //摄像头信息                  
                 },()=>{
-                    // console.log('总览res3333333333333',this.state.res);
-                    // console.log('总览usercount',this.state.res.usercount);
+                    
+                }); 
+            }   
+        })
+        post({url:'/api/alarm/getlastalarm'},(res)=>{ //获取报警列表
+            if(res){
+                console.log('111111获取报警列表',res);
+                this.setState({
+                    alarmdata:res.data, 
+                },()=>{
+                    console.log('*********************',typeof(this.state.alarmdata) );
+                    console.log('*********************',this.state.alarmdata );
                 }); 
             }   
         })
@@ -58,6 +67,14 @@ class Userhome extends React.Component{
                 return "在线";
             }          
    }
+   atype=(j)=>{ //报警类型 
+        if(this.state.alarmdata[j].atype===1){
+            return "入侵报警"
+        }else{
+            return "";
+        }          
+}
+   
     render(){
         const _this=this;  
         var styleObj={
@@ -77,17 +94,25 @@ class Userhome extends React.Component{
                                    <p>设备总数: <span>{this.state.camera.length?this.state.camera.length:0}个</span></p>
                                    <p>所属团队: <span>{this.state.data.pname}</span></p>
                                    <p>用户数: <span>
-                                         {/* {this.state.res.usercount} */}
+                                         {this.state.usercount}
                                    </span></p>
                                    <p>管理员名称: <span>{this.state.data.adminname}</span></p>
                                 </Col>
                                 <Col span={12}>
                                     <Timeline>
-                                        <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>
-                                        <Timeline.Item>Solve initial network problems 2015-09-01</Timeline.Item>
-                                        <Timeline.Item>Technical testing 2015-09-01</Timeline.Item>
-                                        <Timeline.Item>Network problems being solved 2015-09-01</Timeline.Item>
-                                        <Timeline.Item>Network problems being solved 2015-09-01</Timeline.Item>                                    
+                                            {
+                                                this.state.alarmdata.map((item,j)=>{
+                                                    return (
+                                                        <Timeline.Item>
+                                                        <span> {this.state.alarmdata[j].name}  </span>
+                                                        <span> {this.atype(j)} </span> 
+                                                        {/* {this.state.alarmdata[j].atype}  */}
+                                                        <span>{this.state.alarmdata[j].atime}</span>   
+                                                    </Timeline.Item>
+                                                    )
+                                                })
+                                            } 
+
                                     </Timeline>
                                 </Col>
                             </Row>
