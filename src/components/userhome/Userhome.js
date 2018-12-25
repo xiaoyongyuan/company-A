@@ -50,17 +50,16 @@ class Userhome extends React.Component{
     isonline=(i)=>{ //是否在线  
         var time= this.state.camera[i].heart.time ;
         var myDate=new Date;
+        var ctime=myDate.getMinutes()
         var str=time.substring(14,16);
         console.log('bbbbbbbbbbbbbbbb',myDate.getMinutes());
-        console.log('AAAAA',str);
-        
-            if(myDate-str>1){
+        console.log('AAAAA',str); 
+        console.log('AAAAA',ctime-str);        
+            if(ctime-str>1||ctime-str===1){
                 return "离线"
             }else{
                 return "在线";
-            }
-        
-     
+            }          
    }
     
 
@@ -137,7 +136,7 @@ class Userhome extends React.Component{
                                         </Col>
                                     </Row>
                                     <div className="bell">
-                                    <Icon type="bell" /> <span>120</span> 
+                                    <Icon type="bell" /> <span>{this.state.camera[i].alarm}</span> 
                                     </div>
                                 </Card>
                             </Col>
