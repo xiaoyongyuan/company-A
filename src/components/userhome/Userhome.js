@@ -53,14 +53,14 @@ class Userhome extends React.Component{
         var str=time.substring(14,16);
         console.log('bbbbbbbbbbbbbbbb',myDate.getMinutes());
         console.log('AAAAA',str);
-        // return(
-        //     if(myDate-str>1){
-        //         return "离线"
-        //     }else{
-        //         return "在线";
-        //     }
         
-        //     ) ;
+            if(myDate-str>1){
+                return "离线"
+            }else{
+                return "在线";
+            }
+        
+     
    }
     
 
