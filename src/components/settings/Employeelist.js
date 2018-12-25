@@ -27,7 +27,6 @@ class Adminteam extends Component {
     requestdata=(params={}) => {//取数据
         post({url:"/api/companyuser/getlist",data:params}, (res)=>{
             if(res.success){
-
                 this.setState({
                     list: res.data
                 })
@@ -153,6 +152,11 @@ class Adminteam extends Component {
                 dataIndex: 'emailaddress',
                 key: 'emailaddress',
                 render: text => <span>{text}</span>,
+            },{
+                title: '身份',
+                dataIndex: 'utype',
+                key: 'utype',
+                render: text => <span>{text?'系统使用人员':'管理员'}</span>,
             },{
                 title: '操作',
                 key: 'code',

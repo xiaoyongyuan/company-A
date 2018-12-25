@@ -18,9 +18,7 @@ class Setarea extends Component {
             areatwo:'', //防区二
         };
     }
-    boundarydraw(){
-        console.log('hhhhhhhh',this.state.areaone,this.state.areatwo)
-                  
+    boundarydraw(){                  
         let ele = document.getElementById("time_graph_canvas")
         let area = ele.getContext("2d");
         area.clearRect(0,0,704,576);
@@ -74,12 +72,13 @@ class Setarea extends Component {
     //摄像头详情 
         post({url:'/api/camera/getone',data:{code:this.state.cid}},(res)=>{
             if(res){
+                console.log(res)
                 let field=res.data.field;
                 if(field){
-                    field=JSON.parse(field)
                     this.setState({
                         areaone:field[1],
                         areatwo:field[2],
+                        src:res.data.picpath,
                     },()=>{
                         this.boundarydraw()
                     });
@@ -244,13 +243,12 @@ class Setarea extends Component {
     }
 
     render() {
-
         return (
-           <div>
+           <div style={{marginTop:"30px"}}>
                 <Row>
                     <Col xl={{ span:12}} xxl={{ span: 12 }}>
                         <div className="photo" id="canvasphoto">
-                           <canvas id="time_graph_canvas" width="704px" height="576px" style={this.state.canvassty} onClick={this.clickgetcorrd} onMouseMove={this.drawmove}></canvas> 
+                           <canvas id="time_graph_canvas" width="704px" height="576px" style={{backgroundImage:'url('+this.state.src+')',backgroundSize:'cover'}} onClick={this.clickgetcorrd} onMouseMove={this.drawmove}></canvas> 
                         </div>
                     </Col>
                     <Col xl={{ span: 12}} xxl={{ span: 12 }}>
@@ -259,25 +257,24 @@ class Setarea extends Component {
                             <Row>
                                 <Button type="primary" onClick={()=>this.submitok(1)}>{this.state.areaone?'删除防区一':'新增防区一'}</Button>
                             </Row>
+                            <br /><br />
                             <Row>
                                 <Button type="danger" onClick={()=>this.submitok()}>{this.state.areatwo?'删除防区二':'新增防区二'}</Button>
                             </Row>
                         </div>
                         <div className="restartAlg">
                             <Row>
-                                <Col span={14} offset={5}>
+                                <Col span={14}>
                                         围界设定方法：请在左侧图片处鼠标单击绘制防区，防区均为四边形，
-                                    每个设备最多可设置四处防区。防区设置完成后或者清除围界信息后
-                                    请单击“重启算法服务器”来更新摄像头上的防区信息。
+                                    每个设备最多可设置四处防区。防区设置完成后请点击“新增”按钮生效。
                                 </Col>
                             </Row>
                         </div>
                     </Col>
-
                 </Row>
-                <Modal title="提示信息" visible={this.state.deleteshow} onOk={this.deleteOk}
+                <Modal title="提示信息" visible={this.state.deleteshow} onOk={this.deleteCancel}
                        onCancel={this.deleteCancel}>
-                    <p>您还有未提交的防区，确认将删除</p>
+                    <p>您还有未提交的防区，请先点击新增按钮进行提交</p>
                 </Modal>
            </div> 
         )
