@@ -69,4 +69,13 @@
 .policeIcon{
     position: relative;
 }
+.backImg{
+    width:100%;
+    height:120px;
+    text-align: center;
+}
+.backImg img{
+    width: 10%;
+    height: 100%;
+}
 

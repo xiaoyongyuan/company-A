@@ -5,7 +5,6 @@ import {post} from "../../axios/tools";
 import nodata from "../../style/imgs/nodata.png";
 const { RangePicker } = DatePicker;
 const Option = Select.Option;
-
 class Alarmlist extends React.Component{
     constructor(props){
         super(props);
@@ -59,7 +58,7 @@ class Alarmlist extends React.Component{
                     </Col>
                 </Row>
                 <Row style={{marginTop:"70px",display:this.state.type==1?"none":"block"}}>
-                    <Col style={{width:"100%",textAlign:"center"}}><img src={nodata} alt=""/></Col>
+                    <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt=""/></div></Col>
                 </Row>
                 <Row style={{display:this.state.type==1?"block":"none"}}>
                     <Col xl={12} xxl={12} style={{marginTop:"40px"}}>
