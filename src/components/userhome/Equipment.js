@@ -78,7 +78,7 @@ class Equipment extends React.Component{
                                                 <Icon type="clock-circle" />
                                                 {this.statework(i)}
                                         </a>, 
-                                         <a href={"#/app/companyhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
+                                         <a href={"#/app/userhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
                                              <Icon type="setting" />
                                          </a>
                                 ]}

@@ -9,18 +9,28 @@ class Userdeveice extends React.Component{
             portvalue:"827317",
             ipvalue:"192.168.1.67",
             code:"1000001",
+            data:{},
+            edata:{},
+            heartdata:{},
+            workingtime:[],
+             
         };
     }
     componentDidMount() {             
         //取数据
         this.requestdata()
     }
-    requestdata=(params) => {//取数据
-        post({url:"/api/camera/getone",data:{code:this.state.code}}, (res)=>{
+    requestdata=(params) => {//取数据  
+        post({url:"/api/camera/getone",data:{code:this.props.query.id}}, (res)=>{
             if(res.success){
                 console.log("列表数据：",res.data);
                 this.setState({
-                    list: res.data
+                    data:res.data, 
+                    edata:res.edata, 
+                    heartdata:res.heartdata, 
+                    workingtime:res.workingtime,
+                    ipvalue:res.data.ip,
+                    portvalue:res.data.authport,
                 })
             }
         })
@@ -38,27 +48,50 @@ class Userdeveice extends React.Component{
         console.log('port= ', e.target.value );
     } 
     inputOnBlurip=(e)=>{ //ip  input 失去焦点
-        post({url:"/api/camera/update",data:{code:this.state.code}}, (res)=>{
+        post({url:"/api/camera/update",data:{code:this.props.query.id,ip:this.state.ipvalue}}, (res)=>{
             if(res.success){
-                console.log("列表数据：",res.data);
-                this.setState({
-                    list: res.data
-                })
+                console.log("列表数据：",);
+            
+            }
+        })
+        this.setState({
+            focus: false
+        });
+        console.log('focus= ',"失去焦点" );
+    }
+    inputOnBlursport=(e)=>{ //端口 input 失去焦点
+        post({url:"/api/camera/update",data:{code:this.props.query.id,authport:this.state.portvalue}}, (res)=>{
+            if(res.success){
+                console.log("列表数据：",);
             }
         })
 
-
-        this.setState({
-             focus: false
-             });
-          console.log('focus= ',"失去焦点" );
-    }
-    inputOnBlursport=(e)=>{ //端口 input 失去焦点
         this.setState({
              focus: false
              });
           console.log('focus= ',"失去焦点" );
     } 
+    field=()=>{ //布防区域的个数     
+        var jsonData= this.state.data.field
+        var count = 0;
+        for(var j in jsonData){
+          count++;
+        }
+         return count;
+    }
+
+    status=()=>{ //报警类型 
+        if(this.state.edata.status=="stop"){
+
+            return "停止运行"
+        }else if(this.state.edata.status=="run"){
+            return "运行中";
+        }else{
+            return "摄像头未连接";
+        }          
+}
+   
+    
     render(){
         function on_port()
             {
@@ -77,7 +110,7 @@ class Userdeveice extends React.Component{
                         设备：
                         </Col>
                         <Col span={21} className="t_l">
-                          efsh9293oiax
+                          {this.state.data.eid}
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -93,7 +126,7 @@ class Userdeveice extends React.Component{
                            所在位置：
                         </Col>
                         <Col span={21} className="t_l">
-                            西安
+                        {this.state.data.location}
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -101,7 +134,7 @@ class Userdeveice extends React.Component{
                            最后报警时间：
                         </Col>
                         <Col span={21} className="t_l">
-                            2018-12-16 15:30:12
+                        {this.state.data.atime}
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -109,7 +142,9 @@ class Userdeveice extends React.Component{
                         防区设置：
                         </Col>
                         <Col span={21} className="t_l">
-                             <a href="#" className="underline">2个</a>
+                             <a href="#" className="underline">
+                              {this.field()}个
+                             </a>
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -117,7 +152,9 @@ class Userdeveice extends React.Component{
                            设防时间：
                         </Col>
                         <Col span={21} className="t_l">
-                        <a href="#" className="underline"> 2段</a>                     
+                        <a href="#" className="underline">
+                        {this.state.workingtime.length}段
+                         </a>                     
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -133,7 +170,7 @@ class Userdeveice extends React.Component{
                            设备温度：
                         </Col>
                         <Col span={21} className="t_l">
-                           38℃
+                        {this.state.heartdata.temp}℃
                         </Col>
                     </Row>
                     <p><Icon type="video-camera" /> 摄像头信息</p>
@@ -154,7 +191,7 @@ class Userdeveice extends React.Component{
                            设备端口：
                         </Col>
                         <Col span={21} className="t_l">
-                            <input type="text"value={this.state.portvalue} 
+                            <input type="text"value={this.state.portvalue}
                              onChange={(e)=>this.onChangeport(e)}
                              id="port"
                              onBlur={(e)=>this.inputOnBlursport(e) } 
@@ -167,7 +204,7 @@ class Userdeveice extends React.Component{
                            设备状态：
                         </Col>
                         <Col span={21} className="t_l">
-                           运行中
+                           {this.status()}         
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -175,7 +212,7 @@ class Userdeveice extends React.Component{
                            设备软件版本：
                         </Col>
                         <Col span={21} className="t_l">
-                           无
+                           {this.state.edata.softversion}
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -183,7 +220,7 @@ class Userdeveice extends React.Component{
                           设备硬件版本：
                         </Col>
                         <Col span={21} className="t_l">
-                           无
+                        {this.state.edata.hardversion}
                         </Col>
                     </Row>
                     <Row className="equ_row">
