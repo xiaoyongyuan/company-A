@@ -12,7 +12,7 @@ class BreadcrumbCustom extends React.Component {
         return (
             <span>
                 <Breadcrumb style={{ margin: '12px 0' }}>
-                    <Breadcrumb.Item>所在位置:<Link to={'/app/dashboard/index'}>首页</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item>所在位置:</Breadcrumb.Item>
                         {first}
                         {second}
                 </Breadcrumb>

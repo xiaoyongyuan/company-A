@@ -1,0 +1,34 @@
+{
+  "success": 1,
+  "equipment": ["设备1","设备2","设备3","设备4"],
+  "data": [
+    {
+      "name": "设备1",
+      "police": "入侵报警",
+      "times": "2018-12-12",
+      "policeObject": "无",
+      "state": "待处理"
+    },
+    {
+      "name": "设备2",
+      "police": "良好",
+      "times": "2018-12-12",
+      "policeObject": "无",
+      "state": "已处理"
+    },
+    {
+      "name": "设备3",
+      "police": "良好",
+      "times": "2018-12-10",
+      "policeObject": "无",
+      "state": "已处理"
+    },
+    {
+      "name": "设备4",
+      "police": "入侵报警",
+      "times": "2018-11-03",
+      "policeObject": "无",
+      "state": "待处理"
+    }
+  ]
+}

@@ -28,7 +28,6 @@ class Companyhome extends Component {
     }
     componentDidMount(){
         post({url:'/api/company/getone'},(res)=>{
-            console.log(res,"aaaaaaaaaaaaaaaa");
             if(res.success){
                 let clat=res.data.clat;
                 let clng=res.data.clng;
@@ -38,9 +37,6 @@ class Companyhome extends Component {
                     myEquipment:res.camera,
                     mapJson:[{name:res.data.cname,value:[clng,clat]}],
                     code:res.data.code,
-                },()=>{
-                    console.log(this.state.myEquipment,"1111111111");
-                    console.log(this.state.cloudDate);
                 })
                 if(res.data.clouddate!==""){
                     this.setState({

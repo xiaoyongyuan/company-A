@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col,Button,Modal, Switch, Input, Icon  } from 'antd';
+import {queryString} from "../../utils/index";
+
 const ButtonGroup = Button.Group;
 class Alarmdetails extends React.Component{
 	constructor(props){
@@ -27,7 +29,7 @@ class Alarmdetails extends React.Component{
   componentWillMount() {
   	//此处拿到父页面参数
   } 
-  componentDidMount() { 
+  componentDidMount() {
   	this.draw()
   	//此处请求数据
   }
@@ -133,22 +135,22 @@ class Alarmdetails extends React.Component{
     render(){ 
     const _this=this;      
         return(
-            <div class="alarmDetails">
+            <div className="alarmDetails">
             	<Row>
-            		<Col xl={12} xxl={8}>
-            			<canvas id="canvasobj" width="500px" height="300px" style={{backgroundImage:'url('+this.state.data.src+')'}} />
+            		<Col xl={12} xxl={12}>
+            			<canvas id="canvasobj" width="200px" height="200px" style={{backgroundImage:'url('+this.state.data.src+')',backgroundSize:"100% 100%"}} />
             			<div>
             				<ButtonGroup>
-								      <Button type="primary" onClick={()=>this.looknew('prev')} disabled={this.state.prev?false:true}>
-								        <Icon type="left" />上一条
-								      </Button>
-								      <Button type="primary" onClick={()=>this.looknew('next')}  disabled={this.state.next?false:true}>
-								        下一条<Icon type="right" />
-								      </Button>
-								    </ButtonGroup>
+							  <Button type="primary" onClick={()=>this.looknew('prev')} disabled={this.state.prev?false:true}>
+								<Icon type="left" />上一条
+							  </Button>
+							  <Button type="primary" onClick={()=>this.looknew('next')}  disabled={this.state.next?false:true}>
+								下一条<Icon type="right" />
+							  </Button>
+							</ButtonGroup>
             			</div>
             		</Col>	
-            		<Col xl={8} xxl={6}>
+            		<Col xl={8} xxl={12}>
             				<h4>{this.state.data.name}</h4>
             				<p><label>报警对象：<span>{this.state.data.objtext}</span></label></p>
             				<p><label>围界信息: <Switch size='small' checked={this.state.filed} onChange={(checked)=>this.onChange(checked,'filed')} /></label></p>
