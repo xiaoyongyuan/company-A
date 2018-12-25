@@ -27,6 +27,7 @@ export default {
         { key: '/app/companyhome/calling', title: '点名', component: 'Calling'},
         { key: '/app/companyhome/connent', title: '关系网', component: 'Connent'},
         { key: '/app/userhome/Alarmdetails', title: '报警详情', component: 'Alarmdetails'},
+        { key: '/app/userhome/Userdeveice', title: '设备详情', component: 'Userdeveice'},
             {
         key: '/subs4', title: '页面', icon: 'switcher',
         subs: [

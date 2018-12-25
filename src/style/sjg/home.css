@@ -329,7 +329,32 @@ margin: 20px 0;
     padding:2%;
     border: 1px solid #DBDBDB;
 }
-.box-padding p{
-   color: 277FD0;
+.box-padding>p{
+   color: #277FD0;
 }
+
+.t_r{
+   text-align: right
+ }
+ .t_l{
+    text-align: left;
+    position: relative;
+  }
+
+  .equ_row{
+      position: relative;
+      height: 40px;
+      line-height: 40px;
+  }
+  .underline{
+    text-decoration: underline;
+  }
+  .t_l input{
+    border: 0;
+    background: #F0F2F5; 
+    height: 30px;
+    line-height: 30px;
+   
+  }
+
 
