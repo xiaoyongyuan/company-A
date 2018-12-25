@@ -49,20 +49,15 @@ class Userhome extends React.Component{
     }
     isonline=(i)=>{ //是否在线  
         var time= this.state.camera[i].heart.time ;
-        var myDate=new Date;
+        var myDate=new Date();
         var ctime=myDate.getMinutes()
         var str=time.substring(14,16);
-        console.log('bbbbbbbbbbbbbbbb',myDate.getMinutes());
-        console.log('AAAAA',str); 
-        console.log('AAAAA',ctime-str);        
             if(ctime-str>1||ctime-str===1){
                 return "离线"
             }else{
                 return "在线";
             }          
    }
-    
-
     render(){
         const _this=this;  
         var styleObj={
