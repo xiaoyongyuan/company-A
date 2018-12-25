@@ -2,6 +2,10 @@
  *Companyhome.js  企业用户首页
  */
 /*图标大小*/
+.relationship {
+    line-height: 2em;
+    text-align: right;
+}
 .icon_size{
     font-size: 30px;
 }
@@ -163,6 +167,7 @@
 /*
 *Dashboard.js 管理员首页
 */
+
 .rightShift{
     margin-left: 20px;
 }
