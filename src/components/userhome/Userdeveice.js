@@ -11,12 +11,10 @@ class Userdeveice extends React.Component{
             code:"1000001",
         };
     }
-
     componentDidMount() {             
         //取数据
         this.requestdata()
     }
-
     requestdata=(params) => {//取数据
         post({url:"/api/camera/getone",data:{code:this.state.code}}, (res)=>{
             if(res.success){
@@ -27,8 +25,6 @@ class Userdeveice extends React.Component{
             }
         })
     }
-
-
     onChangeip=(e)=> {//ip  input 修改ip
         this.setState({
             ipvalue:e.target.value,
@@ -40,9 +36,18 @@ class Userdeveice extends React.Component{
             portvalue:e.target.value,
         });
         console.log('port= ', e.target.value );
-    }
-   
+    } 
     inputOnBlurip=(e)=>{ //ip  input 失去焦点
+        post({url:"/api/camera/update",data:{code:this.state.code}}, (res)=>{
+            if(res.success){
+                console.log("列表数据：",res.data);
+                this.setState({
+                    list: res.data
+                })
+            }
+        })
+
+
         this.setState({
              focus: false
              });
@@ -53,11 +58,8 @@ class Userdeveice extends React.Component{
              focus: false
              });
           console.log('focus= ',"失去焦点" );
-    }
-    
-
+    } 
     render(){
-   
         function on_port()
             {
             document.getElementById('port').focus()
@@ -65,11 +67,8 @@ class Userdeveice extends React.Component{
         function on_ip()
             {
             document.getElementById('ip').focus()
-            }
-             
-            
-        return(
-            
+            }                     
+        return(     
             <div style={{padding:"1%"}}>
                 <div className="box-padding"> 
                     <p> <Icon type="bars" /> 设备信息</p>
@@ -137,13 +136,7 @@ class Userdeveice extends React.Component{
                            38℃
                         </Col>
                     </Row>
-
-
-
                     <p><Icon type="video-camera" /> 摄像头信息</p>
-
-
-
                     <Row className="equ_row">
                         <Col span={3} className="t_r">
                            设备IP：
@@ -202,10 +195,8 @@ class Userdeveice extends React.Component{
                         </Col>
                     </Row>
                 </div>
-                
             </div>
         )
     }
 }
-
 export default Userdeveice=Form.create()(Userdeveice);
