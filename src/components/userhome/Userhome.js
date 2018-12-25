@@ -7,9 +7,7 @@ class Userhome extends React.Component{
       super(props);
       this.state={
         camera:[],
-        data:{ //请求的数据
-            list:[1,2,3,4,7]
-        },
+        data:{},
       };
     }
 
@@ -44,11 +42,11 @@ class Userhome extends React.Component{
                       >
                             <Row>
                                 <Col span={12}>                             
-                                   <p>云服务到期日期：<span>{this.state.data.cloudvaliddate?this.state.data.cloudvaliddate:'未开通'}</span></p>
-                                   <p>设备总数<span>2个</span></p>
-                                   <p>所属团队：<span>西安光电维华团队</span></p>
-                                   <p>用户数：<span>3个</span></p>
-                                   <p>管理员：<span>3个</span></p>
+                                   <p>云服务到期日期: <span>{this.state.data.cloudvaliddate?this.state.data.cloudvaliddate:'未开通'}</span></p>
+                                   <p>设备总数: <span>{this.state.camera.length?this.state.camera.length:0}个</span></p>
+                                   <p>所属团队: <span>西安光电维华团队</span></p>
+                                   <p>用户数: <span>3个</span></p>
+                                   <p>管理员名称: <span>{this.state.data.adminname}</span></p>
                                 </Col>
                                 <Col span={12}>
                                     <Timeline>
@@ -72,11 +70,11 @@ class Userhome extends React.Component{
                                 <Card                       
                                     cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
                                     actions={[
-                                        <a href="#" className="actionsBbottom"><p>2条</p><p>布防区域</p> </a>,
-                                        <a href="#" className="actionsBbottom colCen">
+                                        <a href={"#/app/companyhome/setarea?id="+el.code} className="actionsBbottom"><p>2条</p><p>布防区域</p> </a>,
+                                        <a href={"#/app/companyhome/settime?id="+el.code} className="actionsBbottom colCen">
                                                 <Icon type="clock-circle" /> 布防中
                                         </a>, 
-                                         <a href="#/app/userhome/Userdeveice" className="colCen actionsBbottom ">
+                                         <a href={"#/app/companyhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
                                              <Icon type="setting" />
                                          </a>
                                 ]}
@@ -87,7 +85,7 @@ class Userhome extends React.Component{
                                         </Col>
                                         <Col xxl={{ span: 18}} xs={{ span: 18}} className="titcon">
                                            <p>{el.location}</p> 
-                                           <p>{el.ecode}</p>
+                                           <p>{el.eid}</p>
                                         </Col>
                                     </Row>
                                     <div className="bell">
