@@ -69,7 +69,7 @@ class Userdeveice extends React.Component{
             document.getElementById('ip').focus()
             }                     
         return(     
-            <div style={{padding:"1%"}}>
+            <div style={{backgroundColor:"#fff",padding:"1%"}}>
                 <div className="box-padding"> 
                     <p> <Icon type="bars" /> 设备信息</p>
                     <Row className="equ_row">

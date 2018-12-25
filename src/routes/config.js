@@ -16,6 +16,8 @@ export default {
                 { key: '/app/settings/loglist', identi:['comp','user'], title: '日志', component: 'Loglist'},             
             ],
         },
+        { key: '/app/live/index', identi:['comp','user'], title: '直播', icon: 'bars', component: 'Live' },
+
     ],
     // 非菜单相关路由
     others: [
