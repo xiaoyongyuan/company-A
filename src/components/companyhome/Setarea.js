@@ -15,6 +15,32 @@ class Setarea extends Component {
             areatwo:[], //防区二
         };
     }
+    componentWillMount=()=>{
+        this.setState({
+            cid:this.props.query.id
+        });
+    }
+    componentDidMount() { 
+    //摄像头详情 
+        post({url:'/api/camera/getone',data:{code:this.state.cid}},(res)=>{
+            if(res){
+                console.log(res)
+                let field=res.data.field;
+                if(field){
+                    this.setState({
+                        areaone:field[1]?JSON.parse(field[1]):[],
+                        areatwo:field[2]?JSON.parse(field[2]):[],
+                        src:res.data.picpath,
+                    },()=>{
+                        this.boundarydraw()
+                    });
+
+                }
+                
+            }
+        })  
+    
+    }
     boundarydraw(){                  
         let ele = document.getElementById("time_graph_canvas")
         let area = ele.getContext("2d");
@@ -60,32 +86,7 @@ class Setarea extends Component {
                
     }
 
-    componentWillMount=()=>{
-        this.setState({
-            cid:this.props.query.id
-        });
-    }
-    componentDidMount() { 
-    //摄像头详情 
-        post({url:'/api/camera/getone',data:{code:this.state.cid}},(res)=>{
-            if(res){
-                console.log(res)
-                let field=res.data.field;
-                if(field){
-                    this.setState({
-                        areaone:field[1]?JSON.parse(field[1]):[],
-                        areatwo:field[2]?JSON.parse(field[2]):[],
-                        src:res.data.picpath,
-                    },()=>{
-                        this.boundarydraw()
-                    });
-
-                }
-                
-            }
-        })  
     
-    }
     draw = (field) => { //绘制区域
         let item=this.state.present;
         let ele = document.getElementById("time_graph_canvas");
@@ -97,7 +98,7 @@ class Setarea extends Component {
         item.map((elx,i)=>{
             if(i>0){
                area.lineTo(item[i][0],item[i][1]);
-               if(i==3){
+               if(i===3){
                area.lineTo(item[0][0],item[0][1]);
                } 
                area.stroke();
@@ -108,13 +109,13 @@ class Setarea extends Component {
     clickgetcorrd =(e)=>{ //点击
         if(!this.state.areaone||!this.state.areatwo){
             console.log('inde',this.state.clicknum)
-            if(this.state.present.length=='4'){
+            if(this.state.present.length===4){
                 this.setState({
                     deleteshow: true
                 });
             }else{
-                let getcord=this.getcoord(e);  //获取点击的坐标
-                let precorrd=this.state.present; //
+                let getcord=this.getcoord(e); //获取点击的坐标
+                let precorrd=this.state.present;
                 precorrd.push(getcord);
                 this.setState({
                     clicknum: this.state.clicknum+1,
@@ -141,7 +142,7 @@ class Setarea extends Component {
             deleteshow: false
         });
     }
-    getcoord = (coords) => {  //获取坐标
+    getcoord = (coords) => { //获取坐标
         let ele = document.getElementById("time_graph_canvas");
         let canvsclent = ele.getBoundingClientRect();
         let x= coords.clientX - canvsclent.left * (ele.width / canvsclent.width);
@@ -149,14 +150,14 @@ class Setarea extends Component {
         let pre=[x,y]
         return pre
     }
-    drawmove =(e)=>{  //移动
+    drawmove =(e)=>{ //移动
         if(this.state.clicknum){
             let ele = document.getElementById("time_graph_canvas");
             let area = ele.getContext("2d");
             let item=this.state.present;
             let getcord=this.getcoord(e);
             area.clearRect(0,0,704,576);//清除之前的绘图
-            if(this.state.clicknum==4){//区域完成
+            if(this.state.clicknum===4){//区域完成
                 this.boundarydraw();
                 this.draw();
                 this.setState({
@@ -192,7 +193,7 @@ class Setarea extends Component {
                     }
                 })
             }else{
-                if(this.state.present.length==4){
+                if(this.state.present.length===4){
                     post({url:'/api/camera/fieldadd',data:{key:1,field:[this.state.present],code:this.state.cid}},(res)=>{
                         if(res){
                             this.setState({
@@ -221,7 +222,7 @@ class Setarea extends Component {
                     }
                 })
             }else{
-                if(this.state.present.length==4){
+                if(this.state.present.length===4){
                     post({url:'/api/camera/fieldadd',data:{key:2,field:[this.state.present],code:this.state.cid}},(res)=>{
                         if(res){
                             this.setState({
@@ -245,7 +246,7 @@ class Setarea extends Component {
                 <Row>
                     <Col xl={{ span:12}} xxl={{ span: 12 }}>
                         <div className="photo" id="canvasphoto">
-                           <canvas id="time_graph_canvas" width="704px" height="576px" style={{backgroundImage:'url('+this.state.src+')',backgroundSize:'cover'}} onClick={this.clickgetcorrd} onMouseMove={this.drawmove}></canvas> 
+                           <canvas id="time_graph_canvas" width="704px" height="576px" style={{backgroundImage:'url('+this.state.src+')',backgroundSize:'cover'}} onClick={this.clickgetcorrd} onMouseMove={this.drawmove} />
                         </div>
                     </Col>
                     <Col xl={{ span: 12}} xxl={{ span: 12 }}>
