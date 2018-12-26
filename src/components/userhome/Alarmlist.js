@@ -344,7 +344,7 @@ class Alarmlist extends React.Component{
                         ))
                     }
                 </Row>
-                <Pagination defaultCurrent={1} current={this.state.page} pageSize={this.state.pageSize} total={this.state.totalCount} onChange={this.hanlePageSize} style={{width:"100%",textAlign:"center",display:this.state.type==1?"block":"none"}}/>
+                <Pagination defaultCurrent={1} current={Number(this.state.page)} pageSize={Number(this.state.pageSize)} total={Number(this.state.totalCount)} onChange={this.hanlePageSize} style={{width:"100%",textAlign:"center",display:this.state.type==1?"block":"none"}}/>
                 <Modal
                     title="播放视频"
                     visible={this.state.visible}
@@ -365,7 +365,7 @@ class Alarmlist extends React.Component{
                     okText="确认"
                     cancelText="取消"
                 >
-                    <p>
+                    <div>
                         摄像头选择：
                         <Select defaultValue="请选择摄像头" style={{ width: 180 }} onChange={this.handleOnekey}>
                         {
@@ -375,7 +375,7 @@ class Alarmlist extends React.Component{
                         }
                         </Select>
 
-                    </p>
+                    </div>
                 </Modal>
                 <div>
                     <Modal
