@@ -11,16 +11,17 @@ class Setarea extends Component {
             src:'',
             clicknum:0,
             present:[],
-            areaone:'', //防区一
-            areatwo:'', //防区二
+            areaone:[], //防区一
+            areatwo:[], //防区二
         };
     }
     boundarydraw(){                  
         let ele = document.getElementById("time_graph_canvas")
         let area = ele.getContext("2d");
         area.clearRect(0,0,704,576);
-        if(this.state.areaone){
-                let areaone=this.state.areaone[0];            
+        if(this.state.areaone.length){
+                let areaone=this.state.areaone[0]; 
+                console.log('areaone',this.state.areaone,areaone,areaone[0],areaone[0][0])           
                 area.strokeStyle=blue;
                 area.lineWidth=3;
                 area.beginPath();
@@ -31,7 +32,7 @@ class Setarea extends Component {
                 area.lineTo(areaone[0][0],areaone[0][1]);
                 area.stroke();
                 area.closePath();
-                if(this.state.areatwo){
+                if(this.state.areatwo.length){
                     let areatwo=this.state.areatwo[0]; 
                     area.strokeStyle=red;
                     area.beginPath();
@@ -42,20 +43,19 @@ class Setarea extends Component {
                     area.lineTo(areatwo[0][0],areatwo[0][1]);
                     area.stroke();
                     area.closePath();
-
                 }
-        }else if(this.state.areatwo){
-            let areatwo=this.state.areatwo[0]; 
-            area.strokeStyle=red;
-            area.lineWidth=3;
-            area.beginPath();
-            area.moveTo(areatwo[0][0],areatwo[0][1]);
-            area.lineTo(areatwo[1][0],areatwo[1][1]);
-            area.lineTo(areatwo[2][0],areatwo[2][1]);
-            area.lineTo(areatwo[3][0],areatwo[3][1]);
-            area.lineTo(areatwo[0][0],areatwo[0][1]);
-            area.stroke();
-            area.closePath();
+        }else if(this.state.areatwo.length){
+            // let areatwo=this.state.areatwo[0]; 
+            // area.strokeStyle=red;
+            // area.lineWidth=3;
+            // area.beginPath();
+            // area.moveTo(areatwo[0][0],areatwo[0][1]);
+            // area.lineTo(areatwo[1][0],areatwo[1][1]);
+            // area.lineTo(areatwo[2][0],areatwo[2][1]);
+            // area.lineTo(areatwo[3][0],areatwo[3][1]);
+            // area.lineTo(areatwo[0][0],areatwo[0][1]);
+            // area.stroke();
+            // area.closePath();
         }
                
     }
@@ -73,8 +73,8 @@ class Setarea extends Component {
                 let field=res.data.field;
                 if(field){
                     this.setState({
-                        areaone:field[1],
-                        areatwo:field[2],
+                        areaone:field[1]?JSON.parse(field[1]):[],
+                        areatwo:field[2]?JSON.parse(field[2]):[],
                         src:res.data.picpath,
                     },()=>{
                         this.boundarydraw()
@@ -263,7 +263,7 @@ class Setarea extends Component {
                             <Row>
                                 <Col span={14}>
                                         围界设定方法：请在左侧图片处鼠标单击绘制防区，防区均为四边形，
-                                    每个设备最多可设置四处防区。防区设置完成后请点击“新增”按钮生效。
+                                    每个设备最多可设置两处防区。防区设置完成后请点击“新增”按钮生效。
                                 </Col>
                             </Row>
                         </div>
