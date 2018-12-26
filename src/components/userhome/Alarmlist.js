@@ -37,9 +37,12 @@ class Alarmlist extends React.Component{
         };
     }
     //报警详情
-    alarmImg =()=>{
+    alarmImg =(codeAlarm)=>{
         this.setState({
-            alarmImgType:true
+            alarmImgType:true,
+            alCode:codeAlarm
+        },()=>{
+            console.log(this.state.alCode);
         })
     }
     handleCancelAlarmImg =()=>{
@@ -99,7 +102,6 @@ class Alarmlist extends React.Component{
             totalcount:this.state.totalCount
         };
         post({url:'/api/alarm/getlist',data:datas},(res)=>{
-            console.log(res.totalcount);
             if(res.success){
                 if(res.data.length>1){
                     this.setState({
@@ -328,7 +330,7 @@ class Alarmlist extends React.Component{
                                             </Row>
                                             <Row className="line-police">
                                                 <Col xl={12} xxl={12} className="overflow" title={v.atime}>{v.atime}</Col>
-                                                <Col xl={12} xxl={12}>报警对象：{v.tags?"":"无"}</Col>
+                                                <Col xl={12} xxl={12}>报警对象：{v.tags==""?"无":v.tags}</Col>
                                             </Row>
                                             <Row className="line-police" style={{borderTop:"1px solid #efefef",paddingTop:'5px'}}>
                                                 <Col xl={8} xxl={8} ><span onClick={()=>this.alarmdeal(v.code,i,1)} className="cursor"><Icon type="redo" />确认</span></Col>
