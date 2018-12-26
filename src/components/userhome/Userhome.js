@@ -67,17 +67,17 @@ class Userhome extends React.Component{
         }          
    }
    isonlinebg=(i)=>{ //是否在线背景色  
-    console.log(i,"aaaaaaaaaaaaaaaa");
-    let time= this.state.camera[i].heart.time.toString();// 取到时间
-    let yijingtime=new Date(time); //取到时间转换
-    let timq=yijingtime.getTime(yijingtime) // 取到时间戳
-    let myDate=new Date();// 当前时间
-    let timc=myDate.getTime(myDate) // 当前时间戳
-    if(timc-timq>60000){
-        return "onLine offLineBack";
-    }else{
-        return "onLine onLineBack";
-    }          
+        console.log(i,"aaaaaaaaaaaaaaaa");
+        let time= this.state.camera[i].heart.time.toString();// 取到时间
+        let yijingtime=new Date(time); //取到时间转换
+        let timq=yijingtime.getTime(yijingtime) // 取到时间戳
+        let myDate=new Date();// 当前时间
+        let timc=myDate.getTime(myDate) // 当前时间戳
+        if(timc-timq>60000){
+            return "onLine offLineBack";
+        }else{
+            return "onLine onLineBack";
+        }          
 }
    atype=(j)=>{ //报警类型 
         if(this.state.alarmdata[j].atype===1){
@@ -104,11 +104,9 @@ class Userhome extends React.Component{
                                 <Col span={12}>                             
                                    <p>云服务到期日期: <span>{this.state.data.cloudvaliddate?this.state.data.cloudvaliddate:'未开通'}</span></p>
                                    <p>设备总数: <span>{this.state.camera.length?this.state.camera.length:0}个</span></p>
-                                   <p>所属团队: <span>{this.state.data.pname}</span></p>
-                                   <p>用户数: <span>
-                                         {this.state.usercount}
-                                   </span></p>
-                                   <p>管理员名称: <span>{this.state.data.adminname}</span></p>
+                                   <p>所属团队: <span>{this.state.data.pname?this.state.data.pname:"不存在"}</span></p>
+                                   <p>用户数: <span> {this.state.usercount?this.state.usercount:0}</span></p>
+                                   <p>管理员名称: <span>{this.state.data.adminname?this.state.data.adminname:"不存在"}</span></p>
                                 </Col>
                                 <Col span={12}>
                                     <Timeline>
