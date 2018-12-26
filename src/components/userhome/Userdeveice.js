@@ -22,7 +22,6 @@ class Userdeveice extends React.Component{
     requestdata=(params) => {//取数据  
         post({url:"/api/camera/getone",data:{code:this.props.query.id}}, (res)=>{
             if(res.success){
-                console.log("列表数据：",res.data);
                 this.setState({
                     data:res.data, 
                     edata:res.edata, 
@@ -39,35 +38,29 @@ class Userdeveice extends React.Component{
         this.setState({
             ipvalue:e.target.value,
         });
-        console.log('ip= ', e.target.value );
     }
     onChangeport=(e)=> {//ip  input 修改端口
         this.setState({
             portvalue:e.target.value,
         });
-        console.log('port= ', e.target.value );
     } 
     inputOnBlurip=(e)=>{ //ip  input 失去焦点
         post({url:"/api/camera/update",data:{code:this.props.query.id,ip:this.state.ipvalue}}, (res)=>{
             if(res.success){
-                console.log("列表数据：",);
             }
         })
         this.setState({
             focus: false
         });
-        console.log('focus= ',"失去焦点" );
     }
     inputOnBlursport=(e)=>{ //端口 input 失去焦点
         post({url:"/api/camera/update",data:{code:this.props.query.id,authport:this.state.portvalue}}, (res)=>{
             if(res.success){
-                console.log("列表数据：",);
             }
         })
         this.setState({
              focus: false
              });
-          console.log('focus= ',"失去焦点" );
     } 
     field=()=>{ //布防区域的个数 
         var jsonData;
