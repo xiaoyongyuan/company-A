@@ -1,11 +1,12 @@
 import React from 'react';
-import { DatePicker,Row,Col,Select,Button,Icon,Modal,Pagination  } from "antd";
+import { DatePicker,Row,Col,Select,Button,Icon,Modal,Pagination,Form } from "antd";
 import "../../style/ztt/css/police.css";
 import {post} from "../../axios/tools";
 import Alarmdetails from "./Alarmdetails";
+import moment from "moment";
 import nodata from "../../style/imgs/nodata.png";
-const { RangePicker } = DatePicker;
 const Option = Select.Option;
+const RangePicker = DatePicker.RangePicker;
 class Alarmlist extends React.Component{
     constructor(props){
         super(props);
@@ -17,6 +18,9 @@ class Alarmlist extends React.Component{
             equipment:[],
             alermType:[],
             alarmImgType:false,
+            bdate:[],
+            edate:[],
+            code:""
         };
     }
     showModal = () => {
@@ -95,12 +99,9 @@ class Alarmlist extends React.Component{
     handleAlerm = ()=>{
         post({url:'/api/alarm/getlist'},(res)=>{
             if(res.success){
-                this.setState({
-                    policeList:res.data
-                })
-                //判断有没有数据
-                if(res.data>1){
+                if(res.data.length>1){
                     this.setState({
+                        policeList:res.data,
                         type:1
                     })
                 }else{
@@ -121,53 +122,142 @@ class Alarmlist extends React.Component{
             }
         })
     }
-    //时间选择
-    onChange = (date, dateString)=> {
-        console.log(date, dateString);
-    }
-    //设备select选择
-    handleChange = (value)=> {
-        console.log(`selected ${value}`);
+    handleSubmit =()=>{
+        const data={
+            bdate:this.state.bdate,
+            edate:this.state.edate,
+            code:this.state.code
+        };
+        post({url:"/api/alarm/getlist", data:data},(res)=>{
+            if(res.success){
+                if(res.data.length>1){
+                    this.setState({
+                        type:1,
+                        policeList:res.data
+                    },()=>{
+                        console.log(this.state.policeList,"aaaaaaaaaaaaaa");
+                    })
+                }else{
+                    this.setState({
+                        type:0
+                    })
+                }
+            }
+        })
     }
     alarmdeal=(code,index,type)=>{ //报警处理
         post({url:'/api/alarm/update',data:{code:code,status:type}},(res)=>{
-        	if(res){
-                const policeList=this.state.policeList
+        	if(res.success){
+                const policeList=this.state.policeList;
                 policeList[index].status=type
-        this.setState({
-            policeList:policeList
+                this.setState({
+                    policeList:policeList
+                })
+            }
         })
-        	}
+    }
+    handleChange =(value)=>{
+        this.setState({
+            code:value
+        })
+    }
+    disabledEndDate = (endValue) => {
+        const startValue = this.state.startValue;
+        if (!endValue || !startValue) {
+            return false;
+        }
+        return endValue.valueOf() <= startValue.valueOf();
+    }
+    //开始时间
+    onChange1 =(value1, dateString1)=> {
+        this.setState({
+            bdate:dateString1,
+            value1:dateString1
+        })
+    }
+    //结束时间
+    onChange2 =(value1, dateString2)=> {
+        this.setState({
+            edate:dateString2
         })
     }
     render(){
+        const { getFieldDecorator } = this.props.form;
+        const formItemLayout = {
+            labelCol: {
+                xs: { span: 24 },
+                sm: { span: 8 },
+            },
+            wrapperCol: {
+                xs: { span: 24 },
+                sm: { span: 16 },
+            },
+        };
+        const residences = [{
+            value: this.state.equipment.map((item)=>(item.code)),
+            label: this.state.equipment.map((item)=>(item.eid))
+        }];
         return(
             <div>
                 <Row style={{marginTop:"50px"}}>
-                    <Col xl={9} xxl={6}>
-                        日期：<RangePicker onChange={this.onChange} />
-                    </Col>
-                    <Col xl={5} xxl={3}>
-                        设备：
-                        <Select defaultValue="所有" style={{ width: 120 }} onChange={this.handleChange}>
-                        {
-                            this.state.equipment.map((v,i)=>(
-                                <Option value={v.code} key={i}>{v.eid}</Option>
-                            ))
-                        }
-                        </Select>
-                    </Col>
-                    <Col xl={3} xxl={2}>
-                        <Button type="primary">查询</Button>
-                    </Col>
-                    <Col xl={3} xxl={2}>
-                        <Button type="primary" onClick={this.handleProcessing}>一键处理</Button>
-                    </Col>
+                    <Form onSubmit={this.handleSubmit}>
+                        <Col xl={9} xxl={5}>
+                            <Form.Item
+                                {...formItemLayout}
+                                label="日期">
+                            {getFieldDecorator('range-picker1')(
+                                <DatePicker
+                                    showTime
+                                    format="YYYY-MM-DD HH"
+                                    placeholder="开始时间"
+                                    onChange={this.onChange1}
+                                />
+                            )}
+                        </Form.Item>
+                        </Col>
+                        <Col xl={4} xxl={3}>
+                            <Form.Item>
+                                {getFieldDecorator('range-picker2')(
+                                    <DatePicker
+                                        showTime
+                                        format="YYYY-MM-DD HH"
+                                        placeholder="结束时间"
+                                        onChange={this.onChange2}
+                                        disabledDate={this.disabledEndDate}
+                                    />
+                                )}
+                            </Form.Item>
+                        </Col>
+                        <Col xl={5} xxl={4} >
+                            <Form.Item
+                                {...formItemLayout}
+                                label="设备"
+                            >
+                                {getFieldDecorator('residence',{
+                                    initialValue:"所有"
+                                } )(
+                                    <Select  style={{ width: 120 }} onChange={this.handleChange}>
+                                        {
+                                            this.state.equipment.map((v,i)=>(
+                                                <Option value={v.code} key={i}>{v.eid}</Option>
+                                            ))
+                                        }
+                                    </Select>
+                                )}
+                            </Form.Item>
+                        </Col>
+                        <Col xl={3} xxl={2}>
+                            <Button type="primary" htmlType="submit">查询</Button>
+                        </Col>
+                        <Col xl={3} xxl={2}>
+                            <Button type="primary" onClick={this.handleProcessing}>一键处理</Button>
+                        </Col>
+                    </Form>
                 </Row>
-                <Row style={{marginTop:"70px",display:this.state.type==0?"none":"block"}}>
+                <Row style={{marginTop:"70px",display:this.state.type==0?"block":"none"}}>
                     <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt=""/></div></Col>
                 </Row>
-                <Row style={{display:this.state.type==0?"block":"none"}}>
+                <Row style={{display:this.state.type==1?"block":"none"}}>
                     {
                         this.state.policeList.map((v,i)=>(
                             <Col xl={12} xxl={12} style={{marginTop:"40px"}} key={i}>
@@ -196,8 +286,8 @@ class Alarmlist extends React.Component{
                                             </Row>
                                             <Row className="line-police" style={{borderTop:"1px solid #efefef",paddingTop:'5px'}}>
                                                 <Col xl={8} xxl={8} ><span onClick={()=>this.alarmdeal(v.code,i,1)} className="cursor"><Icon type="redo" />确认</span></Col>
-                                                <Col xl={8} xxl={8} ><span className="cursor"><Icon type="redo" />虚报</span></Col>
-                                                <Col xl={8} xxl={8}><span className="cursor"><Icon type="redo" />忽略</span></Col>
+                                                <Col xl={8} xxl={8} ><span onClick={()=>this.alarmdeal(v.code,i,3)} className="cursor"><Icon type="redo" />虚报</span></Col>
+                                                <Col xl={8} xxl={8}><span onClick={()=>this.alarmdeal(v.code,i,2)} className="cursor"><Icon type="redo" />忽略</span></Col>
                                             </Row>
                                         </div>
                                     </Col>
@@ -206,7 +296,7 @@ class Alarmlist extends React.Component{
                         ))
                     }
                 </Row>
-                <Pagination defaultCurrent={6} total={500} style={{width:"100%",textAlign:"center",display:this.state.type==0?"block":"none"}}/>
+                <Pagination defaultCurrent={6} total={500} style={{width:"100%",textAlign:"center",display:this.state.type==1?"block":"none"}}/>
                 <Modal
                     title="播放视频"
                     visible={this.state.visible}
@@ -240,7 +330,6 @@ class Alarmlist extends React.Component{
                         width={1100}
                         title="报警详情"
                         visible={this.state.alarmImgType}
-                        onOk={this.handleOkAlarmImg}
                         onCancel={this.handleCancelAlarmImg}
                     >
                     <Alarmdetails/>
@@ -250,4 +339,5 @@ class Alarmlist extends React.Component{
         )
     }
 }
-export default Alarmlist
+
+export default Alarmlist= Form.create()(Alarmlist);
