@@ -213,7 +213,7 @@ class Setarea extends Component {
                                 {getFieldDecorator('bdate', {
                                     rules: [{ required: true, message: '请选择时间!' }],
                                 })(
-                                    <TimePicker onChange={onChange_time1} defaultOpenValue={moment('00', format)}
+                                    <TimePicker onChange={onChange_time1} placeholder="开始时间" defaultOpenValue={moment('00', format)}
                                                 format={format} 
                                     />
                                 )}
@@ -222,7 +222,7 @@ class Setarea extends Component {
                                 {getFieldDecorator('edate', {
                                     rules: [{ required: true, message: '请选择时间!' }],
                                 })(
-                                    <TimePicker onChange={onChange_time2}
+                                    <TimePicker onChange={onChange_time2} placeholder="结束时间"
                                                 disabledHours={disabledHours}
                                                 format={format} 
                                     />
