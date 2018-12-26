@@ -8,10 +8,7 @@ class Setarea extends Component {
     constructor(props){
         super(props);
         this.state={
-            src:'http://pic28.photophoto.cn/20130818/0020033143720852_b.jpg',
-            canvassty:{
-                backgroundImage:'url(http://pic28.photophoto.cn/20130818/0020033143720852_b.jpg)'
-            },
+            src:'',
             clicknum:0,
             present:[],
             areaone:'', //防区一

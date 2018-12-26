@@ -156,7 +156,7 @@ class Adminteam extends Component {
                 title: '身份',
                 dataIndex: 'utype',
                 key: 'utype',
-                render: text => <span>{text?'系统使用人员':'管理员'}</span>,
+                render: text => <span>{text?'系统使用人员':' 管理员'}</span>,
             },{
                 title: '操作',
                 key: 'code',

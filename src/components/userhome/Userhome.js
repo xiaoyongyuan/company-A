@@ -20,8 +20,6 @@ class Userhome extends React.Component{
                     data:res.data, //用户信息
                     usercount:res.usercount, //用户信息
                     camera:res.camera, //摄像头信息                  
-                },()=>{
-                    
                 }); 
             }   
         })
@@ -30,9 +28,6 @@ class Userhome extends React.Component{
                 console.log('111111获取报警列表',res);
                 this.setState({
                     alarmdata:res.data, 
-                },()=>{
-                    console.log('*********************',typeof(this.state.alarmdata) );
-                    console.log('*********************',this.state.alarmdata );
                 }); 
             }   
         })
@@ -48,12 +43,16 @@ class Userhome extends React.Component{
             return "未设置"           
         }
     }
-    field=(i)=>{ //布防区域的个数     
+    field=(i)=>{ //布防区域的个数 
+        if(this.state.camera[i].field ===""){
+           
+        }else{
             var jsonData= JSON.parse(this.state.camera[i].field)
-            var count = 0;
-            for(var j in jsonData){
-              count++;
-            }
+        }    
+        var count = 0;
+        for(var j in jsonData){
+            count++;
+        }
         return count;
     }
     isonline=(i)=>{ //是否在线  
@@ -138,7 +137,7 @@ class Userhome extends React.Component{
                                                 <Icon type="clock-circle" />
                                                 {this.statework(i)}
                                         </a>, 
-                                         <a href={"#/app/companyhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
+                                         <a href={"#/app/userhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
                                              <Icon type="setting" />
                                          </a>
                                 ]}
