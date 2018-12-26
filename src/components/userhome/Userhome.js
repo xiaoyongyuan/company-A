@@ -104,11 +104,9 @@ class Userhome extends React.Component{
                                 <Col span={12}>                             
                                    <p>云服务到期日期: <span>{this.state.data.cloudvaliddate?this.state.data.cloudvaliddate:'未开通'}</span></p>
                                    <p>设备总数: <span>{this.state.camera.length?this.state.camera.length:0}个</span></p>
-                                   <p>所属团队: <span>{this.state.data.pname}</span></p>
-                                   <p>用户数: <span>
-                                         {this.state.usercount}
-                                   </span></p>
-                                   <p>管理员名称: <span>{this.state.data.adminname}</span></p>
+                                   <p>所属团队: <span>{this.state.data.pname?this.state.data.pname:"不存在"}</span></p>
+                                   <p>用户数: <span> {this.state.usercount?this.state.usercount:0}</span></p>
+                                   <p>管理员名称: <span>{this.state.data.adminname?this.state.data.adminname:"不存在"}</span></p>
                                 </Col>
                                 <Col span={12}>
                                     <Timeline>
