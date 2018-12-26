@@ -61,7 +61,20 @@ class Equipment extends React.Component{
         }else{
             return "在线";
         }          
-   }
+    }
+    isonlinebg=(i)=>{ //是否在线背景色  
+        console.log(i,"aaaaaaaaaaaaaaaa");
+        let time= this.state.camera[i].heart.time.toString();// 取到时间
+        let yijingtime=new Date(time); //取到时间转换
+        let timq=yijingtime.getTime(yijingtime) // 取到时间戳
+        let myDate=new Date();// 当前时间
+        let timc=myDate.getTime(myDate) // 当前时间戳
+        if(timc-timq>60000){
+            return "onLine offLineBack";
+        }else{
+            return "onLine onLineBack";
+        }          
+    }
     render(){
 
         return(
@@ -93,9 +106,8 @@ class Equipment extends React.Component{
                                 >
                                     <Row className="paddRow">  
                                         <Col xxl={{ span:6}} xs={{ span: 6}}>
-                                           <div className="onLine">
-                                          
-                                           {this.isonline(i)}
+                                           <div className={this.isonlinebg(i)}>
+                                               {this.isonline(i)}
                                            </div> 
                                         </Col>
                                         <Col xxl={{ span: 18}} xs={{ span: 18}} className="titcon">
