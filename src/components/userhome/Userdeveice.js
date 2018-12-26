@@ -94,11 +94,28 @@ class Userdeveice extends React.Component{
      }
      atype=()=>{ //报警类型 
         if(this.state.data.atype===1){
-            return "入侵报警"
+            return "围界入侵"
         }else{
             return "";
         }          
     }
+
+    isonline=(i)=>{ //当前状态 
+        let time= this.state.heartdata.time;// 取到时间
+        let yijingtime=new Date(time); //取到时间转换
+        let timq=yijingtime.getTime(yijingtime) // 取到时间戳
+        let myDate=new Date();// 当前时间
+        let timc=myDate.getTime(myDate) // 当前时间戳
+        if(time){
+            if(timc-timq>60000){
+                return "离线";
+            }else{
+                return "在线";
+            }    
+        }
+              
+   }
+
     render(){
         const _this=this;
         function on_port()
@@ -171,7 +188,7 @@ class Userdeveice extends React.Component{
                            上次心跳：
                         </Col>
                         <Col span={21} className="t_l">
-                           2018-12-30 16：11:45
+                        {this.state.heartdata.time}
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -237,7 +254,8 @@ class Userdeveice extends React.Component{
                            当前状态：
                         </Col>
                         <Col span={21} className="t_l">
-                           正常
+                           {this.isonline()}
+                         
                         </Col>
                     </Row>
                 </div>
