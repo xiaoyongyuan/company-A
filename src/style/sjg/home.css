@@ -228,24 +228,19 @@ margin: 20px 0;
 /* //总览和设备部分 */
 
 .onLine{
-    border-radius: 50%;
     width: 50px;
     height: 50px;
-    line-height:50px;
-    background:#96FF66;
     padding-right: 0;
     margin-right: 14px;
     padding: 0 10px;
+    border-radius: 50%;
+    line-height:50px;
 }
-.offLine{
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    line-height:50px;
+.onLineBack{
+    background:#96FF66;
+}
+.offLineBack{
     background:#ECECEC;
-    padding-right: 0;
-    margin-right: 14px;
-    padding: 0 10px;
 }
 .ant-card-body{
     position: relative;

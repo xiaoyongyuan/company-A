@@ -178,7 +178,7 @@ class Userdeveice extends React.Component{
                            设防时间：
                         </Col>
                         <Col span={21} className="t_l">
-                        <a href={"#/app/userhome/Userdeveice?id="+_this.props.query.id} className="underline">
+                        <a href={"#/app/companyhome/settime?id="+_this.props.query.id} className="underline">
                         {this.state.workingtime.length}段
                          </a>                     
                         </Col>
