@@ -6,8 +6,8 @@ class Userdeveice extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            portvalue:"827317",
-            ipvalue:"192.168.1.67",
+            portvalue:"",
+            ipvalue:"",
             code:"1000001",
             data:{},
             edata:{},
@@ -30,6 +30,7 @@ class Userdeveice extends React.Component{
                     workingtime:res.workingtime,
                     ipvalue:res.data.ip,
                     portvalue:res.data.authport,
+                    code1:this.props.query.id
                 })
             }
         })
@@ -69,8 +70,13 @@ class Userdeveice extends React.Component{
              });
           console.log('focus= ',"失去焦点" );
     } 
-    field=()=>{ //布防区域的个数     
-        var jsonData= this.state.data.field
+    field=()=>{ //布防区域的个数 
+        var jsonData;
+        if(this.state.data.field ===""){
+             jsonData=0;
+        }else{
+            var jsonData= this.state.data.field
+        }  
         var count = 0;
         for(var j in jsonData){
           count++;
@@ -85,8 +91,33 @@ class Userdeveice extends React.Component{
         }else{
             return "摄像头未连接";
         }          
-}
+     }
+     atype=()=>{ //报警类型 
+        if(this.state.data.atype===1){
+            return "围界入侵"
+        }else{
+            return "";
+        }          
+    }
+
+    isonline=(i)=>{ //当前状态 
+        let time= this.state.heartdata.time;// 取到时间
+        let yijingtime=new Date(time); //取到时间转换
+        let timq=yijingtime.getTime(yijingtime) // 取到时间戳
+        let myDate=new Date();// 当前时间
+        let timc=myDate.getTime(myDate) // 当前时间戳
+        if(time){
+            if(timc-timq>60000){
+                return "离线";
+            }else{
+                return "在线";
+            }    
+        }
+              
+   }
+
     render(){
+        const _this=this;
         function on_port()
             {
             document.getElementById('port').focus()
@@ -112,7 +143,8 @@ class Userdeveice extends React.Component{
                            报警类型：
                         </Col>
                         <Col span={21} className="t_l">
-                            围界入侵
+                            {/* 围界入侵 */}
+                            {this.atype()}
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -136,7 +168,7 @@ class Userdeveice extends React.Component{
                         防区设置：
                         </Col>
                         <Col span={21} className="t_l">
-                             <a href="#" className="underline">
+                             <a href={"#/app/companyhome/setarea?id="+_this.props.query.id} className="underline">
                               {this.field()}个
                              </a>
                         </Col>
@@ -146,7 +178,7 @@ class Userdeveice extends React.Component{
                            设防时间：
                         </Col>
                         <Col span={21} className="t_l">
-                        <a href="#" className="underline">
+                        <a href={"#/app/userhome/Userdeveice?id="+_this.props.query.id} className="underline">
                         {this.state.workingtime.length}段
                          </a>                     
                         </Col>
@@ -156,7 +188,7 @@ class Userdeveice extends React.Component{
                            上次心跳：
                         </Col>
                         <Col span={21} className="t_l">
-                           2018-12-30 16：11:45
+                        {this.state.heartdata.time}
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -222,7 +254,8 @@ class Userdeveice extends React.Component{
                            当前状态：
                         </Col>
                         <Col span={21} className="t_l">
-                           正常
+                           {this.isonline()}
+                         
                         </Col>
                     </Row>
                 </div>
