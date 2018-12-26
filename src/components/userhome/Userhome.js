@@ -12,7 +12,6 @@ class Userhome extends React.Component{
         alarmdata:[]
       };
     }
-
     componentDidMount() {        
         post({url:'/api/company/getone'},(res)=>{ //获取团队列表
             if(res){
@@ -74,8 +73,7 @@ class Userhome extends React.Component{
         }else{
             return "";
         }          
-}
-   
+    }
     render(){
       
         var styleObj={
@@ -118,8 +116,7 @@ class Userhome extends React.Component{
                                 </Col>
                             </Row>
                         </Card>
-                    </Col>
-                    
+                    </Col>                    
                 </Row>
                 <Row className="paddRow"> 
                 {
@@ -165,9 +162,7 @@ class Userhome extends React.Component{
                             </Col>
                         )
                     })
-                } 
-                    
-                    
+                }                     
                 </Row>
             </div>
         )

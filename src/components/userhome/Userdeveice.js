@@ -6,8 +6,8 @@ class Userdeveice extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            portvalue:"827317",
-            ipvalue:"192.168.1.67",
+            portvalue:"",
+            ipvalue:"",
             code:"1000001",
             data:{},
             edata:{},
@@ -91,7 +91,14 @@ class Userdeveice extends React.Component{
         }else{
             return "摄像头未连接";
         }          
-}
+     }
+     atype=()=>{ //报警类型 
+        if(this.state.data.atype===1){
+            return "入侵报警"
+        }else{
+            return "";
+        }          
+    }
     render(){
         const _this=this;
         function on_port()
@@ -119,7 +126,8 @@ class Userdeveice extends React.Component{
                            报警类型：
                         </Col>
                         <Col span={21} className="t_l">
-                            围界入侵
+                            {/* 围界入侵 */}
+                            {this.atype()}
                         </Col>
                     </Row>
                     <Row className="equ_row">
