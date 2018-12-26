@@ -44,10 +44,11 @@ class Userhome extends React.Component{
         }
     }
     field=(i)=>{ //布防区域的个数 
+        var jsonData;
         if(this.state.camera[i].field ===""){
-           
+             jsonData=0;
         }else{
-            var jsonData= JSON.parse(this.state.camera[i].field)
+             jsonData= JSON.parse(this.state.camera[i].field)
         }    
         var count = 0;
         for(var j in jsonData){
@@ -56,15 +57,16 @@ class Userhome extends React.Component{
         return count;
     }
     isonline=(i)=>{ //是否在线  
-        var time= this.state.camera[i].heart.time ;
-        var myDate=new Date();
-        var ctime=myDate.getMinutes()
-        var str=time.substring(14,16);
-            if(ctime-str>1||ctime-str===1){
-                return "离线"
-            }else{
-                return "在线";
-            }          
+        let time= this.state.camera[i].heart.time.toString();// 取到时间
+        let yijingtime=new Date(time); //取到时间转换
+        let timq=yijingtime.getTime(yijingtime) // 取到时间戳
+        let myDate=new Date();// 当前时间
+        let timc=myDate.getTime(myDate) // 当前时间戳
+        if(timc-timq>60000){
+            return "离线";
+        }else{
+            return "在线";
+        }          
    }
    atype=(j)=>{ //报警类型 
         if(this.state.alarmdata[j].atype===1){
@@ -85,7 +87,7 @@ class Userhome extends React.Component{
                  <Row>
                     <Col span={23} className="paddL">
                       <Card 
-                            title="Card title" style={styleObj.topMar}                         
+                            title={this.state.data.cname} style={styleObj.topMar}                         
                       >
                             <Row>
                                 <Col span={12}>                             

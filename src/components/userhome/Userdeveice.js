@@ -30,6 +30,7 @@ class Userdeveice extends React.Component{
                     workingtime:res.workingtime,
                     ipvalue:res.data.ip,
                     portvalue:res.data.authport,
+                    code1:this.props.query.id
                 })
             }
         })
@@ -69,8 +70,13 @@ class Userdeveice extends React.Component{
              });
           console.log('focus= ',"失去焦点" );
     } 
-    field=()=>{ //布防区域的个数     
-        var jsonData= this.state.data.field
+    field=()=>{ //布防区域的个数 
+        var jsonData;
+        if(this.state.data.field ===""){
+             jsonData=0;
+        }else{
+            var jsonData= this.state.data.field
+        }  
         var count = 0;
         for(var j in jsonData){
           count++;
@@ -87,6 +93,7 @@ class Userdeveice extends React.Component{
         }          
 }
     render(){
+        const _this=this;
         function on_port()
             {
             document.getElementById('port').focus()
@@ -136,7 +143,7 @@ class Userdeveice extends React.Component{
                         防区设置：
                         </Col>
                         <Col span={21} className="t_l">
-                             <a href="#" className="underline">
+                             <a href={"#/app/companyhome/setarea?id="+_this.props.query.id} className="underline">
                               {this.field()}个
                              </a>
                         </Col>
@@ -146,7 +153,7 @@ class Userdeveice extends React.Component{
                            设防时间：
                         </Col>
                         <Col span={21} className="t_l">
-                        <a href="#" className="underline">
+                        <a href={"#/app/userhome/Userdeveice?id="+_this.props.query.id} className="underline">
                         {this.state.workingtime.length}段
                          </a>                     
                         </Col>
