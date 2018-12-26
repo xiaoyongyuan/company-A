@@ -26,12 +26,12 @@ class Alarmdetails extends React.Component{
   componentWillMount() {
   	//此处拿到父页面参数
     this.setState({
-        // code:this.props.code
-        code:80
+      faths:this.props.toson,
+      code:this.props.toson.code
     });
   }
   componentDidMount() {
-    post({url:"/api/alarm/getone",data:{code:this.state.code}},(res)=>{
+    post({url:"/api/alarm/getone",data:this.state.faths},(res)=>{
         let data={
           src:res.data.picpath,
           field:res.data.field,
@@ -63,7 +63,8 @@ class Alarmdetails extends React.Component{
           if(nextProps.visible){
               vis=nextProps.visible;
               this.setState({
-                  code:nextProps.code
+                  code:nextProps.toson.code,
+                  faths:nextProps.toson
               }, () => {
                   this.componentDidMount()});
           }
@@ -98,9 +99,12 @@ class Alarmdetails extends React.Component{
     });	
   }
   looknew=(text)=>{ //查看上下一条
+    let faths=this.state.faths;
+    faths.code=this.state[text];
   	this.setState({
   		field:true,
   		obj:true,
+      faths:faths,
   		code:this.state[text]
     },()=>{
     	this.componentDidMount()
@@ -109,33 +113,37 @@ class Alarmdetails extends React.Component{
   draw = ()=>{ //画围界
   	let ele = document.getElementById("canvasobj");
     let area = ele.getContext("2d");
-    area.clearRect(0,0,600,500);//清除之前的绘图
+    area.clearRect(0,0,704,576);//清除之前的绘图
     area.lineWidth=1;
 
     
     const datafield=this.state.data.field;
-  	if(this.state.field && datafield.length){      
-  		area.strokeStyle='#f00';
+  	if(this.state.field && datafield.length){ 
+      let areafield = ele.getContext("2d"); 
+      area.lineWidth=1;    
+  		areafield.strokeStyle='#f00';
       datafield.map((el,i)=>{
-        area.beginPath();
-        area.moveTo(datafield[i][0][0],datafield[i][0][1]);
-        area.lineTo(datafield[i][1][0],datafield[i][1][1]);
-        area.lineTo(datafield[i][2][0],datafield[i][2][1]);
-        area.lineTo(datafield[i][3][0],datafield[i][3][1]);
-        area.lineTo(datafield[i][0][0],datafield[i][0][1]);
-        area.stroke();
-        area.closePath();
-
+        areafield.beginPath();
+        areafield.moveTo(datafield[i][0][0],datafield[i][0][1]);
+        areafield.lineTo(datafield[i][1][0],datafield[i][1][1]);
+        areafield.lineTo(datafield[i][2][0],datafield[i][2][1]);
+        areafield.lineTo(datafield[i][3][0],datafield[i][3][1]);
+        areafield.lineTo(datafield[i][0][0],datafield[i][0][1]);
+        areafield.stroke();
+        areafield.closePath();
       })
   	}
     const objs=this.state.data.finalresult;
   	if(this.state.obj && objs.length){
-  		area.strokeStyle='#ff0';
+  		
       //计算缩放比例
       const x=704/this.state.data.pic_width, y=576/this.state.data.pic_height;
       objs.map((el,i)=>{
+        area.strokeStyle='#ff0';
+        area.beginPath();
         area.rect(parseInt(el.x*x),parseInt(el.y*y),parseInt(el.w*x),parseInt(el.h*y));
         area.stroke();
+        area.closePath();
       })
   		
   	}
