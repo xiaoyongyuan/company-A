@@ -157,7 +157,9 @@ class Userhome extends React.Component{
                                         </Col>
                                     </Row>
                                     <div className="bell">
-                                    <Icon type="bell" /> <span>{this.state.camera[i].alarm}</span> 
+                                    <a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"} style={{color:'#f00'}}>
+                                        <Icon type="bell" /> <span>{this.state.camera[i].alarm}</span> 
+                                    </a>
                                     </div>
                                 </Card>
                             </Col>
