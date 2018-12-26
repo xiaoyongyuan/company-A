@@ -6,6 +6,7 @@ import Alarmdetails from "./Alarmdetails";
 import moment from "moment";
 import nodata from "../../style/imgs/nodata.png";
 const Option = Select.Option;
+const RangePicker = DatePicker.RangePicker;
 class Alarmlist extends React.Component{
     constructor(props){
         super(props);
@@ -98,13 +99,14 @@ class Alarmlist extends React.Component{
     handleAlerm = ()=>{
         post({url:'/api/alarm/getlist'},(res)=>{
             if(res.success){
-                this.setState({
-                    policeList:res.data
-                })
-                //判断有没有数据
-                if(this.state.policeList>1){
+                if(res.data.length>1){
                     this.setState({
+                        policeList:res.data,
                         type:1
+                    })
+                }else{
+                    this.setState({
+                        type:0
                     })
                 }
             }
@@ -128,14 +130,24 @@ class Alarmlist extends React.Component{
         };
         post({url:"/api/alarm/getlist", data:data},(res)=>{
             if(res.success){
-                var policeList=this.state.policeList;
-                this.setState({policeList});
+                if(res.data.length>1){
+                    this.setState({
+                        type:1,
+                        policeList:res.data
+                    },()=>{
+                        console.log(this.state.policeList,"aaaaaaaaaaaaaa");
+                    })
+                }else{
+                    this.setState({
+                        type:0
+                    })
+                }
             }
         })
     }
     alarmdeal=(code,index,type)=>{ //报警处理
         post({url:'/api/alarm/update',data:{code:code,status:type}},(res)=>{
-        	if(res){
+        	if(res.success){
                 const policeList=this.state.policeList;
                 policeList[index].status=type
                 this.setState({
@@ -144,51 +156,31 @@ class Alarmlist extends React.Component{
             }
         })
     }
-    handleRangePicker =(date,dateString)=>{
-       this.setState({
-           bdate:date,
-           edate:dateString
-       })
-    }
     handleChange =(value)=>{
         this.setState({
             code:value
         })
     }
-    range =(start, end)=> {
-        const result = [];
-        for (let i = start; i < end; i++) {
-            result.push(i);
+    disabledEndDate = (endValue) => {
+        const startValue = this.state.startValue;
+        if (!endValue || !startValue) {
+            return false;
         }
-        return result;
+        return endValue.valueOf() <= startValue.valueOf();
     }
-
-    disabledDate =(current)=> {
-        // Can not select days before today and today
-        return current && current < moment().endOf('day');
+    //开始时间
+    onChange1 =(value1, dateString1)=> {
+        this.setState({
+            bdate:dateString1,
+            value1:dateString1
+        })
     }
-    disabledDateTime =()=> {
-        return {
-            disabledHours: () => this.range(0, 24).splice(4, 20),
-            disabledMinutes: () => this.range(30, 60),
-            disabledSeconds: () => [55, 56],
-        };
+    //结束时间
+    onChange2 =(value1, dateString2)=> {
+        this.setState({
+            edate:dateString2
+        })
     }
-    disabledRangeTime =(_, type)=> {
-        if (type === 'start') {
-            return {
-                disabledHours: () => this.range(0, 60).splice(4, 20),
-                disabledMinutes: () => this.range(30, 60),
-                disabledSeconds: () => [55, 56],
-            };
-        }
-        return {
-            disabledHours: () => this.range(0, 60).splice(20, 4),
-            disabledMinutes: () => this.range(0, 31),
-            disabledSeconds: () => [55, 56],
-        };
-    }
-
     render(){
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
@@ -208,37 +200,30 @@ class Alarmlist extends React.Component{
         return(
             <div>
                 <Row style={{marginTop:"50px"}}>
-                    <Form>
+                    <Form onSubmit={this.handleSubmit}>
                         <Col xl={9} xxl={5}>
                             <Form.Item
                                 {...formItemLayout}
                                 label="日期">
-                            {getFieldDecorator('range-picker')(
+                            {getFieldDecorator('range-picker1')(
                                 <DatePicker
-                                    onChange={this.handleRangePicker}
-                                    disabledDate={this.disabledDate}
-                                    disabledTime={this.disabledRangeTime}
-                                    showTime={{
-                                        hideDisabledOptions: true,
-                                        defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('11:59:59', 'HH:mm:ss')],
-                                    }}
-                                    format="YYYY-MM-DD HH:mm:ss"
+                                    showTime
+                                    format="YYYY-MM-DD HH"
+                                    placeholder="开始时间"
+                                    onChange={this.onChange1}
                                 />
                             )}
                         </Form.Item>
                         </Col>
                         <Col xl={4} xxl={3}>
                             <Form.Item>
-                                {getFieldDecorator('range-picker')(
+                                {getFieldDecorator('range-picker2')(
                                     <DatePicker
-                                        onChange={this.handleRangePicker}
-                                        disabledDate={this.disabledDate}
-                                        disabledTime={this.disabledRangeTime}
-                                        showTime={{
-                                            hideDisabledOptions: true,
-                                            defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('11:59:59', 'HH:mm:ss')],
-                                        }}
-                                        format="YYYY-MM-DD HH:mm:ss"
+                                        showTime
+                                        format="YYYY-MM-DD HH"
+                                        placeholder="结束时间"
+                                        onChange={this.onChange2}
+                                        disabledDate={this.disabledEndDate}
                                     />
                                 )}
                             </Form.Item>
@@ -248,7 +233,9 @@ class Alarmlist extends React.Component{
                                 {...formItemLayout}
                                 label="设备"
                             >
-                                {getFieldDecorator('residence', )(
+                                {getFieldDecorator('residence',{
+                                    initialValue:"所有"
+                                } )(
                                     <Select  style={{ width: 120 }} onChange={this.handleChange}>
                                         {
                                             this.state.equipment.map((v,i)=>(
@@ -260,17 +247,17 @@ class Alarmlist extends React.Component{
                             </Form.Item>
                         </Col>
                         <Col xl={3} xxl={2}>
-                            <Button type="primary" onClick={this.handleSubmit}>查询</Button>
+                            <Button type="primary" htmlType="submit">查询</Button>
                         </Col>
                         <Col xl={3} xxl={2}>
                             <Button type="primary" onClick={this.handleProcessing}>一键处理</Button>
                         </Col>
                     </Form>
                 </Row>
-                <Row style={{marginTop:"70px",display:this.state.type?"none":"block"}}>
+                <Row style={{marginTop:"70px",display:this.state.type==0?"block":"none"}}>
                     <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt=""/></div></Col>
                 </Row>
-                <Row style={{display:this.state.type?"block":"none"}}>
+                <Row style={{display:this.state.type==1?"block":"none"}}>
                     {
                         this.state.policeList.map((v,i)=>(
                             <Col xl={12} xxl={12} style={{marginTop:"40px"}} key={i}>
@@ -299,8 +286,8 @@ class Alarmlist extends React.Component{
                                             </Row>
                                             <Row className="line-police" style={{borderTop:"1px solid #efefef",paddingTop:'5px'}}>
                                                 <Col xl={8} xxl={8} ><span onClick={()=>this.alarmdeal(v.code,i,1)} className="cursor"><Icon type="redo" />确认</span></Col>
-                                                <Col xl={8} xxl={8} ><span className="cursor"><Icon type="redo" />虚报</span></Col>
-                                                <Col xl={8} xxl={8}><span className="cursor"><Icon type="redo" />忽略</span></Col>
+                                                <Col xl={8} xxl={8} ><span onClick={()=>this.alarmdeal(v.code,i,3)} className="cursor"><Icon type="redo" />虚报</span></Col>
+                                                <Col xl={8} xxl={8}><span onClick={()=>this.alarmdeal(v.code,i,2)} className="cursor"><Icon type="redo" />忽略</span></Col>
                                             </Row>
                                         </div>
                                     </Col>
@@ -309,7 +296,7 @@ class Alarmlist extends React.Component{
                         ))
                     }
                 </Row>
-                <Pagination defaultCurrent={6} total={500} style={{width:"100%",textAlign:"center",display:this.state.type?"block":"none"}}/>
+                <Pagination defaultCurrent={6} total={500} style={{width:"100%",textAlign:"center",display:this.state.type==1?"block":"none"}}/>
                 <Modal
                     title="播放视频"
                     visible={this.state.visible}
