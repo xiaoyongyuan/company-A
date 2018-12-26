@@ -51,7 +51,6 @@ class Userdeveice extends React.Component{
         post({url:"/api/camera/update",data:{code:this.props.query.id,ip:this.state.ipvalue}}, (res)=>{
             if(res.success){
                 console.log("列表数据：",);
-            
             }
         })
         this.setState({
@@ -99,7 +98,6 @@ class Userdeveice extends React.Component{
             return "";
         }          
     }
-
     isonline=(i)=>{ //当前状态 
         let time= this.state.heartdata.time;// 取到时间
         let yijingtime=new Date(time); //取到时间转换
@@ -113,9 +111,7 @@ class Userdeveice extends React.Component{
                 return "在线";
             }    
         }
-              
    }
-
     render(){
         const _this=this;
         function on_port()

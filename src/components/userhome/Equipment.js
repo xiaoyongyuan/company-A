@@ -12,9 +12,6 @@ class Equipment extends React.Component{
     componentDidMount() {        
         post({url:'/api/company/getone'},(res)=>{ //获取团队列表
             if(res){
-
-                console.log('1res.data',res.data);
-                console.log('2res.camera',res.camera);
                 this.setState({
                     data:res.data, //用户信息
                     res:res, //用户信息
@@ -26,7 +23,6 @@ class Equipment extends React.Component{
         })
         
     }
-
     statework=(i)=>{ //布防转换     
         if(this.state.camera[i].work===2){
            return "布防中"
@@ -85,10 +81,7 @@ class Equipment extends React.Component{
                         return(
                             <Col key="i" xxl={{ span: 5}} xs={{ span: 6}}className="cardPdd">
                                 <Card                       
-
                                     cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath} width='100%' /></a>}
-
-                                     
                                     actions={[
                                         <a href={"#/app/companyhome/setarea?id="+el.code} className="actionsBbottom">
                                              <p> {this.field(i)}条 
@@ -120,7 +113,6 @@ class Equipment extends React.Component{
                                     <a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"} style={{color:'#f00'}}>
                                         <Icon type="bell" /> <span>{this.state.camera[i].alarm}</span> 
                                     </a>
-
                                     </div>
                                 </Card>
                             </Col>

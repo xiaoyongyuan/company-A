@@ -29,7 +29,6 @@ class Userhome extends React.Component{
                 }); 
             }   
         })
-        
     }
     statework=(i)=>{ //布防转换     
         if(this.state.camera[i].work===2){
@@ -85,9 +84,7 @@ class Userhome extends React.Component{
             return "";
         }          
     }
-
     render(){
-      
         var styleObj={
             topMar:{ margin:'60px 0 0 0',},
             successBg:{ background:'#96FF66'},
@@ -135,8 +132,6 @@ class Userhome extends React.Component{
                             <Col key="i" xxl={{ span: 5}} xs={{ span: 6}}className="cardPdd">
                                 <Card                       
                                     cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath} width='100%' /></a>}
-
-                                     
                                     actions={[
                                         <a href={"#/app/companyhome/setarea?id="+el.code} className="actionsBbottom">
                                              <p> {this.field(i)}条 
