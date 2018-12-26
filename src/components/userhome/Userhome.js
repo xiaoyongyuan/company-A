@@ -74,8 +74,8 @@ class Userhome extends React.Component{
         }else{
             return "";
         }          
-}
-   
+    }
+
     render(){
       
         var styleObj={
@@ -104,7 +104,7 @@ class Userhome extends React.Component{
                                             {
                                                 this.state.alarmdata.map((item,j)=>{
                                                     return (
-                                                        <Timeline.Item>
+                                                        <Timeline.Item key={j}>
                                                         <span> {this.state.alarmdata[j].name}  </span>
                                                         <span> {this.atype(j)} </span> 
                                                         {/* {this.state.alarmdata[j].atype}  */}
@@ -118,17 +118,16 @@ class Userhome extends React.Component{
                                 </Col>
                             </Row>
                         </Card>
-                    </Col>
-                    
+                    </Col>                    
                 </Row>
                 <Row className="paddRow"> 
                 {
                     this.state.camera.map((el,i)=>{
                         return (
                             <Col key="i" xxl={{ span: 5}} xs={{ span: 6}}className="cardPdd">
-
                                 <Card                       
                                     cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath} width='100%' /></a>}
+
                                      
                                     actions={[
                                         <a href={"#/app/companyhome/setarea?id="+el.code} className="actionsBbottom">
@@ -165,9 +164,7 @@ class Userhome extends React.Component{
                             </Col>
                         )
                     })
-                } 
-                    
-                    
+                }
                 </Row>
             </div>
         )
