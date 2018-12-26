@@ -12,7 +12,6 @@ class Userhome extends React.Component{
         alarmdata:[]
       };
     }
-
     componentDidMount() {        
         post({url:'/api/company/getone'},(res)=>{ //获取团队列表
             if(res){
@@ -25,7 +24,6 @@ class Userhome extends React.Component{
         })
         post({url:'/api/alarm/getlastalarm'},(res)=>{ //获取报警列表
             if(res){
-                console.log('111111获取报警列表',res);
                 this.setState({
                     alarmdata:res.data, 
                 }); 
