@@ -30,7 +30,10 @@ class Alarmlist extends React.Component{
             bdate:[],
             edate:[],
             code:"",
-            endOpen: false
+            endOpen: false,
+            page:"",
+            pageSize:"",
+            totalCount:""
         };
     }
     //报警详情
@@ -92,11 +95,14 @@ class Alarmlist extends React.Component{
     //报警信息列表
     handleAlerm = ()=>{
         post({url:'/api/alarm/getlist'},(res)=>{
+            console.log(res.totalcount);
             if(res.success){
                 if(res.data.length>1){
                     this.setState({
                         policeList:res.data,
-                        type:1
+                        type:1,
+                        page:res.page,
+                        totalCount:res.totalcount
                     })
                 }else{
                     this.setState({
@@ -332,7 +338,7 @@ class Alarmlist extends React.Component{
                         ))
                     }
                 </Row>
-                <Pagination defaultCurrent={6} total={500} style={{width:"100%",textAlign:"center",display:this.state.type==1?"block":"none"}}/>
+                <Pagination defaultCurrent={1} current={this.state.page} pageSize={6} total={this.state.totalCount} onChange={this.hanlePageSize} style={{width:"100%",textAlign:"center",display:this.state.type==1?"block":"none"}}/>
                 <Modal
                     title="播放视频"
                     visible={this.state.visible}
