@@ -32,7 +32,7 @@ class Alarmlist extends React.Component{
             code:"",
             endOpen: false,
             page:"",
-            pageSize:"",
+            pageSize:"20",
             totalCount:""
         };
     }
@@ -94,7 +94,11 @@ class Alarmlist extends React.Component{
     }
     //报警信息列表
     handleAlerm = ()=>{
-        post({url:'/api/alarm/getlist'},(res)=>{
+        var datas={
+            page:this.state.page,
+            totalcount:this.state.totalCount
+        };
+        post({url:'/api/alarm/getlist',data:datas},(res)=>{
             console.log(res.totalcount);
             if(res.success){
                 if(res.data.length>1){
@@ -221,7 +225,7 @@ class Alarmlist extends React.Component{
                     this.setState({
                         alarm:false
                     })
-                    this.handleEquipment();
+                    this.handleAlerm();
                 }
             })
         }
@@ -338,7 +342,7 @@ class Alarmlist extends React.Component{
                         ))
                     }
                 </Row>
-                <Pagination defaultCurrent={1} current={this.state.page} pageSize={6} total={this.state.totalCount} onChange={this.hanlePageSize} style={{width:"100%",textAlign:"center",display:this.state.type==1?"block":"none"}}/>
+                <Pagination defaultCurrent={1} current={this.state.page} pageSize={this.state.pageSize} total={this.state.totalCount} onChange={this.hanlePageSize} style={{width:"100%",textAlign:"center",display:this.state.type==1?"block":"none"}}/>
                 <Modal
                     title="播放视频"
                     visible={this.state.visible}
