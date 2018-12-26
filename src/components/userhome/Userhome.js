@@ -102,7 +102,7 @@ class Userhome extends React.Component{
                                             {
                                                 this.state.alarmdata.map((item,j)=>{
                                                     return (
-                                                        <Timeline.Item>
+                                                        <Timeline.Item key={j}>
                                                         <span> {this.state.alarmdata[j].name}  </span>
                                                         <span> {this.atype(j)} </span> 
                                                         {/* {this.state.alarmdata[j].atype}  */}
