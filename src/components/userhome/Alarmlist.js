@@ -380,12 +380,11 @@ class Alarmlist extends React.Component{
                 </Modal>
                 <div>
                     <Modal
-                        width={1100}
+                        width={1200}
                         title="报警详情"
                         visible={this.state.alarmImgType}
                         onCancel={this.handleCancelAlarmImg}
-                        okText="确认"
-                        cancelText="取消"
+                        footer={null}
                     >
                     <Alarmdetails visible={this.state.alarmImgType} toson={this.state.toson}/>
                     </Modal>

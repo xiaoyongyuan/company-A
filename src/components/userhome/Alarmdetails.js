@@ -135,7 +135,6 @@ class Alarmdetails extends React.Component{
   	}
     const objs=this.state.data.finalresult;
   	if(this.state.obj && objs.length){
-  		
       //计算缩放比例
       const x=704/this.state.data.pic_width, y=576/this.state.data.pic_height;
       objs.map((el,i)=>{
@@ -166,7 +165,7 @@ class Alarmdetails extends React.Component{
         return(
             <div className="alarmDetails">
             	<Row>
-            		<Col xl={17} xxl={17}>
+            		<Col xl={18} xxl={15}>
             			<canvas id="canvasobj" width="704px" height="576px" style={{backgroundImage:'url('+this.state.data.src+')',backgroundSize:"100% 100%"}} />
             			<div style={{textAlign:'center'}}>
             				<ButtonGroup>
@@ -179,7 +178,7 @@ class Alarmdetails extends React.Component{
       							</ButtonGroup>
             			</div>
             		</Col>	
-            		<Col xl={6} xxl={6}>
+            		<Col xl={6} xxl={9}>
             				<h4>{this.state.data.name}</h4>
             				<p><label>报警对象：<span>{this.state.data.tags}</span></label></p>
             				<p><label>围界信息: <Switch size='small' checked={this.state.field} onChange={(checked)=>this.onChange(checked,'field')} /></label></p>
