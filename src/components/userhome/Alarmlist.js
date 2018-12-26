@@ -16,6 +16,7 @@ class Alarmlist extends React.Component{
             alarm:false,
             policeList:[],
             equipment:[],
+            equipment1:[],
             alermType:[],
             alarmImgType:false,
             bdate:[],
@@ -44,25 +45,14 @@ class Alarmlist extends React.Component{
         this.setState({
             alarm:true
         });
-        /*post({url:"/api/alarm/handleall",data:{cid:"1000004"}},(res)=>{
-            console.log(res,"handleallhandleall");
-        })*/
     }
-    handleCancelalarm =()=>{
-        this.setState({
-            alarm:false
-        })
-    }
-
     //摄像头
-    handleOk = (e) => {
-        console.log(e);
+    handleOk = () => {
         this.setState({
             visible: false,
         });
     }
-    handleCancel = (e) => {
-        console.log(e);
+    handleCancel = () => {
         this.setState({
             visible: false,
         });
@@ -117,7 +107,7 @@ class Alarmlist extends React.Component{
         post({url:"/api/camera/getlist"},(res)=>{
             if(res.success){
                 this.setState({
-                    equipment:res.data
+                    equipment:res.data,
                 })
             }
         })
@@ -134,8 +124,6 @@ class Alarmlist extends React.Component{
                     this.setState({
                         type:1,
                         policeList:res.data
-                    },()=>{
-                        console.log(this.state.policeList,"aaaaaaaaaaaaaa");
                     })
                 }else{
                     this.setState({
@@ -161,6 +149,12 @@ class Alarmlist extends React.Component{
             code:value
         })
     }
+    //一键处理
+    handleOnekey =(value)=>{
+        this.setState({
+            handle:value
+        })
+    }
     disabledEndDate = (endValue) => {
         const startValue = this.state.startValue;
         if (!endValue || !startValue) {
@@ -180,6 +174,16 @@ class Alarmlist extends React.Component{
         this.setState({
             edate:dateString2
         })
+    }
+    handleOkalarm = ()=>{
+        post({url:"/api/alarm/handleall",data:{cid:this.state.handle}},(res)=>{
+            if(res.success){
+                this.setState({
+                    alarm:false
+                })
+                this.handleEquipment();
+            }
+       })
     }
     render(){
         const { getFieldDecorator } = this.props.form;
@@ -207,8 +211,8 @@ class Alarmlist extends React.Component{
                                 label="日期">
                             {getFieldDecorator('range-picker1')(
                                 <DatePicker
-                                    showTime
-                                    format="YYYY-MM-DD HH"
+                                    showTime={{format:"HH"}}
+                                    format="YYYY-MM-DD HH:00:00"
                                     placeholder="开始时间"
                                     onChange={this.onChange1}
                                 />
@@ -219,8 +223,8 @@ class Alarmlist extends React.Component{
                             <Form.Item>
                                 {getFieldDecorator('range-picker2')(
                                     <DatePicker
-                                        showTime
-                                        format="YYYY-MM-DD HH"
+                                        showTime={{format:"HH"}}
+                                        format="YYYY-MM-DD HH:00:00"
                                         placeholder="结束时间"
                                         onChange={this.onChange2}
                                         disabledDate={this.disabledEndDate}
@@ -302,6 +306,8 @@ class Alarmlist extends React.Component{
                     visible={this.state.visible}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
+                    okText="确认"
+                    cancelText="取消"
                 >
                     <p>Some contents...</p>
                     <p>Some contents...</p>
@@ -312,10 +318,12 @@ class Alarmlist extends React.Component{
                     visible={this.state.alarm}
                     onOk={this.handleOkalarm}
                     onCancel={this.handleCancelalarm}
+                    okText="确认"
+                    cancelText="取消"
                 >
                     <p>
                         摄像头选择：
-                        <Select defaultValue="所有" style={{ width: 180 }} onChange={this.handleChange}>
+                        <Select defaultValue="" style={{ width: 180 }} onChange={this.handleOnekey}>
                         {
                             this.state.equipment.map((v,i)=>(
                                 <Option value={v.code} key={i}>{v.eid}</Option>
@@ -331,6 +339,8 @@ class Alarmlist extends React.Component{
                         title="报警详情"
                         visible={this.state.alarmImgType}
                         onCancel={this.handleCancelAlarmImg}
+                        okText="确认"
+                        cancelText="取消"
                     >
                     <Alarmdetails/>
                     </Modal>
