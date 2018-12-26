@@ -12,7 +12,7 @@ class Alarmdetails extends React.Component{
       	data:{ //请求的数据
       		src:'',
       		name:'理工大北门',
-      		objtext:'人',
+      		tags:'',
       		type:'1',
           atime:'',
       		field:[],
@@ -22,16 +22,16 @@ class Alarmdetails extends React.Component{
       	},
       	field:true, //是否显示围界信息
       	obj:true, //是否显示报警对象
-      	prev:23, //上一条数据code
-      	next:24, //下一条数据code
-      	code:22 //当前数据的code
+      	prev:'', //上一条数据code
+      	next:'', //下一条数据code
+      	code:'', //当前数据的code
       };
   }
   componentWillMount() {
   	//此处拿到父页面参数
     this.setState({
         // code:this.props.code
-        code:764
+        code:320
     });
   }
   componentDidMount() {
@@ -39,12 +39,15 @@ class Alarmdetails extends React.Component{
         let data={
           src:res.data.picpath,
           field:res.data.field,
-          type:res.data.alarmtype,
+          alarmtype:res.data.alarmtype,
           atime:res.data.atime,
-          type:res.data.status,
+          type:res.data.status,   
+          tags:res.data.tags,        
         }
         this.setState({
-          data:data
+          data:data,
+          prev:res.data.last,
+          next:res.data.next, 
       },()=>{
         this.draw();
         this.typetext()
@@ -110,7 +113,6 @@ class Alarmdetails extends React.Component{
     area.lineWidth=1;
 
     
-    
     const datafield=this.state.data.field;
   	if(this.state.field && datafield.length){      
   		area.strokeStyle='#f00';
@@ -145,11 +147,13 @@ class Alarmdetails extends React.Component{
   alarmdeal=(type)=>{ //报警处理
   	post({url:'/api/alarm/update',data:{code:this.state.code,status:type}},(res)=>{
   		if(res){
-  				this.setState({
-			  		type:type,
-			    },()=>{
-			    	this.typetext()
-			    })
+        let data=this.state.data;
+        data.type=type;
+				this.setState({
+		  		data:data,
+		    },()=>{
+		    	this.typetext()
+		    })
   		}
   	})
   }
@@ -159,8 +163,8 @@ class Alarmdetails extends React.Component{
         return(
             <div className="alarmDetails">
             	<Row>
-            		<Col xl={14} xxl={14}>
-            			<canvas id="canvasobj" width="600px" height="500px" style={{backgroundImage:'url('+this.state.data.src+')',backgroundSize:"100% 100%"}} />
+            		<Col xl={17} xxl={17}>
+            			<canvas id="canvasobj" width="704px" height="576px" style={{backgroundImage:'url('+this.state.data.src+')',backgroundSize:"100% 100%"}} />
             			<div style={{textAlign:'center'}}>
             				<ButtonGroup>
 							  <Button type="primary" onClick={()=>this.looknew('prev')} disabled={this.state.prev?false:true}>
@@ -172,9 +176,9 @@ class Alarmdetails extends React.Component{
 							</ButtonGroup>
             			</div>
             		</Col>	
-            		<Col xl={8} xxl={8}>
+            		<Col xl={6} xxl={6}>
             				<h4>{this.state.data.name}</h4>
-            				<p><label>报警对象：<span>{this.state.data.objtext}</span></label></p>
+            				<p><label>报警对象：<span>{this.state.data.tags}</span></label></p>
             				<p><label>围界信息: <Switch size='small' checked={this.state.field} onChange={(checked)=>this.onChange(checked,'field')} /></label></p>
             				<p><label>报警信息: <Switch size='small' checked={this.state.obj} onChange={(checked)=>this.onChange(checked,'obj')} /></label></p>
             				<p><label>报警时间：<span>{this.state.data.atime}</span></label></p>
