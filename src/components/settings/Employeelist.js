@@ -33,7 +33,7 @@ class Adminteam extends Component {
             }
         })
     }
-    showModalEdit= (code,index,) => {
+    showModalEdit= (code,index) => {
         this.setState({
             visible: true,
             type:code,
@@ -86,14 +86,14 @@ class Adminteam extends Component {
         });
         forms.resetFields();
     };
-    showModaldelete = (code,index,record) =>{ //删除弹层
+    showModaldelete = (code,index) =>{ //删除弹层
         this.setState({
             deleteshow: true,
             index:index,
             code:code
         });
     }
-    deleteOk = (code,index) =>{
+    deleteOk = () =>{
         const data={
             code:this.state.code,
         }
@@ -168,7 +168,7 @@ class Adminteam extends Component {
                             <div>
                                 <Button onClick={()=>_this.showModalEdit(text,record,index)}>查看</Button>
                                 <span className="ant-divider" />
-                                <Button style={this.state.utype?{display:"inline-block"}:{display:"none"}} onClick={()=>_this.showModaldelete(text.code,index,record)}>删除</Button>
+                                <Button style={this.state.utype?{display:"inline-block"}:{display:"none"}} onClick={()=>_this.showModaldelete(text,index)}>删除</Button>
                             </div>
                             )
                         }
@@ -223,9 +223,11 @@ class Adminteam extends Component {
                     </Row>
                 </div>
                 <Modal title={this.state.type?'查看':'新增'}
-                       visible={this.state.visible}
-                       onOk={this.handleCreate}
-                       onCancel={this.handleCancel}
+                    okText='确认'
+                    cancelText='取消'
+                    visible={this.state.visible}
+                    onOk={this.handleCreate}
+                    onCancel={this.handleCancel}
                 >
                     <ModalForm visible={this.state.visible}
                                code={this.state.type}

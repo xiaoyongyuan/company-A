@@ -72,7 +72,7 @@ class Equipment extends React.Component{
                         return(
                             <Col key="i" xxl={{ span: 5}} xs={{ span: 6}}className="cardPdd">
                                 <Card                       
-                                    cover={<img alt="example" src={this.state.camera[i].picpath} />}
+                                    cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath} width='100%' /></a>}
                                      
                                     actions={[
                                         <a href={"#/app/companyhome/setarea?id="+el.code} className="actionsBbottom">
@@ -102,7 +102,9 @@ class Equipment extends React.Component{
                                         </Col>
                                     </Row>
                                     <div className="bell">
-                                    <Icon type="bell" /> <span>{this.state.camera[i].alarm}</span> 
+                                    <a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"} style={{color:'#f00'}}>
+                                        <Icon type="bell" /> <span>{this.state.camera[i].alarm}</span> 
+                                    </a>
                                     </div>
                                 </Card>
                             </Col>
