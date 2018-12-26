@@ -67,7 +67,6 @@ class Userhome extends React.Component{
         }          
    }
    isonlinebg=(i)=>{ //是否在线背景色  
-        console.log(i,"aaaaaaaaaaaaaaaa");
         let time= this.state.camera[i].heart.time.toString();// 取到时间
         let yijingtime=new Date(time); //取到时间转换
         let timq=yijingtime.getTime(yijingtime) // 取到时间戳
