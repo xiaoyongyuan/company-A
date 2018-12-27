@@ -250,7 +250,7 @@ class Alarmlist extends React.Component{
                 <LocaleProvider locale={zh_CN}>
                     <Row style={{marginTop:"50px"}}>
                         <Form onSubmit={this.handleSubmit}>
-                            <Col xl={7} xxl={5}>
+                            <Col xl={7} xxl={5} lg={9}>
                                 <Form.Item
                                     {...formItemLayout}
                                     label="日期"
@@ -268,7 +268,7 @@ class Alarmlist extends React.Component{
                                 )}
                             </Form.Item>
                             </Col>
-                            <Col xl={4} xxl={3}>
+                            <Col xl={4} xxl={3} lg={6}>
                                 <Form.Item>
                                     {getFieldDecorator('range-picker2')(
                                         <DatePicker
@@ -283,7 +283,7 @@ class Alarmlist extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                            <Col xl={5} xxl={4} >
+                            <Col xl={5} xxl={4} lg={6}>
                                 <Form.Item
                                     {...formItemLayout}
                                     label="设备"
@@ -302,10 +302,10 @@ class Alarmlist extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                            <Col xl={3} xxl={2}>
+                            <Col xl={3} xxl={2} lg={3}>
                                 <Button type="primary" htmlType="submit">查询</Button>
                             </Col>
-                            <Col xl={3} xxl={2}>
+                            <Col xl={3} xxl={2} lg={4}>
                                 <Button type="primary" onClick={this.handleProcessing} >一键处理</Button>
                             </Col>
                         </Form>
@@ -317,34 +317,34 @@ class Alarmlist extends React.Component{
                 <Row style={{display:this.state.type===1?"block":"none"}}>
                     {
                         this.state.policeList.map((v,i)=>(
-                            <Col xl={12} xxl={12} style={{marginTop:"40px"}} key={i}>
+                            <Col xl={12} xxl={12} lg={12} style={{marginTop:"40px"}} key={i}>
                                 <Row>
-                                    <Col xl={3} xxl={2}>
+                                    <Col xl={3} xxl={2} lg={3}>
                                         <div className={this.typeBack(v.status)}>
                                             <div className="handle-right" >{this.handleState(v.status)}</div>
                                         </div>
                                     </Col>
-                                    <Col xl={9} xxl={7} className="policeIcon">
+                                    <Col xl={9} xxl={7} lg={9} className="policeIcon">
                                         <div className="pliceImg" onClick={()=>this.alarmImg(v.code)}>
                                             <div className="img"><img src={v.pic_min} alt="" /></div>
                                         </div>
                                         <div className="camera" style={{display:v.videopath>1?"block":"none"}} onClick={this.handleCamera}><Icon type="video-camera" theme="filled" /></div>
                                     </Col>
-                                    <Col xl={11} xxl={12}>
+                                    <Col xl={11} xxl={12} lg={12}>
                                         <div className="policeContext">
                                             <div className="triangle"></div>
                                             <Row className="line-police">
-                                                <Col xl={12} xxl={12} className="policeName">{v.name}</Col>
-                                                <Col xl={12} xxl={12}>{v.atype===1?"入侵检测":""}</Col>
+                                                <Col xl={12} xxl={12} lg={12} className="policeName">{v.name}</Col>
+                                                <Col xl={12} xxl={12} lg={12}>{v.atype===1?"入侵检测":""}</Col>
                                             </Row>
                                             <Row className="line-police">
-                                                <Col xl={12} xxl={12} className="overflow" title={v.atime}>{v.atime}</Col>
-                                                <Col xl={12} xxl={12}>报警对象：{v.tags===""?"无":v.tags}</Col>
+                                                <Col xl={12} xxl={12} lg={12} className="overflow" title={v.atime}>{v.atime}</Col>
+                                                <Col xl={12} xxl={12} lg={12}>报警对象：{v.tags===""?"无":v.tags}</Col>
                                             </Row>
                                             <Row className="line-police" style={{borderTop:"1px solid #efefef",paddingTop:'5px'}}>
-                                                <Col xl={8} xxl={8} ><span onClick={()=>this.alarmdeal(v.code,i,1)} className="cursor"><span className="iconfont icon-queren iconColor2" />&nbsp;确认</span></Col>
-                                                <Col xl={8} xxl={8} ><span onClick={()=>this.alarmdeal(v.code,i,3)} className="cursor"><span className="iconfont icon-baojing iconColor1" />&nbsp;虚警</span></Col>
-                                                <Col xl={8} xxl={8}><span onClick={()=>this.alarmdeal(v.code,i,2)} className="cursor"><span className="iconfont icon-hulve iconColor3" />&nbsp;忽略</span></Col>
+                                                <Col xl={8} xxl={8} lg={8}><span onClick={()=>this.alarmdeal(v.code,i,1)} className="cursor"><span className="iconfont icon-queren iconColor2" />&nbsp;确认</span></Col>
+                                                <Col xl={8} xxl={8} lg={8}><span onClick={()=>this.alarmdeal(v.code,i,3)} className="cursor"><span className="iconfont icon-baojing iconColor1" />&nbsp;虚警</span></Col>
+                                                <Col xl={8} xxl={8} lg={8}><span onClick={()=>this.alarmdeal(v.code,i,2)} className="cursor"><span className="iconfont icon-hulve iconColor3" />&nbsp;忽略</span></Col>
                                             </Row>
                                         </div>
                                     </Col>
