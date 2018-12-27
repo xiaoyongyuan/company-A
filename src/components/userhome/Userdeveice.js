@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Row, Col,Icon } from 'antd';
+import {Form, Row, Col, Button,Icon} from 'antd';
 import '../../style/sjg/home.css';
 import {post} from "../../axios/tools";
 class Userdeveice extends React.Component{
@@ -27,41 +27,53 @@ class Userdeveice extends React.Component{
                     edata:res.edata, 
                     heartdata:res.heartdata, 
                     workingtime:res.workingtime,
-                    ipvalue:res.data.ip,
-                    portvalue:res.data.authport,
+                    ipvalue:res.edata.cameraip,
+                    portvalue:res.edata.cameraportno,
+                    camerauser:res.edata.camerauser,
+                    camerapasswd:res.edata.camerapasswd,
                     code1:this.props.query.id
                 })
             }
         })
     }
     onChangeip=(e)=> {//ip  input 修改ip
+        console.log(e.target.value);
         this.setState({
             ipvalue:e.target.value,
         });
     }
-    onChangeport=(e)=> {//ip  input 修改端口
+    onChangeport=(e)=> {//ip  input 修改
         this.setState({
             portvalue:e.target.value,
         });
     } 
-    inputOnBlurip=(e)=>{ //ip  input 失去焦点
-        post({url:"/api/camera/update",data:{code:this.props.query.id,ip:this.state.ipvalue}}, (res)=>{
-            if(res.success){
-            }
-        })
+    onChangeuser=(e)=> {//user  input 修改
         this.setState({
-            focus: false
+            camerauser:e.target.value,
         });
     }
-    inputOnBlursport=(e)=>{ //端口 input 失去焦点
-        post({url:"/api/camera/update",data:{code:this.props.query.id,authport:this.state.portvalue}}, (res)=>{
+    onChangepwd=(e)=> {//pwd  input 修改
+        this.setState({
+            camerapasswd:e.target.value,
+        });
+    }
+
+    submitbtn = (e) => {//提交
+        console.log('111111');
+        let data={
+            code:this.props.query.id,
+            ip:this.state.ipvalue,
+            ausername:this.state.camerauser,
+            authport:this.state.portvalue,
+            apassword:this.state.camerapasswd,
+        };
+        post({url:"/api/camera/camerareset",data:data}, (res)=>{
             if(res.success){
+               
             }
         })
-        this.setState({
-             focus: false
-             });
-    } 
+    }
+ 
     field=()=>{ //布防区域的个数 
         var jsonData;
         if(this.state.data.field ===""){
@@ -91,7 +103,7 @@ class Userdeveice extends React.Component{
             return "";
         }          
     }
-    isonline=(i)=>{ //当前状态 
+    isonline=()=>{ //当前状态 
         let time= this.state.heartdata.time;// 取到时间
         let yijingtime=new Date(time); //取到时间转换
         let timq=yijingtime.getTime(yijingtime) // 取到时间戳
@@ -101,20 +113,36 @@ class Userdeveice extends React.Component{
             if(timc-timq>60000){
                 return "离线";
             }else{
-                return "在线";
+                return(<span className='oncolor'>在线</span>)
             }    
         }
-   }
+    }
+    tempbg=()=>{ //设备温度
+        if(this.state.heartdata.temp<55){
+            return 'oncolor';
+        }else{
+            return 'reecolor';
+        }
+    }
+    isheart=()=>{ //是否1分钟内心跳 
+        if(this.state.heartdata.time){
+            let time= this.state.heartdata.time.toString();// 取到时间
+            let yijingtime=new Date(time); //取到时间转换
+            let timq=yijingtime.getTime(yijingtime) // 取到时间戳
+            let myDate=new Date();// 当前时间
+            let timc=myDate.getTime(myDate) // 当前时间戳     
+            if(timc-timq>60000){
+                return 'reecolor';            
+            }else{
+                return 'oncolor';
+            }      
+        }else{
+            return 'reecolor';
+        }
+    }
+
     render(){
         const _this=this;
-        function on_port()
-            {
-            document.getElementById('port').focus()
-            }
-        function on_ip()
-            {
-            document.getElementById('ip').focus()
-            }                     
         return(     
             <div style={{backgroundColor:"#fff",padding:"1%"}}>
                 <div className="box-padding"> 
@@ -177,7 +205,8 @@ class Userdeveice extends React.Component{
                            上次心跳：
                         </Col>
                         <Col span={21} className="t_l">
-                        {this.state.heartdata.time}
+                        <span className={this.isheart()}>{this.state.heartdata.time}</span>
+                        
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -185,10 +214,31 @@ class Userdeveice extends React.Component{
                            设备温度：
                         </Col>
                         <Col span={21} className="t_l">
-                        {this.state.heartdata.temp}℃
+                           <span className={this.tempbg()}> {this.state.heartdata.temp}℃ </span> 
                         </Col>
                     </Row>
                     <p><Icon type="video-camera" /> 摄像头信息</p>
+                    <Row className="equ_row">
+                        <Col span={3} className="t_r">
+                            用户名：
+                        </Col>
+                        <Col span={21} className="t_l">
+                              <input type="text"value={this.state.camerauser} id="ip"
+                              onChange={(e)=>this.onChangeuser(e)}
+                              /> 
+                        </Col>
+                    </Row>
+                    <Row className="equ_row">
+                        <Col span={3} className="t_r">
+                           密码：
+                        </Col>
+                        <Col span={21} className="t_l">
+                            <input type="text"value={this.state.camerapasswd}
+                             onChange={(e)=>this.onChangepwd(e)}
+                             id="port"
+                            />      
+                        </Col>
+                    </Row>
                     <Row className="equ_row">
                         <Col span={3} className="t_r">
                            设备IP：
@@ -196,9 +246,7 @@ class Userdeveice extends React.Component{
                         <Col span={21} className="t_l">
                               <input type="text"value={this.state.ipvalue} id="ip"
                               onChange={(e)=>this.onChangeip(e)}
-                              onBlur={(e)=>this.inputOnBlurip(e) }
                               /> 
-                              <span> <Icon type="edit" onClick={on_ip} /></span> 
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -206,12 +254,9 @@ class Userdeveice extends React.Component{
                            设备端口：
                         </Col>
                         <Col span={21} className="t_l">
-                            <input type="text"value={this.state.portvalue}
+                            <input type="text"value={this.state.portvalue} id="port"
                              onChange={(e)=>this.onChangeport(e)}
-                             id="port"
-                             onBlur={(e)=>this.inputOnBlursport(e) } 
                             />      
-                            <span>  <Icon type="edit" onClick={on_port} /></span>
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -244,13 +289,19 @@ class Userdeveice extends React.Component{
                         </Col>
                         <Col span={21} className="t_l">
                            {this.isonline()}
-                         
                         </Col>
                     </Row>
+                    <Form layout="inline"onSubmit={this.submitbtn}>
+                        <Row className="equ_row">
+                            <Col span={3} className="t_r">
+                            </Col>
+                            <Col span={21} className="t_l">
+                            <Button type="primary" htmlType="submit"> 提交 </Button>
+                            </Col>
+                        </Row>
+                    </Form>
                 </div>
             </div>
-
-            
         )
     }
 }
