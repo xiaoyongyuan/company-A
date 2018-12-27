@@ -151,7 +151,7 @@ class Alarmlist extends React.Component{
         const data={
             bdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
             edate:this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
-            cid:this.state.cid,
+            cid:this.state.cid
         };
         this.handleAlerm(data);
     };
@@ -253,7 +253,8 @@ class Alarmlist extends React.Component{
                             <Col xl={7} xxl={5}>
                                 <Form.Item
                                     {...formItemLayout}
-                                    label="日期">
+                                    label="日期"
+                                >
                                 {getFieldDecorator('range-picker1')(
                                     <DatePicker
                                         showTime={{format:"HH"}}
@@ -290,8 +291,8 @@ class Alarmlist extends React.Component{
                                     {getFieldDecorator('residence',{
                                         initialValue:""
                                     } )(
-                                        <Select  style={{ width: 120 }} onChange={this.handleChange}>
-                                            <Option value='' >所有</Option>
+                                        <Select style={{ width: 120 }} onChange={this.handleChange}>
+                                            <Option value="" >所有</Option>
                                             {
                                                 this.state.equipment.map((v,i)=>(
                                                     <Option value={v.code} key={i}>{v.name}</Option>
@@ -310,10 +311,10 @@ class Alarmlist extends React.Component{
                         </Form>
                     </Row>
                 </LocaleProvider>
-                <Row style={{marginTop:"70px",display:this.state.type==0?"block":"none"}}>
-                    <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt=""/></div></Col>
+                <Row style={{marginTop:"70px",display:this.state.type===0?"block":"none"}}>
+                    <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
                 </Row>
-                <Row style={{display:this.state.type==1?"block":"none"}}>
+                <Row style={{display:this.state.type===1?"block":"none"}}>
                     {
                         this.state.policeList.map((v,i)=>(
                             <Col xl={12} xxl={12} style={{marginTop:"40px"}} key={i}>
@@ -325,7 +326,7 @@ class Alarmlist extends React.Component{
                                     </Col>
                                     <Col xl={9} xxl={7} className="policeIcon">
                                         <div className="pliceImg" onClick={()=>this.alarmImg(v.code)}>
-                                            <div className="img"><img src={v.pic_min} alt=""/></div>
+                                            <div className="img"><img src={v.pic_min} alt="" /></div>
                                         </div>
                                         <div className="camera" style={{display:v.videopath>1?"block":"none"}} onClick={this.handleCamera}><Icon type="video-camera" theme="filled" /></div>
                                     </Col>
@@ -334,11 +335,11 @@ class Alarmlist extends React.Component{
                                             <div className="triangle"></div>
                                             <Row className="line-police">
                                                 <Col xl={12} xxl={12} className="policeName">{v.name}</Col>
-                                                <Col xl={12} xxl={12}>{v.atype==1?"入侵检测":""}</Col>
+                                                <Col xl={12} xxl={12}>{v.atype===1?"入侵检测":""}</Col>
                                             </Row>
                                             <Row className="line-police">
                                                 <Col xl={12} xxl={12} className="overflow" title={v.atime}>{v.atime}</Col>
-                                                <Col xl={12} xxl={12}>报警对象：{v.tags==""?"无":v.tags}</Col>
+                                                <Col xl={12} xxl={12}>报警对象：{v.tags===""?"无":v.tags}</Col>
                                             </Row>
                                             <Row className="line-police" style={{borderTop:"1px solid #efefef",paddingTop:'5px'}}>
                                                 <Col xl={8} xxl={8} ><span onClick={()=>this.alarmdeal(v.code,i,1)} className="cursor"><span className="iconfont icon-queren iconColor2" />&nbsp;确认</span></Col>
@@ -352,7 +353,7 @@ class Alarmlist extends React.Component{
                         ))
                     }
                 </Row>
-                <Pagination defaultCurrent={this.state.page} current={this.state.page} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} style={{width:"100%",textAlign:"center",display:this.state.type==1?"block":"none"}}/>
+                <Pagination defaultCurrent={this.state.page} current={this.state.page} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} style={{width:"100%",textAlign:"center",display:this.state.type===1?"block":"none"}} />
                 <Modal
                     title="播放视频"
                     visible={this.state.visible}
@@ -393,7 +394,7 @@ class Alarmlist extends React.Component{
                         onCancel={this.handleCancelAlarmImg}
                         footer={null}
                     >
-                    <Alarmdetails visible={this.state.alarmImgType} toson={this.state.toson}/>
+                    <Alarmdetails visible={this.state.alarmImgType} toson={this.state.toson} />
                     </Modal>
                 </div>
             </div>
