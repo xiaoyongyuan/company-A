@@ -83,9 +83,9 @@ class Equipment extends React.Component{
                     {
                     this.state.camera.map((el,i)=>{
                         return(
-                            <Col key="i" xxl={{ span: 5}} xs={{ span: 6}}className="cardPdd">
+                            <Col key={i} xxl={{ span: 5}} xs={{ span: 6}}className="cardPdd">
                                 <Card                       
-                                    cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath} width='100%' /></a>}
+                                    cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath} width="100%" /></a>}
                                     actions={[
                                         <a href={"#/app/companyhome/setarea?id="+el.code} className="actionsBbottom">
                                              <p> {this.field(i)}条 

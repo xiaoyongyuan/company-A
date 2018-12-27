@@ -172,7 +172,7 @@ class Alarmdetails extends React.Component{
       							  <Button type="primary" onClick={()=>this.looknew('prev')} disabled={this.state.prev?false:true}>
       								<Icon type="left" />上一条
       							  </Button>
-      							  <Button type="primary" onClick={()=>this.looknew('next')}  disabled={this.state.next?false:true}>
+      							  <Button type="primary" onClick={()=>this.looknew('next')} disabled={this.state.next?false:true}>
       								下一条<Icon type="right" />
       							  </Button>
       							</ButtonGroup>
@@ -181,12 +181,12 @@ class Alarmdetails extends React.Component{
             		<Col xl={6} xxl={9}>
             				<h4>{this.state.data.name}</h4>
             				<p><label>报警对象：<span>{this.state.data.tags}</span></label></p>
-            				<p><label>围界信息: <Switch size='small' checked={this.state.field} onChange={(checked)=>this.onChange(checked,'field')} /></label></p>
-            				<p><label>报警信息: <Switch size='small' checked={this.state.obj} onChange={(checked)=>this.onChange(checked,'obj')} /></label></p>
+            				<p><label>围界信息: <Switch size="small" checked={this.state.field} onChange={(checked)=>this.onChange(checked,'field')} /></label></p>
+            				<p><label>报警信息: <Switch size="small" checked={this.state.obj} onChange={(checked)=>this.onChange(checked,'obj')} /></label></p>
             				<p><label>报警时间：<span>{this.state.data.atime}</span></label></p>
                     {/*<p><label>报警结果：<TextArea rows={3} /></label></p>*/}
             				<p><label>处理结果：</label><span>{this.state.typetext}</span></p>
-            				<p><label>处理类型：</label> <Button type="primary"  onClick={()=>this.alarmdeal(1)}>确认</Button> <Button type="primary" onClick={()=>this.alarmdeal(3)}>虚警</Button> <Button type="primary" onClick={()=>this.alarmdeal(2)}>忽略</Button></p>
+            				<p><label>处理类型：</label> <Button type="primary" onClick={()=>this.alarmdeal(1)}>确认</Button> <Button type="primary" onClick={()=>this.alarmdeal(3)}>虚警</Button> <Button type="primary" onClick={()=>this.alarmdeal(2)}>忽略</Button></p>
             		</Col>
             	</Row>
             </div>

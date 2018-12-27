@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import {Row, Col, Card,Button,Carousel  } from 'antd';
+import { Row, Col, Card,Button,Carousel } from 'antd';
 import 'antd/dist/antd.css';
 import { Link } from 'react-router-dom'
 import juyuwang from '../../style/ztt/img/juyuwang.png';
@@ -62,51 +62,51 @@ class Companyscene extends Component{
         queryString();
     }
     classColor = (state)=>{
-        if(state==1) {
+        if(state === 1) {
             return 'LANCardHeaderColor LANCardHeader';
-        }else if(state==2) {
+        }else if(state === 2) {
             return 'LANCardHeaderColor2 LANCardHeader';
-        }else if(state==3){
+        }else if(state === 3){
             return 'LANCardHeaderColor3 LANCardHeader';
-        }else if(state==4){
+        }else if(state === 4){
             return 'LANCardHeaderColor4 LANCardHeader';
         }
     }
     fontColor = (state)=>{
-        if(state==1) {
+        if(state === 1) {
             return 'titleColor jiYu_font listContext';
-        }else if(state==2) {
+        }else if(state === 2) {
             return 'titleColor2 jiYu_font listContext';
-        }else if(state==3){
+        }else if(state === 3){
             return 'titleColor3 jiYu_font listContext';
-        }else if(state==4){
+        }else if(state === 4){
             return 'titleColor2 jiYu_font listContext';
         }
     }
     imgs = (state)=>{
-        if(state==1) {
+        if(state === 1) {
             return shipin;
-        }else if(state==2) {
+        }else if(state === 2) {
             return noshipin;
-        }else if(state==3){
+        }else if(state === 3){
             return policeShipin;
-        }else if(state==4){
+        }else if(state === 4){
             return shipin;
         }
     }
     imgIcon = (state)=>{
-        if(state==1) {
+        if(state === 1) {
             return defenceDisplay;
-        }else if(state==2) {
+        }else if(state === 2) {
             return defenceHide;
-        }else if(state==3){
+        }else if(state === 3){
             return calPolice;
-        }else if(state==4){
+        }else if(state === 4){
             return defenceDisplay;
         }
     }
     LANstate = (state)=>{
-        if(state==4){
+        if(state === 4){
             return "Lanstate"
         }
     }
@@ -242,11 +242,11 @@ class Companyscene extends Component{
                                                     </Col>
                                                 </a>
                                                 {item.if_cancel
-                                                    ?   <div>
+                                                    ?<div>
                                                             <Col xl={8} xxl={8}>
                                                                 <Row>
                                                                     <Col xl={5} xxl={5} offset={1}>
-                                                                        <div className="defence"><img src={defenceDisplay} alt=""/></div>
+                                                                        <div className="defence"><img src={defenceDisplay} alt="" /></div>
                                                                     </Col>
                                                                     <Col xl={12} xxl={15}>布防中</Col>
                                                                 </Row>
@@ -260,12 +260,12 @@ class Companyscene extends Component{
                                                                 </Row>
                                                                 <Row>
                                                                     <Col xl={17} xxl={17} offset={5} className="line title_color">
-                                                                        <div className="sceneIcon"><img src={shipin} alt=""/></div>
+                                                                        <div className="sceneIcon"><img src={shipin} alt="" /></div>
                                                                     </Col>
                                                                 </Row>
                                                             </Col>
                                                         </div>
-                                                    :   <div>
+                                                    :<div>
                                                             <Col xl={16} xxl={16}>
                                                             <div style={{textAlign:"center",color:"#f00",width:"100%",fontSize:"1.5em"}}>禁用</div>
                                                             </Col>

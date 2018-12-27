@@ -27,8 +27,8 @@ export const receiveData = (data, category) => ({
 //     dispatch(requestData(stateName));
 //     return http[funcName](params).then(res => dispatch(receiveData(res, stateName)));
 // };
-
-export const fetchData = ({funcName, url, params, stateName}) => dispatch => {   //lff  登录在用
+//lff登录在用
+export const fetchData = ({funcName, url, params, stateName}) => dispatch => {
 		console.log('sss',params)
     !stateName && (stateName = funcName); 
     dispatch(requestData(stateName));
@@ -48,10 +48,10 @@ export const fetchData = ({funcName, url, params, stateName}) => dispatch => {  
 
 
     axios.post('http://login.aokecloud.cn'+url,params).then(res => {
-      if(res.data.success==1){
+      if(res.data.success===1){
         dispatch(receiveData(res.data, stateName))
         return res.data
-      }else if(res.data.success==2){
+      }else if(res.data.success===2){
         message.warn(res.data.errorinfo);
       }else{
         message.warn(res.data.errorinfo);
