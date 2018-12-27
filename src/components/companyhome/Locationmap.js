@@ -503,7 +503,7 @@ const option = {
 };*/
 class Locationmap extends Component {
     onByModelClick = (e)=>{
-        if(e.componentType=="series"){
+        if(e.componentType === "series"){
             window.location.href="#/app/companyhome/companyscene?code="+this.props.codeID
         }
     }

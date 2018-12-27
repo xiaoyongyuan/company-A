@@ -7,8 +7,8 @@ import queryString from 'query-string';
 
 export default class CRouter extends Component {
     requireAuth = (permission, component) => {
-        const { auth } = this.props;
-        const { permissions } = auth.data;
+        // const { auth } = this.props;
+        // const { permissions } = auth.data;
         
         // const { auth } = store.getState().httpData;
         // if (!permissions || !permissions.includes(permission)) return <Redirect to={'404'} />;

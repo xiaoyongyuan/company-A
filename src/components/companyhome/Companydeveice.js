@@ -1,11 +1,10 @@
 import React,{ Component } from 'react';
-import {Row, Col, Tabs,Button,Icon,Table,Modal,Input, Switch } from 'antd';
+import {Row, Col, Tabs,Button,Icon,Table,Modal,Input } from 'antd';
 import house from "../../style/ztt/img/house.jpg";
 import camera from "../../style/ztt/img/camera.png";
 import '../../style/ztt/css/Companyhome.css';
-import axios from "axios";
 import {post} from "../../axios/tools";
-import {url,queryString} from "../../utils/index";
+import {url} from "../../utils/index";
 
 const usertype=JSON.parse(localStorage.getItem('user'));
 const TabPane = Tabs.TabPane;

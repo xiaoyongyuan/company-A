@@ -150,7 +150,7 @@ class Setarea extends Component {
                 title: '状态',
                 dataIndex: 'cwstatus',
                 key: 'cwstatus',
-                render: (text, record) => {
+                render: (text) => {
                     switch(text){
                         case 1:
                             return ('开启');
@@ -158,7 +158,7 @@ class Setarea extends Component {
                             return ('关闭');
                             break;
                     }
-                },
+                }
             },
             {
                 title: '操作',
@@ -195,7 +195,7 @@ class Setarea extends Component {
 
         function disabledHours() {
             let hours = newArray(0, 60);
-            if(times== '00'){
+            if(times === '00'){
                 hours.splice(times,24-times);
             }else{
                 console.log(times,parseInt(times),parseInt(times)+1)

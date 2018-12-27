@@ -162,7 +162,7 @@ class Adminteam extends Component {
                 key: 'code',
                 dataIndex: 'code',
                 render: (text,record,index) => {
-                    if(usertype.utype==0){
+                    if(usertype.utype === 0){
                         if(record.utype){
                             return( 
                             <div>
@@ -223,8 +223,8 @@ class Adminteam extends Component {
                     </Row>
                 </div>
                 <Modal title={this.state.type?'查看':'新增'}
-                    okText='确认'
-                    cancelText='取消'
+                    okText="确认"
+                    cancelText="取消"
                     visible={this.state.visible}
                     onOk={this.handleCreate}
                     onCancel={this.handleCancel}
