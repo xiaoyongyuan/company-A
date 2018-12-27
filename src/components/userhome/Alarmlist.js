@@ -205,6 +205,9 @@ class Alarmlist extends React.Component{
         if (!endValue || !startValue) {
             return false;
         }
+
+
+        
         return endValue.valueOf() <= startValue.valueOf();
     };
     //开始时间
