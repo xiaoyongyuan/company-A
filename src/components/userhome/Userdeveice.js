@@ -37,6 +37,7 @@ class Userdeveice extends React.Component{
         })
     }
     onChangeip=(e)=> {//ip  input 修改ip
+        console.log(e.target.value);
         this.setState({
             ipvalue:e.target.value,
         });
@@ -58,10 +59,7 @@ class Userdeveice extends React.Component{
     }
 
     submitbtn = (e) => {//提交
-
-
         console.log('111111');
-        
         let data={
             code:this.props.query.id,
             ip:this.state.ipvalue,
@@ -113,11 +111,9 @@ class Userdeveice extends React.Component{
         let timc=myDate.getTime(myDate) // 当前时间戳
         if(time){
             if(timc-timq>60000){
-               
                 return "离线";
             }else{
                 return(<span className='oncolor'>在线</span>)
-                
             }    
         }
     }
@@ -222,10 +218,6 @@ class Userdeveice extends React.Component{
                         </Col>
                     </Row>
                     <p><Icon type="video-camera" /> 摄像头信息</p>
-                   
-
-                  
-
                     <Row className="equ_row">
                         <Col span={3} className="t_r">
                             用户名：
@@ -301,6 +293,7 @@ class Userdeveice extends React.Component{
                     </Row>
                     <Row className="equ_row">
                         <Col span={3} className="t_r">
+                        
                         </Col>
                         <Col span={21} className="t_l">
                         <Button type="primary" onClick={this.submitbtn()}> 提交 </Button>
