@@ -96,6 +96,15 @@
 .stateBackground4{
     background: #5DCB9A;
 }
+.iconColor1{
+    color:#FB7575;
+}
+.iconColor2{
+    color:#5DCB9A;
+}
+.iconColor3{
+    color:#C0C0C0;
+}
 /*省略号*/
 .overflow{
     overflow: hidden;

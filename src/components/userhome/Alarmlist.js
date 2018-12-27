@@ -1,10 +1,12 @@
 import React from 'react';
-import { DatePicker, Row, Col, Select, Button, Icon, Modal, Pagination, Form, message } from "antd";
+import { DatePicker, Row, Col, Select, Button, Icon, Modal, Pagination, Form, message,LocaleProvider  } from "antd";
 import "../../style/ztt/css/police.css";
+import zh_CN from 'antd/lib/locale-provider/zh_CN';
+import 'moment/locale/zh-cn';
 import {post} from "../../axios/tools";
 import Alarmdetails from "./Alarmdetails";
 import nodata from "../../style/imgs/nodata.png";
-import moment from "moment";
+import "../../style/ztt/img/plioce/iconfont.css";
 const Option = Select.Option;
 const formItemLayout = {
     labelCol: {
@@ -242,67 +244,69 @@ class Alarmlist extends React.Component{
         const { getFieldDecorator } = this.props.form;
         return(
             <div>
-                <Row style={{marginTop:"50px"}}>
-                    <Form onSubmit={this.handleSubmit}>
-                        <Col xl={7} xxl={5}>
-                            <Form.Item
-                                {...formItemLayout}
-                                label="日期">
-                            {getFieldDecorator('range-picker1')(
-                                <DatePicker
-                                    showTime={{format:"HH"}}
-                                    format="YYYY-MM-DD HH:00:00"
-                                    placeholder="开始时间"
-                                    setFieldsValue={this.state.bdate}
-                                    onChange={this.onChange1}
-                                    disabledDate={this.disabledStartDate}
-                                    onOpenChange={this.handleStartOpenChange}
-                                />
-                            )}
-                        </Form.Item>
-                        </Col>
-                        <Col xl={4} xxl={3}>
-                            <Form.Item>
-                                {getFieldDecorator('range-picker2')(
+                <LocaleProvider locale={zh_CN}>
+                    <Row style={{marginTop:"50px"}}>
+                        <Form onSubmit={this.handleSubmit}>
+                            <Col xl={7} xxl={5}>
+                                <Form.Item
+                                    {...formItemLayout}
+                                    label="日期">
+                                {getFieldDecorator('range-picker1')(
                                     <DatePicker
                                         showTime={{format:"HH"}}
                                         format="YYYY-MM-DD HH:00:00"
-                                        placeholder="结束时间"
-                                        setFieldsValue={this.state.edate}
-                                        onChange={this.onChange2}
-                                        disabledDate={this.disabledEndDate}
-                                        onOpenChange={this.handleEndOpenChange}
+                                        placeholder="开始时间"
+                                        setFieldsValue={this.state.bdate}
+                                        onChange={this.onChange1}
+                                        disabledDate={this.disabledStartDate}
+                                        onOpenChange={this.handleStartOpenChange}
                                     />
                                 )}
                             </Form.Item>
-                        </Col>
-                        <Col xl={5} xxl={4} >
-                            <Form.Item
-                                {...formItemLayout}
-                                label="设备"
-                            >
-                                {getFieldDecorator('residence',{
-                                    initialValue:""
-                                } )(
-                                    <Select  style={{ width: 120 }} onChange={this.handleChange}>
-                                        <Option value='' >所有</Option>
-                                        {
-                                            this.state.equipment.map((v,i)=>(
-                                                <Option value={v.code} key={i}>{v.eid}</Option>
-                                            ))
-                                        }
-                                    </Select>
-                                )}
-                            </Form.Item>
-                        </Col>
-                        <Col xl={3} xxl={2}>
-                            <Button type="primary" htmlType="submit">查询</Button>
-                        </Col>
-                        <Col xl={3} xxl={2}>
-                            <Button type="primary" onClick={this.handleProcessing}>一键处理</Button>
-                        </Col>
-                    </Form>
-                </Row>
+                            </Col>
+                            <Col xl={4} xxl={3}>
+                                <Form.Item>
+                                    {getFieldDecorator('range-picker2')(
+                                        <DatePicker
+                                            showTime={{format:"HH"}}
+                                            format="YYYY-MM-DD HH:00:00"
+                                            placeholder="结束时间"
+                                            setFieldsValue={this.state.edate}
+                                            onChange={this.onChange2}
+                                            disabledDate={this.disabledEndDate}
+                                            onOpenChange={this.handleEndOpenChange}
+                                        />
+                                    )}
+                                </Form.Item>
+                            </Col>
+                            <Col xl={5} xxl={4} >
+                                <Form.Item
+                                    {...formItemLayout}
+                                    label="设备"
+                                >
+                                    {getFieldDecorator('residence',{
+                                        initialValue:""
+                                    } )(
+                                        <Select  style={{ width: 120 }} onChange={this.handleChange}>
+                                            <Option value='' >所有</Option>
+                                            {
+                                                this.state.equipment.map((v,i)=>(
+                                                    <Option value={v.code} key={i}>{v.eid}</Option>
+                                                ))
+                                            }
+                                        </Select>
+                                    )}
+                                </Form.Item>
+                            </Col>
+                            <Col xl={3} xxl={2}>
+                                <Button type="primary" htmlType="submit">查询</Button>
+                            </Col>
+                            <Col xl={3} xxl={2}>
+                                <Button type="primary" onClick={this.handleProcessing} >一键处理</Button>
+                            </Col>
+                        </Form>
+                    </Row>
+                </LocaleProvider>
                 <Row style={{marginTop:"70px",display:this.state.type==0?"block":"none"}}>
                     <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt=""/></div></Col>
                 </Row>
@@ -334,9 +338,9 @@ class Alarmlist extends React.Component{
                                                 <Col xl={12} xxl={12}>报警对象：{v.tags==""?"无":v.tags}</Col>
                                             </Row>
                                             <Row className="line-police" style={{borderTop:"1px solid #efefef",paddingTop:'5px'}}>
-                                                <Col xl={8} xxl={8} ><span onClick={()=>this.alarmdeal(v.code,i,1)} className="cursor"><Icon type="redo" />确认</span></Col>
-                                                <Col xl={8} xxl={8} ><span onClick={()=>this.alarmdeal(v.code,i,3)} className="cursor"><Icon type="redo" />虚报</span></Col>
-                                                <Col xl={8} xxl={8}><span onClick={()=>this.alarmdeal(v.code,i,2)} className="cursor"><Icon type="redo" />忽略</span></Col>
+                                                <Col xl={8} xxl={8} ><span onClick={()=>this.alarmdeal(v.code,i,1)} className="cursor"><span className="iconfont icon-queren iconColor2" />&nbsp;确认</span></Col>
+                                                <Col xl={8} xxl={8} ><span onClick={()=>this.alarmdeal(v.code,i,3)} className="cursor"><span className="iconfont icon-baojing iconColor1" />&nbsp;虚警</span></Col>
+                                                <Col xl={8} xxl={8}><span onClick={()=>this.alarmdeal(v.code,i,2)} className="cursor"><span className="iconfont icon-hulve iconColor3" />&nbsp;忽略</span></Col>
                                             </Row>
                                         </div>
                                     </Col>
