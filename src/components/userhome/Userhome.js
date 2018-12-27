@@ -22,7 +22,11 @@ class Userhome extends React.Component{
                 }); 
             }   
         })
-        post({url:'/api/alarm/getlastalarm'},(res)=>{ //获取报警列表
+        this.timerID = setInterval(//5秒更新一次报警列表
+            () => this.tick(),
+            5000
+          );
+          post({url:'/api/alarm/getlastalarm'},(res)=>{ //获取报警列表
             if(res){
                 this.setState({
                     alarmdata:res.data, 
@@ -30,14 +34,26 @@ class Userhome extends React.Component{
             }   
         })
     }
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+      }
+    tick() {
+        post({url:'/api/alarm/getlastalarm'},(res)=>{ //获取报警列表
+            if(res){
+                this.setState({
+                    alarmdata:res.data, 
+                }); 
+            }   
+        })
+      }
+
     statework=(i)=>{ //布防转换     
         if(this.state.camera[i].work===2){
-           return "布防中"
+             return(<span className='oncolor'> <Icon type="clock-circle" /> 布防中</span>)    
         }else if(this.state.camera[i].work===1){
-            return "不在布防中";
-            
+             return(<span> <Icon type="clock-circle" /> 不在布防中</span>)
         }else{
-            return "未设置"           
+            return(<span> <Icon type="clock-circle" /> 未设置</span>)    
         }
     }
     field=(i)=>{ //布防区域的个数 
@@ -59,31 +75,17 @@ class Userhome extends React.Component{
             let yijingtime=new Date(time); //取到时间转换
             let timq=yijingtime.getTime(yijingtime) // 取到时间戳
             let myDate=new Date();// 当前时间
-            let timc=myDate.getTime(myDate) // 当前时间戳
+            let timc=myDate.getTime(myDate) // 当前时间戳     
             if(timc-timq>60000){
-                return(<div className='onLine offLineBack'>离线</div>)
+                return(<div className='onLine offLineBack'>离线</div>)                   
             }else{
                 return(<div className='onLine onLineBack'>在线</div>)
             }
         }else{
-           return(<div className='onLine onLineBack'>在线</div>) 
+           return(<div className='onLine offLineBack'>离线</div>) 
         }
-            
    }
-   isonlinebg=(i)=>{ //是否在线背景色  
-        if(this.state.camera[i].heart.time){
-            var time= this.state.camera[i].heart.time.toString();// 取到时间
-        }
-        let yijingtime=new Date(time); //取到时间转换
-        let timq=yijingtime.getTime(yijingtime) // 取到时间戳
-        let myDate=new Date();// 当前时间
-        let timc=myDate.getTime(myDate) // 当前时间戳
-        if(timc-timq>60000){
-            return "onLine offLineBack";
-        }else{
-            return "onLine onLineBack";
-        }          
-}
+
    atype=(j)=>{ //报警类型 
         if(this.state.alarmdata[j].atype===1){
             return "入侵报警"
@@ -146,11 +148,10 @@ class Userhome extends React.Component{
                                              <p>布防区域 </p> 
                                         </a>,
                                         <a href={"#/app/companyhome/settime?id="+el.code} className="actionsBbottom colCen">
-                                                <Icon type="clock-circle" />
                                                 {this.statework(i)}
                                         </a>, 
                                          <a href={"#/app/userhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
-                                             <Icon type="setting" />
+                                             <Icon type="setting" /> 设置
                                          </a>
                                 ]}
                                 >
