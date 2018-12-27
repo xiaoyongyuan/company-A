@@ -249,6 +249,8 @@ class Userdeveice extends React.Component{
                     </Row>
                 </div>
             </div>
+
+            
         )
     }
 }
