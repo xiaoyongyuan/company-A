@@ -3,7 +3,7 @@ export default {
         //企业用户
         { key: '/app/companyhome/index', identi:['comp'], title: '首页', icon: 'mobile', component: 'Companyhome' },
         //个人用户总览
-        { key: '/app/Userhome/index',  identi:['user'], title: '总览', icon: 'mobile', component: 'Userhome' },
+        { key: '/app/Userhome/index', identi:['user'], title: '总览', icon: 'mobile', component: 'Userhome' },
         //设备
         { key: '/app/Userhome/Equipment', identi:['user'], title: '设备', icon: 'bars', component: 'Equipment' },
         //报警

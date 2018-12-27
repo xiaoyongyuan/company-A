@@ -19,7 +19,6 @@ class Adminteam extends Component {
         this.requestdata()
         let utypes= localStorage.getItem("user");
         let utypeObj=JSON.parse(utypes);
-
         this.setState({
             utype: utypeObj.utype
         })
@@ -33,7 +32,7 @@ class Adminteam extends Component {
             }
         })
     }
-    showModalEdit= (code,index) => {
+    showModalEdit= (code,index) => { //查看
         this.setState({
             visible: true,
             type:code,
@@ -101,7 +100,6 @@ class Adminteam extends Component {
         list.splice(this.state.index,1);
         post({url:"/api/companyuser/del",data:data}, (res)=>{
             if(res.success){
-
                 this.setState({
                     list:list,
                     deleteshow: false,
@@ -162,12 +160,12 @@ class Adminteam extends Component {
                 key: 'code',
                 dataIndex: 'code',
                 render: (text,record,index) => {
-                    if(usertype.utype === 0){
+                    if(usertype.utype === "0"){
                         if(record.utype){
                             return( 
                             <div>
-                                <Button onClick={()=>_this.showModalEdit(text,record,index)}>查看</Button>
-                                <span className="ant-divider" />
+                                {/* <Button onClick={()=>_this.showModalEdit(text,record,index)}>查看</Button>
+                                <span className="ant-divider" /> */}
                                 <Button style={this.state.utype?{display:"inline-block"}:{display:"none"}} onClick={()=>_this.showModaldelete(text,index)}>删除</Button>
                             </div>
                             )
@@ -189,7 +187,6 @@ class Adminteam extends Component {
                                             required: false,
                                             message: '请输入名称!'
                                         }],
-
                                     })( 
                                         <Input />
                                     )}
@@ -222,7 +219,7 @@ class Adminteam extends Component {
                         <Table columns={columns} dataSource={this.state.list} />
                     </Row>
                 </div>
-                <Modal title={this.state.type?'查看':'新增'}
+                <Modal title='新增'
                     okText="确认"
                     cancelText="取消"
                     visible={this.state.visible}
@@ -235,11 +232,8 @@ class Adminteam extends Component {
                                wrappedComponentRef={(form) => this.formRef = form}
                     />
                 </Modal>
-
-
-
                 <Modal title="提示信息" visible={this.state.deleteshow} onOk={this.deleteOk}
-                       onCancel={this.deleteCancel} 
+                       onCancel={this.deleteCancel} okText="确认" cancelText="取消"
                 >
                     <p>确认删除吗？</p>
                 </Modal>

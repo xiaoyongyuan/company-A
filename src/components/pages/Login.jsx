@@ -5,9 +5,8 @@ import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchData, receiveData } from '@/action';  //action->index按需取
+import { fetchData, receiveData } from '@/action'; //action->index按需取
 import bg from '../../style/imgs/bg.jpg';
-import axios from 'axios';
 
 const FormItem = Form.Item;
 class Login extends React.Component {
@@ -22,7 +21,7 @@ class Login extends React.Component {
             localStorage.setItem('user', JSON.stringify(nextAuth.data.data));
             localStorage.setItem('comid', nextAuth.data.data.companycode);
             localStorage.setItem('account', nextAuth.data.data.account);
-            if(nextAuth.data.data.ctype=='5'){
+            if(nextAuth.data.data.ctype==='5'){
                 history.push('/app/userhome/index');
             }else{
                 history.push('/app/companyhome/index');
@@ -47,21 +46,23 @@ class Login extends React.Component {
             <div className="login" style={{backgroundImage: 'url(' + bg + ')'}}>
                 <div className="login-form" >
                     <div className="login-logo">
-                        <span>Login</span>
+                        <span>用户登录</span>
                     </div>
                     <Form onSubmit={this.handleSubmit} style={{maxWidth: '300px'}}>
                         <FormItem>
                             {getFieldDecorator('account', {
-                                rules: [{ required: true, message: '请输入用户名!' }],
+                                rules: [{ required: true, message: '请输入用户名!',
+                                    pattern: new RegExp(/^1(3|4|5|7|8)\d{9}$/, "g")
+                                 }],
                             })(
-                                <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="13111111111" />
+                                <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入用户名" />
                             )}
                         </FormItem>
                         <FormItem>
                             {getFieldDecorator('password', {
                                 rules: [{ required: true, message: '请输入密码!' }],
                             })(
-                                <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="888888" />
+                                <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请输入密码" />
                             )}
                         </FormItem>
                         <FormItem>
