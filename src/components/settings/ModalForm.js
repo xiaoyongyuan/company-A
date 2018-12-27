@@ -37,9 +37,9 @@ class ModalForm extends Component {
         if(this.state.code){
             post({url:"/api/companyuser/getone",data:{code:this.state.code} }, (res)=>{
                     this.props.form.setFieldsValue({
-                    realname: `${res.data.realname}`,
+                    // realname: `${res.data.realname}`,
                     account: `${res.data.account}`,
-                    emailaddress: `${res.data.emailaddress}`,
+                    // emailaddress: `${res.data.emailaddress}`,
                     });
             })
         }
@@ -58,7 +58,7 @@ class ModalForm extends Component {
         // const plainOptions = ['Apple', 'Pear', 'Orange']; //分組
         return (
             <Form layout="vertical" onSubmit={this.handleSubmit}>
-                <FormItem label="账号">
+                <FormItem label="账号(手机号)">
                     {getFieldDecorator('account', {
                         rules: [{
                             required: true, message: '请输入手机号!',
@@ -68,7 +68,7 @@ class ModalForm extends Component {
                         <Input disabled={this.state.code?true:false} />
                     )}
                 </FormItem>
-                <FormItem label="姓名">
+                {/*<FormItem label="姓名">
                     {getFieldDecorator('realname', {
                         rules: [{ required: true, message: '请输入姓名!' }],
                     })(
@@ -84,7 +84,7 @@ class ModalForm extends Component {
                     })(
                         <Input />
                     )}
-                </FormItem>
+                </FormItem>*/}
             </Form>
 
         )
