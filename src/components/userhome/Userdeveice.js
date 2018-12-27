@@ -293,7 +293,6 @@ class Userdeveice extends React.Component{
                     </Row>
                     <Row className="equ_row">
                         <Col span={3} className="t_r">
-                        
                         </Col>
                         <Col span={21} className="t_l">
                         <Button type="primary" onClick={this.submitbtn()}> 提交 </Button>
