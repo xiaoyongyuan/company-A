@@ -2,6 +2,7 @@ import React from 'react';
 import { Card ,Row, Col,Timeline, Icon, } from 'antd';
 import '../../style/sjg/home.css';
 import {post} from "../../axios/tools";
+import nopic from "../../style/imgs/nopic.png";
 class Userhome extends React.Component{
     constructor(props){
       super(props);
@@ -140,7 +141,7 @@ class Userhome extends React.Component{
                         return (
                             <Col key={'col'+i} xxl={{ span: 5}} xs={{ span: 6}} className="cardPdd">
                                 <Card                       
-                                    cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath} width="100%" /></a>}
+                                    cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath?this.state.camera[i].picpath:nopic} width="100%" /></a>}
                                     actions={
                                         this.state.utype==='1'
                                         ?[

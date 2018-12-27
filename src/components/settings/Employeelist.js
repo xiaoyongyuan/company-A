@@ -210,7 +210,7 @@ class Adminteam extends Component {
                             </Form>
                         </Col>
                         <Col span={2}>
-                            <Button style={this.state.utype?{display:"inline-block"}:{display:"none"}}type="primary" onClick={this.showModal}>新增</Button>
+                            <Button style={this.state.utype?{display:"inline-block"}:{display:"none"}} onClick={this.showModal}>新增</Button>
 
                         </Col>
 
