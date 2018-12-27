@@ -69,7 +69,7 @@ class Userhome extends React.Component{
         }
         return count;
     }
-    isonline=(i)=>{ //是否在线  
+    isonline=(i)=>{ //是否在线
         if(this.state.camera[i]&&this.state.camera[i].heart.time){
             let time= this.state.camera[i].heart.time.toString();// 取到时间
             let yijingtime=new Date(time); //取到时间转换
@@ -80,7 +80,7 @@ class Userhome extends React.Component{
                 return(<div className='onLine offLineBack'>离线</div>)                   
             }else{
                 return(<div className='onLine onLineBack'>在线</div>)
-            }      
+            }
         }else{
            return(<div className='onLine offLineBack'>离线</div>) 
         }

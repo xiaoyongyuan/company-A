@@ -96,6 +96,15 @@
 .stateBackground4{
     background: #5DCB9A;
 }
+.iconColor1{
+    color:#FB7575;
+}
+.iconColor2{
+    color:#5DCB9A;
+}
+.iconColor3{
+    color:#C0C0C0;
+}
 /*省略号*/
 .overflow{
     overflow: hidden;
@@ -105,5 +114,21 @@
 .cursor{
     cursor: pointer;
 }
+.pageSize{
+    width:100%;
+    text-align:center;
+    margin-top: 70px;
+}
 
+/*设备详情*/
+.alarmflex{
+    display:flex;
+    width: 100%;
+}
+.flexleft{
+    width:706px;
+}
 
+.flexright{
+    padding-left:10px;
+}

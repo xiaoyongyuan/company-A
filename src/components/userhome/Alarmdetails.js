@@ -51,7 +51,6 @@ class Alarmdetails extends React.Component{
       },()=>{
         this.draw();
         this.typetext()
-
       });
     })
 
@@ -73,22 +72,28 @@ class Alarmdetails extends React.Component{
 
   typetext=()=>{//处理状态显示
   	let text=''; 
+    let color=''; 
   	switch(this.state.data.type){
   		case 1:
   			text='确认';
+        color='rgb(93,203,154)'
   			break;
   		case 2:
   			text='忽略';
+        color='#444'
   			break;
   		case 3:
   			text='虚警';
+        color='rgb(251, 117, 117)'
   			break;
       default:
         text='未处理';
+        color='rgb(247, 195, 93)'
         break;
   	}
   	this.setState({
   		typetext:text,
+      color:color,
   	})
   }
   onChange=(checked,text)=>{ //控制显示围界与对象
@@ -179,13 +184,13 @@ class Alarmdetails extends React.Component{
             			</div>
             		</Col>	
             		<Col xl={6} xxl={9}>
-            				<h4>{this.state.data.name}</h4>
+            				<h4><b>{this.state.data.name}</b></h4>
             				<p><label>报警对象：<span>{this.state.data.tags}</span></label></p>
             				<p><label>围界信息: <Switch size="small" checked={this.state.field} onChange={(checked)=>this.onChange(checked,'field')} /></label></p>
             				<p><label>报警信息: <Switch size="small" checked={this.state.obj} onChange={(checked)=>this.onChange(checked,'obj')} /></label></p>
             				<p><label>报警时间：<span>{this.state.data.atime}</span></label></p>
                     {/*<p><label>报警结果：<TextArea rows={3} /></label></p>*/}
-            				<p><label>处理结果：</label><span>{this.state.typetext}</span></p>
+            				<p><label>处理结果：</label><span style={{color:this.state.color}}>{this.state.typetext}</span></p>
             				<p><label>处理类型：</label> <Button type="primary" onClick={()=>this.alarmdeal(1)}>确认</Button> <Button type="primary" onClick={()=>this.alarmdeal(3)}>虚警</Button> <Button type="primary" onClick={()=>this.alarmdeal(2)}>忽略</Button></p>
             		</Col>
             	</Row>
