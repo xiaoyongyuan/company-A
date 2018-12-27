@@ -353,7 +353,7 @@ class Alarmlist extends React.Component{
                         ))
                     }
                 </Row>
-                <Pagination defaultCurrent={this.state.page} current={this.state.page} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} style={{width:"100%",textAlign:"center",display:this.state.type===1?"block":"none"}} />
+                <Pagination defaultCurrent={this.state.page} current={this.state.page} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} className="pageSize" style={{display:this.state.type===1?"block":"none"}} />
                 <Modal
                     title="播放视频"
                     visible={this.state.visible}
