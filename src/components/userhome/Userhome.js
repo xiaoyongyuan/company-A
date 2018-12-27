@@ -12,7 +12,15 @@ class Userhome extends React.Component{
         alarmdata:[]
       };
     }
-    componentDidMount() {        
+    componentDidMount() { 
+        let utypes= localStorage.getItem("user");
+        let utypeObj=JSON.parse(utypes);
+        this.setState({
+            utype: utypeObj.utype
+        },()=>{
+            
+        })
+        this.inter()      
         post({url:'/api/company/getone'},(res)=>{ //获取团队列表
             if(res){
                 this.setState({
@@ -22,6 +30,12 @@ class Userhome extends React.Component{
                 }); 
             }   
         })
+        const _this=this;
+        this.timerID = setInterval(
+            () => this.inter(),5000);
+           
+    }
+    inter(){
         post({url:'/api/alarm/getlastalarm'},(res)=>{ //获取报警列表
             if(res){
                 this.setState({
@@ -32,12 +46,11 @@ class Userhome extends React.Component{
     }
     statework=(i)=>{ //布防转换     
         if(this.state.camera[i].work===2){
-           return "布防中"
+            return (<span style={{color:'#5dcb9a'}}>布防中</span>)
         }else if(this.state.camera[i].work===1){
-            return "不在布防中";
-            
+            return (<span style={{color:'#666'}}>不在布防中</span>)
         }else{
-            return "未设置"           
+            return (<span style={{color:'#666'}}>未设置</span>)          
         }
     }
     field=(i)=>{ //布防区域的个数 
@@ -101,15 +114,15 @@ class Userhome extends React.Component{
                  <Row>
                     <Col span={23} className="paddL">
                       <Card 
-                            title={this.state.data.cname} style={styleObj.topMar}                         
+                            title={this.state.data.cname} style={styleObj.topMar} extra={this.state.alarmdata.length===5?<a href="#/app/userhome/Alarmlist">更多报警</a>:''}                        
                       >
                             <Row>
                                 <Col span={12}>                             
-                                   <p>云服务到期日期: <span>{this.state.data.cloudvaliddate?this.state.data.cloudvaliddate:'未开通'}</span></p>
+                                   <p>云服务到期日期: <span>{this.state.data.cloudvaliddate?this.state.data.cloudvaliddate:'无期限'}</span></p>
                                    <p>设备总数: <span>{this.state.camera.length?this.state.camera.length:0}个</span></p>
-                                   <p>所属团队: <span>{this.state.data.pname?this.state.data.pname:"不存在"}</span></p>
+                                   <p>所属团队: <span>{this.state.data.pname?this.state.data.pname:"未绑定"}</span></p>
                                    <p>用户数: <span> {this.state.usercount?this.state.usercount:0}</span></p>
-                                   <p>管理员名称: <span>{this.state.data.adminname?this.state.data.adminname:"不存在"}</span></p>
+                                   <p>管理员: <span>{this.state.data.adminname?this.state.data.adminname:"********"}</span></p>
                                 </Col>
                                 <Col span={12}>
                                     <Timeline>
@@ -136,23 +149,38 @@ class Userhome extends React.Component{
                 {
                     this.state.camera.map((el,i)=>{
                         return (
-                            <Col key={'col'+i} xxl={{ span: 5}} xs={{ span: 6}}className="cardPdd">
+                            <Col key={'col'+i} xxl={{ span: 5}} xs={{ span: 6}} className="cardPdd">
                                 <Card                       
                                     cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath} width="100%" /></a>}
-                                    actions={[
+                                    actions={
+                                        this.state.utype==='1'
+                                        ?[
+                                        <div className="actionsBbottom">
+                                             <p> {this.field(i)}条 
+                                             </p>
+                                             <p>布防区域 </p> 
+                                        </div>,
+                                        <div className="actionsBbottom colCen">
+                                                <Icon type="clock-circle" /> {this.statework(i)}
+                                        </div>, 
+                                         <div className="colCen actionsBbottom ">
+                                             <Icon type="setting" /> 设定
+                                         </div>
+                                    ]
+                                    :[
                                         <a href={"#/app/companyhome/setarea?id="+el.code} className="actionsBbottom">
                                              <p> {this.field(i)}条 
                                              </p>
                                              <p>布防区域 </p> 
                                         </a>,
                                         <a href={"#/app/companyhome/settime?id="+el.code} className="actionsBbottom colCen">
-                                                <Icon type="clock-circle" />
-                                                {this.statework(i)}
+                                                <Icon type="clock-circle" /> {this.statework(i)}
                                         </a>, 
                                          <a href={"#/app/userhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
-                                             <Icon type="setting" />
+                                             <Icon type="setting" /> 设定
                                          </a>
-                                ]}
+                                    ]
+                                }
                                 >
                                     <Row className="paddRow">  
                                         <Col xxl={{ span:6}} xs={{ span: 6}}>
@@ -160,12 +188,12 @@ class Userhome extends React.Component{
                                         </Col>
                                         <Col xxl={{ span: 18}} xs={{ span: 18}} className="titcon">
                                            <p>{el.location}</p> 
-                                           <p>{el.eid}</p>
+                                           <p>编号：{el.eid}</p>
                                         </Col>
                                     </Row>
                                     <div className="bell">
                                     <a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"} style={{color:'#f00'}}>
-                                        <Icon type="bell" /> <span>{this.state.camera[i].alarm}</span> 
+                                        <Icon type="bell" /> <span>{this.state.camera[i].alarm} </span> 
                                     </a>
                                     </div>
                                 </Card>

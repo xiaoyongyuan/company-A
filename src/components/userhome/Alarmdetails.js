@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col,Button, Switch, Icon } from 'antd';
 import {post} from "../../axios/tools";
+import "../../style/ztt/css/police.css";
 const ButtonGroup = Button.Group;
 let vis=false;
 class Alarmdetails extends React.Component{
@@ -169,8 +170,8 @@ class Alarmdetails extends React.Component{
     render(){      
         return(
             <div className="alarmDetails">
-            	<Row>
-            		<Col xl={18} xxl={15}>
+            	<div className="alarmflex">
+            		<div className="flexleft">
             			<canvas id="canvasobj" width="704px" height="576px" style={{backgroundImage:'url('+this.state.data.src+')',backgroundSize:"100% 100%"}} />
             			<div style={{textAlign:'center'}}>
             				<ButtonGroup>
@@ -182,8 +183,8 @@ class Alarmdetails extends React.Component{
       							  </Button>
       							</ButtonGroup>
             			</div>
-            		</Col>	
-            		<Col xl={6} xxl={9}>
+            		</div>	
+            		<div className="flexright">
             				<h4><b>{this.state.data.name}</b></h4>
             				<p><label>报警对象：<span>{this.state.data.tags}</span></label></p>
             				<p><label>围界信息: <Switch size="small" checked={this.state.field} onChange={(checked)=>this.onChange(checked,'field')} /></label></p>
@@ -192,8 +193,8 @@ class Alarmdetails extends React.Component{
                     {/*<p><label>报警结果：<TextArea rows={3} /></label></p>*/}
             				<p><label>处理结果：</label><span style={{color:this.state.color}}>{this.state.typetext}</span></p>
             				<p><label>处理类型：</label> <Button type="primary" onClick={()=>this.alarmdeal(1)}>确认</Button> <Button type="primary" onClick={()=>this.alarmdeal(3)}>虚警</Button> <Button type="primary" onClick={()=>this.alarmdeal(2)}>忽略</Button></p>
-            		</Col>
-            	</Row>
+            		</div>
+            	</div>
             </div>
         )
     }

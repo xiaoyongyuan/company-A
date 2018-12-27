@@ -71,17 +71,17 @@ class Setarea extends Component {
                     area.closePath();
                 }
         }else if(this.state.areatwo.length){
-            // let areatwo=this.state.areatwo[0]; 
-            // area.strokeStyle=red;
-            // area.lineWidth=3;
-            // area.beginPath();
-            // area.moveTo(areatwo[0][0],areatwo[0][1]);
-            // area.lineTo(areatwo[1][0],areatwo[1][1]);
-            // area.lineTo(areatwo[2][0],areatwo[2][1]);
-            // area.lineTo(areatwo[3][0],areatwo[3][1]);
-            // area.lineTo(areatwo[0][0],areatwo[0][1]);
-            // area.stroke();
-            // area.closePath();
+            let areatwo=this.state.areatwo[0]; 
+            area.strokeStyle=red;
+            area.lineWidth=3;
+            area.beginPath();
+            area.moveTo(areatwo[0][0],areatwo[0][1]);
+            area.lineTo(areatwo[1][0],areatwo[1][1]);
+            area.lineTo(areatwo[2][0],areatwo[2][1]);
+            area.lineTo(areatwo[3][0],areatwo[3][1]);
+            area.lineTo(areatwo[0][0],areatwo[0][1]);
+            area.stroke();
+            area.closePath();
         }
                
     }
@@ -243,12 +243,12 @@ class Setarea extends Component {
         return (
            <div style={{marginTop:"30px"}}>
                 <Row>
-                    <Col xl={{ span:14}} xxl={{ span: 14 }}>
+                    <Col xl={{ span:16}} xxl={{ span: 14 }}>
                         <div className="photo" id="canvasphoto">
                            <canvas id="time_graph_canvas" width="704px" height="576px" style={{backgroundImage:'url('+this.state.src+')',backgroundSize:'cover'}} onClick={this.clickgetcorrd} onMouseMove={this.drawmove} />
                         </div>
                     </Col>
-                    <Col xl={{ span: 10}} xxl={{ span: 10 }}>
+                    <Col xl={{ span: 8}} xxl={{ span: 10 }}>
                        
                         <div className="clearInfo">
                             <Row>

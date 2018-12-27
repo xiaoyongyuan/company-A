@@ -25,12 +25,11 @@ class Equipment extends React.Component{
     }
     statework=(i)=>{ //布防转换     
         if(this.state.camera[i].work===2){
-           return "布防中"
+            return (<span style={{color:'#5dcb9a'}}>布防中</span>)
         }else if(this.state.camera[i].work===1){
-            return "不在布防中";
-            
+            return (<span style={{color:'#666'}}>不在布防中</span>)
         }else{
-            return "未设置"           
+            return (<span style={{color:'#666'}}>未设置</span>)          
         }
     }
     field=(i)=>{ //布防区域的个数 
@@ -89,20 +88,34 @@ class Equipment extends React.Component{
                             <Col key={i} xxl={{ span: 5}} xs={{ span: 6}}className="cardPdd">
                                 <Card                       
                                     cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath} width="100%" /></a>}
-                                    actions={[
+                                    actions={
+                                        this.state.utype==='1'
+                                        ?[
+                                        <div className="actionsBbottom">
+                                             <p> {this.field(i)}条 
+                                             </p>
+                                             <p>布防区域 </p> 
+                                        </div>,
+                                        <div className="actionsBbottom colCen">
+                                                <Icon type="clock-circle" /> {this.statework(i)}
+                                        </div>, 
+                                         <div className="colCen actionsBbottom ">
+                                             <Icon type="setting" /> 设定
+                                         </div>
+                                    ]
+                                    :[
                                         <a href={"#/app/companyhome/setarea?id="+el.code} className="actionsBbottom">
                                              <p> {this.field(i)}条 
                                              </p>
                                              <p>布防区域 </p> 
                                         </a>,
                                         <a href={"#/app/companyhome/settime?id="+el.code} className="actionsBbottom colCen">
-                                                <Icon type="clock-circle" />
-                                                {this.statework(i)}
+                                                <Icon type="clock-circle" /> {this.statework(i)}
                                         </a>, 
                                          <a href={"#/app/userhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
-                                             <Icon type="setting" />
+                                             <Icon type="setting" /> 设定
                                          </a>
-                                ]}
+                                    ]}
                                 >
                                     <Row className="paddRow">  
                                         <Col xxl={{ span:6}} xs={{ span: 6}}>
