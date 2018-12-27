@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Row, Col, Button,Icon} from 'antd';
+import {Form, Row, Col, Button,Icon, Input, message} from 'antd';
 import '../../style/sjg/home.css';
 import {post} from "../../axios/tools";
 class Userdeveice extends React.Component{
@@ -58,8 +58,7 @@ class Userdeveice extends React.Component{
         });
     }
 
-    submitbtn = (e) => {//提交
-        console.log('111111');
+    updata = () => {//提交
         let data={
             code:this.props.query.id,
             ip:this.state.ipvalue,
@@ -67,11 +66,12 @@ class Userdeveice extends React.Component{
             authport:this.state.portvalue,
             apassword:this.state.camerapasswd,
         };
-        post({url:"/api/camera/camerareset",data:data}, (res)=>{
-            if(res.success){
-               
-            }
-        })
+        if(!data.ip||!data.ausername||!data.authport||!data.apassword){
+            message.warn('请填写完整！');
+            return;
+        }
+        return;
+        post({url:"/api/camera/camerareset",data:data}, (res)=>{})
     }
  
     field=()=>{ //布防区域的个数 
@@ -98,7 +98,7 @@ class Userdeveice extends React.Component{
      }
      atype=()=>{ //报警类型 
         if(this.state.data.atype===1){
-            return "围界入侵"
+            return "入侵报警"
         }else{
             return "";
         }          
@@ -218,6 +218,39 @@ class Userdeveice extends React.Component{
                         </Col>
                     </Row>
                     <p><Icon type="video-camera" /> 摄像头信息</p>
+                    
+                    <Row className="equ_row">
+                        <Col span={3} className="t_r">
+                           设备状态：
+                        </Col>
+                        <Col span={21} className="t_l">
+                           {this.status()}         
+                        </Col>
+                    </Row>
+                    <Row className="equ_row">
+                        <Col span={3} className="t_r">
+                           设备软件版本：
+                        </Col>
+                        <Col span={21} className="t_l">
+                           {this.state.edata.softversion}
+                        </Col>
+                    </Row>
+                    <Row className="equ_row">
+                        <Col span={3} className="t_r">
+                          设备硬件版本：
+                        </Col>
+                        <Col span={21} className="t_l">
+                        {this.state.edata.hardversion}
+                        </Col>
+                    </Row>
+                    <Row className="equ_row">
+                        <Col span={3} className="t_r">
+                           当前状态：
+                        </Col>
+                        <Col span={21} className="t_l">
+                           {this.isonline()}
+                        </Col>
+                    </Row>
                     <Row className="equ_row">
                         <Col span={3} className="t_r">
                             用户名：
@@ -260,46 +293,13 @@ class Userdeveice extends React.Component{
                         </Col>
                     </Row>
                     <Row className="equ_row">
-                        <Col span={3} className="t_r">
-                           设备状态：
-                        </Col>
-                        <Col span={21} className="t_l">
-                           {this.status()}         
-                        </Col>
-                    </Row>
-                    <Row className="equ_row">
-                        <Col span={3} className="t_r">
-                           设备软件版本：
-                        </Col>
-                        <Col span={21} className="t_l">
-                           {this.state.edata.softversion}
-                        </Col>
-                    </Row>
-                    <Row className="equ_row">
-                        <Col span={3} className="t_r">
-                          设备硬件版本：
-                        </Col>
-                        <Col span={21} className="t_l">
-                        {this.state.edata.hardversion}
-                        </Col>
-                    </Row>
-                    <Row className="equ_row">
-                        <Col span={3} className="t_r">
-                           当前状态：
-                        </Col>
-                        <Col span={21} className="t_l">
-                           {this.isonline()}
-                        </Col>
-                    </Row>
-                    <Form layout="inline"onSubmit={this.submitbtn}>
-                        <Row className="equ_row">
                             <Col span={3} className="t_r">
                             </Col>
                             <Col span={21} className="t_l">
-                            <Button type="primary" htmlType="submit"> 提交 </Button>
+                            <Button type="primary" onClick={this.updata}> 提交 </Button>
                             </Col>
                         </Row>
-                    </Form>
+                    
                 </div>
             </div>
         )
