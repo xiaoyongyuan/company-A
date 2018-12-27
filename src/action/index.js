@@ -1,6 +1,3 @@
-/**
- * Created by 叶子 on 2017/7/30.
- */
 import * as type from './type';
 // import * as http from '../axios/index';
 // import * as http from '../axios/tools';
@@ -29,23 +26,8 @@ export const receiveData = (data, category) => ({
 // };
 //lff登录在用
 export const fetchData = ({funcName, url, params, stateName}) => dispatch => {
-		console.log('sss',params)
     !stateName && (stateName = funcName); 
     dispatch(requestData(stateName));
-    
-    // const dayta={
-    //   success:1,
-    //   data:{
-    //     token:'2111',
-    //     user:'user',
-    //     companycode:'1000006',
-    //     account:'10044',
-    //   }
-    // }
-    // dispatch(receiveData(dayta, stateName))
-    // return dayta
-
-
 
     axios.post('http://login.aokecloud.cn'+url,params).then(res => {
       if(res.data.success===1){
@@ -59,5 +41,5 @@ export const fetchData = ({funcName, url, params, stateName}) => dispatch => {
     }).catch(err => {
       console.log('err',err);
       message.warn('接口异常');
-		});
+	});
 };

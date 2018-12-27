@@ -70,7 +70,6 @@ class Userdeveice extends React.Component{
             message.warn('请填写完整！');
             return;
         }
-        return;
         post({url:"/api/camera/camerareset",data:data}, (res)=>{})
     }
  

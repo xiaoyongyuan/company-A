@@ -84,7 +84,7 @@ class HeaderCustom extends Component {
                             <Icon type="notification" />
                         </Badge>
                     </Menu.Item>*/}
-                    <SubMenu title={<span className="avatar"><img src={this.props.user.utype?icon_user:icon_admin}  alt="头像" /></span>}>
+                    <SubMenu title={<span className="avatar"><img src={this.props.user.utype==='1'?icon_user:icon_admin}  alt="头像" /></span>}>
                         <MenuItemGroup title="用户中心">
                             <Menu.Item key="setting:1">你好 - {this.props.user.realname}</Menu.Item>
                             {/*<Menu.Item key="setting:2">个人信息</Menu.Item>*/}

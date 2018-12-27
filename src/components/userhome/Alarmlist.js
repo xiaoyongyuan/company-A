@@ -40,9 +40,21 @@ class Alarmlist extends React.Component{
             toson:{}, //传给详情页面的值
         };
     }
+    componentWillMount() {
+        if(this.props.query.id){
+            this.setState({
+                propsid:this.props.query.id,
+            })
+        }   
+    }
     componentDidMount() {
+        const data={};
+        if(this.state.propsid){
+            data.cid=this.state.propsid
+            data.status=0
+        }
         this.handleEquipment();//设备select
-        this.handleAlerm();//报警信息列表
+        this.handleAlerm(data);//报警信息列表
     }
     handleCancelAlarmImg =()=>{
         this.setState({
@@ -109,10 +121,15 @@ class Alarmlist extends React.Component{
         })
     }
     hanlePageSize = (page) => { //翻页
+        const data={};
+        if(this.state.propsid){
+            data.cid=this.state.propsid
+            data.status=0
+        }
         this.setState({
             page:page
         },()=>{
-            this.handleAlerm()
+            this.handleAlerm(data)
         })
     };
     //报警信息列表
@@ -148,6 +165,11 @@ class Alarmlist extends React.Component{
     * 开=开始时间、结束时间、设备cid
     * */
     handleSubmit =()=>{
+        if(this.state.propsid){
+            this.setState({
+                    propsid:'',
+                })
+        }
         const data={
             bdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
             edate:this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
@@ -309,7 +331,7 @@ class Alarmlist extends React.Component{
                                 <Button type="primary" htmlType="submit">查询</Button>
                             </Col>
                             <Col xl={3} xxl={2} lg={4}>
-                                <Button type="primary" onClick={this.handleProcessing} >一键处理</Button>
+                                <Button onClick={this.handleProcessing} >一键处理</Button>
                             </Col>
                         </Form>
                     </Row>
