@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePicker, Row, Col, Select, Button, Icon, Modal, Pagination, Form, message,LocaleProvider  } from "antd";
+import { DatePicker, Row, Col, Select, Button, Icon, Modal, Pagination, Form, message,LocaleProvider } from "antd";
 import "../../style/ztt/css/police.css";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
@@ -40,6 +40,61 @@ class Alarmlist extends React.Component{
             toson:{}, //传给详情页面的值
         };
     }
+    componentDidMount() {
+        this.handleEquipment();//设备select
+        this.handleAlerm();//报警信息列表
+    }
+    handleCancelAlarmImg =()=>{
+        this.setState({
+            alarmImgType:false
+        })
+    };
+    //一键处理
+    handleProcessing = ()=>{
+        this.setState({
+            alarm:true
+        });
+    };
+    handleCamera = ()=>{
+        this.setState({
+            visible: true,
+        });
+    };
+    //摄像头
+    handleOk = () => {
+        this.setState({
+            visible: false,
+        });
+    };
+    handleCancel = () => {
+        this.setState({
+            visible: false,
+        });
+    };
+    //报警状态
+    handleState = (code)=>{
+        if(code === 0){
+            return "未处理";
+        }else if(code === 1){
+            return "确认";
+        }else if(code === 2){
+            return "忽略";
+        }else if(code === 3){
+            return "虚警";
+        }
+    };
+    //报警状态背景
+    typeBack =(code)=>{
+        if(code === 0){
+            return "stateBackground3 handle";
+        }else if(code === 1){
+            return "stateBackground4 handle";
+        }else if(code === 2){
+            return "stateBackground2 handle";
+        }else if(code === 3){
+            return "stateBackground1 handle";
+        }
+    };
     //查看报警详情
     alarmImg =(code)=>{
         const toson={
@@ -47,63 +102,11 @@ class Alarmlist extends React.Component{
             bdate:this.state.bdate.locale?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
             edate:this.state.edate.locale?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
             cid:this.state.cid,
-        }
+        };
         this.setState({
             alarmImgType:true,
             toson:toson
         })
-        
-
-    }
-    handleCancelAlarmImg =()=>{
-        this.setState({
-            alarmImgType:false
-        })
-    }
-    //一键处理
-    handleProcessing = ()=>{
-        this.setState({
-            alarm:true
-        });
-    }
-    //摄像头
-    handleOk = () => {
-        this.setState({
-            visible: false,
-        });
-    }
-    handleCancel = () => {
-        this.setState({
-            visible: false,
-        });
-    }
-    //报警状态
-    handleState = (code)=>{
-        if(code==0){
-            return "未处理";
-        }else if(code==1){
-            return "确认";
-        }else if(code==2){
-            return "忽略";
-        }else if(code==3){
-            return "虚警";
-        }
-    }
-    //报警状态背景
-    typeBack =(code)=>{
-        if(code==0){
-            return "stateBackground3 handle";
-        }else if(code==1){
-            return "stateBackground4 handle";
-        }else if(code==2){
-            return "stateBackground2 handle";
-        }else if(code==3){
-            return "stateBackground1 handle";
-        }
-    }
-    componentDidMount() {
-        this.handleEquipment();//设备select
-        this.handleAlerm();//报警信息列表
     }
     hanlePageSize = (page) => { //翻页
         this.setState({
@@ -111,7 +114,7 @@ class Alarmlist extends React.Component{
         },()=>{
             this.handleAlerm()
         })
-    }
+    };
     //报警信息列表
     handleAlerm = (data={})=>{
         post({url:'/api/alarm/getlist',data:Object.assign(data,{pageindex:this.state.page})},(res)=>{
@@ -129,7 +132,7 @@ class Alarmlist extends React.Component{
                 }
             }
         })
-    }
+    };
     //设备select
     handleEquipment = ()=>{
         post({url:"/api/camera/getlist"},(res)=>{
@@ -139,7 +142,7 @@ class Alarmlist extends React.Component{
                 })
             }
         })
-    }
+    };
     /*
     * 检索
     * 开=开始时间、结束时间、设备cid
@@ -151,7 +154,7 @@ class Alarmlist extends React.Component{
             cid:this.state.cid,
         };
         this.handleAlerm(data);
-    }
+    };
     alarmdeal=(code,index,type)=>{ //报警处理
         post({url:'/api/alarm/update',data:{code:code,status:type}},(res)=>{
         	if(res.success){
@@ -162,32 +165,32 @@ class Alarmlist extends React.Component{
                 })
             }
         })
-    }
+    };
     //搜索设备选中的值
     handleChange =(value)=>{
         this.setState({
             cid:value
         })
-    }
+    };
     //一键处理
     handleOnekey =(value)=>{
         this.setState({
             handle:value
         })
-    }
+    };
     onChangeDate = (field, value) => {
         this.setState({
             [field]: value,
         });
-    }
+    };
     handleStartOpenChange = (open) => {
         if (!open) {
             this.setState({ endOpen: true });
         }
-    }
+    };
     handleEndOpenChange = (open) => {
         this.setState({ endOpen: open });
-    }
+    };
     //禁止的开始时间
     disabledStartDate = (startValue) => {
         const endValue = this.state.endValue;
@@ -195,7 +198,7 @@ class Alarmlist extends React.Component{
             return false;
         }
         return startValue.valueOf() > endValue.valueOf();
-    }
+    };
     //禁止的结束时间
     disabledEndDate = (endValue) => {
         const startValue = this.state.startValue;
@@ -203,21 +206,21 @@ class Alarmlist extends React.Component{
             return false;
         }
         return endValue.valueOf() <= startValue.valueOf();
-    }
+    };
     //开始时间
     onChange1 =(dateString1)=> {
         this.onChangeDate('startValue',dateString1);
         this.setState({
             bdate:dateString1
         })
-    }
+    };
     //结束时间
     onChange2 =(dateString2)=> {
         this.onChangeDate("endValue",dateString2);
         this.setState({
             edate:dateString2
         })
-    }
+    };
     //确认一键处理
     handleOkalarm = ()=>{
         if(this.state.handle!==undefined){
@@ -233,13 +236,13 @@ class Alarmlist extends React.Component{
             message.warn('请选择摄像头');
             return;
         }
-    }
+    };
     //关闭一键处理页面
     handleCancelalarm =()=>{
         this.setState({
             alarm:false
         })
-    }
+    };
     render(){
         const { getFieldDecorator } = this.props.form;
         return(
@@ -291,7 +294,7 @@ class Alarmlist extends React.Component{
                                             <Option value='' >所有</Option>
                                             {
                                                 this.state.equipment.map((v,i)=>(
-                                                    <Option value={v.code} key={i}>{v.eid}</Option>
+                                                    <Option value={v.code} key={i}>{v.name}</Option>
                                                 ))
                                             }
                                         </Select>
@@ -324,13 +327,13 @@ class Alarmlist extends React.Component{
                                         <div className="pliceImg" onClick={()=>this.alarmImg(v.code)}>
                                             <div className="img"><img src={v.pic_min} alt=""/></div>
                                         </div>
-                                        <div className="camera" style={{display:v.videopath>1?"block":"none"}}><Icon type="video-camera" theme="filled" /></div>
+                                        <div className="camera" style={{display:v.videopath>1?"block":"none"}} onClick={this.handleCamera}><Icon type="video-camera" theme="filled" /></div>
                                     </Col>
                                     <Col xl={11} xxl={12}>
                                         <div className="policeContext">
                                             <div className="triangle"></div>
                                             <Row className="line-police">
-                                                <Col xl={12} xxl={12} className="policeName">{v.ip}</Col>
+                                                <Col xl={12} xxl={12} className="policeName">{v.name}</Col>
                                                 <Col xl={12} xxl={12}>{v.atype==1?"入侵检测":""}</Col>
                                             </Row>
                                             <Row className="line-police">
@@ -370,17 +373,17 @@ class Alarmlist extends React.Component{
                     okText="确认"
                     cancelText="取消"
                 >
-                    <p>
+                    <div>
                         摄像头选择：
                         <Select defaultValue="请选择摄像头" style={{ width: 180 }} onChange={this.handleOnekey}>
                         {
                             this.state.equipment.map((v,i)=>(
-                                <Option value={v.code} key={i}>{v.eid}</Option>
+                                <Option value={v.code} key={i}>{v.name}</Option>
                             ))
                         }
                         </Select>
 
-                    </p>
+                    </div>
                 </Modal>
                 <div>
                     <Modal
