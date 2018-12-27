@@ -47,17 +47,22 @@ class Equipment extends React.Component{
         return count;
     }
     isonline=(i)=>{ //是否在线  
-        let time= this.state.camera[i].heart.time.toString();// 取到时间
-        let yijingtime=new Date(time); //取到时间转换
-        let timq=yijingtime.getTime(yijingtime) // 取到时间戳
-        let myDate=new Date();// 当前时间
-        let timc=myDate.getTime(myDate) // 当前时间戳
-        if(timc-timq>60000){
-            return "离线";
+        if(this.state.camera[i]&&this.state.camera[i].heart.time){
+            let time= this.state.camera[i].heart.time.toString();// 取到时间
+            let yijingtime=new Date(time); //取到时间转换
+            let timq=yijingtime.getTime(yijingtime) // 取到时间戳
+            let myDate=new Date();// 当前时间
+            let timc=myDate.getTime(myDate) // 当前时间戳
+            if(timc-timq>60000){
+                return(<div className='onLine offLineBack'>离线</div>)
+            }else{
+                return(<div className='onLine onLineBack'>在线</div>)
+            }      
         }else{
-            return "在线";
-        }          
-    }
+           return(<div className='onLine onLineBack'>在线</div>) 
+        }
+            
+   }
     isonlinebg=(i)=>{ //是否在线背景色  
         let time= this.state.camera[i].heart.time.toString();// 取到时间
         let yijingtime=new Date(time); //取到时间转换
@@ -98,9 +103,7 @@ class Equipment extends React.Component{
                                 >
                                     <Row className="paddRow">  
                                         <Col xxl={{ span:6}} xs={{ span: 6}}>
-                                           <div className={this.isonlinebg(i)}>
                                                {this.isonline(i)}
-                                           </div> 
                                         </Col>
                                         <Col xxl={{ span: 18}} xs={{ span: 18}} className="titcon">
                                            <p>{el.location}</p> 

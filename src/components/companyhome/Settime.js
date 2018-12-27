@@ -245,9 +245,8 @@ class Setarea extends Component {
                 </Row>
 
                 <Table columns={columns} dataSource={this.state.list} />
-
                 <Modal title="提示信息" visible={this.state.deleteshow} onOk={this.deleteOk}
-                       onCancel={this.deleteCancel}
+                       onCancel={this.deleteCancel} okText="确认" cancelText="取消"
                 >
                     <p>确认删除吗？</p>
                 </Modal>
