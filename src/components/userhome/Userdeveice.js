@@ -57,6 +57,24 @@ class Userdeveice extends React.Component{
         });
     }
 
+    submitbtn = (e) => {//提交
+
+
+        console.log('111111');
+        
+        let data={
+            code:this.props.query.id,
+            ip:this.state.ipvalue,
+            ausername:this.state.camerauser,
+            authport:this.state.portvalue,
+            apassword:this.state.camerapasswd,
+        };
+        post({url:"/api/camera/camerareset",data:data}, (res)=>{
+            if(res.success){
+                console.log('22222');
+            }
+        })
+    }
  
     field=()=>{ //布防区域的个数 
         var jsonData;
@@ -126,43 +144,9 @@ class Userdeveice extends React.Component{
             return 'reecolor';
         }
     }
-    
-
-
-    submitbtn = (e) => {//modal提交
-       
-        let data={
-            code:this.props.query.id,
-            ip:this.state.ipvalue,
-            ausername:this.state.camerauser,
-            authport:this.state.portvalue,
-            apassword:this.state.camerapasswd,
-        };
-        post({url:"/api/camera/camerareset",data:data}, (res)=>{
-            if(res.success){
-            }
-        })
-        this.setState({
-            focus: false
-        });
-              
-            }
-
-  
-
-
 
     render(){
         const _this=this;
-       
-        function on_port()
-            {
-            document.getElementById('port').focus()
-            }
-        function on_ip()
-            {
-            document.getElementById('ip').focus()
-            }                     
         return(     
             <div style={{backgroundColor:"#fff",padding:"1%"}}>
                 <div className="box-padding"> 
@@ -249,9 +233,7 @@ class Userdeveice extends React.Component{
                         <Col span={21} className="t_l">
                               <input type="text"value={this.state.camerauser} id="ip"
                               onChange={(e)=>this.onChangeuser(e)}
-                              onBlur={(e)=>this.inputOnBlur(e) }
                               /> 
-                              <span> <Icon type="edit" onClick={on_ip} /></span> 
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -262,9 +244,7 @@ class Userdeveice extends React.Component{
                             <input type="text"value={this.state.camerapasswd}
                              onChange={(e)=>this.onChangepwd(e)}
                              id="port"
-                             onBlur={(e)=>this.inputOnBlur(e) } 
                             />      
-                            <span>  <Icon type="edit" onClick={on_port} /></span>
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -274,9 +254,7 @@ class Userdeveice extends React.Component{
                         <Col span={21} className="t_l">
                               <input type="text"value={this.state.ipvalue} id="ip"
                               onChange={(e)=>this.onChangeip(e)}
-                              onBlur={(e)=>this.inputOnBlur(e) }
                               /> 
-                              <span> <Icon type="edit" onClick={on_ip} /></span> 
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -284,12 +262,9 @@ class Userdeveice extends React.Component{
                            设备端口：
                         </Col>
                         <Col span={21} className="t_l">
-                            <input type="text"value={this.state.portvalue}
+                            <input type="text"value={this.state.portvalue} id="port"
                              onChange={(e)=>this.onChangeport(e)}
-                             id="port"
-                             onBlur={(e)=>this.inputOnBlur(e) } 
                             />      
-                            <span>  <Icon type="edit" onClick={on_port} /></span>
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -326,7 +301,6 @@ class Userdeveice extends React.Component{
                     </Row>
                     <Row className="equ_row">
                         <Col span={3} className="t_r">
-                           
                         </Col>
                         <Col span={21} className="t_l">
                         <Button type="primary" onClick={this.submitbtn()}> 提交 </Button>
