@@ -30,21 +30,12 @@ class Userhome extends React.Component{
                 }); 
             }   
         })
-<<<<<<< HEAD
-        const _this=this;
         this.timerID = setInterval(
             () => this.inter(),5000);
            
     }
     inter(){
-        post({url:'/api/alarm/getlastalarm'},(res)=>{ //获取报警列表
-=======
-        this.timerID = setInterval(//5秒更新一次报警列表
-            () => this.tick(),
-            5000
-          );
           post({url:'/api/alarm/getlastalarm'},(res)=>{ //获取报警列表
->>>>>>> e0fcd8b3aea87130a64debe5bebe0ee1be3d4c4b
             if(res){
                 this.setState({
                     alarmdata:res.data, 
@@ -55,31 +46,14 @@ class Userhome extends React.Component{
     componentWillUnmount() {
         clearInterval(this.timerID);
       }
-    tick() {
-        post({url:'/api/alarm/getlastalarm'},(res)=>{ //获取报警列表
-            if(res){
-                this.setState({
-                    alarmdata:res.data, 
-                }); 
-            }   
-        })
-      }
 
     statework=(i)=>{ //布防转换     
         if(this.state.camera[i].work===2){
-<<<<<<< HEAD
             return (<span style={{color:'#5dcb9a'}}>布防中</span>)
         }else if(this.state.camera[i].work===1){
             return (<span style={{color:'#666'}}>不在布防中</span>)
         }else{
             return (<span style={{color:'#666'}}>未设置</span>)          
-=======
-             return(<span className='oncolor'> <Icon type="clock-circle" /> 布防中</span>)    
-        }else if(this.state.camera[i].work===1){
-             return(<span> <Icon type="clock-circle" /> 不在布防中</span>)
-        }else{
-            return(<span> <Icon type="clock-circle" /> 未设置</span>)    
->>>>>>> e0fcd8b3aea87130a64debe5bebe0ee1be3d4c4b
         }
     }
     field=(i)=>{ //布防区域的个数 
@@ -189,17 +163,10 @@ class Userhome extends React.Component{
                                              <p>布防区域 </p> 
                                         </a>,
                                         <a href={"#/app/companyhome/settime?id="+el.code} className="actionsBbottom colCen">
-<<<<<<< HEAD
                                                 <Icon type="clock-circle" /> {this.statework(i)}
                                         </a>, 
                                          <a href={"#/app/userhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
                                              <Icon type="setting" /> 设定
-=======
-                                                {this.statework(i)}
-                                        </a>, 
-                                         <a href={"#/app/userhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
-                                             <Icon type="setting" /> 设置
->>>>>>> e0fcd8b3aea87130a64debe5bebe0ee1be3d4c4b
                                          </a>
                                     ]
                                 }
