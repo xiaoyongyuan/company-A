@@ -237,7 +237,14 @@ margin: 20px 0;
     line-height:50px;
 }
 .onLineBack{
-    background:#96FF66;
+    background:#5DCB9A;
+}
+
+.reecolor{
+    color:#FB7575;
+}
+.oncolor{
+    color:#5DCB9A;
 }
 .offLineBack{
     background:#ECECEC;
@@ -247,7 +254,7 @@ margin: 20px 0;
     
 }
 .bell{
-        width:60px;
+        min-width:44px;
         height:34px;
         line-height: 31px;
         color:red;

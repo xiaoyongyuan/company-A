@@ -25,12 +25,11 @@ class Equipment extends React.Component{
     }
     statework=(i)=>{ //布防转换     
         if(this.state.camera[i].work===2){
-           return "布防中"
+             return(<span className='oncolor'> <Icon type="clock-circle" /> 布防中</span>)    
         }else if(this.state.camera[i].work===1){
-            return "不在布防中";
-            
+             return(<span> <Icon type="clock-circle" /> 不在布防中</span>)
         }else{
-            return "未设置"           
+            return(<span> <Icon type="clock-circle" /> 未设置</span>)    
         }
     }
     field=(i)=>{ //布防区域的个数 
@@ -59,25 +58,19 @@ class Equipment extends React.Component{
                 return(<div className='onLine onLineBack'>在线</div>)
             }      
         }else{
-           return(<div className='onLine onLineBack'>在线</div>) 
+            return(<div className='onLine offLineBack'>离线</div>)
         }
             
    }
-    isonlinebg=(i)=>{ //是否在线背景色  
-        if(this.state.camera[i].heart.time){
-            var time= this.state.camera[i].heart.time.toString();// 取到时间
-        }
-       
-        let yijingtime=new Date(time); //取到时间转换
-        let timq=yijingtime.getTime(yijingtime) // 取到时间戳
-        let myDate=new Date();// 当前时间
-        let timc=myDate.getTime(myDate) // 当前时间戳
-        if(timc-timq>60000){
-            return "onLine offLineBack";
-        }else{
-            return "onLine onLineBack";
-        }          
-    }
+//    setbg=(i)=>{ //是否在线背景色  
+//     console.log('setbg111111111111111111111111',this.state.camera[i].work);
+    
+//         if(this.state.camera[i].work===2){
+//             return "onLineBack";
+//         }else{
+//             return "offLineBack";
+//         }          
+//     }
     render(){
 
         return(
@@ -96,11 +89,11 @@ class Equipment extends React.Component{
                                              <p>布防区域 </p> 
                                         </a>,
                                         <a href={"#/app/companyhome/settime?id="+el.code} className="actionsBbottom colCen">
-                                                <Icon type="clock-circle" />
-                                                {this.statework(i)}
+                                            
+                                              {this.statework(i)}
                                         </a>, 
                                          <a href={"#/app/userhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
-                                             <Icon type="setting" />
+                                             <Icon type="setting" />设置
                                          </a>
                                 ]}
                                 >
