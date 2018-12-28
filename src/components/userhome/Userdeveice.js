@@ -292,9 +292,8 @@ class Userdeveice extends React.Component{
                         </Col>
                     </Row>
                     <Row className="equ_row">
-                            <Col span={3} className="t_r">
-                            </Col>
-                            <Col span={21} className="t_l">
+                           
+                            <Col span={21} offset={3} className="t_l">
                             <Button type="primary" onClick={this.updata}> 提交 </Button>
                             </Col>
                         </Row>
