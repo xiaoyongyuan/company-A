@@ -129,62 +129,6 @@ class Userhome extends React.Component{
                 </Row>
                 <Row className="paddRow"> 
                    <Equipment />
-
-                {/* {
-                    this.state.camera.map((el,i)=>{
-                        return (
-                            <Col key={'col'+i} xxl={{ span: 5}} xs={{ span: 6}} className="cardPdd">
-                                <Card                       
-                                    cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath?this.state.camera[i].picpath:nopic} width="100%" /></a>}
-                                    actions={
-                                        this.state.utype==='1'
-                                        ?[
-                                        <div className="actionsBbottom">
-                                             <p> {this.field(i)}条 
-                                             </p>
-                                             <p>布防区域 </p> 
-                                        </div>,
-                                        <div className="actionsBbottom colCen">
-                                                <Icon type="clock-circle" /> {this.statework(i)}
-                                        </div>, 
-                                         <div className="colCen actionsBbottom ">
-                                             <Icon type="setting" /> 设定
-                                         </div>
-                                    ]
-                                    :[
-                                        <a href={"#/app/companyhome/setarea?id="+el.code} className="actionsBbottom">
-                                             <p> {this.field(i)}条 
-                                             </p>
-                                             <p>布防区域 </p> 
-                                        </a>,
-                                        <a href={"#/app/companyhome/settime?id="+el.code} className="actionsBbottom colCen">
-                                                 {this.statework(i)}
-                                        </a>, 
-                                         <a href={"#/app/userhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
-                                             <Icon type="setting" /> 设定
-                                         </a>
-                                    ]
-                                }
-                                >
-                                    <Row className="paddRow">  
-                                        <Col xxl={{ span:6}} xs={{ span: 6}}>
-                                           {this.isonline(i)}
-                                        </Col>
-                                        <Col xxl={{ span: 18}} xs={{ span: 18}} className="titcon">
-                                           <p>{el.location}</p> 
-                                           <p>编号：{el.eid}</p>
-                                        </Col>
-                                    </Row>
-                                    <div className="bell">
-                                    <a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"} style={{color:'#f00'}}>
-                                        <Icon type="bell" /> <span>{this.state.camera[i].alarm} </span> 
-                                    </a>
-                                    </div>
-                                </Card>
-                            </Col>
-                        )
-                    })
-                } */}
                 </Row>
             </div>
         )
