@@ -1,7 +1,8 @@
 import React,{ Component } from 'react';
-import {Row, Col, Tabs,Button,Icon,Table,Modal,Input } from 'antd';
+import {Row, Col, Tabs,Button,Icon,Table,Modal,Input, Switch } from 'antd';
 import house from "../../style/ztt/img/house.jpg";
 import camera from "../../style/ztt/img/camera.png";
+import nopic from "../../style/imgs/nopic.png";
 import '../../style/ztt/css/Companyhome.css';
 import {post} from "../../axios/tools";
 import {url} from "../../utils/index";
@@ -33,12 +34,12 @@ class Companydeveice extends Component{
             cid:'1000002', //摄像头id,由上一页面传入
             alarmcode:'', //报警信息的code,由点击事件传入
             // alarmphoto:'',
-            canvassty:{ //要显示的报警图片
-                backgroundImage:'url(http://www.aokecloud.cn/pic/alarm/6000009/pic/20181213/6000009_20181213172255_640X480.jpg)'
-            },
+            canvasbg:nopic, //canvas报警背景
             live:'',
             imgbigshow:false, //放大图片的控制器
-            imgbig:'http://www.aokecloud.cn/pic/alarm/6000009/pic/20181213/6000009_20181213172255_640X480.jpg',//放大图片的地址
+            imgbig:nopic,//放大图片的地址
+            field:true, //是否显示围界信息
+            obj:true, //是否显示报警对象
 
         }
 
@@ -48,6 +49,44 @@ class Companydeveice extends Component{
     //点击表头变化字体颜色
     callback(key) {
       return "ant-tabs-tab";
+    }
+    draw = ()=>{ //画围界
+        let ele = document.getElementById("canvasobj");
+        let area = ele.getContext("2d");
+        area.clearRect(0,0,704,576);//清除之前的绘图
+        area.lineWidth=1;
+
+        
+        let datafield=this.state.processed[this.state.alarmindex].field;
+        datafield?datafield=JSON.parse( datafield):datafield=[]
+        if(this.state.field && datafield.length){ 
+          let areafield = ele.getContext("2d"); 
+          area.lineWidth=1;    
+            areafield.strokeStyle='#f00';
+          datafield.map((el,i)=>{
+            areafield.beginPath();
+            areafield.moveTo(datafield[i][0][0],datafield[i][0][1]);
+            areafield.lineTo(datafield[i][1][0],datafield[i][1][1]);
+            areafield.lineTo(datafield[i][2][0],datafield[i][2][1]);
+            areafield.lineTo(datafield[i][3][0],datafield[i][3][1]);
+            areafield.lineTo(datafield[i][0][0],datafield[i][0][1]);
+            areafield.stroke();
+            areafield.closePath();
+          })
+        }
+        const objs=this.state.processed[this.state.alarmindex].finalresult;
+        if(this.state.obj && objs.length){
+          //计算缩放比例
+          const x=704/this.state.processed[this.state.alarmindex].pic_width, y=576/this.state.processed[this.state.alarmindex].pic_height;
+          objs.map((el,i)=>{
+            area.strokeStyle='#ff0';
+            area.beginPath();
+            area.rect(parseInt(el.x*x),parseInt(el.y*y),parseInt(el.w*x),parseInt(el.h*y));
+            area.stroke();
+            area.closePath();
+          })
+            
+        }
     }
 
     //返回直播
@@ -71,9 +110,11 @@ class Companydeveice extends Component{
             alarmcode:code, //处理报警用
             alarmvideo:false, 
             alarmtype:type, //处理报警用，未处理的还是已处理的
-            canvassty:{ //要显示的报警图片
-                backgroundImage:'url('+img+')'
-            },
+            field:true,
+            obj:true,
+            canvasbg:img?img:nopic, //canvas显示的报警图片
+        },()=>{
+            this.draw()
         });
     }
     //查看报警视频
@@ -93,7 +134,7 @@ class Companydeveice extends Component{
     mouseover=(index)=>{
         this.setState({
             imgbigshow:true,
-            imgbig:this.state.record[index].picpath
+            imgbig:this.state.record[index].picpath?this.state.record[index].picpath:nopic
         });
     }
     mouseout=()=>{  //鼠标移出
@@ -110,7 +151,6 @@ class Companydeveice extends Component{
 
     }
     alarmdeal=(type)=>{ //报警处理
-
         post({url:'/api/alarm/updata',data:{code:this.state.alarmcode,status:type}},(res)=>{
             if(res){
                 let untreated='';
@@ -178,7 +218,7 @@ class Companydeveice extends Component{
                 res.data.field?field=1:field=0;
                 this.setState({
                     camera:{
-                        eid:res.data.eid,  
+                        name:res.data.name,  
                         field:field,  //防区
                         if_cancel: res.data.if_cancel, // 布防撤防
                         cstatus:res.data.cstatus  //摄像头状态
@@ -206,7 +246,7 @@ class Companydeveice extends Component{
         })
     }
     render() {
-        const columns1 = [{
+        const columns1 = [{ //未处理报警
             title: '序号',
             dataIndex: 'index',
             key: 'index',
@@ -226,12 +266,14 @@ class Companydeveice extends Component{
             key: 'status',
             render: (text,record,index) => {
                 switch(text){
-                    case 0:
-                        return '未处理'
-                        break;
-                    case 1:
-                        return '确认'
-                        break;
+                    case '1':
+                        return '确认';
+                    case '2':
+                        return '忽略';
+                    case '3':
+                        return '虚警';
+                    default:
+                        return '未处理';
                 }
                 
             },
@@ -315,15 +357,15 @@ class Companydeveice extends Component{
                     <Col xl={{ span:12}} xxl={{ span:12}}>{/*直播*/}
                         <div style={{width:"600px"}}>
                             <div className="video" style={this.state.video?{display:'block'}:{display:'none'}}>
-                                <img src={house} className="img-responsive" alt="test" style={{width:"100%"}}/>
+                                <img src={nopic} width='600px' height='300px' className="img-responsive" alt="test" style={{width:"100%"}}/>
                             </div>
                             <div className="alarmphoto" style={{display:this.state.video?"none":"block"}}>
-                                <canvas width="600px" height="300px" style={this.state.canvassty}></canvas> 
+                                <canvas id="canvasobj" width="600px" height="300px" style={{backgroundImage:'url('+this.state.canvasbg+')',backgroundSize:"100% 100%"}}></canvas> 
                                 <div style={{height:"35px",width:"100%",display:"block"}}>
-                                {/*<Row className="alarmwj">
-                                    <Col xl={{ span:10}}><label> 围界信息： <Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="close" />} defaultChecked onChange={this.wjopen} /></label></Col>
-                                    <Col xl={{ span:10}}><label> 报警信息： <Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="close" />} defaultChecked onChange={this.objopen} /></label></Col>
-                                </Row>*/}
+                                    <Row className="alarmwj">
+                                        <Col xl={{ span:10}}><label> 围界信息： <Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="close" />} defaultChecked onChange={this.wjopen} /></label></Col>
+                                        <Col xl={{ span:10}}><label> 报警信息： <Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="close" />} defaultChecked onChange={this.objopen} /></label></Col>
+                                    </Row>
                                 </div>
                             </div>
                         </div>
@@ -336,12 +378,12 @@ class Companydeveice extends Component{
                     </Col>
                     <Col xl={12}>
                         <Row>
-                            <Col xl={1} xxl={1}><div className="camera"><img src={camera} alt=""/></div></Col>
+                            <Col xl={1} xxl={1}><div className=""><img src={camera} alt=""/></div></Col>
                             <Col xl={10} xxl={10}><span>摄像头信息</span><Icon type="video-camera" theme="filled" style={{color:'#2a6cf4',fontSize:2.0+'em'}} onClick={this.looklive} /></Col>
                         </Row>
                         <div className="scenemess" style={{display:!this.state.alarmvideo?"block":"none"}}>
                             <Row className="line">
-                                <Col xl={24} xxl={24}>设备名称：<span>{this.state.camera.eid} </span></Col>
+                                <Col xl={24} xxl={24}>设备名称：<span>{this.state.camera.name} </span></Col>
                             </Row>
                             <Row className="line">
                                 <Col xl={24} xxl={24}>布防区域：{usertype.utype==0
