@@ -36,6 +36,7 @@ class Alarmdetails extends React.Component{
         let data={
           src:res.data.picpath,
           field:res.data.field,
+          name:res.data.name,
           alarmtype:res.data.alarmtype,
           finalresult:res.data.finalresult1,
           atime:res.data.atime,
