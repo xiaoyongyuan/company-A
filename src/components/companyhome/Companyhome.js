@@ -135,9 +135,9 @@ class Companyhome extends Component {
                                             this.state.myEquipment.map((item,index)=>{
                                                 return(
                                                     <Row className="situation " key={index}>
-                                                        <Col className="gutter-row" xl={8}><a href={'#/app/companyhome/companydeveice?code='+item.code} className="shareUsers should">{item.name>0?"未命名":item.name}</a></Col>
-                                                        <Col className="gutter-row" xl={8}><span className="shareUsers">{this.handleStatus(item.cstatus)}</span></Col>
-                                                        <Col className="gutter-row" xl={8}><a href={'#/app/Userhome/Alarmlist?id='+item.code} className="shareUsers should">未处理报警数：{item.alarm>0?item.alarm:"0"}</a></Col>
+                                                        <Col className="gutter-row" xl={8}><a href={'#/app/companyhome/companydeveice?code='+item.code} className="should">{item.name>0?"未命名":item.name}</a></Col>
+                                                        <Col className="gutter-row" xl={8}>{this.handleStatus(item.cstatus)}</Col>
+                                                        <Col className="gutter-row" xl={8}><a href={'#/app/Userhome/Alarmlist?id='+item.code} className=" should">未处理报警数：{item.alarm>0?item.alarm:"0"}</a></Col>
                                                     </Row>
                                             );
                                             })
