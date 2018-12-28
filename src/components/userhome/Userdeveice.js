@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Row, Col, Button,Icon, Input, message} from 'antd';
+import {Form, Row, Col, Button,Icon, message} from 'antd';
 import '../../style/sjg/home.css';
 import {post} from "../../axios/tools";
 class Userdeveice extends React.Component{
@@ -78,7 +78,7 @@ class Userdeveice extends React.Component{
         if(this.state.data.field ===""){
              jsonData=0;
         }else{
-            var jsonData= this.state.data.field
+             jsonData= this.state.data.field
         }  
         var count = 0;
         for(var j in jsonData){
