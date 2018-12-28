@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card ,Row, Col,Timeline, Icon, } from 'antd';
+import { Card ,Row, Col,Timeline} from 'antd';
 import '../../style/sjg/home.css';
 import {post} from "../../axios/tools";
-import nopic from "../../style/imgs/nopic.png";
+import Equipment from './Equipment';
 class Userhome extends React.Component{
     constructor(props){
       super(props);
@@ -35,6 +35,9 @@ class Userhome extends React.Component{
             () => this.inter(),5000);
            
     }
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+      }
     inter(){
           post({url:'/api/alarm/getlastalarm'},(res)=>{ //获取报警列表
             if(res){
@@ -44,19 +47,8 @@ class Userhome extends React.Component{
             }   
         })
     }
-    componentWillUnmount() {
-        clearInterval(this.timerID);
-      }
+ 
 
-    statework=(i)=>{ //布防转换     
-        if(this.state.camera[i].work===2){
-            return (<span><Icon type="clock-circle" style={{color:'#5dcb9a'}} /> 布防中</span>)
-        }else if(this.state.camera[i].work===1){
-            return (<span><Icon type="clock-circle" style={{color:'#666'}} /> 不在布防中</span>)
-        }else{
-            return (<span><Icon type="clock-circle" style={{color:'#666'}} /> 未设置</span>)          
-        }
-    }
     field=(i)=>{ //布防区域的个数 
         var jsonData;
         if(this.state.camera[i].field ===""){
@@ -136,7 +128,9 @@ class Userhome extends React.Component{
                     </Col>                    
                 </Row>
                 <Row className="paddRow"> 
-                {
+                   <Equipment />
+
+                {/* {
                     this.state.camera.map((el,i)=>{
                         return (
                             <Col key={'col'+i} xxl={{ span: 5}} xs={{ span: 6}} className="cardPdd">
@@ -190,7 +184,7 @@ class Userhome extends React.Component{
                             </Col>
                         )
                     })
-                }
+                } */}
                 </Row>
             </div>
         )

@@ -2,6 +2,7 @@ import React from 'react';
 import { Card ,Row, Col, Icon, } from 'antd';
 import '../../style/sjg/home.css';
 import {post} from "../../axios/tools";
+import nopic from "../../style/imgs/nopic.png";
 class Equipment extends React.Component{
     constructor(props){
         super(props);
@@ -23,13 +24,14 @@ class Equipment extends React.Component{
         })
         
     }
+ 
     statework=(i)=>{ //布防转换     
         if(this.state.camera[i].work===2){
-            return (<span style={{color:'#5dcb9a'}}>布防中</span>)
+            return (<span><Icon type="clock-circle" style={{color:'#5dcb9a'}} /> 布防中</span>)
         }else if(this.state.camera[i].work===1){
-            return (<span style={{color:'#666'}}>不在布防中</span>)
+            return (<span><Icon type="clock-circle" style={{color:'#666'}} /> 不在布防中</span>)
         }else{
-            return (<span style={{color:'#666'}}>未设置</span>)          
+            return (<span><Icon type="clock-circle" style={{color:'#666'}} /> 未设置</span>)          
         }
     }
     field=(i)=>{ //布防区域的个数 
@@ -85,9 +87,9 @@ class Equipment extends React.Component{
                     {
                     this.state.camera.map((el,i)=>{
                         return(
-                            <Col key={i} xxl={{ span: 5}} xs={{ span: 6}}className="cardPdd">
+                            <Col key={i} xxl={{ span: 5}} xs={{ span: 6}}className="cardPdd">   
                                 <Card                       
-                                    cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath} width="100%" /></a>}
+                                    cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath?this.state.camera[i].picpath:nopic} width="100%" /></a>}
                                     actions={
                                         this.state.utype==='1'
                                         ?[
@@ -97,7 +99,7 @@ class Equipment extends React.Component{
                                              <p>布防区域 </p> 
                                         </div>,
                                         <div className="actionsBbottom colCen">
-                                                <Icon type="clock-circle" /> {this.statework(i)}
+                                                {this.statework(i)}
                                         </div>, 
                                          <div className="colCen actionsBbottom ">
                                              <Icon type="setting" /> 设定
@@ -110,7 +112,7 @@ class Equipment extends React.Component{
                                              <p>布防区域 </p> 
                                         </a>,
                                         <a href={"#/app/companyhome/settime?id="+el.code} className="actionsBbottom colCen">
-                                                <Icon type="clock-circle" /> {this.statework(i)}
+                                                {this.statework(i)}
                                         </a>, 
                                          <a href={"#/app/userhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
                                              <Icon type="setting" /> 设定
