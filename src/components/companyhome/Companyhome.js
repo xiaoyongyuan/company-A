@@ -52,7 +52,16 @@ class Companyhome extends Component {
             }
         })
     }
-
+    //设备状态
+    handleStatus =(status)=>{
+        if(status===""){
+            return "离线";
+        }else if(status===1){
+            return "启用";
+        }else if(status===0){
+            return "禁用";
+        }
+    };
     render() {
         return (
             <div className="gutter-example button-demo">
@@ -126,8 +135,8 @@ class Companyhome extends Component {
                                             this.state.myEquipment.map((item,index)=>{
                                                 return(
                                                     <Row className="situation " key={index}>
-                                                        <Col className="gutter-row" xl={8}><a href={'#/app/companyhome/companydeveice?code='+item.code} className="shareUsers should">{item.name}</a></Col>
-                                                        <Col className="gutter-row" xl={8}>{item.cstatus?"使用中":"故障"}</Col>
+                                                        <Col className="gutter-row" xl={8}><a href={'#/app/companyhome/companydeveice?code='+item.code} className="shareUsers should">{item.name>0?"未命名":item.name}</a></Col>
+                                                        <Col className="gutter-row" xl={8}><span className="shareUsers">{this.handleStatus(item.cstatus)}</span></Col>
                                                         <Col className="gutter-row" xl={8}><a href={'#/app/Userhome/Alarmlist?id='+item.code} className="shareUsers should">未处理报警数：{item.alarm>0?item.alarm:"0"}</a></Col>
                                                     </Row>
                                             );
