@@ -23,7 +23,8 @@ class Companyhome extends Component {
             cloudDate: [],
             myEquipment:[],
             code:[],
-            codeCamera:[]
+            codeCamera:[],
+            alarmcount:[]
         }
     }
     componentDidMount(){
@@ -31,13 +32,14 @@ class Companyhome extends Component {
             if(res.success){
                 let clat=res.data.clat;
                 let clng=res.data.clng;
-                var data="未开通";
+                var data="无期限";
                 this.setState({
                     enterpriseTitle:res.data.cname,
                     myEquipment:res.camera,
                     mapJson:[{name:res.data.cname,value:[clng,clat]}],
                     code:res.data.code,
-                })
+                    alarmcount:res.alarmcount
+                });
                 if(res.data.clouddate!==""){
                     this.setState({
                         cloudDate:res.data.clouddate,
@@ -73,7 +75,7 @@ class Companyhome extends Component {
                                                     </Col>
                                                     <Col xl={10} lg={5} offset={1}>
                                                         <Row>
-                                                            <Col xl={24} className="baoJingFont adminFont">1258次</Col>
+                                                            <Col xl={24} className="baoJingFont adminFont">{this.state.alarmcount}</Col>
                                                         </Row>
                                                         <Row>
                                                             <Col xl={24}>未处理报警数</Col>
@@ -123,11 +125,13 @@ class Companyhome extends Component {
                                         {
                                             this.state.myEquipment.map((item,index)=>{
                                                 return(
-                                                    <Row className="situation shareUsers" key={index}>
-                                                        <Col className="gutter-row" xl={8}>{item.eid}</Col>
-                                                        <Col className="gutter-row" xl={8}>{item.cstatus?"使用中":"故障"}</Col>
-                                                        <Col className="gutter-row" xl={8}>{item.count}</Col>
-                                                    </Row>
+                                                    <a href={'#/app/Userhome/Alarmlist?id='+item.code}>
+                                                        <Row className="situation shareUsers should" key={index}>
+                                                            <Col className="gutter-row" xl={8}>{item.name}</Col>
+                                                            <Col className="gutter-row" xl={8}>{item.cstatus?"使用中":"故障"}</Col>
+                                                            <Col className="gutter-row" xl={8}>{item.count}</Col>
+                                                        </Row>
+                                                    </a>
                                                 );
                                             })
                                         }
