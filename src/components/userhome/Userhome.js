@@ -50,11 +50,11 @@ class Userhome extends React.Component{
 
     statework=(i)=>{ //布防转换     
         if(this.state.camera[i].work===2){
-            return (<span style={{color:'#5dcb9a'}}>布防中</span>)
+            return (<span><Icon type="clock-circle" style={{color:'#5dcb9a'}} />布防中</span>)
         }else if(this.state.camera[i].work===1){
-            return (<span style={{color:'#666'}}>不在布防中</span>)
+            return (<span><Icon type="clock-circle" style={{color:'#666'}} />不在布防中</span>)
         }else{
-            return (<span style={{color:'#666'}}>未设置</span>)          
+            return (<span><Icon type="clock-circle" style={{color:'#666'}} />未设置</span>)          
         }
     }
     field=(i)=>{ //布防区域的个数 
@@ -164,7 +164,7 @@ class Userhome extends React.Component{
                                              <p>布防区域 </p> 
                                         </a>,
                                         <a href={"#/app/companyhome/settime?id="+el.code} className="actionsBbottom colCen">
-                                                <Icon type="clock-circle" /> {this.statework(i)}
+                                                 {this.statework(i)}
                                         </a>, 
                                          <a href={"#/app/userhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
                                              <Icon type="setting" /> 设定
