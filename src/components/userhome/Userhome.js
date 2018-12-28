@@ -50,11 +50,11 @@ class Userhome extends React.Component{
 
     statework=(i)=>{ //布防转换     
         if(this.state.camera[i].work===2){
-            return (<span><Icon type="clock-circle" style={{color:'#5dcb9a'}} />布防中</span>)
+            return (<span><Icon type="clock-circle" style={{color:'#5dcb9a'}} /> 布防中</span>)
         }else if(this.state.camera[i].work===1){
-            return (<span><Icon type="clock-circle" style={{color:'#666'}} />不在布防中</span>)
+            return (<span><Icon type="clock-circle" style={{color:'#666'}} /> 不在布防中</span>)
         }else{
-            return (<span><Icon type="clock-circle" style={{color:'#666'}} />未设置</span>)          
+            return (<span><Icon type="clock-circle" style={{color:'#666'}} /> 未设置</span>)          
         }
     }
     field=(i)=>{ //布防区域的个数 
