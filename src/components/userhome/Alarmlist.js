@@ -30,8 +30,8 @@ class Alarmlist extends React.Component{
             equipment1:[],
             alermType:[],
             alarmImgType:false,
-            bdate:'',
-            edate:'',
+            bdate:'',//检索的开始时间
+            edate:'',//检索的结束时间
             cid:"", //检索选中的设备
             endOpen: false,
             page:1, //当前页数
@@ -50,7 +50,7 @@ class Alarmlist extends React.Component{
     componentDidMount() {
         const data={};
         if(this.state.propsid){
-            data.cid=this.state.propsid
+            data.cid=this.state.propsid;
             data.status=0
         }
         this.handleEquipment();//设备select
@@ -162,7 +162,7 @@ class Alarmlist extends React.Component{
     };
     /*
     * 检索
-    * 开=开始时间、结束时间、设备cid
+    * 开始时间、结束时间、设备cid
     * */
     handleSubmit =()=>{
         if(this.state.propsid){

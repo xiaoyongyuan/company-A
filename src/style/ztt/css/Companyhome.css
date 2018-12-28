@@ -29,6 +29,9 @@
     height: 4rem!important;
     background: #00A4FF!important;
 }
+.should{
+    cursor: pointer;
+}
 /*
 *Companyscene.js 企业用户-场景
 */
