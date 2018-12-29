@@ -51,8 +51,10 @@ class Login extends React.Component {
                     <Form onSubmit={this.handleSubmit} style={{maxWidth: '300px'}}>
                         <FormItem>
                             {getFieldDecorator('account', {
-                                rules: [{ required: true, message: '请输入用户名(手机号)!',
-                                    pattern: new RegExp(/^1(3|4|5|7|8)\d{9}$/, "g")
+                                rules: [{ required: true, message: '请输入用户名(手机号)!'
+                                 },{
+                                    pattern: new RegExp(/^1(3|4|5|7|8)\d{9}$/, "g"),
+                                    message: '请输入正确的手机号！'
                                  }],
                             })(
                                 <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入用户名" />
