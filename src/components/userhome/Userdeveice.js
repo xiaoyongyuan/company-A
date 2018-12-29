@@ -85,7 +85,6 @@ class Userdeveice extends React.Component{
           count++;
         }
          return count;
-         
     }
     status=()=>{ //报警类型 
         if(this.state.edata.status=="stop"){
@@ -232,7 +231,7 @@ class Userdeveice extends React.Component{
                            设备软件版本：
                         </Col>
                         <Col span={21} className="t_l">
-                           {this.state.edata.softversion}
+                           {this.state.edata.softversion?this.state.edata.softversion:'**'}
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -240,7 +239,7 @@ class Userdeveice extends React.Component{
                           设备硬件版本：
                         </Col>
                         <Col span={21} className="t_l">
-                        {this.state.edata.hardversion}
+                        {this.state.edata.hardversion?this.state.edata.hardversion:'**'}
                         </Col>
                     </Row>
                     <Row className="equ_row">

@@ -11,8 +11,8 @@ class Companydeveice extends Component{
     constructor(props){
         super(props);
         this.state= {
-            untreated: [],
-            processed: [],
+            untreated: [], //未处理
+            processed: [], //已处理
             patrol: [],
             record: [],
             ModalText:[],
@@ -25,8 +25,8 @@ class Companydeveice extends Component{
             visible: false,
             confirmLoading: false,
             camera:{ //摄像头信息
-                eid:'', //id
-                field:0 //防区设置状态1已设置，0未设置
+                eid:'',  //id
+                field:0  //防区设置状态1已设置，0未设置
             },
             video:true, //直播显示
             cid:'1000002', //摄像头id,由上一页面传入
@@ -38,6 +38,9 @@ class Companydeveice extends Component{
             imgbig:nopic,//放大图片的地址
             field:true, //是否显示围界信息
             obj:true, //是否显示报警对象
+            redstate:0, //当前查看报警的state
+            typetext:'', //当前查看报警的state汉字版
+            color:'rgb(247, 195, 93)', //state颜色显示
 
         }
 
@@ -54,8 +57,7 @@ class Companydeveice extends Component{
         area.clearRect(0,0,704,576);//清除之前的绘图
         area.lineWidth=1;
 
-        
-        let datafield=this.state.processed[this.state.alarmindex].field;
+        let datafield=this.state[this.state.alarmtype][this.state.alarmindex].field;
         datafield?datafield=JSON.parse( datafield):datafield=[]
         if(this.state.field && datafield.length){ 
           let areafield = ele.getContext("2d"); 
@@ -72,10 +74,10 @@ class Companydeveice extends Component{
             areafield.closePath();
           })
         }
-        const objs=this.state.processed[this.state.alarmindex].finalresult;
+        const objs=this.state[this.state.alarmtype][this.state.alarmindex].finalresult;
         if(this.state.obj && objs.length){
           //计算缩放比例
-          const x=704/this.state.processed[this.state.alarmindex].pic_width, y=576/this.state.processed[this.state.alarmindex].pic_height;
+          const x=704/this.state[this.state.alarmtype][this.state.alarmindex].pic_width, y=576/this.state[this.state.alarmtype][this.state.alarmindex].pic_height;
           objs.map((el,i)=>{
             area.strokeStyle='#ff0';
             area.beginPath();
@@ -96,12 +98,7 @@ class Companydeveice extends Component{
     }
     //查看报警图片
     alarmlook=(index,type,code)=>{
-        let img='';
-        if(type){ //type==1为未处理
-            img=this.state.untreated[index].picpath
-        }else{
-            img=this.state.processed[index].picpath
-        }
+        let img=this.state[type][index].picpath;
         this.setState({
             video:false,
             alarmindex:index, //处理报警用
@@ -111,22 +108,53 @@ class Companydeveice extends Component{
             field:true,
             obj:true,
             canvasbg:img?img:nopic, //canvas显示的报警图片
+            redstate:this.state.untreated[index].status,
         },()=>{
-            this.draw()
+            this.draw();
+            this.typetext();
         });
     }
     //查看报警视频
-    alarmvideo=(index,type)=>{
-        let video='';
-        if(type){ //type==1为未处理
-            video=this.state.untreated[index].videopath
-        }else{
-            video=this.state.processed[index].videopath
-        }
+    alarmvideo=(index,type,code)=>{
+        this.alarmlook(index,type,code);
+        let video=this.state[type][index].videopath;
         this.setState({
             alarmvideo:true,
             live:video
         });
+    }
+    typetext=()=>{//处理状态显示
+    let text=''; 
+    let color=''; 
+    switch(this.state.redstate){
+        case 1:
+            text='确认';
+        color='rgb(93,203,154)'
+            break;
+        case 2:
+            text='忽略';
+        color='#444'
+            break;
+        case 3:
+            text='虚警';
+        color='rgb(251, 117, 117)'
+            break;
+      default:
+        text='未处理';
+        color='rgb(247, 195, 93)'
+        break;
+    }
+    this.setState({
+        typetext:text,
+      color:color,
+    })
+  }
+    openreact=(checked,text)=>{ //控制显示围界与对象
+        this.setState({
+            [text]: checked,
+        },()=>{
+            this.draw()
+        }); 
     }
     //点名放大图片
     mouseover=(index)=>{
@@ -149,27 +177,22 @@ class Companydeveice extends Component{
 
     }
     alarmdeal=(type)=>{ //报警处理
-        post({url:'/api/alarm/updata',data:{code:this.state.alarmcode,status:type}},(res)=>{
+        const alarmtype=this.state.alarmtype;
+        post({url:'/api/alarm/update',data:{code:this.state.alarmcode,status:type}},(res)=>{
             if(res){
-                let untreated='';
-                if(this.state.alarmtype){
-                    untreated=this.state.untreated;
-                    untreated[this.state.alarmindex].state=type
-                    this.setState({
-                        untreated:untreated
-                    }); 
-                }else{
-                    untreated=this.state.processed;
-                    untreated[this.state.alarmindex].state=type
-                    this.setState({
-                        processed:untreated
-                    });
-                }
-                
+                console.log('data',data,alarmtype)
+                let data=this.state[alarmtype];
+                data[this.state.alarmindex].status=type;
+
+                this.setState({
+                    [alarmtype]:data,
+                    redstate:type,
+                },()=>{
+                    this.typetext()                    
+                }); 
             } 
         })
     }
-
     updatastate =()=>{ //启用禁用
         let cstatus=this.state.cstatus?0:1;
         post({url:'/api/camera/update',data:{code:this.state.cid,cstatus:cstatus}},(res)=>{
@@ -264,11 +287,11 @@ class Companydeveice extends Component{
             key: 'status',
             render: (text,record,index) => {
                 switch(text){
-                    case '1':
+                    case 1:
                         return '确认';
-                    case '2':
+                    case 2:
                         return '忽略';
-                    case '3':
+                    case 3:
                         return '虚警';
                     default:
                         return '未处理';
@@ -280,8 +303,8 @@ class Companydeveice extends Component{
             dataIndex: 'videopath',
             key: 'videopath',
             render: (text,record,index) => {
-                if(text) return (<span><Button onClick={()=>{this.alarmlook(index,"1",record.code)}}>查看</Button><Button onClick={()=>{this.alarmvideo(index,"1")}}>视频</Button></span>)
-                else return (<span><Button onClick={()=>{this.alarmlook(index,"1",record.code)}}>查看</Button></span>)
+                if(text) return (<span><Button onClick={()=>{this.alarmlook(index,"untreated",record.code)}}>查看</Button><Button onClick={()=>{this.alarmvideo(index,"untreated",record.code)}}>视频</Button></span>)
+                else return (<span><Button onClick={()=>{this.alarmlook(index,"untreated",record.code)}}>查看</Button></span>)
             },
         }];
         const columns2 = [{ //已处理报警
@@ -302,15 +325,16 @@ class Companydeveice extends Component{
             title: '处理状态',
             dataIndex: 'status',
             key: 'statusun',
-            render: (text,record,index) => {
-                console.log(text)
+            render: (text) => {
                 switch(text){
-                    case 0:
-                        return '未处理'
-                        break;
                     case 1:
-                        return '确认'
-                        break;
+                        return '确认';
+                    case 2:
+                        return '忽略';
+                    case 3:
+                        return '虚警';
+                    default:
+                        return '未处理';
                 }
             },
         },{
@@ -318,8 +342,8 @@ class Companydeveice extends Component{
             dataIndex: 'videopath',
             key: 'videopathun',
             render: (text,record,index) => {
-                if(text) return (<span><Button onClick={()=>{this.alarmlook(index,"0",record.code)}}>查看</Button><Button onClick={()=>{this.alarmvideo(index,"0")}}>视频</Button></span>)
-                else return (<span><Button onClick={()=>{this.alarmlook(index,"0",record.code)}}>查看</Button></span>)
+                if(text) return (<span><Button onClick={()=>{this.alarmlook(index,"processed",record.code)}}>查看</Button><Button onClick={()=>{this.alarmvideo(index,"processed",record.code)}}>视频</Button></span>)
+                else return (<span><Button onClick={()=>{this.alarmlook(index,"processed",record.code)}}>查看</Button></span>)
             },
         }];
         const columns3= []; //巡更
@@ -358,17 +382,18 @@ class Companydeveice extends Component{
                                 <img src={nopic} width='600px' height='300px' className="img-responsive" alt="test" style={{width:"100%"}}/>
                             </div>
                             <div className="alarmphoto" style={{display:this.state.video?"none":"block"}}>
-                                <canvas id="canvasobj" width="600px" height="300px" style={{backgroundImage:'url('+this.state.canvasbg+')',backgroundSize:"100% 100%"}}></canvas> 
+                                <canvas id="canvasobj" width="704px" height="576px" style={{backgroundImage:'url('+this.state.canvasbg+')',backgroundSize:"100% 100%"}}></canvas> 
                                 <div style={{height:"35px",width:"100%",display:"block"}}>
                                     <Row className="alarmwj">
-                                        <Col xl={{ span:10}}><label> 围界信息： <Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="close" />} defaultChecked onChange={this.wjopen} /></label></Col>
-                                        <Col xl={{ span:10}}><label> 报警信息： <Switch checkedChildren={<Icon type="check" />} unCheckedChildren={<Icon type="close" />} defaultChecked onChange={this.objopen} /></label></Col>
+                                        <Col xl={{ span:6}}><label> 围界信息： <Switch checked={this.state.field} onChange={(checked)=>this.openreact(checked,'field')} /></label></Col>
+                                        <Col xl={{ span:6}}><label> 报警信息： <Switch checked={this.state.obj} onChange={(checked)=>this.openreact(checked,'obj')} /></label></Col>
                                     </Row>
                                 </div>
                             </div>
                         </div>
+                        <div className="alarmphoto"  style={{display:this.state.video?"none":"block",height:"35px",width:"100%"}}><label>处理结果：</label><span style={{color:this.state.color}}>{this.state.typetext}</span></div>
                         <div className="dealbtn" style={{display:this.state.video?"none":"block"}}>
-                            <label>处理：</label>
+                            <label>处理操作：</label>
                             <Button type="primary" onClick={()=>{this.alarmdeal(1)}}>确认</Button>
                             <Button type="dashed" onClick={()=>{this.alarmdeal(3)}}>虚警</Button>
                             <Button onClick={()=>{this.alarmdeal(2)}}>忽略</Button>
@@ -412,7 +437,7 @@ class Companydeveice extends Component{
                                 <Col xl={10} xxl={10}>{usertype.utype==0?<Button type="primary" onClick={this.updatacancel}>{this.state.if_cancel?'撤防':'布防'}</Button>:''}</Col>
                             </Row>
                         </div>
-                        <div className="alarmvideo" style={{display:this.state.alarmvideo?"block":"none"}}>
+                        <div className="alarmvideo" style={{width:'60%',display:this.state.alarmvideo?"block":"none"}}>
                             <video controls="controls" autoplay="autoplay" style={{width:"100%",height:"300px"}} src={this.state.live}></video>
                         </div>
                     </Col>
@@ -439,12 +464,12 @@ class Companydeveice extends Component{
                                   rowKey={record => record.uid}/>
                         </TabPane>
                         <TabPane tab="已处理报警" key="2">
-                            <Table dataSource={this.state.processed} columns={columns2} rowKey={record => record.uid}></Table>
+                            <Table dataSource={this.state.processed} columns={columns2} rowKey={record => record.uid} ></Table>
                         </TabPane>
-                        <TabPane tab="点名记录" key="4">
+                        {/*<TabPane tab="点名记录" key="4">
                             <Table dataSource={this.state.record} columns={columns4} rowKey={record => record.uid} />
                         </TabPane>
-                        {/*<TabPane tab="电子巡更" key="3">
+                        <TabPane tab="电子巡更" key="3">
                             <Table dataSource={this.state.patrol} columns={columns3}  rowKey={record => record.uid} />
                         </TabPane>*/}
                     </Tabs>

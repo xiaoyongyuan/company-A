@@ -55,9 +55,9 @@ class Equipment extends React.Component{
             let myDate=new Date();// 当前时间
             let timc=myDate.getTime(myDate) // 当前时间戳
             if(timc-timq>60000){
-                return(<div className="onLine offLineBack">离线</div>)
+                return(<div className='onLine offLineBack'>离线</div>)
             }else{
-                return(<div className="onLine onLineBack">在线</div>)
+                return(<div className='onLine onLineBack'>在线</div>)
             }
         }else{
            return(<div className='onLine onLineBack'>在线</div>) 
@@ -68,6 +68,7 @@ class Equipment extends React.Component{
         if(this.state.camera[i].heart.time){
             var time= this.state.camera[i].heart.time.toString();// 取到时间
         }
+       
         let yijingtime=new Date(time); //取到时间转换
         let timq=yijingtime.getTime(yijingtime) // 取到时间戳
         let myDate=new Date();// 当前时间
@@ -86,7 +87,7 @@ class Equipment extends React.Component{
                     {
                     this.state.camera.map((el,i)=>{
                         return(
-                            <Col key={i} xxl={{ span: 5}} xs={{ span: 6}} className="cardPdd">
+                            <Col key={i} xxl={{ span: 5}} xs={{ span: 6}}className="cardPdd">   
                                 <Card                       
                                     cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath?this.state.camera[i].picpath:nopic} width="100%" /></a>}
                                     actions={
@@ -122,8 +123,8 @@ class Equipment extends React.Component{
                                         <Col xxl={{ span:6}} xs={{ span: 6}}>
                                                {this.isonline(i)}
                                         </Col>
-                                        <Col xxl={{ span: 18}} xs={{ span: 18}} className="titcon">
-                                           <p>{el.location}</p> 
+                                        <Col xxl={{span: 18}} xs={{ span: 18}} className="titcon">
+                                           <p>{el.name}</p> 
                                            <p>{el.eid}</p>
                                         </Col>
                                     </Row>
