@@ -1,24 +1,16 @@
-import React,{ Component } from 'react';
-import { Row, Col, Card,Button,Carousel } from 'antd';
+import React, {Component} from 'react';
+import {Row, Col, Card} from 'antd';
 import 'antd/dist/antd.css';
-import { Link } from 'react-router-dom'
-import juyuwang from '../../style/ztt/img/juyuwang.png';
 import '../../style/ztt/css/Companyhome.css';
 import {queryString} from "../../utils/index";
 import {post} from "../../axios/tools";
 import Equipment from '../userhome/Equipment';
 //图标
 import changjing from '../../style/ztt/img/changjing.png';
-// import shipin from "../../style/ztt/img/shipin.png";
-import noshipin from "../../style/ztt/img/noshipin.png";
-import policeShipin from "../../style/ztt/img/policeShipin.png";
-// import defenceDisplay from "../../style/ztt/img/defenceDisplay.png";
-import calPolice from "../../style/ztt/img/calPolice .png";
-import defenceHide from "../../style/ztt/img/defenceHide.png";
-class Companyscene extends Component{
-    constructor(props){
+class Companyscene extends Component {
+    constructor(props) {
         super(props);
-        this.state= {
+        this.state = {
             sceneCards: [],
             nowTimes: [],
             title: [],
@@ -28,65 +20,64 @@ class Companyscene extends Component{
             cardContext: [],
             equipmentNumber: [],
             onlineNumber: [],
-            cameraCard:0, //设备数
-            usercount:0, //账号用户数
-            adminname:'', //管理员
+            cameraCard: 0, //设备数
+            usercount: 0, //账号用户数
+            adminname: '', //管理员
         }
     }
-    componentDidMount(){
-        const { query }=this.props;
-        post({url:"/api/company/getone"},(res)=>{
-            if(res.success){
+
+    componentDidMount() {
+        post({url: "/api/company/getone"}, (res) => {
+            if (res.success) {
                 this.setState({
-                    title:res.data.cname,
-                    cloudDate:res.data.clouddate,
-                    clng:res.data.clng,
-                    clat:res.data.clat,
-                    pname:res.data.pname, //所属团队
-                    cameranum:res.camera.length,
-                    usercount:res.usercount,
-                    adminname:res.data.adminname, //管理员
-
-
+                    title: res.data.cname,
+                    cloudDate: res.data.clouddate,
+                    clng: res.data.clng,
+                    clat: res.data.clat,
+                    pname: res.data.pname, //所属团队
+                    cameranum: res.camera.length,
+                    usercount: res.usercount,
+                    adminname: res.data.adminname, //管理员
                 })
             }
         })
     }
-    getParams = ()=>{
+
+    getParams = () => {
         queryString();
     }
-    classColor = (state)=>{
-        if(state === 1) {
+    classColor = (state) => {
+        if (state === 1) {
             return 'LANCardHeaderColor LANCardHeader';
-        }else if(state === 2) {
+        } else if (state === 2) {
             return 'LANCardHeaderColor2 LANCardHeader';
-        }else if(state === 3){
+        } else if (state === 3) {
             return 'LANCardHeaderColor3 LANCardHeader';
-        }else if(state === 4){
+        } else if (state === 4) {
             return 'LANCardHeaderColor4 LANCardHeader';
         }
     }
-    fontColor = (state)=>{
-        if(state === 1) {
+    fontColor = (state) => {
+        if (state === 1) {
             return 'titleColor jiYu_font listContext';
-        }else if(state === 2) {
+        } else if (state === 2) {
             return 'titleColor2 jiYu_font listContext';
-        }else if(state === 3){
+        } else if (state === 3) {
             return 'titleColor3 jiYu_font listContext';
-        }else if(state === 4){
+        } else if (state === 4) {
             return 'titleColor2 jiYu_font listContext';
         }
     }
-    LANstate = (state)=>{
-        if(state === 4){
+    LANstate = (state) => {
+        if (state === 4) {
             return "Lanstate"
         }
     }
 
     render() {
-        return(
+        return (
             <div className="gutter-example button-demo">
-                <span style={{color:'#4B4B5F'}}>所在位置:场景</span>
+                <span style={{color: '#4B4B5F'}}>所在位置:场景</span>
                 <Row className="gutter-row" gutter={10}>
                     <Card bordered={false}>
                         <Row gutter={10}>
@@ -94,27 +85,32 @@ class Companyscene extends Component{
                         </Row>
                         <Row gutter={10}>
                             <Col xl={9} xxl={9}>
-                                <img src={changjing} className="img-responsive" alt="test" style={{width:"100%",height:"220px"}} />
+                                <img src={changjing} className="img-responsive" alt="test"
+                                     style={{width: "100%", height: "220px"}}/>
                             </Col>
                             <Col xl={8} xxl={6}>
                                 <Row className="cloud_data">
-                                    <Col xl={15} xxl={15} offset={1} className="cloud_title">云服务到期日期: {this.state.cloudDate?<span style={{color:'#1890ff'}}>{this.state.cloudDate}</span>:<span>无期限</span>}</Col>
+                                    <Col xl={15} xxl={15} offset={1}
+                                         className="cloud_title">云服务到期日期: {this.state.cloudDate ?
+                                        <span style={{color: '#1890ff'}}>{this.state.cloudDate}</span> :
+                                        <span>无期限</span>}</Col>
                                 </Row>
                                 <Row className="cloud_data">
-                                    <Col xl={8} xxl={6} offset={1}>经度: {this.state.clng?this.state.clng:'**'}</Col>
-                                    <Col xl={8} xxl={6}>纬度: {this.state.clat?this.state.clat:'**'}</Col>
+                                    <Col xl={8} xxl={6} offset={1}>经度: {this.state.clng ? this.state.clng : '**'}</Col>
+                                    <Col xl={8} xxl={6}>纬度: {this.state.clat ? this.state.clat : '**'}</Col>
                                 </Row>
                                 <Row className="cloud_data">
-                                    <Col offset={1}>设备总数: {this.state.cameranum?this.state.cameranum:0}</Col>
+                                    <Col offset={1}>设备总数: {this.state.cameranum ? this.state.cameranum : 0}</Col>
                                 </Row>
                                 <Row className="cloud_data">
-                                    <Col offset={1}>所属团队: {this.state.pname?this.state.pname:'未绑定'}</Col>
+                                    <Col offset={1}>所属团队: {this.state.pname ? this.state.pname : '未绑定'}</Col>
                                 </Row>
                                 <Row className="cloud_data">
-                                    <Col offset={1}>用户数: {this.state.usercount?this.state.usercount:0}</Col>
+                                    <Col offset={1}>用户数: {this.state.usercount ? this.state.usercount : 0}</Col>
                                 </Row>
                                 <Row className="cloud_data">
-                                    <Col offset={1}>管理员: {this.state.adminname?this.state.adminname:'********'}</Col>
+                                    <Col
+                                        offset={1}>管理员: {this.state.adminname ? this.state.adminname : '********'}</Col>
                                 </Row>
                                 {/*<Row className="cloud_data">
                                     <Col xl={8} xxl={4} offset={4}>
@@ -156,11 +152,12 @@ class Companyscene extends Component{
                         </Row>
                     </Card>
                 </Row>
-                <Equipment />
+                <Equipment/>
 
-                
+
             </div>
         );
     }
 }
+
 export default Companyscene

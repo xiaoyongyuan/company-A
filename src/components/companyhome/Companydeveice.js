@@ -1,11 +1,9 @@
 import React,{ Component } from 'react';
 import {Row, Col, Tabs,Button,Icon,Table,Modal,Input, Switch } from 'antd';
-import house from "../../style/ztt/img/house.jpg";
 import camera from "../../style/ztt/img/camera.png";
 import nopic from "../../style/imgs/nopic.png";
 import '../../style/ztt/css/Companyhome.css';
 import {post} from "../../axios/tools";
-import {url} from "../../utils/index";
 
 const usertype=JSON.parse(localStorage.getItem('user'));
 const TabPane = Tabs.TabPane;
@@ -27,8 +25,8 @@ class Companydeveice extends Component{
             visible: false,
             confirmLoading: false,
             camera:{ //摄像头信息
-                eid:'',  //id
-                field:0  //防区设置状态1已设置，0未设置
+                eid:'', //id
+                field:0 //防区设置状态1已设置，0未设置
             },
             video:true, //直播显示
             cid:'1000002', //摄像头id,由上一页面传入

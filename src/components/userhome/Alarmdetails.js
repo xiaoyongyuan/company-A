@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col,Button, Switch, Icon } from 'antd';
+import {Button, Switch, Icon } from 'antd';
 import {post} from "../../axios/tools";
 import "../../style/ztt/css/police.css";
 const ButtonGroup = Button.Group;
@@ -13,7 +13,7 @@ class Alarmdetails extends React.Component{
       		name:'',
       		tags:'',
       		type:'1',
-          atime:'',
+            atime:'',
       		field:[],
           finalresult:[],
       	},
@@ -129,7 +129,7 @@ class Alarmdetails extends React.Component{
       let areafield = ele.getContext("2d"); 
       area.lineWidth=1;    
   		areafield.strokeStyle='#f00';
-      datafield.map((el,i)=>{
+        datafield.map((el,i)=>{
         areafield.beginPath();
         areafield.moveTo(datafield[i][0][0],datafield[i][0][1]);
         areafield.lineTo(datafield[i][1][0],datafield[i][1][1]);
