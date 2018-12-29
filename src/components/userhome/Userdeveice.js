@@ -85,6 +85,7 @@ class Userdeveice extends React.Component{
           count++;
         }
          return count;
+         
     }
     status=()=>{ //报警类型 
         if(this.state.edata.status=="stop"){
