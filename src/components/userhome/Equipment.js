@@ -44,6 +44,7 @@ class Equipment extends React.Component{
         var count = 0;
         for(var j in jsonData){
             count++;
+            
         }
         return count;
     }
@@ -55,12 +56,12 @@ class Equipment extends React.Component{
             let myDate=new Date();// 当前时间
             let timc=myDate.getTime(myDate) // 当前时间戳
             if(timc-timq>60000){
-                return(<div className='onLine offLineBack'>离线</div>)
+                return(<div className="onLine offLineBack">离线</div>)
             }else{
-                return(<div className='onLine onLineBack'>在线</div>)
+                return(<div className="onLine onLineBack">在线</div>)
             }
         }else{
-           return(<div className='onLine onLineBack'>在线</div>) 
+           return(<div className="onLine onLineBack">在线</div>) 
         }
             
    }
