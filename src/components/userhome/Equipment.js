@@ -40,7 +40,7 @@ class Equipment extends React.Component{
              jsonData=0;
         }else{
              jsonData= JSON.parse(this.state.camera[i].field)
-        }
+        }    
         var count = 0;
         for(var j in jsonData){
             count++;
@@ -60,7 +60,7 @@ class Equipment extends React.Component{
                 return(<div className="onLine onLineBack">在线</div>)
             }
         }else{
-           return(<div className="onLine onLineBack">在线</div>)
+           return(<div className='onLine onLineBack'>在线</div>) 
         }
             
    }
