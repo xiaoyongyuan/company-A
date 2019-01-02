@@ -2,16 +2,13 @@
  * 头部登录人信息
  */
 import React, { Component } from 'react';
-import { Menu, Icon, Layout, Badge, Popover } from 'antd';
+import { Menu, Icon, Layout, Popover,Modal } from 'antd';
 import screenfull from 'screenfull';
 import icon_admin from '../style/imgs/icon_admin.png';
 import icon_user from '../style/imgs/icon_user.png';
 import SiderCustom from './SiderCustom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { post } from '../axios/tools';
-
-
 const { Header } = Layout;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -30,7 +27,6 @@ class HeaderCustom extends Component {
                 user: _user
             });
         }
-    
     };
     screenFull = () => { //全屏
             screenfull.toggle();
@@ -41,6 +37,23 @@ class HeaderCustom extends Component {
     menuClick = e => {
         e.key === 'logout' && this.logout();
     };
+
+    showModaldelete = (code,index) =>{ //退出
+        this.setState({
+            deleteshow: true,
+        });
+    }
+    deleteOk = () =>{//确认退出
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        this.props.history.push('/login')
+    };
+    deleteCancel = () =>{//取消退出
+        this.setState({
+            deleteshow: false,
+        });
+    };
+
     logout = () => { //退出
         localStorage.removeItem('user');
         localStorage.removeItem('token');
@@ -57,6 +70,7 @@ class HeaderCustom extends Component {
     render() {
         const { responsive, path } = this.props;
         return (
+            <div>
             <Header className="custom-theme header" >
                 {
                     responsive.data.isMobile ? (
@@ -84,11 +98,11 @@ class HeaderCustom extends Component {
                             <Icon type="notification" />
                         </Badge>
                     </Menu.Item>*/}
-                    <SubMenu title={<span className="avatar"><img src={this.props.user.utype==='1'?icon_user:icon_admin}  alt="头像" /></span>}>
+                    <SubMenu title={<span className="avatar"><img src={this.props.user.utype==='1'?icon_user:icon_admin} alt="头像" /></span>}>
                         <MenuItemGroup title="用户中心">
                             <Menu.Item key="setting:1">你好 - {this.props.user.realname}</Menu.Item>
                             {/*<Menu.Item key="setting:2">个人信息</Menu.Item>*/}
-                            <Menu.Item key="logout"><span onClick={this.logout}>退出登录</span></Menu.Item>
+                            <Menu.Item key="logoutto"><span onClick={this.showModaldelete}>退出登录</span></Menu.Item>
                         </MenuItemGroup>
                         {/*<MenuItemGroup title="设置中心">
                             <Menu.Item key="setting:3">个人设置</Menu.Item>
@@ -97,6 +111,15 @@ class HeaderCustom extends Component {
                     </SubMenu>
                 </Menu>
             </Header>
+
+            <Modal title="提示信息" visible={this.state.deleteshow} onOk={this.deleteOk}
+            onCancel={this.deleteCancel}
+            okText="确认"
+            cancelText="取消"
+            >
+            <p>确认退出吗？</p>
+            </Modal>
+            </div>
         )
     }
 }
