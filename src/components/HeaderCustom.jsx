@@ -38,7 +38,7 @@ class HeaderCustom extends Component {
         e.key === 'logout' && this.logout();
     };
 
-    showModaldelete = (code,index) =>{ //退出
+    showModaldelete = () =>{ //退出
         this.setState({
             deleteshow: true,
         });
