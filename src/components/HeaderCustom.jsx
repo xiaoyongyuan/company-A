@@ -67,6 +67,22 @@ class HeaderCustom extends Component {
     handleVisibleChange = (visible) => {
         this.setState({ visible });
     };
+    mouseup = () => {
+        this.setState({
+            backgroundupf: "#fff",
+            backgroundupt: "#fff",
+        });
+    };
+    mousedownf = (e) => {
+        this.setState({
+            backgroundupf: "#8B8E94",
+        });
+    };
+    mousedownt = (e) => {
+        this.setState({
+            backgroundupt: "#8B8E94",
+        });
+    };
     render() {
         const { responsive, path } = this.props;
         return (
@@ -100,9 +116,15 @@ class HeaderCustom extends Component {
                     </Menu.Item>*/}
                     <SubMenu title={<span className="avatar"><img src={this.props.user.utype==='1'?icon_user:icon_admin} alt="头像" /></span>}>
                         <MenuItemGroup title="用户中心">
-                            <Menu.Item key="setting:1">你好 - {this.props.user.realname}</Menu.Item>
+                            <Menu.Item key="setting:1" style={{background:this.state.backgroundupf}} onMouseUp={this.mouseup} 
+                            onMouseDown={(e)=>this.mousedownf(e)} className="ba" 
+                            >你好 - {this.props.user.realname}</Menu.Item>
+
                             {/*<Menu.Item key="setting:2">个人信息</Menu.Item>*/}
-                            <Menu.Item key="logoutto"><span onClick={this.showModaldelete}>退出登录</span></Menu.Item>
+
+                            <Menu.Item key="logoutto" style={{background:this.state.backgroundupt}} onMouseUp={this.mouseup}
+                             onMouseDown={(e)=>this.mousedownt(e)} className="ba"
+                            ><span onClick={this.showModaldelete}>退出登录</span></Menu.Item>
                         </MenuItemGroup>
                         {/*<MenuItemGroup title="设置中心">
                             <Menu.Item key="setting:3">个人设置</Menu.Item>
@@ -129,7 +151,6 @@ const mapStateToProps = state => {
     const { responsive = {data: {}} } = state.httpData;
     console.log("state",state)
     console.log("responsive",responsive)
-
     return {responsive};
 };
 
