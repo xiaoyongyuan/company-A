@@ -73,12 +73,12 @@ class HeaderCustom extends Component {
             backgroundupt: "#fff",
         });
     };
-    mousedownf = (e) => {
+    mousedownf = () => {
         this.setState({
             backgroundupf: "#8B8E94",
         });
     };
-    mousedownt = (e) => {
+    mousedownt = () => {
         this.setState({
             backgroundupt: "#8B8E94",
         });
@@ -117,13 +117,13 @@ class HeaderCustom extends Component {
                     <SubMenu title={<span className="avatar"><img src={this.props.user.utype==='1'?icon_user:icon_admin} alt="头像" /></span>}>
                         <MenuItemGroup title="用户中心">
                             <Menu.Item key="setting:1" style={{background:this.state.backgroundupf}} onMouseUp={this.mouseup} 
-                            onMouseDown={(e)=>this.mousedownf(e)} className="ba" 
+                            onMouseDown={this.mousedownf} className="ba" 
                             >你好 - {this.props.user.realname}</Menu.Item>
 
                             {/*<Menu.Item key="setting:2">个人信息</Menu.Item>*/}
 
                             <Menu.Item key="logoutto" style={{background:this.state.backgroundupt}} onMouseUp={this.mouseup}
-                             onMouseDown={(e)=>this.mousedownt(e)} className="ba"
+                             onMouseDown={this.mousedownt} className="ba"
                             ><span onClick={this.showModaldelete}>退出登录</span></Menu.Item>
                         </MenuItemGroup>
                         {/*<MenuItemGroup title="设置中心">
