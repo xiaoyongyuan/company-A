@@ -25,17 +25,18 @@ class Setarea extends Component {
         post({url:'/api/camera/getone',data:{code:this.state.cid}},(res)=>{
             if(res){
                 console.log(res)
-                let field=res.data.field;
+                let field=res.data.field,areaone=[],areatwo=[];
                 if(field){
-                    this.setState({
-                        areaone:field[1]?JSON.parse(field[1]):[],
-                        areatwo:field[2]?JSON.parse(field[2]):[],
-                        src:res.data.picpath,
+                    areaone=field[1]?JSON.parse(field[1]):[];
+                    areatwo=field[2]?JSON.parse(field[2]):[];
+                }
+                this.setState({
+                        areaone:areaone,
+                        areatwo:areatwo,
+                        src:res.data.fieldpath,
                     },()=>{
                         this.boundarydraw()
                     });
-
-                }
                 
             }
         })  
@@ -107,8 +108,7 @@ class Setarea extends Component {
     }
     
     clickgetcorrd =(e)=>{ //点击
-        if(!this.state.areaone||!this.state.areatwo){
-            console.log('inde',this.state.clicknum)
+        if(!this.state.areaone.length||!this.state.areatwo.length){
             if(this.state.present.length===4){
                 this.setState({
                     deleteshow: true
@@ -180,7 +180,7 @@ class Setarea extends Component {
     }
     submitok(index){
         if(index){
-            if(this.state.areaone){
+            if(this.state.areaone.length){
                 post({url:'/api/camera/fielddel',data:{key:1,code:this.state.cid}},(res)=>{
                     if(res){
                         this.setState({
@@ -194,7 +194,7 @@ class Setarea extends Component {
                 })
             }else{
                 if(this.state.present.length===4){
-                    post({url:'/api/camera/fieldadd',data:{key:1,field:[this.state.present],code:this.state.cid}},(res)=>{
+                    post({url:'/api/camera/fieldadd',data:{key:1,field:JSON.stringify([this.state.present]),code:this.state.cid}},(res)=>{
                         if(res){
                             this.setState({
                                 areaone:[this.state.present],
@@ -209,7 +209,7 @@ class Setarea extends Component {
                 
             }
         }else{
-            if(this.state.areatwo){
+            if(this.state.areatwo.length){
                 post({url:'/api/camera/fielddel',data:{key:2,code:this.state.cid}},(res)=>{
                     if(res){
                         this.setState({
@@ -222,7 +222,7 @@ class Setarea extends Component {
                 })
             }else{
                 if(this.state.present.length===4){
-                    post({url:'/api/camera/fieldadd',data:{key:2,field:[this.state.present],code:this.state.cid}},(res)=>{
+                    post({url:'/api/camera/fieldadd',data:{key:2,field:JSON.stringify([this.state.present]),code:this.state.cid}},(res)=>{
                         if(res){
                             this.setState({
                                 areatwo:[this.state.present],
@@ -245,7 +245,7 @@ class Setarea extends Component {
                 <Row>
                     <Col xl={{ span:16}} xxl={{ span: 14 }}>
                         <div className="photo" id="canvasphoto">
-                           <canvas id="time_graph_canvas" width="704px" height="576px" style={{backgroundImage:'url('+this.state.src+')',backgroundSize:'cover'}} onClick={this.clickgetcorrd} onMouseMove={this.drawmove} />
+                           <canvas id="time_graph_canvas" width="704px" height="576px" style={{backgroundImage:'url('+this.state.src+')',backgroundSize:'100% 100%'}} onClick={this.clickgetcorrd} onMouseMove={this.drawmove} />
                         </div>
                     </Col>
                     <Col xl={{ span: 8}} xxl={{ span: 10 }}>
@@ -263,7 +263,7 @@ class Setarea extends Component {
                             <Row>
                                 <Col span={14}>
                                         围界设定方法：请在左侧图片处鼠标单击绘制防区，防区均为四边形，
-                                    每个设备最多可设置两处防区。防区设置完成后请点击“新增”按钮生效。
+                                    每个设备最多可设置两处防区。防区绘制完成后请点击“新增”按钮生效。
                                 </Col>
                             </Row>
                         </div>
