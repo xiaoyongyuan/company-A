@@ -127,9 +127,6 @@ class HeaderCustom extends Component {
 const mapStateToProps = state => {  
 // const  {responsive}=state.httpData;
     const { responsive = {data: {}} } = state.httpData;
-    console.log("state",state)
-    console.log("responsive",responsive)
-
     return {responsive};
 };
 

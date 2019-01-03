@@ -10,9 +10,8 @@ import logoicon from '../style/imgs/logoicon.png';
 import logofont from '../style/imgs/logofont.png';
 
 const { Sider } = Layout;
-
 class SiderCustom extends Component {
-    static getDerivedStateFromProps (props, state) { 
+    static getDerivedStateFromProps (props, state) {
         if (props.collapsed !== state.collapsed) {
             const state1 = SiderCustom.setMenuOpen(props);
             const state2 = SiderCustom.onCollapse(props.collapsed);
@@ -27,17 +26,15 @@ class SiderCustom extends Component {
     }
     static setMenuOpen = props => {
         const { pathname } = props.location;
-        console.log('props',props);
         return {
             openKey: pathname.substr(0, pathname.lastIndexOf('/')),
             selectedKey: pathname
         };
     };
     static onCollapse = (collapsed) => {
-        console.log(111,collapsed)
+        console.log(collapsed);
         return {
             collapsed,
-            // firstHide: collapsed,
             mode: collapsed ? 'vertical' : 'inline',
         };
     };
@@ -51,12 +48,12 @@ class SiderCustom extends Component {
     };
     componentDidMount() {
         const state = SiderCustom.setMenuOpen(this.props);
+        this.setState(state);
     }
     menuClick = e => {
         this.setState({
             selectedKey: e.key
         });
-        console.log('点击',this.state);
         const { popoverHide } = this.props; // 响应式布局控制小屏幕点击菜单时隐藏菜单操作
         popoverHide && popoverHide();
     };
