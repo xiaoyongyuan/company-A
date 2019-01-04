@@ -136,11 +136,13 @@ class PatrolRecord extends React.Component{
     };
     //不通过
     noPatrolAdopt =()=>{
-        if(this.state.stateType!=="1"){
-            this.setState({
-                stateType:0
-            })
-        }
+        post({url:"/api/patrolresult/patrolconfirm",data:{code:"5"}},(res)=>{
+            if(this.state.stateType!=="1"){
+                this.setState({
+                    stateType:0
+                })
+            }
+        })
     };
     componentDidMount() {
         this.patrolList();
