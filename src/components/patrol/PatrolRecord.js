@@ -89,8 +89,7 @@ class PatrolRecord extends React.Component{
     patrolChange =(value)=>{
         this.setState({
             cid:value
-        })
-        console.log(value);
+        });
     };
     //巡更列表信息
     patrolList =()=>{
@@ -120,7 +119,7 @@ class PatrolRecord extends React.Component{
             edate:this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
             cid:this.state.cid
         };
-        post({url:{url:"/api/camera/getlist",data:data}},(res)=>{
+        post({url:"/api/patrolresult/getlist",data:data},(res)=>{
             console.log(res);
         })
     };
