@@ -4,6 +4,7 @@ import ModalForm from './ModalForm.js';
 import {Form,Input, Row, Col, Button, Modal,Table, message} from 'antd';
 // import '../../style/sjg/home.css';
 import {post} from "../../axios/tools";
+
 const FormItem = Form.Item;
 const usertype=JSON.parse(localStorage.getItem('user'));
 class Adminteam extends Component {
