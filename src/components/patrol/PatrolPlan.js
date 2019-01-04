@@ -21,7 +21,9 @@ class PatrolPlan extends React.Component{
             if(res.success){
                 console.log(res.data,"********************")
                 this.setState({
+                    resdatd:res,
                     list: res.data
+                    
                 },()=>{
                     console.log(this.state.list,"111111")
                 })
@@ -35,11 +37,13 @@ class PatrolPlan extends React.Component{
             type:0,
         });
     };
-    showModalEdit=(code)=>{ //编辑
+    showModalEdit=(code,index)=>{ //编辑
         console.log(code,"00000000000000000000000000000000000")
+        console.log(index.i,"33333333333333333333333333333333333")
         this.setState({
             visible: true,
             type:code,
+            indexi:index.i
         });
     }
     handleCancel = (e) => { //modal取消
@@ -70,9 +74,10 @@ class PatrolPlan extends React.Component{
                     post({url:"/api/patrol/update",data:data},(res)=>{
                         if(res.success){
                             let list=this.state.list;
-                           
+                            list[this.state.indexi]=res.data[0]; 
                             this.setState({
                                 list:list,
+                               
                                 visible: false,
                             })
                         }
@@ -127,7 +132,7 @@ class PatrolPlan extends React.Component{
                                         </div>
                                         </div>
                                         <div className="patrol_query">
-                                        <Icon type="search" onClick={() => {this.showModalEdit( this.state.list[i].code)}} />
+                                        <Icon type="search" onClick={() => {this.showModalEdit( this.state.list[i].code,{i})}} />
                                         </div>
                                     </div>
                                 </Col>

@@ -31,6 +31,10 @@ import Employeelist from './settings/Employeelist';
 import PatrolPlan from './patrol/PatrolPlan';
 import PatrolRecord from './patrol/PatrolRecord';
 
+//点名
+import RollcallTask from './rollcall/RollcallTask';
+import RollcallRecord from './rollcall/RollcallRecord';
+
 import Live from './live/index';
 
 
@@ -47,6 +51,7 @@ export default {
     , Alarmdetails, Alarmlist, Equipment, Userhome, Userdeveice
     , Employeelist, Loglist
     ,PatrolPlan, PatrolRecord
+    ,RollcallTask, RollcallRecord
     , Live
 
 }
