@@ -29,6 +29,8 @@ class PatrolPlan extends React.Component{
                 })
             }
         })
+
+        
     }
     showModal = (e) => { //新增弹窗
         e.preventDefault();
@@ -38,8 +40,6 @@ class PatrolPlan extends React.Component{
         });
     };
     showModalEdit=(code,index)=>{ //编辑
-        console.log(code,"00000000000000000000000000000000000")
-        console.log(index.i,"33333333333333333333333333333333333")
         this.setState({
             visible: true,
             type:code,

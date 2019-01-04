@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Form,Table, Row, Col, Button,Radio, Modal,TimePicker,Input,Checkbox} from 'antd';
+import {Form,TimePicker,Input,Checkbox} from 'antd';
 import {post} from "../../axios/tools";
 import moment from 'moment';
 const FormItem = Form.Item;
@@ -12,6 +12,9 @@ class ModalForm extends Component {
             form:false
         };
     }
+    componentWillMount(){
+       
+    }
     componentDidMount() {
         //编辑  数据回填
         this.setState({
@@ -19,29 +22,49 @@ class ModalForm extends Component {
         },()=>{
             this.requestdata()
         });
+       
     }
+  
     componentWillReceiveProps(nextProps){
-        if( nextProps.visible !== vis){
+        console.log("nextProps", nextProps);
+        if( nextProps.visible != vis){
             vis=nextProps.visible;
             if(nextProps.visible){
                 vis=nextProps.visible;
                 this.setState({
-                    code:nextProps.code
-                }, () => {
-                    this.requestdata()});
+                    code:this.props.code,
+                });
             }
         }
-             
+
     }
-    requestdata=(params) => {//取数据
+    requestdata=() => {//取数据
         if(this.state.code){
             post({url:"/api/patrol/getone",data:{code:this.state.code} }, (res)=>{
+                console.log("***************************************", res.data.clist)
                     this.props.form.setFieldsValue({
-                    // realname: `${res.data.realname}`,
-                    // emailaddress: `${res.data.emailaddress}`,
+                     pteam: `${res.data.pteam}`,
+                        pbdate: moment(`${res.data.pbdate}`),
+                        pedate: moment(`${res.data.pedate}`),
+                        patrolE:`${res.data.clist}` ,
                     });
             })
         }
+        
+        post({url:"/api/camera/getlist"}, (res)=>{
+            if(res.success){
+                console.log(res.data,"摄像头code")
+                  let codearr=[];
+                res.data.map((el,i) => {
+                    codearr.push({ label: el.name, value:el.code })
+                })
+                this.setState({
+                    plainOptions: codearr
+                },()=>{
+                    console.log(this.state.plainOptions,"ccccccccccc")
+                })
+            }
+        })
     }
     formref = () => { //将form传给父组件由父组件控制表单提交
         return this.props.form;
@@ -52,6 +75,7 @@ class ModalForm extends Component {
             checkedList:checkedList.target.value
         });
     }
+
     render() {
         const CheckboxGroup = Checkbox.Group;
         const { getFieldDecorator } = this.props.form;
@@ -92,16 +116,8 @@ class ModalForm extends Component {
         function onChangecheck(checkedValues) {
             console.log('checked = ', checkedValues);
         }
-        const plainOptions = [
-            { label: '测试1', value:"测试1" },
-            { label: '测试2', value:"测试2" },
-            { label: '测试3', value:"测试3" },
-            { label: '测试4', value:"测试4" },
-        ];
+       
         return (
-           
-
-
                 <Form layout="vertical" onSubmit={this.handleSubmit}>
                 <FormItem label="班次名称">
                     {getFieldDecorator('pteam', {
@@ -136,7 +152,7 @@ class ModalForm extends Component {
 
                                 rules: [{ required: false, message: '请选择巡更设备!' }],
                             })(
-                                <CheckboxGroup options={plainOptions} onChange={onChangecheck} />
+                                <CheckboxGroup options={this.state.plainOptions} onChange={onChangecheck} />
                             )}
                         </FormItem>
                 </Form>
