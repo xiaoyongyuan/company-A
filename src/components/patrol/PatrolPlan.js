@@ -70,7 +70,7 @@ class PatrolPlan extends React.Component{
                     post({url:"/api/patrol/update",data:data},(res)=>{
                         if(res.success){
                             let list=this.state.list;
-                            list[this.state.index]=res.data[0]; 
+                           
                             this.setState({
                                 list:list,
                                 visible: false,
