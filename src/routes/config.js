@@ -16,6 +16,13 @@ export default {
                 { key: '/app/settings/loglist', identi:['comp','user'], title: '日志', component: 'Loglist'},             
             ],
         },
+        {
+            key: '/app/patrol', title: '巡更' , identi:['comp'], icon: 'bars',
+            subs: [
+                { key: '/app/patrol/patrolplan', identi:['comp'], title: '巡更计划', component: 'PatrolPlan'}, 
+                { key: '/app/patrol/patrolrecord', identi:['comp'], title: '巡更记录', component: 'PatrolRecord'},             
+            ],
+        },
         { key: '/app/live/index', identi:['comp','user'], title: '直播', icon: 'camera', component: 'Live' },
 
     ],

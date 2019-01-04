@@ -16,8 +16,6 @@ import Deveicedet from './companyhome/Deveicedet';
 import Setarea from './companyhome/Setarea';
 import Settime from './companyhome/Settime';
 
-
-
 // 个人用户
 import Alarmdetails from './userhome/Alarmdetails';
 import Alarmlist from './userhome/Alarmlist';
@@ -28,6 +26,13 @@ import Userdeveice from './userhome/Userdeveice'; //设备信息
 //系统管理
 import Loglist from './settings/Loglist';
 import Employeelist from './settings/Employeelist';
+
+//巡更
+import PatrolPlan from './patrol/PatrolPlan';
+import PatrolRecord from './patrol/PatrolRecord';
+
+import Live from './live/index';
+
 
 
 const WysiwygBundle = Loadable({ // 按需加载富文本配置
@@ -41,5 +46,7 @@ export default {
     , Companyhome, Companyscene, Companydeveice, Calling, Connent, Deveicedet, Settime, Setarea
     , Alarmdetails, Alarmlist, Equipment, Userhome, Userdeveice
     , Employeelist, Loglist
+    ,PatrolPlan, PatrolRecord
+    , Live
 
 }
