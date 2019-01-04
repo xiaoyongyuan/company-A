@@ -17,6 +17,17 @@ const formItemLayout = {
         xl: { span: 4}
     },
 };
+const data=[
+    {
+        code:1,
+        cid:1000001,
+        pdate:'2018-12-12 12:09:09',
+        ppic:'http://pic01.aokecloud.cn/alarm/1000004/pic/20190104//1000004_20190104172947.jpg',
+        patrolname:'张三',
+        cameraname:'测试一',
+        phandle:'0',
+    }
+]
 class PatrolRecord extends React.Component{
     constructor(props){
         super(props);
@@ -96,7 +107,8 @@ class PatrolRecord extends React.Component{
         post({url:"/api/patrolresult/getlist",data:{ifhandle:1}},(res)=>{
             if(res.success){
                 this.setState({
-                    dataSource:res.data
+                    // dataSource:res.data
+                    dataSource:data
                 })
             }
         })
@@ -151,13 +163,13 @@ class PatrolRecord extends React.Component{
         const { getFieldDecorator } = this.props.form;
         const columns = [{
             title: '序号',
-            dataIndex: 'serial',
-            key: 'serial',
+            dataIndex: 'index',
+            key: 'index',
             render: (text, record,index) => (index+1)
         }, {
             title: '巡更图',
-            dataIndex: 'patrolMap',
-            key: 'patrolMap',
+            dataIndex: 'ppic',
+            key: 'ppic',
             render: text => <span>{text}</span>,
         }, {
             title: '巡更人',
