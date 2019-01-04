@@ -13,7 +13,6 @@ class Deveicedet extends Component {
 
         };
     }
-
     componentDidMount(e) {
         this.setState({
         })

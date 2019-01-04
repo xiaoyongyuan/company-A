@@ -23,7 +23,8 @@ class PatrolRecord extends React.Component{
         this.state={
             dataSource:[],
             patrolImg:false,
-            equipment:[]
+            equipment:[],
+            stateType:0
         }
     }
     onChangeDate = (field, value) => {
@@ -86,6 +87,9 @@ class PatrolRecord extends React.Component{
     };
     //select设备
     patrolChange =(value)=>{
+        this.setState({
+            cid:value
+        })
         console.log(value);
     };
     //巡更列表信息
@@ -119,6 +123,24 @@ class PatrolRecord extends React.Component{
         post({url:{url:"/api/camera/getlist",data:data}},(res)=>{
             console.log(res);
         })
+    };
+    //通过
+    patrolAdopt =()=>{
+        post({url:"/api/patrolresult/patrolconfirm",data:{code:"5"}},(res)=>{
+           if(this.state.stateType!=="0"){
+                this.setState({
+                    stateType:1
+                })
+           }
+        })
+    };
+    //不通过
+    noPatrolAdopt =()=>{
+        if(this.state.stateType!=="1"){
+            this.setState({
+                stateType:0
+            })
+        }
     };
     componentDidMount() {
         this.patrolList();
@@ -244,6 +266,7 @@ class PatrolRecord extends React.Component{
                         onCancel={this.patrolCancel}
                         okText="确认"
                         cancelText="取消"
+                        footer={null}
                     >
                         <Row style={{margin:"10px 0px"}}>
                             <Col span={2}>张三</Col>
@@ -252,13 +275,13 @@ class PatrolRecord extends React.Component{
                             <Col span={6} offset={4}>早班12:00-14:00</Col>
                         </Row>
                         <Row>
-                            <Col span={24}><img src={imgSrc} alt="nodata" width={650} height={300}/></Col>
+                            <Col span={24}><img src="http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg" alt="nodata" width="100%"/></Col>
                         </Row>
                         <Row style={{margin:"10px 0px"}}>
-                            <Col span={24}>处理结果:<span>通过</span></Col>
+                            <Col span={24}>处理结果:<span>{this.state.stateType===0?"不通过":"通过"}</span></Col>
                         </Row>
                         <Row>
-                            <Col span={12} offset={9}><Button type="primary">通过</Button><Button type="primary">不通过</Button></Col>
+                            <Col span={12} offset={9}><Button type="primary" onClick={this.patrolAdopt}>通过</Button><Button type="primary" onClick={this.noPatrolAdopt}>不通过</Button></Col>
                         </Row>
                     </Modal>
                 </Row>
