@@ -18,6 +18,9 @@
 .margin_top80{
     margin-top: 80px;
 }
+.margin_top50{
+    margin-top: 50px;
+}
 .margin_bottom80{
     margin-bottom: 80px;
 }
@@ -357,4 +360,58 @@ margin: 20px 0;
 }
 .reecolor{
     color: #FB7575;
+}
+
+/* 巡更计划部分 */
+.patrol_item{
+    display: flex;
+    width: 100%;
+    height: auto;
+    flex-direction:row;
+    flex-wrap: wrap;
+    justify-content: flex-start; 
+    border: 1px solid #888888;
+    box-shadow: #888888 0px 0px 4px 2px;
+}
+.patrol_detail{
+    display: flex;
+    flex-direction:column;
+    width:60%;
+    height:100px;
+}
+.patrol_detail>div{
+    width:100%;
+    height:50px;
+    line-height: 50px;
+    text-align: center;
+    
+}
+.patrol_head{
+    display: flex;
+    flex-direction:column;
+    justify-content: space-between; 
+    align-items:center;/*垂直居中*/
+    justify-content: center;/*水平居中*/
+    width:20%;
+    height:100px;
+   
+}
+.patrol_head>div{
+    width:50px;
+    height:50px;
+    border-radius: 50%;
+    border: 1px solid #333;
+    background: #5DCB9A;
+    display: flex;
+    flex-direction:column;
+    align-items:center;/*垂直居中*/
+    justify-content: center;/*水平居中*/
+}
+.patrol_query{
+    display: flex;
+    flex-direction:column;
+    align-items:center;/*垂直居中*/
+    justify-content: center;/*水平居中*/
+    width:20%;
+    height:100px;
 }
