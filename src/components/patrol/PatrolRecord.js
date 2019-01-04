@@ -17,13 +17,25 @@ const formItemLayout = {
         xl: { span: 4}
     },
 };
+const data=[
+    {
+        code:1,
+        cid:1000001,
+        pdate:'2018-12-12 12:09:09',
+        ppic:'http://pic01.aokecloud.cn/alarm/1000004/pic/20190104//1000004_20190104172947.jpg',
+        patrolname:'张三',
+        cameraname:'测试一',
+        phandle:'0',
+    }
+]
 class PatrolRecord extends React.Component{
     constructor(props){
         super(props);
         this.state={
             dataSource:[],
             patrolImg:false,
-            equipment:[]
+            equipment:[],
+            stateType:0
         }
     }
     onChangeDate = (field, value) => {
@@ -86,14 +98,17 @@ class PatrolRecord extends React.Component{
     };
     //select设备
     patrolChange =(value)=>{
-        console.log(value);
+        this.setState({
+            cid:value
+        });
     };
     //巡更列表信息
     patrolList =()=>{
         post({url:"/api/patrolresult/getlist",data:{ifhandle:1}},(res)=>{
             if(res.success){
                 this.setState({
-                    dataSource:res.data
+                    // dataSource:res.data
+                    dataSource:data
                 })
             }
         })
@@ -116,8 +131,28 @@ class PatrolRecord extends React.Component{
             edate:this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
             cid:this.state.cid
         };
-        post({url:{url:"/api/camera/getlist",data:data}},(res)=>{
+        post({url:"/api/patrolresult/getlist",data:data},(res)=>{
             console.log(res);
+        })
+    };
+    //通过
+    patrolAdopt =()=>{
+        post({url:"/api/patrolresult/patrolconfirm",data:{code:"5"}},(res)=>{
+           if(this.state.stateType!=="0"){
+                this.setState({
+                    stateType:1
+                })
+           }
+        })
+    };
+    //不通过
+    noPatrolAdopt =()=>{
+        post({url:"/api/patrolresult/patrolconfirm",data:{code:"5"}},(res)=>{
+            if(this.state.stateType!=="1"){
+                this.setState({
+                    stateType:0
+                })
+            }
         })
     };
     componentDidMount() {
@@ -128,13 +163,13 @@ class PatrolRecord extends React.Component{
         const { getFieldDecorator } = this.props.form;
         const columns = [{
             title: '序号',
-            dataIndex: 'serial',
-            key: 'serial',
+            dataIndex: 'index',
+            key: 'index',
             render: (text, record,index) => (index+1)
         }, {
             title: '巡更图',
-            dataIndex: 'patrolMap',
-            key: 'patrolMap',
+            dataIndex: 'ppic',
+            key: 'ppic',
             render: text => <span>{text}</span>,
         }, {
             title: '巡更人',
@@ -244,6 +279,7 @@ class PatrolRecord extends React.Component{
                         onCancel={this.patrolCancel}
                         okText="确认"
                         cancelText="取消"
+                        footer={null}
                     >
                         <Row style={{margin:"10px 0px"}}>
                             <Col span={2}>张三</Col>
@@ -252,13 +288,13 @@ class PatrolRecord extends React.Component{
                             <Col span={6} offset={4}>早班12:00-14:00</Col>
                         </Row>
                         <Row>
-                            <Col span={24}><img src={imgSrc} alt="nodata" width={650} height={300}/></Col>
+                            <Col span={24}><img src="http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg" alt="nodata" width="100%"/></Col>
                         </Row>
                         <Row style={{margin:"10px 0px"}}>
-                            <Col span={24}>处理结果:<span>通过</span></Col>
+                            <Col span={24}>处理结果:<span>{this.state.stateType===0?"不通过":"通过"}</span></Col>
                         </Row>
                         <Row>
-                            <Col span={12} offset={9}><Button type="primary">通过</Button><Button type="primary">不通过</Button></Col>
+                            <Col span={12} offset={9}><Button type="primary" onClick={this.patrolAdopt}>通过</Button><Button type="primary" onClick={this.noPatrolAdopt}>不通过</Button></Col>
                         </Row>
                     </Modal>
                 </Row>
