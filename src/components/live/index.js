@@ -1,35 +1,45 @@
 import React from 'react';
-import ReactHLS from 'react-hls';
-import { Pagination } from "antd";
+import videojs from 'video.js';
+import 'video.js/dist/video-js.min.css';
+import videoswf from '../../utils/video/video-js.swf';
 
-// import '../../utils/video/video.css';
-// import videojs from '../../utils/video/video.js';
+export default class Live extends React.Component {
+  componentDidMount() {
+    // videojs.options.flash.swf = videoswf;
+    this.player = videojs('myvideo', {
+        preload: 'auto',  // 预加载
+        bigPlayButton: {},  // 大按钮
+        autoplay: true,   // 自动播放
+        controls: true,  // 是否开启控制栏
+        width: 800,   // 播放器宽度
+        height: 600,  // 播放器高度
+        playbackRates: [1, 1.5, 2], 
+        muted: true, //是否循环播放
+        loop : true, //是否静音
+        autoplay:true, //是否自动播放     
+    }, function onPlayerReady() {
+      this.src({
+        src: 'rtmp://58.200.131.2:1935/livetv/hunantv',
+        type:'rtmp/flv'
+        // src: 'http://www.w3school.com.cn/i/movie.mp4',
+        // type:'video/mp4'
+      })
+    });
+    
+  }
 
-class Live extends React.Component {
-		constructor(props){
-      super(props);
-      this.state={
-          list:[1,2,3,4],
-          total:45,
-          pagesize:1,
-      };
+  componentWillUnmount() {
+    if (this.player) {
+      this.player.dispose()
     }
-    pagechange=(page,pageSize)=>{
-    	//page为跳转的页数，pagesize为每页的数量
-    	console.log('pageSizepageSize',page,pageSize)
-    }
-    render() {
-        return (
-            <div className="live" style={{height: '100%', background: '#ececec', overflow: 'hidden'}}>
-              <ReactHLS url={"rtmp://192.168.1.19/live/stream7"} />
-              <Pagination defaultCurrent={this.state.pagesize} onChange={this.pagechange} total={this.state.total} style={{width:"100%",textAlign:"center",display:this.state.total?"block":"none"}}/>
-            </div>
-
-
-        )
-    }
+  }
+  render() {
+    return (
+      <div>    
+        <div data-vjs-player>
+          <video ref={ node => this.videoNode = node } className="video-js" id="myvideo"></video>
+        </div>
+      </div>
+    )
+  }
 }
-
-export default Live;
-
-// "rtmp://192.168.1.19/live/stream7"
