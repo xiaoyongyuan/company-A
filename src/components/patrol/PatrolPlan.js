@@ -19,13 +19,11 @@ class PatrolPlan extends React.Component{
     requestdata=(params={}) => {//取数据
         post({url:"/api/patrol/getlist"}, (res)=>{
             if(res.success){
-                console.log(res.data,"********************")
                 this.setState({
                     resdatd:res,
                     list: res.data
                     
                 },()=>{
-                    console.log(this.state.list,"111111")
                 })
             }
         })
@@ -91,7 +89,6 @@ class PatrolPlan extends React.Component{
             if (!err) {
                 if(this.state.type){
                     //修改
-                     console.log("修改接口1111111111111",)
                     let data={
                         code:this.state.type,
                         pteam:values.pteam,
@@ -105,13 +102,11 @@ class PatrolPlan extends React.Component{
                             list[this.state.indexi]=res.data[0]; 
                             this.setState({
                                 list:list,
-                               
                                 visible: false,
                             })
                         }
                     })
                 }else{
-                       console.log("新增接口1111111111111",values.pteam)
                     const data={
                         pteam:values.pteam,
                         pbdate:values.bdate.format("HH"),
