@@ -27,7 +27,8 @@ export default {
             key: '/app/rollcall', title: '点名' , identi:['comp'], icon: 'bars',
             subs: [
                 { key: '/app/rollcall/rollcalltask', identi:['comp'], title: '点名任务', component: 'RollcallTask'}, 
-                { key: '/app/rollcall/rollcallrecord', identi:['comp'], title: '点名记录', component: 'RollcallRecord'},             
+                { key: '/app/rollcall/rollcallrecord', identi:['comp'], title: '点名记录', component: 'RollcallRecord'},
+                { key: '/app/rollcall/rollcallhostory', identi:['comp'], title: '点名历史', component: 'RollcallHostory'},            
             ],
         },
         { key: '/app/live/index', identi:['comp','user'], title: '直播', icon: 'camera', component: 'Live' },

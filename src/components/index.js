@@ -36,9 +36,9 @@ import RollcallTask from './rollcall/RollcallTask';
 import RollcallRecord from './rollcall/RollcallRecord';
 import Adopt from './rollcall/Adopt';
 import Auditing from './rollcall/Auditing';
+import RollcallHostory from './rollcall/RollcallHostory';
 
 import Live from './live/index';
-
 
 
 const WysiwygBundle = Loadable({ // 按需加载富文本配置
@@ -53,7 +53,7 @@ export default {
     , Alarmdetails, Alarmlist, Equipment, Userhome, Userdeveice
     , Employeelist, Loglist
     ,PatrolPlan, PatrolRecord
-    ,RollcallTask, RollcallRecord, Adopt, Auditing
+    ,RollcallTask, RollcallRecord, Adopt, Auditing, RollcallHostory
     , Live
 
 }
