@@ -1,0 +1,30 @@
+.rollRow{
+    margin-left: 3%;
+}
+@media screen and (max-width: 1900px){
+    .rollCall{
+        display: flex;
+        flex-direction:row;
+        margin: 8% 0!important;
+    }
+    .rollRow{
+        margin-left: 3%;
+    }
+}
+.rollCall{
+    display: flex;
+    flex-direction:row;
+    margin: 8% 0;
+}
+.fontColor{
+    color:#429019;
+}
+.fontColor1{
+    color:#FB7575;
+}
+/*省略号*/
+.overflow{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
