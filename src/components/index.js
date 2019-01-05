@@ -34,6 +34,8 @@ import PatrolRecord from './patrol/PatrolRecord';
 //点名
 import RollcallTask from './rollcall/RollcallTask';
 import RollcallRecord from './rollcall/RollcallRecord';
+import Adopt from './rollcall/Adopt';
+import Auditing from './rollcall/Auditing';
 
 import Live from './live/index';
 
@@ -51,7 +53,7 @@ export default {
     , Alarmdetails, Alarmlist, Equipment, Userhome, Userdeveice
     , Employeelist, Loglist
     ,PatrolPlan, PatrolRecord
-    ,RollcallTask, RollcallRecord
+    ,RollcallTask, RollcallRecord, Adopt, Auditing
     , Live
 
 }

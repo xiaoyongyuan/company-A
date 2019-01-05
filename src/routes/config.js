@@ -41,6 +41,8 @@ export default {
         { key: '/app/companyhome/setarea', title: '设置防区', component: 'Setarea'},
         { key: '/app/companyhome/settime', title: '设置布防时间', component: 'Settime'},
         { key: '/app/companyhome/calling', title: '点名', component: 'Calling'},
+        { key: '/app/rollcall/adopt', title: '设置点名', component: 'Adopt'},
+        { key: '/app/rollcall/auditing', title: '设置点名', component: 'Auditing'},
         { key: '/app/companyhome/connent', title: '关系网', component: 'Connent'},
         { key: '/app/userhome/Alarmdetails', title: '报警详情', component: 'Alarmdetails'},
         { key: '/app/userhome/Userdeveice', title: '设备详情', component: 'Userdeveice'},
