@@ -2,8 +2,6 @@ import React from 'react';
 import {Row, Col, Button, DatePicker, LocaleProvider, Table, Form, Select,Modal} from "antd";
 import zh_CN from "antd/lib/locale-provider/zh_CN";
 import {post} from "../../axios/tools";
-import "../../style/ztt/css/police.css";
-import imgSrc from "../../style/ztt/img/house.jpg";
 const Option = Select.Option;
 const formItemLayout = {
     labelCol: {
