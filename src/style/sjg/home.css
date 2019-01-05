@@ -376,7 +376,7 @@ margin: 20px 0;
 .patrol_detail{
     display: flex;
     flex-direction:column;
-    width:60%;
+    width:40%;
     height:100px;
 }
 .patrol_detail>div{
@@ -414,4 +414,18 @@ margin: 20px 0;
     justify-content: center;/*水平居中*/
     width:20%;
     height:100px;
+}
+.del{
+    display: flex;
+    flex-direction:column;
+    align-items:center;/*垂直居中*/
+    justify-content: center;/*水平居中*/
+    width:20%;
+    height:100px;
+}
+.m_r{
+    margin:20px 2%;
+}
+.card_width{
+    width: 90%
 }

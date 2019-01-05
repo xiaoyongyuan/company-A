@@ -41,17 +41,17 @@ class ModalForm extends Component {
     requestdata=() => {//取数据
         if(this.state.code){
             post({url:"/api/patrol/getone",data:{code:this.state.code} }, (res)=>{
-                console.log("***************************************", res.data.clist)
+                console.log("***************************************",typeof(`${res.data.clist}` ))
                     this.props.form.setFieldsValue({
-                     pteam: `${res.data.pteam}`,
-                        pbdate: moment(`${res.data.pbdate}`),
-                        pedate: moment(`${res.data.pedate}`),
-                        patrolE:`${res.data.clist}` ,
+                        pteam: res.data.pteam,
+                        pbdate: moment(res.data.pbdate),
+                        pedate: moment(res.data.pedate),
+                        patrolE:`${res.data.clist}`.split(",") ,
                     });
             })
         }
         
-        post({url:"/api/camera/getlist"}, (res)=>{
+        post({url:"/api/camera/getlist"}, (res)=>{ //获取摄像头
             if(res.success){
                 console.log(res.data,"摄像头code")
                   let codearr=[];
@@ -70,11 +70,6 @@ class ModalForm extends Component {
         return this.props.form;
     };
 
-    onChange = (checkedList) => { //分组选择
-        this.setState({
-            checkedList:checkedList.target.value
-        });
-    }
 
     render() {
         const CheckboxGroup = Checkbox.Group;
