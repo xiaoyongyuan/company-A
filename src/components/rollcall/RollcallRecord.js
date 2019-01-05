@@ -38,7 +38,7 @@ const rollset=[
         cid:"tftt06",
         ifeveryday:"0",
         resultdate:"2018-12-03 11:07",
-        rfinal:"1"
+        rfinal:"0"
     },
     {
         rname:"中兴通讯",
@@ -53,7 +53,7 @@ const rollset=[
         cid:"tftt06",
         ifeveryday:"1",
         resultdate:"2019-01-02 11:07",
-        rfinal:"1"
+        rfinal:"0"
     }
 ];
 class RollcallRecord extends React.Component{
@@ -163,7 +163,7 @@ class RollcallRecord extends React.Component{
                                         <Row className="rollCall">{v.ifeveryday==0?"自动点名":"手动点名"}</Row>
                                         <Row className="rollCall">
                                             <Col xl={14} xxl={14} className="overflow">{v.resultdate}</Col>
-                                            <Col xl={7} xxl={5} className={this.normal(v.rfinal)}>{this.normal(v.rfinal)==0?"正常":"报警"}</Col>
+                                            <Col xl={7} xxl={5} className={this.normal(v.rfinal)}>{v.rfinal==0?"正常":"报警"}</Col>
                                         </Row>
                                     </Col>
                                 </Row>
