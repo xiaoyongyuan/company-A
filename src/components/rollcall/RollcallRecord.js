@@ -8,22 +8,13 @@ import Button from "antd/es/button/button";
 import {post} from "../../axios/tools";
 const RangePicker = DatePicker.RangePicker;
 const Option = Select.Option;
-const formItemLayout = {
-    labelCol: {
-        xs: { span: 22 },
-        sm: { span: 4 },
-    },
-    wrapperCol: {
-        xs: { span: 22 },
-        sm: { span: 8 },
-    },
-};
 const rollset=[
     {
         rname:"理工大",
         cid:"eftt09",
         ifeveryday:"0",
         resultdate:"2019-01-05 11:07",
+        rrpic:"http://pic01.aokecloud.cn/alarm/1000011/pic/20181228//1000011_20181228154552.jpg",
         rfinal:"0"
     },
     {
@@ -31,6 +22,7 @@ const rollset=[
         cid:"tftt06",
         ifeveryday:"1",
         resultdate:"2019-01-04 11:07",
+        rrpic:"http://pic01.aokecloud.cn/alarm/1000004/pic/20190104//1000004_20190104172947.jpg",
         rfinal:"1"
     },
     {
@@ -38,6 +30,7 @@ const rollset=[
         cid:"tftt06",
         ifeveryday:"0",
         resultdate:"2018-12-03 11:07",
+        rrpic:"http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg",
         rfinal:"0"
     },
     {
@@ -45,6 +38,7 @@ const rollset=[
         cid:"tftt06",
         ifeveryday:"1",
         resultdate:"2019-01-02 11:07",
+        rrpic:"http://pic01.aokecloud.cn/alarm/1000004/pic/20190104//1000004_20190104172947.jpg",
         rfinal:"1"
     }
     ,
@@ -53,6 +47,7 @@ const rollset=[
         cid:"tftt06",
         ifeveryday:"1",
         resultdate:"2019-01-02 11:07",
+        rrpic:"http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg",
         rfinal:"0"
     }
 ];
@@ -103,7 +98,6 @@ class RollcallRecord extends React.Component{
                     <Row style={{marginTop:"50px"}}>
                         <Form layout="inline" onSubmit={this.handleSubmit}>
                             <Form.Item
-                                {...formItemLayout}
                                 label="日期"
                             >
                                 {getFieldDecorator('range-picker1')(
@@ -156,7 +150,7 @@ class RollcallRecord extends React.Component{
                             <Col key={i} xl={12} xxl={7} style={{marginTop:"30px"}}>
                                 <Row>
                                     <Col xl={12} xxl={12}>
-                                        <img src="http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg" alt="" width="100%"/>
+                                        <img src={v.rrpic} alt="" width="100%"/>
                                     </Col>
                                     <Col xl={11} xxl={11} className="rollRow">
                                         <Row className="rollCall">{v.rname}-{v.cid}</Row>
