@@ -3,6 +3,7 @@ import {Form, Row, Col, Button, Modal,Icon,Card} from 'antd';
 import ModalForm from './ModalForm.js';
 import {post} from "../../axios/tools";
 import '../../style/sjg/home.css';
+import '../../style/sjg/patrol.css';
 
 class PatrolPlan extends React.Component{
     constructor(props){
@@ -170,6 +171,7 @@ class PatrolPlan extends React.Component{
         return(       
             <div className="PatrolPlan">
                 <Card className="margin_top50 card_width m-r"
+                 title="最多可以新增六个巡更"
                     extra={<Row>
                             <Col span={2} offset={6}>
                                 <Button type="primary" onClick={this.showModal}>新增</Button>
