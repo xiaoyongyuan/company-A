@@ -1,0 +1,11 @@
+/*
+    patrolRecord.js 巡更记录
+*/
+.operationBtn{
+    color: #429019!important;
+}
+.operationBtn:hover{
+    color: #ffffff!important;
+    background: #429019!important;
+    border:1px solid  #429019!important;
+}
