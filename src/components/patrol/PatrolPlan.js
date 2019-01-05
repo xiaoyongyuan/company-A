@@ -32,10 +32,11 @@ class PatrolPlan extends React.Component{
 
         
     }
-    showModaldelete = (code) =>{ //删除弹层
+    showModaldelete = (code,index) =>{ //删除弹层
         this.setState({
             deleteshow: true,
-            delcode:code
+            delcode:code,
+            delindex:index.i
         });
     }
 
@@ -46,7 +47,7 @@ class PatrolPlan extends React.Component{
         post({url:"/api/patrol/del",data:code},(res)=>{
             if(res.success){
                 const list=this.state.list;
-                list.splice(this.state.index,1);
+                list.splice(this.state.delindex,1);
                 this.setState({
                     deleteshow: false,
                     list
@@ -164,7 +165,7 @@ class PatrolPlan extends React.Component{
                                          <span onClick={() => {this.showModalEdit( this.state.list[i].code,{i})}}><Icon type="search" />编辑</span> 
                                         </div>
                                         <div className="del">
-                                          <span onClick={() => {this.showModaldelete( this.state.list[i].code)}}><Icon type="delete" />删除 </span>
+                                          <span onClick={() => {this.showModaldelete( this.state.list[i].code,{i})}}><Icon type="delete" />删除 </span>
                                         </div>
                                     </div>
                                 </Col>
