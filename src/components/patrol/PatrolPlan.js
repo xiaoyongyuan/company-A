@@ -103,9 +103,18 @@ class PatrolPlan extends React.Component{
                             this.setState({
                                 list:list,
                                 visible: false,
+                            },()=>{
+                                post({url:"/api/patrol/getlist"}, (res)=>{
+                                    if(res.success){
+                                        this.setState({
+                                            list: res.data
+                                            })
+                                    }
+                                })
                             })
                         }
                     })
+                    
                 }else{
                     const data={
                         pteam:values.pteam,
@@ -121,6 +130,14 @@ class PatrolPlan extends React.Component{
                             this.setState({
                                 list:list,
                                 visible: false,
+                            },()=>{
+                                post({url:"/api/patrol/getlist"}, (res)=>{
+                                    if(res.success){
+                                        this.setState({
+                                            list: res.data
+                                            })
+                                    }
+                                })
                             })
                         }
                     })
@@ -130,13 +147,32 @@ class PatrolPlan extends React.Component{
         });
     };
 
+    bgcolor=(i)=>{ 
+        if(i===0){
+            return 'bg1'
+        }else if(i===1){
+            return 'bg2'
+        }else if(i===2){
+            return 'bg3'
+        }
+        else if(i===3){
+            return 'bg4'
+        }
+        else if(i===4){
+            return 'bg5'
+        }
+        else if(i===5){
+            return 'bg6'
+        }
+     }
+
     render(){
         return(       
             <div className="PatrolPlan">
-                <Card className="margin_top50 card_width"
+                <Card className="margin_top50 card_width m-r"
                     extra={<Row>
                             <Col span={2} offset={6}>
-                                <Button onClick={this.showModal}>新增</Button>
+                                <Button type="primary" onClick={this.showModal}>新增</Button>
                             </Col>
                         </Row>     
                         }
@@ -148,12 +184,13 @@ class PatrolPlan extends React.Component{
                                 <Col key={i} className="margin_top50 m_r" span={7}>
                                     <div className="patrol_item">
                                         <div className="patrol_head">
-                                           <div >{this.state.list[i].pteam}</div>
+                                        
+                                           <div className={this.bgcolor(i)}>{this.state.list[i].pteam.substring(0,2)}</div>
                                         </div>
                                         <div className="patrol_detail">
                                             <div>{this.state.list[i].pbdate}:00--{this.state.list[i].pedate}:00</div>
                                             <div>
-                                            { this.state.list[i].clist}
+                                            { this.state.list[i].camera}
                                             </div>
                                         </div>
                                         <div className="patrol_query">
@@ -168,7 +205,7 @@ class PatrolPlan extends React.Component{
                         })
                     } 
                 </Row>
-                </Card>,
+                </Card>
                 
 
                
