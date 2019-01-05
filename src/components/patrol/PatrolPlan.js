@@ -157,7 +157,7 @@ class PatrolPlan extends React.Component{
                                         <div className="patrol_detail">
                                             <div>{this.state.list[i].pbdate}:00--{this.state.list[i].pedate}:00</div>
                                             <div>
-                                            { this.state.list[i].clist}
+                                            { this.state.list[i].camera}
                                             </div>
                                         </div>
                                         <div className="patrol_query">
