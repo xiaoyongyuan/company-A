@@ -449,3 +449,21 @@ margin: 20px 0;
 .m-r{
     margin-left: 40px
 }
+
+/* 点名历史部分 */
+.timeline_ml{
+    margin-left: 60px;
+}
+.times{
+    width:100px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+    background: #ccc;
+}
+.line_detail{
+    width: auto;
+    height:30px;
+    line-height:30px;
+    margin-bottom: 30px;
+}
