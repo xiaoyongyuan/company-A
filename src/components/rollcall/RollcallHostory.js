@@ -26,9 +26,18 @@ const data=[
                 "unhandle":0,
                 "normal":1,
                 "alarm":[
-                    {"a":"s",
-                      "b":"q" 
-                     }
+                    {
+                        "code":89,
+                        "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
+                        "rfinal":2,
+                        "cid":1000007,
+                     },
+                     {
+                        "code":90,
+                        "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
+                        "rfinal":1,
+                        "cid":1000007,
+                    }
                 ]
             },
             {
@@ -39,9 +48,18 @@ const data=[
                 "unhandle":0,
                 "normal":1,
                 "alarm":[
-                    {"a":"s",
-                      "b":"q" 
-                     }
+                    {
+                        "code":89,
+                        "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
+                        "rfinal":2,
+                        "cid":1000007,
+                     },
+                     {
+                        "code":90,
+                        "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
+                        "rfinal":1,
+                        "cid":1000007,
+                    }
                 ]
             },
         ]
@@ -57,10 +75,17 @@ const data=[
                 "unhandle":0,
                 "normal":1,
                 "alarm":[
-                    {"a":"s",
-                      "b":"q" 
-                     },{"a":"s",
-                     "b":"q" 
+                    {
+                        "code":89,
+                        "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
+                        "rfinal":2,
+                        "cid":1000007,
+                     },
+                     {
+                        "code":90,
+                        "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
+                        "rfinal":1,
+                        "cid":1000007,
                     }
                 ]
             },
@@ -72,10 +97,17 @@ const data=[
                 "unhandle":0,
                 "normal":1,
                 "alarm":[
-                    {"a":"s",
-                      "b":"q" 
-                     },{"a":"s",
-                     "b":"q" 
+                    {
+                        "code":89,
+                        "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
+                        "rfinal":2,
+                        "cid":1000007,
+                     },
+                     {
+                        "code":90,
+                        "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
+                        "rfinal":1,
+                        "cid":1000007,
                     }
                 ]
             },
@@ -159,10 +191,8 @@ class RollcallHostory extends React.Component{
     };
     componentDidMount() {
         console.log(data,"data");
-        var str=data[0].info[0].rollcalldate
-        console.log(typeof(str) ,"typeof(str)");
-        console.log(str.slice(10,20) ,"data[0].info");
-        console.log('******************');
+        var str=data[0].info[0].alarm
+        console.log(str ,"alarm________________________");
         post({url:'/api/rollcalldetail/getlist_info_dayly'},(res)=>{
             if(res.success){
                 console.log('******************', res);
@@ -254,21 +284,27 @@ class RollcallHostory extends React.Component{
                                     <Timeline.Item key={j}>
                                         <p> {item.dayly}</p>
                                          { 
-                                             item.info.map((item1,i)=>{
+                                             item.info.map((el,i)=>{
                                                 return (
                                                     <div key={i}>
-                                                        <div className="times"> 第{i}次</div>
+                                                        <div className="times"> 第{i+1}次</div>
                                                             <div className="line_detail">
                                                                 <div>
-                                                                {item1.rollcalldate.slice(11,20)}自动点名，
-                                                                    共点名 {item1.taskid}个对象，
-                                                                    {item1.alarm.length}个报警，
-                                                                    {item1.normal}个正常， 
+                                                                {el.rollcalldate.slice(11,20)}自动点名，
+                                                                    共点名 {el.taskid}个对象，
+                                                                    {el.alarm.length}个报警，
+                                                                    {el.normal}个正常， 
                                                                     <a href={"#/app/?id="+i.code} className="underline">查看详情</a>
                                                                 </div>
-                                                                <div className="alarm_img" style={item1.pic?{display:'block'}:{display:'none'}} >
-                                                                    <img src={item1.pic} alt="alarm_img" width="100%" />
-                                                                </div> 
+                                                                {
+                                                                el.alarm.map((num,n)=>{
+                                                                     return (
+                                                                            <div key={n} className="alarm_img" style={num.rpic?{display:'block'}:{display:'none'}} >
+                                                                                <img src={num.rpic} alt="alarm_img" width="100%" />
+                                                                            </div> 
+                                                                            )
+                                                                    })
+                                                                }
                                                             </div>
                                                     </div>
                                                    )
