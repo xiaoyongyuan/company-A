@@ -4,36 +4,26 @@ import zh_CN from "antd/lib/locale-provider/zh_CN";
 import {post} from "../../axios/tools";
 import "../../style/ztt/css/patrolRecord.css";
 import PatrolRecordModel from "./PatrolRecordModel";
+import moment from "moment";
 const Option = Select.Option;
-const formItemLayout = {
-    labelCol: {
-        xs: { span: 24 },
-        sm: { span: 8 },
-        xl: { span: 4}
-    },
-    wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
-        xl: { span: 4}
-    },
-};
+const RangePicker = DatePicker.RangePicker;
 var data=[
     {
-        "code": "1",
+        "code": "0",
         "cid": "1000001",
         "pdate": "2018-12-12 12:09:09",
         "ppic": "http://pic01.aokecloud.cn/alarm/1000004/pic/20190104//1000004_20190104172947.jpg",
         "patrolname": "李四",
-        "cameraname": "测试一",
+        "cameraname": "早班",
         "phandle": "0"
     },
     {
-        "code": "3",
+        "code": "1",
         "cid": "1000001",
         "pdate": "2018-12-12 12:09:09",
         "ppic": "http://pic01.aokecloud.cn/alarm/1000011/pic/20181228//1000011_20181228154552.jpg",
         "patrolname": "张三",
-        "cameraname": "测试二",
+        "cameraname": "中班",
         "phandle": "1"
     }
 ];
@@ -47,48 +37,15 @@ class PatrolRecord extends React.Component{
             stateType:0
         }
     }
-    onChangeDate = (field, value) => {
+    //日期
+    onChangeDate = (dates, dateStrings)=> {
         this.setState({
-            [field]: value,
+            bdate:dates[0].format('YYYY-MM-DD HH:00:00'),
+            edate:dateStrings[1]
         });
-    };
-    handleStartOpenChange = (open) => {
-        if (!open) {
-            this.setState({ endOpen: true });
-        }
-    };
-    handleEndOpenChange = (open) => {
-        this.setState({ endOpen: open });
-    };
-    //禁止的开始时间
-    disabledStartDate = (startValue) => {
-        const endValue = this.state.endValue;
-        if (!startValue || !endValue) {
-            return false;
-        }
-        return startValue.valueOf() > endValue.valueOf();
-    };
-    //禁止的结束时间
-    disabledEndDate = (endValue) => {
-        const startValue = this.state.startValue;
-        if (!endValue || !startValue) {
-            return false;
-        }
-        return endValue.valueOf() <= startValue.valueOf();
-    };
-    //开始时间
-    onChange1 =(dateString1)=> {
-        this.onChangeDate('startValue',dateString1);
-        this.setState({
-            bdate:dateString1
-        });
-    };
-    //结束时间
-    onChange2 =(dateString2)=> {
-        this.onChangeDate("endValue",dateString2);
-        this.setState({
-            edate:dateString2
-        });
+        console.log( dates,dateStrings);
+        console.log('From: ', dates[0], ', to: ', dates[1]);
+        console.log('From: ', dateStrings[0], ', to: ', dateStrings[1]);
     };
     patrolStatus =(item)=>{
        /* const data={
@@ -228,65 +185,47 @@ class PatrolRecord extends React.Component{
             <div className="PatrolRecord">
                 <LocaleProvider locale={zh_CN}>
                     <Row style={{marginTop:"50px"}}>
-                        <Form onSubmit={this.handlePatrolSelect}>
-                            <Col xl={6} xxl={4} lg={9}>
-                                <Form.Item
-                                    {...formItemLayout}
-                                    label="日期：">
-                                    {getFieldDecorator('range-picker1')(
-                                        <DatePicker
-                                            showTime={{format:"HH"}}
-                                            format="YYYY-MM-DD HH:00:00"
-                                            placeholder="开始时间"
-                                            setFieldsValue={this.state.bdate}
-                                            onChange={this.onChange1}
-                                            disabledDate={this.disabledStartDate}
-                                            onOpenChange={this.handleStartOpenChange}
-                                        />
-                                    )}
-                                </Form.Item>
-                            </Col>
-                            <Col xl={6} xxl={4} lg={6}>
-                                <Form.Item>
-                                    {getFieldDecorator('range-picker2')(
-                                        <DatePicker
-                                            showTime={{format:"HH"}}
-                                            format="YYYY-MM-DD HH:00:00"
-                                            placeholder="结束时间"
-                                            setFieldsValue={this.state.edate}
-                                            onChange={this.onChange2}
-                                            disabledDate={this.disabledEndDate}
-                                            onOpenChange={this.handleEndOpenChange}
-                                        />
-                                    )}
-                                </Form.Item>
-                            </Col>
-                            <Col xl={5} xxl={4} lg={6}>
-                                <Form.Item
-                                    {...formItemLayout}
-                                    label="设备"
+                        <Form layout="inline" onSubmit={this.handlePatrolSelect}>
+                            <Form.Item
+                                label="日期"
+                            >
+                                {getFieldDecorator('range-picker1')(
+                                    <RangePicker
+                                        ranges={{ Today: [moment(), moment()], 'This Month': [moment().startOf('month'), moment().endOf('month')] }}
+                                        showTime
+                                        format="YYYY/MM/DD HH:00:00"
+                                        onChange={this.onChangeDate}
+                                    />
+                                )}
+                            </Form.Item>
+                            <Form.Item
+                                label="设备"
+                            >
+                                {getFieldDecorator('residence',{
+                                    initialValue:""
+                                } )(
+                                    <Select style={{ width: 120 }} onChange={this.patrolChange}>
+                                        <Option value="" >所有</Option>
+                                        {
+                                            this.state.equipment.map((v,i)=>(
+                                                <Option value={v.code} key={i}>{v.name}</Option>
+                                            ))
+                                        }
+                                    </Select>
+                                )}
+                            </Form.Item>
+                            <Form.Item>
+                                <Button
+                                    type="primary"
+                                    htmlType="submit"
                                 >
-                                    {getFieldDecorator('residence',{
-                                        initialValue:""
-                                    } )(
-                                        <Select style={{ width: 120 }} onChange={this.patrolChange}>
-                                            <Option value="" >所有</Option>
-                                            {
-                                                this.state.equipment.map((v,i)=>(
-                                                    <Option value={v.code} key={i}>{v.name}</Option>
-                                                ))
-                                            }
-                                        </Select>
-                                    )}
-                                </Form.Item>
-                            </Col>
-                            <Col xl={2} xxl={4} lg={3}>
-                                <Button type="primary" htmlType="submit">查询</Button>
-                            </Col>
+                                    查询
+                                </Button>
+                            </Form.Item>
                         </Form>
                     </Row>
                 </LocaleProvider>
-                <Row>
+                <Row style={{marginTop:"40px"}}>
                     <Col spma={24}>
                         <Table dataSource={this.state.dataSource} columns={columns} />
                     </Col>

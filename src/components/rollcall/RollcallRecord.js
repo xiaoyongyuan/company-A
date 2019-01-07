@@ -61,7 +61,19 @@ class RollcallRecord extends React.Component{
             rollCallType:false
         };
     }
+    //对象名称
+    rollcalInput =(e)=>{
+        this.setState({
+            calInput:e.target.value
+        })
+    };
+    //日期
     onChangeDate = (dates, dateStrings)=> {
+        this.setState({
+            bdate:dates[0].format('YYYY-MM-DD HH:00:00'),
+            edate:dateStrings[1]
+        });
+        console.log( dates,dateStrings);
         console.log('From: ', dates[0], ', to: ', dates[1]);
         console.log('From: ', dateStrings[0], ', to: ', dateStrings[1]);
     };
@@ -86,6 +98,12 @@ class RollcallRecord extends React.Component{
             return "fontColor1";
         }
     };
+    //选择设备
+    handleChange =(value)=>{
+        this.setState({
+            cid:value
+        });
+    };
     //设备
     handleRollCall = ()=>{
         post({url:"/api/camera/getlist"},(res)=>{
@@ -107,6 +125,20 @@ class RollcallRecord extends React.Component{
         });
 
     };
+    //查询
+    handleSubmit =()=>{
+        let datas={
+            bdate:this.state.bdate,
+            edate:this.state.edate,
+            cid:this.state.cid,
+            rname:this.state.calInput
+        };
+        post({url:"/api/rollcalldetail/getlist",data:datas},()=>{
+           this.setState({
+               rollsetList:rollset
+           })
+        })
+    };
     componentDidMount() {
         this.handleRollCall();
         this.handleRollCallList();
@@ -116,7 +148,7 @@ class RollcallRecord extends React.Component{
         return(
             <div className="RollcallRecord">
                 <LocaleProvider locale={zh_CN}>
-                    <Row style={{marginTop:"50px"}}>
+                    <div style={{marginTop:"50px"}}>
                         <Form layout="inline" onSubmit={this.handleSubmit}>
                             <Form.Item
                                 label="日期"
@@ -125,7 +157,7 @@ class RollcallRecord extends React.Component{
                                     <RangePicker
                                         ranges={{ Today: [moment(), moment()], 'This Month': [moment().startOf('month'), moment().endOf('month')] }}
                                         showTime
-                                        format="YYYY/MM/DD HH:mm:ss"
+                                        format="YYYY/MM/DD HH:00:00"
                                         onChange={this.onChangeDate}
                                     />
                                 )}
@@ -134,7 +166,7 @@ class RollcallRecord extends React.Component{
                                 label="对象名称"
                             >
                                 {getFieldDecorator('name', {})(
-                                    <Input />
+                                    <Input onChange={this.rollcalInput}/>
                                 )}
                             </Form.Item>
                             <Form.Item
@@ -163,7 +195,7 @@ class RollcallRecord extends React.Component{
                                 </Button>
                             </Form.Item>
                         </Form>
-                    </Row>
+                    </div>
                 </LocaleProvider>
                 <Row>
                     {
