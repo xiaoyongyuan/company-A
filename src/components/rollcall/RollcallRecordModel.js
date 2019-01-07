@@ -60,7 +60,7 @@ class RollcallRecordModel extends Component {
         }
     };
     componentWillMount() {
-        console.log(this.props.code,"ssssssssss");
+
     }
 
     componentDidMount() {
