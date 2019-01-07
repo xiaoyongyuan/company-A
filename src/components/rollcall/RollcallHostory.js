@@ -308,7 +308,7 @@ class RollcallHostory extends React.Component{
                 </div>
               
                 <div>
-                    <BackTop />
+                    <BackTop target ={()=>document.getElementById('scorll')} />
                 </div>
 
                 {/* <div onClick={this.BackTop } className="backtop">
