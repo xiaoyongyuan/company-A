@@ -76,7 +76,7 @@ class PatrolRecord extends React.Component{
         console.log(item);
         post({url:"/api/patrolresult/patrolconfirm",data:{code:"5"}},(res)=>{
             this.setState({
-                item:1
+
             })
         });
     };
@@ -85,7 +85,7 @@ class PatrolRecord extends React.Component{
         console.log(item);
         post({url:"/api/patrolresult/patrolconfirm",data:{code:"5"}},(res)=>{
             this.setState({
-                item:0
+
             })
         });
     };
