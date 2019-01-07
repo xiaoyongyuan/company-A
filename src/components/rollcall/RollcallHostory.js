@@ -294,12 +294,12 @@ class RollcallHostory extends React.Component{
                                                                     共点名 {el.taskid}个对象，
                                                                     {el.alarm.length}个报警，
                                                                     {el.normal}个正常， 
-                                                                    <a href={"#/app/?id="+i.code} className="underline">查看详情</a>
+                                                                    <a href={"#/app/rollcall/rollcallrecord?companycode="+i.companycode} className="underline">查看详情</a>
                                                                 </div>
                                                                 {
                                                                 el.alarm.map((num,n)=>{
                                                                      return (
-                                                                            <div key={n} className="alarm_img" style={num.rpic?{display:'block'}:{display:'none'}} >
+                                                                            <div key={n} className="alarm_img" style={num.rpic?{display:'inlin-block'}:{display:'none'}} >
                                                                                 <img src={num.rpic} alt="alarm_img" width="100%" />
                                                                             </div> 
                                                                             )
