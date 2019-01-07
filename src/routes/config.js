@@ -32,6 +32,7 @@ export default {
             ],
         },
         { key: '/app/live/index', identi:['comp','user'], title: '直播', icon: 'camera', component: 'Live' },
+        { key: '/app/adminequipment/index', identi:['comp','user'], title: '设备信息', icon: 'camera', component: 'AdminEquipment' },
 
     ],
     // 非菜单相关路由

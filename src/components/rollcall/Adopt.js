@@ -1,10 +1,12 @@
 
 import React, { Component } from 'react';
 import '../../style/sjg/home.css';
-import { Card, Form, Input, Row, Col, Button,Upload, message, Icon, } from 'antd';
+import {Card, Form, Input, Row, Col, message, Button, Radio} from 'antd';
 import BreadcrumbCustom from '../BreadcrumbCustom';
+import Radioss from '../Radio';
 import axios from 'axios';
 const FormItem = Form.Item;
+const RadioGroup = Radio.Group;
 const props = {
     name: 'file',
     action: '//jsonplaceholder.typicode.com/posts/',
@@ -24,16 +26,13 @@ const props = {
 };
 
 class Adopt extends Component {
-    // state = {
-    //     confirmDirty: false,
-    //     list:[],
-    // };
     constructor(props) {
         super(props);
         this.state = {
             list:[],
             confirmDirty: false,
-            isDeal: false
+            isDeal: false,
+            value:1
         };
     }
     componentDidMount(e) {
@@ -55,27 +54,12 @@ class Adopt extends Component {
         })
     }
 
-    // requestdata = () => {
-    //     if(this.state.code){
-    //         axios.get("table.json").then((res)=>{
-    //             if(res.data.success){
-    //                 console.log(res.data.data);
-    //                 this.setState({
-    //                     name: res.data.data.name,
-    //                     type: res.data.data.type,
-    //                     binding: res.data.data.binding,
-    //                     deveui: res.data.data.deveui,
-    //                     teamname: res.data.data.teamname,
-    //
-    //
-    //                 })
-    //
-    //             }
-    //         })
-    //     }
-    // };
-
-
+    onChange = (e) => { //radio
+        console.log('radio checked', e.target.value);
+        this.setState({
+            value: e.target.value,
+        });
+    }
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
@@ -98,50 +82,41 @@ class Adopt extends Component {
             },
         };
 
-
         return (
             <div className="gutter-example">
                 <BreadcrumbCustom first="维护团队管理" second="点名审核" />
-
                 <Row className="white">
                     <Col className="gutter-row" span={10}>
                         <div className="gutter-box">
                             <Card title="" bordered={false}>
+                                <p span={4} offset={4} style={{textAlign:'center'}}>点名对象详情</p><br/>
                                 <Form onSubmit={this.handleSubmit}>
                                     <FormItem
                                         {...formItemLayout}
-                                        label="摄像头IP"
+                                        label="对象名称"
                                         hasFeedback
                                     >
                                         {getFieldDecorator('IP', {
-                                            rules: [{required: true, message: '请输入摄像头IP',whitespace: true}],
+                                            rules: [{required: true, message: '请输入对象名称',whitespace: true}],
                                         })(
                                             <Input />
                                         )}
                                     </FormItem>
                                     <FormItem
                                         {...formItemLayout}
-                                        label="用户名"
+                                        label="状态"
                                         hasFeedback
                                     >
-                                        {getFieldDecorator('用户名', {
-                                            rules: [{required: true, message: '请输入用户名',whitespace: true}],
+                                        {getFieldDecorator('状态', {
+                                            initialValue: 2,
+                                            rules: [{required: false}],
                                         })(
-                                            <Input />
+                                            <RadioGroup  onChange={this.onChange}>
+                                                <Radio value={1}>关闭</Radio>
+                                                <Radio value={2}>开启</Radio>
+                                            </RadioGroup>
                                         )}
                                     </FormItem>
-                                    <FormItem
-                                        {...formItemLayout}
-                                        label="审核结果"
-                                        hasFeedback
-                                    >
-                                        {getFieldDecorator('审核结果', {
-                                            rules: [{required: true,whitespace: true}],
-                                        })(
-                                            <Input />
-                                        )}
-                                    </FormItem>
-
                                     <Row className="area_row">
                                         <Col span={3} offset={5} className="area_text">
                                             区域：
@@ -151,31 +126,34 @@ class Adopt extends Component {
                                                 <img alt="2" src="../../style/logo.png" />
                                             </div>
                                         </Col>
-
                                     </Row>
+                                    <FormItem
+                                        {...formItemLayout}
+                                        label="处理结果"
+                                        hasFeedback
+                                    >
+                                        {getFieldDecorator('处理结果', {
+                                            rules: [{required: true,message: '请输入处理结果',whitespace: true}],
+                                        })(
+                                            <Input />
+                                        )}
+                                    </FormItem>
                                     <Row className="area_row">
                                         <Col span={4} offset={4} className="area_text">
-                                            对象图：
+                                            SVG文件：
                                         </Col>
-                                        <Col span={10}>
+                                        <Col span={12}>
                                             <div className="area">
                                                 <img alt="3" src="../../style/logo.png" />
                                             </div>
                                         </Col>
-                                        <Col xl={6} offset={4}>
-                                            <Upload {...props}>
-                                                <Button>
-                                                    <Icon type="upload" /> Click to Upload
-                                                </Button>
-                                            </Upload>
+                                    </Row>
+                                    <Row>
+                                        <Col span={8} offset={16}>
+                                            <Button style={{display:"inline-block"}} >重绘围界</Button>
+                                            <Button type="primary" htmlType="submit" className="login-form-button" >确认</Button>
                                         </Col>
                                     </Row>
-                                    <Row className="area_row">
-                                        <Col span={4} offset={10} className="area_text">
-                                            <Button type="primary" size="large">返回</Button>
-                                        </Col>
-                                    </Row>
-
                                 </Form>
                             </Card>
                         </div>
