@@ -473,4 +473,23 @@ margin: 20px 0;
     margin-right: 20px;
    
 }
-
+/* //返回到顶部 */
+#components-back-top-demo-custom .ant-back-top {
+    bottom: 100px;
+  }
+#components-back-top-demo-custom .ant-back-top-inner {
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    border-radius: 4px;
+    background-color: #1088e9;
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+}
+.backtop{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    
+}
