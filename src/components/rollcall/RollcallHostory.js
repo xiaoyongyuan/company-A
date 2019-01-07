@@ -1,8 +1,9 @@
 import React, { Component} from 'react';
-import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,} from "antd";
+import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,BackTop } from "antd";
 import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
+
 const formItemLayout = {
     labelCol: {
         xs: { span: 24 },
@@ -116,7 +117,6 @@ const data=[
 ]
 
 
-
 class RollcallHostory extends React.Component{
 	constructor(props){
         super(props);
@@ -175,6 +175,14 @@ class RollcallHostory extends React.Component{
     handleEndOpenChange = (open) => {
         this.setState({ endOpen: open });
     };
+    //	返回顶部
+
+	BackTop = (e) => {
+        e.preventDefault();
+       document.getElementsByClassName("RollcallHostory").scrollTop = 0;
+        // let top=document.getElementsByClassName("RollcallHostory").scrollTop;
+         console.log(document.getElementsByClassName("RollcallHostory").scrollTop,"document")
+	};
 
     handleSubmit =()=>{
             const data={
@@ -199,18 +207,16 @@ class RollcallHostory extends React.Component{
                 
                     this.setState({
                         list: res.data
-                        // policeList:res.data,
-                        // type:1,
-                        // totalcount:res.totalcount
                     })
-                
             }
         })
-    }
+        
+
+    }      
     render(){
         const { getFieldDecorator } = this.props.form;
         return(       
-            <div className="RollcallHostory">
+            <div className="RollcallHostory" id="test">
                 <LocaleProvider locale={zh_CN}>
                     <Row style={{marginTop:"50px"}}>
                         <Form onSubmit={this.handleSubmit}>
@@ -311,7 +317,6 @@ class RollcallHostory extends React.Component{
                                             })
                                             }
                                     </Timeline.Item>
-
                              
                                 )
                             })
@@ -319,6 +324,21 @@ class RollcallHostory extends React.Component{
 
                 </Timeline>
                 </div>
+              
+                <div>
+                    <BackTop 
+                    target={() => document.getElementById('test')} 
+                    />
+                    Scroll down to see the bottom-right
+                    <strong style={{ color: 'rgba(64, 64, 64, 0.6)' }}> gray </strong>
+                    button.
+
+                </div>
+                
+                {/* <div onClick={this.BackTop } className="backtop">
+                        返回顶部
+                </div> */}
+
             </div>
         )
     }
