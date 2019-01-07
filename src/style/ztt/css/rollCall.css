@@ -31,3 +31,16 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+/*
+    RollcallRecordModel.js 点名记录详情
+*/
+.rollcallModel{
+    margin: 3% 0;
+}
+.rollcallModelTitle{
+    display: flex;
+    justify-content: center;
+}
+.fontSizeModel{
+    font-size: 2vmin;
+}
