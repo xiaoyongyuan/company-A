@@ -1,11 +1,12 @@
 
 import React, { Component } from 'react';
 import '../../style/sjg/home.css';
-import { Card, Form, Input, Row, Col, message,Button } from 'antd';
+import {Card, Form, Input, Row, Col, message, Button, Radio} from 'antd';
 import BreadcrumbCustom from '../BreadcrumbCustom';
 import Radioss from '../Radio';
 import axios from 'axios';
 const FormItem = Form.Item;
+const RadioGroup = Radio.Group;
 const props = {
     name: 'file',
     action: '//jsonplaceholder.typicode.com/posts/',
@@ -30,7 +31,8 @@ class Adopt extends Component {
         this.state = {
             list:[],
             confirmDirty: false,
-            isDeal: false
+            isDeal: false,
+            value:1
         };
     }
     componentDidMount(e) {
@@ -52,6 +54,12 @@ class Adopt extends Component {
         })
     }
 
+    onChange = (e) => { //radio
+        console.log('radio checked', e.target.value);
+        this.setState({
+            value: e.target.value,
+        });
+    }
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
@@ -82,7 +90,7 @@ class Adopt extends Component {
                         <div className="gutter-box">
                             <Card title="" bordered={false}>
                                 <p span={4} offset={4} style={{textAlign:'center'}}>点名对象详情</p><br/>
-                                <Form onSubmit={this.handleSubmit} style={{ background:'red'}}>
+                                <Form onSubmit={this.handleSubmit}>
                                     <FormItem
                                         {...formItemLayout}
                                         label="对象名称"
@@ -100,9 +108,13 @@ class Adopt extends Component {
                                         hasFeedback
                                     >
                                         {getFieldDecorator('状态', {
+                                            initialValue: 2,
                                             rules: [{required: false}],
                                         })(
-                                            <Radioss />
+                                            <RadioGroup  onChange={this.onChange}>
+                                                <Radio value={1}>关闭</Radio>
+                                                <Radio value={2}>开启</Radio>
+                                            </RadioGroup>
                                         )}
                                     </FormItem>
                                     <Row className="area_row">
@@ -121,7 +133,7 @@ class Adopt extends Component {
                                         hasFeedback
                                     >
                                         {getFieldDecorator('处理结果', {
-                                            rules: [{required: true,whitespace: true}],
+                                            rules: [{required: true,message: '请输入处理结果',whitespace: true}],
                                         })(
                                             <Input />
                                         )}
@@ -136,12 +148,12 @@ class Adopt extends Component {
                                             </div>
                                         </Col>
                                     </Row>
-                                    <FormItem>
-                                        <Col span={12} offset={6} style={{ background:'yellow'}}>
-                                            <button type="primary" htmlType="submit" className="login-form-button">确认</button>
-                                            <button>重绘围界</button>
+                                    <Row>
+                                        <Col span={8} offset={16}>
+                                            <Button style={{display:"inline-block"}} >重绘围界</Button>
+                                            <Button type="primary" htmlType="submit" className="login-form-button" >确认</Button>
                                         </Col>
-                                    </FormItem>
+                                    </Row>
                                 </Form>
                             </Card>
                         </div>
