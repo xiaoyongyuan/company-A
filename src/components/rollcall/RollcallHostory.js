@@ -3,7 +3,10 @@ import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,BackTop } 
 import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
-
+ const toTopProps={
+    visibilityHeight:300,
+    target:()=>document.getElementById('scorll'),
+  };
 const formItemLayout = {
     labelCol: {
         xs: { span: 24 },
@@ -216,7 +219,7 @@ class RollcallHostory extends React.Component{
     render(){
         const { getFieldDecorator } = this.props.form;
         return(       
-            <div className="RollcallHostory" id="test">
+            <div className="RollcallHostory" id="scorll">
                 <LocaleProvider locale={zh_CN}>
                     <Row style={{marginTop:"50px"}}>
                         <Form onSubmit={this.handleSubmit}>
@@ -261,28 +264,7 @@ class RollcallHostory extends React.Component{
                 </LocaleProvider>
 
                 <div className="timeline_ml">
-              
-                {/* <Timeline>
-                        {
-                            data.map((item,j)=>{
-                                return (
-                                    <Timeline.Item key={j}>
-                                        <p> {this.state.list[j].dayly}</p>
-                                        
-                                            data[j].info.map((in,i)=>{
-                                                <div>
-                                                    <div className="times"> 第{i}次</div>
-                                                        <div className="line_detail"> {this.state.list[j].info[i].rollcalldate}.substring(11, 19) 自动点名，共点名 {this.state.list[j].info[i].taskid}个对象，{this.state.list[j].info[i].alarm}个报警，{this.state.list[j].info[i].normal}个正常，
-                                                        <a href="#" className="underline">查看详情</a>
-                                                    </div>
-                                                </div>
-                                            })
-                                    </Timeline.Item>
-                                )
-                            })
-                        } 
-
-                </Timeline> */}
+            
                  <Timeline>
                         {
                             data.map((item,j)=>{
@@ -326,15 +308,9 @@ class RollcallHostory extends React.Component{
                 </div>
               
                 <div>
-                    <BackTop 
-                    target={() => document.getElementById('test')} 
-                    />
-                    Scroll down to see the bottom-right
-                    <strong style={{ color: 'rgba(64, 64, 64, 0.6)' }}> gray </strong>
-                    button.
-
+                    <BackTop />
                 </div>
-                
+
                 {/* <div onClick={this.BackTop } className="backtop">
                         返回顶部
                 </div> */}
