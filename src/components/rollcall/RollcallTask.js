@@ -15,13 +15,13 @@ const data=[
     rfinal:2, //点名结果
 },{
     code:2,
-    rname:'石狮子',
+    rname:'柱子',
     cameraname:'西安',
     cid:'1000002',
     rpic:'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
     rstatus:0, //点名对象状态
-    lastrollcall:'2017-12:10 12:09:09', //最后一次点名时间
-    rfinal:2, //点名结果
+    lastrollcall:'2017-12:10 12:09:10', //最后一次点名时间
+    rfinal:1, //点名结果
 }
 ]
 
@@ -109,7 +109,8 @@ class RollcallTask extends React.Component{
                     </Col>
                     <Col span={6}>
                         <a href="#/app/rollcall/adopt"><Button>新增</Button></a>
-                         <a href="#/app/rollcall/auditing"><Button>查看</Button></a>
+                        
+                         <a href="#/app/rollcall/auditing"><Button>全部点名</Button></a>
                     </Col>
 
                 </Row>
@@ -121,7 +122,12 @@ class RollcallTask extends React.Component{
                            <div>
                             <img alt="example" width='100%' src={el.rpic} />
                            </div>
-                           <p>{el.lastrollcall}<span style={{float:"right"}}>{el.rfinal}</span></p>
+                           <p>{el.lastrollcall}
+                           {el.rfinal==1
+                            ? <span style={{float:"right"}}>正常</span>
+                            : <span style={{float:"right",color:'#f00'}}>异常</span>
+
+                           }</p>
                            <p></p>
                            <Button type="primary" block visible={el.rstatus}>点名</Button>
                         </Card>  
