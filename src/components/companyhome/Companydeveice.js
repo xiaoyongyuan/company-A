@@ -26,7 +26,7 @@ class Companydeveice extends Component{
             confirmLoading: false,
             camera:{ //摄像头信息
                 eid:'',  //id
-                field:0  //防区设置状态1已设置，0未设置
+                fieldnum:0  //防区的数量
             },
             video:true, //直播显示
             cid:'1000002', //摄像头id,由上一页面传入
@@ -240,7 +240,7 @@ class Companydeveice extends Component{
                 this.setState({
                     camera:{
                         name:res.data.name,  
-                        field:field,  //防区
+                        fieldnum:res.data.fieldnum,  //防区
                         if_cancel: res.data.if_cancel, // 布防撤防
                         cstatus:res.data.cstatus  //摄像头状态
 
@@ -410,8 +410,9 @@ class Companydeveice extends Component{
                             </Row>
                             <Row className="line">
                                 <Col xl={24} xxl={24}>布防区域：{usertype.utype==0
-                                        ?<a href={"#/app/companyhome/setarea?id="+this.state.cid}>{this.state.camera.field?"已设置":"未设置"}</a>
-                                        :this.state.camera.field?"已设置":"未设置"}
+                                        ?<a href={"#/app/companyhome/setarea?id="+this.state.cid}>{this.state.camera.fieldnum?this.state.camera.fieldnum+'条':'未设置'}</a>
+                                        :<span>{this.state.camera.fieldnum?this.state.camera.fieldnum+'条':'未设置'}</span>
+                                    }
                                 </Col>
                             </Row>
                             <Row className="line">

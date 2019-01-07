@@ -25,8 +25,8 @@ class Setarea extends Component {
         //取数据
         this.requestdata()
     }
-    requestdata=(params) => {//取数据
-        post({url:"/api/workingtime/getlist"}, (res)=>{
+    requestdata=() => {//取数据
+        post({url:"/api/workingtime/getlist",data:{cid:this.state.cid}}, (res)=>{
             if(res.success){
                 this.setState({
                     list: res.data
