@@ -65,6 +65,7 @@ class Userdeveice extends React.Component{
             ausername:this.state.camerauser,
             authport:this.state.portvalue,
             apassword:this.state.camerapasswd,
+            webreset:1
         };
         if(!data.ip||!data.ausername||!data.authport||!data.apassword){
             message.warn('请填写完整！');

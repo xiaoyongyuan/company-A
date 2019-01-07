@@ -2,8 +2,7 @@ import React from 'react';
 import {Row, Col, Button, DatePicker, LocaleProvider, Table, Form, Select,Modal} from "antd";
 import zh_CN from "antd/lib/locale-provider/zh_CN";
 import {post} from "../../axios/tools";
-import "../../style/ztt/css/police.css";
-import imgSrc from "../../style/ztt/img/house.jpg";
+import "../../style/ztt/css/patrolRecord.css";
 const Option = Select.Option;
 const formItemLayout = {
     labelCol: {
@@ -26,6 +25,15 @@ const data=[
         patrolname:'张三',
         cameraname:'测试一',
         phandle:'0',
+    },
+    {
+        code:3,
+        cid:1000001,
+        pdate:'2018-12-12 12:09:09',
+        ppic:"http://pic01.aokecloud.cn/alarm/1000011/pic/20181228//1000011_20181228154552.jpg",
+        patrolname:'张三',
+        cameraname:'测试一',
+        phandle:'1',
     }
 ]
 class PatrolRecord extends React.Component{
@@ -170,27 +178,27 @@ class PatrolRecord extends React.Component{
             title: '巡更图',
             dataIndex: 'ppic',
             key: 'ppic',
-            render: text => <span>{text}</span>,
+            render: text => <span>{<img src={text} alt="" width="100px" height="50px"  onClick={this.patrol} />}</span>,
         }, {
             title: '巡更人',
-            dataIndex: 'patrolPerson',
-            key: 'patrolPerson',
+            dataIndex: 'patrolname',
+            key: 'patrolname',
             render: text => <span>{text}</span>,
         },{
             title: '日期',
-            dataIndex: 'patrolDate',
+            dataIndex: 'pdate',
             key: 'patrolDate',
             render: text => <span>{text}</span>,
         },{
             title: '班次',
-            dataIndex: 'Shifts',
+            dataIndex: 'cameraname',
             key: 'Shifts',
             render: text => <span>{text}</span>,
         },{
             title: '处理',
-            dataIndex: 'Handle',
+            dataIndex: 'phandle',
             key: 'Handle',
-            render: text => <span>{text}</span>,
+            render: text => <span>{text==0?"通过":"不通过"}</span>,
         },{
             title: '操作',
             dataIndex: 'code',
@@ -198,8 +206,8 @@ class PatrolRecord extends React.Component{
             render:()=>{
                 return(
                     <div>
-                        <a type="primary">通过</a>
-                        <a type="primary">不通过</a>
+                        <Button className="operationBtn">通过</Button>
+                        <Button type="danger">不通过</Button>
                     </div>
                 )
             }
@@ -212,8 +220,7 @@ class PatrolRecord extends React.Component{
                             <Col xl={6} xxl={4} lg={9}>
                                 <Form.Item
                                     {...formItemLayout}
-                                    label="日期："
-                                >
+                                    label="日期：">
                                     {getFieldDecorator('range-picker1')(
                                         <DatePicker
                                             showTime={{format:"HH"}}
@@ -268,7 +275,7 @@ class PatrolRecord extends React.Component{
                     </Row>
                 </LocaleProvider>
                 <Row>
-                    <Col spma={24} onClick={this.patrol}>
+                    <Col spma={24}>
                         <Table dataSource={this.state.dataSource} columns={columns} />
                     </Col>
                     <Modal

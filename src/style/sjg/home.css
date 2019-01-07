@@ -370,20 +370,20 @@ margin: 20px 0;
     flex-direction:row;
     flex-wrap: wrap;
     justify-content: flex-start; 
-    border: 1px solid #888888;
-    box-shadow: #888888 0px 0px 4px 2px;
+    box-shadow: #d6d4d4 0px 0px 4px 2px;
+    border-radius: 6px;
 }
 .patrol_detail{
     display: flex;
     flex-direction:column;
-    width:60%;
+    width:40%;
     height:100px;
 }
 .patrol_detail>div{
     width:100%;
     height:50px;
     line-height: 50px;
-    text-align: center;
+    text-align: left ;
     
 }
 .patrol_head{
@@ -400,8 +400,6 @@ margin: 20px 0;
     width:50px;
     height:50px;
     border-radius: 50%;
-    border: 1px solid #333;
-    background: #5DCB9A;
     display: flex;
     flex-direction:column;
     align-items:center;/*垂直居中*/
@@ -412,6 +410,60 @@ margin: 20px 0;
     flex-direction:column;
     align-items:center;/*垂直居中*/
     justify-content: center;/*水平居中*/
-    width:20%;
+    width:14%;
     height:100px;
+}
+.del{
+    display: flex;
+    flex-direction:column;
+    align-items:center;/*垂直居中*/
+    justify-content: center;/*水平居中*/
+    width:14%;
+    height:100px;
+}
+.m_r{
+    margin:20px 2%;
+}
+.card_width{
+    width: 90%
+}
+   
+.bg1{
+    background: #5DCB9A;
+}
+.bg2{
+    background: #FB7575;
+}
+.bg3{
+    background: #F7C35D;
+}
+.bg4{
+    background: #99BB33;
+}
+.bg5{
+    background: #93ABFA;
+}
+.bg6{
+    background: #FDD000;
+}
+.m-r{
+    margin-left: 40px
+}
+
+/* 点名历史部分 */
+.timeline_ml{
+    margin-left: 60px;
+}
+.times{
+    width:100px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+    background: #ccc;
+}
+.line_detail{
+    width: auto;
+    height:30px;
+    line-height:30px;
+    margin-bottom: 30px;
 }

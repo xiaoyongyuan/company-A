@@ -1,8 +1,9 @@
 import React from 'react';
-import {Form, Row, Col, Button, Modal,Icon} from 'antd';
+import {Form, Row, Col, Button, Modal,Icon,Card} from 'antd';
 import ModalForm from './ModalForm.js';
 import {post} from "../../axios/tools";
 import '../../style/sjg/home.css';
+import '../../style/sjg/patrol.css';
 
 class PatrolPlan extends React.Component{
     constructor(props){
@@ -19,19 +20,45 @@ class PatrolPlan extends React.Component{
     requestdata=(params={}) => {//取数据
         post({url:"/api/patrol/getlist"}, (res)=>{
             if(res.success){
-                console.log(res.data,"********************")
                 this.setState({
                     resdatd:res,
                     list: res.data
                     
                 },()=>{
-                    console.log(this.state.list,"111111")
                 })
             }
         })
 
         
     }
+    showModaldelete = (code,index) =>{ //删除弹层
+        this.setState({
+            deleteshow: true,
+            delcode:code,
+            delindex:index.i
+        });
+    }
+
+    deleteOk = () =>{//删除确认
+        let code={
+            code:this.state.delcode,
+        };
+        post({url:"/api/patrol/del",data:code},(res)=>{
+            if(res.success){
+                const list=this.state.list;
+                list.splice(this.state.delindex,1);
+                this.setState({
+                    deleteshow: false,
+                    list
+                });
+            }
+        })
+    };
+    deleteCancel = () =>{//删除取消
+        this.setState({
+            deleteshow: false,
+        });
+    };
     showModal = (e) => { //新增弹窗
         e.preventDefault();
         this.setState({
@@ -63,7 +90,6 @@ class PatrolPlan extends React.Component{
             if (!err) {
                 if(this.state.type){
                     //修改
-                     console.log("修改接口1111111111111",)
                     let data={
                         code:this.state.type,
                         pteam:values.pteam,
@@ -77,13 +103,20 @@ class PatrolPlan extends React.Component{
                             list[this.state.indexi]=res.data[0]; 
                             this.setState({
                                 list:list,
-                               
                                 visible: false,
+                            },()=>{
+                                post({url:"/api/patrol/getlist"}, (res)=>{
+                                    if(res.success){
+                                        this.setState({
+                                            list: res.data
+                                            })
+                                    }
+                                })
                             })
                         }
                     })
+                    
                 }else{
-                       console.log("新增接口1111111111111",values.pteam)
                     const data={
                         pteam:values.pteam,
                         pbdate:values.bdate.format("HH"),
@@ -92,47 +125,81 @@ class PatrolPlan extends React.Component{
                     }
                     post({url:"/api/patrol/add",data:data}, (res)=>{
                         if(res.success){
-                            // data.code=res.code;
+                            data.code=res.code;
                             const list=this.state.list;
                             list.unshift(data);
                             this.setState({
                                 list:list,
                                 visible: false,
+                            },()=>{
+                                post({url:"/api/patrol/getlist"}, (res)=>{
+                                    if(res.success){
+                                        this.setState({
+                                            list: res.data
+                                            })
+                                    }
+                                })
                             })
                         }
                     })
                 }
-                
+                forms.resetFields()//清空
             }
         });
     };
 
+    bgcolor=(i)=>{ 
+        if(i===0){
+            return 'bg1'
+        }else if(i===1){
+            return 'bg2'
+        }else if(i===2){
+            return 'bg3'
+        }
+        else if(i===3){
+            return 'bg4'
+        }
+        else if(i===4){
+            return 'bg5'
+        }
+        else if(i===5){
+            return 'bg6'
+        }
+     }
+
     render(){
         return(       
             <div className="PatrolPlan">
-                <Row className="margin_top50">
-                    <Col span={2} offset={6}>
-                        <Button onClick={this.showModal}>新增</Button>
-                    </Col>
-                </Row>
-
-                <Row>
+                <Card className="margin_top50 card_width m-r"
+                 title="最多可以新增六个巡更"
+                    extra={<Row>
+                            <Col span={2} offset={6}>
+                                <Button type="primary" onClick={this.showModal}>新增</Button>
+                            </Col>
+                        </Row>     
+                        }
+                >
+                     <Row>
                     {
                         this.state.list.map((item,i)=>{
                             return(
-                                <Col key={i} className="margin_top50" span={7} offset={1}>
+                                <Col key={i} className="margin_top50 m_r" span={7}>
                                     <div className="patrol_item">
                                         <div className="patrol_head">
-                                        <div >{this.state.list[i].pteam}</div>
+                                        
+                                           <div className={this.bgcolor(i)}>{this.state.list[i].pteam.substring(0,2)}</div>
                                         </div>
                                         <div className="patrol_detail">
-                                        <div>{this.state.list[i].pbdate}:00--{this.state.list[i].pedate}:00</div>
-                                        <div>
-                                           { this.state.list[i].clist}
-                                        </div>
+                                            <div>{this.state.list[i].pbdate}:00--{this.state.list[i].pedate}:00</div>
+                                            <div>
+                                            { this.state.list[i].camera}
+                                            </div>
                                         </div>
                                         <div className="patrol_query">
-                                        <Icon type="search" onClick={() => {this.showModalEdit( this.state.list[i].code,{i})}} />
+                                         <span onClick={() => {this.showModalEdit( this.state.list[i].code,{i})}}><Icon type="search" />编辑</span> 
+                                        </div>
+                                        <div className="del">
+                                          <span onClick={() => {this.showModaldelete( this.state.list[i].code,{i})}}><Icon type="delete" />删除 </span>
                                         </div>
                                     </div>
                                 </Col>
@@ -140,8 +207,12 @@ class PatrolPlan extends React.Component{
                         })
                     } 
                 </Row>
+                </Card>
+                
 
-                <Modal title='新增'
+               
+
+                <Modal title={this.state.type?'编辑':'新增'}
                     okText="确认"
                     cancelText="取消"
                     visible={this.state.visible}
@@ -153,6 +224,15 @@ class PatrolPlan extends React.Component{
                                index={this.state.index}
                                wrappedComponentRef={(form) => this.formRef = form}
                     />
+                </Modal>
+                <Modal
+                 title="提示信息"
+                 okText="确认"
+                 cancelText="取消"
+                 visible={this.state.deleteshow} onOk={this.deleteOk}
+                 onCancel={this.deleteCancel}
+                >
+                    <p>确认删除吗？</p>
                 </Modal>
             </div>
         )

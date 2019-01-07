@@ -13,7 +13,6 @@ class ModalForm extends Component {
         };
     }
     componentWillMount(){
-       
     }
     componentDidMount() {
         //编辑  数据回填
@@ -22,60 +21,64 @@ class ModalForm extends Component {
         },()=>{
             this.requestdata()
         });
-       
+        post({url:"/api/camera/getlist"}, (res)=>{ //获取摄像头
+            if(res.success){
+                  let codearr=[];
+                res.data.map((el,i) => {
+                    codearr.push({ label: el.name, value:el.code,})
+                })
+                this.setState({
+                    plainOptions: codearr
+                    
+                },()=>{
+                })
+            }
+        })
     }
   
     componentWillReceiveProps(nextProps){
-        console.log("nextProps", nextProps);
+        // console.log("componentWillReceiveProps")
+        // console.log("nextProps", nextProps);
+        // console.log("nextProps.visible", nextProps.visible);
         if( nextProps.visible != vis){
             vis=nextProps.visible;
             if(nextProps.visible){
-                vis=nextProps.visible;
+                 vis=nextProps.visible;
                 this.setState({
                     code:this.props.code,
+                },()=>{
+                    // console.log("this.state.code-------------->",this.state.code);
+                    if(nextProps.code==0){
+                    }else{
+                        post({url:"/api/patrol/getone",data:{code:nextProps.code} }, (res)=>{
+                            this.props.form.setFieldsValue({
+                                pteam: res.data.pteam,
+                                bdate: moment(`${res.data.pbdate}`, 'HH'),
+                                edate: moment(`${res.data.pedate}`, 'HH'),
+                                patrolE:[res.data.clist],                                 
+                            });
+                    })
+                    }
                 });
             }
         }
 
     }
-    requestdata=() => {//取数据
+    requestdata=() => {//数据回填
         if(this.state.code){
             post({url:"/api/patrol/getone",data:{code:this.state.code} }, (res)=>{
-                console.log("***************************************", res.data.clist)
                     this.props.form.setFieldsValue({
-                     pteam: `${res.data.pteam}`,
-                        pbdate: moment(`${res.data.pbdate}`),
-                        pedate: moment(`${res.data.pedate}`),
-                        patrolE:`${res.data.clist}` ,
+                        pteam: res.data.pteam,
+                        bdate: moment(`${res.data.pbdate}`, 'HH'),
+                        edate: moment(`${res.data.pedate}`, 'HH'),
+                        patrolE:[res.data.clist], 
                     });
             })
         }
-        
-        post({url:"/api/camera/getlist"}, (res)=>{
-            if(res.success){
-                console.log(res.data,"摄像头code")
-                  let codearr=[];
-                res.data.map((el,i) => {
-                    codearr.push({ label: el.name, value:el.code })
-                })
-                this.setState({
-                    plainOptions: codearr
-                },()=>{
-                    console.log(this.state.plainOptions,"ccccccccccc")
-                })
-            }
-        })
     }
     formref = () => { //将form传给父组件由父组件控制表单提交
         return this.props.form;
     };
-
-    onChange = (checkedList) => { //分组选择
-        this.setState({
-            checkedList:checkedList.target.value
-        });
-    }
-
     render() {
         const CheckboxGroup = Checkbox.Group;
         const { getFieldDecorator } = this.props.form;
@@ -108,21 +111,18 @@ class ModalForm extends Component {
             if(times== '00'){
                 hours.splice(times,24-times);
             }else{
-                // console.log(times,parseInt(times),parseInt(times)+1)
                 hours.splice(parseInt(times)+1,24-times);
             }
             return hours;
         }
-        function onChangecheck(checkedValues) {
-            console.log('checked = ', checkedValues);
-        }
+        
        
         return (
                 <Form layout="vertical" onSubmit={this.handleSubmit}>
                 <FormItem label="班次名称">
                     {getFieldDecorator('pteam', {
                         rules: [{
-                            required: false, message: '班次名称',
+                            required: true, message: '班次名称',
                         }],
                     })(
                         <Input />
@@ -150,9 +150,9 @@ class ModalForm extends Component {
                 <FormItem label="巡更设备">
                             {getFieldDecorator('patrolE', {
 
-                                rules: [{ required: false, message: '请选择巡更设备!' }],
+                                rules: [{ required: true, message: '请选择巡更设备!' }],
                             })(
-                                <CheckboxGroup options={this.state.plainOptions} onChange={onChangecheck} />
+                                <CheckboxGroup options={this.state.plainOptions} onChange={this.onChangecheck} />
                             )}
                         </FormItem>
                 </Form>
