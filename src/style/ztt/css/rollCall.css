@@ -31,3 +31,36 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+/*
+    RollcallRecordModel.js 点名记录详情
+*/
+.rollcallModel{
+    margin: 3% 0;
+}
+.rollcallModelTitle{
+    display: flex;
+    justify-content: center;
+}
+.fontSizeModel{
+    font-size: 1.3vmax;
+}
+/*
+RollcallTask.js 点名任务
+*/
+.cardContext{
+    position: relative;
+}
+.cardContext .titles{
+    display: flex;
+    width: 5vh;
+    height: 3vh;
+    background: #494748;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    top:7vh;
+    left: 1vh;
+    border-radius: 4px;
+    color: white;
+
+}

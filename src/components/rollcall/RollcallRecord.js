@@ -1,6 +1,7 @@
 import React from 'react';
-import {Row, Col, Form, DatePicker, LocaleProvider, Input, Select} from "antd";
+import {Row, Col, Form, DatePicker, LocaleProvider, Input, Select,Modal} from "antd";
 import moment from 'moment';
+import RollcallRecordModel from "./RollcallRecordModel";
 import zh_CN from "antd/lib/locale-provider/zh_CN";
 import 'moment/locale/zh-cn';
 import "../../style/ztt/css/rollCall.css";
@@ -10,39 +11,39 @@ const RangePicker = DatePicker.RangePicker;
 const Option = Select.Option;
 const rollset=[
     {
+        code:0,
         rname:"理工大",
         cid:"eftt09",
         ifeveryday:"0",
         resultdate:"2019-01-05 11:07",
         rrpic:"http://pic01.aokecloud.cn/alarm/1000011/pic/20181228//1000011_20181228154552.jpg",
         rfinal:"0"
-    },
-    {
+    },{
+        code:1,
         rname:"西安软件园",
         cid:"tftt06",
         ifeveryday:"1",
         resultdate:"2019-01-04 11:07",
         rrpic:"http://pic01.aokecloud.cn/alarm/1000004/pic/20190104//1000004_20190104172947.jpg",
         rfinal:"1"
-    },
-    {
+    },{
+        code:2,
         rname:"绿地",
         cid:"tftt06",
         ifeveryday:"0",
         resultdate:"2018-12-03 11:07",
         rrpic:"http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg",
         rfinal:"0"
-    },
-    {
+    },{
+        code:3,
         rname:"中兴通讯",
         cid:"tftt06",
         ifeveryday:"1",
         resultdate:"2019-01-02 11:07",
         rrpic:"http://pic01.aokecloud.cn/alarm/1000004/pic/20190104//1000004_20190104172947.jpg",
         rfinal:"1"
-    }
-    ,
-    {
+    },{
+        code:4,
         rname:"中兴通讯",
         cid:"tftt06",
         ifeveryday:"1",
@@ -56,12 +57,39 @@ class RollcallRecord extends React.Component{
         super(props);
         this.state={
             rollCall:[],
-            rollsetList:[]
+            rollsetList:[],
+            rollCallType:false
         };
     }
+    //对象名称
+    rollcalInput =(e)=>{
+        this.setState({
+            calInput:e.target.value
+        })
+    };
+    //日期
     onChangeDate = (dates, dateStrings)=> {
+        this.setState({
+            bdate:dates[0].format('YYYY-MM-DD HH:00:00'),
+            edate:dateStrings[1]
+        });
+        console.log( dates,dateStrings);
         console.log('From: ', dates[0], ', to: ', dates[1]);
         console.log('From: ', dateStrings[0], ', to: ', dateStrings[1]);
+    };
+    //model open
+    handlerollCallType =(index)=>{
+        console.log(index,"3333");
+        this.setState({
+            rollCallType:true,
+            code:index
+        })
+    };
+    //model close
+    handlerollClose =()=>{
+        this.setState({
+            rollCallType:false
+        })
     };
     normal =(status)=>{
         if(status==0){
@@ -69,6 +97,12 @@ class RollcallRecord extends React.Component{
         }else if(status==1){
             return "fontColor1";
         }
+    };
+    //选择设备
+    handleChange =(value)=>{
+        this.setState({
+            cid:value
+        });
     };
     //设备
     handleRollCall = ()=>{
@@ -82,8 +116,27 @@ class RollcallRecord extends React.Component{
     };
     //点名列表
     handleRollCallList =()=>{
-        this.setState({
-            rollsetList:rollset
+        post({url:"/api/rollcalldetail/getlist"},(res)=>{
+            if(res.success){
+                this.setState({
+                    rollsetList:rollset
+                })
+            }
+        });
+
+    };
+    //查询
+    handleSubmit =()=>{
+        let datas={
+            bdate:this.state.bdate,
+            edate:this.state.edate,
+            cid:this.state.cid,
+            rname:this.state.calInput
+        };
+        post({url:"/api/rollcalldetail/getlist",data:datas},()=>{
+           this.setState({
+               rollsetList:rollset
+           })
         })
     };
     componentDidMount() {
@@ -95,7 +148,7 @@ class RollcallRecord extends React.Component{
         return(
             <div className="RollcallRecord">
                 <LocaleProvider locale={zh_CN}>
-                    <Row style={{marginTop:"50px"}}>
+                    <div style={{marginTop:"50px"}}>
                         <Form layout="inline" onSubmit={this.handleSubmit}>
                             <Form.Item
                                 label="日期"
@@ -104,7 +157,7 @@ class RollcallRecord extends React.Component{
                                     <RangePicker
                                         ranges={{ Today: [moment(), moment()], 'This Month': [moment().startOf('month'), moment().endOf('month')] }}
                                         showTime
-                                        format="YYYY/MM/DD HH:mm:ss"
+                                        format="YYYY/MM/DD HH:00:00"
                                         onChange={this.onChangeDate}
                                     />
                                 )}
@@ -113,7 +166,7 @@ class RollcallRecord extends React.Component{
                                 label="对象名称"
                             >
                                 {getFieldDecorator('name', {})(
-                                    <Input />
+                                    <Input onChange={this.rollcalInput}/>
                                 )}
                             </Form.Item>
                             <Form.Item
@@ -142,22 +195,22 @@ class RollcallRecord extends React.Component{
                                 </Button>
                             </Form.Item>
                         </Form>
-                    </Row>
+                    </div>
                 </LocaleProvider>
                 <Row>
                     {
                         this.state.rollsetList.map((v,i)=>(
-                            <Col key={i} xl={12} xxl={7} style={{marginTop:"30px"}}>
+                            <Col key={i} xs={12} sm={12} md={12} lg={12} xl={12} xxl={7} style={{marginTop:"30px"}}>
                                 <Row>
-                                    <Col xl={12} xxl={12}>
-                                        <img src={v.rrpic} alt="" width="100%"/>
+                                    <Col xs={12} sm={12} md={11} lg={11} xl={12} xxl={12}>
+                                        <img src={v.rrpic} alt="" width="100%" onClick={()=>this.handlerollCallType(i)} />
                                     </Col>
-                                    <Col xl={11} xxl={11} className="rollRow">
+                                    <Col xs={12} sm={12} md={12} lg={12} xl={11} xxl={11} className="rollRow">
                                         <Row className="rollCall">{v.rname}-{v.cid}</Row>
                                         <Row className="rollCall">{v.ifeveryday==0?"自动点名":"手动点名"}</Row>
                                         <Row className="rollCall">
-                                            <Col xl={14} xxl={14} className="overflow">{v.resultdate}</Col>
-                                            <Col xl={7} xxl={5} className={this.normal(v.rfinal)}>{v.rfinal==0?"正常":"报警"}</Col>
+                                            <Col xs={14} sm={14} md={14} lg={14} xl={14} xxl={14} className="overflow">{v.resultdate}</Col>
+                                            <Col xs={7} sm={7} md={7} lg={7} xl={7} xxl={5} className={this.normal(v.rfinal)}>{v.rfinal==0?"正常":"报警"}</Col>
                                         </Row>
                                     </Col>
                                 </Row>
@@ -165,6 +218,15 @@ class RollcallRecord extends React.Component{
                         ))
                     }
                 </Row>
+                <Modal
+                width={700}
+                title="点名记录详情"
+                visible={this.state.rollCallType}
+                onCancel={this.handlerollClose}
+                footer={null}
+                >
+                    <RollcallRecordModel code={this.state.code}/>
+                </Modal>
             </div>
         )
     }
