@@ -469,7 +469,8 @@ margin: 20px 0;
 .alarm_img{
     width: 20%;
     height:auto;
-    background: #ccc;
-  
+    display: inline-block;
+    margin-right: 20px;
    
 }
+
