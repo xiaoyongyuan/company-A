@@ -13,9 +13,9 @@ class PatrolPlan extends React.Component{
             list:[]
         };
     }
-  
+
     componentDidMount() {
-        this.requestdata()      
+        this.requestdata()
     }
     requestdata=(params={}) => {//取数据
         post({url:"/api/patrol/getlist"}, (res)=>{
@@ -23,13 +23,13 @@ class PatrolPlan extends React.Component{
                 this.setState({
                     resdatd:res,
                     list: res.data
-                    
+
                 },()=>{
                 })
             }
         })
 
-        
+
     }
     showModaldelete = (code,index) =>{ //删除弹层
         this.setState({
@@ -100,7 +100,7 @@ class PatrolPlan extends React.Component{
                     post({url:"/api/patrol/update",data:data},(res)=>{
                         if(res.success){
                             let list=this.state.list;
-                            list[this.state.indexi]=res.data[0]; 
+                            list[this.state.indexi]=res.data[0];
                             this.setState({
                                 list:list,
                                 visible: false,
@@ -115,7 +115,7 @@ class PatrolPlan extends React.Component{
                             })
                         }
                     })
-                    
+
                 }else{
                     const data={
                         pteam:values.pteam,
@@ -148,7 +148,7 @@ class PatrolPlan extends React.Component{
         });
     };
 
-    bgcolor=(i)=>{ 
+    bgcolor=(i)=>{
         if(i===0){
             return 'bg1'
         }else if(i===1){
@@ -168,7 +168,7 @@ class PatrolPlan extends React.Component{
      }
 
     render(){
-        return(       
+        return(
             <div className="PatrolPlan">
                 <Card className="margin_top50 card_width m-r"
                  title="最多可以新增六个巡更"
@@ -176,7 +176,7 @@ class PatrolPlan extends React.Component{
                             <Col span={2} offset={6}>
                                 <Button type="primary" onClick={this.showModal}>新增</Button>
                             </Col>
-                        </Row>     
+                        </Row>
                         }
                 >
                      <Row>
@@ -186,7 +186,7 @@ class PatrolPlan extends React.Component{
                                 <Col key={i} className="margin_top50 m_r" span={7}>
                                     <div className="patrol_item">
                                         <div className="patrol_head">
-                                        
+
                                            <div className={this.bgcolor(i)}>{this.state.list[i].pteam.substring(0,2)}</div>
                                         </div>
                                         <div className="patrol_detail">
@@ -196,7 +196,7 @@ class PatrolPlan extends React.Component{
                                             </div>
                                         </div>
                                         <div className="patrol_query">
-                                         <span onClick={() => {this.showModalEdit( this.state.list[i].code,{i})}}><Icon type="search" />编辑</span> 
+                                         <span onClick={() => {this.showModalEdit( this.state.list[i].code,{i})}}><Icon type="search" />编辑</span>
                                         </div>
                                         <div className="del">
                                           <span onClick={() => {this.showModaldelete( this.state.list[i].code,{i})}}><Icon type="delete" />删除 </span>
@@ -205,12 +205,12 @@ class PatrolPlan extends React.Component{
                                 </Col>
                                 )
                         })
-                    } 
+                    }
                 </Row>
                 </Card>
-                
 
-               
+
+
 
                 <Modal title={this.state.type?'编辑':'新增'}
                     okText="确认"
