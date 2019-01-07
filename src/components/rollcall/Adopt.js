@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import '../../style/sjg/home.css';
-import { Card, Form, Input, Row, Col, message } from 'antd';
+import { Card, Form, Input, Row, Col, message,Button } from 'antd';
 import BreadcrumbCustom from '../BreadcrumbCustom';
 import Radioss from '../Radio';
 import axios from 'axios';
@@ -82,7 +82,7 @@ class Adopt extends Component {
                         <div className="gutter-box">
                             <Card title="" bordered={false}>
                                 <p span={4} offset={4} style={{textAlign:'center'}}>点名对象详情</p><br/>
-                                <Form onSubmit={this.handleSubmit}>
+                                <Form onSubmit={this.handleSubmit} style={{ background:'red'}}>
                                     <FormItem
                                         {...formItemLayout}
                                         label="对象名称"
@@ -136,6 +136,12 @@ class Adopt extends Component {
                                             </div>
                                         </Col>
                                     </Row>
+                                    <FormItem>
+                                        <Col span={12} offset={6} style={{ background:'yellow'}}>
+                                            <button type="primary" htmlType="submit" className="login-form-button">确认</button>
+                                            <button>重绘围界</button>
+                                        </Col>
+                                    </FormItem>
                                 </Form>
                             </Card>
                         </div>
