@@ -1,34 +1,23 @@
 {
   "success": 1,
-  "equipment": ["设备1","设备2","设备3","设备4"],
   "data": [
     {
-      "name": "设备1",
-      "police": "入侵报警",
-      "times": "2018-12-12",
-      "policeObject": "无",
-      "state": "待处理"
+      "code": "1",
+      "cid": "1000001",
+      "pdate": "2018-12-12 12:09:09",
+      "ppic": "http://pic01.aokecloud.cn/alarm/1000004/pic/20190104//1000004_20190104172947.jpg",
+      "patrolname": "张三",
+      "cameraname": "测试一",
+      "phandle": "0"
     },
     {
-      "name": "设备2",
-      "police": "良好",
-      "times": "2018-12-12",
-      "policeObject": "无",
-      "state": "已处理"
-    },
-    {
-      "name": "设备3",
-      "police": "良好",
-      "times": "2018-12-10",
-      "policeObject": "无",
-      "state": "已处理"
-    },
-    {
-      "name": "设备4",
-      "police": "入侵报警",
-      "times": "2018-11-03",
-      "policeObject": "无",
-      "state": "待处理"
+      "code": "3",
+      "cid": "1000001,",
+      "pdate": "2018-12-12 12:09:09",
+      "ppic": "http://pic01.aokecloud.cn/alarm/1000011/pic/20181228//1000011_20181228154552.jpg",
+      "patrolname": "张三",
+      "cameraname": "测试一",
+      "phandle": "1"
     }
   ]
 }
