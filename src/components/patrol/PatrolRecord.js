@@ -1,8 +1,10 @@
 import React from 'react';
 import {Row, Col, Button, DatePicker, LocaleProvider, Table, Form, Select,Modal} from "antd";
 import zh_CN from "antd/lib/locale-provider/zh_CN";
+import axios from "axios";
 import {post} from "../../axios/tools";
 import "../../style/ztt/css/patrolRecord.css";
+import PatrolRecordModel from "./PatrolRecordModel";
 const Option = Select.Option;
 const formItemLayout = {
     labelCol: {
@@ -16,26 +18,6 @@ const formItemLayout = {
         xl: { span: 4}
     },
 };
-const data=[
-    {
-        code:1,
-        cid:1000001,
-        pdate:'2018-12-12 12:09:09',
-        ppic:'http://pic01.aokecloud.cn/alarm/1000004/pic/20190104//1000004_20190104172947.jpg',
-        patrolname:'张三',
-        cameraname:'测试一',
-        phandle:'0',
-    },
-    {
-        code:3,
-        cid:1000001,
-        pdate:'2018-12-12 12:09:09',
-        ppic:"http://pic01.aokecloud.cn/alarm/1000011/pic/20181228//1000011_20181228154552.jpg",
-        patrolname:'张三',
-        cameraname:'测试一',
-        phandle:'1',
-    }
-]
 class PatrolRecord extends React.Component{
     constructor(props){
         super(props);
@@ -89,15 +71,19 @@ class PatrolRecord extends React.Component{
             edate:dateString2
         });
     };
-    patrol =()=>{
+    patrolStatus =(item)=>{
+        console.log(item,"tttt");
+       /* const data={
+            patrolImgStatus:item,
+            ifhandle:1,
+            bdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
+            edate:this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
+            cid:this.state.cid
+        };*/
         this.setState({
-            patrolImg:true
-        })
-    };
-    patrolOk =()=>{
-        this.setState({
-            patrolImg:false
-        })
+            patrolImg:true,
+            patrolImgStatus:item
+        });
     };
     patrolCancel =()=>{
         this.setState({
@@ -113,12 +99,16 @@ class PatrolRecord extends React.Component{
     //巡更列表信息
     patrolList =()=>{
         post({url:"/api/patrolresult/getlist",data:{ifhandle:1}},(res)=>{
-            if(res.success){
+            /*if(res.success){
                 this.setState({
-                    // dataSource:res.data
-                    dataSource:data
+                    dataSource:res.data
                 })
-            }
+            }*/
+        });
+        axios.get("ztt.json").then((res)=>{
+            this.setState({
+                dataSource:res.data.data
+            })
         })
     };
     //设备
@@ -141,27 +131,7 @@ class PatrolRecord extends React.Component{
         };
         post({url:"/api/patrolresult/getlist",data:data},(res)=>{
             console.log(res);
-        })
-    };
-    //通过
-    patrolAdopt =()=>{
-        post({url:"/api/patrolresult/patrolconfirm",data:{code:"5"}},(res)=>{
-           if(this.state.stateType!=="0"){
-                this.setState({
-                    stateType:1
-                })
-           }
-        })
-    };
-    //不通过
-    noPatrolAdopt =()=>{
-        post({url:"/api/patrolresult/patrolconfirm",data:{code:"5"}},(res)=>{
-            if(this.state.stateType!=="1"){
-                this.setState({
-                    stateType:0
-                })
-            }
-        })
+        });
     };
     componentDidMount() {
         this.patrolList();
@@ -178,7 +148,11 @@ class PatrolRecord extends React.Component{
             title: '巡更图',
             dataIndex: 'ppic',
             key: 'ppic',
-            render: text => <span>{<img src={text} alt="" width="100px" height="50px"  onClick={this.patrol} />}</span>,
+            render: (text,index) => {
+                return(
+                    <div><img src={text} alt="" width="100px" height="50px"  onClick={()=>this.patrolStatus(index)}/></div>
+                )
+            },
         }, {
             title: '巡更人',
             dataIndex: 'patrolname',
@@ -288,21 +262,7 @@ class PatrolRecord extends React.Component{
                         cancelText="取消"
                         footer={null}
                     >
-                        <Row style={{margin:"10px 0px"}}>
-                            <Col span={2}>张三</Col>
-                            <Col span={5}>2017-12-12 12:22:09</Col>
-                            <Col span={3}>测试一</Col>
-                            <Col span={6} offset={4}>早班12:00-14:00</Col>
-                        </Row>
-                        <Row>
-                            <Col span={24}><img src="http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg" alt="nodata" width="100%"/></Col>
-                        </Row>
-                        <Row style={{margin:"10px 0px"}}>
-                            <Col span={24}>处理结果:<span>{this.state.stateType===0?"不通过":"通过"}</span></Col>
-                        </Row>
-                        <Row>
-                            <Col span={12} offset={9}><Button type="primary" onClick={this.patrolAdopt}>通过</Button><Button type="primary" onClick={this.noPatrolAdopt}>不通过</Button></Col>
-                        </Row>
+                        <PatrolRecordModel states={this.state.stateType} patrolImgStatus={this.state.patrolImgStatus}/>
                     </Modal>
                 </Row>
             </div>
