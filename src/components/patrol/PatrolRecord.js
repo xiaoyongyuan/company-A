@@ -1,7 +1,6 @@
 import React from 'react';
 import {Row, Col, Button, DatePicker, LocaleProvider, Table, Form, Select,Modal} from "antd";
 import zh_CN from "antd/lib/locale-provider/zh_CN";
-import axios from "axios";
 import {post} from "../../axios/tools";
 import "../../style/ztt/css/patrolRecord.css";
 import PatrolRecordModel from "./PatrolRecordModel";
@@ -18,6 +17,26 @@ const formItemLayout = {
         xl: { span: 4}
     },
 };
+var data=[
+    {
+        "code": "1",
+        "cid": "1000001",
+        "pdate": "2018-12-12 12:09:09",
+        "ppic": "http://pic01.aokecloud.cn/alarm/1000004/pic/20190104//1000004_20190104172947.jpg",
+        "patrolname": "李四",
+        "cameraname": "测试一",
+        "phandle": "0"
+    },
+    {
+        "code": "3",
+        "cid": "1000001",
+        "pdate": "2018-12-12 12:09:09",
+        "ppic": "http://pic01.aokecloud.cn/alarm/1000011/pic/20181228//1000011_20181228154552.jpg",
+        "patrolname": "张三",
+        "cameraname": "测试二",
+        "phandle": "1"
+    }
+];
 class PatrolRecord extends React.Component{
     constructor(props){
         super(props);
@@ -72,7 +91,6 @@ class PatrolRecord extends React.Component{
         });
     };
     patrolStatus =(item)=>{
-        console.log(item,"tttt");
        /* const data={
             patrolImgStatus:item,
             ifhandle:1,
@@ -96,20 +114,34 @@ class PatrolRecord extends React.Component{
             cid:value
         });
     };
+    //通过
+    patrolAdopt = (item)=>{
+        console.log(item);
+        post({url:"/api/patrolresult/patrolconfirm",data:{code:"5"}},(res)=>{
+            this.setState({
+                item:1
+            })
+        });
+    };
+    //不通过
+    nopatrolAdopt =(item)=>{
+        console.log(item);
+        post({url:"/api/patrolresult/patrolconfirm",data:{code:"5"}},(res)=>{
+            this.setState({
+                item:0
+            })
+        });
+    };
     //巡更列表信息
     patrolList =()=>{
         post({url:"/api/patrolresult/getlist",data:{ifhandle:1}},(res)=>{
-            /*if(res.success){
+            if(res.success){
                 this.setState({
-                    dataSource:res.data
+                    //dataSource:res.data
+                    dataSource:data
                 })
-            }*/
+            }
         });
-        axios.get("ztt.json").then((res)=>{
-            this.setState({
-                dataSource:res.data.data
-            })
-        })
     };
     //设备
     handlePatrol =()=>{
@@ -130,6 +162,12 @@ class PatrolRecord extends React.Component{
             cid:this.state.cid
         };
         post({url:"/api/patrolresult/getlist",data:data},(res)=>{
+            if (res.success){
+                this.setState({
+                    // dataSource:res.data
+                    dataSource:data
+                })
+            }
             console.log(res);
         });
     };
@@ -148,9 +186,9 @@ class PatrolRecord extends React.Component{
             title: '巡更图',
             dataIndex: 'ppic',
             key: 'ppic',
-            render: (text,index) => {
+            render: (text,record,index) => {
                 return(
-                    <div><img src={text} alt="" width="100px" height="50px"  onClick={()=>this.patrolStatus(index)}/></div>
+                    <div><img src={text} alt="" width="100px" height="50px"  onClick={()=>this.patrolStatus(record.code)}/></div>
                 )
             },
         }, {
@@ -177,11 +215,11 @@ class PatrolRecord extends React.Component{
             title: '操作',
             dataIndex: 'code',
             key: 'code',
-            render:()=>{
+            render:(text,record)=>{
                 return(
                     <div>
-                        <Button className="operationBtn">通过</Button>
-                        <Button type="danger">不通过</Button>
+                        <Button className="operationBtn" onClick={()=>this.patrolAdopt(record.phandle)}>通过</Button>
+                        <Button type="danger" onClick={()=>this.nopatrolAdopt(record.phandle)}>不通过</Button>
                     </div>
                 )
             }
@@ -258,8 +296,6 @@ class PatrolRecord extends React.Component{
                         visible={this.state.patrolImg}
                         onOk={this.patrolOk}
                         onCancel={this.patrolCancel}
-                        okText="确认"
-                        cancelText="取消"
                         footer={null}
                     >
                         <PatrolRecordModel states={this.state.stateType} patrolImgStatus={this.state.patrolImgStatus}/>

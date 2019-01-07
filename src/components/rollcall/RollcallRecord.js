@@ -147,17 +147,17 @@ class RollcallRecord extends React.Component{
                 <Row>
                     {
                         this.state.rollsetList.map((v,i)=>(
-                            <Col key={i} xl={12} xxl={7} style={{marginTop:"30px"}}>
+                            <Col key={i} xs={12} sm={12} md={12} lg={12} xl={12} xxl={7} style={{marginTop:"30px"}}>
                                 <Row>
-                                    <Col xl={12} xxl={12}>
+                                    <Col xs={12} sm={12} md={11} lg={11} xl={12} xxl={12}>
                                         <img src={v.rrpic} alt="" width="100%"/>
                                     </Col>
-                                    <Col xl={11} xxl={11} className="rollRow">
+                                    <Col xs={12} sm={12} md={12} lg={12} xl={11} xxl={11} className="rollRow">
                                         <Row className="rollCall">{v.rname}-{v.cid}</Row>
                                         <Row className="rollCall">{v.ifeveryday==0?"自动点名":"手动点名"}</Row>
                                         <Row className="rollCall">
-                                            <Col xl={14} xxl={14} className="overflow">{v.resultdate}</Col>
-                                            <Col xl={7} xxl={5} className={this.normal(v.rfinal)}>{v.rfinal==0?"正常":"报警"}</Col>
+                                            <Col xs={14} sm={14} md={14} lg={14} xl={14} xxl={14} className="overflow">{v.resultdate}</Col>
+                                            <Col xs={7} sm={7} md={7} lg={7} xl={7} xxl={5} className={this.normal(v.rfinal)}>{v.rfinal==0?"正常":"报警"}</Col>
                                         </Row>
                                     </Col>
                                 </Row>
