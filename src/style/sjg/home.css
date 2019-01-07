@@ -463,7 +463,13 @@ margin: 20px 0;
 }
 .line_detail{
     width: auto;
-    height:30px;
     line-height:30px;
     margin-bottom: 30px;
+}
+.alarm_img{
+    width: 20%;
+    height:auto;
+    background: #ccc;
+  
+   
 }

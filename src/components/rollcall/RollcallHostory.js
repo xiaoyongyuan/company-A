@@ -13,6 +13,78 @@ const formItemLayout = {
         sm: { span: 16 },
     },
 };
+const data=[
+    {
+        "companycode":1000003,
+        "dayly":"2019-01-05",
+        "info":[
+            {
+                "companycode":1000003,
+                "rollcalldate":"2019-01-05 16:31:00",
+                "taskid":5,
+                "totalcount":2,
+                "unhandle":0,
+                "normal":1,
+                "alarm":[
+                    {"a":"s",
+                      "b":"q" 
+                     }
+                ]
+            },
+            {
+                "companycode":1000003,
+                "rollcalldate":"2019-01-06 12:31:00",
+                "taskid":5,
+                "totalcount":2,
+                "unhandle":0,
+                "normal":1,
+                "alarm":[
+                    {"a":"s",
+                      "b":"q" 
+                     }
+                ]
+            },
+        ]
+    }, {
+        "companycode":1000003,
+        "dayly":"2019-01-06",
+        "info":[
+            {
+                "companycode":1000003,
+                "rollcalldate":"2019-01-06 16:31:00",
+                "taskid":5,
+                "totalcount":2,
+                "unhandle":0,
+                "normal":1,
+                "alarm":[
+                    {"a":"s",
+                      "b":"q" 
+                     },{"a":"s",
+                     "b":"q" 
+                    }
+                ]
+            },
+            {
+                "companycode":1000003,
+                "rollcalldate":"2019-01-06 12:31:00",
+                "taskid":5,
+                "totalcount":2,
+                "unhandle":0,
+                "normal":1,
+                "alarm":[
+                    {"a":"s",
+                      "b":"q" 
+                     },{"a":"s",
+                     "b":"q" 
+                    }
+                ]
+            },
+        ]
+    }
+]
+
+
+
 class RollcallHostory extends React.Component{
 	constructor(props){
         super(props);
@@ -21,22 +93,7 @@ class RollcallHostory extends React.Component{
             edate:'',//检索的结束时间
         }
     }
-    componentDidMount() {
-        console.log('******************');
-        post({url:'/api/rollcalldetail/getlist_info_dayly'},(res)=>{
-            if(res.success){
-                console.log('******************', res);
-                
-                    this.setState({
-                        list: res.data
-                        // policeList:res.data,
-                        // type:1,
-                        // totalcount:res.totalcount
-                    })
-                
-            }
-        })
-    }
+    
    //开始时间
    onChange1 =(dateString1)=> {
         this.onChangeDate('startValue',dateString1);
@@ -95,18 +152,31 @@ class RollcallHostory extends React.Component{
             post({url:'/api/rollcalldetail/getlist_info_dayly',data:data},(res)=>{
                 if(res.success){
                     console.log('******************', res.data);
-                    
                         this.setState({
-                            list: res.data,
-                            infolist:res.data.info
-                            // policeList:res.data,
-                            // type:1,
-                            // totalcount:res.totalcount
                         })
-                    
                 }
             })
     };
+    componentDidMount() {
+        console.log(data,"data");
+        var str=data[0].info[0].rollcalldate
+        console.log(typeof(str) ,"typeof(str)");
+        console.log(str.slice(10,20) ,"data[0].info");
+        console.log('******************');
+        post({url:'/api/rollcalldetail/getlist_info_dayly'},(res)=>{
+            if(res.success){
+                console.log('******************', res);
+                
+                    this.setState({
+                        list: res.data
+                        // policeList:res.data,
+                        // type:1,
+                        // totalcount:res.totalcount
+                    })
+                
+            }
+        })
+    }
     render(){
         const { getFieldDecorator } = this.props.form;
         return(       
@@ -155,54 +225,55 @@ class RollcallHostory extends React.Component{
                 </LocaleProvider>
 
                 <div className="timeline_ml">
-                <Timeline>
-                    <Timeline.Item>
-                          <p>2019.12.2</p>
-                          <div>
-                                <div className="times">第一次</div>
-                                    <div className="line_detail">12:04自动点名，共点名20个对象，0个报警，18个正常，
-                                    <a href="#">查看详情</a>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="times">第二次</div>
-                                <div className="line_detail">12:04自动点名，共点名20个对象，0个报警，18个正常，
-                                <a href="#">查看详情</a>
-                                </div>
-                            </div>
-                           
-                    </Timeline.Item>
-                    <Timeline.Item>
-                          <p>2019.12.2</p>
-                          <div>
-                                <div className="times">第一次</div>
-                                    <div className="line_detail">12:04自动点名，共点名20个对象，0个报警，18个正常，
-                                    <a href="#">查看详情</a>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="times">第二次</div>
-                                <div className="line_detail">12:04自动点名，共点名20个对象，0个报警，18个正常，
-                                <a href="#">查看详情</a>
-                                </div>
-                            </div>
-                           
-                    </Timeline.Item>
-                </Timeline>
+              
                 {/* <Timeline>
                         {
-                            this.state.list.map((item,j)=>{
+                            data.map((item,j)=>{
                                 return (
                                     <Timeline.Item key={j}>
                                         <p> {this.state.list[j].dayly}</p>
-                                        this.state.this.state.list[j].info.map((item,i)=>{
+                                        
+                                            data[j].info.map((in,i)=>{
                                                 <div>
                                                     <div className="times"> 第{i}次</div>
-                                                        <div className="line_detail"> {this.state.list[j].info.rollcalldate}.substring(11, 19) 自动点名，共点名 {this.state.list[j].info.length}个对象，{this.state.list[j].info[i].alarm.length}个报警，{this.state.list[j].info[i].normal}个正常，
-                                                        <a href="#">查看详情</a>
+                                                        <div className="line_detail"> {this.state.list[j].info[i].rollcalldate}.substring(11, 19) 自动点名，共点名 {this.state.list[j].info[i].taskid}个对象，{this.state.list[j].info[i].alarm}个报警，{this.state.list[j].info[i].normal}个正常，
+                                                        <a href="#" className="underline">查看详情</a>
                                                     </div>
                                                 </div>
                                             })
+                                    </Timeline.Item>
+                                )
+                            })
+                        } 
+
+                </Timeline> */}
+                 <Timeline>
+                        {
+                            data.map((item,j)=>{
+                                return (
+                                    <Timeline.Item key={j}>
+                                        <p> {item.dayly}</p>
+                                         { 
+                                             item.info.map((item1,i)=>{
+                                                return (
+                                                    <div key={i}>
+                                                        <div className="times"> 第{i}次</div>
+                                                            <div className="line_detail">
+                                                                <div>
+                                                                {item1.rollcalldate.slice(11,20)}自动点名，
+                                                                    共点名 {item1.taskid}个对象，
+                                                                    {item1.alarm.length}个报警，
+                                                                    {item1.normal}个正常， 
+                                                                    <a href={"#/app/?id="+i.code} className="underline">查看详情</a>
+                                                                </div>
+                                                                <div className="alarm_img" style={item1.pic?{display:'block'}:{display:'none'}} >
+                                                                    <img src={item1.pic} alt="alarm_img" width="100%" />
+                                                                </div> 
+                                                            </div>
+                                                    </div>
+                                                   )
+                                            })
+                                            }
                                     </Timeline.Item>
 
                              
@@ -210,7 +281,7 @@ class RollcallHostory extends React.Component{
                             })
                         } 
 
-                </Timeline> */}
+                </Timeline>
                 </div>
             </div>
         )
