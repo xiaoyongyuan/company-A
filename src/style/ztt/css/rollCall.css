@@ -44,3 +44,23 @@
 .fontSizeModel{
     font-size: 1.3vmax;
 }
+/*
+RollcallTask.js 点名任务
+*/
+.cardContext{
+    position: relative;
+}
+.cardContext .titles{
+    display: flex;
+    width: 5vh;
+    height: 3vh;
+    background: #494748;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    top:7vh;
+    left: 1vh;
+    border-radius: 4px;
+    color: white;
+
+}

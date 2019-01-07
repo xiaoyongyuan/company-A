@@ -1,8 +1,8 @@
 import React, { Component} from 'react';
-import {Row, Col, Button, DatePicker, LocaleProvider, Table, Form, Input,Modal, Card, Icon} from "antd";
+import {Row, Col, Button,Form, Input, Modal, Card, Icon, Select} from "antd";
 import {post} from "../../axios/tools";
-
-
+import "../../style/ztt/css/rollCall.css";
+const Option = Select.Option;
 const data=[
 {
     code:1,
@@ -24,11 +24,8 @@ const data=[
     rfinal:1, //点名结果
 }
 ]
-
-
-
 const FormItem = Form.Item;
-class RollcallTask extends React.Component{
+class RollcallTask extends Component{
 	constructor(props){
         super(props);
         this.state={
@@ -40,11 +37,24 @@ class RollcallTask extends React.Component{
             normal:18,
             unusual:2,
             list:[],
+            settingType:false
 
         }
     }
+    //modal open
+    handleSetting =()=>{
+	    this.setState({
+            settingType:true
+        })
+    };
+	//model close
+    handleCancelSetting =()=>{
+        this.setState({
+            settingType:false
+        })
+    };
     componentDidMount() {
-        this.reuestdata()
+        this.reuestdata();
     }
 
     setRoll = () => { //点名设置
@@ -68,16 +78,16 @@ class RollcallTask extends React.Component{
         const { getFieldDecorator } = this.props.form;
         return(       
             <div className="RollcallTask">
-                <Row>
-                    <Col span={20}>
-                        <Card title="点名任务" extra={<a onClick={()=>this.setRoll}> <Icon type="setting" theme="filled" /> 设置</a>}>
+                <Row style={{margin:"2vmax 1vmax"}}>
+                    <Col span={18}>
+                        <Card title="点名任务" extra={<a onClick={()=>this.setRoll}> <Icon type="setting" theme="filled" /><span onClick={this.handleSetting}>设置</span></a>}>
                             <p>每次点名次数: <b>{this.state.time}</b>次 &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; {this.state.state?'执行中':'待生效'}</p>
                             {this.state.last?<p>上一次点名时间: {this.state.last} &nbsp; &nbsp;&nbsp; 共点名<b>{this.state.count}</b>个对象，<b>{this.state.normal}</b>个正常， <b>{this.state.unusual}</b>个异常</p>:''}
                             <p>下一次点名时间: {this.state.next}</p>
                         </Card>
                     </Col>
                 </Row>
-                <Row>
+                <Row style={{margin:"1vmax 1vmax"}}>
                     <Col span={14}>
                         <Form layout="inline" onSubmit={this.selectopt}>
                             <FormItem label="名称">
@@ -107,20 +117,22 @@ class RollcallTask extends React.Component{
                             </FormItem>
                         </Form>
                     </Col>
-                    <Col span={6}>
+                    <Col span={2}>
                         <a href="#/app/rollcall/adopt"><Button>新增</Button></a>
-                        
-                         <a href="#/app/rollcall/auditing"><Button>全部点名</Button></a>
+                    </Col>
+                    <Col span={2}>
+                        <a href="#/app/rollcall/auditing"><Button>全部点名</Button></a>
                     </Col>
 
                 </Row>
                 <Row>
                 {this.state.list.map((el,i)=>(
-                    <Col span={6} offset={1}>
-                       <Card>
-                            <h4 style={{textAlign:'center'}}>{el.cameraname+'-'+el.rname}</h4>
+                    <Col span={6} key={i} style={{margin:"1vmax 1vmax"}}>
+                       <Card className="cardContext">
+                           <div className="titles">{el.cameraname}</div>
+                            <h4 style={{textAlign:'center',fontSize:"1max"}}>{el.rname}</h4>
                            <div>
-                            <img alt="example" width='100%' src={el.rpic} />
+                                <img alt="example" width='100%' src={el.rpic} />
                            </div>
                            <p>{el.lastrollcall}
                            {el.rfinal==1
@@ -136,7 +148,33 @@ class RollcallTask extends React.Component{
                 ))
                 }   
                 </Row>
-
+                <Modal
+                    title="设置点名任务"
+                    visible={this.state.settingType}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancelSetting}
+                    okText="确认"
+                    cancelText="取消"
+                >
+                    <Form layout="inline">
+                        <Form.Item
+                            label="日点名次数"
+                        >
+                            {getFieldDecorator('residence',{
+                                initialValue:""
+                            } )(
+                                <Select style={{ width: 120 }} onChange={this.patrolChange}>
+                                    <Option value="" >所有</Option>
+                                    {/*{
+                                        this.state.equipment.map((v,i)=>(
+                                            <Option value={v.code} key={i}>{v.name}</Option>
+                                        ))
+                                    }*/}
+                                </Select>
+                            )}
+                        </Form.Item>
+                    </Form>
+                </Modal>
             </div>
         )
     }
