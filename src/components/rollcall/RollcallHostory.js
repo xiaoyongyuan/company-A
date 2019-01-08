@@ -4,10 +4,7 @@ import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
 import RollcallHostoryModel from "./RollcallHostoryModel";
- const toTopProps={
-    visibilityHeight:300,
-    target:()=>document.getElementById('scorll'),
-  };
+
 const formItemLayout = {
     labelCol: {
         xs: { span: 24 },
@@ -69,6 +66,35 @@ const data=[
             },
         ]
     }, {
+        "companycode":1000003,
+        "dayly":"2019-01-06",
+        "info":[
+            {
+                "companycode":1000003,
+                "rollcalldate":"2019-01-06 16:31:00",
+                "taskid":5,
+                "totalcount":2,
+                "unhandle":0,
+                "normal":1,
+                "alarm":[
+                    {
+                        "code":93,
+                        "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
+                        "rfinal":2,
+                        "cid":1000007,
+                     },
+                     {
+                        "code":94,
+                        "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
+                        "rfinal":1,
+                        "cid":1000007,
+                    }
+                ]
+            },
+            
+        ]
+    }
+    , {
         "companycode":1000003,
         "dayly":"2019-01-06",
         "info":[
@@ -159,14 +185,7 @@ class RollcallHostory extends React.Component{
     handleEndOpenChange = (open) => {
         this.setState({ endOpen: open });
     };
-    //	返回顶部
-
-	BackTop = (e) => {
-        e.preventDefault();
-       document.getElementsByClassName("RollcallHostory").scrollTop = 0;
-        // let top=document.getElementsByClassName("RollcallHostory").scrollTop;
-         console.log(document.getElementsByClassName("RollcallHostory").scrollTop,"document")
-	};
+ 
 
     handleSubmit =()=>{
             const data={
@@ -182,20 +201,21 @@ class RollcallHostory extends React.Component{
             })
     };
 
-        //model open
-        handlerollCallType =(index)=>{
-            console.log(index,"3333");
-            this.setState({
-                rollCallType:true,
-                code:index
-            })
-        };
-        //model close
-        handlerollClose =()=>{
-            this.setState({
-                rollCallType:false
-            })
-        };
+    //model open
+    handlerollCallType =(index)=>{
+        console.log(index,"3333");
+        this.setState({
+            rollCallType:true,
+            code:index
+        })
+    };
+    //model close
+    handlerollClose =()=>{
+        this.setState({
+            rollCallType:false
+        })
+    };
+  
     componentDidMount() {
         console.log(data,"data");
         var str=data[0].info[0].alarm
@@ -203,20 +223,28 @@ class RollcallHostory extends React.Component{
         post({url:'/api/rollcalldetail/getlist_info_dayly'},(res)=>{
             if(res.success){
                 console.log('******************', res);
-                
                     this.setState({
                         list: res.data
                     })
             }
         })
-        
-
-    }      
+     
+        console.log(document.getElementsByClassName("ant-layout-has-sider"),"______________________________>");
+    }     
+  
+     scolltop () {
+        console.log('浏览器滚动事件')
+        let top=document.documentElement.scrollTop
+        // let top=document.documentElement.pageYOffset;
+            console.log(top);
+        };
     render(){
         const { getFieldDecorator } = this.props.form;
+        
         return(       
-            <div className="RollcallHostory" id="scorll">
-                <LocaleProvider locale={zh_CN}>
+            <div className="RollcallHostory" id="scorll" >
+                
+                <LocaleProvider locale={zh_CN} onScroll={this.scolltop}>
                     <Row style={{marginTop:"50px"}}>
                         <Form onSubmit={this.handleSubmit}>
                             <Col xl={7} xxl={5} lg={9}>
@@ -302,14 +330,7 @@ class RollcallHostory extends React.Component{
 
                 </Timeline>
                 </div>
-              
-                <div>
-                    <BackTop target ={()=>document.getElementById('scorll')} />
-                </div>
 
-                {/* <div onClick={this.BackTop } className="backtop">
-                        返回顶部
-                </div> */}
                  <Modal
                     width={700}
                     title="点名记录详情"

@@ -474,10 +474,10 @@ margin: 20px 0;
    
 }
 /* //返回到顶部 */
-#components-back-top-demo-custom .ant-back-top {
+ .ant-back-top {
     bottom: 100px;
   }
-#components-back-top-demo-custom .ant-back-top-inner {
+ .ant-back-top-inner {
     height: 40px;
     width: 40px;
     line-height: 40px;

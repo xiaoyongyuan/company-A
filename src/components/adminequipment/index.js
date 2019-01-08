@@ -3,6 +3,11 @@ import {post} from "../../axios/tools";
 import BreadcrumbCustom from "../BreadcrumbCustom";
 import {Table, Row, Col, Form, Input, Button } from 'antd';
 
+
+// 2019-01-10时间功能---杨阿龙：
+// 1.判断最后一次心跳时间<当前时间-5  显示设备离线（图标）
+// 2.点击行，拿到详情弹层，并有最新数据和升级功能--按钮
+
 const FormItem = Form.Item;
 class AdminEquipment extends Component {
     constructor(props){
@@ -75,12 +80,12 @@ class AdminEquipment extends Component {
             key: 'age',
         },
             {
-            title: '最后一次报警时间',
+            title: '一次最后报警时间',
             dataIndex: 'lastonce',
             key: 'lastonce',
         },
             {
-            title:'最后二次报警时间',
+            title:'二次最后报警时间',
                 dataIndex:'lasttwice',
             key:'lasttwice',
             },{
