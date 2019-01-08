@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,BackTop,Modal } from "antd";
+import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,BackTop,Modal,Affix, } from "antd";
 import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
@@ -133,6 +133,7 @@ class RollcallHostory extends React.Component{
             bdate:'',//检索的开始时间
             edate:'',//检索的结束时间
             rollCallType:false,
+        
         }
     }
     
@@ -228,23 +229,23 @@ class RollcallHostory extends React.Component{
                     })
             }
         })
-     
-        console.log(document.getElementsByClassName("ant-layout-has-sider"),"______________________________>");
-    }     
-  
-     scolltop () {
-        console.log('浏览器滚动事件')
-        let top=document.documentElement.scrollTop
-        // let top=document.documentElement.pageYOffset;
-            console.log(top);
+         var x=0;
+        document.getElementById("scorll").onscroll=function() {
+            console.log(`滚动了${x += 1}次`);
+            var scrollHeight = document.getElementById("scorll").scrollHeight;//251
+            var scrollTop = document.getElementById("scorll").scrollTop;//0-18
+            var clientHeight = document.getElementById("scorll").clientHeight;
+            console.log("scrollTop-------->",scrollTop);
+            console.log(scrollHeight,clientHeight);
         };
+    }     
+
     render(){
         const { getFieldDecorator } = this.props.form;
         
         return(       
-            <div className="RollcallHostory" id="scorll" >
-                
-                <LocaleProvider locale={zh_CN} onScroll={this.scolltop}>
+            <div className="RollcallHostory scrollable-container" id="scorll" >               
+                <LocaleProvider locale={zh_CN}>
                     <Row style={{marginTop:"50px"}}>
                         <Form onSubmit={this.handleSubmit}>
                             <Col xl={7} xxl={5} lg={9}>
