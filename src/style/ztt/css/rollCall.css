@@ -52,14 +52,13 @@ RollcallTask.js 点名任务
 }
 .cardContext .titles{
     display: flex;
-    width: 5vh;
-    height: 3vh;
+    padding:1% 2%;
     background: #494748;
     position: absolute;
     align-items: center;
     justify-content: center;
-    top:7vh;
-    left: 1vh;
+    top:3vh;
+    left: -1.5vh;
     border-radius: 4px;
     color: white;
 
