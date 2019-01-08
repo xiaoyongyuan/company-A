@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col, Button, DatePicker, LocaleProvider, Table, Form, Select,Modal} from "antd";
+import {Row, Col, Button, DatePicker, LocaleProvider, Table, Form, Select,Modal,message} from "antd";
 import zh_CN from "antd/lib/locale-provider/zh_CN";
 import {post} from "../../axios/tools";
 import "../../style/ztt/css/patrolRecord.css";
@@ -7,63 +7,36 @@ import PatrolRecordModel from "./PatrolRecordModel";
 import moment from "moment";
 const Option = Select.Option;
 const RangePicker = DatePicker.RangePicker;
-var data=[
-    {
-        "code": "0",
-        "cid": "1000001",
-        "pdate": "2018-12-12 12:09:09",
-        "ppic": "http://pic01.aokecloud.cn/alarm/1000004/pic/20190104//1000004_20190104172947.jpg",
-        "patrolname": "李四",
-        "cameraname": "早班",
-        "phandle": "0"
-    },
-    {
-        "code": "1",
-        "cid": "1000001",
-        "pdate": "2018-12-12 12:09:09",
-        "ppic": "http://pic01.aokecloud.cn/alarm/1000011/pic/20181228//1000011_20181228154552.jpg",
-        "patrolname": "张三",
-        "cameraname": "中班",
-        "phandle": "1"
-    }
-];
 class PatrolRecord extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            dataSource:[],
+            dataSource:[],//巡更记录列表
             patrolImg:false,
-            equipment:[],
-            stateType:0
+            equipment:[],//设备
         }
     }
     //日期
     onChangeDate = (dates, dateStrings)=> {
         this.setState({
-            bdate:dates[0].format('YYYY-MM-DD HH:00:00'),
-            edate:dateStrings[1]
+            bdate:moment(dateStrings[0]).format("YYYY-MM-DD HH:mm:ss"),
+            edate:moment(dateStrings[1]).format("YYYY-MM-DD HH:mm:ss")
         });
-        console.log( dates,dateStrings);
-        console.log('From: ', dates[0], ', to: ', dates[1]);
-        console.log('From: ', dateStrings[0], ', to: ', dateStrings[1]);
+        console.log(moment(dateStrings[0]).format("YYYY-MM-DD HH:mm:ss"));
+        console.log(moment(dateStrings[1]).format("YYYY-MM-DD HH:mm:ss"));
     };
     patrolStatus =(item)=>{
-       /* const data={
-            patrolImgStatus:item,
-            ifhandle:1,
-            bdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
-            edate:this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
-            cid:this.state.cid
-        };*/
         this.setState({
             patrolImg:true,
-            patrolImgStatus:item
+            patrolImgStatus:item,
         });
     };
+    //model close
     patrolCancel =()=>{
         this.setState({
             patrolImg:false
-        })
+        });
+        this.patrolList();
     };
     //select设备
     patrolChange =(value)=>{
@@ -71,31 +44,24 @@ class PatrolRecord extends React.Component{
             cid:value
         });
     };
-    //通过
-    patrolAdopt = (item)=>{
-        console.log(item);
-        post({url:"/api/patrolresult/patrolconfirm",data:{code:"5"}},(res)=>{
+    //通过 不通过
+    patrolAdopt = (item,type,index)=>{
+        post({url:"/api/patrolresult/patrolconfirm",data:{code:item,phandle:type}},(res)=>{
+            let lists=this.state.dataSource;
+            lists[index].phandle=res.data[0].phandle;
             this.setState({
-
-            })
+                dataSource:lists
+            });
         });
     };
-    //不通过
-    nopatrolAdopt =(item)=>{
-        console.log(item);
-        post({url:"/api/patrolresult/patrolconfirm",data:{code:"5"}},(res)=>{
-            this.setState({
 
-            })
-        });
-    };
     //巡更列表信息
     patrolList =()=>{
         post({url:"/api/patrolresult/getlist",data:{ifhandle:1}},(res)=>{
+            console.log(res.data);
             if(res.success){
                 this.setState({
-                    //dataSource:res.data
-                    dataSource:data
+                    dataSource:res.data
                 })
             }
         });
@@ -114,18 +80,16 @@ class PatrolRecord extends React.Component{
     handlePatrolSelect =()=>{
         const data={
             ifhandle:1,
-            bdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
-            edate:this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
+            bdate:this.state.bdate,
+            edate:this.state.edate,
             cid:this.state.cid
         };
         post({url:"/api/patrolresult/getlist",data:data},(res)=>{
             if (res.success){
                 this.setState({
-                    // dataSource:res.data
-                    dataSource:data
+                    dataSource:res.data
                 })
             }
-            console.log(res);
         });
     };
     componentDidMount() {
@@ -143,61 +107,63 @@ class PatrolRecord extends React.Component{
             title: '巡更图',
             dataIndex: 'ppic',
             key: 'ppic',
-            render: (text,record,index) => {
+            render: (text,record) => {
                 return(
                     <div><img src={text} alt="" width="100px" height="50px"  onClick={()=>this.patrolStatus(record.code)}/></div>
                 )
             },
         }, {
             title: '巡更人',
-            dataIndex: 'patrolname',
-            key: 'patrolname',
+            dataIndex: 'handlename',
+            key: 'handlename',
             render: text => <span>{text}</span>,
         },{
             title: '日期',
-            dataIndex: 'pdate',
-            key: 'patrolDate',
+            dataIndex: 'ptime',
+            key: 'ptime',
             render: text => <span>{text}</span>,
         },{
             title: '班次',
-            dataIndex: 'cameraname',
-            key: 'Shifts',
+            dataIndex: 'pteam',
+            key: 'pteam',
             render: text => <span>{text}</span>,
         },{
             title: '处理',
             dataIndex: 'phandle',
-            key: 'Handle',
-            render: text => <span>{text==0?"通过":"不通过"}</span>,
+            key: 'phandle',
+            render: text => <span>{text==1?"通过":"不通过"}</span>,
         },{
             title: '操作',
             dataIndex: 'code',
             key: 'code',
-            render:(text,record)=>{
+            render:(text,record,index)=>{
                 return(
                     <div>
-                        <Button className="operationBtn" onClick={()=>this.patrolAdopt(record.phandle)}>通过</Button>
-                        <Button type="danger" onClick={()=>this.nopatrolAdopt(record.phandle)}>不通过</Button>
+                        <Button className="operationBtn" onClick={()=>this.patrolAdopt(record.code,1,index)}>通过</Button>
+                        <Button type="danger" onClick={()=>this.patrolAdopt(record.code,2,index)}>不通过</Button>
                     </div>
                 )
             }
         }];
         return(       
             <div className="PatrolRecord">
-                <LocaleProvider locale={zh_CN}>
                     <Row style={{marginTop:"50px"}}>
-                        <Form layout="inline" onSubmit={this.handlePatrolSelect}>
-                            <Form.Item
+                        <Form layout="inline" onSubmit={this.handlePatrolSelect} className="rangeForm">
+                            <LocaleProvider locale={zh_CN}>
+                                <Form.Item
                                 label="日期"
                             >
                                 {getFieldDecorator('range-picker1')(
                                     <RangePicker
                                         ranges={{ Today: [moment(), moment()], 'This Month': [moment().startOf('month'), moment().endOf('month')] }}
+                                        format="YYYY/MM/DD HH:mm:ss"
                                         showTime
-                                        format="YYYY/MM/DD HH:00:00"
+                                        placeholder={['开始时间', '结束时间']}
                                         onChange={this.onChangeDate}
                                     />
                                 )}
                             </Form.Item>
+                            </LocaleProvider>
                             <Form.Item
                                 label="设备"
                             >
@@ -224,20 +190,20 @@ class PatrolRecord extends React.Component{
                             </Form.Item>
                         </Form>
                     </Row>
-                </LocaleProvider>
+
                 <Row style={{marginTop:"40px"}}>
                     <Col spma={24}>
                         <Table dataSource={this.state.dataSource} columns={columns} />
                     </Col>
                     <Modal
                         width={700}
-                        title="巡更详情"
+                        title="巡更记录详情"
                         visible={this.state.patrolImg}
                         onOk={this.patrolOk}
                         onCancel={this.patrolCancel}
                         footer={null}
                     >
-                        <PatrolRecordModel states={this.state.stateType} patrolImgStatus={this.state.patrolImgStatus}/>
+                        <PatrolRecordModel visible={this.state.patrolImg}  code={this.state.patrolImgStatus} />
                     </Modal>
                 </Row>
             </div>
