@@ -32,23 +32,14 @@ class Companyhome extends Component {
             if(res.success){
                 let clat=res.data.clat;
                 let clng=res.data.clng;
-                var data="无期限";
                 this.setState({
                     enterpriseTitle:res.data.cname,
                     myEquipment:res.camera,
                     mapJson:[{name:res.data.cname,value:[clng,clat]}],
                     code:res.data.code,
-                    alarmcount:res.alarmcount
+                    alarmcount:res.alarmcount,
+                    cloudDate:res.data.clouddate,
                 });
-                if(res.data.clouddate!==""){
-                    this.setState({
-                        cloudDate:res.data.clouddate,
-                    });
-                }else{
-                    this.setState({
-                        cloudDate:data,
-                    });
-                }
             }
         })
     }
@@ -106,7 +97,7 @@ class Companyhome extends Component {
                                                     <Col xl={10} lg={5} offset={1}>
                                                         <Row>
                                                             <Col xl={24} className="cloudFont adminFont personalUseFont listContext" title={this.state.cloudDate}>
-                                                            {this.state.cloudDate}
+                                                            {this.state.cloudDate?this.state.cloudDate:'无期限'}
                                                             </Col>
                                                         </Row>
                                                         <Row>

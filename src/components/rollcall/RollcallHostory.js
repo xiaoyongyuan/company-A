@@ -1,8 +1,9 @@
 import React, { Component} from 'react';
-import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,BackTop } from "antd";
+import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,BackTop,Modal } from "antd";
 import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
+import RollcallHostoryModel from "./RollcallHostoryModel";
  const toTopProps={
     visibilityHeight:300,
     target:()=>document.getElementById('scorll'),
@@ -53,14 +54,14 @@ const data=[
                 "normal":1,
                 "alarm":[
                     {
-                        "code":89,
-                        "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
+                        "code":91,
+                        "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229094947.jpg',
                         "rfinal":2,
                         "cid":1000007,
                      },
                      {
-                        "code":90,
-                        "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
+                        "code":92,
+                        "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229094947.jpg',
                         "rfinal":1,
                         "cid":1000007,
                     }
@@ -80,41 +81,20 @@ const data=[
                 "normal":1,
                 "alarm":[
                     {
-                        "code":89,
+                        "code":93,
                         "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
                         "rfinal":2,
                         "cid":1000007,
                      },
                      {
-                        "code":90,
+                        "code":94,
                         "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
                         "rfinal":1,
                         "cid":1000007,
                     }
                 ]
             },
-            {
-                "companycode":1000003,
-                "rollcalldate":"2019-01-06 12:31:00",
-                "taskid":5,
-                "totalcount":2,
-                "unhandle":0,
-                "normal":1,
-                "alarm":[
-                    {
-                        "code":89,
-                        "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
-                        "rfinal":2,
-                        "cid":1000007,
-                     },
-                     {
-                        "code":90,
-                        "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
-                        "rfinal":1,
-                        "cid":1000007,
-                    }
-                ]
-            },
+            
         ]
     }
 ]
@@ -126,6 +106,7 @@ class RollcallHostory extends React.Component{
         this.state={
             bdate:'',//检索的开始时间
             edate:'',//检索的结束时间
+            rollCallType:false,
         }
     }
     
@@ -200,6 +181,21 @@ class RollcallHostory extends React.Component{
                 }
             })
     };
+
+        //model open
+        handlerollCallType =(index)=>{
+            console.log(index,"3333");
+            this.setState({
+                rollCallType:true,
+                code:index
+            })
+        };
+        //model close
+        handlerollClose =()=>{
+            this.setState({
+                rollCallType:false
+            })
+        };
     componentDidMount() {
         console.log(data,"data");
         var str=data[0].info[0].alarm
@@ -288,7 +284,7 @@ class RollcallHostory extends React.Component{
                                                                 el.alarm.map((num,n)=>{
                                                                      return (
                                                                             <div key={n} className="alarm_img" style={num.rpic?{display:'inlin-block'}:{display:'none'}} >
-                                                                                <img src={num.rpic} alt="alarm_img" width="100%" />
+                                                                                <img src={num.rpic} alt="alarm_img" width="100%" onClick={()=>this.handlerollCallType(n)} />
                                                                             </div> 
                                                                             )
                                                                     })
@@ -314,7 +310,15 @@ class RollcallHostory extends React.Component{
                 {/* <div onClick={this.BackTop } className="backtop">
                         返回顶部
                 </div> */}
-
+                 <Modal
+                    width={700}
+                    title="点名记录详情"
+                    visible={this.state.rollCallType}
+                    onCancel={this.handlerollClose}
+                    footer={null}
+                 >
+                    <RollcallHostoryModel code={this.state.code} />
+                 </Modal>
             </div>
         )
     }
