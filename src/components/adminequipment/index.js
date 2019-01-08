@@ -1,8 +1,12 @@
 import React, { Component} from 'react';
 import {post} from "../../axios/tools";
 import BreadcrumbCustom from "../BreadcrumbCustom";
-import {Table, Row, Col, Form, Input, Button} from 'antd';
+import {Table, Row, Col, Form, Input, Button } from 'antd';
 
+
+// 2019-01-10时间功能---杨阿龙：
+// 1.判断最后一次心跳时间<当前时间-5  显示设备离线（图标）
+// 2.点击行，拿到详情弹层，并有最新数据和升级功能--按钮
 
 const FormItem = Form.Item;
 class AdminEquipment extends Component {
@@ -11,31 +15,50 @@ class AdminEquipment extends Component {
         this.state={
             visible:false,
             list:[],
-            createinfo:[]
+            createinfo:[],
+            page:1,
         };
     }
-    componentDidMount(params) {
-        post({url:"/api/equipment/getlistforadmin",data:Object.assign({pagenum:10},params)}, (res)=>{
+    componentDidMount() {
+        const params={
+            pagesize:10,
+            ecode:this.state.ecode,
+            cname:this.state.cname,
+            pageindex:this.state.page,
+
+        }
+
+        post({url:"/api/equipment/getlistforadmin",data:params}, (res)=>{
             if(res.success){
                 this.setState({
                     list: res.data,
-                    total:res.totalcount,
+                    total:res.totalcount
                 })
             }
         })
     }
 
     changePage=(page,pageSize)=>{ //分页  页码改变的回调，参数是改变后的页码及每页条数
-        console.log('ddd',page)
-        this.componentDidMount({pageindex:page})
-    }
+        this.setState({
+            page: page,
+        },()=>{
+            this.componentDidMount()
+        })
 
+    }
 
     selectopt = (e) => { //检索search
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if(!err){
-                this.componentDidMount({ecode:values.ecode});
+                this.setState({
+                    ecode: values.ecode,
+                    cname:values.cname,
+                    page:1
+                },()=>{
+                    this.componentDidMount()
+                })
+
             }
         })
     }
@@ -57,15 +80,20 @@ class AdminEquipment extends Component {
             key: 'age',
         },
             {
-            title: '最后一次报警时间',
+            title: '一次最后报警时间',
             dataIndex: 'lastonce',
             key: 'lastonce',
         },
             {
-            title:'最后二次报警时间',
+            title:'二次最后报警时间',
                 dataIndex:'lasttwice',
             key:'lasttwice',
-            }];
+            },{
+            title:'所属公司',
+                dataIndex:'cname',
+                key:'cname'
+            }
+            ];
 
 
         return (
@@ -73,13 +101,23 @@ class AdminEquipment extends Component {
                 <BreadcrumbCustom first="设备信息"/>
                 <div className="shange">
                     <Row>
-                        <Col span={7}>
+                        <Col span={14}>
                             <Form layout="inline" onSubmit={this.selectopt}>
                                 <FormItem label="设备编号">
                                     {getFieldDecorator('ecode', {
                                         rules: [{
-                                            required: true,
+                                            required: false,
                                             message: '请输入设备编号!',
+                                        }],
+                                    })(
+                                        <Input />
+                                    )}
+                                </FormItem>
+                                <FormItem label="公司名称">
+                                    {getFieldDecorator('cname', {
+                                        rules: [{
+                                            required: false,
+                                            message: '请输入公司名称!',
                                         }],
                                     })(
                                         <Input />
@@ -97,7 +135,7 @@ class AdminEquipment extends Component {
                         <Table
                             dataSource={this.state.list}
                             columns={columns}
-                            pagination={{defaultPageSize:10, total:this.state.total,onChange:this.changePage}}
+                            pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
                         />
                     </Row>
                 </div>
