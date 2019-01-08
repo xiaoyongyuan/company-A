@@ -53,14 +53,18 @@ class RollcallTask extends Component{
             settingType:false
         })
     };
+    // model ok
+    handleOkSetting =()=>{
+        this.setState({
+            settingType:false
+        })
+    };
     componentDidMount() {
         this.reuestdata();
     }
-
     setRoll = () => { //点名设置
 
-    }
-
+    };
     reuestdata =(parameter={})=>{ //点名的对象查询
         post({url:"/api/rollcall/getlist",data:parameter},(res)=>{
             if(res){
@@ -70,10 +74,8 @@ class RollcallTask extends Component{
 
                 })
             }
-
         })
-    }
-    
+    };
     render(){
         const { getFieldDecorator } = this.props.form;
         return(       
@@ -121,18 +123,18 @@ class RollcallTask extends Component{
                         <a href="#/app/rollcall/adopt"><Button>新增</Button></a>
                     </Col>
                     <Col span={2}>
-                        <a href="#/app/rollcall/auditing"><Button>全部点名</Button></a>
+                        <a href="#/app/companyhome/calling"><Button>全部点名</Button></a>
                     </Col>
 
                 </Row>
                 <Row>
                 {this.state.list.map((el,i)=>(
                     <Col span={6} key={i} style={{margin:"1vmax 1vmax"}}>
-                       <Card className="cardContext">
-                           <div className="titles">{el.cameraname}</div>
+                       <Card>
                             <h4 style={{textAlign:'center',fontSize:"1max"}}>{el.rname}</h4>
-                           <div>
-                                <img alt="example" width='100%' src={el.rpic} />
+                           <div className="cardContext">
+                               <img alt="example" width='100%' src={el.rpic} />
+                               <div className="titles">{el.cameraname}</div>
                            </div>
                            <p>{el.lastrollcall}
                            {el.rfinal==1
@@ -151,7 +153,7 @@ class RollcallTask extends Component{
                 <Modal
                     title="设置点名任务"
                     visible={this.state.settingType}
-                    onOk={this.handleOk}
+                    onOk={this.handleOkSetting}
                     onCancel={this.handleCancelSetting}
                     okText="确认"
                     cancelText="取消"
@@ -161,15 +163,17 @@ class RollcallTask extends Component{
                             label="日点名次数"
                         >
                             {getFieldDecorator('residence',{
-                                initialValue:""
+                                initialValue:"1"
                             } )(
-                                <Select style={{ width: 120 }} onChange={this.patrolChange}>
-                                    <Option value="" >所有</Option>
-                                    {/*{
-                                        this.state.equipment.map((v,i)=>(
-                                            <Option value={v.code} key={i}>{v.name}</Option>
-                                        ))
-                                    }*/}
+                                <Select  style={{ width: 120 }} onChange={this.patrolChange}>
+                                    <Option value="1" >1</Option>
+                                    <Option value="2" >2</Option>
+                                    <Option value="3" >3</Option>
+                                    <Option value="4" >4</Option>
+                                    <Option value="6" >6</Option>
+                                    <Option value="8" >8</Option>
+                                    <Option value="12" >12</Option>
+                                    <Option value="24" >24</Option>
                                 </Select>
                             )}
                         </Form.Item>
