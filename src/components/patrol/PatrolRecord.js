@@ -19,25 +19,16 @@ class PatrolRecord extends React.Component{
     //日期
     onChangeDate = (dates, dateStrings)=> {
         this.setState({
-            bdate:dateStrings[0],
-            edate:dateStrings[1]
+            bdate:moment(dateStrings[0]).format("YYYY-MM-DD HH:mm:ss"),
+            edate:moment(dateStrings[1]).format("YYYY-MM-DD HH:mm:ss")
         });
-        console.log(dates[0], dates[1],"dates");
-        console.log(dateStrings[0], dateStrings[1],"dateStrings");
-
+        console.log(moment(dateStrings[0]).format("YYYY-MM-DD HH:mm:ss"));
+        console.log(moment(dateStrings[1]).format("YYYY-MM-DD HH:mm:ss"));
     };
-    patrolStatus =(item,index)=>{
-        /*const data={
-            patrolImgStatus:item,
-            ifhandle:1,
-            bdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
-            edate:this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
-            cid:this.state.cid
-        };*/
+    patrolStatus =(item)=>{
         this.setState({
             patrolImg:true,
             patrolImgStatus:item,
-            patrolIndex:index
         });
     };
     //model close
@@ -116,9 +107,9 @@ class PatrolRecord extends React.Component{
             title: '巡更图',
             dataIndex: 'ppic',
             key: 'ppic',
-            render: (text,record,index) => {
+            render: (text,record) => {
                 return(
-                    <div><img src={text} alt="" width="100px" height="50px"  onClick={()=>this.patrolStatus(record.code,index)}/></div>
+                    <div><img src={text} alt="" width="100px" height="50px"  onClick={()=>this.patrolStatus(record.code)}/></div>
                 )
             },
         }, {
@@ -166,9 +157,7 @@ class PatrolRecord extends React.Component{
                                     <RangePicker
                                         ranges={{ Today: [moment(), moment()], 'This Month': [moment().startOf('month'), moment().endOf('month')] }}
                                         format="YYYY/MM/DD HH:mm:ss"
-                                        showTime={{
-                                            hideDisabledOptions: false,
-                                        }}
+                                        showTime
                                         placeholder={['开始时间', '结束时间']}
                                         onChange={this.onChangeDate}
                                     />
@@ -214,7 +203,7 @@ class PatrolRecord extends React.Component{
                         onCancel={this.patrolCancel}
                         footer={null}
                     >
-                        <PatrolRecordModel visible={this.state.patrolImg} patrolIndex={this.state.patrolIndex}  code={this.state.patrolImgStatus} />
+                        <PatrolRecordModel visible={this.state.patrolImg}  code={this.state.patrolImgStatus} />
                     </Modal>
                 </Row>
             </div>

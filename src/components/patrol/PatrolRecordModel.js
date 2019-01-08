@@ -13,7 +13,6 @@ class PatrolRecordModel extends Component{
     componentWillMount() {
         this.setState({
             code:this.props.code,
-            index:this.props.patrolIndex
         })
     }
     componentDidMount() {
@@ -33,7 +32,6 @@ class PatrolRecordModel extends Component{
                 vis=nextProps.visible;
                 this.setState({
                     code:nextProps.code,
-                    index:nextProps.index
                 },()=>{
                     this.componentDidMount()
                 });
