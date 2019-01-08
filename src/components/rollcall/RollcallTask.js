@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import {Row, Col, Button,Form, Input, Modal, Card, Icon, Select} from "antd";
+import {Row, Col, Button,Form, Input, Modal, Card, Icon, Select,message} from "antd";
 import {post} from "../../axios/tools";
 import "../../style/ztt/css/rollCall.css";
 const Option = Select.Option;
@@ -57,11 +57,19 @@ class RollcallTask extends Component{
     handleOkSetting =()=>{
         this.setState({
             settingType:false
-        })
+        });
+        post({url:"/api/rollcalltask/add",data:{rollcallnum:this.state.everynum}},(res)=>{
+            if(res.success){
+                message.info(res);
+            }
+        });
     };
-    componentDidMount() {
-        this.reuestdata();
-    }
+    rollTaskChange =(value)=>{
+        this.setState({
+            everynum:value
+        });
+        console.log(value);
+    };
     setRoll = () => { //点名设置
 
     };
@@ -76,6 +84,9 @@ class RollcallTask extends Component{
             }
         })
     };
+    componentDidMount() {
+        this.reuestdata();
+    }
     render(){
         const { getFieldDecorator } = this.props.form;
         return(       
@@ -165,7 +176,7 @@ class RollcallTask extends Component{
                             {getFieldDecorator('residence',{
                                 initialValue:"1"
                             } )(
-                                <Select  style={{ width: 120 }} onChange={this.patrolChange}>
+                                <Select style={{ width: 120 }} onChange={this.rollTaskChange}>
                                     <Option value="1" >1</Option>
                                     <Option value="2" >2</Option>
                                     <Option value="3" >3</Option>
