@@ -7,9 +7,28 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchData, receiveData } from '@/action'; //action->index按需取
 import bg from '../../style/imgs/bg.jpg';
-
+import "../../style/ztt/img/icon/iconfont.css";
+import LoginCode from "./LoginCode";
 const FormItem = Form.Item;
 class Login extends React.Component {
+    constructor(props){
+        super(props);
+        this.state={
+            typeState:0
+        }
+    }
+    handlerImg = ()=>{
+        if(this.state.typeState===0){
+            this.setState({
+                typeState:1
+            })
+        }else if(this.state.typeState===1){
+            this.setState({
+                typeState:0
+            })
+        }
+
+    }
     componentWillMount() {
         const { receiveData } = this.props;
         receiveData(null, 'auth');
@@ -45,10 +64,14 @@ class Login extends React.Component {
         return (
             <div className="login" style={{backgroundImage: 'url(' + bg + ')'}}>
                 <div className="login-form" >
-                    <div className="login-logo">
-                        <span>用户登录</span>
+                    <div className="login-top" >
+                        <div className="login-form1">
+                            <div className="master-login-title">{this.state.typeState?this.state.loginTitle="扫码登录":this.state.loginTitle="密码登录"}</div>
+                            <div className={"pwdBtn iconfont"+(this.state.typeState?" icon-erweima":" icon-diannao")} onClick={this.handlerImg}></div>
+                        </div>
                     </div>
-                    <Form onSubmit={this.handleSubmit} style={{maxWidth: '300px'}}>
+                    <LoginCode typeState={this.state.typeState} />
+                    <Form onSubmit={this.handleSubmit}  style={{display:this.state.typeState?"none":"block",maxWidth: '300px'}}>
                         <FormItem>
                             {getFieldDecorator('account', {
                                 rules: [{ required: true, message: '请输入用户名(手机号)!'
