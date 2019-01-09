@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import {Row, Col, Button,Form, Input, Modal, Card, Icon, Select,message} from "antd";
 import {post} from "../../axios/tools";
 import "../../style/ztt/css/rollCall.css";
+import noImg from "../../style/imgs/nopic.png";
 const Option = Select.Option;
 const data=[
 {
@@ -23,7 +24,7 @@ const data=[
     lastrollcall:'2017-12:10 12:09:10', //最后一次点名时间
     rfinal:1, //点名结果
 }
-]
+];
 const FormItem = Form.Item;
 class RollcallTask extends Component{
 	constructor(props){
@@ -73,13 +74,15 @@ class RollcallTask extends Component{
     setRoll = () => { //点名设置
 
     };
-    reuestdata =(parameter={})=>{ //点名的对象查询
+    //点名查询
+    selectopt =()=>{
+
+    };
+    reuestdata =(parameter={})=>{ //点名的对象
         post({url:"/api/rollcall/getlist",data:parameter},(res)=>{
             if(res){
                 this.setState({
-                    // list:res.data
-                    list:data
-
+                    list:res.data
                 })
             }
         })
@@ -144,19 +147,18 @@ class RollcallTask extends Component{
                        <Card>
                             <h4 style={{textAlign:'center',fontSize:"1max"}}>{el.rname}</h4>
                            <div className="cardContext">
-                               <img alt="example" width='100%' src={el.rpic} />
+                               <img alt="example" width='100%' src={el.rpic?el.rpic:noImg} />
                                <div className="titles">{el.cameraname}</div>
                            </div>
                            <p>{el.lastrollcall}
-                           {el.rfinal==1
+                           {el.rstatus===1
                             ? <span style={{float:"right"}}>正常</span>
-                            : <span style={{float:"right",color:'#f00'}}>异常</span>
+                            : <span style={{float:"right",color:'#f00'}}>报警</span>
 
                            }</p>
                            <p></p>
                            <Button type="primary" block visible={el.rstatus}>点名</Button>
-                        </Card>  
-                        
+                        </Card>
                     </Col>
                 ))
                 }   
