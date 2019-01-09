@@ -14,7 +14,12 @@ class PatrolRecord extends React.Component{
             dataSource:[],//巡更记录列表
             patrolImg:false,
             equipment:[],//设备
+            page:1, //当前页
         }
+    }
+    componentDidMount() {
+        this.patrolList();
+        this.handlePatrol();
     }
     //日期
     onChangeDate = (dates, dateStrings)=> {
@@ -57,18 +62,27 @@ class PatrolRecord extends React.Component{
 
     //巡更列表信息
     patrolList =()=>{
-        post({url:"/api/patrolresult/getlist",data:{ifhandle:1}},(res)=>{
-            console.log(res.data);
+        const params={
+            pagesize:10,
+            ifhandle:1,
+            pageindex:this.state.page,
+            bdate:this.state.bdate,
+            edate:this.state.edate,
+            cid:this.state.cid
+
+        }
+        post({url:"/api/patrolresult/getlist",data:params},(res)=>{
             if(res.success){
                 this.setState({
-                    dataSource:res.data
+                    dataSource:res.data,
+                    total:res.totalcount,
                 })
             }
         });
     };
     //设备
     handlePatrol =()=>{
-        post({url:"/api/camera/getlist",data:{ifhandle:1}},(res)=>{
+        post({url:"/api/camera/getlist"},(res)=>{
            if(res.success){
                this.setState({
                    equipment:res.data
@@ -78,31 +92,31 @@ class PatrolRecord extends React.Component{
     };
     //查询
     handlePatrolSelect =()=>{
-        const data={
-            ifhandle:1,
+        this.setState({
             bdate:this.state.bdate,
             edate:this.state.edate,
-            cid:this.state.cid
-        };
-        post({url:"/api/patrolresult/getlist",data:data},(res)=>{
-            if (res.success){
-                this.setState({
-                    dataSource:res.data
-                })
-            }
-        });
+            cid:this.state.cid,
+            page:1,
+        },()=>{
+            this.patrolList()
+        })
     };
-    componentDidMount() {
-        this.patrolList();
-        this.handlePatrol();
+    changePage=(page,pageSize)=>{ //分页  页码改变的回调，参数是改变后的页码及每页条数
+        this.setState({
+            page: page,
+        },()=>{
+            this.patrolList()
+        })
+
     }
+    
     render(){
         const { getFieldDecorator } = this.props.form;
         const columns = [{
             title: '序号',
             dataIndex: 'index',
             key: 'index',
-            render: (text, record,index) => (index+1)
+            render: (text,record,index) => (index+1)
         }, {
             title: '巡更图',
             dataIndex: 'ppic',
@@ -116,17 +130,19 @@ class PatrolRecord extends React.Component{
             title: '巡更人',
             dataIndex: 'handlename',
             key: 'handlename',
-            render: text => <span>{text}</span>,
         },{
             title: '日期',
             dataIndex: 'ptime',
             key: 'ptime',
-            render: text => <span>{text}</span>,
         },{
             title: '班次',
             dataIndex: 'pteam',
             key: 'pteam',
-            render: text => <span>{text}</span>,
+            render:(text,record)=>{
+                return(
+                        text+'('+record.pbdate+':00:00 —— '+record.pedate+':00:00 ) '
+                )
+            }
         },{
             title: '处理',
             dataIndex: 'phandle',
@@ -193,7 +209,9 @@ class PatrolRecord extends React.Component{
 
                 <Row style={{marginTop:"40px"}}>
                     <Col spma={24}>
-                        <Table dataSource={this.state.dataSource} columns={columns} />
+                        <Table dataSource={this.state.dataSource} columns={columns} 
+                        pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
+                        />
                     </Col>
                     <Modal
                         width={700}

@@ -56,13 +56,13 @@ class PatrolRecordModel extends Component{
                    <Col span={4}>{this.state.paList.patrolname}</Col>
                    <Col span={6}>{this.state.paList.ptime}</Col>
                    <Col span={3}>{this.state.paList.cameraname}</Col>
-                   <Col span={6} offset={4}>{this.state.paList.pteam}</Col>
+                   <Col span={7} offset={3}>{this.state.paList.pteam+' ('+this.state.paList.pbdate+':00:00 —— '+this.state.paList.pedate+':00:00)'}</Col>
                </Row>
                <Row>
                    <Col span={24}><img src={this.state.paList.ppic} alt="nodata" width="100%"/></Col>
                </Row>
                <Row style={{margin:"10px 0px"}}>
-                   <Col span={24}>处理结果:<span>{this.state.paList.phandle==1?"通过":"不通过"}</span></Col>
+                   <Col span={24}>处理结果: <span>{this.state.paList.phandle==1?"通过":"不通过"}</span></Col>
                </Row>
                <Row>
                    <Col span={12} offset={9}><Button type="primary" onClick={()=>this.patrolAdopt(1)}>通过</Button><Button type="primary" onClick={()=>this.patrolAdopt(2)}>不通过</Button></Col>
