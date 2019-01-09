@@ -125,7 +125,7 @@ const data=[
     }
 ]
 
-
+var scrollTop
 class RollcallHostory extends React.Component{
 	constructor(props){
         super(props);
@@ -216,7 +216,7 @@ class RollcallHostory extends React.Component{
             rollCallType:false
         })
     };
-  
+   
     componentDidMount() {
         console.log(data,"data");
         var str=data[0].info[0].alarm
@@ -229,22 +229,44 @@ class RollcallHostory extends React.Component{
                     })
             }
         })
+         var _this=this;
          var x=0;
+         
         document.getElementById("scorll").onscroll=function() {
             console.log(`滚动了${x += 1}次`);
-            var scrollHeight = document.getElementById("scorll").scrollHeight;//251
+            var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
             var scrollTop = document.getElementById("scorll").scrollTop;//0-18
-            var clientHeight = document.getElementById("scorll").clientHeight;
-            console.log("scrollTop-------->",scrollTop);
+            var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度
+            var scrollbottom=scrollHeight-clientHeight;
+            var scrollTopP=parseInt(scrollTop);
+            console.log("scrollTop-------->",scrollTopP);
             console.log(scrollHeight,clientHeight);
+            console.log('scrollbottom',scrollbottom);
+            if(scrollbottom===scrollTopP){
+               console.log("滚动到底部了");
+               _this.setState({
+                scrollbottom:scrollbottom,
+                scrollTop:scrollTop
+               })
+            }
         };
     }     
+    backtop=()=>{ //返回顶部
+        // this.setState({
+        //     scrollTop:0
+        // },()=>{
+        // })
+        scrollTop=0
+        console.log("------------------>",scrollTop)
+    };
+
 
     render(){
         const { getFieldDecorator } = this.props.form;
         
         return(       
-            <div className="RollcallHostory scrollable-container" id="scorll" >               
+            <div className="RollcallHostory scrollable-container" id="scorll" >   
+              <Button type="primary" className="backtop" onClick={this.backtop}>返回顶部</Button>
                 <LocaleProvider locale={zh_CN}>
                     <Row style={{marginTop:"50px"}}>
                         <Form onSubmit={this.handleSubmit}>
