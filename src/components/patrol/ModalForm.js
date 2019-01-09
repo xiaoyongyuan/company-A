@@ -90,7 +90,6 @@ class ModalForm extends Component {
                 timeList:time,
                 timeString:timeString
             });
-
         }
         function onChange_time2(time, timeString) {
             _this.setState({
