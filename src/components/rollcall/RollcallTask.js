@@ -69,18 +69,39 @@ class RollcallTask extends Component{
         this.setState({
             everynum:value
         });
-        console.log(value);
+    };
+    //名称
+    handleRealname =(e)=>{
+        this.setState({
+            realname:e.target.value
+        })
+    };
+    //设备
+    handleAccount =(e)=>{
+        this.setState({
+            account:e.target.value
+        })
     };
     setRoll = () => { //点名设置
 
     };
     //点名查询
     selectopt =()=>{
-
+        let rollParams={
+            rname:this.state.realname,
+            cameraname:this.state.account
+        };
+        post({url:"/api/rollcall/getlist",data:rollParams},(res)=>{
+            if(res.success){
+                this.setState({
+                    list:res.data
+                })
+            }
+        })
     };
-    reuestdata =(parameter={})=>{ //点名的对象
-        post({url:"/api/rollcall/getlist",data:parameter},(res)=>{
-            if(res){
+    reuestdata =()=>{ //点名的对象
+        post({url:"/api/rollcall/getlist"},(res)=>{
+            if(res.success){
                 this.setState({
                     list:res.data
                 })
@@ -113,17 +134,17 @@ class RollcallTask extends Component{
                                         message: '请输入名称!'
                                     }],
                                 })( 
-                                    <Input />
+                                    <Input onChange={this.handleRealname}/>
                                 )}
                             </FormItem>
                             <FormItem label="设备">
                                 {getFieldDecorator('account', {
                                     rules: [{
                                         required: false,
-                                        message: '请输入账号!',
+                                        message: '请输入设备!',
                                     }],
                                 })(
-                                    <Input />
+                                    <Input onChange={this.handleAccount}/>
                                 )}
                             </FormItem>
                             <FormItem>
