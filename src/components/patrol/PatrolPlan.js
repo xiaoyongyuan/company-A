@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Row, Col, Button, Modal,Icon,Card} from 'antd';
+import {Form, Row, Col, Button, Modal,Icon,Card,message} from 'antd';
 import ModalForm from './ModalForm.js';
 import {post} from "../../axios/tools";
 import '../../style/sjg/home.css';
@@ -97,24 +97,28 @@ class PatrolPlan extends React.Component{
                         pedate:values.edate.format("HH"),
                         clist:values.patrolE.join(","),
                     };
-                    post({url:"/api/patrol/update",data:data},(res)=>{
-                        if(res.success){
-                            let list=this.state.list;
-                            list[this.state.indexi]=res.data[0];
-                            this.setState({
-                                list:list,
-                                visible: false,
-                            },()=>{
-                                post({url:"/api/patrol/getlist"}, (res)=>{
-                                    if(res.success){
-                                        this.setState({
-                                            list: res.data
-                                            })
-                                    }
+                    if(values.bdate.format("HH")<values.edate.format("HH")){
+                        post({url:"/api/patrol/update",data:data},(res)=>{
+                            if(res.success){
+                                let list=this.state.list;
+                                list[this.state.indexi]=res.data[0];
+                                this.setState({
+                                    list:list,
+                                    visible: false,
+                                },()=>{
+                                    post({url:"/api/patrol/getlist"}, (res)=>{
+                                        if(res.success){
+                                            this.setState({
+                                                list: res.data
+                                                })
+                                        }
+                                    })
                                 })
-                            })
-                        }
-                    })
+                            }
+                        })
+                    }else{
+                        message.warning('开始时间不能大于结束时间');
+                    }
 
                 }else{
                     const data={

@@ -90,6 +90,7 @@ class ModalForm extends Component {
                 timeList:time,
                 timeString:timeString
             });
+            console.log("------------>",timeString)
 
         }
         function onChange_time2(time, timeString) {
@@ -97,6 +98,7 @@ class ModalForm extends Component {
                 timeList2:time,
                 timeString:timeString
             });
+            console.log("------------>",timeString)
         }
         function newArray(start, end) {
             let result = [];

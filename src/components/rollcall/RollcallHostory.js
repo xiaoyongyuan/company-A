@@ -203,11 +203,7 @@ class RollcallHostory extends React.Component{
                         list.push(dataitem);
                         _this.setState({
                              list: list
-                               },()=>{
-                                   console.log(_this.state.list)
-                                   return;
-                               }
-                            )
+                               } )
                     }
                 })
             }
