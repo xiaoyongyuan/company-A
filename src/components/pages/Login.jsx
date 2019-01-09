@@ -8,7 +8,8 @@ import { bindActionCreators } from 'redux';
 import { fetchData, receiveData } from '@/action'; //action->index按需取
 import bg from '../../style/imgs/bg.jpg';
 import "../../style/ztt/img/icon/iconfont.css";
-import LoginCode from "./LoginCode";
+import {post} from "../../axios/tools";
+import QRCode from "qrcode.react";
 const FormItem = Form.Item;
 class Login extends React.Component {
     constructor(props){
@@ -19,10 +20,12 @@ class Login extends React.Component {
     }
     handlerImg = ()=>{
         if(this.state.typeState===0){
+            console.log(1111)
             this.setState({
                 typeState:1
             })
         }else if(this.state.typeState===1){
+
             this.setState({
                 typeState:0
             })
@@ -70,7 +73,9 @@ class Login extends React.Component {
                             <div className={"pwdBtn iconfont"+(this.state.typeState?" icon-erweima":" icon-diannao")} onClick={this.handlerImg}></div>
                         </div>
                     </div>
-                    <LoginCode typeState={this.state.typeState} />
+                    <div className="login-code" style={{display:this.state.typeState?"block":"none"}}>
+                        <QRCode size={150} value="http:/login/get_qrcode/login/get_qrcode"/>
+                    </div>
                     <Form onSubmit={this.handleSubmit}  style={{display:this.state.typeState?"none":"block",maxWidth: '300px'}}>
                         <FormItem>
                             {getFieldDecorator('account', {
