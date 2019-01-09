@@ -171,7 +171,8 @@ class RollcallHostory extends React.Component{
             if(res.success){
                  console.log('******************', res.data);
                     this.setState({
-                        list:res.data
+                        // list:res.data
+                        list:list
                     })
             }
         })
