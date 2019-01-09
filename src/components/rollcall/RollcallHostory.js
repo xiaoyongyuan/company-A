@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,BackTop,Modal,Affix, } from "antd";
+import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,Modal } from "antd";
 import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
@@ -15,7 +15,36 @@ const formItemLayout = {
         sm: { span: 16 },
     },
 };
-const data=[
+let dataitem={
+    "companycode":1000003,
+    "dayly":"1111111111111111",
+    "info":[
+        {
+            "companycode":1000003,
+            "rollcalldate":"2019-01-05 16:31:00",
+            "taskid":5,
+            "totalcount":2,
+            "unhandle":0,
+            "normal":1,
+            "alarm":[
+                {
+                    "code":89,
+                    "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
+                    "rfinal":2,
+                    "cid":1000007,
+                 },
+                 {
+                    "code":90,
+                    "rpic":'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
+                    "rfinal":1,
+                    "cid":1000007,
+                }
+            ]
+        },
+       
+    ]
+}
+let list=[
     {
         "companycode":1000003,
         "dayly":"2019-01-05",
@@ -122,10 +151,9 @@ const data=[
             },
             
         ]
-    }
-]
+     }
+   ]
 
-var scrollTop
 class RollcallHostory extends React.Component{
 	constructor(props){
         super(props);
@@ -133,10 +161,62 @@ class RollcallHostory extends React.Component{
             bdate:'',//检索的开始时间
             edate:'',//检索的结束时间
             rollCallType:false,
-        
+            list:[],
+            dataitem:{},
         }
     }
-    
+       
+    componentDidMount() {
+        post({url:'/api/rollcalldetail/getlist_info_dayly'},(res)=>{
+            if(res.success){
+                // console.log('******************', res);
+                    this.setState({
+                        list:list
+                    })
+            }
+        })
+         var _this=this;
+        //  var x=0;
+        document.getElementById("scorll").onscroll=function() {
+            // console.log(`滚动了${x += 1}次`);
+            var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
+            var scrollTop = document.getElementById("scorll").scrollTop;//0-18
+            var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度
+            var scrollbottom=scrollHeight-clientHeight;
+            var scrollTopP=parseInt(scrollTop);
+            _this.setState({
+                scrollbottom:scrollbottom,
+                scrollTop:scrollTop
+               })
+            if(scrollbottom-scrollTopP<=1){//滚动到底部了
+               _this.setState({
+                scrollbottom:scrollbottom,
+                scrollTop:scrollTop
+               })
+                const da={
+                  page:1
+                }
+                post({url:'/api/rollcalldetail/getlist_info_dayly',data:da},(res)=>{
+                    console.log(res);
+                    if(res.success){
+                        const list=_this.state.list;
+                        list.push(dataitem);
+                        _this.setState({
+                             list: list
+                               },()=>{
+                                   console.log(_this.state.list)
+                                   return;
+                               }
+                            )
+                    }
+                })
+            }
+        };
+    }     
+    backtop=()=>{ //返回顶部
+        document.getElementById("scorll").scrollTop = 0; 
+    };
+
    //开始时间
    onChange1 =(dateString1)=> {
         this.onChangeDate('startValue',dateString1);
@@ -155,7 +235,6 @@ class RollcallHostory extends React.Component{
         },()=>{
             console.log('endValue',this.state.edate.format('YYYY-MM-DD'));
         })
-       
     };
     //禁止的开始时间
     disabledStartDate = (startValue) => {
@@ -186,8 +265,6 @@ class RollcallHostory extends React.Component{
     handleEndOpenChange = (open) => {
         this.setState({ endOpen: open });
     };
- 
-
     handleSubmit =()=>{
             const data={
                 bdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD'):'',
@@ -201,7 +278,6 @@ class RollcallHostory extends React.Component{
                 }
             })
     };
-
     //model open
     handlerollCallType =(index)=>{
         console.log(index,"3333");
@@ -216,51 +292,8 @@ class RollcallHostory extends React.Component{
             rollCallType:false
         })
     };
-   
-    componentDidMount() {
-        console.log(data,"data");
-        var str=data[0].info[0].alarm
-        console.log(str ,"alarm________________________");
-        post({url:'/api/rollcalldetail/getlist_info_dayly'},(res)=>{
-            if(res.success){
-                console.log('******************', res);
-                    this.setState({
-                        list: res.data
-                    })
-            }
-        })
-         var _this=this;
-         var x=0;
-        document.getElementById("scorll").onscroll=function() {
-            console.log(`滚动了${x += 1}次`);
-            var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
-            var scrollTop = document.getElementById("scorll").scrollTop;//0-18
-            var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度
-            var scrollbottom=scrollHeight-clientHeight;
-            var scrollTopP=parseInt(scrollTop);
-            console.log("scrollTop-------->",scrollTopP);
-            console.log(scrollHeight,clientHeight);
-            console.log('scrollbottom',scrollbottom);
-            _this.setState({
-                scrollbottom:scrollbottom,
-                scrollTop:scrollTop
-               })
-            if(scrollbottom===scrollTopP){
-               console.log("滚动到底部了");
-               _this.setState({
-                scrollbottom:scrollbottom,
-                scrollTop:scrollTop
-               })
-            }
-        };
-    }     
-    backtop=()=>{ //返回顶部
-        document.getElementById("scorll").scrollTop = 0; 
-    };
-
     render(){
         const { getFieldDecorator } = this.props.form;
-        
         return(       
             <div className="RollcallHostory scrollable-container" id="scorll" >   
               <Button type="primary" className="backtop" onClick={this.backtop} style={this.state.scrollTop>20?{display:'block'}:{display:'none'}}>返回顶部</Button>
@@ -311,7 +344,7 @@ class RollcallHostory extends React.Component{
             
                  <Timeline>
                         {
-                            data.map((item,j)=>{
+                            this.state.list.map((item,j)=>{
                                 return (
                                     <Timeline.Item key={j}>
                                         <p> {item.dayly}</p>
