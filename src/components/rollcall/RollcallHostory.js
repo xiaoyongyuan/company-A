@@ -231,7 +231,6 @@ class RollcallHostory extends React.Component{
         })
          var _this=this;
          var x=0;
-         
         document.getElementById("scorll").onscroll=function() {
             console.log(`滚动了${x += 1}次`);
             var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
@@ -242,6 +241,10 @@ class RollcallHostory extends React.Component{
             console.log("scrollTop-------->",scrollTopP);
             console.log(scrollHeight,clientHeight);
             console.log('scrollbottom',scrollbottom);
+            _this.setState({
+                scrollbottom:scrollbottom,
+                scrollTop:scrollTop
+               })
             if(scrollbottom===scrollTopP){
                console.log("滚动到底部了");
                _this.setState({
@@ -252,21 +255,15 @@ class RollcallHostory extends React.Component{
         };
     }     
     backtop=()=>{ //返回顶部
-        // this.setState({
-        //     scrollTop:0
-        // },()=>{
-        // })
-        scrollTop=0
-        console.log("------------------>",scrollTop)
+        document.getElementById("scorll").scrollTop = 0; 
     };
-
 
     render(){
         const { getFieldDecorator } = this.props.form;
         
         return(       
             <div className="RollcallHostory scrollable-container" id="scorll" >   
-              <Button type="primary" className="backtop" onClick={this.backtop}>返回顶部</Button>
+              <Button type="primary" className="backtop" onClick={this.backtop} style={this.state.scrollTop>20?{display:'block'}:{display:'none'}}>返回顶部</Button>
                 <LocaleProvider locale={zh_CN}>
                     <Row style={{marginTop:"50px"}}>
                         <Form onSubmit={this.handleSubmit}>
