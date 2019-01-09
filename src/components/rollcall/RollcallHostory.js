@@ -169,8 +169,9 @@ class RollcallHostory extends React.Component{
     componentDidMount() {
         post({url:'/api/rollcalldetail/getlist_info_dayly'},(res)=>{
             if(res.success){
-                // console.log('******************', res);
+                 console.log('******************', res.data);
                     this.setState({
+                        // list:res.data
                         list:list
                     })
             }
@@ -355,7 +356,7 @@ class RollcallHostory extends React.Component{
                                                                     共点名 {el.taskid}个对象，
                                                                     {el.alarm.length}个报警，
                                                                     {el.normal}个正常， 
-                                                                    <a href={"#/app/rollcall/rollcallrecord?companycode="+i.companycode} className="underline">查看详情</a>
+                                                                    <a href={"#/app/rollcall/rollcallrecord?taskid="+el.taskid+"&rollcalldate="+el.rollcalldate} className="underline">查看详情</a>
                                                                 </div>
                                                                 {
                                                                 el.alarm.map((num,n)=>{
