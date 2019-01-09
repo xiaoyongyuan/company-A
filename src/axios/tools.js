@@ -10,6 +10,7 @@ import { message } from 'antd';
  * @param headers   接口所需header配置
  */
 const Httpurl='http://api.aokecloud.cn';
+const qrcodeurl='http://login.aokecloud.cn'
 
 
 /**
@@ -19,7 +20,7 @@ const Httpurl='http://api.aokecloud.cn';
  * @param msg       接口异常提示
  * @param headers   接口所需header配置
  */
-export const post = async({url, msg = '接口异常',data={}},callback) =>{
+export const post = async({url, msg = '接口异常',data={},type},callback) =>{
   const token=localStorage.getItem('token');
   const comid=localStorage.getItem('comid');
   const account=localStorage.getItem('account');
@@ -41,12 +42,23 @@ export const post = async({url, msg = '接口异常',data={}},callback) =>{
         window.location.href="#/login"
         return callback(false)
       }else{
+        if(type){
+          return callback(false);
+        }
         message.warn(res.data.errorinfo);
         return callback(false);
       }
 
     }).catch(err => {
       console.log('err',err);
+      message.warn(msg);
+    });
+}
+
+export const qrcode = async({url, msg = '接口异常',data={}},callback) =>{
+    axios.post(qrcodeurl+url,data).then(res =>{
+      return callback(res.data)
+    }).catch(err => {
       message.warn(msg);
     });
 }
