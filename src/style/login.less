@@ -6,12 +6,37 @@
   background: #f3f3f3;
   background-size: cover;
   background-repeat:no-repeat;
-  .login-form{
-    width: 320px;
-    height: 340px;
-    padding: 36px;
-    box-shadow: 0 0 100px rgba(0,0,0,.08);
+  .login-form1{
+    position: relative;
+    height: 44px;
+    width: 100%;
+    margin: 0 auto;
     background: #fff;
+    .master-login-title{
+      width: 100%;
+      font-size: 18px;
+      font-weight: 400;
+    }
+    .pwdBtn{
+      width:0;
+      height:0;
+      border-bottom:50px solid #fff;
+      display: block;
+      cursor: pointer;
+      position: absolute;
+      bottom: 16px;
+      right: 11px;
+      font-size: 40px;
+      color: #999999;
+      z-index: 999999999;
+    }
+  }
+  .login-form{
+    width: 376px;
+    height: 319px;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.08);
+    background: #fff;
+    padding: 20px 37px;
     .login-logo{
       text-align: center;
       height: 40px;
@@ -45,4 +70,7 @@
   position: absolute;
   background: url('./imgs/installer.png') no-repeat;
   background-size: cover;
+}
+.login-code{
+  padding: 30px 66px;
 }
