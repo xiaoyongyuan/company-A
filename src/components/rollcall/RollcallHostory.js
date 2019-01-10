@@ -165,6 +165,7 @@ class RollcallHostory extends React.Component{
             loading:false,
             page:1, //当前页数
             pageSize:20, //每页显示数量
+            isrequest:true,
         }
     }
        
@@ -202,7 +203,7 @@ class RollcallHostory extends React.Component{
                } ,()=>{
                   console.log(_this.state.page,"---------->")
                })
-         
+               if(_this.state.isrequest){ 
                 post({url:'/api/rollcalldetail/getlist_info_dayly',data:{pageindex:_this.state.page}},(res)=>{
                     console.log(res,"222222");
                     console.log(res.data,"1111111111111111");
@@ -214,6 +215,9 @@ class RollcallHostory extends React.Component{
                             if(res.data.length===0){
                                message.success('没有更多了');
                             }
+                            _this.setState({
+                                isrequest: false,
+                             } )
                         }
                     if(res.success){
                         if(res.data.length>0){
@@ -227,6 +231,7 @@ class RollcallHostory extends React.Component{
                        
                     }
                 })
+             }
             }
         };
     }     
