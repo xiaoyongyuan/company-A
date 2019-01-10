@@ -11,62 +11,82 @@ import "../../style/ztt/img/icon/iconfont.css";
 import {qrcode} from "../../axios/tools";
 import QRCode from "qrcode.react";
 const FormItem = Form.Item;
+var count=0;
 class Login extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            typeState:0,
+            typeState:0,//控制扫码登录和密码登录
+            qrcodeStatus:0,//控制二维码失效页面
             qrcode:""
         }
     }
+    //请求二维码
+    handleQrcoderequest =()=>{
+        //60秒之后归零
+        count=0;
+        qrcode({url:"/login/get_qrcode"},(res)=>{
+            if(res.success){
+                this.setState({
+                    qrcode:res.qrcode,
+                    qrcodeStatus:0
+                },()=>{
+                    this.hanleQrcode();
+                })
+            }
+        });
+    };
     handlerImg = ()=>{
         if(this.state.typeState===0){
-            qrcode({url:"/login/get_qrcode"},(res)=>{
-                if(res.success){
-                    this.setState({
-                        qrcode:res.qrcode
-                    },()=>{
-                        if(this.state.qrcode===res.qrcode){
-                            console.log("this.state.qrcode---res.qrcode相同");
-                        }else{
-                            console.log("不相同");
-                        }
-                        console.log('拿到的二维码信息',this.state.qrcode,res.qrcode);
-                        this.hanleQrcode();
-                    })
-                }
-            });
+            //请求二维码
+            this.handleQrcoderequest();
             this.setState({
                 typeState:1
             })
         }else if(this.state.typeState===1){
             this.setState({
-                typeState:0
+                typeState:0,
+                qrcodeStatus:0
             })
         }
     };
+    //二维码请求结果
     hanleQrcode =()=>{
        let qrcodeSet= setInterval(()=>{
-           console.log('提交的qrcode',this.state.qrcode);
             qrcode({url:"/login/qrcode_ret",data:{qrcode:this.state.qrcode}},(res)=>{
-                console.log("获取qrcode状态接口");
-                if(res.success){
-                   clearInterval(qrcodeSet);
-                    console.log(res,"444444444444444444444");
-                   /*this.setState({
-                       user:res.data.qrcode.user,
-                       comid:res.data.qrcode.comid
-                   });
-                   let values={
-                       user:this.state.user,
-                       comid;this.state.comid
-                   };
-                    const { fetchData } = this.props;
-                    fetchData({funcName: 'webapp', url:'/login/verify_qrcode', params:values, stateName:'auth'});*/
+                if(count<60){
+                    count++;
+                    console.log(count,"1111")
+                }else if(count==60){
+                    clearInterval(qrcodeSet);
+                    this.setState({
+                        qrcodeStatus:1
+                    });
+                    /*console.log(count,"countcount");*/
                 }
+                if(res.success){
+                    clearInterval(qrcodeSet);
+                    this.setState({
+                        account:res.ret.user,
+                        comid:res.ret.comid
+                    });
+                    if(this.state.user!=="" && this.state.comid!==""){
+                        this.loginLast();
+                    }
+                }
+
             });
         },1000);
     };
+    //二维码登录
+    loginLast =()=>{
+        let values={
+            account:this.state.account,
+            comid:this.state.comid
+        };
+        const { fetchData } = this.props;
+        fetchData({funcName: 'webapp', url:'/login/verify_qrcode', params:values, stateName:'auth'});
+    }
     componentWillMount() {
         const { receiveData } = this.props;
         receiveData(null, 'auth');
@@ -108,8 +128,14 @@ class Login extends React.Component {
                             <div className={"pwdBtn iconfont"+(this.state.typeState?" icon-diannao ":" icon-erweima")} onClick={this.handlerImg}></div>
                         </div>
                     </div>
-                    <div className="login-code" style={{display:this.state.typeState?"block":"none"}}>
-                        <QRCode size={150} value={this.state.qrcode}/>
+                    <div className="qrcode">
+                        <div  className="login-code" style={{display:this.state.typeState?"block":"none"}}>
+                            <QRCode size={150} value={this.state.qrcode} />
+                        </div>
+                        <div className="qrcodeModel" style={{display:this.state.qrcodeStatus?"block":"none"}}>
+                            <p className="qrcodeModelFont">二维码已失效</p>
+                            <Button type="primary"  className="btn" onClick={this.handleQrcoderequest}>刷新二维码</Button>
+                        </div>
                     </div>
                     <Form onSubmit={this.handleSubmit}  style={{display:this.state.typeState?"none":"block",maxWidth: '300px'}}>
                         <FormItem>
