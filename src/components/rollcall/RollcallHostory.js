@@ -180,28 +180,28 @@ class RollcallHostory extends React.Component{
         })
          var _this=this;
         //  var x=0;
-        let pag=1;
+        let pag=0;
         document.getElementById("scorll").onscroll=function() {
             // console.log(`滚动了${x += 1}次`);
             var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
             var scrollTop = document.getElementById("scorll").scrollTop;//0-18
             var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度
             var scrollbottom=scrollHeight-clientHeight;
-            var scrollTopP=parseInt(scrollTop);
+            var scrollTopP=Math.ceil(scrollTop);
             _this.setState({
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTop
                })
               
-            if(scrollbottom-scrollTopP<=1){//滚动到底部了
+            if(scrollbottom-scrollTopP===0){//滚动到底部了
                  pag++;
                _this.setState({
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTop,
                 page:pag
                } ,()=>{
-               console.log(_this.state.page,"---------->")
-            })
+                  console.log(_this.state.page,"---------->")
+               })
          
                 post({url:'/api/rollcalldetail/getlist_info_dayly',data:{pageindex:_this.state.page}},(res)=>{
                     console.log(res,"222222");
@@ -211,17 +211,18 @@ class RollcallHostory extends React.Component{
                         loading: true,
                           } )
                         }else{
-                            message.success('没有更多了');
+                            if(res.data.length===0){
+                               message.success('没有更多了');
+                            }
                         }
                     if(res.success){
                         if(res.data.length>0){
-                            console.log(res.data,"---------->res.data2")
                             const list=_this.state.list;
-                            list.push(res.data);
+                            const alist = list.concat(res.data);
                             _this.setState({
-                                 list: list,
+                                 list: alist,
                                  loading: false,
-                                   } )
+                            } )
                         }
                        
                     }
