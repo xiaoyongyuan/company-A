@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,Modal } from "antd";
+import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,Modal,Spin } from "antd";
 import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
@@ -163,6 +163,7 @@ class RollcallHostory extends React.Component{
             rollCallType:false,
             list:[],
             dataitem:{},
+            loading:false,
         }
     }
        
@@ -171,8 +172,8 @@ class RollcallHostory extends React.Component{
             if(res.success){
                  console.log('******************', res.data);
                     this.setState({
-                        // list:res.data
-                        list:list
+                        list:res.data
+                        // list:list
                     })
             }
         })
@@ -199,11 +200,15 @@ class RollcallHostory extends React.Component{
                 }
                 post({url:'/api/rollcalldetail/getlist_info_dayly',data:da},(res)=>{
                     console.log(res);
+                    _this.setState({
+                        loading: true,
+                          } )
                     if(res.success){
                         const list=_this.state.list;
                         list.push(dataitem);
                         _this.setState({
-                             list: list
+                             list: list,
+                             loading: false,
                                } )
                     }
                 })
@@ -264,13 +269,13 @@ class RollcallHostory extends React.Component{
     };
     handleSubmit =()=>{
             const data={
-                bdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD'):'',
-                edate:this.state.edate?this.state.edate.format('YYYY-MM-DD'):'',
+                daylybdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD'):'',
+                daylyedate:this.state.edate?this.state.edate.format('YYYY-MM-DD'):'',
             }
             post({url:'/api/rollcalldetail/getlist_info_dayly',data:data},(res)=>{
                 if(res.success){
-                    console.log('******************', res.data);
                         this.setState({
+                            list:res.data
                         })
                 }
             })
@@ -292,11 +297,13 @@ class RollcallHostory extends React.Component{
     render(){
         const { getFieldDecorator } = this.props.form;
         return(       
-            <div className="RollcallHostory scrollable-container" id="scorll" >   
+            <div className="RollcallHostory scrollable-container" id="scorll" >  
+             <Spin spinning={this.state.loading} className="spin" size="large">
               <Button type="primary" className="backtop" onClick={this.backtop} style={this.state.scrollTop>20?{display:'block'}:{display:'none'}}>返回顶部</Button>
                 <LocaleProvider locale={zh_CN}>
                     <Row style={{marginTop:"50px"}}>
                         <Form onSubmit={this.handleSubmit}>
+
                             <Col xl={7} xxl={5} lg={9}>
                                 <Form.Item
                                     {...formItemLayout}
@@ -390,6 +397,7 @@ class RollcallHostory extends React.Component{
                  >
                     <RollcallHostoryModel code={this.state.code} />
                  </Modal>
+             </Spin>
             </div>
         )
     }

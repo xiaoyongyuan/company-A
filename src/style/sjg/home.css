@@ -499,3 +499,8 @@ margin: 20px 0;
     height: 740px;
     overflow: scroll;
 }
+.spin{
+    position: fixed;
+    bottom: 300px;
+    left: 60px
+}
