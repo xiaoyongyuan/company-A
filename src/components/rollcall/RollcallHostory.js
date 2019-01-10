@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,Modal,Spin } from "antd";
+import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,Modal,Spin,message} from "antd";
 import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
@@ -153,7 +153,6 @@ let list=[
         ]
      }
    ]
-
 class RollcallHostory extends React.Component{
 	constructor(props){
         super(props);
@@ -164,6 +163,8 @@ class RollcallHostory extends React.Component{
             list:[],
             dataitem:{},
             loading:false,
+            page:1, //当前页数
+            pageSize:20, //每页显示数量
         }
     }
        
@@ -172,13 +173,14 @@ class RollcallHostory extends React.Component{
             if(res.success){
                  console.log('******************', res.data);
                     this.setState({
-                        list:res.data
-                        // list:list
+                        //  list:res.data
+                         list:list
                     })
             }
         })
          var _this=this;
         //  var x=0;
+        let pag=1;
         document.getElementById("scorll").onscroll=function() {
             // console.log(`滚动了${x += 1}次`);
             var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
@@ -190,26 +192,38 @@ class RollcallHostory extends React.Component{
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTop
                })
+              
             if(scrollbottom-scrollTopP<=1){//滚动到底部了
+                 pag++;
                _this.setState({
                 scrollbottom:scrollbottom,
-                scrollTop:scrollTop
-               })
-                const da={
-                  page:1
-                }
-                post({url:'/api/rollcalldetail/getlist_info_dayly',data:da},(res)=>{
-                    console.log(res);
-                    _this.setState({
+                scrollTop:scrollTop,
+                page:pag
+               } ,()=>{
+               console.log(_this.state.page,"---------->")
+            })
+         
+                post({url:'/api/rollcalldetail/getlist_info_dayly',data:{pageindex:_this.state.page}},(res)=>{
+                    console.log(res,"222222");
+                    console.log(res.data,"1111111111111111");
+                    if(res.data.length>0){
+                       _this.setState({
                         loading: true,
                           } )
+                        }else{
+                            message.success('没有更多了');
+                        }
                     if(res.success){
-                        const list=_this.state.list;
-                        list.push(dataitem);
-                        _this.setState({
-                             list: list,
-                             loading: false,
-                               } )
+                        if(res.data.length>0){
+                            console.log(res.data,"---------->res.data2")
+                            const list=_this.state.list;
+                            list.push(res.data);
+                            _this.setState({
+                                 list: list,
+                                 loading: false,
+                                   } )
+                        }
+                       
                     }
                 })
             }
