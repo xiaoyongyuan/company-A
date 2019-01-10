@@ -26,29 +26,47 @@ class Login extends React.Component {
                     this.setState({
                         qrcode:res.qrcode
                     },()=>{
-                        this.qrcode();
+                        if(this.state.qrcode===res.qrcode){
+                            console.log("this.state.qrcode---res.qrcode相同");
+                        }else{
+                            console.log("不相同");
+                        }
+                        console.log('拿到的二维码信息',this.state.qrcode,res.qrcode);
+                        this.hanleQrcode();
                     })
                 }
-
             });
             this.setState({
                 typeState:1
             })
         }else if(this.state.typeState===1){
-
             this.setState({
                 typeState:0
             })
         }
-
-    }
-    qrcode =()=>{
-        qrcode({url:"/login/qrcode_ret",data:{qrcode:this.state.qrcode}},(res)=>{
-            if(res.success){
-                console.log(res,"wwwwwwwwwwwww")
-            }
-        })
-    }
+    };
+    hanleQrcode =()=>{
+       let qrcodeSet= setInterval(()=>{
+           console.log('提交的qrcode',this.state.qrcode);
+            qrcode({url:"/login/qrcode_ret",data:{qrcode:this.state.qrcode}},(res)=>{
+                console.log("获取qrcode状态接口");
+                if(res.success){
+                   clearInterval(qrcodeSet);
+                    console.log(res,"444444444444444444444");
+                   /*this.setState({
+                       user:res.data.qrcode.user,
+                       comid:res.data.qrcode.comid
+                   });
+                   let values={
+                       user:this.state.user,
+                       comid;this.state.comid
+                   };
+                    const { fetchData } = this.props;
+                    fetchData({funcName: 'webapp', url:'/login/verify_qrcode', params:values, stateName:'auth'});*/
+                }
+            });
+        },1000);
+    };
     componentWillMount() {
         const { receiveData } = this.props;
         receiveData(null, 'auth');
@@ -87,7 +105,7 @@ class Login extends React.Component {
                     <div className="login-top" >
                         <div className="login-form1">
                             <div className="master-login-title">{this.state.typeState?this.state.loginTitle="扫码登录":this.state.loginTitle="密码登录"}</div>
-                            <div className={"pwdBtn iconfont"+(this.state.typeState?" icon-erweima":" icon-diannao")} onClick={this.handlerImg}></div>
+                            <div className={"pwdBtn iconfont"+(this.state.typeState?" icon-diannao ":" icon-erweima")} onClick={this.handlerImg}></div>
                         </div>
                     </div>
                     <div className="login-code" style={{display:this.state.typeState?"block":"none"}}>
