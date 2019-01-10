@@ -12,6 +12,7 @@ import {qrcode} from "../../axios/tools";
 import QRCode from "qrcode.react";
 const FormItem = Form.Item;
 var count=0;
+let qrcodeSet=undefined;//控制二维码请求结果定时器
 class Login extends React.Component {
     constructor(props){
         super(props);
@@ -36,23 +37,9 @@ class Login extends React.Component {
             }
         });
     };
-    handlerImg = ()=>{
-        if(this.state.typeState===0){
-            //请求二维码
-            this.handleQrcoderequest();
-            this.setState({
-                typeState:1
-            })
-        }else if(this.state.typeState===1){
-            this.setState({
-                typeState:0,
-                qrcodeStatus:0
-            })
-        }
-    };
     //二维码请求结果
     hanleQrcode =()=>{
-       let qrcodeSet= setInterval(()=>{
+        qrcodeSet= setInterval(()=>{
             qrcode({url:"/login/qrcode_ret",data:{qrcode:this.state.qrcode}},(res)=>{
                 if(count<60){
                     count++;
@@ -62,7 +49,6 @@ class Login extends React.Component {
                     this.setState({
                         qrcodeStatus:1
                     });
-                    /*console.log(count,"countcount");*/
                 }
                 if(res.success){
                     clearInterval(qrcodeSet);
@@ -77,6 +63,21 @@ class Login extends React.Component {
 
             });
         },1000);
+    };
+    handlerImg = ()=>{
+        if(this.state.typeState===0){
+            //请求二维码
+            this.handleQrcoderequest();
+            this.setState({
+                typeState:1
+            })
+        }else if(this.state.typeState===1){
+            clearInterval(qrcodeSet);
+            this.setState({
+                typeState:0,
+                qrcodeStatus:0
+            })
+        }
     };
     //二维码登录
     loginLast =()=>{
