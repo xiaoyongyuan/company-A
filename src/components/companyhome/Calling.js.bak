@@ -27,7 +27,6 @@ const data = [
         rname:'兵马俑'
     }
 ]
-
 class Calling extends Component{
     constructor(props) {
         super(props);
