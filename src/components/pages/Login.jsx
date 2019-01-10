@@ -8,26 +8,46 @@ import { bindActionCreators } from 'redux';
 import { fetchData, receiveData } from '@/action'; //action->index按需取
 import bg from '../../style/imgs/bg.jpg';
 import "../../style/ztt/img/icon/iconfont.css";
-import LoginCode from "./LoginCode";
+import {qrcode} from "../../axios/tools";
+import QRCode from "qrcode.react";
 const FormItem = Form.Item;
 class Login extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            typeState:0
+            typeState:0,
+            qrcode:""
         }
     }
     handlerImg = ()=>{
         if(this.state.typeState===0){
+            qrcode({url:"/login/get_qrcode"},(res)=>{
+                if(res.success){
+                    this.setState({
+                        qrcode:res.qrcode
+                    },()=>{
+                        this.qrcode();
+                    })
+                }
+
+            });
             this.setState({
                 typeState:1
             })
         }else if(this.state.typeState===1){
+
             this.setState({
                 typeState:0
             })
         }
 
+    }
+    qrcode =()=>{
+        qrcode({url:"/login/qrcode_ret",data:{qrcode:this.state.qrcode}},(res)=>{
+            if(res.success){
+                console.log(res,"wwwwwwwwwwwww")
+            }
+        })
     }
     componentWillMount() {
         const { receiveData } = this.props;
@@ -70,7 +90,9 @@ class Login extends React.Component {
                             <div className={"pwdBtn iconfont"+(this.state.typeState?" icon-erweima":" icon-diannao")} onClick={this.handlerImg}></div>
                         </div>
                     </div>
-                    <LoginCode typeState={this.state.typeState} />
+                    <div className="login-code" style={{display:this.state.typeState?"block":"none"}}>
+                        <QRCode size={150} value={this.state.qrcode}/>
+                    </div>
                     <Form onSubmit={this.handleSubmit}  style={{display:this.state.typeState?"none":"block",maxWidth: '300px'}}>
                         <FormItem>
                             {getFieldDecorator('account', {
