@@ -3,7 +3,7 @@ import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,Modal,Spin
 import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
-import RollcallHostoryModel from "./RollcallHostoryModel";
+import RollcallRecordModel from "./RollcallRecordModel";
 
 const formItemLayout = {
     labelCol: {
@@ -153,6 +153,7 @@ let list=[
         ]
      }
    ]
+
 class RollcallHostory extends React.Component{
 	constructor(props){
         super(props);
@@ -172,16 +173,17 @@ class RollcallHostory extends React.Component{
     componentDidMount() {
         post({url:'/api/rollcalldetail/getlist_info_dayly'},(res)=>{
             if(res.success){
-                 console.log('******************', res.data);
+                 console.log('******************', res);
+                
                     this.setState({
-                        //  list:res.data
-                         list:list
+                          list:res.data
+                        //   list:list
                     })
             }
         })
          var _this=this;
         //  var x=0;
-        let pag=0;
+        let pag=1;
         document.getElementById("scorll").onscroll=function() {
             // console.log(`滚动了${x += 1}次`);
             var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
@@ -200,13 +202,11 @@ class RollcallHostory extends React.Component{
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTop,
                 page:pag
-               } ,()=>{
-                  console.log(_this.state.page,"---------->")
                })
                if(_this.state.isrequest){ 
                 post({url:'/api/rollcalldetail/getlist_info_dayly',data:{pageindex:_this.state.page}},(res)=>{
-                    console.log(res,"222222");
-                    console.log(res.data,"1111111111111111");
+                    console.log(res,"res");
+                    console.log(res.data,"res.data");
                     if(res.data.length>0){
                        _this.setState({
                         loading: true,
@@ -314,6 +314,8 @@ class RollcallHostory extends React.Component{
             rollCallType:false
         })
     };
+    
+ 
     render(){
         const { getFieldDecorator } = this.props.form;
         return(       
@@ -332,7 +334,7 @@ class RollcallHostory extends React.Component{
                                 {getFieldDecorator('range-picker1')(
                                     <DatePicker
                                         format="YYYY-MM-DD"
-                                        placeholder="开始时间"
+                                        placeholder="开始日期"
                                         setFieldsValue={this.state.bdate}
                                         onChange={this.onChange1}
                                         disabledDate={this.disabledStartDate}
@@ -346,7 +348,7 @@ class RollcallHostory extends React.Component{
                                     {getFieldDecorator('range-picker2')(
                                         <DatePicker
                                             format="YYYY-MM-DD"
-                                            placeholder="结束时间"
+                                            placeholder="结束日期"
                                             setFieldsValue={this.state.edate}
                                             onChange={this.onChange2}
                                             disabledDate={this.disabledEndDate}
@@ -356,7 +358,7 @@ class RollcallHostory extends React.Component{
                                 </Form.Item>
                             </Col>
                           
-                            <Col xl={3} xxl={2} lg={3}>
+                            <Col xl={3} xxl={2} lg={2} className="msch">
                                 <Button type="primary" htmlType="submit">查询</Button>
                             </Col>
                           
@@ -366,30 +368,33 @@ class RollcallHostory extends React.Component{
 
                 <div className="timeline_ml">
             
-                 <Timeline>
+                 <Timeline pending={true}>
                         {
                             this.state.list.map((item,j)=>{
                                 return (
                                     <Timeline.Item key={j}>
-                                        <p> {item.dayly}</p>
+                                        <p> {item.dayly} </p>
                                          { 
                                              item.info.map((el,i)=>{
                                                 return (
                                                     <div key={i}>
                                                         <div className="times"> 第{i+1}次</div>
                                                             <div className="line_detail">
-                                                                <div>
-                                                                {el.rollcalldate.slice(11,20)}自动点名，
-                                                                    共点名 {el.taskid}个对象，
-                                                                    {el.alarm.length}个报警，
-                                                                    {el.normal}个正常， 
-                                                                    <a href={"#/app/rollcall/rollcallrecord?taskid="+el.taskid+"&rollcalldate="+el.rollcalldate} className="underline">查看详情</a>
+                                                                <div className="line_alerm">
+                                                                   <div style={el.alarm.length>0?{display:'block'}:{display:'none'}}><div className="circle"><div></div></div>  </div>
+                                                                        <div>
+                                                                            {el.rollcalldate.slice(11,20)}自动点名，
+                                                                            共点名 {el.taskid}个对象，
+                                                                            {el.alarm.length}个报警，
+                                                                            {el.normal}个正常， 
+                                                                            <a href={"#/app/rollcall/rollcallrecord?taskid="+el.taskid+"&rollcalldate="+el.rollcalldate} className="underline">查看详情</a>
+                                                                        </div>
                                                                 </div>
                                                                 {
                                                                 el.alarm.map((num,n)=>{
                                                                      return (
                                                                             <div key={n} className="alarm_img" style={num.rpic?{display:'inlin-block'}:{display:'none'}} >
-                                                                                <img src={num.rpic} alt="alarm_img" width="100%" onClick={()=>this.handlerollCallType(n)} />
+                                                                                <img src={num.rrpic} alt="alarm_img" width="100%" onClick={()=>this.handlerollCallType(n)} />
                                                                             </div> 
                                                                             )
                                                                     })
@@ -415,7 +420,7 @@ class RollcallHostory extends React.Component{
                     onCancel={this.handlerollClose}
                     footer={null}
                  >
-                    <RollcallHostoryModel code={this.state.code} />
+                    <RollcallRecordModel code={this.state.code} />
                  </Modal>
              </Spin>
             </div>
