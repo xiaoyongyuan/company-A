@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePicker, Row, Col, Select, Button, Icon, Modal, Pagination, Form, message,LocaleProvider } from "antd";
+import { DatePicker, Row, Col, Select, Button, Icon, Modal, Pagination, Form, message,LocaleProvider,Spin  } from "antd";
 import "../../style/ztt/css/police.css";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
@@ -38,6 +38,7 @@ class Alarmlist extends React.Component{
             pageSize:20, //每页显示数量
             totalcount:0, //数据总量
             toson:{}, //传给详情页面的值
+            loading:1,
         };
     }
     componentWillMount() {
@@ -48,6 +49,9 @@ class Alarmlist extends React.Component{
         }   
     }
     componentDidMount() {
+       setTimeout(()=>{
+
+       });
         const data={};
         if(this.state.propsid){
             data.cid=this.state.propsid;
@@ -139,16 +143,18 @@ class Alarmlist extends React.Component{
     //报警信息列表
     handleAlerm = (data={})=>{
         post({url:'/api/alarm/getlist',data:Object.assign(data,{pageindex:this.state.page})},(res)=>{
+            console.log("333333333333333");
+            console.log(res.data,"6666666666666666666666");
             if(res.success){
                 if(res.data.length>1){
                     this.setState({
                         policeList:res.data,
                         type:1,
-                        totalcount:res.totalcount
+                        totalcount:res.totalcount,
                     })
                 }else{
                     this.setState({
-                        type:0
+                        type:0,
                     })
                 }
             }
@@ -345,6 +351,7 @@ class Alarmlist extends React.Component{
                 <Row style={{marginTop:"70px",display:this.state.type===0?"block":"none"}}>
                     <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
                 </Row>
+                <div style={{width:"100%",textAlign:"center",marginTop:"15vh"}}><Spin size="large" /></div>
                 <Row style={{display:this.state.type===1?"block":"none"}}>
                     {
                         this.state.policeList.map((v,i)=>(

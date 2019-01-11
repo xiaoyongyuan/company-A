@@ -32,6 +32,7 @@ class Companyhome extends Component {
             if(res.success){
                 let clat=res.data.clat;
                 let clng=res.data.clng;
+                console.log(clng,clat,"经纬度");
                 this.setState({
                     enterpriseTitle:res.data.cname,
                     myEquipment:res.camera,

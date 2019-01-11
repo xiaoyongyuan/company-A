@@ -8,39 +8,39 @@ class Connent extends Component{
             <div className="gutter-example button-demo">
                 <span>所在位置:首页/关系网</span>
                 <Row>
-                    <Col xxl={6} xl={6} offset={4} className="topShift">
+                    <Col span={6} offset={5} className="topShift">
                         <Card>
                             <div className="pb-m">
                                 <Row>
-                                    <Col xxl={15} xl={14}>
+                                    <Col span={12}>
                                         <span className="titleFont">查看我的用户</span>
                                     </Col>
-                                    <Col xxl={9} xl={4}>
+                                    <Col span={12}>
                                         <span className="titleFont">共计：</span><span className="fontStyle">6</span>
                                     </Col>
                                 </Row>
                             </div>
                             <Row>
-                                <Col xxl={15} xl={14}>户县博物馆</Col>
-                                <Col xxl={9} xl={4}>设备:2</Col>
+                                <Col span={12}>户县博物馆</Col>
+                                <Col span={12}>设备:2</Col>
                             </Row>
                         </Card>
                     </Col>
-                    <Col xxl={6} xl={6} className="rightShift topShift">
+                    <Col span={6} className="rightShift topShift">
                         <Card>
                             <div className="pb-m">
                                 <Row>
-                                    <Col xxl={15} xl={14}>
+                                    <Col span={12}>
                                         <span className="titleFont">我查看的用户</span>
                                     </Col>
-                                    <Col xxl={9} xl={4}>
+                                    <Col span={12}>
                                         <span className="titleFont">共计：</span><span className="fontStyle">6</span>
                                     </Col>
                                 </Row>
                             </div>
                             <Row>
-                                <Col xxl={15} xl={14}>户县博物馆</Col>
-                                <Col xxl={9} xl={4}>设备:2</Col>
+                                <Col span={12}>户县博物馆</Col>
+                                <Col span={12}>设备:2</Col>
                             </Row>
                         </Card>
                     </Col>
