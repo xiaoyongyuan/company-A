@@ -67,7 +67,7 @@ class RollcallHostoryModel extends Component {
     constructor(props){
         super(props);
         this.state={
-
+            list:{},
         };
     }
     
@@ -76,11 +76,17 @@ class RollcallHostoryModel extends Component {
     }
 
     componentDidMount() {
-        // post({url:"/api/rollcalldetail/getone",data:{code:this.props.code}},(res)=>{
-        //     if(res.success){
-
-        //     }
-        // })
+        // console.log('******************this.props.code',this.props.code);
+        post({url:'/api/rollcalldetail/getone',data:{code:this.props.code}},(res)=>{
+            if(res.success){
+                 console.log('******************', res);
+                    this.setState({
+                           list:res.data
+                    },()=>{
+                        console.log('this.state.list', this.state.list.rname);
+                    })
+            }
+        })
     }
     normal =(status)=>{
         if(status==0){
@@ -89,19 +95,33 @@ class RollcallHostoryModel extends Component {
             return "fontColor1 rollcallModelTitle";
         }
     };
+    
     render(){
+        
         return(
             <div className="rollcallRecordModel">
-                <Row><Col span={24} className="rollcallModelTitle fontSizeModel">{rollset[this.props.code].rname} - {rollset[this.props.code].cid}</Col></Row>
-                <Row className="rollcallModel">
-                    <Col span={24}>
-                        <img src={rollset[this.props.code].rrpic} alt="" width="100%"/>
+                <Row>
+                    <Col span={24} className="rollcallModelTitle fontSizeModel">
+                       {this.state.list.rname} - {this.state.list.cid} 
                     </Col>
                 </Row>
                 <Row className="rollcallModel">
-                    <Col span={8} className="rollcallModelTitle">{rollset[this.props.code].resultdate}</Col>
-                    <Col span={8} className="rollcallModelTitle">{rollset[this.props.code].ifeveryday==0?"自动点名":"手动点名"}</Col>
-                    <Col span={8} className={this.normal(rollset[this.props.code].rfinal)}>{rollset[this.props.code].rfinal==0?"正常":"报警"}</Col>
+                    <Col span={24}>
+                        <img src={this.state.list.rrpic} alt="" width="100%"/>
+                    </Col>
+                </Row>
+                <Row className="rollcallModel">
+                    <Col span={8} className="rollcallModelTitle">
+                    {this.state.list.resultdate}
+                    </Col>
+                    <Col span={8} className="rollcallModelTitle">
+                    {this.state.list.ifeveryday==0?"自动点名":"手动点名"}
+                    </Col>
+                    <Col span={8}
+                     className={this.normal(this.state.list.rfinal)}
+                     >
+                     {this.state.list.rfinal==0?"正常":"报警"}
+                     </Col>
                 </Row>
             </div>
         )
