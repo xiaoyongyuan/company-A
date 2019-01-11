@@ -143,8 +143,6 @@ class Alarmlist extends React.Component{
     //报警信息列表
     handleAlerm = (data={})=>{
         post({url:'/api/alarm/getlist',data:Object.assign(data,{pageindex:this.state.page})},(res)=>{
-            console.log("333333333333333");
-            console.log(res.data,"6666666666666666666666");
             if(res.success){
                 if(res.data.length>1){
                     this.setState({
@@ -351,7 +349,7 @@ class Alarmlist extends React.Component{
                 <Row style={{marginTop:"70px",display:this.state.type===0?"block":"none"}}>
                     <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
                 </Row>
-                <div style={{width:"100%",textAlign:"center",marginTop:"15vh"}}><Spin size="large" /></div>
+           {/*     <div style={{width:"100%",textAlign:"center",marginTop:"15vh"}}><Spin size="large" /></div>*/}
                 <Row style={{display:this.state.type===1?"block":"none"}}>
                     {
                         this.state.policeList.map((v,i)=>(
