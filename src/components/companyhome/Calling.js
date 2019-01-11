@@ -1,7 +1,6 @@
 import React,{ Component } from 'react';
 import {Row, Col, Card,Modal,Spin } from 'antd';
 import '../../style/sjg/home.css';
-import juyuwang from "../../style/ztt/img/juyuwang.png";
 import BreadcrumbCustom from '../BreadcrumbCustom';
 import yal from "../../style/yal/css/calling.css";
 import {post} from "../../axios/tools";
@@ -74,8 +73,7 @@ class Calling extends Component{
     render() {
         return(
             <div className="gutter-example button-demo">
-                {/*<BreadcrumbCustom first="点名" second="点名任务" />*/}
-                {/*<span style={{color:'#4B4B5F'}}>所在位置:  场景 /  点名</span>*/}
+                <BreadcrumbCustom first="点名" second="点名任务" />
                 <div className="dmword">
                     <span style={{display:this.state.type?"block":"none"}}>此次点名共<b>{this.state.count}</b>个对象，</span>
                     <span style={{display:this.state.type?"none":"block"}}>此次点名共<b>{this.state.count}</b>个对象，用时<b>14</b>秒。<b>{this.state.unusual}</b>个异常，<b>{this.state.normal}</b>个正常。</span>

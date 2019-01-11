@@ -4,7 +4,7 @@ import {post} from "../../axios/tools";
 import "../../style/ztt/css/rollCall.css";
 const rollset=[
     {
-        code:0,
+        code:69,
         rname:"理工大",
         cid:"eftt09",
         ifeveryday:"0",
@@ -12,7 +12,7 @@ const rollset=[
         rrpic:"http://pic01.aokecloud.cn/alarm/1000011/pic/20181228//1000011_20181228154552.jpg",
         rfinal:"0"
     },{
-        code:1,
+        code:70,
         rname:"西安软件园",
         cid:"tftt06",
         ifeveryday:"1",
