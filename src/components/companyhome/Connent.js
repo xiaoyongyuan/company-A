@@ -10,26 +10,21 @@ class Connent extends Component{
             myNetwork:[],
             myLookUser:"",
             lookMyuser:"",
-            myLookeEuipment:"",
-            lookMyEquipment:""
+            myLookeEuipment:[],
+            lookMyEquipment:[]
         };
     }
     componentDidMount() {
         post({url:"/api/company/getone"},(res)=>{
             if(res.success){
-                var count=0;
-                for(let i=0;i<res.activelist.length;i++){
-                    count+=res.activelist[i].avtiveecount;
-                }
-                console.log(count,'ddd');
                 var  myLookUserNum=res.activelist.length;
                 var  lookMyuserNum=res.passivelist.length;
                 this.setState({
                     myNetwork:res.data.cname,
                     myLookUser:myLookUserNum,
                     lookMyuser:lookMyuserNum,
-                    myLookeEuipment:count,
-                    lookMyEquipment:res.activelist.avtiveecount,
+                    lookMyEquipment:res.passivelist,
+                    myLookeEuipment :res.activelist
                 })
             }
         })
@@ -52,10 +47,17 @@ class Connent extends Component{
                                     </Col>
                                 </Row>
                             </div>
-                            <Row>
-                                <Col span={12}>户县博物馆</Col>
-                                <Col span={12}>设备:{this.state.lookMyEquipment}</Col>
-                            </Row>
+                            <div style={{display:this.state.lookMyEquipment?"block":"none"}}>
+                            {
+                                this.state.lookMyEquipment.map((v,i)=>(
+                                    <Row key={i}>
+                                        <Col span={12}>{v.activename}</Col>
+                                        <Col span={12}>设备:{v.avtiveecount}</Col>
+                                    </Row>
+                                ))
+                            }
+                            </div>
+
                         </Card>
                     </Col>
                     <Col span={6} className="rightShift topShift">
@@ -70,10 +72,14 @@ class Connent extends Component{
                                     </Col>
                                 </Row>
                             </div>
-                            <Row>
-                                <Col span={12}>户县博物馆</Col>
-                                <Col span={12}>设备:{this.state.myLookeEuipment}</Col>
-                            </Row>
+                            {
+                                this.state.myLookeEuipment.map((v,i)=>(
+                                    <Row key={i}>
+                                        <Col span={12}>{v.activename}</Col>
+                                        <Col span={12}>设备:{v.avtiveecount}</Col>
+                                    </Row>
+                                ))
+                            }
                         </Card>
                     </Col>
                 </Row>
