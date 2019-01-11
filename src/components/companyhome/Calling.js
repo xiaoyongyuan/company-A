@@ -1,7 +1,6 @@
 import React,{ Component } from 'react';
 import {Row, Col, Card,Modal,Spin } from 'antd';
 import '../../style/sjg/home.css';
-import juyuwang from "../../style/ztt/img/juyuwang.png";
 import BreadcrumbCustom from '../BreadcrumbCustom';
 import yal from "../../style/yal/css/calling.css";
 import {post} from "../../axios/tools";
