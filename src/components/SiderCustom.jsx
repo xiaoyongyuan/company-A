@@ -65,7 +65,14 @@ class SiderCustom extends Component {
     };
     render() {
         let user=JSON.parse(localStorage.getItem('user'));
-        let identify=user&&user.ctype=='5'?'user':'comp'
+        let identify=user&&user.ctype=='5'?'user':'comp';
+        let func=['basic'];
+        if(user&&user.servicetype.indexOf('保安巡更')>-1){
+            func.push('patrol')
+        }
+        if(user&&user.servicetype.indexOf('物品点名')>-1){
+            func.push('rollcall')
+        }
         return (
             <Sider
                 trigger={null}
@@ -78,6 +85,7 @@ class SiderCustom extends Component {
                 </div>
                 <SiderMenu
                     identify={identify}
+                    func={func}
                     menus={routes.menus}
                     onClick={this.menuClick}
                     mode="inline"
