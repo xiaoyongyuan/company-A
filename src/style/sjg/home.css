@@ -501,6 +501,10 @@ margin: 20px 0;
 }
 .spin{
     position: fixed;
-    bottom: 300px;
+    bottom: 30px;
     left: 60px
+}
+
+#scorll .ant-spin-nested-loading{
+    width: 96%;
 }

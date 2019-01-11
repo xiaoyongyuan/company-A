@@ -7,23 +7,6 @@ import nopic from "../../style/imgs/nopic.png";
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const { Option } = Select;
-const props = {
-    name: 'file',
-    action: '//jsonplaceholder.typicode.com/posts/',
-    headers: {
-        authorization: 'authorization-text',
-    },
-    onChange(info) {
-        if (info.file.status !== 'uploading') {
-            console.log(info.file, info.fileList);
-        }
-        if (info.file.status === 'done') {
-            message.success(`${info.file.name} file uploaded successfully`);
-        } else if (info.file.status === 'error') {
-            message.error(`${info.file.name} file upload failed.`);
-        }
-    },
-};
 
 class Adopt extends Component {
     constructor(props) {
@@ -143,7 +126,7 @@ class Adopt extends Component {
         this.setState({
             cid: value,
             index:opt.key,
-            imgsrc:this.state.equipment[opt.key].picpath
+            imgsrc:this.state.equipment[opt.key].fieldpath
         });
     }
     handleSubmit = (e) => { //新增提交
