@@ -10,8 +10,8 @@ class Connent extends Component{
             myNetwork:[],
             myLookUser:"",
             lookMyuser:"",
-            myLookeEuipment:[],
-            lookMyEquipment:[]
+            come:[],
+            out:[]
         };
     }
     componentDidMount() {
@@ -20,11 +20,9 @@ class Connent extends Component{
                 var  myLookUserNum=res.activelist.length;
                 var  lookMyuserNum=res.passivelist.length;
                 this.setState({
-                    myNetwork:res.data.cname,
-                    myLookUser:myLookUserNum,
-                    lookMyuser:lookMyuserNum,
-                    lookMyEquipment:res.passivelist,
-                    myLookeEuipment :res.activelist
+                    main:res.data.cname,
+                    come:res.passivelist,
+                    out :res.activelist
                 })
             }
         })
@@ -43,16 +41,16 @@ class Connent extends Component{
                                         <span className="titleFont">查看我的用户</span>
                                     </Col>
                                     <Col span={12}>
-                                        <span className="titleFont">共计：</span><span className="fontStyle">{this.state.lookMyuser}</span>
+                                        <span className="titleFont">共计：{this.state.come.length}</span>
                                     </Col>
                                 </Row>
                             </div>
-                            <div style={{display:this.state.lookMyEquipment?"block":"none"}}>
+                            <div>
                             {
-                                this.state.lookMyEquipment.map((v,i)=>(
+                                this.state.come.map((v,i)=>(
                                     <Row key={i}>
-                                        <Col span={12}>{v.activename}</Col>
-                                        <Col span={12}>设备:{v.avtiveecount}</Col>
+                                        <Col span={12}><p>{v.activename}</p></Col>
+                                        <Col span={12}><p>设备:{v.avtiveecount}</p></Col>
                                     </Row>
                                 ))
                             }
@@ -68,22 +66,22 @@ class Connent extends Component{
                                         <span className="titleFont">我查看的用户</span>
                                     </Col>
                                     <Col span={12}>
-                                        <span className="titleFont">共计：</span><span className="fontStyle">{this.state.myLookUser}</span>
+                                        <span className="titleFont">共计：{this.state.out.length}</span>
                                     </Col>
                                 </Row>
                             </div>
                             {
-                                this.state.myLookeEuipment.map((v,i)=>(
-                                    <Row key={i}>
-                                        <Col span={12}>{v.activename}</Col>
-                                        <Col span={12}>设备:{v.avtiveecount}</Col>
+                                this.state.out.map((v,i)=>(
+                                    <Row key={'out'+i}>
+                                        <Col span={12}><p>{v.activename}</p></Col>
+                                        <Col span={12}><p>设备:{v.avtiveecount}</p></Col>
                                     </Row>
                                 ))
                             }
                         </Card>
                     </Col>
                 </Row>
-                <Relationshipnetwork  myNetwork={this.state.myNetwork}/>
+            <Relationshipnetwork  main={this.state.main} come={this.state.come} out={this.state.out} />
             </div>
         );
     }

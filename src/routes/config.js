@@ -8,27 +8,27 @@ export default {
         { key: '/app/Userhome/Equipment', identi:['user'], title: '设备', icon: 'video-camera', funct:'basic', component: 'Equipment' },
         //报警
         { key: '/app/Userhome/Alarmlist', identi:['comp','user'], title: '报警', icon: 'alert', funct:'basic', component: 'Alarmlist' },
+        {
+            key: '/app/patrol', title: '巡更' , identi:['comp','patrol'], funct:'patrol', icon: 'bars',
+            subs: [
+                { key: '/app/patrol/patrolrecord', identi:['comp','patrol'], funct:'patrol', title: '巡更记录', component: 'PatrolRecord'},
+                { key: '/app/patrol/patrolplan', identi:['comp','patrol'], funct:'patrol',  title: '巡更计划', component: 'PatrolPlan'}, 
+            ],
+        },
+        {
+            key: '/app/rollcall', title: '点名' , identi:['comp','rollcall'], funct:'rollcall', icon: 'bars',
+            subs: [
+                { key: '/app/rollcall/rollcallrecord', identi:['comp','rollcall'], funct:'rollcall', title: '点名记录', component: 'RollcallRecord'},
+                { key: '/app/rollcall/rollcallhostory', identi:['comp','rollcall'], funct:'rollcall', title: '点名历史', component: 'RollcallHostory'},            
+                { key: '/app/rollcall/rollcalltask', identi:['comp','rollcall'],  funct:'rollcall', title: '点名任务', component: 'RollcallTask'},
+            ],
+        },
         //系统管理
         {
             key: '/app/settings', title: '系统管理' , identi:['comp','user'], icon: 'bars', funct:'basic',
             subs: [
                 { key: '/app/settings/employeelist', identi:['comp','user'], title: '用户管理', funct:'basic', component: 'Employeelist'}, 
                 { key: '/app/settings/loglist', identi:['comp','user'], title: '日志', funct:'basic', component: 'Loglist'},             
-            ],
-        },
-        {
-            key: '/app/patrol', title: '巡更' , identi:['comp','patrol'], funct:'patrol', icon: 'bars',
-            subs: [
-                { key: '/app/patrol/patrolplan', identi:['comp','patrol'], funct:'patrol',  title: '巡更计划', component: 'PatrolPlan'}, 
-                { key: '/app/patrol/patrolrecord', identi:['comp','patrol'], funct:'patrol', title: '巡更记录', component: 'PatrolRecord'},             
-            ],
-        },
-        {
-            key: '/app/rollcall', title: '点名' , identi:['comp','rollcall'], funct:'rollcall', icon: 'bars',
-            subs: [
-                { key: '/app/rollcall/rollcalltask', identi:['comp','rollcall'],  funct:'rollcall', title: '点名任务', component: 'RollcallTask'}, 
-                { key: '/app/rollcall/rollcallrecord', identi:['comp','rollcall'], funct:'rollcall', title: '点名记录', component: 'RollcallRecord'},
-                { key: '/app/rollcall/rollcallhostory', identi:['comp','rollcall'], funct:'rollcall', title: '点名历史', component: 'RollcallHostory'},            
             ],
         },
         { key: '/app/live/index', identi:['comp','user'], title: '直播', icon: 'camera', funct:'basic', component: 'Live' },
