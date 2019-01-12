@@ -4,6 +4,12 @@ var mainColor='#ffb402';
 var comeColor='#ec407a';
 var outColor='#35c2ff';
 class Relationshipnetwork extends Component{
+    constructor(props){
+        super(props);
+        this.state={
+
+        };
+    }
     render(){
         var links=[{
             source: this.props.myNetwork,
