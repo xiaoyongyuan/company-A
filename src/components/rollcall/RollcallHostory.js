@@ -381,7 +381,7 @@ class RollcallHostory extends React.Component{
                                                         <div className="times"> 第{i+1}次</div>
                                                             <div className="line_detail">
                                                                 <div className="line_alerm">
-                                                                   <div style={el.alarm.length>0?{display:'block'}:{display:'none'}}><div className="circle"><div></div></div>  </div>
+                                                                   <div style={el.alarm.length>0?{display:'block',margin:'0 5px 0 0'}:{display:'none'}}><div className="circle"><div></div></div>  </div>
                                                                         <div>
                                                                             {el.rollcalldate.slice(11,20)}自动点名，
                                                                             共点名 {el.taskid}个对象，
