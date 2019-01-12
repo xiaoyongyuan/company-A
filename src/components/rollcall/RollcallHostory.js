@@ -244,8 +244,6 @@ class RollcallHostory extends React.Component{
         this.onChangeDate('startValue',dateString1);
         this.setState({
             bdate:dateString1
-        },()=>{
-            console.log('startValue', this.state.bdate.format('YYYY-MM-DD'));
         })
         
     };
@@ -254,8 +252,6 @@ class RollcallHostory extends React.Component{
         this.onChangeDate("endValue",dateString2);
         this.setState({
             edate:dateString2
-        },()=>{
-            console.log('endValue',this.state.edate.format('YYYY-MM-DD'));
         })
     };
     //禁止的开始时间
@@ -381,7 +377,7 @@ class RollcallHostory extends React.Component{
                                                         <div className="times"> 第{i+1}次</div>
                                                             <div className="line_detail">
                                                                 <div className="line_alerm">
-                                                                   <div style={el.alarm.length>0?{display:'block',margin:'0 5px 0 0'}:{display:'none'}}><div className="circle"><div></div></div>  </div>
+                                                                   <div> {el.alarm.length>0?<div className="circle"><div></div></div>:<div className="circlegreen"><div></div></div>}</div>
                                                                         <div>
                                                                             {el.rollcalldate.slice(11,20)}自动点名，
                                                                             共点名 {el.taskid}个对象，
