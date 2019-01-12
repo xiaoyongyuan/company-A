@@ -4,7 +4,6 @@ import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
 import RollcallRecordModel from "./RollcallRecordModel";
-
 const formItemLayout = {
     labelCol: {
         xs: { span: 24 },
@@ -30,7 +29,6 @@ class RollcallHostory extends React.Component{
             isrequest:true,
         }
     }
-       
     componentDidMount() {
         post({url:'/api/rollcalldetail/getlist_info_dayly'},(res)=>{
             if(res.success){
@@ -56,7 +54,6 @@ class RollcallHostory extends React.Component{
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTop
                })
-              
             if(scrollbottom-scrollTopP===0){//滚动到底部了
                  pag++;
                _this.setState({
@@ -99,14 +96,12 @@ class RollcallHostory extends React.Component{
     backtop=()=>{ //返回顶部
         document.getElementById("scorll").scrollTop = 0; 
     };
-
    //开始时间
    onChange1 =(dateString1)=> {
         this.onChangeDate('startValue',dateString1);
         this.setState({
             bdate:dateString1
         })
-        
     };
     //结束时间
     onChange2 =(dateString2)=> {
@@ -171,8 +166,6 @@ class RollcallHostory extends React.Component{
             rollCallType:false
         })
     };
-    
- 
     render(){
         const { getFieldDecorator } = this.props.form;
         return(       
@@ -182,7 +175,6 @@ class RollcallHostory extends React.Component{
                 <LocaleProvider locale={zh_CN}>
                     <Row style={{marginTop:"50px"}}>
                         <Form onSubmit={this.handleSubmit}>
-
                             <Col xl={7} xxl={5} lg={9}>
                                 <Form.Item
                                     {...formItemLayout}
@@ -218,13 +210,10 @@ class RollcallHostory extends React.Component{
                             <Col xl={3} xxl={2} lg={2} className="msch">
                                 <Button type="primary" htmlType="submit">查询</Button>
                             </Col>
-                          
                         </Form>
                     </Row>
                 </LocaleProvider>
-
                 <div className="timeline_ml">
-            
                  <Timeline pending={true}>
                         {
                             this.state.list.map((item,j)=>{
@@ -262,14 +251,11 @@ class RollcallHostory extends React.Component{
                                             })
                                             }
                                     </Timeline.Item>
-                             
                                 )
                             })
                         } 
-
                 </Timeline>
                 </div>
-
                  <Modal
                     width={700}
                     title="点名记录详情"
