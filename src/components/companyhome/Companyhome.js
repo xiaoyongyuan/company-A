@@ -24,18 +24,30 @@ class Companyhome extends Component {
             myEquipment:[],
             code:[],
             codeCamera:[],
-            alarmcount:[]
+            alarmcount:[],
+            activelist:[], //共享设备
+            passivelist:[], //查看我的用户
         }
     }
     componentDidMount(){
         post({url:'/api/company/getone'},(res)=>{
             if(res.success){
-                let clat=res.data.clat;
-                let clng=res.data.clng;
+                let mapJson=[{
+                    name:res.data.cname,
+                    value:[res.data.clng,res.data.clat]
+                }];
+                res.activelist.map((el,i)=>{
+                    mapJson.push({
+                        name:el.activename,
+                        value:[el.activelng,el.activelat]
+                    })
+                })
                 this.setState({
+                    activelist:res.activelist, //共享用户
+                    passivelist:res.passivelist, //查看我的用户
                     enterpriseTitle:res.data.cname,
                     myEquipment:res.camera,
-                    mapJson:[{name:res.data.cname,value:[clng,clat]}],
+                    mapJson:mapJson,
                     code:res.data.code,
                     alarmcount:res.alarmcount,
                     cloudDate:res.data.clouddate,
@@ -62,7 +74,12 @@ class Companyhome extends Component {
                         <Card>
                             <Row>
                                 <Col xl={12} xxl={12}  ><a href={'#/app/companyhome/companyscene?code='+this.state.code} className="title_font shareUsers" className="title_font shareUsers">{this.state.enterpriseTitle}</a></Col>
-                                <Col xl={12} xxl={12} className="relationship"><img src={zixingguanli} alt="" /><span className="titleFont">自行管理</span><Link to={'/app/companyhome/connent'} className="qiYeFont">&nbsp;&nbsp;关系网</Link></Col>
+                                <Col xl={12} xxl={12} className="relationship">
+                                    <img src={zixingguanli} alt="" /><span className="titleFont">自行管理</span>
+                                    {
+                                    this.state.activelist.length||this.state.passivelist.length?<Link to={'/app/companyhome/connent'} className="qiYeFont">&nbsp;&nbsp;关系网</Link>:''
+                                    }
+                                </Col>
                             </Row>
                             <Row>
                                 <Col xl={12} xxl={12}>
@@ -118,20 +135,22 @@ class Companyhome extends Component {
                                         <Col xl={1} xxl={1}><div className="sandian"><img src={shumeipaiTitle} alt="" /></div></Col>
                                         <Col xl={10} xxl={12}><span className="titleFont">我的设备</span></Col>
                                     </Row>
-                                     <Row style={{display:this.state.myEquipment.length===0?"block":"none"}}>
-                                        <Col xl={24} xxl={24} style={{width:"100%",textAlign:"center",margin:"20px"}}><img src={nodata} alt="" /></Col>
-                                    </Row>
-                                    <div style={{display:this.state.myEquipment.length!==0?"block":"none"}}>
+                                    <div>
                                         {
-                                            this.state.myEquipment.map((item,index)=>{
+                                            this.state.myEquipment.length
+                                            ?this.state.myEquipment.map((item,index)=>{
                                                 return(
-                                                    <Row className="situation " key={index}>
+                                                    <Row className="situation" key={index}>
                                                         <Col className="gutter-row" xl={8}><a href={'#/app/companyhome/companydeveice?code='+item.code} className="should">{item.name?item.name:"未命名"}</a></Col>
                                                         <Col className="gutter-row" xl={8}>{this.handleStatus(item.cstatus)}</Col>
                                                         <Col className="gutter-row" xl={8}><a href={'#/app/Userhome/Alarmlist?id='+item.code} className=" should">未处理报警数：{item.alarm?item.alarm:"0"}</a></Col>
                                                     </Row>
-                                            );
+                                                );
                                             })
+                                            :
+                                            <Row>
+                                                <Col xl={24} xxl={24} style={{width:"100%",textAlign:"center",margin:"20px"}}><img src={nodata} alt="" /></Col>
+                                            </Row>
                                         }
                                     </div>
                                 </Card>
@@ -144,36 +163,22 @@ class Companyhome extends Component {
                                         <Col xl={1} xxl={1}><div className="sandian"><img src={gongxiang} alt="" /></div></Col>
                                         <Col xl={10} xxl={12}><span className="titleFont">共享用户</span></Col>
                                     </Row>
-                                    <Row>
-                                        <Col xl={24} xxl={24} style={{width:"100%",textAlign:"center",margin:"20px"}}><img src={nodata} alt=""/></Col>
-                                    </Row>
-                                   {/* <Link to={'/app/companyhome/companyscene'}>
-                                        <Row className="situation shareUsers" style={{marginTop:"10px"}}>
-                                            <Col className="gutter-row" xl={8}>户县博物馆</Col>
-                                            <Col className="gutter-row" xl={8}>设备30</Col>
-                                            <Col className="gutter-row" xl={8}>报警数123223</Col>
-                                        </Row>
-                                    </Link>
-                                    <Row className="situation">
-                                        <Col className="gutter-row" xl={8}>户县博物馆</Col>
-                                        <Col className="gutter-row" xl={8}>设备30</Col>
-                                        <Col className="gutter-row" xl={8}>报警数123223</Col>
-                                    </Row>
-                                    <Row className="situation">
-                                        <Col className="gutter-row" xl={8}>户县博物馆</Col>
-                                        <Col className="gutter-row" xl={8}>设备30</Col>
-                                        <Col className="gutter-row" xl={8}>报警数123223</Col>
-                                    </Row>
-                                    <Row className="situation">
-                                        <Col className="gutter-row" xl={8}>户县博物馆</Col>
-                                        <Col className="gutter-row" xl={8}>设备30</Col>
-                                        <Col className="gutter-row" xl={8}>报警数123223</Col>
-                                    </Row>
-                                    <Row className="situation">
-                                        <Col className="gutter-row" xl={8}>户县博物馆</Col>
-                                        <Col className="gutter-row" xl={8}>设备30</Col>
-                                        <Col className="gutter-row" xl={8}>报警数123223</Col>
-                                    </Row>*/}
+                                    {
+                                        this.state.activelist.length
+                                        ? this.state.activelist.map((el,indx)=>{
+                                        return(
+                                            <Row style={{marginTop:"10px"}} key={'el'+indx}>
+                                                <Col className="gutter-row" xl={8}><a href="" style={{color:'#313653'}}>{el.activename}</a></Col>
+                                                <Col className="gutter-row" xl={8}>设备数：{el.avtiveecount}</Col>
+                                                <Col className="gutter-row" xl={8}>未处理报警： {el.avtivealarm_unhandle}</Col>
+                                            </Row> 
+                                        )
+                                        })
+                                        :
+                                            <Row>
+                                                <Col xl={24} xxl={24} style={{width:"100%",textAlign:"center",margin:"20px"}}><img src={nodata} alt=""/></Col>
+                                            </Row>
+                                    }
                                 </Card>
                             </Col>
                         </Row>
