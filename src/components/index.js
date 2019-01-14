@@ -41,9 +41,6 @@ import RollcallHostory from './rollcall/RollcallHostory';
 //直播
 import Live from './live/index';
 
-//管理员查看设备
-import AdminEquipment from './adminequipment/index';
-
 const WysiwygBundle = Loadable({ // 按需加载富文本配置
     loader: () => import('./ui/Wysiwyg'),
     loading: Loading,
@@ -58,6 +55,5 @@ export default {
     ,PatrolPlan, PatrolRecord
     ,RollcallTask, RollcallRecord, Adopt, Auditing, RollcallHostory
     , Live
-    , AdminEquipment
 
 }
