@@ -387,7 +387,7 @@ margin: 20px 0;
 .patrol_detail{
     display: flex;
     flex-direction:column;
-    width:40%;
+    width:50%;
     height:100px;
 }
 .patrol_detail>div{

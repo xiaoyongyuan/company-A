@@ -156,7 +156,7 @@ class PatrolRecord extends React.Component{
                 return(
                     <div>
                         <Button className="operationBtn" onClick={()=>this.patrolAdopt(record.code,1,index)}>通过</Button>
-                        <Button type="danger" onClick={()=>this.patrolAdopt(record.code,2,index)}>不通过</Button>
+                        <Button type="danger" className="nopass" onClick={()=>this.patrolAdopt(record.code,2,index)}>不通过</Button>
                     </div>
                 )
             }

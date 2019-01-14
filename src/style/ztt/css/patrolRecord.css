@@ -12,3 +12,11 @@
 .ant-tag-blue{
     display: none;
 }
+@media screen and (max-width: 1280px) {
+    .nopass {
+        margin: 10px 0 0 10px;
+    }
+    .ant-btn + .ant-btn {
+        margin-left: 0px !important;
+    }
+}
