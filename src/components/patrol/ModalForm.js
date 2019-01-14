@@ -37,9 +37,7 @@ class ModalForm extends Component {
     }
   
     componentWillReceiveProps(nextProps){
-        // console.log("componentWillReceiveProps")
-        // console.log("nextProps", nextProps);
-        // console.log("nextProps.visible", nextProps.visible);
+       
         if( nextProps.visible != vis){
             vis=nextProps.visible;
             if(nextProps.visible){
@@ -47,13 +45,10 @@ class ModalForm extends Component {
                 this.setState({
                     code:this.props.code,
                 },()=>{
-                    // console.log("this.state.code-------------->",this.state.code);
                     if(nextProps.code==0){
                     }else{
                         post({url:"/api/patrol/getone",data:{code:nextProps.code} }, (res)=>{
-
-                            console.log(res.data.clist,"-------------->",typeof(res.data.clist),res.data.clist.split(",").map(Number));
-                            
+                            // console.log(res.data.clist,"-------------->",typeof(res.data.clist),res.data.clist.split(",").map(Number));
                             this.props.form.setFieldsValue({
                                 pteam: res.data.pteam,
                                 bdate: moment(`${res.data.pbdate}`, 'HH'),
