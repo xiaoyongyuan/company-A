@@ -55,6 +55,5 @@ export default {
     ,PatrolPlan, PatrolRecord
     ,RollcallTask, RollcallRecord, Adopt, Auditing, RollcallHostory
     , Live
-    , AdminEquipment
 
 }
