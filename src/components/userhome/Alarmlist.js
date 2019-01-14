@@ -337,10 +337,10 @@ class Alarmlist extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                            <Col xl={3} xxl={2} lg={3}>
+                            <Col xl={3} xxl={2} lg={3} className="mt">
                                 <Button type="primary" htmlType="submit">查询</Button>
                             </Col>
-                            <Col xl={3} xxl={2} lg={4}>
+                            <Col xl={3} xxl={2} lg={4} className="lr">
                                 <Button onClick={this.handleProcessing} >一键处理</Button>
                             </Col>
                         </Form>
