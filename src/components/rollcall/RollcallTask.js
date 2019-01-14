@@ -92,7 +92,7 @@ class RollcallTask extends Component{
     rollcallresult =()=>{ //查询点名结果
     	const _this=this;
     	let inter=setInterval(function(){
-    		post({url:"/api/rollcalldetail/getone",data:{code:_this.state.code},type:1},(res)=>{
+    		post({url:"/api/rollcalldetail/getlist",data:{taskid:_this.state.code},type:1},(res)=>{
             if(res.success){
             	clearInterval(inter);
                 _this.setState({
@@ -153,9 +153,8 @@ class RollcallTask extends Component{
                 <Row style={{margin:"2vmax 1vmax"}}>
                     <Col span={18}>
                         <Card title="点名任务" extra={<a onClick={()=>this.handleSetting}> <Icon type="setting" theme="filled" /><span>设置</span></a>}>
-                            <p>每次点名次数: <b>{this.state.time}</b>次 &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; {this.state.state?'执行中':'待生效'}</p>
+                            <p>今日自动点名次数: <b>{this.state.time}</b>次 &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; {this.state.state?'执行中':'待生效'}</p>
                             {this.state.last?<p>上一次点名时间: {this.state.last} &nbsp; &nbsp;&nbsp; 共点名<b>{this.state.count}</b>个对象，<b>{this.state.normal}</b>个正常， <b>{this.state.unusual}</b>个异常</p>:''}
-                            <p>下一次点名时间: {this.state.next}</p>
                         </Card>
                     </Col>
                 </Row>
@@ -206,11 +205,16 @@ class RollcallTask extends Component{
                                <img alt="example" width='100%' src={el.rpic?el.rpic:noImg} />
                                <div className="titles">{el.cameraname}</div>
                            </div>
-                           <p>{el.lastrollcall}
-                           {el.rstatus===1
-                            ? <span style={{float:"right"}}>正常</span>
-                            : <span style={{float:"right",color:'#f00'}}>报警</span>
-                           }</p>
+                           
+                           {el.detail[0]
+                            ?
+                            <p>{el.detail[0].resultdate} 
+                                {el.rstatus===1
+                                ? <span style={{float:"right"}}>正常</span>
+                                : <span style={{float:"right",color:'#f00'}}>报警</span>}
+                            </p>
+                            : <p>暂无点名记录  </p>
+                           }
                            <Button type="primary" block onClick={()=>this.rollcall(el.code)} visible={el.rstatus} disabled={el.rhandle==1&&el.rstatus?false:true}>点名</Button>
                         </Card>
                     </Col>
