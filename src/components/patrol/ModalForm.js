@@ -51,11 +51,15 @@ class ModalForm extends Component {
                     if(nextProps.code==0){
                     }else{
                         post({url:"/api/patrol/getone",data:{code:nextProps.code} }, (res)=>{
+
+                            console.log(res.data.clist,"-------------->",typeof(res.data.clist),res.data.clist.split(",").map(Number));
+                            
                             this.props.form.setFieldsValue({
                                 pteam: res.data.pteam,
                                 bdate: moment(`${res.data.pbdate}`, 'HH'),
                                 edate: moment(`${res.data.pedate}`, 'HH'),
-                                patrolE:[res.data.clist],                                 
+                                // patrolE:[res.data.clist],   
+                                patrolE:res.data.clist.split(",").map(Number) ,                           
                             });
                     })
                     }

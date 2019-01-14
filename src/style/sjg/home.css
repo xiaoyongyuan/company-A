@@ -323,6 +323,17 @@ margin: 20px 0;
 }
 
 /* 设备信息和摄像头信息页 */
+.coverflow{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    width: 100px;
+    line-height: 50px;    
+    max-height: 50px;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+     white-space: nowrap; 
+}
 .box-padding{
     padding:2%;
     border: 1px solid #DBDBDB;
