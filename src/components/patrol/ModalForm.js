@@ -9,7 +9,8 @@ class ModalForm extends Component {
         super(props);
         this.state={
             visible:props.visible || false,
-            form:false
+            form:false,
+            varr:[]
         };
     }
     componentWillMount(){
@@ -37,7 +38,6 @@ class ModalForm extends Component {
     }
   
     componentWillReceiveProps(nextProps){
-       
         if( nextProps.visible != vis){
             vis=nextProps.visible;
             if(nextProps.visible){
@@ -48,15 +48,16 @@ class ModalForm extends Component {
                     if(nextProps.code==0){
                     }else{
                         post({url:"/api/patrol/getone",data:{code:nextProps.code} }, (res)=>{
-                            // console.log(res.data.clist,"-------------->",typeof(res.data.clist),res.data.clist.split(",").map(Number));
+                            console.log('******************',res.data.clist.toString().split(",").map(Number));
                             this.props.form.setFieldsValue({
                                 pteam: res.data.pteam,
                                 bdate: moment(`${res.data.pbdate}`, 'HH'),
                                 edate: moment(`${res.data.pedate}`, 'HH'),
-                                // patrolE:[res.data.clist],   
-                                patrolE:res.data.clist.split(",").map(Number) ,                           
+                                patrolE:res.data.clist.toString().split(",").map(Number),
+
                             });
-                    })
+                            
+                        })
                     }
                 });
             }
@@ -70,7 +71,7 @@ class ModalForm extends Component {
                         pteam: res.data.pteam,
                         bdate: moment(`${res.data.pbdate}`, 'HH'),
                         edate: moment(`${res.data.pedate}`, 'HH'),
-                        patrolE:[res.data.clist], 
+                        patrolE:res.data.clist.toString().split(",").map(Number),   
                     });
             })
         }
