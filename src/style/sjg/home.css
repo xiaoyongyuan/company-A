@@ -578,3 +578,9 @@ margin: 4px 0 0 20px ;
     border-color: #313653;
     
 } */
+.textcenter{
+    text-align: center;
+}
+.RollcallHostory .ant-timeline-item-tail {
+    border-left: 2px solid #ccc7c7 !important;
+}

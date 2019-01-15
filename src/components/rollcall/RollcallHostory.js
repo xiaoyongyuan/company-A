@@ -230,7 +230,7 @@ class RollcallHostory extends React.Component{
                                                                    <div> {el.alarm.length>0?<div className="circle"><div></div></div>:<div className="circlegreen"><div></div></div>}</div>
                                                                         <div>
                                                                             {el.rollcalldate.slice(11,20)}自动点名，
-                                                                            共点名 {el.taskid}个对象，
+                                                                            共点名 {el.totalcount}个对象，
                                                                             {el.alarm.length}个报警，
                                                                             {el.normal}个正常， 
                                                                             <a href={"#/app/rollcall/rollcallrecord?taskid="+el.taskid+"&rollcalldate="+el.rollcalldate} className="underline">查看详情</a>

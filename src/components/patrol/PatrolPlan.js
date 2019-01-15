@@ -51,6 +51,7 @@ class PatrolPlan extends React.Component{
                     deleteshow: false,
                     list
                 });
+                message.success('删除成功');
             }
         })
     };
@@ -184,14 +185,16 @@ class PatrolPlan extends React.Component{
                         }
                 >
                      <Row>
+                     <div> {this.state.list.length?<div></div>:<div className="textcenter">暂无巡更计划</div>}</div>
                     {
                         this.state.list.map((item,i)=>{
                             return(
                                 <Col key={i} className="margin_top50 m_r" span={7}>
+                                
                                     <div className="patrol_item">
                                         <div className="patrol_head">
 
-                                           <div className={this.bgcolor(i)}>{this.state.list[i].pteam.substring(0,2)}</div>
+                                           <div className={this.bgcolor(i)}>{this.state.list[i].pteam}</div>
                                         </div>
                                         <div className="patrol_detail">
                                             <div className="coverflow">{this.state.list[i].pbdate}:00--{this.state.list[i].pedate}:00</div>
@@ -205,7 +208,9 @@ class PatrolPlan extends React.Component{
                                         <div className="del">
                                           <span onClick={() => {this.showModaldelete( this.state.list[i].code,{i})}}><Icon type="delete" />删除 </span>
                                         </div>
+                                       
                                     </div>
+                                   
                                 </Col>
                                 )
                         })
