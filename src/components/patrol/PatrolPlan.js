@@ -194,7 +194,7 @@ class PatrolPlan extends React.Component{
                                     <div className="patrol_item">
                                         <div className="patrol_head">
 
-                                           <div className={this.bgcolor(i)}>{this.state.list[i].pteam}</div>
+                                           <div className={this.bgcolor(i)}>{this.state.list[i].pteam.toString().substring(0,2)}</div>
                                         </div>
                                         <div className="patrol_detail">
                                             <div className="coverflow">{this.state.list[i].pbdate}:00--{this.state.list[i].pedate}:00</div>
