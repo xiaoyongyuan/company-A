@@ -412,6 +412,28 @@ margin: 20px 0;
         align-items:center;/*垂直居中*/
         justify-content: center;/*水平居中*/
     }
+    .patrol_detail{
+        display: flex;
+        flex-direction:column;
+        width:50%;
+        height:100px;
+    }
+    .patrol_query{
+        display: flex;
+        flex-direction:column;
+        align-items:center;/*垂直居中*/
+        justify-content: center;/*水平居中*/
+        width:14%;
+        height:100px;
+    }
+    .del{
+        display: flex;
+        flex-direction:column;
+        align-items:center;/*垂直居中*/
+        justify-content: center;/*水平居中*/
+        width:14%;
+        height:100px;
+    }
 }
 
 @media screen and (max-width: 1280px) {
@@ -424,24 +446,32 @@ margin: 20px 0;
         align-items:center;/*垂直居中*/
         justify-content: center;/*水平居中*/
     }
+    .patrol_detail{
+        display: flex;
+        flex-direction:column;
+        width:40%;
+        height:100px;
+    }
+    .patrol_query{
+        display: flex;
+        flex-direction:column;
+        align-items:center;/*垂直居中*/
+        justify-content: center;/*水平居中*/
+        width:20%;
+        height:100px;
+    }
+    .del{
+        display: flex;
+        flex-direction:column;
+        align-items:center;/*垂直居中*/
+        justify-content: center;/*水平居中*/
+        width:20%;
+        height:100px;
+    }
 }
 
-.patrol_query{
-    display: flex;
-    flex-direction:column;
-    align-items:center;/*垂直居中*/
-    justify-content: center;/*水平居中*/
-    width:14%;
-    height:100px;
-}
-.del{
-    display: flex;
-    flex-direction:column;
-    align-items:center;/*垂直居中*/
-    justify-content: center;/*水平居中*/
-    width:14%;
-    height:100px;
-}
+
+
 .m_r{
     margin:20px 2%;
 }
