@@ -62,10 +62,18 @@ class PatrolPlan extends React.Component{
     };
     showModal = (e) => { //新增弹窗
         e.preventDefault();
-        this.setState({
-            visible: true,
-            type:0,
-        });
+        console.log('******************',this.state.list_length);
+        post({url:"/api/patrol/getlist"}, (res)=>{
+            if(res.data.length<6){
+                this.setState({
+                    visible: true,
+                    type:0,
+                });
+             }else{
+                 message.warning('最多可以新增六个巡更');
+             }
+        })
+         
     };
     showModalEdit=(code,index)=>{ //编辑
         this.setState({
@@ -98,7 +106,7 @@ class PatrolPlan extends React.Component{
                         pedate:values.edate.format("HH"),
                         clist:values.patrolE.join(","),
                     };
-                    if(values.bdate.format("HH")<values.edate.format("HH")){
+                    if(values.bdate.format("HH")<=values.edate.format("HH")){
                         post({url:"/api/patrol/update",data:data},(res)=>{
                             if(res.success){
                                 let list=this.state.list;
@@ -128,25 +136,30 @@ class PatrolPlan extends React.Component{
                         pedate:values.edate.format("HH"),
                         clist:values.patrolE.join(",")
                     }
-                    post({url:"/api/patrol/add",data:data}, (res)=>{
-                        if(res.success){
-                            data.code=res.code;
-                            const list=this.state.list;
-                            list.unshift(data);
-                            this.setState({
-                                list:list,
-                                visible: false,
-                            },()=>{
-                                post({url:"/api/patrol/getlist"}, (res)=>{
-                                    if(res.success){
-                                        this.setState({
-                                            list: res.data
-                                            })
-                                    }
+                    if(values.bdate.format("HH")<=values.edate.format("HH")){
+                        post({url:"/api/patrol/add",data:data}, (res)=>{
+                            if(res.success){
+                                data.code=res.code;
+                                const list=this.state.list;
+                                list.unshift(data);
+                                this.setState({
+                                    list:list,
+                                    visible: false,
+                                },()=>{
+                                    post({url:"/api/patrol/getlist"}, (res)=>{
+                                        if(res.success){
+                                            this.setState({
+                                                list: res.data,
+                                                list_length:res.data.length
+                                                })
+                                        }
+                                    })
                                 })
-                            })
-                        }
-                    })
+                            }
+                        }) 
+                }else{
+                        message.warning('开始时间不能大于结束时间');
+                    }
                 }
                 forms.resetFields()//清空
             }

@@ -42,7 +42,7 @@ class RollcallHostory extends React.Component{
         })
          var _this=this;
         //  var x=0;
-        let pag=1;
+        let pag=2;
         document.getElementById("scorll").onscroll=function() {
             // console.log(`滚动了${x += 1}次`);
             var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
@@ -55,7 +55,7 @@ class RollcallHostory extends React.Component{
                 scrollTop:scrollTop
                })
             if(scrollbottom-scrollTopP===0){//滚动到底部了
-                 pag++;
+               
                _this.setState({
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTop,
@@ -64,19 +64,21 @@ class RollcallHostory extends React.Component{
                if(_this.state.isrequest){ 
                 post({url:'/api/rollcalldetail/getlist_info_dayly',data:{pageindex:_this.state.page}},(res)=>{
                     console.log(res,"res");
-                    console.log(res.data,"res.data");
+                    if(res.data.length>0){
+                        pag++;
+                       }
                     if(res.data.length>0){
                        _this.setState({
                         loading: true,
-                          } )
-                        }else{
-                            if(res.data.length===0){
-                               message.success('没有更多了');
-                            }
-                            _this.setState({
-                                isrequest: false,
-                             } )
+                        })
+                    }else{
+                        if(res.data.length===0){
+                            message.success('没有更多了');
                         }
+                        _this.setState({
+                            isrequest: false,
+                            } )
+                    }
                     if(res.success){
                         if(res.data.length>0){
                             const list=_this.state.list;
@@ -90,6 +92,7 @@ class RollcallHostory extends React.Component{
                     }
                 })
              }
+            
             }
         };
     }     
@@ -147,6 +150,7 @@ class RollcallHostory extends React.Component{
             post({url:'/api/rollcalldetail/getlist_info_dayly',data:data},(res)=>{
                 if(res.success){
                         this.setState({
+                            isrequest: true,
                             list:res.data
                         })
                 }
@@ -221,7 +225,7 @@ class RollcallHostory extends React.Component{
                                     <Timeline.Item key={j}>
                                         <p> {item.dayly} </p>
                                          { 
-                                             
+
                                              item.info.map((el,i)=>{
                                                 return (
                                                     <div key={i}>
