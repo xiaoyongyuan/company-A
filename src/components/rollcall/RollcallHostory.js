@@ -221,6 +221,7 @@ class RollcallHostory extends React.Component{
                                     <Timeline.Item key={j}>
                                         <p> {item.dayly} </p>
                                          { 
+                                             
                                              item.info.map((el,i)=>{
                                                 return (
                                                     <div key={i}>
