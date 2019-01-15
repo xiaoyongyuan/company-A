@@ -106,7 +106,7 @@ class PatrolPlan extends React.Component{
                         pedate:values.edate.format("HH"),
                         clist:values.patrolE.join(","),
                     };
-                    if(values.bdate.format("HH")<=values.edate.format("HH")){
+                    if(values.bdate.format("HH")==="00"&&values.edate.format("HH")==="00"){
                         post({url:"/api/patrol/update",data:data},(res)=>{
                             if(res.success){
                                 let list=this.state.list;
@@ -125,8 +125,29 @@ class PatrolPlan extends React.Component{
                                 })
                             }
                         })
+                    }else if(values.bdate.format("HH")<values.edate.format("HH")){
+                    
+                            post({url:"/api/patrol/update",data:data},(res)=>{
+                                if(res.success){
+                                    let list=this.state.list;
+                                    list[this.state.indexi]=res.data[0];
+                                    this.setState({
+                                        list:list,
+                                        visible: false,
+                                    },()=>{
+                                        post({url:"/api/patrol/getlist"}, (res)=>{
+                                            if(res.success){
+                                                this.setState({
+                                                    list: res.data
+                                                    })
+                                            }
+                                        })
+                                    })
+                                }
+                            })
+                       
                     }else{
-                        message.warning('开始时间不能大于结束时间');
+                         message.warning('开始时间不能大于结束时间');
                     }
 
                 }else{
@@ -161,7 +182,7 @@ class PatrolPlan extends React.Component{
                         message.warning('开始时间不能大于结束时间');
                     }
                 }
-                forms.resetFields()//清空
+                 forms.resetFields()//清空
             }
         });
     };
