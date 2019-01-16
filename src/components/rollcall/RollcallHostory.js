@@ -3,7 +3,7 @@ import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,Modal,Spin
 import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
-import RollcallHostoryModel from "./RollcallHostoryModel";
+import RollcallRecordModel from "./RollcallRecordModel";
 const formItemLayout = {
     labelCol: {
         xs: { span: 24 },
@@ -268,7 +268,7 @@ class RollcallHostory extends React.Component{
                     onCancel={this.handlerollClose}
                     footer={null}
                  >
-                    <RollcallHostoryModel code={this.state.code} visible={this.state.rollCallType} />
+                    <RollcallRecordModel code={this.state.code} visible={this.state.rollCallType} />
                  </Modal>
              </Spin>
             </div>
