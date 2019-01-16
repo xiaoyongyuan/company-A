@@ -2,92 +2,67 @@ import React,{Component} from "react";
 import {Row,Col} from "antd";
 import {post} from "../../axios/tools";
 import "../../style/ztt/css/rollCall.css";
-
-const rollset=[
-    {
-        code:89,
-        rrpic:'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
-        rfinal:0,
-        cid:1000007,
-        rname:"理工大",
-        ifeveryday:"1",
-        resultdate:"2019-01-05 16:31:00",
-    
-     },
-     {
-        code:90,
-        rrpic:'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
-        rfinal:1,
-        cid:1000007,
-        rname:"理工大",
-        ifeveryday:"0",
-        resultdate:"2019-01-05 16:31:00",
-    },
-    
-    {
-        code:91,
-        rrpic:'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229094947.jpg',
-        rfinal:0,
-        cid:1000007,
-        rname:"理工大",
-        ifeveryday:"1",
-        resultdate:"2019-01-05 12:31:00",
-     },
-    
-     {
-        code:92,
-        rrpic:'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229094947.jpg',
-        rfinal:1,
-        cid:1000007,
-        rname:"理工大",
-        ifeveryday:"0",
-        resultdate:"2019-01-05 12:31:00",
-    }
-    ,{
-        code:93,
-        rrpic:'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
-        rfinal:2,
-        cid:1000007,
-        rname:"理工大",
-        ifeveryday:"1",
-        resultdate:"2019-01-05 11:07",
-     },
-     {
-        code:94,
-        rrpic:'http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg',
-        rfinal:0,
-        cid:1000007,
-        rname:"理工大",
-        ifeveryday:"0",
-        resultdate:"2019-01-05 11:07",
-    }
-];
-
+let vis=false;
 class RollcallHostoryModel extends Component {
     constructor(props){
         super(props);
         this.state={
             list:{},
+           visible:props.visible || false,
         };
     }
-    
-    componentWillMount() {
-
-    }
-
     componentDidMount() {
-        // console.log('******************this.props.code',this.props.code);
-        post({url:'/api/rollcalldetail/getone',data:{code:this.props.code}},(res)=>{
-            if(res.success){
-                 console.log('******************', res);
-                    this.setState({
-                           list:res.data
-                    },()=>{
-                        console.log('this.state.list', this.state.list.rname);
-                    })
-            }
-        })
+        this.setState({
+            code:this.props.code
+        },()=>{
+            this.requestdata()
+        });
     }
+    componentWillReceiveProps(nextProps){
+        console.log('nextProps',nextProps);
+        console.log('nextProps.code',nextProps.code);
+        console.log("22222",nextProps.visible);
+        if( nextProps.visible !== vis){
+            console.log('---------nextProps.code',nextProps.code);
+            console.log(nextProps.visible);
+            vis=nextProps.visible;
+            if(nextProps.visible){
+                vis=nextProps.visible;
+                this.setState({
+                    code:nextProps.code
+                }, () => {
+                    console.log('*******code', nextProps.code);
+                    post({url:'/api/rollcalldetail/getone',data:{code:nextProps.code}},(res)=>{
+                        if(res.success){
+                             console.log('******************1', res.data);
+                                this.setState({
+                                       list:res.data
+                                },()=>{
+                                    console.log('this.state.list', this.state.list.rname);
+                                })
+                        }
+                    })
+                });
+            }
+        }
+             
+    }
+
+    requestdata=() => {//数据回填
+        if(this.state.code){
+            post({url:'/api/rollcalldetail/getone',data:{code:this.state.code}},(res)=>{
+                if(res.success){
+                     console.log('******************1', res.data);
+                        this.setState({
+                               list:res.data
+                        },()=>{
+                            console.log('this.state.list', this.state.list.rname);
+                        })
+                }
+            })
+        }
+    }
+
     normal =(status)=>{
         if(status==0){
             return "fontColor rollcallModelTitle";
