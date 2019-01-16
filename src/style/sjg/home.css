@@ -597,6 +597,7 @@ margin: 4px 0 0 20px ;
     height: 10px;
     border-radius: 50%;
     background: green;
+   
 }
 .circlegreen>div{
     display: inline-block;
@@ -615,4 +616,7 @@ margin: 4px 0 0 20px ;
 }
 .RollcallHostory .ant-timeline-item-tail {
     border-left: 2px solid #ccc7c7 !important;
+}
+.m_l{
+    margin-left: 6px;
 }

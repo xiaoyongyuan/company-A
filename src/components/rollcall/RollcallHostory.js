@@ -233,7 +233,7 @@ class RollcallHostory extends React.Component{
                                                             <div className="line_detail">
                                                                 <div className="line_alerm">
                                                                    <div> {el.alarm.length>0?<div className="circle"><div></div></div>:<div className="circlegreen"><div></div></div>}</div>
-                                                                        <div>
+                                                                        <div className="m_l">
                                                                             {el.rollcalldate.slice(11,20)}自动点名，
                                                                             共点名 {el.totalcount}个对象，
                                                                             {el.alarm.length}个报警，
