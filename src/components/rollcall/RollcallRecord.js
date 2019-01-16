@@ -208,7 +208,7 @@ class RollcallRecord extends React.Component{
                 onCancel={this.handlerollClose}
                 footer={null}
                 >
-                    <RollcallRecordModel code={this.state.code}/>
+                    <RollcallRecordModel code={this.state.code} visible={this.state.rollCallType} />
                 </Modal>
             </div>
         )
