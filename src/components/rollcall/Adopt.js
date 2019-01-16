@@ -188,11 +188,11 @@ class Adopt extends Component {
                                         label="状态"
                                     >
                                         {getFieldDecorator('status', {
-                                            initialValue: 2,
+                                            initialValue: 1,
                                             rules: [{required: false}],
                                         })(
-                                            <RadioGroup  onChange={this.onChange}>
-                                                <Radio disabled value={1}>关闭</Radio>
+                                            <RadioGroup disabled={true}  onChange={this.onChange}>
+                                                <Radio value={1}>关闭</Radio>
                                                 <Radio value={2}>开启</Radio>
                                             </RadioGroup>
                                         )}

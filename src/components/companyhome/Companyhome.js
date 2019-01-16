@@ -20,7 +20,7 @@ class Companyhome extends Component {
         this.state= {
             mapJson: [],
             enterpriseTitle:[],
-            cloudDate: [],
+            cloudDate: '',
             myEquipment:[],
             code:[],
             codeCamera:[],
@@ -50,7 +50,7 @@ class Companyhome extends Component {
                     mapJson:mapJson,
                     code:res.data.code,
                     alarmcount:res.alarmcount,
-                    cloudDate:res.data.clouddate,
+                    cloudDate:res.data.cloudvaliddate,
                 });
             }
         })
@@ -113,7 +113,7 @@ class Companyhome extends Component {
                                                     </Col>
                                                     <Col xl={10} lg={5} offset={1}>
                                                         <Row>
-                                                            <Col xl={24} className="cloudFont adminFont personalUseFont listContext" title={this.state.cloudDate}>
+                                                            <Col xl={24} className="cloudFont adminFont personalUseFont listContext">
                                                             {this.state.cloudDate?this.state.cloudDate:'无期限'}
                                                             </Col>
                                                         </Row>
