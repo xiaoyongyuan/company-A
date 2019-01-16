@@ -125,8 +125,8 @@ class PatrolPlan extends React.Component{
                                 })
                             }
                         })
+                     
                     }else if(values.bdate.format("HH")<values.edate.format("HH")){
-                    
                             post({url:"/api/patrol/update",data:data},(res)=>{
                                 if(res.success){
                                     let list=this.state.list;
@@ -145,11 +145,10 @@ class PatrolPlan extends React.Component{
                                     })
                                 }
                             })
-                       
                     }else{
                          message.warning('开始时间不能大于结束时间');
+                         forms.resetFields()//清空
                     }
-
                 }else{
                     const data={
                         pteam:values.pteam,
@@ -181,8 +180,9 @@ class PatrolPlan extends React.Component{
                 }else{
                         message.warning('开始时间不能大于结束时间');
                     }
+                    forms.resetFields()//清空
                 }
-                 forms.resetFields()//清空
+            
             }
         });
     };
