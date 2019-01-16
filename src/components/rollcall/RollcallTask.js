@@ -1,9 +1,10 @@
 import React, { Component} from 'react';
-import {Row, Col, Button,Form, Input, Modal, Card, Icon, Select, message, Spin} from "antd";
+import {Row, Col, Button,Form, Input, Modal, Card, Icon, Select, message, Spin, Pagination} from "antd";
 import {post} from "../../axios/tools";
 import "../../style/ztt/css/rollCall.css";
 import RollcallRecordModel from "./RollcallRecordModel";
 import noImg from "../../style/imgs/nopic.png";
+import scan from "../../style/imgs/scan.gif";
 const Option = Select.Option;
 const FormItem = Form.Item;
 class RollcallTask extends Component{
@@ -11,9 +12,8 @@ class RollcallTask extends Component{
         super(props);
         this.state={
             state:1, //当前任务的状态
-            time:3, //日执行次数
-            last:'2015-12-12 12:00:09',
-            next:'2015-12-12 12:00:09',
+            time:0, //日执行次数
+            last:{}, //上次点名
             count:20,
             normal:18,
             unusual:2,
@@ -21,9 +21,24 @@ class RollcallTask extends Component{
             settingType:false,
             loading:false, //加载开关
             everynum:1, //点名任务次数
+            rname:'', //检索的字段-对象名称
+            cameraname:'', //检索的字段-设备名称
+            pageindex:1, //当前页
+            pageSize:9, //每页显示的数据
+
         }
     }
     componentDidMount() {
+        post({url:"/api/rollcalltask/getlasttask"},(res)=>{
+            if(res.success){
+                this.setState({
+                    time:res.task.rollcallnum, //当日点名次数
+                    last:res.last, //上次点名
+                },()=>{
+                    this.draw()
+                })
+            }
+        })
         this.reuestdata();
     }
     //modal open
@@ -66,24 +81,29 @@ class RollcallTask extends Component{
             account:e.target.value
         })
     };
-    setRoll = () => { //点名设置
-
-    };
-    rollcall=(rid)=>{ //手动点名
-        // this.props.history.push('/app/companyhome/calling?code='+266)
-        // return;
+    rollcall=(rid,index)=>{ //手动点名
+        let list=this.state.list;
+                list[index].scan=true;
+                this.setState({
+                    loading:true,
+                    // code:res.code,
+                    list:list,
+                })
+                return;
     	post({url:"/api/rollcalltask/add_manualforAPP",data:{rid:rid}},(res)=>{
         if(res.success){
-        	if(rid=='all'){
+        	if(rid=='all'){ //全部点名
         		this.props.history.push('/app/companyhome/calling?code='+res.code)
-        	}else{
+        	}else{ //单点
+                let list=this.state.list;
+                list[index].scan=true;
         		this.setState({
-	            loading:true,
-	            code:res.code,
+    	            loading:true,
+    	            code:res.code,
+                    list:list,
 	        	},()=>{
 	        		this.rollcallresult()
-	        	})
-        		
+	        	})	
         	}    
         }
       })
@@ -92,29 +112,35 @@ class RollcallTask extends Component{
     rollcallresult =()=>{ //查询点名结果
     	const _this=this;
     	let inter=setInterval(function(){
-    		post({url:"/api/rollcalldetail/getlist",data:{taskid:_this.state.code},type:1},(res)=>{
+    		post({url:"/api/rollcalldetail/getlist_bytask",data:{taskid:_this.state.code},type:1},(res)=>{
             if(res.success){
-            	clearInterval(inter);
-                _this.setState({
-                		loading:false,
-                    rollCallType:true
-                })
+                if(!res.unhandle){
+                   clearInterval(inter);
+                   _this.setState({
+                        loading:false,
+                        rollCallType:true
+                    }) 
+                }
+                
+            }else{
+                clearInterval(inter);
             }
         })
     	},2000)
     };
     //点名查询
     selectopt =()=>{
-        let rollParams={
+        this.setState({
             rname:this.state.realname,
-            cameraname:this.state.account
-        };
-        post({url:"/api/rollcall/getlist",data:rollParams},(res)=>{
-            if(res.success){
-                this.setState({
-                    list:res.data
-                })
-            }
+            cameraname:this.state.account,
+            pageindex:1
+        })
+    };
+    hanlePageSize = (page) => { //翻页
+        this.setState({
+            pageindex:page
+        },()=>{
+            this.reuestdata();
         })
     };
     handlerollClose=()=>{ //控制单个点名弹层关闭
@@ -122,39 +148,92 @@ class RollcallTask extends Component{
         rollCallType:false
       })
     }
-    
+    draw = () => { //画对象区域   
+        let ele = document.getElementsByTagName("canvas");
+        if(ele.length){
+            for (let x = 0; x < ele.length; x++) {
+                let item=JSON.parse(this.state.list[x].rzone);
+                let that=ele[x];
+                let area = that.getContext("2d");
+                area.strokeStyle='#f00';
+                area.lineWidth=1;
+                area.beginPath();
+                area.moveTo(parseInt(item[0][0]/2.6),parseInt(item[0][1]/2.6));
+                item.map((elx,i)=>{
+                    if(i>0){
+                       area.lineTo(parseInt(item[i][0]/2.6),parseInt(item[i][1]/2.6));
+                       if(i===3){
+                       area.lineTo(parseInt(item[0][0]/2.6),parseInt(item[0][1]/2.6));
+                       } 
+                       area.stroke();
+                    }
+                })
+            }
+        }        
+    }
     reuestdata =()=>{ //点名的对象list
-        post({url:"/api/rollcall/getlist"},(res)=>{
+        let params={
+            rname:this.state.realname,
+            cameraname:this.state.account,
+            pageindex:this.state.pageindex
+        }
+        post({url:"/api/rollcall/getlist",data:params},(res)=>{
             if(res.success){
                 this.setState({
-                    list:res.data
+                    list:res.data,
+                    totalcount:res.totalcount,
+                },()=>{
+                    this.draw()
                 })
             }
         })
     };
-    deleteobj=(code,index)=>{ //删除点名对象
-    	const list=this.state.list;
-      list.splice(index,1);
-    	post({url:"/api/rollcall/del",data:{code:code}},(res)=>{
+    deleteCancel=()=>{ //删除弹层关闭
+        this.setState({
+            code:'',
+            index:'',
+            deleteshow:false,
+        })
+    }
+    deleteOk=()=>{//删除点名对象
+        const list=this.state.list;
+        list.splice(this.state.index,1);
+        post({url:"/api/rollcall/del",data:{code:this.state.code}},(res)=>{
           if(res.success){
-          	message.success('删除成功')
+            message.success('删除成功')
             this.setState({
-                list:list
+                list:list,
+                deleteshow:false,
+            },()=>{
+                this.draw()
             })
           }
       })
+
+    }
+    deleteobj=(code,index)=>{ //删除弹层
+        this.setState({
+            code:code,
+            index:index,
+            deleteshow:true,
+        })
     }
     
     render(){
         const { getFieldDecorator } = this.props.form;
         return(       
             <div className="RollcallTask">
-            	<Spin spinning={this.state.loading} delay={500} indicator={<Icon type='loading' />} size="large" tip="点名中......">
+            	<Spin spinning={this.state.loading} indicator={<p></p>}>
                 <Row style={{margin:"2vmax 1vmax"}}>
-                    <Col span={18}>
-                        <Card title="点名任务" extra={<a onClick={()=>this.handleSetting}> <Icon type="setting" theme="filled" /><span>设置</span></a>}>
+                    <Col span={20}>
+                        <Card title="点名任务" extra={<a onClick={this.handleSetting}> <Icon type="setting" theme="filled" /><span>设置</span></a>}>
                             <p>今日自动点名次数: <b>{this.state.time}</b>次 &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; {this.state.state?'执行中':'待生效'}</p>
-                            {this.state.last?<p>上一次点名时间: {this.state.last} &nbsp; &nbsp;&nbsp; 共点名<b>{this.state.count}</b>个对象，<b>{this.state.normal}</b>个正常， <b>{this.state.unusual}</b>个异常</p>:''}
+                            {this.state.last.rollcalldate
+                                ?<div>{this.state.last.executing<=0
+                                    ?<p>上一次点名时间: {this.state.last.rollcalldate} &nbsp; &nbsp;&nbsp; 共点名<b>{this.state.last.totalcount}</b>个对象，<b>{this.state.last.normal?this.state.last.normal:'0'}</b>个正常， <b>{this.state.last.unusual?this.state.last.unusual:'0'}</b>个报警</p>
+                                    :<p>上一次点名时间: {this.state.last.rollcalldate} &nbsp; &nbsp;&nbsp; 点名中</p>}
+                                </div>
+                                :''}
                         </Card>
                     </Col>
                 </Row>
@@ -196,14 +275,17 @@ class RollcallTask extends Component{
                     </Col>
 
                 </Row>
-                <Row>
+                <div className="flexbox">
                 {this.state.list.map((el,i)=>(
-                    <Col span={6} key={i} style={{margin:"1vmax 1vmax"}}>
+                    <div className="cardflex" key={i+1} style={{margin:"1vmax 1vmax"}}>
                        <Card>
                             <h4 style={{textAlign:'center',fontSize:"1max"}}>{el.rname}<Icon type="delete" style={{float:'right'}} onClick={()=>this.deleteobj(el.code,i)} /></h4>
-                           <div className="cardContext">
-                               <img alt="example" width='100%' src={el.rpic?el.rpic:noImg} />
-                               <div className="titles">{el.cameraname}</div>
+                            <div className="cardContext">
+                                <div className="scan">
+                                    <canvas id={"canvas"+(i+1)}  width='270px' height='221px' style={el.fieldpath?{backgroundImage:'url('+el.fieldpath+')'}:{backgroundImage:'url('+noImg+')'}} />
+                                    <img src={scan} className={el.scan?"scangif":"scanno"} />
+                                </div>
+                                <div className="titles">{el.cameraname}</div>
                            </div>
                            
                            {el.detail[0]
@@ -215,12 +297,14 @@ class RollcallTask extends Component{
                             </p>
                             : <p>暂无点名记录  </p>
                            }
-                           <Button type="primary" block onClick={()=>this.rollcall(el.code)} visible={el.rstatus} disabled={el.rhandle==1&&el.rstatus?false:true}>点名</Button>
+                           <Button type="primary" block onClick={()=>this.rollcall(el.code,i)} visible={el.rstatus} disabled={el.rhandle==1&&el.rstatus?false:true}>点名</Button>
                         </Card>
-                    </Col>
+                    </div>
                 ))
                 }   
-                </Row>
+                </div>
+                <Pagination current={this.state.pageindex} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} className="pageSize" />
+
               </Spin>
                 <Modal
                     title="设置点名任务"
@@ -244,8 +328,8 @@ class RollcallTask extends Component{
                                     <Option value="4" >4</Option>
                                     <Option value="6" >6</Option>
                                     <Option value="8" >8</Option>
-                                    <Option value="12" >12</Option>
-                                    <Option value="24" >24</Option>
+                                    <Option value="12">12</Option>
+                                    <Option value="24">24</Option>
                                 </Select>
                             )}
                         </Form.Item>
@@ -259,6 +343,11 @@ class RollcallTask extends Component{
                 footer={null}
                 >
                     <RollcallRecordModel code={this.state.code}/>
+                </Modal>
+                <Modal title="提示信息" visible={this.state.deleteshow} onOk={this.deleteOk}
+                       onCancel={this.deleteCancel} okText="确认" cancelText="取消"
+                >
+                    <p>确认删除吗？</p>
                 </Modal>
                 
             </div>

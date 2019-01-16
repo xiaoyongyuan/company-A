@@ -12,24 +12,24 @@ const Option = Select.Option;
 const rollset=[
     {
         code:0,
-        rname:"理工大",
-        cid:"eftt09",
+        rname:"神道西侧",
+        cid:"18石马",
         ifeveryday:"0",
-        resultdate:"2019-01-05 11:07",
-        rrpic:"http://pic01.aokecloud.cn/alarm/1000011/pic/20181228//1000011_20181228154552.jpg",
+        resultdate:"2019-01-10 11:07:09",
+        rrpic:"http://pic01.aokecloud.cn/alarm/1000021/background/EFGABC018.jpg",
         rfinal:"0"
     },{
         code:1,
-        rname:"西安软件园",
-        cid:"tftt06",
+        rname:"神道入口",
+        cid:"16狮子",
         ifeveryday:"1",
-        resultdate:"2019-01-04 11:07",
-        rrpic:"http://pic01.aokecloud.cn/alarm/1000004/pic/20190104//1000004_20190104172947.jpg",
+        resultdate:"2019-01-04 11:06::09",
+        rrpic:"http://pic01.aokecloud.cn/alarm/1000021/background/EFGABC016.jpg",
         rfinal:"1"
     },{
         code:2,
-        rname:"绿地",
-        cid:"tftt06",
+        rname:"神道东侧",
+        cid:"17石像",
         ifeveryday:"0",
         resultdate:"2018-12-03 11:07",
         rrpic:"http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg",
@@ -73,9 +73,7 @@ class RollcallRecord extends React.Component{
             bdate:dates[0].format('YYYY-MM-DD HH:00:00'),
             edate:dateStrings[1]
         });
-        console.log( dates,dateStrings);
-        console.log('From: ', dates[0], ', to: ', dates[1]);
-        console.log('From: ', dateStrings[0], ', to: ', dateStrings[1]);
+
     };
     //model open
     handlerollCallType =(index)=>{
@@ -119,7 +117,8 @@ class RollcallRecord extends React.Component{
         post({url:"/api/rollcalldetail/getlist"},(res)=>{
             if(res.success){
                 this.setState({
-                    rollsetList:rollset
+                    // rollsetList:rollset
+                    rollsetList:res.data
                 })
             }
         });
@@ -206,11 +205,10 @@ class RollcallRecord extends React.Component{
                                         <img src={v.rrpic} alt="" width="100%" onClick={()=>this.handlerollCallType(i)} />
                                     </Col>
                                     <Col xs={12} sm={12} md={12} lg={12} xl={11} xxl={11} className="rollRow">
-                                        <Row className="rollCall">{v.rname}-{v.cid}</Row>
+                                        <Row className="rollCall">{v.cameraname}-{v.rname}</Row>
                                         <Row className="rollCall">{v.ifeveryday==0?"自动点名":"手动点名"}</Row>
                                         <Row className="rollCall">
-                                            <Col xs={14} sm={14} md={14} lg={14} xl={14} xxl={14} className="overflow">{v.resultdate}</Col>
-                                            <Col xs={7} sm={7} md={7} lg={7} xl={7} xxl={5} className={this.normal(v.rfinal)}>{v.rfinal==0?"正常":"报警"}</Col>
+                                            <Col className="overflow">{v.resultdate} <span className={this.normal(v.rfinal)}>{v.rfinal==0?"正常":"报警"}</span></Col>
                                         </Row>
                                     </Col>
                                 </Row>

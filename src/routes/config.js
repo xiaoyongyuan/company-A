@@ -5,7 +5,7 @@ export default {
         //个人用户总览
         { key: '/app/Userhome/index', identi:['user'], title: '总览', icon: 'home', funct:'basic', component: 'Userhome' },
         //设备
-        { key: '/app/Userhome/Equipment', identi:['user'], title: '设备', icon: 'video-camera', funct:'basic', component: 'Equipment' },
+        { key: '/app/Userhome/Equipment', identi:['comp','user'], title: '设备', icon: 'video-camera', funct:'basic', component: 'Equipment' },
         //报警
         { key: '/app/Userhome/Alarmlist', identi:['comp','user'], title: '报警', icon: 'alert', funct:'basic', component: 'Alarmlist' },
         {

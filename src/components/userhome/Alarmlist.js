@@ -133,7 +133,6 @@ class Alarmlist extends React.Component{
         data.bdate=this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'';
         data.edate=this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'';
         data.cid=this.state.cid;
-
         this.setState({
             page:page
         },()=>{
@@ -371,11 +370,11 @@ class Alarmlist extends React.Component{
                                             <div className="triangle"></div>
                                             <Row className="line-police">
                                                 <Col xl={12} xxl={12} lg={12} className="policeName">{v.name}</Col>
-                                                <Col xl={12} xxl={12} lg={12}>{v.atype===1?"入侵检测":""}</Col>
+                                                <Col xl={11} xxl={11} lg={11} offset={1}>{v.atype===1?"入侵检测":""}</Col>
                                             </Row>
                                             <Row className="line-police">
-                                                <Col xl={12} xxl={12} lg={12} className="overflow" title={v.atime}>{v.atime}</Col>
-                                                <Col xl={12} xxl={12} lg={12}>报警对象：{v.tags===""?"无":v.tags}</Col>
+                                                <Col xl={12} xxl={12} lg={12} className="overflow">{v.atime}</Col>
+                                                <Col xl={11} xxl={11} lg={11} offset={1} className="overflow">报警对象：{v.tags===""?"无":v.tags}</Col>
                                             </Row>
                                             <Row className="line-police" style={{borderTop:"1px solid #efefef",paddingTop:'5px'}}>
                                                 <Col xl={8} xxl={8} lg={8}><span onClick={()=>this.alarmdeal(v.code,i,1)} className="cursor"><span className="iconfont icon-queren iconColor2" />&nbsp;确认</span></Col>
