@@ -46,6 +46,7 @@ export default {
         { key: '/app/rollcall/auditing', title: '设置点名', component: 'Auditing'},
         { key: '/app/companyhome/connent', title: '关系网', component: 'Connent'},
         { key: '/app/userhome/Alarmdetails', title: '报警详情', component: 'Alarmdetails'},
+        { key: '/app/rollcall/adoptlook', title: '点名对象详情', component: 'AdoptLook'},
         { key: '/app/userhome/Userdeveice', title: '设备详情', component: 'Userdeveice'},
             {
         key: '/subs4', title: '页面', icon: 'switcher',

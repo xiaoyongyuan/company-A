@@ -37,6 +37,7 @@ import RollcallRecord from './rollcall/RollcallRecord';
 import Adopt from './rollcall/Adopt';
 import Auditing from './rollcall/Auditing';
 import RollcallHostory from './rollcall/RollcallHostory';
+import AdoptLook from './rollcall/AdoptLook';
 
 //直播
 import Live from './live/index';
@@ -48,12 +49,11 @@ const WysiwygBundle = Loadable({ // 按需加载富文本配置
 
 export default {
     WysiwygBundle
-
     , Companyhome, Companyscene, Companydeveice, Calling, Connent, Deveicedet, Settime, Setarea
     , Alarmdetails, Alarmlist, Equipment, Userhome, Userdeveice
     , Employeelist, Loglist
     ,PatrolPlan, PatrolRecord
-    ,RollcallTask, RollcallRecord, Adopt, Auditing, RollcallHostory
+    ,RollcallTask, RollcallRecord, Adopt, Auditing, RollcallHostory, AdoptLook
     , Live
 
 }

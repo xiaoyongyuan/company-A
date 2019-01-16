@@ -52,14 +52,48 @@ RollcallTask.js 点名任务
 }
 .cardContext .titles{
     display: flex;
-    padding:4px 13px;
+    padding:3px 13px;
     background: rgba(51,56,80,.9);
     position: absolute;
     align-items: center;
     justify-content: center;
-    top:1vh;
-    left: -1.5vh;
+    top:4px;
+    left: -5px;
+    font-size: 12px;
     border-radius: 4px;
     color: white;
 
+}
+/*点名对象页*/
+.RollcallTask .flexbox{
+    display: flex;
+    justify-content:flex-start;
+    flex-wrap:wrap;
+}
+.RollcallTask .cardflex{
+    
+}
+.cardContext canvas{
+    background-size:100% 100%;
+    width: 270px;
+    height: 221px;
+}
+.RollcallTask .scan{
+    display: inline-block;
+    position: relative;
+}
+.RollcallTask .scangif{
+    position: absolute;
+    top: 0;
+    left:0;
+    z-index:3;
+    width:270px;
+    height: 221px;
+}
+.RollcallTask .scanno{
+    display: none;
+}
+.RollcallTask .ant-spin-blur{
+    opacity:1;
+    
 }

@@ -5,8 +5,10 @@ import "../../style/ztt/css/rollCall.css";
 import RollcallRecordModel from "./RollcallRecordModel";
 import noImg from "../../style/imgs/nopic.png";
 import scan from "../../style/imgs/scan.gif";
+import moment from "moment";
 const Option = Select.Option;
 const FormItem = Form.Item;
+
 class RollcallTask extends Component{
 	constructor(props){
         super(props);
@@ -25,7 +27,7 @@ class RollcallTask extends Component{
             cameraname:'', //检索的字段-设备名称
             pageindex:1, //当前页
             pageSize:9, //每页显示的数据
-
+            duration:'',
         }
     }
     componentDidMount() {
@@ -82,43 +84,50 @@ class RollcallTask extends Component{
         })
     };
     rollcall=(rid,index)=>{ //手动点名
-        let list=this.state.list;
-                list[index].scan=true;
-                this.setState({
-                    loading:true,
-                    // code:res.code,
-                    list:list,
-                })
-                return;
     	post({url:"/api/rollcalltask/add_manualforAPP",data:{rid:rid}},(res)=>{
         if(res.success){
         	if(rid=='all'){ //全部点名
         		this.props.history.push('/app/companyhome/calling?code='+res.code)
         	}else{ //单点
+                let duration=moment().format('YYYY-MM-DD HH:mm:ss');
                 let list=this.state.list;
                 list[index].scan=true;
         		this.setState({
     	            loading:true,
     	            code:res.code,
                     list:list,
+                    index:index,
+                    duration:duration,
 	        	},()=>{
 	        		this.rollcallresult()
 	        	})	
         	}    
         }
       })
-
     }
     rollcallresult =()=>{ //查询点名结果
     	const _this=this;
     	let inter=setInterval(function(){
+            let list=_this.state.list;
+            list[_this.state.index].scan=false;
+            if(moment()-moment(_this.state.duration)>10000){ //点名10秒无结果
+                message.info('系统繁忙，请稍后再试');
+                clearInterval(inter);
+                _this.setState({
+                    loading:false,
+                    list:list,
+                }) 
+                return;
+            }
     		post({url:"/api/rollcalldetail/getlist_bytask",data:{taskid:_this.state.code},type:1},(res)=>{
             if(res.success){
                 if(!res.unhandle){
                    clearInterval(inter);
                    _this.setState({
+                        code:res.data[0].code,
                         loading:false,
-                        rollCallType:true
+                        rollCallType:true,
+                        list:list,
                     }) 
                 }
                 
@@ -225,7 +234,7 @@ class RollcallTask extends Component{
             <div className="RollcallTask">
             	<Spin spinning={this.state.loading} indicator={<p></p>}>
                 <Row style={{margin:"2vmax 1vmax"}}>
-                    <Col span={20}>
+                    <Col span={22}>
                         <Card title="点名任务" extra={<a onClick={this.handleSetting}> <Icon type="setting" theme="filled" /><span>设置</span></a>}>
                             <p>今日自动点名次数: <b>{this.state.time}</b>次 &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; {this.state.state?'执行中':'待生效'}</p>
                             {this.state.last.rollcalldate
@@ -281,10 +290,10 @@ class RollcallTask extends Component{
                        <Card>
                             <h4 style={{textAlign:'center',fontSize:"1max"}}>{el.rname}<Icon type="delete" style={{float:'right'}} onClick={()=>this.deleteobj(el.code,i)} /></h4>
                             <div className="cardContext">
-                                <div className="scan">
+                                <a className="scan" href={"#/app/rollcall/adoptlook?id="+el.code}>
                                     <canvas id={"canvas"+(i+1)}  width='270px' height='221px' style={el.fieldpath?{backgroundImage:'url('+el.fieldpath+')'}:{backgroundImage:'url('+noImg+')'}} />
                                     <img src={scan} className={el.scan?"scangif":"scanno"} />
-                                </div>
+                                </a>
                                 <div className="titles">{el.cameraname}</div>
                            </div>
                            
@@ -303,7 +312,7 @@ class RollcallTask extends Component{
                 ))
                 }   
                 </div>
-                <Pagination current={this.state.pageindex} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} className="pageSize" />
+                <Pagination visible={this.state.list.length?true:false} current={this.state.pageindex} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} className="pageSize" />
 
               </Spin>
                 <Modal
@@ -342,7 +351,7 @@ class RollcallTask extends Component{
                 onCancel={this.handlerollClose}
                 footer={null}
                 >
-                    <RollcallRecordModel code={this.state.code}/>
+                    <RollcallRecordModel code={this.state.code} visible={this.state.rollCallType} />
                 </Modal>
                 <Modal title="提示信息" visible={this.state.deleteshow} onOk={this.deleteOk}
                        onCancel={this.deleteCancel} okText="确认" cancelText="取消"
