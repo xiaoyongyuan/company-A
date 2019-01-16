@@ -147,7 +147,10 @@ class PatrolPlan extends React.Component{
                             })
                     }else{
                          message.warning('开始时间不能大于结束时间');
-                         forms.resetFields()//清空
+                        //  forms.resetFields();//清空
+                        console.log('******************',values);
+                        values.bdate="";
+                        values.edate="";
                     }
                 }else{
                     const data={

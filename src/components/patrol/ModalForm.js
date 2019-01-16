@@ -13,8 +13,6 @@ class ModalForm extends Component {
             varr:[]
         };
     }
-    componentWillMount(){
-    }
     componentDidMount() {
         //编辑  数据回填
         this.setState({
@@ -79,6 +77,7 @@ class ModalForm extends Component {
     formref = () => { //将form传给父组件由父组件控制表单提交
         return this.props.form;
     };
+ 
     render() {
         const CheckboxGroup = Checkbox.Group;
         const { getFieldDecorator } = this.props.form;
@@ -142,7 +141,7 @@ class ModalForm extends Component {
                     })(
                         <TimePicker onChange={onChange_time2}
                                     disabledHours={disabledHours}
-                                    format={format} 
+                                    format={format}
                         />
                     )}
                 </FormItem>
