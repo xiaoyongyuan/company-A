@@ -245,7 +245,7 @@ class RollcallHostory extends React.Component{
                                                                 el.alarm.map((num,n)=>{
                                                                      return (
                                                                             <div key={n} className="alarm_img" style={num.rpic?{display:'inlin-block'}:{display:'none'}} >
-                                                                                <img src={num.rrpic} alt="alarm_img" width="100%" onClick={()=>this.handlerollCallType(n)} />
+                                                                                <img src={num.rrpic} alt="alarm_img" width="100%" onClick={()=>this.handlerollCallType(num.code)} />
                                                                             </div> 
                                                                             )
                                                                     })
