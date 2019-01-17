@@ -9,14 +9,14 @@ export default {
         //报警
         { key: '/app/Userhome/Alarmlist', identi:['comp','user'], title: '报警', icon: 'alert', funct:'basic', component: 'Alarmlist' },
         {
-            key: '/app/patrol', title: '巡更' , identi:['comp','patrol'], funct:'patrol', icon: 'bars',
+            key: '/app/patrol', title: '巡更' , identi:['comp','patrol'], funct:'patrol', icon: 'environment',
             subs: [
                 { key: '/app/patrol/patrolrecord', identi:['comp','patrol'], funct:'patrol', title: '巡更记录', component: 'PatrolRecord'},
                 { key: '/app/patrol/patrolplan', identi:['comp','patrol'], funct:'patrol',  title: '巡更计划', component: 'PatrolPlan'}, 
             ],
         },
         {
-            key: '/app/rollcall', title: '点名' , identi:['comp','rollcall'], funct:'rollcall', icon: 'bars',
+            key: '/app/rollcall', title: '点名' , identi:['comp','rollcall'], funct:'rollcall', icon: 'scan',
             subs: [
                 { key: '/app/rollcall/rollcallrecord', identi:['comp','rollcall'], funct:'rollcall', title: '点名记录', component: 'RollcallRecord'},
                 { key: '/app/rollcall/rollcallhostory', identi:['comp','rollcall'], funct:'rollcall', title: '点名历史', component: 'RollcallHostory'},            

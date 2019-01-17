@@ -1,32 +1,10 @@
 import React,{ Component } from 'react';
-import {Row, Col, Card,Modal,Spin } from 'antd';
+import {Row, Col, Card,Modal,Spin, message } from 'antd';
 import '../../style/sjg/home.css';
 import BreadcrumbCustom from '../BreadcrumbCustom';
-import yal from "../../style/yal/css/calling.css";
+import "../../style/yal/css/calling.css";
 import {post} from "../../axios/tools";
-const data = [
-    {
-        "rrpic": "http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229095825.jpg",
-        "rfinal": "2",
-        rname:'石狮子'
-    },
-    {
-        "rrpic": "http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229095847.jpg",
-        "rfinal": "1",
-        rname:'柱子'
-    },
-    {
-        "rrpic": "http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229095847.jpg",
-        "rfinal": "1",
-        rname:'柱子'
-    },
-    {
-        "rrpic": "http://pic01.aokecloud.cn/alarm/1000011/pic/20181229//1000011_20181229100320.jpg",
-        "rfinal": "2",
-        rname:'兵马俑'
-    }
-]
-
+import moment from "moment";
 class Calling extends Component{
     constructor(props) {
         super(props);
@@ -37,32 +15,55 @@ class Calling extends Component{
             count:4,
             normal:18,
             unusual:2,
+            totalcount:0, //点名数量
+            duration:'', //点名起始时间
         };
         this.showModal=this.showModal.bind(this);
     }
-
+    componentWillMount(){
+        this.setState({
+            code:this.props.query.id,
+            duration:moment().format('YYYY-MM-DD HH:mm:ss'),
+        });
+    }
     componentDidMount() {
+        const _this=this;
         this.reuestdata();
-
-      this.showModal();
-      setInterval(()=>{
-          this.setState({
-              visible: false,
-              type:0
-          });
-      },5000);
+        this.showModal();
     }
 
     reuestdata =(parameter={})=>{ //全部点名查询
-        post({url:"/api/rollcall/getlist",data:parameter},(res)=>{
-            if(res){
+        const _this=this;
+        post({url:"/api/rollcalldetail/getlist_bytask",data:{taskid:this.state.code}},(res)=>{
+            if(res.success){
                 this.setState({
-                    // list:res.data
-                    list:data
-
+                    list:res.data,
+                    totalcount:res.totalcount,
                 })
             }
         })
+        let inter=setInterval(()=>{
+            if(moment()-moment(_this.state.duration)>15000){ 
+                clearInterval(inter);
+                message.warn('系统繁忙，请稍后再试',2,function(){
+                    // _this.props.history.go(-1);
+                });
+                return;
+            }
+            post({url:"/api/rollcalldetail/getlist_bytask",data:{taskid:this.state.code}},(res)=>{
+                if(res.success){
+                    this.setState({
+                        list:res.data,
+                        visible:res.unhandle?true:false,
+                        edate:Math.ceil((moment()-moment(_this.state.duration))/1000)
+                    })
+                }else{
+                  clearInterval(inter);  
+                }
+            })
+        },2000);
+
+        
     };
     showModal = () => {
         this.setState({
@@ -75,14 +76,19 @@ class Calling extends Component{
             <div className="gutter-example button-demo">
                 <BreadcrumbCustom first="点名" second="点名任务" />
                 <div className="dmword">
-                    <span style={{display:this.state.type?"block":"none"}}>此次点名共<b>{this.state.count}</b>个对象，</span>
+                    <span style={{display:this.state.type?"block":"none"}}>此次点名共<b>{this.state.totalcount}</b>个对象
+                    {this.state.edate
+                        ?<div>
+
+                        </div>
+                        :''
+                    }</span>
                     <span style={{display:this.state.type?"none":"block"}}>此次点名共<b>{this.state.count}</b>个对象，用时<b>14</b>秒。<b>{this.state.unusual}</b>个异常，<b>{this.state.normal}</b>个正常。</span>
                 </div>
                 <div className="divRow">
                     <Row gutter={50}>
                         {this.state.list.map((el,i)=>(
                         <Col className="gutter-row" span={7} key={i}>
-                            {/*style={{background:this.state.type?"none":"#fff"}}*/}
                             <div className="gutter-box divout"  style={{border:this.state.type?"none":"2px solid #E5E5E5" ,background:this.state.type?"none":"#fff" ,height:this.state.type?"230px":"460px"}} >
                                 <div className="divinnertop" style={{border:this.state.type?"2px solid #E5E5E5":"none", height:this.state.type?"100%":"50%"}}>
                                     <div className="divinnertopT">
@@ -90,7 +96,7 @@ class Calling extends Component{
                                     <div className="divinnertopM">
                                         <div className="divinnertopML">
                                             <div className="divimg">
-                                                <img src={el.rrpic} className="img-responsive" alt="test" style={{width:"100%",height:"100%"}} />
+                                                <img src={el.rpic} className="img-responsive" alt="test" style={{width:"100%",height:"100%"}} />
                                             </div>
                                         </div>
                                         <div className="divinnertopMR">
@@ -98,10 +104,9 @@ class Calling extends Component{
                                                 <span>{el.rname}</span>
                                             </div>
                                             <div className="divinnertopMRB">
-                                                <span>理工大北门</span>
+                                                <span>{el.cameraname}</span>
                                             </div>
                                         </div>
-
                                     </div>
                                     <div className="divinnertopB" style={{display:this.state.type?"none":"block"}}>
                                         <Row>
@@ -109,20 +114,29 @@ class Calling extends Component{
                                                 <span>结果:</span>
                                             </Col>
                                             <Col md={5}>
-                                                {el.rfinal==1
+                                                {
+                                                    el.rfinal
+                                                    ?<div>
+                                                    {el.rfinal==1
                                                     ? <span style={{ color:"green" }}>正常</span>
                                                     : <span style={{ color:"red" }}>报警</span>
-
+                                                    }   
+                                                    </div>
+                                                    :<span>点名中...</span>
+                                                    
                                                 }
                                             </Col>
                                         </Row>
                                     </div>
                                 </div>
-                                <div className="divinnerbottom" style={{display:this.state.type?"none":"block"}}>
+                                { el.rfinal
+                                ?<div className="divinnerbottom" style={{display:this.state.type?"none":"block"}}>
                                     <div className="divinnerbottomimg">
                                         <img src={el.rrpic} className="img-responsive" alt="test" style={{width:"100%",height:"100%"}} />
                                     </div>
                                 </div>
+                                :''
+                                }
                             </div>
                         </Col>
                         ))
