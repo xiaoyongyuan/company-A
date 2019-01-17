@@ -20,8 +20,6 @@ class RollcallRecordModel extends Component {
     componentWillMount() {
         this.setState({
             code:this.props.code
-        },()=>{
-            console.log(this.props.code,this.state.code)
         })
     }
 
@@ -44,8 +42,7 @@ class RollcallRecordModel extends Component {
                 }, () => {
                     this.componentDidMount()});
             }
-        }
-             
+        }         
     }
 
     render(){

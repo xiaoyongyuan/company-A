@@ -1,31 +1,13 @@
 
 import React, { Component } from 'react';
 import '../../style/sjg/home.css';
-import { Card, Form, Input, Row, Col, Button,Upload, message, Icon, } from 'antd';
+import { Card, Form, Input, Row, Col, Button,Upload, message, Icon, Radio, Select } from 'antd';
 import BreadcrumbCustom from '../BreadcrumbCustom';
 import {post} from "../../axios/tools";
 import nopic from "../../style/imgs/nopic.png";
 const FormItem = Form.Item;
-const props = {
-    accept:'image/jpg',
-    name: 'lffupload.png',
-    action: 'http://api.aokecloud.cn//upload/temp',
-    // action: '/src/style/imgs/',
-    headers: {
-        authorization: 'authorization-text',
-    },
-    onChange(info) {
-        if (info.file.status !== 'uploading') {
-            console.log(info.file, info.fileList);
-        }
-        if (info.file.status === 'done') {
-            message.success(`上传完成`);
-        } else if (info.file.status === 'error') {
-            message.error(`上传失败`);
-        }
-    },
-};
-
+const RadioGroup = Radio.Group;
+const Option = Select.Option;
 class AdoptLook extends Component {
     constructor(props) {
         super(props);
@@ -49,10 +31,12 @@ class AdoptLook extends Component {
                     rname: res.data.rname, //对象名
                     applydate: res.data.applydate, 
                     cameraname: res.data.cameraname, 
-                    rhandle: res.data.rhandle,   //处理结果                           
+                    rhandle: res.data.rhandle,   //审核结果                           
                 });
                 _this.setState({
                     imgsrc: res.data.basepic, //图片
+                    rpic:res.data.rpic,
+                    rhandle: toString(res.data.rhandle), 
                     present: JSON.parse(res.data.rzone), //区域   
                 },()=>{
                    this.draw() 
@@ -104,6 +88,7 @@ class AdoptLook extends Component {
     };
 
     render() {
+        const _this=this;
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
             labelCol: {
@@ -125,8 +110,7 @@ class AdoptLook extends Component {
                     <Col className="gutter-row" span={10}>
                         <div className="gutter-box">
                             <Card title="" bordered={false}>
-                                <Form onSubmit={this.handleSubmit}>
-                                    
+                                <Form onSubmit={this.handleSubmit}>                                    
                                     <FormItem
                                         {...formItemLayout}
                                         label="用户名"
@@ -164,24 +148,6 @@ class AdoptLook extends Component {
                                         <Col span={10}>
                                             <canvas id="time_graph_canvas" width="704px" height="576px" style={{backgroundImage:'url('+this.state.imgsrc+')',backgroundSize:'100% 100%'}} onClick={this.clickgetcorrd} onMouseMove={this.drawmove} />
                                         </Col>
-                                    </Row>           
-                                    
-                                    <Row className="area_row">
-                                        <Col span={4} offset={4} className="area_text">
-                                            对象图：
-                                        </Col>
-                                        <Col span={10}>
-                                            <div className="area">
-                                                <img alt="3" src="../../style/logo.png" />
-                                            </div>
-                                        </Col>
-                                        <Col xl={6} offset={4}>
-                                            <Upload {...props}>
-                                                <Button>
-                                                    <Icon type="upload" /> Click to Upload
-                                                </Button>
-                                            </Upload>
-                                        </Col>
                                     </Row>
                                     <FormItem
                                         {...formItemLayout}
@@ -190,15 +156,59 @@ class AdoptLook extends Component {
                                         {getFieldDecorator('rhandle', {
                                             rules: [{required: false}],
                                         })(
-                                            <Input disabled />
+                                            <Select >
+                                              <Option value='0'>未审核</Option>
+                                              <Option value='1'>审核未通过</Option>
+                                              <Option value='2'>审核通过</Option>
+                                            </Select>
                                         )}
-                                    </FormItem>
-                                    <Row>
-                                        <Col span={8} offset={16}>
-                                            <Button type="primary" htmlType="submit" className="login-form-button" >上传对象图</Button>
-                                            <Button style={{display:"inline-block"}} onClick={this.cancelhandle}>不通过</Button>
-                                        </Col>
-                                    </Row>
+                                    </FormItem>  
+                                    {this.state.rhandle
+                                        ?<div>{
+                                            this.state.rpic
+                                            ?<div>
+                                                <Row className="area_row">
+                                                    <Col span={4} offset={4} className="area_text">
+                                                        对象图：
+                                                    </Col>
+                                                    <Col span={10}>
+                                                        <img alt="3" src={this.state.rpic} width="100%" />
+                                                    </Col>
+                                                </Row>
+                                                <FormItem
+                                                    {...formItemLayout}
+                                                    label="状态"
+                                                >
+                                                    {getFieldDecorator('status', {
+                                                        initialValue: 1,
+                                                        rules: [{required: false}],
+                                                    })(
+                                                        <RadioGroup  onChange={this.onChange}>
+                                                            <Radio value={1}>关闭</Radio>
+                                                            <Radio value={2}>开启</Radio>
+                                                        </RadioGroup>
+                                                    )}
+                                                </FormItem>
+
+                                            </div>
+                                            :''
+
+                                        }</div>
+                                        :''
+                                    }
+                                    {
+                                        this.state.rhand==2
+                                        ?<Row>
+                                            <Col span={16} offset={8}>
+                                                <Button type="primary" htmlType="submit" className="login-form-button" >提交</Button>
+                                                <Button style={{display:"inline-block"}} onClick={this.cancelhandle}>取消</Button>
+                                            </Col>
+                                        </Row>
+                                        :''
+                                    }
+                                    
+                                             
+                                    
 
                                 </Form>
                             </Card>
