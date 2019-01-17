@@ -211,6 +211,7 @@ class PatrolRecord extends React.Component{
                     <Col spma={24}>
                         <Table dataSource={this.state.dataSource} columns={columns} 
                         pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
+                       bordered={true}
                         />
                     </Col>
                     <Modal
