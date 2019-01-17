@@ -87,7 +87,7 @@ class RollcallTask extends Component{
     	post({url:"/api/rollcalltask/add_manualforAPP",data:{rid:rid}},(res)=>{
         if(res.success){
         	if(rid=='all'){ //全部点名
-        		this.props.history.push('/app/companyhome/calling?code='+res.code)
+        		this.props.history.push('/app/companyhome/calling?id='+res.code)
         	}else{ //单点
                 let duration=moment().format('YYYY-MM-DD HH:mm:ss');
                 let list=this.state.list;
@@ -111,7 +111,7 @@ class RollcallTask extends Component{
             let list=_this.state.list;
             list[_this.state.index].scan=false;
             if(moment()-moment(_this.state.duration)>10000){ //点名10秒无结果
-                message.info('系统繁忙，请稍后再试');
+                message.warn('系统繁忙，请稍后再试');
                 clearInterval(inter);
                 _this.setState({
                     loading:false,
@@ -143,6 +143,8 @@ class RollcallTask extends Component{
             rname:this.state.realname,
             cameraname:this.state.account,
             pageindex:1
+        },()=>{
+            this.reuestdata()
         })
     };
     hanlePageSize = (page) => { //翻页
@@ -312,7 +314,7 @@ class RollcallTask extends Component{
                 ))
                 }   
                 </div>
-                <Pagination visible={this.state.list.length?true:false} current={this.state.pageindex} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} className="pageSize" />
+                <Pagination hideOnSinglePage={true} current={this.state.pageindex} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} className="pageSize" />
 
               </Spin>
                 <Modal
