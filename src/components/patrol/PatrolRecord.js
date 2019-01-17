@@ -24,11 +24,15 @@ class PatrolRecord extends React.Component{
     //日期
     onChangeDate = (dates, dateStrings)=> {
         this.setState({
-            bdate:moment(dateStrings[0]).format("YYYY-MM-DD HH:mm:ss"),
-            edate:moment(dateStrings[1]).format("YYYY-MM-DD HH:mm:ss")
+            // bdate:moment(dateStrings[0]).format("YYYY-MM-DD HH:mm:ss"),
+            // edate:moment(dateStrings[1]).format("YYYY-MM-DD HH:mm:ss")
+            bdate:dateStrings[0],
+            edate:dateStrings[1]
         });
-        console.log(moment(dateStrings[0]).format("YYYY-MM-DD HH:mm:ss"));
-        console.log(moment(dateStrings[1]).format("YYYY-MM-DD HH:mm:ss"));
+        console.log(dateStrings[0]);
+        console.log(dateStrings[1]);
+        // console.log(moment(dateStrings[0]).format("YYYY-MM-DD HH:mm:ss"));
+        // console.log(moment(dateStrings[1]).format("YYYY-MM-DD HH:mm:ss"));
     };
     patrolStatus =(item)=>{
         this.setState({
