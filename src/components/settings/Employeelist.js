@@ -217,7 +217,7 @@ class Adminteam extends Component {
 
                     </Row>
                     <Row>
-                        <Table columns={columns} dataSource={this.state.list} />
+                        <Table columns={columns} dataSource={this.state.list} bordered={true} />
                     </Row>
                 </div>
                 <Modal title='新增'
