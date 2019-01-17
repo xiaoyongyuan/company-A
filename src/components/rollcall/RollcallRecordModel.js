@@ -20,8 +20,6 @@ class RollcallRecordModel extends Component {
     componentWillMount() {
         this.setState({
             code:this.props.code
-        },()=>{
-            console.log(this.props.code,this.state.code)
         })
     }
 
@@ -44,8 +42,7 @@ class RollcallRecordModel extends Component {
                 }, () => {
                     this.componentDidMount()});
             }
-        }
-             
+        }         
     }
 
     render(){
@@ -60,7 +57,9 @@ class RollcallRecordModel extends Component {
                 <Row className="rollcallModel">
                     <Col span={8} className="rollcallModelTitle">{this.state.rollset.resultdate}</Col>
                     <Col span={8} className="rollcallModelTitle">{this.state.rollset.ifeveryday==0?"自动点名":"手动点名"}</Col>
-                    <Col span={8} className={this.normal(this.state.rollset.rfinal)}>{this.state.rollset.rfinal==1?"正常":"报警"}</Col>
+                    <Col span={8} className={this.normal(this.state.rollset.rfinal)}>
+                        {this.state.rollset.rfinal==1?<span style={{color:'green'}}>正常</span>:<span style={{color:'red'}}>报警</span>}
+                    </Col>
                 </Row>
             </div>
         )
