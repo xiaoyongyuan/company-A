@@ -224,7 +224,7 @@ class RollcallHostory extends React.Component{
                     </Row>
                 </LocaleProvider>
                 <div>{this.state.list.length?<div></div>:<div className="textcenter">暂无数据</div>}</div>
-                
+
                 <div className="timeline_ml">
                
                  <Timeline pending={true}>
@@ -246,7 +246,8 @@ class RollcallHostory extends React.Component{
                                                                 <div className="line_alerm">
                                                                    <div> {el.alarm.length>0?<div className="circle"><div></div></div>:<div className="circlegreen"><div></div></div>}</div>
                                                                         <div className="m_l">
-                                                                            {el.rollcalldate.slice(11,20)}自动点名，
+                                                                            {el.rollcalldate.slice(11,20)}
+                                                                            {el.ifeveryday==0?"自动点名":"手动点名"}，
                                                                             共点名 {el.totalcount}个对象，
                                                                             {el.alarm.length}个报警，
                                                                             {el.normal}个正常， 
