@@ -612,6 +612,9 @@ margin: 4px 0 0 20px ;
 }
 
 .textcenter{
+    height: 50px;
+    line-height: 50px;
+    color: #666;
     text-align: center;
 }
 .RollcallHostory .ant-timeline-item-tail {

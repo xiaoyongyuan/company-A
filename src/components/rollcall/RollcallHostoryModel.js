@@ -19,15 +19,11 @@ class RollcallHostoryModel extends Component {
         });
     }
     componentWillReceiveProps(nextProps){
-        console.log('nextProps',nextProps);
-        console.log('nextProps.code',nextProps.code);
-        console.log("22222",nextProps.visible);
         if( nextProps.visible !== vis){
-            console.log('---------nextProps.code',nextProps.code);
-            console.log(nextProps.visible);
+            console.log(nextProps.visible,"nextProps.visible");
             vis=nextProps.visible;
             if(nextProps.visible){
-                vis=nextProps.visible;
+                console.log(vis,"vis");
                 this.setState({
                     code:nextProps.code
                 }, () => {

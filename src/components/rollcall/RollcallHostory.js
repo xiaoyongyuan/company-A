@@ -152,7 +152,12 @@ class RollcallHostory extends React.Component{
                         this.setState({
                             isrequest: true,
                             list:res.data
-                        })
+                        },()=>{
+                            console.log('******************',this.state.list.length);
+                            
+                        }
+                        
+                        )
                 }
             })
     };
@@ -215,13 +220,19 @@ class RollcallHostory extends React.Component{
                                 <Button type="primary" htmlType="submit">查询</Button>
                             </Col>
                         </Form>
+                       
                     </Row>
                 </LocaleProvider>
+                <div>{this.state.list.length?<div></div>:<div className="textcenter">暂无数据</div>}</div>
                 <div className="timeline_ml">
+               
                  <Timeline pending={true}>
+                         
                         {
                             this.state.list.map((item,j)=>{
                                 return (
+                                   
+                                    <div> 
                                     <Timeline.Item key={j}>
                                         <p> {item.dayly} </p>
                                          { 
@@ -256,6 +267,7 @@ class RollcallHostory extends React.Component{
                                             })
                                             }
                                     </Timeline.Item>
+                                    </div>
                                 )
                             })
                         } 
