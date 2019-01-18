@@ -65,7 +65,7 @@
 }
 .datus{
     width: 100%;
-    height: 670px;
+    height: 685px;
     margin-top: -3px;
     background: url("../img/dikuang.png") no-repeat;
     background-size: 100% 100%;
@@ -74,7 +74,7 @@
 .xiaotuxz{
     width: 100%;
     height: 289px;
-    margin-top: 20px;
+    margin-top: 5px;
     background: url("../img/xiaotudikuang.png") no-repeat;
     border: 1px solid #093369;
     background-size: 100% 100%;
@@ -83,7 +83,7 @@
 .xiaotuxy{
     width: 100%;
     height: 289px;
-    margin-top: 20px;
+    margin-top: 5px;
     background: url("../img/xiaotudikuang.png") no-repeat;
     border: 1px solid #093369;
     background-size: 100% 100%;
@@ -94,7 +94,7 @@
 .datux{
     width: 97%;
     height: 289px;
-    margin-top: 20px!important;
+    margin-top: 5px!important;
     background: url("../img/xiaotudikuang.png") no-repeat;
     border: 1px solid #093369;
     background-size: 100% 100%;
