@@ -222,21 +222,25 @@ class Adopt extends Component {
                                             <canvas id="time_graph_canvas" width="704px" height="576px" style={{backgroundImage:'url('+this.state.imgsrc+')',backgroundSize:'100% 100%'}} onClick={this.clickgetcorrd} onMouseMove={this.drawmove} />
                                         </Col>
                                     </Row>
-                                    {/*<FormItem
-                                                                            {...formItemLayout}
-                                                                            label="处理结果"
-                                                                            hasFeedback
-                                                                        >
-                                                                            {getFieldDecorator('处理结果', {
-                                                                                rules: [{required: false,message: '请输入处理结果',whitespace: true}],
-                                                                            })(
-                                                                                <Input />
-                                                                            )}
-                                                                        </FormItem>*/}
+                                    <FormItem
+                                        {...formItemLayout}
+                                        label="处理结果"
+                                        hasFeedback
+                                    >
+                                        {getFieldDecorator('处理结果', {
+                                            rules: [{required: false,message: '请输入处理结果',whitespace: true}],
+                                        })(
+                                            <Input />
+                                        )}
+                                    </FormItem>*/}
+                                    <Form.Item {...formItemLayout}>
+                                        <Button type="primary" htmlType="submit" className="login-form-button" >确认</Button>
+                                        <Button style={{display:"inline-block"}} onClick={this.cancelarea}>重绘围界</Button>
+                                      
+                                    </Form.Item>
                                     <Row>
                                         <Col span={8} offset={16}>
-                                            <Button type="primary" htmlType="submit" className="login-form-button" >确认</Button>
-                                            <Button style={{display:"inline-block"}} onClick={this.cancelarea}>重绘围界</Button>
+                                            
                                         </Col>
                                     </Row>
                                 </Form>
