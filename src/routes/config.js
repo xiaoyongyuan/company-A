@@ -2,6 +2,8 @@ export default {
     menus: [ 
         //企业用户
         { key: '/app/companyhome/index', identi:['comp'], title: '总览', icon: 'home', funct:'basic', component: 'Companyhome' },
+        { key: '/app/companyhome/visual', identi:['comp'], title: '大数据可视化', icon: 'home', funct:'basic', component: 'Datavisual' },
+        
         //个人用户总览
         { key: '/app/Userhome/index', identi:['user'], title: '总览', icon: 'home', funct:'basic', component: 'Userhome' },
         //设备

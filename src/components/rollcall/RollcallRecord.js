@@ -6,6 +6,7 @@ import 'moment/locale/zh-cn';
 import "../../style/ztt/css/rollCall.css";
 import Button from "antd/es/button/button";
 import {post} from "../../axios/tools";
+import nodata from "../../style/imgs/nodata.png";
 const RangePicker = DatePicker.RangePicker;
 const Option = Select.Option;
 class RollcallRecord extends React.Component{
@@ -19,6 +20,16 @@ class RollcallRecord extends React.Component{
             ishide:''
         };
     }
+    componentWillMount(){
+        this.setState({
+            rollcalldate:this.props.query.rollcalldate,
+            taskid:this.props.query.taskid
+        })
+    }
+    componentDidMount() {
+        this.handleRollCall();
+        this.handleRollCallList();
+    };
     //对象名称
     rollcalInput =(e)=>{
         this.setState({
@@ -84,7 +95,17 @@ class RollcallRecord extends React.Component{
         })
     };
     //点名列表
-    handleRollCallList =(params={pagesize:12,pageindex:this.state.page,bdate:this.state.bdate,edate:this.state.edate,cid:this.state.cid,rname:this.state.calInput,})=>{
+    handleRollCallList =()=>{
+        let params={
+            pagesize:12,
+            pageindex:this.state.page,
+            bdate:this.state.bdate,
+            edate:this.state.edate,
+            cid:this.state.cid,
+            rname:this.state.calInput,
+            rollcalldate:this.state.rollcalldate,
+            taskid:this.state.taskid,
+        }
         post({url:"/api/rollcalldetail/getlist",data:params},(res)=>{
             if(res.success){
                 this.setState({
@@ -107,51 +128,24 @@ class RollcallRecord extends React.Component{
     };
     handleMenuClick = ()=>{
         this.setState({
-            // cname:e.target.value,
             page:1
         });
     }
     //查询
     handleSubmit =()=>{
-
-        let datas={
-            bdate:this.state.bdate,
-            edate:this.state.edate,
-            cid:this.state.cid,
-            rname:this.state.calInput,
-            pagesize:12,
-            pageindex:this.state.page
-        };
-
-        post({url:"/api/rollcalldetail/getlist",data:datas},(res)=>{
-           this.setState({
-               rollsetList:res.data,
-               totalcount:res.totalcount
-           })
-            if(res.data.length == 0){
-                this.setState({
-                    ishide:true
-                })
-            }
-            if(res.data.length > 0){
-                this.setState({
-                    ishide:false
-                })
-            }
-        })
+        this.setState({
+            page:1,
+            rollcalldate:'',
+            taskid:'',
+        },()=>{this.handleRollCallList()})
     };
     hanlePageSize = (page) => { //翻页
-        console.log("page",page);
         this.setState({
             page:page
-        },()=>{
-            this.componentDidMount()
-        })
+        },()=>{this.handleRollCallList()}
+        )
     };
-    componentDidMount() {
-        this.handleRollCall();
-        this.handleRollCallList();
-    };
+    
 
 
     render(){
@@ -208,7 +202,7 @@ class RollcallRecord extends React.Component{
                     </div>
                 </LocaleProvider>
                 <Row type="flex" justify="start">
-                    {this.state.rollsetList == 0?<div className="zwsj" style={{ margin:'30px'}}>暂无数据</div>:this.state.rollsetList.map((v,i)=>(
+                    {!this.state.rollsetList.length?<div className="zwsj"><img src={nodata} /></div>:this.state.rollsetList.map((v,i)=>(
                         <Col key={i} xs={12} sm={12} md={12} lg={12} xl={12} xxl={7} xl={{ offset: 1 }} style={{marginTop:"30px"}}>
                             <Row>
                                 <Col xs={12} sm={12} md={11} lg={11} xl={12} xxl={12}>
@@ -229,6 +223,7 @@ class RollcallRecord extends React.Component{
                     ))}
                 </Row>
                 <Pagination
+                    hideOnSinglePage={true}
                     defaultPageSize={12}
                     current={this.state.page}
                     total={this.state.totalcount}
