@@ -5,10 +5,29 @@
     color: #f00;
     background-size:  100% 100%;
 }
+.topleft{
+    width: 100%;
+    height: 53px;
+    background:url("../img/zuobian.png") right no-repeat;
+}
+.topcenter{
+    width: 100%;
+    height: 53px;
+    text-align: center;
+    font-size: 26px;
+    color: #fff;
+    font-family: MicrosoftYaHei;
+    line-height: 53px;
+}
+.topright{
+    width: 100%;
+    height: 53px;
+    background:url("../img/youbina.png") no-repeat;
+}
 .xiaotusz{
     width: 100%;
     height: 316px;
-    margin-top: 70px;
+    margin-top: 15px;
     background: url("../img/xiaotudikuang.png") no-repeat;
     border: 1px solid #093369;
     background-size: 100% 100%;
@@ -17,7 +36,7 @@
 .xiaotusy{
     width: 100%;
     height: 316px;
-    margin-top: 70px;
+    margin-top: 15px;
     background: url("../img/xiaotudikuang.png") no-repeat;
     border: 1px solid #093369;
     background-size: 100% 100%;
@@ -47,7 +66,7 @@
 .datus{
     width: 100%;
     height: 670px;
-    margin-top: 52px;
+    margin-top: -3px;
     background: url("../img/dikuang.png") no-repeat;
     background-size: 100% 100%;
 }
