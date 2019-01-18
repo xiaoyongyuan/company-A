@@ -1,0 +1,83 @@
+.Datavisual{
+    width: 100%;
+    height: 1050px;
+    background: url("../img/beijingtu.png");
+    color: #f00;
+    /*background-size:  1020px 100%;*/
+}
+.xiaotusz{
+    width: 100%;
+    height: 316px;
+    margin-top: 40px;
+    background: url("../img/xiaotudikuang.png") no-repeat;
+    border: 1px solid #093369;
+    background-size: 100% 100%;
+    margin-left: 15px;
+}
+.xiaotusy{
+    width: 100%;
+    height: 316px;
+    margin-top: 40px;
+    background: url("../img/xiaotudikuang.png") no-repeat;
+    border: 1px solid #093369;
+    background-size: 100% 100%;
+    position: relative;
+    right: 15px;
+}
+.xiaotuzz{
+    width: 100%;
+    height: 316px;
+    margin-top: 20px;
+    background: url("../img/xiaotudikuang.png") no-repeat;
+    border: 1px solid #093369;
+    background-size: 100% 100%;
+    margin-left: 15px;
+    /*background: linear-gradient(#fff,blue); !* Opera 11.1 - 12.0 *!*/
+}
+.xiaotuzy{
+    width: 100%;
+    height: 316px;
+    margin-top: 20px;
+    background: url("../img/xiaotudikuang.png") no-repeat;
+    border: 1px solid #093369;
+    background-size: 100% 100%;
+    position: relative;
+    right: 15px;
+}
+.datus{
+    width: 100%;
+    height: 670px;
+    margin-top: 22px;
+    background: url("../img/dikuang.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.xiaotuxz{
+    width: 100%;
+    height: 289px;
+    margin-top: 20px;
+    background: url("../img/xiaotudikuang.png") no-repeat;
+    border: 1px solid #093369;
+    background-size: 100% 100%;
+    margin-left: 15px;
+}
+.xiaotuxy{
+    width: 100%;
+    height: 289px;
+    margin-top: 20px;
+    background: url("../img/xiaotudikuang.png") no-repeat;
+    border: 1px solid #093369;
+    background-size: 100% 100%;
+    position: relative;
+    right: 15px;
+}
+
+.datux{
+    width: 97%;
+    height: 289px;
+    margin-top: 20px!important;
+    background: url("../img/xiaotudikuang.png") no-repeat;
+    border: 1px solid #093369;
+    background-size: 100% 100%;
+    margin: 0 auto;
+}
