@@ -69,6 +69,7 @@
     margin-top: -3px;
     background: url("../img/dikuang.png") no-repeat;
     background-size: 100% 100%;
+    /*background: #a0d911;*/
 }
 
 .xiaotuxz{
@@ -99,4 +100,70 @@
     border: 1px solid #093369;
     background-size: 100% 100%;
     margin: 0 auto;
+}
+.sanjiao{
+    width: 0px;
+    height: 0px;
+    border-width: 0 98px 54px;
+    border-style: solid;
+    border-color: transparent transparent #f05f25 transparent;
+    margin: 0 auto;
+    position: relative;
+    top: 530px;
+    line-height: 54px;
+}
+.wbjcls{
+    width: 100%;
+    height: 100%;
+    background: #429019;
+    text-align: left;
+}
+/*.sanjiao span{*/
+    /*position:absolute;*/
+    /*bottom:0px;*/
+    /*padding:0px;*/
+    /*margin:0px*/
+/*}*/
+.tixing{
+    border-color:transparent transparent #92422a;
+    border-style:none solid solid;
+    border-width:0 90px 55px 90px;
+    content:"";
+    display:block;
+    height:0;
+    width:380px;
+    margin: 0 auto;
+    position: relative;
+    top: 535px;
+    color: #fefefe;
+    font-size: 36px;
+    font-family: BDZYJT--GB1-0;
+    text-align: center;
+}
+.xiaotutitle{
+    color: #fff;
+    font-family: MicrosoftYaHei;
+    font-size: 16px;
+    margin-top: 20px;
+}
+.myequip-row p{
+    text-align: center;
+    background: #666;
+    color: #fff;
+    font-size: 16px;
+    font-family: MicrosoftYaHei;
+}
+.yfwword{
+    color: #fff;
+    font-family: MicrosoftYaHei;
+    font-size: 16px;
+    /*margin-top: 15px;*/
+}
+.yfwword-col{
+    margin-top: 3px;
+}
+.yfwyear{
+    color: #fff;
+    font-family: HYK2gj;
+    font-size: 20px;
 }
