@@ -20,6 +20,23 @@ class Datavisual extends Component {
         
         return (
             <div className="Datavisual">
+                <Row>
+                    <Col span={11}>
+                        <div className="topleft">
+
+                        </div>
+                    </Col>
+                    <Col span={2}>
+                        <div className="topcenter">
+                            <span>西安文物局</span>
+                        </div>
+                    </Col>
+                    <Col span={11}>
+                        <div className="topright">
+
+                        </div>
+                    </Col>
+                </Row>
                 <Row  gutter={24} >
                     <Col span={6}>
                         <Row>
@@ -43,7 +60,7 @@ class Datavisual extends Component {
                             位置图
                         </div>
                     </Col>
-                    <Col span={6} pull={0}>
+                    <Col span={6}>
                         <Row>
                             <Col>
                                 <div className="xiaotusy">
