@@ -14,6 +14,7 @@ export default {
             key: '/app/patrol', title: '巡更' , identi:['comp','patrol'], funct:'patrol', icon: 'environment',
             subs: [
                 { key: '/app/patrol/patrolrecord', identi:['comp','patrol'], funct:'patrol', title: '巡更记录', component: 'PatrolRecord'},
+                { key: '/app/patrol/patrolhostory', identi:['comp','patrol'], funct:'patrol', title: '巡更历史', component: 'PatrollHostory'},            
                 { key: '/app/patrol/patrolplan', identi:['comp','patrol'], funct:'patrol',  title: '巡更计划', component: 'PatrolPlan'}, 
             ],
         },

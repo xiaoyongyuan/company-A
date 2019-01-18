@@ -32,6 +32,8 @@ import Employeelist from './settings/Employeelist';
 //巡更
 import PatrolPlan from './patrol/PatrolPlan';
 import PatrolRecord from './patrol/PatrolRecord';
+import PatrollHostory from './patrol/PatrolHostory';
+
 
 //点名
 import RollcallTask from './rollcall/RollcallTask';
@@ -55,7 +57,7 @@ export default {
     , Companyhome, Companyscene, Companydeveice, Calling, Connent, Deveicedet, Settime, Setarea
     , Alarmdetails, Alarmlist, Equipment, Userhome, Userdeveice
     , Employeelist, Loglist
-    ,PatrolPlan, PatrolRecord
+    ,PatrolPlan, PatrolRecord,PatrollHostory
     ,RollcallTask, RollcallRecord, Adopt, Auditing, RollcallHostory, AdoptLook
     , Live
 

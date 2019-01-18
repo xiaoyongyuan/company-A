@@ -29,10 +29,6 @@ class PatrolRecord extends React.Component{
             bdate:dateStrings[0],
             edate:dateStrings[1]
         });
-        console.log(dateStrings[0]);
-        console.log(dateStrings[1]);
-        // console.log(moment(dateStrings[0]).format("YYYY-MM-DD HH:mm:ss"));
-        // console.log(moment(dateStrings[1]).format("YYYY-MM-DD HH:mm:ss"));
     };
     patrolStatus =(item)=>{
         this.setState({
@@ -148,10 +144,15 @@ class PatrolRecord extends React.Component{
                 )
             }
         },{
-            title: '处理',
+            title: '处理人',
+            dataIndex: 'phaccount',
+            key: 'phaccount',
+            render: text => <span>{!text?'AI主机':text}</span>,
+        },{
+            title: '处理结果',
             dataIndex: 'phandle',
             key: 'phandle',
-            render: text => <span>{text==1?"通过":"不通过"}</span>,
+            render: text => <span>{text==1?<p style={{color:'#429019'}}>通过</p>:<p style={{color:'#f5222d'}}>不通过</p>}</span>,
         },{
             title: '操作',
             dataIndex: 'code',

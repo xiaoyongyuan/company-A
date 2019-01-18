@@ -30,8 +30,6 @@ class Adopt extends Component {
                })
            }
         })
-        
-       
         this.requestdata();
     }
     requestdata=(params) => {//取数据
@@ -222,27 +220,14 @@ class Adopt extends Component {
                                             <canvas id="time_graph_canvas" width="704px" height="576px" style={{backgroundImage:'url('+this.state.imgsrc+')',backgroundSize:'100% 100%'}} onClick={this.clickgetcorrd} onMouseMove={this.drawmove} />
                                         </Col>
                                     </Row>
-                                    <FormItem
-                                        {...formItemLayout}
-                                        label="处理结果"
-                                        hasFeedback
-                                    >
-                                        {getFieldDecorator('处理结果', {
-                                            rules: [{required: false,message: '请输入处理结果',whitespace: true}],
-                                        })(
-                                            <Input />
-                                        )}
-                                    </FormItem>*/}
-                                    <Form.Item {...formItemLayout}>
+                                    <Form.Item>
+                                    <Row>
+                                        <Col span={8} offset={8}>
                                         <Button type="primary" htmlType="submit" className="login-form-button" >确认</Button>
                                         <Button style={{display:"inline-block"}} onClick={this.cancelarea}>重绘围界</Button>
-                                      
-                                    </Form.Item>
-                                    <Row>
-                                        <Col span={8} offset={16}>
-                                            
                                         </Col>
-                                    </Row>
+                                    </Row>  
+                                    </Form.Item>
                                 </Form>
                             </Card>
                         </div>

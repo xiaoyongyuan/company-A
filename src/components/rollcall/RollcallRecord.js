@@ -203,7 +203,7 @@ class RollcallRecord extends React.Component{
                 </LocaleProvider>
                 <Row type="flex" justify="start">
                     {!this.state.rollsetList.length?<div className="zwsj"><img src={nodata} /></div>:this.state.rollsetList.map((v,i)=>(
-                        <Col key={i} xs={12} sm={12} md={12} lg={12} xl={12} xxl={7} xl={{ offset: 1 }} style={{marginTop:"30px"}}>
+                        <Col className="rollcalllist" key={i} xs={12} sm={12} md={12} lg={12} xl={12} xxl={7} xl={{ offset: 1 }} style={{marginTop:"30px"}}>
                             <Row>
                                 <Col xs={12} sm={12} md={11} lg={11} xl={12} xxl={12}>
                                     <img src={v.rrpic} alt="" width="100%" onClick={()=>this.handlerollCallType(v.code)} />
@@ -214,7 +214,11 @@ class RollcallRecord extends React.Component{
                                     <Row className="rollCall">
                                         <Col className="overflow">
                                             {v.resultdate}
-                                            {v.rfinal==1?<span style={{color:'green'}}>正常</span>:<span style={{color:'red'}}>报警</span>}
+                                        </Col>
+                                    </Row>
+                                    <Row className="rollCall">
+                                        <Col className="overflow">
+                                            {v.rfinal==1?<span style={{color:'green'}}>正常</span>:<span style={{color:'red'}}>对象存在状态异常</span>}
                                         </Col>
                                     </Row>
                                 </Col>

@@ -623,3 +623,28 @@ margin: 4px 0 0 20px ;
 .m_l{
     margin-left: 6px;
 }
+.inlineb{
+    display: inline-block;
+}
+.timess{
+    display: inline-block;
+    width:170px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+    background: #ccc;
+}
+.xun_detail{
+    display: inline-block;
+    width:100%;
+    height:30px;
+    line-height:30px;
+    text-align: left;
+    margin-top: 20px
+}
+.patrolnone{
+    display: none;
+}
+.patrolblock{
+    display:  inline-block;
+}
