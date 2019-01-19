@@ -118,12 +118,6 @@
     background: #429019;
     text-align: left;
 }
-/*.sanjiao span{*/
-    /*position:absolute;*/
-    /*bottom:0px;*/
-    /*padding:0px;*/
-    /*margin:0px*/
-/*}*/
 .tixing{
     border-color:transparent transparent #92422a;
     border-style:none solid solid;
@@ -148,8 +142,10 @@
 }
 .myequip-row p{
     text-align: center;
-    background: #666;
+    /*background: #1e6ed4;*/
+    background-color:rgba(30,110,212,0.3);
     color: #fff;
+    /*opacity:0.5 0.8;*/
     font-size: 16px;
     font-family: MicrosoftYaHei;
 }
@@ -166,4 +162,56 @@
     color: #fff;
     font-family: HYK2gj;
     font-size: 20px;
+    font-weight: bold;
+}
+.sgxd1{
+    width: 100%;
+    height: 66px;
+    background: #36bdf5;
+    border-radius:4px;
+}
+.sgxd2{
+    width: 100%;
+    height: 66px;
+    background: #36bdf5;
+    border-radius:4px;
+}
+.sgxd3{
+    width: 100%;
+    height: 66px;
+    background: #36bdf5;
+    border-radius:4px;
+}
+.sgxd4{
+    width: 100%;
+    height: 66px;
+    background: #36bdf5;
+    border-radius:4px;
+}
+.sgxdx-row{
+    margin-top: 30px;
+}
+.sgxds-row{
+    margin-top: 15px;
+}
+.sgxdword{
+    color: #fef8fc;
+    font-size: 14px;
+    font-family: MicrosoftYaHei;
+}
+.sgxdnum{
+    color: #fef8fc;
+    font-size: 26px;
+    font-family: MicrosoftYaHei;
+}
+.sgxdnum-col{
+    margin-top: -15px;
+}
+.equiptu{
+    margin-left: 20%;
+    margin-top: 15px;
+}
+.whtdword{
+    color:#fef8fc ;
+    font-size: 18px;
 }
