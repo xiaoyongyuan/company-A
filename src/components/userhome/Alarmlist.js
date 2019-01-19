@@ -99,18 +99,7 @@ class Alarmlist extends React.Component{
             return "虚警";
         }
     };
-    //报警状态背景
-    typeBack =(code)=>{
-        if(code === 0){
-            return "stateBackground3 handle";
-        }else if(code === 1){
-            return "stateBackground4 handle";
-        }else if(code === 2){
-            return "stateBackground2 handle";
-        }else if(code === 3){
-            return "stateBackground1 handle";
-        }
-    };
+
     //查看报警详情
     alarmImg =(code)=>{
         const toson={
@@ -280,7 +269,7 @@ class Alarmlist extends React.Component{
     render(){
         const { getFieldDecorator } = this.props.form;
         return(
-            <div>
+            <div className="Alarmlist">
                 <LocaleProvider locale={zh_CN}>
                     <Row style={{marginTop:"50px"}}>
                         <Form onSubmit={this.handleSubmit}>
@@ -352,13 +341,8 @@ class Alarmlist extends React.Component{
                 <Row style={{display:this.state.type===1?"block":"none"}}>
                     {
                         this.state.policeList.map((v,i)=>(
-                            <Col xl={12} xxl={12} lg={12} style={{marginTop:"40px"}} key={i}>
-                                <Row>
-                                    <Col xl={3} xxl={2} lg={3}>
-                                        <div className={this.typeBack(v.status)}>
-                                            <div className="handle-right" >{this.handleState(v.status)}</div>
-                                        </div>
-                                    </Col>
+                            <Col lg={10} xl={10} xxl={7}   offset={1} style={{marginTop:"40px"}} key={i}>
+                                <Row className="alarmitem">
                                     <Col xl={9} xxl={7} lg={9} className="policeIcon">
                                         <div className="pliceImg" onClick={()=>this.alarmImg(v.code)}>
                                             <div className="img"><img src={v.pic_min} alt="" /></div>
@@ -367,7 +351,7 @@ class Alarmlist extends React.Component{
                                     </Col>
                                     <Col xl={11} xxl={12} lg={12}>
                                         <div className="policeContext">
-                                            <div className="triangle"></div>
+                                            <div className="triangle">{v.status}</div>
                                             <Row className="line-police">
                                                 <Col xl={12} xxl={12} lg={12} className="policeName">{v.name}</Col>
                                                 <Col xl={11} xxl={11} lg={11} offset={1}>{v.atype===1?"入侵检测":""}</Col>

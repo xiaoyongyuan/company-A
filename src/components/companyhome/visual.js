@@ -10,6 +10,7 @@ import team from "../../style/yal/img/tuandui .png";
 import yonghu from "../../style/yal/img/yonghushu .png";
 import admin from "../../style/yal/img/guanliyaun.png";
 import nodata from "../../style/imgs/nodata.png";
+import Echartdata from "./Echartdata";
 
 class Datavisual extends Component {
     constructor(props){
@@ -162,7 +163,7 @@ class Datavisual extends Component {
                                                 <span>我的设备</span>
                                             </Col>
                                         </Row>
-                                        <div>
+                                        <div>位置图
                                             {/*{*/}
                                                 {/*this.state.myEquipment.length*/}
                                                     {/*?this.state.myEquipment.map((item,index)=>{*/}
@@ -252,7 +253,9 @@ class Datavisual extends Component {
                     </Col>
                     <Col span={12}>
                         <div className="datus">
-                            位置图
+                            <div className="echartmap">
+                             <Echartdata type='xianmap' />
+                            </div>
                             <div className="sanjiao">
 
                             </div>

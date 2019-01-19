@@ -3,7 +3,7 @@ import ReactEcharts from 'echarts-for-react';
 import echarts from 'echarts';
 import xianmap from "../../style/ztt/map/xianmap";
 require('echarts/map/js/china.js');
-class Locationmap extends Component {
+class Echartdata extends Component {
     constructor(props){
         super(props);
         this.state= {
@@ -652,4 +652,4 @@ class Locationmap extends Component {
     }
 }
 
-export default Locationmap;
+export default Echartdata;

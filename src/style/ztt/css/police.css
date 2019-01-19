@@ -1,6 +1,10 @@
 /*
     Alarmlist.js报警
 */
+
+.Alarmlist .alarmitem{
+    
+}
 .handle{
     width:100%;
     height: 56px;
@@ -23,15 +27,7 @@
     box-shadow: 0 0 10px #ffffff;
     cursor: pointer;
 }
-.img{
-    width: 96%;
-    height: 93%;
-    background: #E5E5E5;
-    position: relative;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-}
+
 .img img{
     width: 100%;
     height: 100%;
@@ -84,17 +80,29 @@
     width: 10%;
     height: 100%;
 }
-.stateBackground1{
-    background: #FB7575;
+.colorgreen{
+    color:#0FA420;
 }
-.stateBackground2{
-    background: #C0C0C0;
+.colorred{
+    color:##F22727;
 }
-.stateBackground3{
-    background: #F7C35D;
+.colorblue{
+    color:#2C39B1;
 }
-.stateBackground4{
-    background: #5DCB9A;
+.colortheme{
+    color:#313653;
+}
+.typegreen{
+    border:1px solid #0FA420;
+}
+.typered{
+    border:1px solid ##F22727;
+}
+.typeblue{
+    border:1px solid #2C39B1;
+}
+.typetheme{
+    border:1px solid #313653;
 }
 .iconColor1{
     color:#FB7575;

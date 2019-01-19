@@ -1,14 +1,21 @@
 /*
     RollcallRecord.js 点名记录
 */
+.rollcalllist{
+    background: #fcfcfc;
+    padding: 10px;
+    border-radius: 5PX;
+    box-shadow: 0 0 9px #ccc; 
+}
+    
 .rollRow{
-    margin-left: 3%;
+    /*margin-left: 3%;*/
 }
 @media screen and (max-width: 1900px){
     .rollCall{
         display: flex;
         flex-direction:row;
-        margin: 8% 0!important;
+        margin: 10px 0!important;
     }
     .rollRow{
         margin-left: 3%;
@@ -17,7 +24,7 @@
 .rollCall{
     display: flex;
     flex-direction:row;
-    margin: 8% 0;
+    
 }
 .fontColor{
     color:#429019;
