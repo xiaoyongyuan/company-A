@@ -6,6 +6,7 @@ import 'moment/locale/zh-cn';
 import {post} from "../../axios/tools";
 import Alarmdetails from "./Alarmdetails";
 import nodata from "../../style/imgs/nodata.png";
+import test from "../../style/ztt/img/123.png";
 import "../../style/ztt/img/plioce/iconfont.css";
 const Option = Select.Option;
 const formItemLayout = {
@@ -39,6 +40,9 @@ class Alarmlist extends React.Component{
             totalcount:0, //数据总量
             toson:{}, //传给详情页面的值
             loading:1,
+            displaygreen: 'block',
+            displayred:'none',
+            displayblue:'none'
         };
     }
     componentWillMount() {
@@ -266,6 +270,27 @@ class Alarmlist extends React.Component{
             alarm:false
         })
     };
+    handleSureAlarmImg =()=>{//确认
+        this.setState({
+            displaygreen: 'block',
+            displayred:'none',
+            displayblue:'none'
+        })
+    };
+    handleXJAlarmImg =()=>{//虚警
+        this.setState({
+            displaygreen: 'none',
+            displayred:'block',
+            displayblue:'none'
+        })
+    };
+    handleHLAlarmImg =()=>{//忽略
+        this.setState({
+            displaygreen: 'none',
+            displayred:'none',
+            displayblue:'block'
+        })
+    };
     render(){
         const { getFieldDecorator } = this.props.form;
         return(
@@ -337,82 +362,236 @@ class Alarmlist extends React.Component{
                 <Row style={{marginTop:"70px",display:this.state.type===0?"block":"none"}}>
                     <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
                 </Row>
-           {/*     <div style={{width:"100%",textAlign:"center",marginTop:"15vh"}}><Spin size="large" /></div>*/}
-                <Row style={{display:this.state.type===1?"block":"none"}}>
-                    {
-                        this.state.policeList.map((v,i)=>(
-                            <Col lg={10} xl={10} xxl={7}   offset={1} style={{marginTop:"40px"}} key={i}>
-                                <Row className="alarmitem">
-                                    <Col xl={9} xxl={7} lg={9} className="policeIcon">
-                                        <div className="pliceImg" onClick={()=>this.alarmImg(v.code)}>
-                                            <div className="img"><img src={v.pic_min} alt="" /></div>
+                <Row gutter={40}>
+                    <Col lg={16} xl={10} xxl={10} push={2}>
+                        <div className="typegreen" style={{ display:this.state.displaygreen }}>
+                            <Row>
+                                <Col span={8} style={{ background:'red' }}>
+                                    <div className="pliceImg">
+                                        <div className="img">
+                                            <img src={test} alt="" />
                                         </div>
-                                        <div className="camera" style={{display:v.videopath>1?"block":"none"}} onClick={this.handleCamera}><Icon type="video-camera" theme="filled" /></div>
-                                    </Col>
-                                    <Col xl={11} xxl={12} lg={12}>
-                                        <div className="policeContext">
-                                            <div className="triangle">{v.status}</div>
-                                            <Row className="line-police">
-                                                <Col xl={12} xxl={12} lg={12} className="policeName">{v.name}</Col>
-                                                <Col xl={11} xxl={11} lg={11} offset={1}>{v.atype===1?"入侵检测":""}</Col>
+                                    </div>
+                                </Col>
+                                <Col span={16}>
+                                    <Row>
+                                        <Col span={20}>
+                                            <Row className="word-row">
+                                                <Col span={18}>
+                                                    <Row>
+                                                        <Col span={14}  style={{marginLeft:'5px' }} push={1}>
+                                                            <p>测试1</p>
+                                                        </Col>
+                                                        <Col span={8} push={1} style={{textAlign:'right' }}>
+                                                            <p>入侵检测</p>
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
                                             </Row>
-                                            <Row className="line-police">
-                                                <Col xl={12} xxl={12} lg={12} className="overflow">{v.atime}</Col>
-                                                <Col xl={11} xxl={11} lg={11} offset={1} className="overflow">报警对象：{v.tags===""?"无":v.tags}</Col>
+                                            <Row className="word-row">
+                                                <Col span={12}  push={1}>
+                                                    <p>2019-10-12 19:13:35</p>
+                                                </Col>
+                                                <Col span={6} style={{textAlign:'right',marginLeft:'13px'}}>
+                                                    <p>报警对象:人</p>
+                                                </Col>
                                             </Row>
-                                            <Row className="line-police" style={{borderTop:"1px solid #efefef",paddingTop:'5px'}}>
-                                                <Col xl={8} xxl={8} lg={8}><span onClick={()=>this.alarmdeal(v.code,i,1)} className="cursor"><span className="iconfont icon-queren iconColor2" />&nbsp;确认</span></Col>
-                                                <Col xl={8} xxl={8} lg={8}><span onClick={()=>this.alarmdeal(v.code,i,3)} className="cursor"><span className="iconfont icon-baojing iconColor1" />&nbsp;虚警</span></Col>
-                                                <Col xl={8} xxl={8} lg={8}><span onClick={()=>this.alarmdeal(v.code,i,2)} className="cursor"><span className="iconfont icon-hulve iconColor3" />&nbsp;忽略</span></Col>
-                                            </Row>
-                                        </div>
-                                    </Col>
-                                </Row>
-                            </Col>
-                        ))
-                    }
-                </Row>
-                <Pagination defaultCurrent={this.state.page} current={this.state.page} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} className="pageSize" style={{display:this.state.type===1?"block":"none"}} />
-                <Modal
-                    title="播放视频"
-                    visible={this.state.visible}
-                    onOk={this.handleOk}
-                    onCancel={this.handleCancel}
-                    okText="确认"
-                    cancelText="取消"
-                >
-                </Modal>
-                <Modal
-                    title="报警批量处理"
-                    visible={this.state.alarm}
-                    onOk={this.handleOkalarm}
-                    onCancel={this.handleCancelalarm}
-                    okText="确认"
-                    cancelText="取消"
-                >
-                    <div>
-                        摄像头选择：
-                        <Select defaultValue="请选择摄像头" style={{ width: 180 }} onChange={this.handleOnekey}>
-                        {
-                            this.state.equipment.map((v,i)=>(
-                                <Option value={v.code} key={i}>{v.name}</Option>
-                            ))
-                        }
-                        </Select>
+                                        </Col>
+                                        <Col span={4} pull={1}>
+                                            <div id="triangle-topright-green">
 
-                    </div>
-                </Modal>
-                <div>
-                    <Modal
-                        width={1200}
-                        title="报警详情"
-                        visible={this.state.alarmImgType}
-                        onCancel={this.handleCancelAlarmImg}
-                        footer={null}
-                    >
-                    <Alarmdetails visible={this.state.alarmImgType} toson={this.state.toson} />
-                    </Modal>
-                </div>
+                                            </div>
+                                        </Col>
+
+                                    </Row>
+                                    <Row className="sure-row">
+                                        <Col span={8} >
+                                            <div className="sure-col-l" onClick={this.handleSureAlarmImg}>
+                                                <div className="circle-sure">
+
+                                                </div>
+                                                <div className="word-sure">
+                                                    确认
+                                                </div>
+                                            </div>
+                                        </Col>
+                                        <Col span={8} >
+                                            <div className="sure-col-c" onClick={this.handleXJAlarmImg}>
+                                                <div className="circle-xj">
+
+                                                </div>
+                                                <div className="word-xj">
+                                                    虚警
+                                                </div>
+                                            </div>
+                                        </Col>
+                                        <Col span={8} >
+                                            <div className="sure-col-r" onClick={this.handleHLAlarmImg}>
+                                                <div className="circle-hl">
+
+                                                </div>
+                                                <div className="word-hl">
+                                                    忽略
+                                                </div>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                            </Row>
+                        </div>
+                        <div className="typered" style={{ display:this.state.displayred }}>
+                            <Row>
+                                <Col span={8} style={{ background:'red' }}>
+                                    <div className="pliceImg">
+                                        <div className="img">
+                                            <img src={test} alt="" />
+                                        </div>
+                                    </div>
+                                </Col>
+                                <Col span={16}>
+                                    <Row>
+                                        <Col span={20}>
+                                            <Row className="word-row">
+                                                <Col span={18}>
+                                                    <Row>
+                                                        <Col span={14}  style={{marginLeft:'5px' }} push={1}>
+                                                            <p>测试1</p>
+                                                        </Col>
+                                                        <Col span={8} push={1} style={{textAlign:'right' }}>
+                                                            <p>入侵检测</p>
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
+                                            </Row>
+                                            <Row className="word-row">
+                                                <Col span={12}  push={1}>
+                                                    <p>2019-10-12 19:13:35</p>
+                                                </Col>
+                                                <Col span={6} style={{textAlign:'right',marginLeft:'13px'}}>
+                                                    <p>报警对象:人</p>
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                        <Col span={4} pull={1}>
+                                            <div id="triangle-topright-red">
+
+                                            </div>
+                                        </Col>
+
+                                    </Row>
+                                    <Row className="sure-row">
+                                        <Col span={8} >
+                                            <div className="sure-col-l" onClick={this.handleSureAlarmImg}>
+                                                <div className="circle-sure">
+
+                                                </div>
+                                                <div className="word-sure">
+                                                    确认
+                                                </div>
+                                            </div>
+                                        </Col>
+                                        <Col span={8} >
+                                            <div className="sure-col-c" onClick={this.handleXJAlarmImg}>
+                                                <div className="circle-xj">
+
+                                                </div>
+                                                <div className="word-xj">
+                                                    虚警
+                                                </div>
+                                            </div>
+                                        </Col>
+                                        <Col span={8} >
+                                            <div className="sure-col-r">
+                                                <div className="circle-hl">
+
+                                                </div>
+                                                <div className="word-hl" onClick={this.handleHLAlarmImg}>
+                                                    忽略
+                                                </div>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                            </Row>
+                        </div>
+                        <div className="typeblue" style={{ display:this.state.displayblue }}>
+                            <Row>
+                                <Col span={8} style={{ background:'red' }}>
+                                    <div className="pliceImg">
+                                        <div className="img">
+                                            <img src={test} alt="" />
+                                        </div>
+                                    </div>
+                                </Col>
+                                <Col span={16}>
+                                    <Row>
+                                        <Col span={20}>
+                                            <Row className="word-row">
+                                                <Col span={18}>
+                                                    <Row>
+                                                        <Col span={14}  style={{marginLeft:'5px' }} push={1}>
+                                                            <p>测试1</p>
+                                                        </Col>
+                                                        <Col span={8} push={1} style={{textAlign:'right' }}>
+                                                            <p>入侵检测</p>
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
+                                            </Row>
+                                            <Row className="word-row">
+                                                <Col span={12}  push={1}>
+                                                    <p>2019-10-12 19:13:35</p>
+                                                </Col>
+                                                <Col span={6} style={{textAlign:'right',marginLeft:'13px'}}>
+                                                    <p>报警对象:人</p>
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                        <Col span={4} pull={1}>
+                                            <div id="triangle-topright-blue">
+
+                                            </div>
+                                        </Col>
+
+                                    </Row>
+                                    <Row className="sure-row">
+                                        <Col span={8} >
+                                            <div className="sure-col-l" onClick={this.handleSureAlarmImg}>
+                                                <div className="circle-sure">
+
+                                                </div>
+                                                <div className="word-sure">
+                                                    确认
+                                                </div>
+                                            </div>
+                                        </Col>
+                                        <Col span={8} >
+                                            <div className="sure-col-c" onClick={this.handleXJAlarmImg}>
+                                                <div className="circle-xj">
+
+                                                </div>
+                                                <div className="word-xj">
+                                                    虚警
+                                                </div>
+                                            </div>
+                                        </Col>
+                                        <Col span={8} >
+                                            <div className="sure-col-r">
+                                                <div className="circle-hl">
+
+                                                </div>
+                                                <div className="word-hl" onClick={this.handleHLAlarmImg}>
+                                                    忽略
+                                                </div>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                            </Row>
+                        </div>
+                    </Col>
+                </Row>
+
             </div>
         )
     }
