@@ -3,6 +3,10 @@ import { Row,Col,Card } from 'antd';
 import '../../style/yal/css/datavisual.css';
 import {post} from "../../axios/tools";
 import yuan from "../../style/yal/img/yuan.png";
+import equip from "../../style/yal/img/shebei.png";
+import team from "../../style/yal/img/tuandui .png";
+import yonghu from "../../style/yal/img/yonghushu .png";
+import admin from "../../style/yal/img/guanliyaun.png";
 import nodata from "../../style/imgs/nodata.png";
 
 class Datavisual extends Component {
@@ -173,6 +177,102 @@ class Datavisual extends Component {
                                         </Col>
                                         <Col span={12}>
                                             <p className="yfwyear">2020年12月17日</p>
+                                        </Col>
+                                    </Row>
+                                    <Row  gutter={32} className="sgxds-row">
+                                        <Col  span={11} offset={1}>
+                                            <div className="sgxd1">
+                                                <Row>
+                                                    <Col span={10}>
+                                                        <div className="equiptu">
+                                                            <img src={equip} alt="" />
+                                                        </div>
+                                                    </Col>
+                                                    <Col span={12}>
+                                                        <Row>
+                                                            <Col span={24}>
+                                                                <p className="sgxdword">设备总数</p>
+                                                            </Col>
+                                                        </Row>
+                                                        <Row className="sgxdnum-row">
+                                                            <Col span={24} className="sgxdnum-col">
+                                                                <span className="sgxdnum">26</span><span className="sgxdword">个</span>
+                                                            </Col>
+                                                        </Row>
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        </Col>
+                                        <Col span={11}>
+                                            <div className="sgxd2">
+                                                <Row>
+                                                    <Col span={10}>
+                                                        <div className="equiptu">
+                                                            <img src={team} alt="" />
+                                                        </div>
+                                                    </Col>
+                                                    <Col span={12}>
+                                                        <Row>
+                                                            <Col span={24}>
+                                                                <p className="sgxdword">所属团队</p>
+                                                            </Col>
+                                                        </Row>
+                                                        <Row className="sgxdnum-row">
+                                                            <Col span={24} style={{ marginTop:'-5px' }}>
+                                                                <span className="whtdword">维护团队</span>
+                                                            </Col>
+                                                        </Row>
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Row gutter={32} className="sgxdx-row">
+                                        <Col span={11} offset={1}>
+                                            <div className="sgxd3">
+                                                <Row>
+                                                    <Col span={10}>
+                                                        <div className="equiptu">
+                                                            <img src={yonghu} alt="" />
+                                                        </div>
+                                                    </Col>
+                                                    <Col span={12}>
+                                                        <Row>
+                                                            <Col span={24}>
+                                                                <p className="sgxdword">用户数</p>
+                                                            </Col>
+                                                        </Row>
+                                                        <Row className="sgxdnum-row">
+                                                            <Col span={24} className="sgxdnum-col">
+                                                                <span className="sgxdnum">5</span><span className="sgxdword">个</span>
+                                                            </Col>
+                                                        </Row>
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        </Col>
+                                        <Col span={11}>
+                                            <div className="sgxd4">
+                                                <Row>
+                                                    <Col span={10}>
+                                                        <div className="equiptu">
+                                                            <img src={admin} alt="" />
+                                                        </div>
+                                                    </Col>
+                                                    <Col span={12}>
+                                                        <Row>
+                                                            <Col span={24}>
+                                                                <p className="sgxdword">管理员</p>
+                                                            </Col>
+                                                        </Row>
+                                                        <Row className="sgxdnum-row">
+                                                            <Col span={24} style={{ marginTop:'-5px' }}>
+                                                                <span className="whtdword">123456767</span>
+                                                            </Col>
+                                                        </Row>
+                                                    </Col>
+                                                </Row>
+                                            </div>
                                         </Col>
                                     </Row>
                                 </div>
