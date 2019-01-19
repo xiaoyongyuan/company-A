@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Row,Col,Card } from 'antd';
+import ReactEcharts from 'echarts-for-react';
+import echarts from 'echarts';
+import { Row,Col } from 'antd';
 import '../../style/yal/css/datavisual.css';
 import {post} from "../../axios/tools";
 import yuan from "../../style/yal/img/yuan.png";
@@ -13,10 +15,109 @@ class Datavisual extends Component {
     constructor(props){
         super(props);
         this.state= {
+            option:{}
         }
     }
     componentWillMount=()=>{
-
+        let option = {
+            // title: {
+            //     text: '次数',
+            //     textStyle:{
+            //         color:'#4e6281',
+            //         fontSize:'14px'
+            //     }
+            // },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:[{
+                    name: '阿房宫',
+                    icon: 'circle',
+                    textStyle: {
+                        color: '#165ecc',
+                    }
+                },{
+                    name: '明秦王陵',
+                    icon: 'circle',
+                    textStyle: {
+                        color: '#13fcff'
+                    }
+                }
+                ],
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['2','4','6','8','10','12','14','16','18','20','22','24'],
+                name:'小时',
+                nameTextStyle:{
+                    color:'#788cae'
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#7d91b4',  //更改坐标轴文字颜色
+                        fontSize : 14      //更改坐标轴文字大小
+                    }
+                },
+            },
+            yAxis: {
+                type: 'value',
+                name:'次数',
+                nameTextStyle:{
+                    color:'#788cae'
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#7d91b4',  //更改坐标轴文字颜色
+                        fontSize : 14      //更改坐标轴文字大小
+                    }
+                },
+            },
+            series: [
+                {
+                    name:'阿房宫',
+                    type:'line',
+                    stack: '总量',
+                    itemStyle : {
+                        normal : {
+                            lineStyle:{
+                                color:'#165ecc'
+                            }
+                        }
+                    },
+                    data:[120, 132, 101, 134, 90, 230, 210,120, 132, 101, 134, 90]
+                },
+                {
+                    name:'明秦王陵',
+                    type:'line',
+                    stack: '总量',
+                    itemStyle : {
+                        normal : {
+                            lineStyle:{
+                                color:'#13fcff'
+                            }
+                        }
+                    },
+                    data:[220, 182, 191, 234, 290, 330, 310,220, 182, 191, 330, 310]
+                }
+            ]
+        }
+        this.setState({option},()=>{
+        })
     }
     componentDidMount() {
 
@@ -148,7 +249,6 @@ class Datavisual extends Component {
                                 </div>
                             </Col>
                         </Row>
-
                     </Col>
                     <Col span={12}>
                         <div className="datus">
@@ -281,7 +381,20 @@ class Datavisual extends Component {
                         <Row>
                             <Col>
                                 <div className="xiaotuzy">
-                                    报警次数
+                                    <Row className="xiaotutitle" gutter={32}>
+                                        <Col xl={1} xxl={1} offset={1}><div className="sandian"><img src={yuan} alt="" /></div></Col>
+                                        <Col xl={10} xxl={12}>
+                                            <span>报警次数</span>
+                                        </Col>
+                                    </Row>
+                                    <div style={{marginTop:'-50px' }}>
+                                        <ReactEcharts
+                                        option={this.state.option}
+                                        // style={{height: '480px', width: '100%'}}
+                                        className={'react_for_echarts'}
+                                        // onEvents={this.onClickByModel}
+                                        />
+                                    </div>
                                 </div>
                             </Col>
                         </Row>
