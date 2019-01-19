@@ -11,13 +11,17 @@ import yonghu from "../../style/yal/img/yonghushu .png";
 import admin from "../../style/yal/img/guanliyaun.png";
 import nodata from "../../style/imgs/nodata.png";
 import Echartdata from "./Echartdata";
+import moment from "moment";
+
 
 class Datavisual extends Component {
     constructor(props){
         super(props);
         this.state= {
-            option:{}
+            option:{},
+            today:moment().format('LL'),
         }
+        this.saveRef = ref => {this.refDom = ref};
     }
     componentWillMount=()=>{
         let option = {
@@ -49,8 +53,9 @@ class Datavisual extends Component {
             },
             grid: {
                 left: '3%',
-                right: '4%',
-                bottom: '3%',
+                right: '3%',
+                bottom: '15%',
+                top: '15%',
                 containLabel: true
             },
             toolbox: {
@@ -121,9 +126,10 @@ class Datavisual extends Component {
         })
     }
     componentDidMount() {
-
+        const {clientWidth, clientHeight} = this.refDom;
+            let topdiv=document.getElementById('topdiv');
+        console.log('offsetHeight', this.refDom,clientWidth)
     }
-    
     render() {
         
         return (
@@ -145,25 +151,30 @@ class Datavisual extends Component {
                         </div>
                     </Col>
                 </Row>
-                <Row  gutter={24} >
+                <Row  gutter={24} id="topdiv" ref={this.saveRef}>
                     <Col span={6}>
                         <Row>
                             <Col>
                                 <div className="xiaotusz">
-                                   可查看单位
+                                    <div className="echartmap">
+                                        <div className="titleechart">
+                                            <span className="titlename">可查看的单位</span>
+                                        </div>
+                                        <Echartdata type='lookcomp' width='408px' height='245' />
+                                    </div>
                                 </div>
                             </Col>
                         </Row>
                         <Row>
                             <Col>
-                                <div className="xiaotuzz">
+                                <div id="xiaotuzz">
                                         <Row className="xiaotutitle" gutter={32}>
                                             <Col xl={1} xxl={1} offset={1}><div className="sandian"><img src={yuan} alt="" /></div></Col>
                                             <Col xl={10} xxl={12}>
                                                 <span>我的设备</span>
                                             </Col>
                                         </Row>
-                                        <div>位置图
+                                        <div>
                                             {/*{*/}
                                                 {/*this.state.myEquipment.length*/}
                                                     {/*?this.state.myEquipment.map((item,index)=>{*/}
@@ -251,10 +262,14 @@ class Datavisual extends Component {
                             </Col>
                         </Row>
                     </Col>
-                    <Col span={12}>
+                    <Col span={12} >
                         <div className="datus">
-                            <div className="echartmap">
-                             <Echartdata type='xianmap' />
+                            <div className="echartmap" style={{height:'100%'}}>
+                                <div className="titleechart">
+                                    <span className="titlename">位置图</span>
+                                    <span className="today">当前日期:{this.state.today}</span>
+                                </div>
+                                <Echartdata type='xianmap' style={{height:'100%'}} />
                             </div>
                             <div className="sanjiao">
 
@@ -267,7 +282,7 @@ class Datavisual extends Component {
                     <Col span={6}>
                         <Row>
                             <Col>
-                                <div className="xiaotusy">
+                                <div className="xiaotusy" style={{paddingBottom:'15px'}}>
                                     <Row className="xiaotutitle" gutter={32}>
                                         <Col xl={1} xxl={1} offset={1}><div className="sandian"><img src={yuan} alt="" /></div></Col>
                                         <Col xl={10} xxl={12}>
@@ -390,12 +405,9 @@ class Datavisual extends Component {
                                             <span>报警次数</span>
                                         </Col>
                                     </Row>
-                                    <div style={{marginTop:'-50px' }}>
+                                    <div>
                                         <ReactEcharts
                                         option={this.state.option}
-                                        // style={{height: '480px', width: '100%'}}
-                                        className={'react_for_echarts'}
-                                        // onEvents={this.onClickByModel}
                                         />
                                     </div>
                                 </div>
@@ -406,18 +418,32 @@ class Datavisual extends Component {
                 <Row gutter={24} >
                     <Col span={6}>
                         <div className="xiaotuxz">
-                            点名次数
+                            <div className="echartmap">
+                                <div className="titleechart">
+                                    <span className="titlename">点名次数</span>
+                                </div>
+                                <Echartdata type='rollcall'  width='408px' height='245' />
+                            </div>
                         </div>
                     </Col>
                     <Col span={12}>
                         <div className="datux" >
-                            报警分析
-
+                            <div className="echartmap">
+                                <div className="titleechart">
+                                    <span className="titlename">可查看的单位</span>
+                                </div>
+                                <Echartdata type='alarmanalyze' width='408px' height='245' />
+                            </div>
                         </div>
                     </Col>
                     <Col span={6}>
                         <div className="xiaotuxy">
-                            巡更次数
+                            <div className="echartmap">
+                                <div className="titleechart">
+                                    <span className="titlename">巡更次数</span>
+                                </div>
+                                <Echartdata type='patrol'  width='408px' height='245'/>
+                            </div>
                         </div>
                     </Col>
                 </Row>

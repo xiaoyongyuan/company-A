@@ -8,26 +8,33 @@ class Echartdata extends Component {
         super(props);
         this.state= {
             father:{},
-            option:{}
+            option:{},
+            type:'rollcall',
+            width:'400px',
+            height:'300px',
         }
     }
     componentWillMount(){
-        console.log('this.propsthis.props',this.props)
         this.setState({
-            father:this.props
+            type:this.props.type,
+            width:this.props.width,
+            height:this.props.height,
+
         })
     }
 
     componentDidMount(){
-        this.lookcomp()
+        this[this.state.type]()
+        
 
         return;
-        //地图
+        
+    }
+    xianmap=()=>{ //地图
         echarts.registerMap('xian', xianmap);
         let datasMap=this.state.father.datasMap;
         console.log('datasMapdatasMap',datasMap);
         let option={
-            backgroundColor: '#001c3d', //背景颜色
             background:"#091e57",
             geo: {
                 map: 'xian',
@@ -43,6 +50,13 @@ class Echartdata extends Component {
                     emphasis: {
                         show: false
                     }
+                },
+                grid: {
+                    left: '3%',
+                    right: '3%',
+                    bottom: '30%',
+                    top: '1%',
+                    containLabel: true
                 },
                 itemStyle:{
                     normal:{
@@ -134,7 +148,6 @@ class Echartdata extends Component {
     // 点名次数
     rollcall=()=>{
         var option = {
-            backgroundColor: '#001c3d',
             tooltip: {
                 trigger: 'axis'
             },
@@ -146,9 +159,25 @@ class Echartdata extends Component {
             grid: {
                 left: '3%',
                 right: '3%',
-                bottom: '3%',
+                bottom: '25%',
                 top: '15%',
                 containLabel: true
+            },
+            legend: {
+                data:[{
+                    name: '阿房宫',
+                    icon: 'circle',
+                    textStyle: {
+                        color: '#165ecc',
+                    }
+                },{
+                    name: '明秦王陵',
+                    icon: 'circle',
+                    textStyle: {
+                        color: '#13fcff'
+                    }
+                }
+                ],
             },
             calculable: true,
             xAxis: [{
@@ -273,7 +302,6 @@ class Echartdata extends Component {
     // 可查看单位
     lookcomp=()=>{
         let option = {
-            backgroundColor: "#001c3d",
             title: {
                 text: "12",
                 subtext: '',
@@ -299,13 +327,12 @@ class Echartdata extends Component {
                 {
                     name: '阿房宫',
                     type: 'pie',
-                    radius: [100, 130],
+                    radius: [60, 90],
                     center: ['50%', '50%'],
                     data: [{
                             value: 34,
                             name: '吴际帅\n牛亚莉',
                             itemStyle: {
-
                                 color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
                                     offset: 0,
                                     color: '#f6e3a1'
@@ -317,12 +344,12 @@ class Echartdata extends Component {
                             label: {
                                 color: "rgba(255,255,255,.45)",
                                 fontSize: 14,
-                                formatter: '完成梳理部门\n{a|34}个',
+                                formatter: '阿房宫\n{a|34}个',
                                 rich: {
                                     a: {
                                         color: "#fff",
                                         fontSize: 20,
-                                        lineHeight: 30
+                                        lineHeight: 30,
                                     },
                                 }
                             }
@@ -339,7 +366,7 @@ class Echartdata extends Component {
                 {
                     name: '面积模式',
                     type: 'pie',
-                    radius: [110, 120],
+                    radius: [70, 80],
                     center: ['50%', '50%'],
                     data: [{
                             value: 34,
@@ -385,7 +412,6 @@ class Echartdata extends Component {
         var color = "#189cbb";var scale = 1;
         let data=[{name:'2017-12-09',value:4},{name:'2017-12-10',value:6},{name:'2017-12-11',value:2},{name:'2017-12-12',value:5},{name:'2017-12-13',value:3},{name:'2017-12-14',value:2},{name:'2017-12-15',value:2}]
         let option = {
-                    backgroundColor: '#001c3d',
                     grid: { //图的位置
                         left: "3%",
                         right: "2%",
@@ -397,6 +423,13 @@ class Echartdata extends Component {
                         textStyle: {
                             color: '#ccc'
                         }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '3%',
+                        bottom: '25%',
+                        top: '15%',
+                        containLabel: true
                     },
                     yAxis: [{
                         type: "value",
@@ -575,29 +608,143 @@ class Echartdata extends Component {
     //报警分析
     alarmanalyze =()=>{
         let option = {
-            backgroundColor:'#042F63',
-            title: {
-                text: '80%',
-                x: 'center',
-                y: 'center',
-                textStyle: {
-                    fontWeight: 'normal',
-                    color: '#fff',
-                    fontSize: '30'
-                }
-            },
             color: ['rgba(76, 132, 210, .4)'], 
-            legend: { //图标
-                show: false,
-                itemGap: 12,
-                data: ['01', '02']
-            },
            
             series: [{
                 name: '未处理报警数',
                 type: 'pie',
                 clockWise: true,
-                radius: ['50%', '66%'],
+                radius: ['30%', '40%'],
+                center: ['15%', '35%'],
+                itemStyle: {
+                    normal: {
+                        label: {
+                            show: false
+                        },
+                        labelLine: {
+                            show: false
+                        }
+                    }
+                },
+                hoverAnimation: false, 
+                data: [{
+                    value: 90,
+                    name: '01',
+                    itemStyle: {
+                        normal: {
+                            color: { // 完成的圆环的颜色
+                                colorStops: [{
+                                    offset: 0,
+                                    color: '#00cefc' // 0% 处的颜色
+                                }, {
+                                    offset: 1,
+                                    color: '#367bec' // 100% 处的颜色
+                                }]
+                            },
+                            label: {
+                                show: false
+                            },
+                            labelLine: {
+                                show: false
+                            }
+                        } 
+                    }
+                }, {
+                    name: '02',
+                    value: 10
+                }]
+            },{
+                name: '虚报警数',
+                type: 'pie',
+                clockWise: true,
+                radius: ['30%', '40%'],
+                center: ['38%', '35%'],
+                itemStyle: {
+                    normal: {
+                        label: {
+                            show: false
+                        },
+                        labelLine: {
+                            show: false
+                        }
+                    }
+                },
+                hoverAnimation: false, 
+                data: [{
+                    value: 90,
+                    name: '01',
+                    itemStyle: {
+                        normal: {
+                            color: { // 完成的圆环的颜色
+                                colorStops: [{
+                                    offset: 0,
+                                    color: '#00cefc' // 0% 处的颜色
+                                }, {
+                                    offset: 1,
+                                    color: '#367bec' // 100% 处的颜色
+                                }]
+                            },
+                            label: {
+                                show: false
+                            },
+                            labelLine: {
+                                show: false
+                            }
+                        } 
+                    }
+                }, {
+                    name: '02',
+                    value: 10
+                }]
+            },{
+                name: '忽略数',
+                type: 'pie',
+                clockWise: true,
+                radius: ['30%', '40%'],
+                center: ['61%', '35%'],
+                itemStyle: {
+                    normal: {
+                        label: {
+                            show: false
+                        },
+                        labelLine: {
+                            show: false
+                        }
+                    }
+                },
+                hoverAnimation: false, 
+                data: [{
+                    value: 90,
+                    name: '01',
+                    itemStyle: {
+                        normal: {
+                            color: { // 完成的圆环的颜色
+                                colorStops: [{
+                                    offset: 0,
+                                    color: '#00cefc' // 0% 处的颜色
+                                }, {
+                                    offset: 1,
+                                    color: '#367bec' // 100% 处的颜色
+                                }]
+                            },
+                            label: {
+                                show: false
+                            },
+                            labelLine: {
+                                show: false
+                            }
+                        } 
+                    }
+                }, {
+                    name: '02',
+                    value: 10
+                }]
+            },{
+                name: '确认',
+                type: 'pie',
+                clockWise: true,
+                radius: ['30%', '40%'],
+                center: ['85%', '35%'],
                 itemStyle: {
                     normal: {
                         label: {
@@ -641,11 +788,11 @@ class Echartdata extends Component {
 
     }
     render() {
+        const _this=this;
         return (
             <ReactEcharts
                 option={this.state.option}
-                style={{height: '480px', width: '100%'}}
-                className={'react_for_echarts'}
+                style={_this.state.type=='xianmap'?{height:'100%'}:''}
                 onEvents={this.onClickByModel}
             />
         )
