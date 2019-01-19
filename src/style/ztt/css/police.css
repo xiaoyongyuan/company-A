@@ -94,12 +94,21 @@
 }
 .typegreen{
     border:1px solid #0FA420;
+    width: 100%;
+    height: 200px;
+    border-radius: 5px;
 }
 .typered{
     border:1px solid #F22727;
+    width: 100%;
+    height: 200px;
+    border-radius: 5px;
 }
 .typeblue{
     border:1px solid #2C39B1;
+    width: 100%;
+    height: 200px;
+    border-radius: 5px;
 }
 .typetheme{
     border:1px solid #313653;
@@ -152,4 +161,104 @@
 }
 .mt{
     margin: 3px 0 0 0;
+}
+.word-row{
+    font-size: 16px;
+    font-family: MicrosoftYaHei;
+}
+.sure-row{
+    margin-top: 35px;
+}
+.sure-col-l{
+    width: 100%;
+    height: 75px;
+    border-top: 1px solid #CBCBCB;
+    border-right: 1px solid #CBCBCB;
+    line-height: 75px;
+}
+.sure-col-c{
+    width: 100%;
+    height: 75px;
+    border-top: 1px solid #CBCBCB;
+    border-right: 1px solid #CBCBCB;
+}
+.sure-col-r{
+    width: 100%;
+    height: 75px;
+    border-top: 1px solid #CBCBCB;
+}
+.circle-sure{
+    width: 18px;
+    height: 18px;
+    background-color:#0fa420;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    position: relative;
+    top: 35%;
+    left: 30%;
+    float: left;
+}
+.word-sure{
+    color: #0fa420;
+    position: relative;
+    left: 35%;
+    top: -2px;
+}
+.circle-xj{
+    width: 18px;
+    height: 18px;
+    background-color:#F22727;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    position: relative;
+    top: 35%;
+    left: 30%;
+    float: left;
+}
+.word-xj{
+    color: #F22727;
+    position: relative;
+    left: 35%;
+    top: 34%;
+}
+.circle-hl{
+    width: 18px;
+    height: 18px;
+    background-color:#2C39B1;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    position: relative;
+    top: 35%;
+    left: 30%;
+    float: left;
+}
+.word-hl{
+    color: #2C39B1;
+    position: relative;
+    left: 35%;
+    top: 34%;
+}
+#triangle-topright-green {
+    width: 0;
+    height: 0;
+    border-top: 80px solid #0fa420;
+    border-left: 100px solid transparent;
+    margin-left: -5%;
+}
+#triangle-topright-red {
+    width: 0;
+    height: 0;
+    border-top: 80px solid #F22727;
+    border-left: 100px solid transparent;
+    margin-left: -5%;
+}
+#triangle-topright-blue {
+    width: 0;
+    height: 0;
+    border-top: 80px solid #2C39B1;
+    border-left: 100px solid transparent;
+    margin-left: -5%;
 }
