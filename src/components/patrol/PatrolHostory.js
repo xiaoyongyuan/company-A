@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,Modal,Spin,message} from "antd";
+import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,Spin,message} from "antd";
 import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
@@ -21,6 +21,9 @@ class RollcallHostory extends React.Component{
             pedate:'',//检索的结束时间
             list:[],
             loading:false,
+            page:1, //当前页数
+            pageSize:20, //每页显示数量
+            isrequest:true,
         }
     }
     componentDidMount() {
@@ -33,9 +36,10 @@ class RollcallHostory extends React.Component{
             }
         })
         var _this=this;
+        let pag=2;
         document.getElementById("scorll").onscroll=function() {
             var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
-            var scrollTop = document.getElementById("scorll").scrollTop;//0-18
+            var scrollTop = document.getElementById("scorll").scrollTop;
             var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度
             var scrollbottom=scrollHeight-clientHeight;
             var scrollTopP=Math.ceil(scrollTop);
@@ -47,9 +51,42 @@ class RollcallHostory extends React.Component{
                _this.setState({
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTop,
+                page:pag
                })
+               if(_this.state.isrequest){ 
+                post({url:'/api/patrolresult/getlist_team',data:{pageindex:_this.state.page}},(res)=>{
+                    console.log(res,"res");
+                    if(res.data.length>0){
+                        pag++;
+                       }
+                    if(res.data.length>0){
+                       _this.setState({
+                        loading: true,
+                        })
+                    }else{
+                        if(res.data.length===0){
+                            message.success('没有更多了');
+                        }
+                        _this.setState({
+                            isrequest: false,
+                            } )
+                    }
+                    if(res.success){
+                        if(res.data.length>0){
+                            const list=_this.state.list;
+                            const alist = list.concat(res.data);
+                            _this.setState({
+                                 list: alist,
+                                 loading: false,
+                            } )
+                        }
+                       
+                    }
+                })
+             }
+            
             }
-        };  
+        };
     }   
     backtop=()=>{ //返回顶部
         document.getElementById("scorll").scrollTop = 0; 
@@ -106,7 +143,9 @@ class RollcallHostory extends React.Component{
             post({url:'/api/patrolresult/getlist_team',data:data},(res)=>{
                 if(res.success){
                         this.setState({
+                            isrequest: true,
                             list:res.data
+                           
                         })
                 }
             })
@@ -180,8 +219,8 @@ class RollcallHostory extends React.Component{
                         {
                             this.state.list.map((item,j)=>{
                                 return (
-                                    <div> 
-                                    <Timeline.Item key={j}>
+                                    <div key={j}> 
+                                    <Timeline.Item>
                                         <div className="inlineb"> {item.pdate} </div> 
                                         <div className="timess"> {item.pteam}({item.pbdate}:00 —— {item.pedate}:00)</div><br></br>
                                         <div>
