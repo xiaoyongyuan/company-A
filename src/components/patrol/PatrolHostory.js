@@ -136,7 +136,6 @@ class RollcallHostory extends React.Component{
                         this.setState({
                             isrequest: true,
                             list:res.data
-                           
                         })
                 }
             })
