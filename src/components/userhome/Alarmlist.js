@@ -36,13 +36,14 @@ class Alarmlist extends React.Component{
             cid:"", //检索选中的设备
             endOpen: false,
             page:1, //当前页数
-            pageSize:20, //每页显示数量
+            pageSize:18, //每页显示数量
             totalcount:0, //数据总量
             toson:{}, //传给详情页面的值
             loading:1,
             displaygreen: 'block',
-            displayred:'none',
-            displayblue:'none'
+            displayred:'block',
+            displayblue:'block',
+            backColor:''//背景颜色
         };
     }
     componentWillMount() {
@@ -94,13 +95,11 @@ class Alarmlist extends React.Component{
     //报警状态
     handleState = (code)=>{
         if(code === 0){
-            return "未处理";
-        }else if(code === 1){
             return "确认";
+        }else if(code === 1){
+            return "虚警";
         }else if(code === 2){
             return "忽略";
-        }else if(code === 3){
-            return "虚警";
         }
     };
 
@@ -134,7 +133,7 @@ class Alarmlist extends React.Component{
     };
     //报警信息列表
     handleAlerm = (data={})=>{
-        post({url:'/api/alarm/getlist',data:Object.assign(data,{pageindex:this.state.page})},(res)=>{
+        post({url:'/api/alarm/getlist',data:Object.assign(data,{pageindex:this.state.page,pagesize:18})},(res)=>{
             if(res.success){
                 if(res.data.length>1){
                     this.setState({
@@ -182,17 +181,7 @@ class Alarmlist extends React.Component{
                 })
         
     };
-    alarmdeal=(code,index,type)=>{ //报警处理
-        post({url:'/api/alarm/update',data:{code:code,status:type}},(res)=>{
-        	if(res.success){
-                const policeList=this.state.policeList;
-                policeList[index].status=type
-                this.setState({
-                    policeList:policeList
-                })
-            }
-        })
-    };
+
     //搜索设备选中的值
     handleChange =(value)=>{
         this.setState({
@@ -270,27 +259,36 @@ class Alarmlist extends React.Component{
             alarm:false
         })
     };
-    handleSureAlarmImg =()=>{//确认
-        this.setState({
-            displaygreen: 'block',
-            displayred:'none',
-            displayblue:'none'
-        })
-    };
-    handleXJAlarmImg =()=>{//虚警
-        this.setState({
-            displaygreen: 'none',
-            displayred:'block',
-            displayblue:'none'
-        })
-    };
-    handleHLAlarmImg =()=>{//忽略
-        this.setState({
-            displaygreen: 'none',
-            displayred:'none',
-            displayblue:'block'
-        })
-    };
+
+    redgreenblue = (status)=>{
+        if(status === 0){
+            return("typegreen");
+        }else if(status === 1){
+            return("typered");
+        }else {
+            return("typeblue");
+        }
+    }
+    sanjiaose = (status)=>{
+        if(status === 0){
+            return("triangle-topright-green trianglegreen");
+        }else if(status === 1){
+            return("triangle-topright-green trianglered");
+        }else if(status === 2){
+            return("triangle-topright-green triangleblue");
+        }
+    }
+    changeredgreenblue =(type,index,code)=>{
+        post({url:'/api/alarm/update',data:{code:code,status:type}},(res)=>{
+            if(res.success){
+                const policeList=this.state.policeList;
+                policeList[index].status=type;
+                this.setState({
+                    policeList:policeList
+                })
+            }
+        });
+    }
     render(){
         const { getFieldDecorator } = this.props.form;
         return(
@@ -362,220 +360,126 @@ class Alarmlist extends React.Component{
                 <Row style={{marginTop:"70px",display:this.state.type===0?"block":"none"}}>
                     <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
                 </Row>
-                <Row gutter={40}>
-                    <Col lg={16} xl={10} xxl={10} push={2}>
-                        <div className="typegreen" style={{ display:this.state.displaygreen }}>
-                            <Row>
-                                <div id="triangle-topright-green"></div>
-                                <Col span={8} style={{ background:'red' }}>
-                                    <div className="pliceImg">
-                                        <div className="img">
-                                            <img src="http://pic01.aokecloud.cn/alarm/1000004/pic/20190119/1000004_20190119111559_320X240.jpg" alt="" />
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col span={16}>
-                                    <Row>
-                                        <Col span={20}>
-                                            <Row className="word-row">
-                                                <Col span={18}>
-                                                    <Row>
-                                                        <Col span={14}  style={{marginLeft:'5px' }} push={1}>
-                                                            <p>测试1</p>
-                                                        </Col>
-                                                        <Col span={9} push={5} style={{textAlign:'right' }}>
-                                                            <p>入侵检测</p>
-                                                        </Col>
-                                                    </Row>
-                                                </Col>
-                                            </Row>
-                                            <Row className="word-row">
-                                                <Col span={12}  push={1}>
-                                                    <p>2019-10-12 19:13:35</p>
-                                                </Col>
-                                                <Col span={9} push={1} style={{textAlign:'right',marginLeft:'13px'}}>
-                                                    <p>报警对象:人</p>
-                                                </Col>
-                                            </Row>
-                                        </Col>
-                                    </Row>
-                                    <Row className="sure-row">
-                                        <Col span={8} >
-                                                <div className="sure-col-l" onClick={this.handleSureAlarmImg}>
-                                                    <div className="circle-sure">
-
-                                                    </div>
-                                                    <div className="word-sure">
-                                                        确认
-                                                    </div>
+                <Row gutter={32}>
+                    {
+                        this.state.policeList.map((v,i)=>(
+                            <Col lg={16} xl={10} xxl={6} offset={1} push={1} key={i}>
+                                <div className="listmargintop">
+                                    <div className={this.redgreenblue(v.status)} >
+                                        <Row>
+                                            <div className={this.sanjiaose(v.status)} >
+                                                <span className="xuanzhuan">{this.handleState(v.status)}</span>
+                                            </div>
+                                            <Col span={8}>
+                                                <div className="pliceImgyal" onClick={()=>this.alarmImg(v.code)}>
+                                                    <img src={v.pic_min} alt="" />
                                                 </div>
                                             </Col>
-                                        <Col span={8} >
-                                                <div className="sure-col-c" onClick={this.handleXJAlarmImg}>
-                                                    <div className="circle-xj">
+                                            <Col span={16} className="r_flex">
+                                                <Row>
+                                                    <Col span={20}>
+                                                        <Row className="word-row">
+                                                            <Col span={18}>
+                                                                <Row>
+                                                                    <Col span={14}  style={{marginLeft:'5px' }} push={1}>
+                                                                        <p className="fontstyle">{v.name}</p>
+                                                                    </Col>
+                                                                    <Col span={9} push={4} style={{textAlign:'right' }}>
+                                                                        <p className="fontstyle time-col">{v.atype===1?"入侵检测":""}</p>
+                                                                    </Col>
+                                                                </Row>
+                                                            </Col>
+                                                        </Row>
+                                                        <Row className="word-row">
+                                                            <Col span={13}  push={1}>
+                                                                <p className="time-col fontstyle fontstyletime">{v.atime}</p>
+                                                            </Col>
+                                                            <Col span={9} push={1} style={{marginLeft:'13px'}}>
+                                                                <p className="fontstyle time-col">报警对象：{v.tags===""?"无":v.tags}</p>
+                                                            </Col>
+                                                        </Row>
+                                                    </Col>
+                                                </Row>
+                                                <Row className="sure-row" type="flex" align="bottom">
+                                                    <Col span={8} >
+                                                        <div className="sure-col-l" onClick={()=>this.changeredgreenblue(0,i,v.code)}>
+                                                            <div className="circle-sure">
+                                                            </div>
+                                                            <div className="word-sure">
+                                                                确认
+                                                            </div>
+                                                        </div>
+                                                    </Col>
+                                                    <Col span={8} >
+                                                        <div className="sure-col-c" onClick={()=>this.changeredgreenblue(1,i,v.code)}>
+                                                            <div className="circle-xj">
 
-                                                    </div>
-                                                    <div className="word-xj">
-                                                        虚警
-                                                    </div>
-                                                </div>
+                                                            </div>
+                                                            <div className="word-xj">
+                                                                虚警
+                                                            </div>
+                                                        </div>
+                                                    </Col>
+                                                    <Col span={8} >
+                                                        <div className="sure-col-r" onClick={()=>this.changeredgreenblue(2,i,v.code)}>
+                                                            <div className="circle-hl">
+
+                                                            </div>
+                                                            <div className="word-hl">
+                                                                忽略
+                                                            </div>
+                                                        </div>
+                                                    </Col>
+                                                </Row>
                                             </Col>
-                                        <Col span={8} >
-                                                <div className="sure-col-r" onClick={this.handleHLAlarmImg}>
-                                                    <div className="circle-hl">
-
-                                                    </div>
-                                                    <div className="word-hl">
-                                                        忽略
-                                                    </div>
-                                                </div>
-                                            </Col>
-                                    </Row>
-                                </Col>
-                            </Row>
-                        </div>
-                        <div className="typered" style={{ display:this.state.displayred }}>
-                            <Row>
-                                <div id="triangle-topright-red"></div>
-                                <Col span={8} style={{ background:'red' }}>
-                                    <div className="pliceImg">
-                                        <div className="img">
-                                            <img src="http://pic01.aokecloud.cn/alarm/1000004/pic/20190119/1000004_20190119111559_320X240.jpg" alt="" />
-                                        </div>
+                                        </Row>
                                     </div>
-                                </Col>
-                                <Col span={16}>
-                                    <Row>
-                                        <Col span={20}>
-                                            <Row className="word-row">
-                                                <Col span={18}>
-                                                    <Row>
-                                                        <Col span={14}  style={{marginLeft:'5px' }} push={1}>
-                                                            <p>测试1</p>
-                                                        </Col>
-                                                        <Col span={9} push={5} style={{textAlign:'right' }}>
-                                                            <p>入侵检测</p>
-                                                        </Col>
-                                                    </Row>
-                                                </Col>
-                                            </Row>
-                                            <Row className="word-row">
-                                                <Col span={12}  push={1}>
-                                                    <p>2019-10-12 19:13:35</p>
-                                                </Col>
-                                                <Col span={9} push={1} style={{textAlign:'right',marginLeft:'13px'}}>
-                                                    <p>报警对象:人</p>
-                                                </Col>
-                                            </Row>
-                                        </Col>
-                                    </Row>
-                                    <Row className="sure-row">
-                                        <Col span={8} >
-                                            <div className="sure-col-l" onClick={this.handleSureAlarmImg}>
-                                                <div className="circle-sure">
-
-                                                </div>
-                                                <div className="word-sure">
-                                                    确认
-                                                </div>
-                                            </div>
-                                        </Col>
-                                        <Col span={8} >
-                                            <div className="sure-col-c" onClick={this.handleXJAlarmImg}>
-                                                <div className="circle-xj">
-
-                                                </div>
-                                                <div className="word-xj">
-                                                    虚警
-                                                </div>
-                                            </div>
-                                        </Col>
-                                        <Col span={8} >
-                                            <div className="sure-col-r" onClick={this.handleHLAlarmImg}>
-                                                <div className="circle-hl">
-
-                                                </div>
-                                                <div className="word-hl">
-                                                    忽略
-                                                </div>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </Col>
-                            </Row>
-                        </div>
-                        <div className="typeblue" style={{ display:this.state.displayblue }}>
-                            <Row>
-                                <div id="triangle-topright-blue"></div>
-                                <Col span={8} style={{ background:'red' }}>
-                                    <div className="pliceImg">
-                                        <div className="img">
-                                            <img src="http://pic01.aokecloud.cn/alarm/1000004/pic/20190119/1000004_20190119111559_320X240.jpg" alt="" />
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col span={16}>
-                                    <Row>
-                                        <Col span={20}>
-                                            <Row className="word-row">
-                                                <Col span={18}>
-                                                    <Row>
-                                                        <Col span={14}  style={{marginLeft:'5px' }} push={1}>
-                                                            <p>测试1</p>
-                                                        </Col>
-                                                        <Col span={9} push={5} style={{textAlign:'right' }}>
-                                                            <p>入侵检测</p>
-                                                        </Col>
-                                                    </Row>
-                                                </Col>
-                                            </Row>
-                                            <Row className="word-row">
-                                                <Col span={12}  push={1}>
-                                                    <p>2019-10-12 19:13:35</p>
-                                                </Col>
-                                                <Col span={9} push={1} style={{textAlign:'right',marginLeft:'13px'}}>
-                                                    <p>报警对象:人</p>
-                                                </Col>
-                                            </Row>
-                                        </Col>
-                                    </Row>
-                                    <Row className="sure-row">
-                                        <Col span={8} >
-                                            <div className="sure-col-l" onClick={this.handleSureAlarmImg}>
-                                                <div className="circle-sure">
-
-                                                </div>
-                                                <div className="word-sure">
-                                                    确认
-                                                </div>
-                                            </div>
-                                        </Col>
-                                        <Col span={8} >
-                                            <div className="sure-col-c" onClick={this.handleXJAlarmImg}>
-                                                <div className="circle-xj">
-
-                                                </div>
-                                                <div className="word-xj">
-                                                    虚警
-                                                </div>
-                                            </div>
-                                        </Col>
-                                        <Col span={8} >
-                                            <div className="sure-col-r" onClick={this.handleHLAlarmImg}>
-                                                <div className="circle-hl">
-
-                                                </div>
-                                                <div className="word-hl">
-                                                    忽略
-                                                </div>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </Col>
-                            </Row>
-                        </div>
-                    </Col>
+                                </div>
+                            </Col>
+                        ))
+                    }
                 </Row>
+                <Pagination defaultCurrent={this.state.page} current={this.state.page} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} className="pageSize" style={{display:this.state.type===1?"block":"none"}} />
+                <Modal
+                    title="播放视频"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                    okText="确认"
+                    cancelText="取消"
+                >
+                </Modal>
+                <Modal
+                    title="报警批量处理"
+                    visible={this.state.alarm}
+                    onOk={this.handleOkalarm}
+                    onCancel={this.handleCancelalarm}
+                    okText="确认"
+                    cancelText="取消"
+                >
+                    <div>
+                        摄像头选择：
+                        <Select defaultValue="请选择摄像头" style={{ width: 180 }} onChange={this.handleOnekey}>
+                            {
+                                this.state.equipment.map((v,i)=>(
+                                    <Option value={v.code} key={i}>{v.name}</Option>
+                                ))
+                            }
+                        </Select>
+
+                    </div>
+                </Modal>
+                <div>
+                    <Modal
+                        width={1200}
+                        title="报警详情"
+                        visible={this.state.alarmImgType}
+                        onCancel={this.handleCancelAlarmImg}
+                        footer={null}
+                    >
+                        <Alarmdetails visible={this.state.alarmImgType} toson={this.state.toson} />
+                    </Modal>
+                </div>
             </div>
         )
     }
