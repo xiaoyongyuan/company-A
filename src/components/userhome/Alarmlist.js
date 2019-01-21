@@ -303,18 +303,18 @@ class Alarmlist extends React.Component{
                                     {...formItemLayout}
                                     label="日期"
                                 >
-                                {getFieldDecorator('range-picker1')(
-                                    <DatePicker
-                                        showTime={{format:"HH"}}
-                                        format="YYYY-MM-DD HH:00:00"
-                                        placeholder="开始时间"
-                                        setFieldsValue={this.state.bdate}
-                                        onChange={this.onChange1}
-                                        disabledDate={this.disabledStartDate}
-                                        onOpenChange={this.handleStartOpenChange}
-                                    />
-                                )}
-                            </Form.Item>
+                                    {getFieldDecorator('range-picker1')(
+                                        <DatePicker
+                                            showTime={{format:"HH"}}
+                                            format="YYYY-MM-DD HH:00:00"
+                                            placeholder="开始时间"
+                                            setFieldsValue={this.state.bdate}
+                                            onChange={this.onChange1}
+                                            disabledDate={this.disabledStartDate}
+                                            onOpenChange={this.handleStartOpenChange}
+                                        />
+                                    )}
+                                </Form.Item>
                             </Col>
                             <Col xl={4} xxl={3} lg={6}>
                                 <Form.Item>
@@ -366,10 +366,11 @@ class Alarmlist extends React.Component{
                     <Col lg={16} xl={10} xxl={10} push={2}>
                         <div className="typegreen" style={{ display:this.state.displaygreen }}>
                             <Row>
+                                <div id="triangle-topright-green"></div>
                                 <Col span={8} style={{ background:'red' }}>
                                     <div className="pliceImg">
                                         <div className="img">
-                                            <img src={test} alt="" />
+                                            <img src="http://pic01.aokecloud.cn/alarm/1000004/pic/20190119/1000004_20190119111559_320X240.jpg" alt="" />
                                         </div>
                                     </div>
                                 </Col>
@@ -382,7 +383,7 @@ class Alarmlist extends React.Component{
                                                         <Col span={14}  style={{marginLeft:'5px' }} push={1}>
                                                             <p>测试1</p>
                                                         </Col>
-                                                        <Col span={8} push={1} style={{textAlign:'right' }}>
+                                                        <Col span={9} push={5} style={{textAlign:'right' }}>
                                                             <p>入侵检测</p>
                                                         </Col>
                                                     </Row>
@@ -392,17 +393,81 @@ class Alarmlist extends React.Component{
                                                 <Col span={12}  push={1}>
                                                     <p>2019-10-12 19:13:35</p>
                                                 </Col>
-                                                <Col span={6} style={{textAlign:'right',marginLeft:'13px'}}>
+                                                <Col span={9} push={1} style={{textAlign:'right',marginLeft:'13px'}}>
                                                     <p>报警对象:人</p>
                                                 </Col>
                                             </Row>
                                         </Col>
-                                        <Col span={4} pull={1}>
-                                            <div id="triangle-topright-green">
+                                    </Row>
+                                    <Row className="sure-row">
+                                        <Col span={8} >
+                                                <div className="sure-col-l" onClick={this.handleSureAlarmImg}>
+                                                    <div className="circle-sure">
 
-                                            </div>
+                                                    </div>
+                                                    <div className="word-sure">
+                                                        确认
+                                                    </div>
+                                                </div>
+                                            </Col>
+                                        <Col span={8} >
+                                                <div className="sure-col-c" onClick={this.handleXJAlarmImg}>
+                                                    <div className="circle-xj">
+
+                                                    </div>
+                                                    <div className="word-xj">
+                                                        虚警
+                                                    </div>
+                                                </div>
+                                            </Col>
+                                        <Col span={8} >
+                                                <div className="sure-col-r" onClick={this.handleHLAlarmImg}>
+                                                    <div className="circle-hl">
+
+                                                    </div>
+                                                    <div className="word-hl">
+                                                        忽略
+                                                    </div>
+                                                </div>
+                                            </Col>
+                                    </Row>
+                                </Col>
+                            </Row>
+                        </div>
+                        <div className="typered" style={{ display:this.state.displayred }}>
+                            <Row>
+                                <div id="triangle-topright-red"></div>
+                                <Col span={8} style={{ background:'red' }}>
+                                    <div className="pliceImg">
+                                        <div className="img">
+                                            <img src="http://pic01.aokecloud.cn/alarm/1000004/pic/20190119/1000004_20190119111559_320X240.jpg" alt="" />
+                                        </div>
+                                    </div>
+                                </Col>
+                                <Col span={16}>
+                                    <Row>
+                                        <Col span={20}>
+                                            <Row className="word-row">
+                                                <Col span={18}>
+                                                    <Row>
+                                                        <Col span={14}  style={{marginLeft:'5px' }} push={1}>
+                                                            <p>测试1</p>
+                                                        </Col>
+                                                        <Col span={9} push={5} style={{textAlign:'right' }}>
+                                                            <p>入侵检测</p>
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
+                                            </Row>
+                                            <Row className="word-row">
+                                                <Col span={12}  push={1}>
+                                                    <p>2019-10-12 19:13:35</p>
+                                                </Col>
+                                                <Col span={9} push={1} style={{textAlign:'right',marginLeft:'13px'}}>
+                                                    <p>报警对象:人</p>
+                                                </Col>
+                                            </Row>
                                         </Col>
-
                                     </Row>
                                     <Row className="sure-row">
                                         <Col span={8} >
@@ -439,87 +504,13 @@ class Alarmlist extends React.Component{
                                 </Col>
                             </Row>
                         </div>
-                        <div className="typered" style={{ display:this.state.displayred }}>
-                            <Row>
-                                <Col span={8} style={{ background:'red' }}>
-                                    <div className="pliceImg">
-                                        <div className="img">
-                                            <img src={test} alt="" />
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col span={16}>
-                                    <Row>
-                                        <Col span={20}>
-                                            <Row className="word-row">
-                                                <Col span={18}>
-                                                    <Row>
-                                                        <Col span={14}  style={{marginLeft:'5px' }} push={1}>
-                                                            <p>测试1</p>
-                                                        </Col>
-                                                        <Col span={8} push={1} style={{textAlign:'right' }}>
-                                                            <p>入侵检测</p>
-                                                        </Col>
-                                                    </Row>
-                                                </Col>
-                                            </Row>
-                                            <Row className="word-row">
-                                                <Col span={12}  push={1}>
-                                                    <p>2019-10-12 19:13:35</p>
-                                                </Col>
-                                                <Col span={6} style={{textAlign:'right',marginLeft:'13px'}}>
-                                                    <p>报警对象:人</p>
-                                                </Col>
-                                            </Row>
-                                        </Col>
-                                        <Col span={4} pull={1}>
-                                            <div id="triangle-topright-red">
-
-                                            </div>
-                                        </Col>
-
-                                    </Row>
-                                    <Row className="sure-row">
-                                        <Col span={8} >
-                                            <div className="sure-col-l" onClick={this.handleSureAlarmImg}>
-                                                <div className="circle-sure">
-
-                                                </div>
-                                                <div className="word-sure">
-                                                    确认
-                                                </div>
-                                            </div>
-                                        </Col>
-                                        <Col span={8} >
-                                            <div className="sure-col-c" onClick={this.handleXJAlarmImg}>
-                                                <div className="circle-xj">
-
-                                                </div>
-                                                <div className="word-xj">
-                                                    虚警
-                                                </div>
-                                            </div>
-                                        </Col>
-                                        <Col span={8} >
-                                            <div className="sure-col-r">
-                                                <div className="circle-hl">
-
-                                                </div>
-                                                <div className="word-hl" onClick={this.handleHLAlarmImg}>
-                                                    忽略
-                                                </div>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </Col>
-                            </Row>
-                        </div>
                         <div className="typeblue" style={{ display:this.state.displayblue }}>
                             <Row>
+                                <div id="triangle-topright-blue"></div>
                                 <Col span={8} style={{ background:'red' }}>
                                     <div className="pliceImg">
                                         <div className="img">
-                                            <img src={test} alt="" />
+                                            <img src="http://pic01.aokecloud.cn/alarm/1000004/pic/20190119/1000004_20190119111559_320X240.jpg" alt="" />
                                         </div>
                                     </div>
                                 </Col>
@@ -532,7 +523,7 @@ class Alarmlist extends React.Component{
                                                         <Col span={14}  style={{marginLeft:'5px' }} push={1}>
                                                             <p>测试1</p>
                                                         </Col>
-                                                        <Col span={8} push={1} style={{textAlign:'right' }}>
+                                                        <Col span={9} push={5} style={{textAlign:'right' }}>
                                                             <p>入侵检测</p>
                                                         </Col>
                                                     </Row>
@@ -542,17 +533,11 @@ class Alarmlist extends React.Component{
                                                 <Col span={12}  push={1}>
                                                     <p>2019-10-12 19:13:35</p>
                                                 </Col>
-                                                <Col span={6} style={{textAlign:'right',marginLeft:'13px'}}>
+                                                <Col span={9} push={1} style={{textAlign:'right',marginLeft:'13px'}}>
                                                     <p>报警对象:人</p>
                                                 </Col>
                                             </Row>
                                         </Col>
-                                        <Col span={4} pull={1}>
-                                            <div id="triangle-topright-blue">
-
-                                            </div>
-                                        </Col>
-
                                     </Row>
                                     <Row className="sure-row">
                                         <Col span={8} >
@@ -576,11 +561,11 @@ class Alarmlist extends React.Component{
                                             </div>
                                         </Col>
                                         <Col span={8} >
-                                            <div className="sure-col-r">
+                                            <div className="sure-col-r" onClick={this.handleHLAlarmImg}>
                                                 <div className="circle-hl">
 
                                                 </div>
-                                                <div className="word-hl" onClick={this.handleHLAlarmImg}>
+                                                <div className="word-hl">
                                                     忽略
                                                 </div>
                                             </div>
@@ -591,7 +576,6 @@ class Alarmlist extends React.Component{
                         </div>
                     </Col>
                 </Row>
-
             </div>
         )
     }
