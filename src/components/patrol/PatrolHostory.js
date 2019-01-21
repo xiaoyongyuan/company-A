@@ -36,33 +36,38 @@ class RollcallHostory extends React.Component{
             }
         })
         var _this=this;
-        let pag=2;
+        let pag=1;
         document.getElementById("scorll").onscroll=function() {
             var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
             var scrollTop = document.getElementById("scorll").scrollTop;
             var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度
             var scrollbottom=scrollHeight-clientHeight;
             var scrollTopP=Math.ceil(scrollTop);
+            
             _this.setState({
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTop
                })
             if(scrollbottom-scrollTopP===0){//滚动到底部了
-               _this.setState({
-                scrollbottom:scrollbottom,
-                scrollTop:scrollTop,
-                page:pag
-               })
+                pag++;
+                _this.setState({
+                    scrollbottom:scrollbottom,
+                    scrollTop:scrollTop,
+                    page:pag
+                })
                if(_this.state.isrequest){ 
                 post({url:'/api/patrolresult/getlist_team',data:{pageindex:_this.state.page}},(res)=>{
                     console.log(res,"res");
+                    // if(res.data.length>0){
+                        
+                    //    }
                     if(res.data.length>0){
-                        pag++;
-                       }
-                    if(res.data.length>0){
-                       _this.setState({
-                        loading: true,
-                        })
+                        const list=_this.state.list;
+                        const alist = list.concat(res.data);
+                        _this.setState({
+                             list: alist,
+                             loading: false,
+                        } )
                     }else{
                         if(res.data.length===0){
                             message.success('没有更多了');
@@ -70,17 +75,6 @@ class RollcallHostory extends React.Component{
                         _this.setState({
                             isrequest: false,
                             } )
-                    }
-                    if(res.success){
-                        if(res.data.length>0){
-                            const list=_this.state.list;
-                            const alist = list.concat(res.data);
-                            _this.setState({
-                                 list: alist,
-                                 loading: false,
-                            } )
-                        }
-                       
                     }
                 })
              }
