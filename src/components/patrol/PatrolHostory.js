@@ -34,7 +34,6 @@ class RollcallHostory extends React.Component{
         })
         var _this=this;
         document.getElementById("scorll").onscroll=function() {
-            // console.log(`滚动了${x += 1}次`);
             var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
             var scrollTop = document.getElementById("scorll").scrollTop;//0-18
             var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度
@@ -45,7 +44,6 @@ class RollcallHostory extends React.Component{
                 scrollTop:scrollTop
                })
             if(scrollbottom-scrollTopP===0){//滚动到底部了
-               
                _this.setState({
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTop,
@@ -104,15 +102,12 @@ class RollcallHostory extends React.Component{
                 startdate :this.state.pbdate?this.state.pbdate.format('YYYY-MM-DD'):'',
                 enddate :this.state.pedate?this.state.pedate.format('YYYY-MM-DD'):'',
             }
-            console.log(data.pbdate,data.pedate);
+            // console.log(data.pbdate,data.pedate);
             post({url:'/api/patrolresult/getlist_team',data:data},(res)=>{
                 if(res.success){
                         this.setState({
                             list:res.data
-                        },()=>{
-                            console.log('******************',this.state.list.length);
-                        }
-                        )
+                        })
                 }
             })
     };
