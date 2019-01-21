@@ -113,7 +113,7 @@ class Companyhome extends Component {
                                                     </Col>
                                                     <Col xl={10} lg={5} offset={1}>
                                                         <Row>
-                                                            <Col xl={24} className="cloudFont adminFont personalUseFont listContext">
+                                                            <Col xl={24} className="cloudFont adminFont personalUseFont listContext" title= {this.state.cloudDate?this.state.cloudDate:'无期限'}>
                                                             {this.state.cloudDate?this.state.cloudDate:'无期限'}
                                                             </Col>
                                                         </Row>
