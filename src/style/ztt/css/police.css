@@ -27,11 +27,7 @@
     box-shadow: 0 0 10px #ffffff;
     cursor: pointer;
 }
-.img{
-    width: 100%;
-    height: 100%;
-}
-.img img{
+.pliceImg img{
     width: 100%;
     height: 100%;
 }
@@ -236,13 +232,22 @@
     left: 35%;
     top: 34%;
 }
-#triangle-topright-green {
+.triangle-topright-green {
     width: 0;
     height: 0;
-    border-top: 80px solid #0fa420;
+    border-top: 80px solid white;
     border-left: 100px solid transparent;
     position: absolute;
     right: 0;
+}
+.trianglegreen{
+    border-top:80px solid #0fa420!important;
+}
+.trianglered{
+    border-top:80px solid #F22727!important;
+}
+.triangleblue{
+    border-top:80px solid #2C39B1!important;
 }
 .triangle{
     width: 0;
@@ -253,19 +258,4 @@
     position: absolute;
     right: 0;
 }
-#triangle-topright-red {
-    width: 0;
-    height: 0;
-    border-top: 80px solid #F22727;
-    border-left: 100px solid transparent;
-    position: absolute;
-    right: 0;
-}
-#triangle-topright-blue {
-    width: 0;
-    height: 0;
-    border-top: 80px solid #2C39B1;
-    border-left: 100px solid transparent;
-    position: absolute;
-    right: 0;
-}
+
