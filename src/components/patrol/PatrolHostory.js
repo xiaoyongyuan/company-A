@@ -32,7 +32,27 @@ class RollcallHostory extends React.Component{
                     })
             }
         })
-    }     
+        var _this=this;
+        document.getElementById("scorll").onscroll=function() {
+            // console.log(`滚动了${x += 1}次`);
+            var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
+            var scrollTop = document.getElementById("scorll").scrollTop;//0-18
+            var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度
+            var scrollbottom=scrollHeight-clientHeight;
+            var scrollTopP=Math.ceil(scrollTop);
+            _this.setState({
+                scrollbottom:scrollbottom,
+                scrollTop:scrollTop
+               })
+            if(scrollbottom-scrollTopP===0){//滚动到底部了
+               
+               _this.setState({
+                scrollbottom:scrollbottom,
+                scrollTop:scrollTop,
+               })
+            }
+        };  
+    }   
     backtop=()=>{ //返回顶部
         document.getElementById("scorll").scrollTop = 0; 
     };
@@ -174,10 +194,14 @@ class RollcallHostory extends React.Component{
                                             <div className="xun_detail">
                                                 <div className={this.statepatarol(item.status)}>
                                                     <span>共点名 {item.totalcount}个对象</span>,
-                                                    <span style={item.status==1?{display:'none'}:{display:'inline-block'}}>有 {item.unhandle}个对象未巡更，</span>
-                                                    <span style={item.status==2?{display:'none'}:{display:'inline-block'}}>有{item.handling}个对象正在处理中,</span>
-                                                    <span style={item.status==2?{display:'none'}:{display:'inline-block'}}>有 {item.handle_true}个对象巡更正常 ,</span>
-                                                    <span style={item.status==2?{display:'none'}:{display:'inline-block'}}>有{item.handle_false}个对象巡更异常，</span>
+                                                    <span style={item.status==0?{display:'none'}:{display:'inline-block'}}>
+                                                        <span style={item.status==1?{display:'none'}:{display:'inline-block'}}>
+                                                            <span>有 {item.unhandle}个对象未巡更，</span>
+                                                            <span style={item.status==2?{display:'none'}:{display:'inline-block'}}>有{item.handling}个对象正在处理中,</span>
+                                                        </span>
+                                                        <span style={item.status==2?{display:'none'}:{display:'inline-block'}}>有 {item.handle_true}个对象巡更正常 ,</span>
+                                                        <span style={item.status==2?{display:'none'}:{display:'inline-block'}}>有{item.handle_false}个对象巡更异常，</span>
+                                                    </span>
                                                 </div>
                                             </div>
                                          </div>
