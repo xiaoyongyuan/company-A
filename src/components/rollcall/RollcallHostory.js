@@ -232,9 +232,8 @@ class RollcallHostory extends React.Component{
                         {
                             this.state.list.map((item,j)=>{
                                 return (
-                                   
-                                    <div> 
-                                    <Timeline.Item key={j}>
+                                    <div key={j}> 
+                                    <Timeline.Item>
                                         <p> {item.dayly} </p>
                                          { 
 
