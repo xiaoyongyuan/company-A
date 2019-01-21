@@ -38,12 +38,12 @@ class RollcallHostory extends React.Component{
         var _this=this;
         let pag=1;
         document.getElementById("scorll").onscroll=function() {
+        
             var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
             var scrollTop = document.getElementById("scorll").scrollTop;
             var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度
             var scrollbottom=scrollHeight-clientHeight;
-            var scrollTopP=Math.ceil(scrollTop);
-            
+            var scrollTopP=Math.floor(scrollTop);
             _this.setState({
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTop
@@ -57,7 +57,7 @@ class RollcallHostory extends React.Component{
                 })
                if(_this.state.isrequest){ 
                 post({url:'/api/patrolresult/getlist_team',data:{pageindex:_this.state.page}},(res)=>{
-                    console.log(res,"res");
+                    console.log(res,"res"); 
                     if(res.data.length>0){
                         const list=_this.state.list;
                         const alist = list.concat(res.data);
