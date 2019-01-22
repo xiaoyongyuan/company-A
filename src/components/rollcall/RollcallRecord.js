@@ -56,14 +56,10 @@ class RollcallRecord extends React.Component{
     }
     //model open
     handlerollCallType =(code)=>{//打开弹层
-        console.log(code,"3333");
         this.setState({
             rollCallType:true,
             code:code
-        },()=>{
-            console.log('code',code)
-            }
-        )
+        })
     };
     //model close
     handlerollClose =()=>{
@@ -145,9 +141,6 @@ class RollcallRecord extends React.Component{
         },()=>{this.handleRollCallList()}
         )
     };
-    
-
-
     render(){
         const { getFieldDecorator } = this.props.form;
         return(

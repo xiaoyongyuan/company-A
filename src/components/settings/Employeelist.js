@@ -126,7 +126,7 @@ class Adminteam extends Component {
                 }                
             }
         })
-    }
+    };
     render() {
         const _this=this;
         const { getFieldDecorator } = this.props.form;
@@ -217,7 +217,7 @@ class Adminteam extends Component {
 
                     </Row>
                     <Row>
-                        <Table columns={columns} dataSource={this.state.list} bordered={true} />
+                        <Table columns={columns} dataSource={this.state.list} bordered={true} style={{width:"75%"}} />
                     </Row>
                 </div>
                 <Modal title='新增'
