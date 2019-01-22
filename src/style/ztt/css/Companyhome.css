@@ -2,6 +2,10 @@
  *Companyhome.js  企业用户首页
  */
 /*图标大小*/
+.Companyhome{
+    margin-top: 30px;
+    margin-left: 30px;
+}
 .relationship {
     line-height: 2em;
     text-align: right;
@@ -322,9 +326,16 @@
     width: 300px;
     margin: 0 8px 8px 0;
 }
+@media screen and(min-width: 1200px){
+    .Imgdiv{
+        height:70vh!important;
+    }
+}
 .Imgdiv{
     width: 100%;
+    height:47vh;
 }
 .Imgdiv img{
     width: 100%;
+    height: 100%;
 }
