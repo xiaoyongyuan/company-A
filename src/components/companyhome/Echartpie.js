@@ -98,15 +98,15 @@ class Echartpie extends Component {
             })
         }
     }
-    onByModelClick = (e)=>{
+   /* onByModelClick = (e)=>{
         if(e.componentType === "series"){
             window.location.href="#/app/companyhome/companyscene?code="+this.props.codeID
         }
-    }
+    }*/
 
-    onClickByModel={
+  /*  onClickByModel={
         'click':this.onByModelClick
-    }
+    }*/
     
     // 可查看单位
     lookcomp=()=>{
@@ -127,10 +127,6 @@ class Echartpie extends Component {
                     fontWeight: 'normal'
                 }
             },
-            tooltip: {
-                trigger: 'item',
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
-            },
             calculable: true,
             series: [
                 {
@@ -139,7 +135,7 @@ class Echartpie extends Component {
                     radius: [60, 90],
                     center: ['50%', '50%'],
                     data: [{
-                            value: 34,
+                            value: 15,
                             name: '阿房宫',
                             itemStyle: {
                                 color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
@@ -153,7 +149,7 @@ class Echartpie extends Component {
                             label: {
                                 color: "rgba(255,255,255,.45)",
                                 fontSize: 14,
-                                formatter: '阿房宫\n{a|34}个',
+                                formatter: '阿房宫\n{a|15}个',
                                 rich: {
                                     a: {
                                         color: "#fff",
@@ -164,7 +160,7 @@ class Echartpie extends Component {
                             }
                         },
                         {
-                            value: 52,
+                            value: 15,
                             name: 'rose2',
                             itemStyle: {
                                 color: "transparent"
@@ -178,14 +174,14 @@ class Echartpie extends Component {
                     radius: [70, 80],
                     center: ['50%', '50%'],
                     data: [{
-                            value: 34,
+                            value: 3,
                             name: '明秦王陵',
                             itemStyle: {
                                 color: "transparent"
                             }
                         },
                         {
-                            value: 52,
+                            value: 3,
                             name: '明秦王陵',
                             itemStyle: {
                                 color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
@@ -199,7 +195,7 @@ class Echartpie extends Component {
                             label: {
                                 color: "rgba(255,255,255,.45)",
                                 fontSize: 14,
-                                formatter: '明秦王陵\n{a|52}个',
+                                formatter: '明秦王陵\n{a|3}个',
                                 rich: {
                                     a: {
                                         color: "#fff",
@@ -232,9 +228,8 @@ class Echartpie extends Component {
             },
             color: ['rgba(76, 132, 210, .4)'], 
             series: [{
-                name: '未处理报警数',
+                name: '未处理',
                 type: 'pie',
-                clockWise: true,
                 radius: ['55%', '65%'],
                 center: ['15%', 'center'],
                 label: {
@@ -256,10 +251,10 @@ class Echartpie extends Component {
                         }
                     }
                 },
-                hoverAnimation: false, 
+                hoverAnimation: true,
                 data: [{
                     value: 13618,
-                    name: '未处理报警数',
+                    name: '未处理',
                     label: {
                         normal: {
                             formatter: (13618/16521*100).toFixed(2)+"%",
@@ -291,7 +286,7 @@ class Echartpie extends Component {
                     value: 2903,
                     label: {
                         normal: {
-                            formatter: '\n未处理报警数',
+                            formatter: '\n未处理',
                             textStyle: {
                                 color: '#fff',
                                 fontSize: 14
@@ -300,9 +295,8 @@ class Echartpie extends Component {
                     },
                 }]
             },{
-                name: '虚报警数',
+                name: '虚报',
                 type: 'pie',
-                clockWise: true,
                 radius: ['55%', '65%'],
                 center: ['38%', 'center'],
                 label: {
@@ -321,10 +315,10 @@ class Echartpie extends Component {
                         }
                     }
                 },
-                hoverAnimation: false, 
+                hoverAnimation: true,
                 data: [{
                     value: 1,
-                    name: '虚报警数',
+                    name: '虚报',
                     label: {
                         normal: {
                             formatter: (1/(16521-1)*100).toFixed(2)+"%",
@@ -356,7 +350,7 @@ class Echartpie extends Component {
                     value: (16521-1),
                     label: {
                         normal: {
-                            formatter: '\n虚报警数',
+                            formatter: '\n虚报',
                             textStyle: {
                                 color: '#fff',
                                 fontSize: 14
@@ -365,9 +359,8 @@ class Echartpie extends Component {
                     },
                 }]
             },{
-                name: '忽略数',
+                name: '忽略',
                 type: 'pie',
-                clockWise: true,
                 radius: ['55%', '65%'],
                 center: ['61%', 'center'],
                 itemStyle: {
@@ -389,10 +382,10 @@ class Echartpie extends Component {
                         },
                     }
                 },
-                hoverAnimation: false, 
+                hoverAnimation: true,
                 data: [{
                     value: 2901,
-                    name: '忽略数',
+                    name: '忽略',
                     label: {
                         normal: {
                             formatter: (2901/16521*100).toFixed(2)+"%",
@@ -424,7 +417,7 @@ class Echartpie extends Component {
                     value: (16521-2901),
                     label: {
                         normal: {
-                            formatter: '\n忽略数',
+                            formatter: '\n忽略',
                             textStyle: {
                                 color: '#fff',
                                 fontSize: 14
@@ -435,7 +428,6 @@ class Echartpie extends Component {
             },{
                 name: '确认',
                 type: 'pie',
-                clockWise: true,
                 radius: ['55%', '65%'],
                 center: ['85%', 'center'],
                 label: {
@@ -457,7 +449,7 @@ class Echartpie extends Component {
                         }
                     }
                 },
-                hoverAnimation: false, 
+                hoverAnimation: true,
                 data: [{
                     value: 1,
                     name: '确认',
