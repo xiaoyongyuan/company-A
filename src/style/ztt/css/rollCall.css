@@ -9,22 +9,21 @@
 }
     
 .rollRow{
-    /*margin-left: 3%;*/
+    margin-left: 8%;
 }
-@media screen and (max-width: 1900px){
+@media screen and (min-width: 1900px){
     .rollCall{
         display: flex;
         flex-direction:row;
-        margin: 10px 0!important;
+        margin: 12px 0!important;
     }
     .rollRow{
-        margin-left: 3%;
+        margin-left: 8%;
     }
 }
 .rollCall{
     display: flex;
     flex-direction:row;
-    
 }
 .fontColor{
     color:#429019;

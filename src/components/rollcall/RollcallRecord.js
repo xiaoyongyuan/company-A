@@ -203,26 +203,24 @@ class RollcallRecord extends React.Component{
                 </LocaleProvider>
                 <Row type="flex" justify="start">
                     {!this.state.rollsetList.length?<div className="zwsj"><img src={nodata} /></div>:this.state.rollsetList.map((v,i)=>(
-                        <Col className="rollcalllist" key={i} xs={12} sm={12} md={12} lg={12} xl={12} xxl={7} xl={{ offset: 1 }} style={{marginTop:"30px"}}>
-                            <Row>
-                                <Col xs={12} sm={12} md={11} lg={11} xl={12} xxl={12}>
-                                    <img src={v.rrpic} alt="" width="100%" onClick={()=>this.handlerollCallType(v.code)} />
-                                </Col>
-                                <Col xs={12} sm={12} md={12} lg={12} xl={11} xxl={11} className="rollRow">
-                                    <Row className="rollCall">{v.cameraname}-{v.rname}</Row>
-                                    <Row className="rollCall">{v.ifeveryday==0?"自动点名":"手动点名"}</Row>
-                                    <Row className="rollCall">
-                                        <Col className="overflow">
-                                            {v.resultdate}
-                                        </Col>
-                                    </Row>
-                                    <Row className="rollCall">
-                                        <Col className="overflow">
-                                            {v.rfinal==1?<span style={{color:'green'}}>正常</span>:<span style={{color:'red'}}>对象存在状态异常</span>}
-                                        </Col>
-                                    </Row>
-                                </Col>
-                            </Row>
+                        <Col className="rollcalllist" key={i} span={7} style={{marginTop:"30px",marginLeft:"30px"}}>
+                            <Col span={11}>
+                                <img src={v.rrpic} alt="" width="100%" onClick={()=>this.handlerollCallType(v.code)} />
+                            </Col>
+                            <Col span={11} className="rollRow">
+                                <Row className="rollCall">{v.cameraname}-{v.rname}</Row>
+                                <Row className="rollCall">{v.ifeveryday==0?"自动点名":"手动点名"}</Row>
+                                <Row className="rollCall">
+                                    <Col className="overflow" title={v.resultdate}>
+                                        {v.resultdate}
+                                    </Col>
+                                </Row>
+                                <Row className="rollCall">
+                                    <Col className="overflow">
+                                        {v.rfinal==1?<span style={{color:'green'}}>正常</span>:<span style={{color:'red'}}>对象存在状态异常</span>}
+                                    </Col>
+                                </Row>
+                            </Col>
                         </Col>
                     ))}
                 </Row>
