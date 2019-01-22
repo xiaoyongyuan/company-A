@@ -218,19 +218,18 @@ class RollcallHostory extends React.Component{
                                     {item.status===1? <span style={{padding:"0 0 0 14px",color:"green"}}>已完成</span>:''}
                                     {item.status===2? <span style={{padding:"0 0 0 14px",color:"red"}}>未完成</span>:''}
                                     <div className="xun_detail">
-                                    
                                         {item.totalcount===0? <span></span>: <span>该班次有 {item.totalcount}个巡更点</span>}  {item.status===0? '':','}
                                         <span style={{padding:"0 0 0 8px"}}>  
                                             {item.status===1?<span>
                                                {item.handle_true===0? <span></span>: <span>{item.handle_true}个巡更正常 ,</span>}
-                                               {item.handle_false===0? <span></span>: <span>有{item.handle_false}个巡更异常 ,</span>}
+                                               {item.handle_false===0? <span></span>: <span>{item.handle_false}个巡更异常 ,</span>}
                                                 <a href={'#/app/patrol/patrolrecord?patrolid='+item.patrolid+"&pdate="+item.pdate } className="underline"> 查看详情</a>
                                                 </span>: "" 
                                             }
                                             {item.status===2?<span>
                                                 {item.unhandle===0? <span></span>: <span>{item.unhandle}个未巡更，</span>}
                                                 {item.handle_true===0? <span></span>: <span>{item.handle_true}个巡更正常，</span>}
-                                                {item.handle_false===0? <span></span>: <span>有{item.handle_false}个巡更异常，</span>}
+                                                {item.handle_false===0? <span></span>: <span>{item.handle_false}个巡更异常，</span>}
                                                 <a href={'#/app/patrol/patrolrecord?patrolid='+item.patrolid+"&pdate="+item.pdate }className="underline"> 查看详情</a>
                                                 </span>: ""
                                            }
