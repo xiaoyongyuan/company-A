@@ -1,12 +1,11 @@
 import React from 'react';
-import { DatePicker, Row, Col, Select, Button, Icon, Modal, Pagination, Form, message,LocaleProvider,Spin  } from "antd";
+import { DatePicker, Row, Col, Select, Button, Modal, Pagination, Form, message,LocaleProvider } from "antd";
 import "../../style/ztt/css/police.css";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
 import {post} from "../../axios/tools";
 import Alarmdetails from "./Alarmdetails";
 import nodata from "../../style/imgs/nodata.png";
-import test from "../../style/ztt/img/123.png";
 import "../../style/ztt/img/plioce/iconfont.css";
 const Option = Select.Option;
 const formItemLayout = {
