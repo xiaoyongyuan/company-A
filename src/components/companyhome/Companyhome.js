@@ -73,8 +73,8 @@ class Companyhome extends Component {
         return (
             <div className="gutter-example button-demo">
                 <BreadcrumbCustom />
-                <Row gutter={10}>
-                    <Col xl={11} xxl={10}>
+                <Row gutter={32}>
+                    <Col xl={11} xxl={10} offset={1}>
                         <Card>
                             <Row>
                                 <Col xl={12} xxl={12}  ><a href={'#/app/companyhome/companyscene?code='+this.state.code} className="title_font shareUsers" className="title_font shareUsers">{this.state.enterpriseTitle}</a></Col>
@@ -187,13 +187,13 @@ class Companyhome extends Component {
                             </Col>
                         </Row>
                     </Col>
-                    <Col xl={12} xxl={10} className="rightShift">
+                    <Col xl={11} xxl={10} className="rightShift">
                         <Row>
                             <Col xl={1} xxl={1}><div className="sandian"><img src={quyumidu} alt="" /></div></Col>
                             <Col xl={10} xxl={12}><span className="titleFont">场景图</span></Col>
                         </Row>
                         <Row>
-                            <Col xl={20} xxl={17}>
+                            <Col xl={20} xxl={24}>
                                 <div className="Imgdiv">
                                     <img src={this.state.scenegraph}
                                          className="img-responsive"
