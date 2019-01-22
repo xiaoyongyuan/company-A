@@ -207,36 +207,34 @@ class RollcallHostory extends React.Component{
                 <div>{this.state.list.length?<div></div>:<div className="textcenter">暂无数据</div>}</div>
                 <div className="timeline_ml">
                  <Timeline pending={true}>
-                        {
-                            this.state.list.map((item,j)=>{
-                                return (
-                                    <div key={j}> 
-                                    <Timeline.Item>
-                                        <div className="inlineb"> {item.pdate} </div> 
-                                        <div className="timess"> {item.pteam}({item.pbdate}:00 —— {item.pedate}:00)</div><br></br>
-                                        <div>
-                                            <span></span>
-                                            <div className="xun_detail">
-                                                <div>
-                                                    <span>该班次有 {item.totalcount}个巡更点</span> , 
-                                                    {item.status===0? <span style={{padding:"0 0 0 14px"}}>执行中...</span>:
-                                                        <span style={{padding:"0 0 0 8px"}}>  
-                                                            {item.status===1?<span>已完成 ，{item.handle_true}个巡更正常 , 有{item.handle_false}个巡更异常 , <a href={'#/app/patrol/patrolrecord?patrolid='+item.patrolid+"&pdate="+item.pdate } className="underline"> 查看详情</a>
-                                                             </span>: "" }
-                                                            {item.status===2?<span>有 {item.unhandle}个未巡更 ，有 {item.handle_true}个巡更正常 , 有{item.handle_false}个巡更异常 , <a href={'#/app/patrol/patrolrecord?patrolid='+item.patrolid+"&pdate="+item.pdate }className="underline"> 查看详情</a>
-                                                            </span>: ""}
-                                                        </span>
-                                                    }
-                                                </div>
-                                            </div>
-                                         </div>
-                                       
-                                        
-                                    </Timeline.Item>
+                    {
+                        this.state.list.map((item,j)=>{
+                            return (
+                                <div key={j}> 
+                                <Timeline.Item>
+                                    <div className="inlineb"> {item.pdate} </div> 
+                                    <div className="timess"> {item.pteam}({item.pbdate}:00 —— {item.pedate}:00)</div>
+                                    {item.status===0? <span style={{padding:"0 0 0 14px",color:"#FFC125"}}>执行中...</span>:''}
+                                    {item.status===1? <span style={{padding:"0 0 0 14px",color:"green"}}>已完成</span>:''}
+                                    {item.status===2? <span style={{padding:"0 0 0 14px",color:"red"}}>未完成</span>:''}
+                                    <div className="xun_detail">
+                                        <span>该班次有 {item.totalcount}个巡更点</span> {item.status===0? '':','}
+                                        <span style={{padding:"0 0 0 8px"}}>  
+                                            {item.status===1?<span>{item.handle_true}个巡更正常 , 有{item.handle_false}个巡更异常 , 
+                                                <a href={'#/app/patrol/patrolrecord?patrolid='+item.patrolid+"&pdate="+item.pdate } className="underline"> 查看详情</a>
+                                                </span>: "" 
+                                            }
+                                            {item.status===2?<span>有 {item.unhandle}个未巡更 ，有 {item.handle_true}个巡更正常 , 有{item.handle_false}个巡更异常 , 
+                                                <a href={'#/app/patrol/patrolrecord?patrolid='+item.patrolid+"&pdate="+item.pdate }className="underline"> 查看详情</a>
+                                                </span>: ""
+                                           }
+                                        </span>
                                     </div>
-                                )
-                            })
-                        } 
+                                </Timeline.Item>
+                                </div>
+                            )
+                        })
+                    } 
                 </Timeline>
                 </div>
                 

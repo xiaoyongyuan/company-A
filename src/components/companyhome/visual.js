@@ -7,9 +7,10 @@ import team from "../../style/yal/img/team.png";
 import usernum from "../../style/yal/img/usernum.png";
 import admin from "../../style/yal/img/admin.png";
 import nodata from "../../style/imgs/nodata.png";
-import Echartdata from "./Echartdata";
+// import Echartdata from "./Echartdata";
+import Echartline from "./Echartline";
+import Echartpie from "./Echartpie";
 import moment from "moment";
-
 
 const deveice=[{
     name:'神道西侧',
@@ -88,7 +89,7 @@ class Datavisual extends Component {
                                 <span className="titlename">可查看单位</span>
                             </div>
                             <div className="comp">
-                                <Echartdata type='lookcomp' winhe={(parseInt(this.state.DHeight)*0.7-20)*0.5-50} />
+                                <Echartpie type='lookcomp' winhe={(parseInt(this.state.DHeight)*0.7-20)*0.5-50} />
                             </div>
                         </div>
                     </div>
@@ -142,7 +143,7 @@ class Datavisual extends Component {
                             </div>
                         </div>
                         <div className="maps">
-                            <Echartdata type='xianmap'  winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-60} />
+                            <Echartpie type='xianmap'  winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-60} />
                         </div>
                         <div className="draw">
                             <div className="untreated alarmtitle">
@@ -262,7 +263,7 @@ class Datavisual extends Component {
                                 <span className="titlename">报警次数</span>
                             </div>
                             <div className="comp">
-                                <Echartdata type='alarmnum' winhe={(parseInt(this.state.DHeight)*0.7-10)*0.5-10} />
+                                <Echartline type='alarmnum' winhe={(parseInt(this.state.DHeight)*0.7-10)*0.5-10} />
                             </div>
                         </div>
                     </div>
@@ -275,7 +276,7 @@ class Datavisual extends Component {
                                 <span className="titlename">点名次数</span>
                             </div>
                             <div className="comp">
-                                    <Echartdata type='rollcall' winhe={parseInt(this.state.DHeight)*0.3-70} />
+                                    <Echartline type='rollcall' winhe={parseInt(this.state.DHeight)*0.3-70} />
                             </div>
                         </div>
                     </Col>
@@ -285,7 +286,7 @@ class Datavisual extends Component {
                                 <span className="titlename">报警分析</span>
                             </div>
                             <div className="comp">
-                                <Echartdata type='alarmanalyze' winhe={parseInt(this.state.DHeight)*0.3-70}/>
+                                <Echartpie type='alarmanalyze' winhe={parseInt(this.state.DHeight)*0.3-70}/>
                             </div>
                         </div>
                     </Col>
@@ -295,7 +296,7 @@ class Datavisual extends Component {
                                 <span className="titlename">巡更次数</span>
                             </div>
                             <div className="comp">
-                                <Echartdata type='patrol' winhe={parseInt(this.state.DHeight)*0.3-70} />
+                                <Echartline type='patrol' winhe={parseInt(this.state.DHeight)*0.3-70} />
                             </div>
                         </div>
                     </Col>

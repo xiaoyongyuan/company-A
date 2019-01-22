@@ -34,21 +34,7 @@ class App extends Component {
         }
     }
     componentDidMount() {
-        // const openNotification = () => {
-        //     notification.open({
-        //       message: '信息',
-        //       description: (
-        //           <div>
-        //               ssss
-        //           </div>
-        //       ),
-        //       icon: <Icon type="smile-circle" style={{ color: 'red' }} />,
-        //       duration: 0,
-        //     });
-        //     localStorage.setItem('isFirst', JSON.stringify(true));
-        // };
-        // const isFirst = JSON.parse(localStorage.getItem('isFirst'));
-        // !isFirst && openNotification();
+        //此处取不到auth的值
     }
     getClientWidth = () => { // 获取当前浏览器宽度并设置responsive管理响应式
         const { receiveData } = this.props;
@@ -64,7 +50,7 @@ class App extends Component {
         const { auth, responsive } = this.props;
         return (
             <Layout>
-                {!responsive.data.isMobile && <SiderCustom collapsed={this.state.collapsed} />}
+                {!responsive.data.isMobile && <SiderCustom collapsed={this.state.collapsed} user={auth} />}
                 <Layout style={{flexDirection: 'column'}}>
                     <HeaderCustom toggle={this.toggle} collapsed={this.state.collapsed} user={auth.data || {}} />
                     <Content style={{ overflow: 'initial', flex: '1 1 0' }}>
