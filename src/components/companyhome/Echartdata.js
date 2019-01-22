@@ -17,8 +17,6 @@ class Echartdata extends Component {
     componentWillMount(){
         this.setState({
             type:this.props.type,
-            width:this.props.width,
-            height:this.props.height,
 
         })
     }
@@ -26,14 +24,10 @@ class Echartdata extends Component {
     componentDidMount(){
         this[this.state.type]()
         
-
-        return;
-        
     }
     xianmap=()=>{ //地图
         echarts.registerMap('xian', xianmap);
         let datasMap=this.state.father.datasMap;
-        console.log('datasMapdatasMap',datasMap);
         let option={
             background:"#091e57",
             geo: {
