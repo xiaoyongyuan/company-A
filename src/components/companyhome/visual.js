@@ -52,17 +52,24 @@ class Datavisual extends Component {
      this.setState({
         DHeight:document.documentElement.clientHeight-65+'px'
      })
-     console.log('ddddddddddd',document.documentElement.clientHeight-65+'px')
-     const themehead=document.getElementById('themehead');
-     // themehead.style.visibility="hidden";
         
     }
     componentDidMount() {
+        const _this=this;
         window.onresize = () => {
             this.setState({
                 DHeight:document.documentElement.clientHeight-65+'px'
             })
         }
+
+        post({url:'/api/company/getone_special'},(res)=>{
+            if(res.success){
+                _this.setState({
+                    xianmap:res.info.lnglat, //位置信息
+                })
+            }
+
+        })
     }
     render() {
         const _this=this;

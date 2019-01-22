@@ -72,7 +72,6 @@ class Companyhome extends Component {
     render() {
         return (
             <div className="gutter-example button-demo">
-                <BreadcrumbCustom />
                 <Row gutter={32}>
                     <Col xl={11} xxl={10} offset={1}>
                         <Card>
@@ -204,7 +203,11 @@ class Companyhome extends Component {
                         </Row>
                     </Col>
                 </Row>
-                <Equipment/>
+                <Row>
+                <Col span={23} offset={1}>
+                    <Equipment/>
+                </Col>
+                </Row>
             </div>
         )
     }
