@@ -216,16 +216,17 @@ class RollcallHostory extends React.Component{
                                         <div>
                                             <span></span>
                                             <div className="xun_detail">
-                                                <div className={this.statepatarol(item.status)}>
+                                                <div>
                                                     <span>共点名 {item.totalcount}个对象</span>,
-                                                    <span style={item.status==0?{display:'none'}:{display:'inline-block'}}>
-                                                        <span style={item.status==1?{display:'none'}:{display:'inline-block'}}>
-                                                            <span>有 {item.unhandle}个对象未巡更，</span>
-                                                            <span style={item.status==2?{display:'none'}:{display:'inline-block'}}>有{item.handling}个对象正在处理中,</span>
-                                                        </span>
-                                                        <span style={item.status==2?{display:'none'}:{display:'inline-block'}}>有 {item.handle_true}个对象巡更正常 ,</span>
-                                                        <span style={item.status==2?{display:'none'}:{display:'inline-block'}}>有{item.handle_false}个对象巡更异常，</span>
-                                                    </span>
+                                                    {item.status===0? <span style={{padding:"0 0 0 14px"}}>执行中...</span>:
+                                                        <span>
+                                                            <span style={item.status==1?{display:'none'}:{display:'inline-block'}}>
+                                                                <span>有 {item.unhandle}个对象未巡更，</span>
+                                                                <span style={item.status==2?{display:'none'}:{display:'inline-block'}}>有{item.handling}个对象正在处理中,</span>
+                                                            </span>
+                                                            <span style={item.status==2?{display:'none'}:{display:'inline-block'}}>有 {item.handle_true}个对象巡更正常,有{item.handle_false}个对象巡更异常，</span>
+                                                       </span>
+                                                    }
                                                 </div>
                                             </div>
                                          </div>
