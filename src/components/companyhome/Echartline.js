@@ -155,16 +155,10 @@ class Echartline extends Component {
                 x: '45%',
                 top: '0%',
                 data:[{
-                    name: '阿房宫',
-                    icon: 'circle',
-                    textStyle: {
-                        color: '#165ecc',
-                    }
-                },{
                     name: '明秦王陵遗址',
                     icon: 'circle',
                     textStyle: {
-                        color: '#13fcff'
+                        color: '#13fcff',
                     }
                 }
                 ],
@@ -197,7 +191,7 @@ class Echartline extends Component {
                     name: '次',
                     axisLine: {
                         onZero: false,
-                        show: true,
+                        show: false,
                         symbol: ['none', 'arrow'],
                         symbolSize: [10, 10],
                         symbolOffset: [0, 10],
@@ -240,7 +234,7 @@ class Echartline extends Component {
                 name: '明秦王陵遗址',
                 type: 'bar',
                 barWidth: '10px',
-                yAxisIndex: 1,
+                symbol: 'symbol',
                 itemStyle: {
                     normal: {
                         barBorderRadius: [30, 30, 0, 0],
@@ -248,9 +242,9 @@ class Echartline extends Component {
                         color: new echarts.graphic.LinearGradient(
                             0, 0, 0, 1,
                             [{
-                                    offset: 0,
-                                    color: '#0394ef'
-                                },
+                                offset: 0,
+                                color: '#0394ef'
+                            },
                                 {
                                     offset: 0.5,
                                     color: '#047ee4'
@@ -276,7 +270,7 @@ class Echartline extends Component {
         let option = {
                     grid: { //图的位置
                         left: "3%",
-                        right: "7%",
+                        right: "10%",
                         top:'26%',
                         bottom: "0%",
                         containLabel: true
@@ -330,7 +324,7 @@ class Echartline extends Component {
                             padding: [0, 15, 0, 0],
                             textStyle: {
                                 color: '#fff', //x轴字体
-                                fontSize: 5*scale,
+                                fontSize: 14*scale,
                             }
                         },
                         axisTick: {
