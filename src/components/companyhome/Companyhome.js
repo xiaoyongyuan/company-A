@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import BreadcrumbCustom from '../BreadcrumbCustom';
 import { Row,Col,Card } from 'antd';
 import { Link } from 'react-router-dom';
 import '../../style/ztt/css/Companyhome.css';
@@ -15,6 +14,7 @@ import gongxiang from "../../style/ztt/img/gongxiang.png";
 import quyumidu from "../../style/ztt/img/quyumidu.png";
 import shumeipaiTitle from "../../style/ztt/img/shumeipaiTitle.png";
 import cloud from "../../style/ztt/img/cloud.png";
+import zonglan from "../../style/ztt/img/fwnleiruwang.png";
 import nopic from "../../style/imgs/nopic.png";
 class Companyhome extends Component {
     constructor(props){
@@ -71,9 +71,9 @@ class Companyhome extends Component {
     };
     render() {
         return (
-            <div className="gutter-example button-demo">
+            <div className="Companyhome gutter-example button-demo">
                 <Row gutter={32}>
-                    <Col xl={11} xxl={10} offset={1}>
+                    <Col xl={11} xxl={10} >
                         <Card>
                             <Row>
                                 <Col xl={12} xxl={12}  ><a href={'#/app/companyhome/companyscene?code='+this.state.code} className="title_font shareUsers" className="title_font shareUsers">{this.state.enterpriseTitle}</a></Col>
@@ -186,27 +186,36 @@ class Companyhome extends Component {
                             </Col>
                         </Row>
                     </Col>
-                    <Col xl={11} xxl={10} className="rightShift">
-                        <Row>
-                            <Col xl={1} xxl={1}><div className="sandian"><img src={quyumidu} alt="" /></div></Col>
-                            <Col xl={10} xxl={12}><span className="titleFont">场景图</span></Col>
-                        </Row>
-                        <Row>
-                            <Col xl={20} xxl={24}>
-                                <div className="Imgdiv">
-                                    <img src={this.state.scenegraph}
-                                         className="img-responsive"
-                                         alt=""
-                                    />
-                                </div>
-                            </Col>
-                        </Row>
+                    <Col xl={11} xxl={10}>
+                        <Card>
+                            <Row>
+                                <Col xl={1} xxl={1}><div className="sandian"><img src={quyumidu} alt="" /></div></Col>
+                                <Col xl={10} xxl={12}><span className="titleFont">场景图</span></Col>
+                            </Row>
+                            <Row>
+                                <Col span={24}>
+                                    <div className="Imgdiv">
+                                        <img src={this.state.scenegraph}
+                                             className="img-responsive"
+                                             alt=""
+                                        />
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Card>
                     </Col>
                 </Row>
-                <Row>
-                <Col span={23} offset={1}>
-                    <Equipment/>
-                </Col>
+                <Row className="topShift">
+                    <Col xl={22} xxl={20}>
+                        <Card>
+                            <Row>
+                                <Col xl={10} xxl={12}><img src={zonglan} alt="" />&nbsp;&nbsp;<span className="titleFont">用户总览</span></Col>
+                            </Row>
+                            <Row style={{marginTop:"10px"}}>
+                                <Equipment />
+                            </Row>
+                        </Card>
+                    </Col>
                 </Row>
             </div>
         )

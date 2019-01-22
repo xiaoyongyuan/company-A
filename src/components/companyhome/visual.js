@@ -45,6 +45,11 @@ class Datavisual extends Component {
         this.state= {
             option:{},
             deveice:deveice,
+            analysisCount:0,//总报警数
+            unhandle:0,//未处理报警数
+            okconfirm:0,//确认数
+            xufalse:0,//虚报警数
+            ignore:0,//忽略数
             today:moment().format('LL'),
         }
         this.saveRef = ref => {this.refDom = ref};
@@ -65,8 +70,40 @@ class Datavisual extends Component {
 
         post({url:'/api/company/getone_special'},(res)=>{
             if(res.success){
+                var dataMap = Object.keys(res.info.lnglat).map(key=> res.info.lnglat[key]);
+                var analysis=Object.keys(res.info.alarmcount).map(key=> res.info.alarmcount[key]);
+                /*var analysisCount=0;//总报警数
+                var unhandle=0;//未处理报警数
+                var okconfirm=0;//确认数
+                var xufalse=0;//虚报警数
+                var ignore=0;//忽略数*/
+                analysis.map((v)=>{
+                    this.state.analysisCount+=v.a_confirm+v.a_false+v.a_ignore+v.a_unhandle;
+                });
+                //未处理报警数
+                for(var i=0;i<analysis.length;i++){
+                    this.state.unhandle+=analysis[i].a_unhandle
+                }
+                //确认数
+                for(var a=0;a<analysis.length;a++){
+                    this.state.okconfirm+=analysis[a].a_confirm
+                }
+                //虚报警数
+                for(var b=0;b<analysis.length;b++){
+                    this.state.xufalse+=analysis[b].a_false
+                }
+                //忽略数
+                for(var c=0;c<analysis.length;c++){
+                    this.state.ignore+=analysis[c].a_ignore
+                }
                 _this.setState({
-                    xianmap:res.info.lnglat, //位置信息
+                    xianmap:dataMap, //位置信息
+                },()=>{
+                    console.log(this.state.ignore);
+                    console.log(this.state.xufalse);
+                    console.log(this.state.okconfirm);
+                    console.log(this.state.unhandle);
+                    console.log(this.state.analysisCount);
                 })
             }
 
@@ -143,7 +180,7 @@ class Datavisual extends Component {
                             </div>
                         </div>
                         <div className="maps">
-                            <Echartpie type='xianmap'  winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-60} />
+                            <Echartpie type='xianmap'  winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-60} xianmap={this.state.xianmap} />
                         </div>
                         <div className="draw">
                             <div className="untreated alarmtitle">
