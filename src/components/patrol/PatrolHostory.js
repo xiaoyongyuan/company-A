@@ -221,11 +221,13 @@ class RollcallHostory extends React.Component{
                                         <span>该班次有 {item.totalcount}个巡更点</span> {item.status===0? '':','}
                                         <span style={{padding:"0 0 0 8px"}}>  
                                             {item.status===1?<span>{item.handle_true}个巡更正常 , 有{item.handle_false}个巡更异常 , 
-                                            <a href={'#/app/patrol/patrolrecord?patrolid='+item.patrolid+"&pdate="+item.pdate } className="underline"> 查看详情</a>
-                                                </span>: "" }
+                                                <a href={'#/app/patrol/patrolrecord?patrolid='+item.patrolid+"&pdate="+item.pdate } className="underline"> 查看详情</a>
+                                                </span>: "" 
+                                            }
                                             {item.status===2?<span>有 {item.unhandle}个未巡更 ，有 {item.handle_true}个巡更正常 , 有{item.handle_false}个巡更异常 , 
-                                            <a href={'#/app/patrol/patrolrecord?patrolid='+item.patrolid+"&pdate="+item.pdate }className="underline"> 查看详情</a>
-                                            </span>: ""}
+                                                <a href={'#/app/patrol/patrolrecord?patrolid='+item.patrolid+"&pdate="+item.pdate }className="underline"> 查看详情</a>
+                                                </span>: ""
+                                           }
                                         </span>
                                     </div>
                                 </Timeline.Item>
