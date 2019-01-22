@@ -132,7 +132,7 @@ class Echartpie extends Component {
                 {
                     name: '阿房宫',
                     type: 'pie',
-                    radius: [60, 90],
+                    radius: [55, 75],
                     center: ['50%', '50%'],
                     data: [{
                             value: 15,
@@ -171,7 +171,7 @@ class Echartpie extends Component {
                 {
                     name: '明秦王陵',
                     type: 'pie',
-                    radius: [70, 80],
+                    radius: [60, 70],
                     center: ['50%', '50%'],
                     data: [{
                             value: 3,
@@ -533,7 +533,8 @@ class Echartpie extends Component {
                 {
                     type:"effectScatter",// series图表类型
                     coordinateSystem:"geo",// series坐标系类型
-                    data:this.props.xianmap, // series数据内容
+                    //data:this.props.xianmap, // series数据内容
+                    data:[{name: "阿房宫", value: [108.83, 34.26]},{name: "明秦王陵遗址", value: [108, 34]}],
                     effectType:"ripple", //涟漪特效
                     itemStyle: {
                         normal: {
