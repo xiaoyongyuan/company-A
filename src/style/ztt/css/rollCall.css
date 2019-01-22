@@ -4,27 +4,26 @@
 .rollcalllist{
     background: #fcfcfc;
     padding: 10px;
-    border-radius: 5PX;
-    box-shadow: 0 0 9px #ccc; 
+    border-radius: 5px;
+    box-shadow: 0 0 9px #ccc;
 }
-    
+
 .rollRow{
-    /*margin-left: 3%;*/
+    margin-left: 8%;
 }
-@media screen and (max-width: 1900px){
+@media screen and (min-width: 1900px){
     .rollCall{
         display: flex;
         flex-direction:row;
-        margin: 10px 0!important;
+        margin: 12px 0!important;
     }
     .rollRow{
-        margin-left: 3%;
+        margin-left: 8%;
     }
 }
 .rollCall{
     display: flex;
     flex-direction:row;
-    
 }
 .fontColor{
     color:#429019;
