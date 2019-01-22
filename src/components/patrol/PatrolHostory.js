@@ -223,7 +223,7 @@ class RollcallHostory extends React.Component{
                                                         <span style={{padding:"0 0 0 8px"}}>
                                                             {item.status===1?<span>已完成 ，{item.handle_true}个巡更正常 , 有{item.handle_false}个巡更异常 , <a href="" className="underline"> 查看详情</a>
                                                              </span>: "" }
-                                                            {item.status===2?<span>有 {item.unhandle}个未巡更 ，有 {item.handle_true}个巡更正常 , 有{item.handle_false}个巡更异常 , <a href="" className="underline"> 查看详情1</a>
+                                                            {item.status===2?<span>有 {item.unhandle}个未巡更 ，有 {item.handle_true}个巡更正常 , 有{item.handle_false}个巡更异常 , <a href="" className="underline"> 查看详情</a>
                                                             </span>: ""}
                                                         </span>
                                                     }
