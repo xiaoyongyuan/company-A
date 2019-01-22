@@ -168,7 +168,7 @@ class PatrolRecord extends React.Component{
         }];
         return(       
             <div className="PatrolRecord">
-                    <Row style={{marginTop:"50px"}}>
+                    <Row style={{marginTop:"50px",marginLeft:"30px"}}>
                         <Form layout="inline" onSubmit={this.handlePatrolSelect} className="rangeForm">
                             <LocaleProvider locale={zh_CN}>
                                 <Form.Item
@@ -212,8 +212,8 @@ class PatrolRecord extends React.Component{
                         </Form>
                     </Row>
 
-                <Row style={{marginTop:"40px"}}>
-                    <Col spma={24}>
+                <Row style={{marginTop:"40px",marginLeft:"30px"}}>
+                    <Col span={23}>
                         <Table dataSource={this.state.dataSource} columns={columns} 
                         pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
                        bordered={true}
@@ -227,7 +227,7 @@ class PatrolRecord extends React.Component{
                         onCancel={this.patrolCancel}
                         footer={null}
                     >
-                        <PatrolRecordModel visible={this.state.patrolImg}  code={this.state.patrolImgStatus} />
+                    <PatrolRecordModel visible={this.state.patrolImg}  code={this.state.patrolImgStatus} />
                     </Modal>
                 </Row>
             </div>
