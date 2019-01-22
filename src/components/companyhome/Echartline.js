@@ -152,7 +152,7 @@ class Echartline extends Component {
                 containLabel: false
             },
             legend: {
-                x: '45%',
+                x: '65%',
                 top: '0%',
                 data:[{
                     name: '明秦王陵遗址',
@@ -203,7 +203,7 @@ class Echartline extends Component {
                         show: false,
                     },
                     splitLine: {
-                        show: true,
+                        show: false,
                         lineStyle: {
                             color: 'rgb(20,203,215,0.2)'
                         }
