@@ -270,7 +270,7 @@ class Echartline extends Component {
         let option = {
                     grid: { //图的位置
                         left: "3%",
-                        right: "7%",
+                        right: "10%",
                         top:'26%',
                         bottom: "0%",
                         containLabel: true
