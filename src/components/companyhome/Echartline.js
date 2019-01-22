@@ -45,12 +45,11 @@ class Echartline extends Component {
     // 报警次数
     alarmnum=()=>{
         let option = {
-            // tooltip: {
-            //     trigger: 'axis'
-            // },
+            color:['#165ecc','#13fcff'],
             legend: { //图标设置
-                x: '60%',
-                top: '0%',
+
+                x: '50%',
+                top: '-2%',
                 data:[{
                     name: '阿房宫',
                     icon: 'circle',
@@ -58,7 +57,7 @@ class Echartline extends Component {
                         color: '#165ecc',
                     }
                 },{
-                    name: '明秦王陵',
+                    name: '明秦王陵遗址',
                     icon: 'circle',
                     textStyle: {
                         color: '#13fcff'
@@ -69,15 +68,15 @@ class Echartline extends Component {
             grid: { //图像的位置
                 left: '10%',
                 right: '8%',
-                bottom: '30%',
-                top: '10%',
+                bottom: '37%',
+                top: '11%',
                 containLabel: false
             },
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
-                data: ['2','4','6','8','10','12','14','16','18','20','22','24'],
-                name:'小时',
+                data: ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23',],
+                name:'时',
                 nameTextStyle:{
                     color:'#788cae'
                 },
@@ -91,7 +90,7 @@ class Echartline extends Component {
             },
             yAxis: {
                 type: 'value',
-                name:'次数',
+                name:'次',
                 nameTextStyle:{
                     color:'#788cae'
                 },
@@ -115,10 +114,10 @@ class Echartline extends Component {
                             }
                         }
                     },
-                    data:[120, 132, 101, 134, 90, 230, 210,120, 132, 101, 134, 90]
+                    data:[11 ,9 ,3 ,1 ,0,0 ,0 ,0 ,0 ,0 ,0 ,0,1 ,76 ,172 ,97 ,148,131 ,233 ,250 ,173 ,182 ,126 ,36]
                 },
                 {
-                    name:'明秦王陵',
+                    name:'明秦王陵遗址',
                     type:'line',
                     stack: '总量',
                     itemStyle : {
@@ -128,7 +127,7 @@ class Echartline extends Component {
                             }
                         }
                     },
-                    data:[220, 182, 191, 234, 290, 330, 310,220, 182, 191, 330, 310]
+                    data:[1 ,4 ,0 ,0 ,2,1 ,0 ,0 ,1 ,3 ,6 ,0,1 ,0 ,4 ,14 ,125,89 ,22 ,10 ,31 ,11 ,11 ,13]
                 }
             ]
         }
@@ -148,12 +147,12 @@ class Echartline extends Component {
             grid: { //图像的位置
                 left: '10%',
                 right: '8%',
-                bottom: '10%',
-                top: '15%',
+                bottom: '13%',
+                top: '20%',
                 containLabel: false
             },
             legend: {
-                x: '60%',
+                x: '45%',
                 top: '0%',
                 data:[{
                     name: '阿房宫',
@@ -162,7 +161,7 @@ class Echartline extends Component {
                         color: '#165ecc',
                     }
                 },{
-                    name: '明秦王陵',
+                    name: '明秦王陵遗址',
                     icon: 'circle',
                     textStyle: {
                         color: '#13fcff'
@@ -175,8 +174,8 @@ class Echartline extends Component {
                 show: true,
                 type: 'category',
                 boundaryGap: true,
-                data: [1,2,3,4,5,6,7],
-                name:'天',
+                data: ["16","17","18","19","20","21","22"],
+                name:'日',
                 //刻度线是否显示
                 axisTick: {
                     show: false
@@ -195,7 +194,7 @@ class Echartline extends Component {
             }],
             yAxis: [{
                     type: 'value',
-                    name: '厂用电率',
+                    name: '次',
                     axisLine: {
                         onZero: false,
                         show: true,
@@ -238,28 +237,7 @@ class Echartline extends Component {
                 }
             ],
             series: [{
-                name: '阿房宫',
-                type: 'line',
-                symbol: 'symbol',
-                itemStyle: {
-                    normal: {
-                        color: '#2cdece',
-                        lineStyle: {
-                            color: '#13fcff'
-                        }
-                    }
-                },
-                data: [
-                    1,
-                    3,
-                    5,
-                    6,
-                    3,
-                    13,
-                    11
-                ]
-            },{
-                name: '明秦王陵',
+                name: '明秦王陵遗址',
                 type: 'bar',
                 barWidth: '10px',
                 yAxisIndex: 1,
@@ -285,7 +263,7 @@ class Echartline extends Component {
                         )
                     }
                 },
-                data: [10, 52, 200, 334, 390, 330, 220]
+                data: [1, 0, 6, 0, 0, 1, 15]
             }]
         };
         this.setState({option})
@@ -299,12 +277,14 @@ class Echartline extends Component {
                     grid: { //图的位置
                         left: "3%",
                         right: "7%",
-                        top:'8%',
+                        top:'26%',
                         bottom: "0%",
                         containLabel: true
                     },
                     legend: { //图标
-                        data: ['明秦王陵', '阿房宫'],
+                        x: '50%',
+                        top: '0',
+                        data: ['明秦王陵遗址', '阿房宫'],
                         textStyle: {
                             color: '#ccc'
                         }
@@ -332,25 +312,25 @@ class Echartline extends Component {
                         splitLine: {
                             show: false,
                             lineStyle: {
-                                
-                                
+
+
                             }
                         },
                         name: '次',
                         nameTextStyle: {
                             color: "#fff",
-                            fontSize: 16*scale,
+                            fontSize: 14*scale,
                             padding: [0, 0, 10, 0]
                         }
                     }],
                     xAxis: [{
                         type: "category",
-                        data: [1,2,3,4,5,6,7],
+                        data: ["16","17","18","19","20","21","22"],
                         axisLabel: {
                             padding: [0, 15, 0, 0],
                             textStyle: {
                                 color: '#fff', //x轴字体
-                                fontSize: 16*scale,
+                                fontSize: 5*scale,
                             }
                         },
                         axisTick: {
@@ -371,18 +351,18 @@ class Echartline extends Component {
                               
                             }
                         },
-                        name: '天',
+                        name: '日',
                         nameTextStyle: {
                             color: "#fff",
-                            fontSize: 16*scale,
+                            fontSize: 14*scale,
                             padding: [0, 0, 10, 0]
                         }
                     }],
 
                     series: [{
-                        name: "明秦王陵",
+                        name: "明秦王陵遗址",
                         type: "bar",
-                        data: data,
+                        data: [0,0,5,0,0,0,8],
                         barWidth: '30%',
                         barCategoryGap: "35%",
                         label: {
@@ -432,7 +412,7 @@ class Echartline extends Component {
                     },{
                         name: "阿房宫",
                         type: "bar",
-                        data: data,
+                        data: [0,0,0,0,0,0,9],
                         barWidth: '30%',
                         barCategoryGap: "35%",
                         label: {

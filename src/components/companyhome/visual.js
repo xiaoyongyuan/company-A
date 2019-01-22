@@ -14,28 +14,20 @@ import moment from "moment";
 
 const deveice=[{
     name:'神道西侧',
-    ccom:'明秦王陵',
-    alarm:2430,
+    ccom:'明秦王陵遗址',
+    alarm:1282,
 },{
     name:'神道东侧',
-    ccom:'水水水水',
-    alarm:2430,
+    ccom:'明秦王陵遗址',
+    alarm:1159,
 },{
-    name:'神道nam侧',
-    ccom:'明秦陵',
-    alarm:2430,
+    name:'神道入口',
+    ccom:'明秦王陵遗址',
+    alarm:18,
 },{
-    name:'神道西侧',
-    ccom:'明秦王陵',
-    alarm:2430,
-},{
-    name:'神道西侧',
-    ccom:'明秦王陵',
-    alarm:2430,
-},{
-    name:'神道西侧',
-    ccom:'明秦王陵',
-    alarm:2430,
+    name:'15',
+    ccom:'阿房宫',
+    alarm:212,
 }]
 
 
@@ -143,7 +135,7 @@ class Datavisual extends Component {
                                             名称
                                         </Col>
                                         <Col className="gutter-row" xl={8}>
-                                            状态
+                                            单位
                                         </Col>
                                         <Col className="gutter-row" xl={8}>
                                             未处理报警数
@@ -175,7 +167,7 @@ class Datavisual extends Component {
                     <Col span={10} className="wcolummap">
                         <div className="mainmap">
                             <div className="titleechart">
-                                <span className="titlename">位置图</span>
+                                <span className="titlename">下辖单位区位图</span>
                                 <span className="today">当前日期:{this.state.today}</span>
                             </div>
                         </div>
@@ -187,7 +179,7 @@ class Datavisual extends Component {
                             未处理报警
                             </div>
                             <div className="untreated alarmvalue">
-                            19385
+                            13621
                             </div>
                         </div>
                     </Col>
@@ -218,7 +210,7 @@ class Datavisual extends Component {
                                                     </Row>
                                                     <Row className="sgxdnum-row">
                                                         <Col span={24} className="sgxdnum-col">
-                                                            <p className="sgxdword"><span className="sgxdnum">26</span> 个</p>
+                                                            <p className="sgxdword"><span className="sgxdnum">18</span> 个</p>
                                                         </Col>
                                                     </Row>
                                                 </Col>
@@ -262,7 +254,7 @@ class Datavisual extends Component {
                                                     </Row>
                                                     <Row className="sgxdnum-row">
                                                         <Col span={24} className="sgxdnum-col">
-                                                            <p className="sgxdword"><span className="sgxdnum">26</span> 个</p>
+                                                            <p className="sgxdword"><span className="sgxdnum">3</span> 个</p>
                                                         </Col>
                                                     </Row>
                                                 </Col>
@@ -283,7 +275,7 @@ class Datavisual extends Component {
                                                     </Row>
                                                     <Row className="sgxdnum-row">
                                                         <Col span={24} className="sgxdnum-col">
-                                                            <p className="sgxdword">13696854956</p>
+                                                            <p className="sgxdword">15319403465</p>
                                                         </Col>
                                                     </Row>
                                                 </Col>
@@ -310,7 +302,7 @@ class Datavisual extends Component {
                     <Col span={7} className="bottomheig">
                         <div className="wappscol">
                             <div className="titleechart">
-                                <span className="titlename">点名次数</span>
+                                <span className="titlename">野外文物点名</span>
                             </div>
                             <div className="comp">
                                     <Echartline type='rollcall' winhe={parseInt(this.state.DHeight)*0.3-70} />
