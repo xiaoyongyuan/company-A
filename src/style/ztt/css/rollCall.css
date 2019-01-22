@@ -4,10 +4,10 @@
 .rollcalllist{
     background: #fcfcfc;
     padding: 10px;
-    border-radius: 5PX;
-    box-shadow: 0 0 9px #ccc; 
+    border-radius: 5px;
+    box-shadow: 0 0 9px #ccc;
 }
-    
+
 .rollRow{
     margin-left: 8%;
 }
