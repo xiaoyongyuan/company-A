@@ -144,6 +144,11 @@ class PatrolRecord extends React.Component{
                 )
             }
         },{
+            title: '设备名称',
+            dataIndex: 'cameraname',
+            key: 'cameraname',
+            render: text => <span>{!text?'测试':text}</span>,
+        },{
             title: '处理人',
             dataIndex: 'phaccount',
             key: 'phaccount',

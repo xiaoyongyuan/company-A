@@ -27,6 +27,7 @@ class RollcallHostory extends React.Component{
             page:1, //当前页数
             pageSize:20, //每页显示数量
             isrequest:true,
+            scrollTop:Number,
         }
     }
     componentDidMount() {
@@ -49,11 +50,13 @@ class RollcallHostory extends React.Component{
             var scrollTop = document.getElementById("scorll").scrollTop;//0-18
             var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度
             var scrollbottom=scrollHeight-clientHeight;
-            var scrollTopP=Math.round(scrollTop);
+            var scrollTopP=Math.floor(scrollTop);
             _this.setState({
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTop
-               })
+               },()=>{
+                }
+               )
             if(scrollbottom-scrollTopP===0){//滚动到底部了
                
                _this.setState({
@@ -228,7 +231,6 @@ class RollcallHostory extends React.Component{
                                     <Timeline.Item>
                                         <p> {item.dayly} </p>
                                          { 
-
                                              item.info.map((el,i)=>{
                                                 return (
                                                     <div key={i}>
@@ -238,10 +240,12 @@ class RollcallHostory extends React.Component{
                                                                    <div> {el.alarm.length>0?<div className="circle"><div></div></div>:<div className="circlegreen"><div></div></div>}</div>
                                                                         <div className="m_l">
                                                                             {el.rollcalldate.slice(11,20)}
-                                                                            {el.ifeveryday==0?"自动点名":"手动点名"}，
+                                                                            {el.ifeveryday===0?"自动点名":"手动点名"}，
                                                                             共点名 {el.totalcount}个对象，
-                                                                            {el.alarm.length}个报警，
-                                                                            {el.normal}个正常， 
+                                                                            {el.executing===0? <span></span>: <span> {el.executing} 正在点名，</span>}
+                                                                            {el.alarm.length===0? <span></span>: <span> {el.alarm.length} 个报警，</span>}
+                                                                            {el.normal===0? <span></span>: <span> {el.normal} 个正常，</span>}
+                                                                            {el.fail===0? <span></span>: <span> {el.fail} 失败，</span>}
                                                                             <a href={"#/app/rollcall/rollcallrecord?taskid="+el.taskid+"&rollcalldate="+el.rollcalldate} className="underline">查看详情</a>
                                                                         </div>
                                                                 </div>
