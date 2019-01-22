@@ -24,11 +24,9 @@ class PatrolRecordModel extends Component{
 
     }
     componentWillReceiveProps(nextProps){
-        console.log('nextProps',nextProps)
         if( nextProps.visible != vis){
             vis=nextProps.visible;
             if(nextProps.visible){
-                console.log('nextProps',nextProps)
                 vis=nextProps.visible;
                 this.setState({
                     code:nextProps.code,

@@ -1,17 +1,41 @@
 import React, { Component } from 'react';
-import ReactEcharts from 'echarts-for-react';
-import echarts from 'echarts';
 import { Row,Col } from 'antd';
 import '../../style/yal/css/datavisual.css';
 import {post} from "../../axios/tools";
-import yuan from "../../style/yal/img/yuan.png";
-import equip from "../../style/yal/img/shebei.png";
-import team from "../../style/yal/img/tuandui .png";
-import yonghu from "../../style/yal/img/yonghushu .png";
-import admin from "../../style/yal/img/guanliyaun.png";
+import equip from "../../style/yal/img/equip.png";
+import team from "../../style/yal/img/team.png";
+import usernum from "../../style/yal/img/usernum.png";
+import admin from "../../style/yal/img/admin.png";
 import nodata from "../../style/imgs/nodata.png";
 import Echartdata from "./Echartdata";
 import moment from "moment";
+
+
+const deveice=[{
+    name:'神道西侧',
+    ccom:'明秦王陵',
+    alarm:2430,
+},{
+    name:'神道东侧',
+    ccom:'水水水水',
+    alarm:2430,
+},{
+    name:'神道nam侧',
+    ccom:'明秦陵',
+    alarm:2430,
+},{
+    name:'神道西侧',
+    ccom:'明秦王陵',
+    alarm:2430,
+},{
+    name:'神道西侧',
+    ccom:'明秦王陵',
+    alarm:2430,
+},{
+    name:'神道西侧',
+    ccom:'明秦王陵',
+    alarm:2430,
+}]
 
 
 class Datavisual extends Component {
@@ -19,434 +43,261 @@ class Datavisual extends Component {
         super(props);
         this.state= {
             option:{},
+            deveice:deveice,
             today:moment().format('LL'),
         }
         this.saveRef = ref => {this.refDom = ref};
     }
     componentWillMount=()=>{
-        let option = {
-            // title: {
-            //     text: '次数',
-            //     textStyle:{
-            //         color:'#4e6281',
-            //         fontSize:'14px'
-            //     }
-            // },
-            tooltip: {
-                trigger: 'axis'
-            },
-            legend: {
-                data:[{
-                    name: '阿房宫',
-                    icon: 'circle',
-                    textStyle: {
-                        color: '#165ecc',
-                    }
-                },{
-                    name: '明秦王陵',
-                    icon: 'circle',
-                    textStyle: {
-                        color: '#13fcff'
-                    }
-                }
-                ],
-            },
-            grid: {
-                left: '3%',
-                right: '3%',
-                bottom: '15%',
-                top: '15%',
-                containLabel: true
-            },
-            toolbox: {
-                feature: {
-                    saveAsImage: {}
-                }
-            },
-            xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                data: ['2','4','6','8','10','12','14','16','18','20','22','24'],
-                name:'小时',
-                nameTextStyle:{
-                    color:'#788cae'
-                },
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: '#7d91b4',  //更改坐标轴文字颜色
-                        fontSize : 14      //更改坐标轴文字大小
-                    }
-                },
-            },
-            yAxis: {
-                type: 'value',
-                name:'次数',
-                nameTextStyle:{
-                    color:'#788cae'
-                },
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: '#7d91b4',  //更改坐标轴文字颜色
-                        fontSize : 14      //更改坐标轴文字大小
-                    }
-                },
-            },
-            series: [
-                {
-                    name:'阿房宫',
-                    type:'line',
-                    stack: '总量',
-                    itemStyle : {
-                        normal : {
-                            lineStyle:{
-                                color:'#165ecc'
-                            }
-                        }
-                    },
-                    data:[120, 132, 101, 134, 90, 230, 210,120, 132, 101, 134, 90]
-                },
-                {
-                    name:'明秦王陵',
-                    type:'line',
-                    stack: '总量',
-                    itemStyle : {
-                        normal : {
-                            lineStyle:{
-                                color:'#13fcff'
-                            }
-                        }
-                    },
-                    data:[220, 182, 191, 234, 290, 330, 310,220, 182, 191, 330, 310]
-                }
-            ]
-        }
-        this.setState({option},()=>{
-        })
+     this.setState({
+        DHeight:document.documentElement.clientHeight-65+'px'
+     })
+     console.log('ddddddddddd',document.documentElement.clientHeight-65+'px')
+     const themehead=document.getElementById('themehead');
+     // themehead.style.visibility="hidden";
+        
     }
     componentDidMount() {
-        const {clientWidth, clientHeight} = this.refDom;
-            let topdiv=document.getElementById('topdiv');
-        console.log('offsetHeight', this.refDom,clientWidth)
+        window.onresize = () => {
+            this.setState({
+                DHeight:document.documentElement.clientHeight-65+'px'
+            })
+        }
     }
     render() {
-        
+        const _this=this;
         return (
-            <div className="Datavisual">
-                <Row type="flex" justify="center">
-                    <Col span={10}>
-                        <div className="topleft">
+            <div className="Datavisual" style={{height:this.state.DHeight}}>
+                <div className="titletop">
+                    <div className="titlevalue">
+                    西安文物局
+                    </div>
+                </div>
+                <Row gutter={24} className="warrper" >
+                    <Col span={7} className="wcolum">
+                    <div className="clunm">
+                        <div className="lump">
+                            <div className="titleechart">
+                                <span className="titlename">可查看单位</span>
+                            </div>
+                            <div className="comp">
+                                <Echartdata type='lookcomp' winhe={(parseInt(this.state.DHeight)*0.7-20)*0.5-50} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="clunm lumpbott">
+                        <div className="lump ">
+                            <div className="titleechart">
+                                <span className="titlename">可查看设备</span>
+                            </div>
+                            <div className="comp">
+                                <div className="equiptable">
+                                <div className="equipment equiphead">
+                                    <Row className='lines'>
+                                        <Col className="gutter-row" xl={8}>
+                                            名称
+                                        </Col>
+                                        <Col className="gutter-row" xl={8}>
+                                            状态
+                                        </Col>
+                                        <Col className="gutter-row" xl={8}>
+                                            未处理报警数
+                                        </Col>
+                                    </Row>
+                                </div>
+                                {_this.state.deveice.map((el,i)=>(
 
-                        </div>
-                    </Col>
-                    <Col span={3}>
-                        <div className="topcenter">
-                            <span>西安文物局</span>
-                        </div>
-                    </Col>
-                    <Col span={10}>
-                        <div className="topright">
-
-                        </div>
-                    </Col>
-                </Row>
-                <Row  gutter={24} id="topdiv" ref={this.saveRef}>
-                    <Col span={6}>
-                        <Row>
-                            <Col>
-                                <div className="xiaotusz">
-                                    <div className="echartmap">
-                                        <div className="titleechart">
-                                            <span className="titlename">可查看的单位</span>
-                                        </div>
-                                        <Echartdata type='lookcomp' width='408px' height='245' />
+                                    <div className="equipment equipbody" key={'row'+i}>
+                                    <Row className='lines'>
+                                        <Col className="gutter-row" xl={8}>
+                                            {el.name}
+                                        </Col>
+                                        <Col className="gutter-row" xl={8}>
+                                           {el.ccom}
+                                        </Col>
+                                        <Col className="gutter-row" xl={8}>
+                                            {el.alarm}
+                                        </Col>
+                                    </Row>
                                     </div>
+                               ))}
                                 </div>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <div id="xiaotuzz">
-                                        <Row className="xiaotutitle" gutter={32}>
-                                            <Col xl={1} xxl={1} offset={1}><div className="sandian"><img src={yuan} alt="" /></div></Col>
-                                            <Col xl={10} xxl={12}>
-                                                <span>我的设备</span>
-                                            </Col>
-                                        </Row>
-                                        <div>
-                                            {/*{*/}
-                                                {/*this.state.myEquipment.length*/}
-                                                    {/*?this.state.myEquipment.map((item,index)=>{*/}
-                                                        {/*return(*/}
-                                                            {/*<Row className="situation" key={index}>*/}
-                                                                {/*<Col className="gutter-row" xl={8}><a href={'#/app/companyhome/companydeveice?code='+item.code} className="should">{item.name?item.name:"未命名"}</a></Col>*/}
-                                                                {/*<Col className="gutter-row" xl={8}>{this.handleStatus(item.cstatus)}</Col>*/}
-                                                                {/*<Col className="gutter-row" xl={8}><a href={'#/app/Userhome/Alarmlist?id='+item.code} className=" should">未处理报警数：{item.alarm?item.alarm:"0"}</a></Col>*/}
-                                                            {/*</Row>*/}
-                                                        {/*);*/}
-                                                    {/*})*/}
-                                                    {/*:*/}
-                                                    {/*<Row>*/}
-                                                        {/*<Col xl={24} xxl={24} style={{width:"100%",textAlign:"center",margin:"20px"}}><img src={nodata} alt="" /></Col>*/}
-                                                    {/*</Row>*/}
-                                            {/*}*/}
-                                            <Row className="myequip-row">
-                                                <Col className="gutter-row" xl={8}>
-                                                    <p>名称</p>
-                                                </Col>
-                                                <Col className="gutter-row" xl={8}>
-                                                    <p>状态</p>
-                                                </Col>
-                                                <Col className="gutter-row" xl={8}>
-                                                    <p>未处理报警数</p>
-                                                </Col>
-                                            </Row>
-                                            <Row className="myequip-row">
-                                                <Col className="gutter-row" xl={8}>
-                                                    <p>西安</p>
-                                                </Col>
-                                                <Col className="gutter-row" xl={8}>
-                                                    <p>禁用</p>
-                                                </Col>
-                                                <Col className="gutter-row" xl={8}>
-                                                    <p>15689</p>
-                                                </Col>
-                                            </Row>
-                                            <Row className="myequip-row">
-                                                <Col className="gutter-row" xl={8}>
-                                                    <p>西安</p>
-                                                </Col>
-                                                <Col className="gutter-row" xl={8}>
-                                                    <p>禁用</p>
-                                                </Col>
-                                                <Col className="gutter-row" xl={8}>
-                                                    <p>15689</p>
-                                                </Col>
-                                            </Row>
-                                            <Row className="myequip-row">
-                                                <Col className="gutter-row" xl={8}>
-                                                    <p>西安</p>
-                                                </Col>
-                                                <Col className="gutter-row" xl={8}>
-                                                    <p>禁用</p>
-                                                </Col>
-                                                <Col className="gutter-row" xl={8}>
-                                                    <p>15689</p>
-                                                </Col>
-                                            </Row>
-                                            <Row className="myequip-row">
-                                                <Col className="gutter-row" xl={8}>
-                                                    <p>西安</p>
-                                                </Col>
-                                                <Col className="gutter-row" xl={8}>
-                                                    <p>禁用</p>
-                                                </Col>
-                                                <Col className="gutter-row" xl={8}>
-                                                    <p>15689</p>
-                                                </Col>
-                                            </Row>
-                                            <Row className="myequip-row">
-                                                <Col className="gutter-row" xl={8}>
-                                                    <p>西安</p>
-                                                </Col>
-                                                <Col className="gutter-row" xl={8}>
-                                                    <p>禁用</p>
-                                                </Col>
-                                                <Col className="gutter-row" xl={8}>
-                                                    <p>15689</p>
-                                                </Col>
-                                            </Row>
-                                        </div>
-                                </div>
-                            </Col>
-                        </Row>
-                    </Col>
-                    <Col span={12} >
-                        <div className="datus">
-                            <div className="echartmap" style={{height:'100%'}}>
-                                <div className="titleechart">
-                                    <span className="titlename">位置图</span>
-                                    <span className="today">当前日期:{this.state.today}</span>
-                                </div>
-                                <Echartdata type='xianmap' style={{height:'100%'}} />
+                                
                             </div>
-                            <div className="sanjiao">
+                        </div>
+                    </div>
+                    </Col>
+                    <Col span={10} className="wcolummap">
+                        <div className="mainmap">
+                            <div className="titleechart">
+                                <span className="titlename">位置图</span>
+                                <span className="today">当前日期:{this.state.today}</span>
+                            </div>
+                        </div>
+                        <div className="maps">
+                            <Echartdata type='xianmap'  winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-60} />
+                        </div>
+                        <div className="draw">
+                            <div className="untreated alarmtitle">
+                            未处理报警
+                            </div>
+                            <div className="untreated alarmvalue">
+                            19385
+                            </div>
+                        </div>
+                    </Col>
+                    <Col span={7} className="wcolum">
+                    <div className="clunm">
+                        <div className="lump">
+                            <div className="titleechart">
+                                <span className="titlename">账号信息</span>
+                            </div>
+                            <div className="comp" style={{height:'calc(100% - 60px)'}}>
+                                <div className="yundate">
+                                云服务到期日期: <b>{this.state.today}</b>
+                                </div>
+                                <div className="newsclo"  style={{height:'calc(100% - 55px)'}}>
+                                    <Row className="message">
+                                        <Col className="heihgdabo" span={10} offset={1}>
+                                            <Row className="messthis">
+                                                <Col span={8}>
+                                                    <div className="equiptu">
+                                                        <img src={equip} alt="" />
+                                                    </div>
+                                                </Col>
+                                                <Col span={16}>
+                                                    <Row>
+                                                        <Col span={24}>
+                                                            <p className="sgxdword">设备总数</p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="sgxdnum-row">
+                                                        <Col span={24} className="sgxdnum-col">
+                                                            <p className="sgxdword"><span className="sgxdnum">26</span> 个</p>
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                        <Col className="heihgdabo" span={10} offset={2}>
+                                            <Row className="messthis">
+                                                <Col span={8}>
+                                                    <div className="equiptu">
+                                                        <img src={team} alt="" />
+                                                    </div>
+                                                </Col>
+                                                <Col span={16}>
+                                                    <Row>
+                                                        <Col span={24}>
+                                                            <p className="sgxdword">所属团队</p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="sgxdnum-row">
+                                                        <Col span={24} className="sgxdnum-col">
+                                                            <p className="sgxdword">维护团队</p>
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                    </Row>
+                                    <Row className="message">
+                                        <Col className="heihgdabo" span={10} offset={1}>
+                                            <Row className="messthis">
+                                                <Col span={8}>
+                                                    <div className="equiptu">
+                                                        <img src={usernum} alt="" />
+                                                    </div>
+                                                </Col>
+                                                <Col span={16}>
+                                                    <Row>
+                                                        <Col span={24}>
+                                                            <p className="sgxdword">用户数</p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="sgxdnum-row">
+                                                        <Col span={24} className="sgxdnum-col">
+                                                            <p className="sgxdword"><span className="sgxdnum">26</span> 个</p>
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                        <Col className="heihgdabo" span={10} offset={2}>
+                                            <Row className="messthis">
+                                                <Col span={8}>
+                                                    <div className="equiptu">
+                                                        <img src={admin} />
+                                                    </div>
+                                                </Col>
+                                                <Col span={16}>
+                                                    <Row>
+                                                        <Col span={24}>
+                                                            <p className="sgxdword">管理员</p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="sgxdnum-row">
+                                                        <Col span={24} className="sgxdnum-col">
+                                                            <p className="sgxdword">13696854956</p>
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                    </Row>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="clunm lumpbott">
+                        <div className="lump">
+                            <div className="titleechart">
+                                <span className="titlename">报警次数</span>
+                            </div>
+                            <div className="comp">
+                                <Echartdata type='alarmnum' winhe={(parseInt(this.state.DHeight)*0.7-10)*0.5-10} />
+                            </div>
+                        </div>
+                    </div>
+                    </Col>
+                </Row>
+                <Row className="warrperbottom">
+                    <Col span={7} className="bottomheig">
+                        <div className="wappscol">
+                            <div className="titleechart">
+                                <span className="titlename">点名次数</span>
+                            </div>
+                            <div className="comp">
+                                    <Echartdata type='rollcall' winhe={parseInt(this.state.DHeight)*0.3-70} />
+                            </div>
+                        </div>
+                    </Col>
+                    <Col span={10} className="bottomheig" style={{paddingRight:0}}>
+                        <div className="wappscol">
+                            <div className="titleechart">
+                                <span className="titlename">报警分析</span>
+                            </div>
+                            <div className="comp">
+                                <Echartdata type='alarmanalyze' winhe={parseInt(this.state.DHeight)*0.3-70}/>
+                            </div>
+                        </div>
+                    </Col>
+                    <Col span={7} className="bottomheig"  style={{paddingRight:0,paddingLeft:'17px'}}>
+                        <div className="wappscol">
+                            <div className="titleechart">
+                                <span className="titlename">巡更次数</span>
+                            </div>
+                            <div className="comp">
+                                <Echartdata type='patrol' winhe={parseInt(this.state.DHeight)*0.3-70} />
+                            </div>
+                        </div>
+                    </Col>
+                        
+                </Row>
 
-                            </div>
-                            <div className="tixing">
-                                <span>4695273</span>
-                            </div>
-                        </div>
-                    </Col>
-                    <Col span={6}>
-                        <Row>
-                            <Col>
-                                <div className="xiaotusy" style={{paddingBottom:'15px'}}>
-                                    <Row className="xiaotutitle" gutter={32}>
-                                        <Col xl={1} xxl={1} offset={1}><div className="sandian"><img src={yuan} alt="" /></div></Col>
-                                        <Col xl={10} xxl={12}>
-                                            <span>账号信息</span>
-                                        </Col>
-                                    </Row>
-                                    <Row className="yfwenddate">
-                                        <Col span={8} offset={3} className="yfwword-col">
-                                            <p className="yfwword">云服务到期日期：</p>
-                                        </Col>
-                                        <Col span={12}>
-                                            <p className="yfwyear">2020年12月17日</p>
-                                        </Col>
-                                    </Row>
-                                    <Row  gutter={32} className="sgxds-row">
-                                        <Col  span={11} offset={1}>
-                                            <div className="sgxd1">
-                                                <Row>
-                                                    <Col span={10}>
-                                                        <div className="equiptu">
-                                                            <img src={equip} alt="" />
-                                                        </div>
-                                                    </Col>
-                                                    <Col span={12}>
-                                                        <Row>
-                                                            <Col span={24}>
-                                                                <p className="sgxdword">设备总数</p>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className="sgxdnum-row">
-                                                            <Col span={24} className="sgxdnum-col">
-                                                                <span className="sgxdnum">26</span><span className="sgxdword">个</span>
-                                                            </Col>
-                                                        </Row>
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </Col>
-                                        <Col span={11}>
-                                            <div className="sgxd2">
-                                                <Row>
-                                                    <Col span={10}>
-                                                        <div className="equiptu">
-                                                            <img src={team} alt="" />
-                                                        </div>
-                                                    </Col>
-                                                    <Col span={12}>
-                                                        <Row>
-                                                            <Col span={24}>
-                                                                <p className="sgxdword">所属团队</p>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className="sgxdnum-row">
-                                                            <Col span={24} style={{ marginTop:'-5px' }}>
-                                                                <span className="whtdword">维护团队</span>
-                                                            </Col>
-                                                        </Row>
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                    <Row gutter={32} className="sgxdx-row">
-                                        <Col span={11} offset={1}>
-                                            <div className="sgxd3">
-                                                <Row>
-                                                    <Col span={10}>
-                                                        <div className="equiptu">
-                                                            <img src={yonghu} alt="" />
-                                                        </div>
-                                                    </Col>
-                                                    <Col span={12}>
-                                                        <Row>
-                                                            <Col span={24}>
-                                                                <p className="sgxdword">用户数</p>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className="sgxdnum-row">
-                                                            <Col span={24} className="sgxdnum-col">
-                                                                <span className="sgxdnum">5</span><span className="sgxdword">个</span>
-                                                            </Col>
-                                                        </Row>
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </Col>
-                                        <Col span={11}>
-                                            <div className="sgxd4">
-                                                <Row>
-                                                    <Col span={10}>
-                                                        <div className="equiptu">
-                                                            <img src={admin} alt="" />
-                                                        </div>
-                                                    </Col>
-                                                    <Col span={12}>
-                                                        <Row>
-                                                            <Col span={24}>
-                                                                <p className="sgxdword">管理员</p>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className="sgxdnum-row">
-                                                            <Col span={24} style={{ marginTop:'-5px' }}>
-                                                                <span className="whtdword">123456767</span>
-                                                            </Col>
-                                                        </Row>
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </div>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <div className="xiaotuzy">
-                                    <Row className="xiaotutitle" gutter={32}>
-                                        <Col xl={1} xxl={1} offset={1}><div className="sandian"><img src={yuan} alt="" /></div></Col>
-                                        <Col xl={10} xxl={12}>
-                                            <span>报警次数</span>
-                                        </Col>
-                                    </Row>
-                                    <div>
-                                        <ReactEcharts
-                                        option={this.state.option}
-                                        />
-                                    </div>
-                                </div>
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
-                <Row gutter={24} >
-                    <Col span={6}>
-                        <div className="xiaotuxz">
-                            <div className="echartmap">
-                                <div className="titleechart">
-                                    <span className="titlename">点名次数</span>
-                                </div>
-                                <Echartdata type='rollcall'  width='408px' height='245' />
-                            </div>
-                        </div>
-                    </Col>
-                    <Col span={12}>
-                        <div className="datux" >
-                            <div className="echartmap">
-                                <div className="titleechart">
-                                    <span className="titlename">可查看的单位</span>
-                                </div>
-                                <Echartdata type='alarmanalyze' width='408px' height='245' />
-                            </div>
-                        </div>
-                    </Col>
-                    <Col span={6}>
-                        <div className="xiaotuxy">
-                            <div className="echartmap">
-                                <div className="titleechart">
-                                    <span className="titlename">巡更次数</span>
-                                </div>
-                                <Echartdata type='patrol'  width='408px' height='245'/>
-                            </div>
-                        </div>
-                    </Col>
-                </Row>
+
+
+
             </div>
         )
     }

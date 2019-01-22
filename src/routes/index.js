@@ -15,7 +15,7 @@ export default class CRouter extends Component {
         return component;
     };
     requireLogin = (component, permission) => {
-        const { auth } = this.props;
+        const { auth } = this.props; //用户的省份，后期从这判断
         const { token } = auth.data;
         if (process.env.NODE_ENV === 'production' && !token) { // 线上环境判断是否登录
             return <Redirect to={'/login'} />;

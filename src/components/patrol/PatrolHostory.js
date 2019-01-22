@@ -29,7 +29,7 @@ class RollcallHostory extends React.Component{
     componentDidMount() {
         post({url:'/api/patrolresult/getlist_team'},(res)=>{
             if(res.success){
-                 console.log('******************', res);
+                //  console.log('******************', res);
                     this.setState({
                           list:res.data
                     })
@@ -57,7 +57,7 @@ class RollcallHostory extends React.Component{
                 })
                if(_this.state.isrequest){ 
                 post({url:'/api/patrolresult/getlist_team',data:{pageindex:_this.state.page}},(res)=>{
-                    console.log(res,"res"); 
+                    // console.log(res,"res"); 
                     if(res.data.length>0){
                         const list=_this.state.list;
                         const alist = list.concat(res.data);

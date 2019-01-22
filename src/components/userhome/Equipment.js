@@ -16,7 +16,7 @@ class Equipment extends React.Component{
                 this.setState({
                     data:res.data, //用户信息
                     res:res, //用户信息
-                    camera:res.camera, //摄像头信息                  
+                    camera:res.camera, //摄像头信息
                 },()=>{
                     
                 }); 
@@ -83,11 +83,11 @@ class Equipment extends React.Component{
 
         return(
             <div>
-                <Row className="paddRow">  
+                <Row className="paddRow" gutter={32}>
                     {
                     this.state.camera.map((el,i)=>{
                         return(
-                            <Col key={i} xxl={{ span: 5}} xs={{ span: 6}}className="cardPdd">   
+                            <Col key={i} xxl={{ span: 4}} xs={{ span: 6}}className="cardPdd">
                                 <Card                       
                                     cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath?this.state.camera[i].picpath:nopic} width="100%" /></a>}
                                     actions={
@@ -119,7 +119,7 @@ class Equipment extends React.Component{
                                          </a>
                                     ]}
                                 >
-                                    <Row className="paddRow">  
+                                    <Row className="paddRow">
                                         <Col xxl={{ span:6}} xs={{ span: 6}}>
                                                {this.isonline(i)}
                                         </Col>

@@ -7,6 +7,7 @@ import '../../style/publicStyle/publicStyle.css'
 import Locationmap from "./Locationmap";
 import {post} from "../../axios/tools";
 import nodata from "../../style/imgs/nodata.png";
+import Equipment from '../userhome/Equipment';
 //图标
 import zixingguanli from "../../style/ztt/img/zixingguanli.png";
 import baojing from "../../style/ztt/img/baojing.png";
@@ -14,6 +15,7 @@ import gongxiang from "../../style/ztt/img/gongxiang.png";
 import quyumidu from "../../style/ztt/img/quyumidu.png";
 import shumeipaiTitle from "../../style/ztt/img/shumeipaiTitle.png";
 import cloud from "../../style/ztt/img/cloud.png";
+import nopic from "../../style/imgs/nopic.png";
 class Companyhome extends Component {
     constructor(props){
         super(props);
@@ -27,6 +29,7 @@ class Companyhome extends Component {
             alarmcount:[],
             activelist:[], //共享设备
             passivelist:[], //查看我的用户
+            scenegraph:nopic,
         }
     }
     componentDidMount(){
@@ -51,6 +54,7 @@ class Companyhome extends Component {
                     code:res.data.code,
                     alarmcount:res.alarmcount,
                     cloudDate:res.data.cloudvaliddate,
+                    scenegraph:res.data.scenegraph?res.data.scenegraph:nopic, //场景图
                 });
             }
         })
@@ -69,8 +73,8 @@ class Companyhome extends Component {
         return (
             <div className="gutter-example button-demo">
                 <BreadcrumbCustom />
-                <Row gutter={10}>
-                    <Col xl={11} xxl={10}>
+                <Row gutter={32}>
+                    <Col xl={11} xxl={10} offset={1}>
                         <Card>
                             <Row>
                                 <Col xl={12} xxl={12}  ><a href={'#/app/companyhome/companyscene?code='+this.state.code} className="title_font shareUsers" className="title_font shareUsers">{this.state.enterpriseTitle}</a></Col>
@@ -183,16 +187,24 @@ class Companyhome extends Component {
                             </Col>
                         </Row>
                     </Col>
-                    <Col xl={12} xxl={10} className="rightShift">
-                        <Card>
-                            <Row>
-                                <Col xl={1} xxl={1}><div className="sandian"><img src={quyumidu} alt="" /></div></Col>
-                                <Col xl={10} xxl={12}><span className="titleFont">位置图</span></Col>
-                            </Row>
-                            <Locationmap datasMap={this.state.mapJson} codeID={this.state.code} />
-                        </Card>
+                    <Col xl={11} xxl={10} className="rightShift">
+                        <Row>
+                            <Col xl={1} xxl={1}><div className="sandian"><img src={quyumidu} alt="" /></div></Col>
+                            <Col xl={10} xxl={12}><span className="titleFont">场景图</span></Col>
+                        </Row>
+                        <Row>
+                            <Col xl={20} xxl={24}>
+                                <div className="Imgdiv">
+                                    <img src={this.state.scenegraph}
+                                         className="img-responsive"
+                                         alt=""
+                                    />
+                                </div>
+                            </Col>
+                        </Row>
                     </Col>
                 </Row>
+                <Equipment/>
             </div>
         )
     }

@@ -45,18 +45,13 @@ class Echartdata extends Component {
                             [{ offset: 0, color: '#80D6EB' },{ offset: 1, color: '#3B80B4' }]
                         )}
                 },
+                aspectScale:.8, //长宽比 
+                zoom:1.2, //当前视角的缩放比例
                 //取消鼠标移入地图上的文字
                 label: {
                     emphasis: {
                         show: false
                     }
-                },
-                grid: {
-                    left: '3%',
-                    right: '3%',
-                    bottom: '30%',
-                    top: '1%',
-                    containLabel: true
                 },
                 itemStyle:{
                     normal:{
@@ -145,6 +140,98 @@ class Echartdata extends Component {
     onClickByModel={
         'click':this.onByModelClick
     }
+    // 报警次数
+    alarmnum=()=>{
+        let option = {
+            // tooltip: {
+            //     trigger: 'axis'
+            // },
+            legend: { //图标设置
+                x: '60%',
+                top: '0%',
+                data:[{
+                    name: '阿房宫',
+                    icon: 'circle',
+                    textStyle: {
+                        color: '#165ecc',
+                    }
+                },{
+                    name: '明秦王陵',
+                    icon: 'circle',
+                    textStyle: {
+                        color: '#13fcff'
+                    }
+                }
+                ],
+            },
+            grid: { //图像的位置
+                left: '10%',
+                right: '8%',
+                bottom: '30%',
+                top: '10%',
+                containLabel: false
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['2','4','6','8','10','12','14','16','18','20','22','24'],
+                name:'小时',
+                nameTextStyle:{
+                    color:'#788cae'
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#7d91b4',  //更改坐标轴文字颜色
+                        fontSize : 14      //更改坐标轴文字大小
+                    }
+                },
+            },
+            yAxis: {
+                type: 'value',
+                name:'次数',
+                nameTextStyle:{
+                    color:'#788cae'
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#7d91b4',  //更改坐标轴文字颜色
+                        fontSize : 14      //更改坐标轴文字大小
+                    }
+                },
+            },
+            series: [
+                {
+                    name:'阿房宫',
+                    type:'line',
+                    stack: '总量',
+                    itemStyle : {
+                        normal : {
+                            lineStyle:{
+                                color:'#165ecc'
+                            }
+                        }
+                    },
+                    data:[120, 132, 101, 134, 90, 230, 210,120, 132, 101, 134, 90]
+                },
+                {
+                    name:'明秦王陵',
+                    type:'line',
+                    stack: '总量',
+                    itemStyle : {
+                        normal : {
+                            lineStyle:{
+                                color:'#13fcff'
+                            }
+                        }
+                    },
+                    data:[220, 182, 191, 234, 290, 330, 310,220, 182, 191, 330, 310]
+                }
+            ]
+        }
+        this.setState({option})
+    }
     // 点名次数
     rollcall=()=>{
         var option = {
@@ -156,14 +243,16 @@ class Echartdata extends Component {
                 color: '#32cbd7',
                 fontSize: '10px'
             },
-            grid: {
-                left: '3%',
-                right: '3%',
-                bottom: '25%',
+            grid: { //图像的位置
+                left: '10%',
+                right: '8%',
+                bottom: '10%',
                 top: '15%',
-                containLabel: true
+                containLabel: false
             },
             legend: {
+                x: '60%',
+                top: '0%',
                 data:[{
                     name: '阿房宫',
                     icon: 'circle',
@@ -185,6 +274,7 @@ class Echartdata extends Component {
                 type: 'category',
                 boundaryGap: true,
                 data: [1,2,3,4,5,6,7],
+                name:'天',
                 //刻度线是否显示
                 axisTick: {
                     show: false
@@ -303,13 +393,13 @@ class Echartdata extends Component {
     lookcomp=()=>{
         let option = {
             title: {
-                text: "12",
-                subtext: '',
+                text: "2个",
+                subtext: '可查看单位',
                 x: 'center',
                 y: 'center',
                 textStyle: {
                     color: "#fff",
-                    fontSize: 30,
+                    fontSize: 15,
                     fontWeight: 'normal'
                 },
                 subtextStyle: {
@@ -331,7 +421,7 @@ class Echartdata extends Component {
                     center: ['50%', '50%'],
                     data: [{
                             value: 34,
-                            name: '吴际帅\n牛亚莉',
+                            name: '阿房宫',
                             itemStyle: {
                                 color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
                                     offset: 0,
@@ -364,22 +454,21 @@ class Echartdata extends Component {
                     ]
                 },
                 {
-                    name: '面积模式',
+                    name: '明秦王陵',
                     type: 'pie',
                     radius: [70, 80],
                     center: ['50%', '50%'],
                     data: [{
                             value: 34,
-                            name: '吴际帅\n牛亚莉',
+                            name: '明秦王陵',
                             itemStyle: {
                                 color: "transparent"
                             }
                         },
                         {
                             value: 52,
-                            name: 'rose2',
+                            name: '明秦王陵',
                             itemStyle: {
-
                                 color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
                                     offset: 0,
                                     color: '#348fe6'
@@ -391,7 +480,7 @@ class Echartdata extends Component {
                             label: {
                                 color: "rgba(255,255,255,.45)",
                                 fontSize: 14,
-                                formatter: '部门总量\n{a|52}个',
+                                formatter: '明秦王陵\n{a|52}个',
                                 rich: {
                                     a: {
                                         color: "#fff",
@@ -414,8 +503,9 @@ class Echartdata extends Component {
         let option = {
                     grid: { //图的位置
                         left: "3%",
-                        right: "2%",
-                        bottom: "3%",
+                        right: "7%",
+                        top:'8%',
+                        bottom: "0%",
                         containLabel: true
                     },
                     legend: { //图标
@@ -423,13 +513,6 @@ class Echartdata extends Component {
                         textStyle: {
                             color: '#ccc'
                         }
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '3%',
-                        bottom: '25%',
-                        top: '15%',
-                        containLabel: true
                     },
                     yAxis: [{
                         type: "value",
@@ -609,17 +692,25 @@ class Echartdata extends Component {
     alarmanalyze =()=>{
         let option = {
             color: ['rgba(76, 132, 210, .4)'], 
-           
             series: [{
                 name: '未处理报警数',
                 type: 'pie',
                 clockWise: true,
-                radius: ['30%', '40%'],
-                center: ['15%', '35%'],
+                radius: ['55%', '65%'],
+                center: ['15%', 'center'],
+                label: {
+                    show: true,
+                    normal: {
+                        position: 'center',
+                        textStyle: {
+                            color: '#ffd285',
+                        },
+                    }
+                },
                 itemStyle: {
                     normal: {
                         label: {
-                            show: false
+                            show: true
                         },
                         labelLine: {
                             show: false
@@ -629,7 +720,17 @@ class Echartdata extends Component {
                 hoverAnimation: false, 
                 data: [{
                     value: 90,
-                    name: '01',
+                    name: '忽略数',
+                    label: {
+                        normal: {
+                            formatter: '40%',
+                            textStyle: {
+                                color: '#fff',
+                                fontSize: 20
+
+                            }
+                        }
+                    },
                     itemStyle: {
                         normal: {
                             color: { // 完成的圆环的颜色
@@ -641,28 +742,40 @@ class Echartdata extends Component {
                                     color: '#367bec' // 100% 处的颜色
                                 }]
                             },
-                            label: {
-                                show: false
-                            },
+
                             labelLine: {
-                                show: false
+                                show: true
                             }
                         } 
                     }
                 }, {
-                    name: '02',
-                    value: 10
+                    value: 10,
+                    label: {
+                        normal: {
+                            formatter: '\n未处理报警数',
+                            textStyle: {
+                                color: '#fff',
+                                fontSize: 14
+                            }
+                        }
+                    },
                 }]
             },{
                 name: '虚报警数',
                 type: 'pie',
                 clockWise: true,
-                radius: ['30%', '40%'],
-                center: ['38%', '35%'],
+                radius: ['55%', '65%'],
+                center: ['38%', 'center'],
+                label: {
+                    show: true,
+                    normal: {
+                        position: 'center',
+                    }
+                },
                 itemStyle: {
                     normal: {
                         label: {
-                            show: false
+                            show: true
                         },
                         labelLine: {
                             show: false
@@ -672,7 +785,17 @@ class Echartdata extends Component {
                 hoverAnimation: false, 
                 data: [{
                     value: 90,
-                    name: '01',
+                    name: '虚报警数',
+                    label: {
+                        normal: {
+                            formatter: '10%',
+                            textStyle: {
+                                color: '#fff',
+                                fontSize: 20
+
+                            }
+                        }
+                    },
                     itemStyle: {
                         normal: {
                             color: { // 完成的圆环的颜色
@@ -684,38 +807,63 @@ class Echartdata extends Component {
                                     color: '#367bec' // 100% 处的颜色
                                 }]
                             },
-                            label: {
-                                show: false
-                            },
+
                             labelLine: {
-                                show: false
+                                show: true
                             }
                         } 
                     }
                 }, {
-                    name: '02',
-                    value: 10
+                    value: 10,
+                    label: {
+                        normal: {
+                            formatter: '\n虚报警数',
+                            textStyle: {
+                                color: '#fff',
+                                fontSize: 14
+                            }
+                        }
+                    },
                 }]
             },{
                 name: '忽略数',
                 type: 'pie',
                 clockWise: true,
-                radius: ['30%', '40%'],
-                center: ['61%', '35%'],
+                radius: ['55%', '65%'],
+                center: ['61%', 'center'],
                 itemStyle: {
                     normal: {
                         label: {
-                            show: false
+                            show: true,
                         },
                         labelLine: {
                             show: false
                         }
                     }
                 },
+                label: {
+                    show: true,
+                    normal: {
+                        position: 'center',
+                        textStyle: {
+                            color: '#ffd285',
+                        },
+                    }
+                },
                 hoverAnimation: false, 
                 data: [{
                     value: 90,
-                    name: '01',
+                    name: '忽略数',
+                    label: {
+                        normal: {
+                            formatter: '40%',
+                            textStyle: {
+                                color: '#fff',
+                                fontSize: 20
+
+                            }
+                        }
+                    },
                     itemStyle: {
                         normal: {
                             color: { // 完成的圆环的颜色
@@ -727,28 +875,43 @@ class Echartdata extends Component {
                                     color: '#367bec' // 100% 处的颜色
                                 }]
                             },
-                            label: {
-                                show: false
-                            },
+
                             labelLine: {
-                                show: false
+                                show: true
                             }
                         } 
                     }
                 }, {
-                    name: '02',
-                    value: 10
+                    value: 10,
+                    label: {
+                        normal: {
+                            formatter: '\n忽略数',
+                            textStyle: {
+                                color: '#fff',
+                                fontSize: 14
+                            }
+                        }
+                    },
                 }]
             },{
                 name: '确认',
                 type: 'pie',
                 clockWise: true,
-                radius: ['30%', '40%'],
-                center: ['85%', '35%'],
+                radius: ['55%', '65%'],
+                center: ['85%', 'center'],
+                label: {
+                    show: true,
+                    normal: {
+                        position: 'center',
+                        textStyle: {
+                            color: '#ffd285',
+                        },
+                    }
+                },
                 itemStyle: {
                     normal: {
                         label: {
-                            show: false
+                            show: true
                         },
                         labelLine: {
                             show: false
@@ -758,7 +921,17 @@ class Echartdata extends Component {
                 hoverAnimation: false, 
                 data: [{
                     value: 90,
-                    name: '01',
+                    name: '确认',
+                    label: {
+                        normal: {
+                            formatter: '10%',
+                            textStyle: {
+                                color: '#fff',
+                                fontSize: 20
+
+                            }
+                        }
+                    },
                     itemStyle: {
                         normal: {
                             color: { // 完成的圆环的颜色
@@ -770,17 +943,23 @@ class Echartdata extends Component {
                                     color: '#367bec' // 100% 处的颜色
                                 }]
                             },
-                            label: {
-                                show: false
-                            },
+
                             labelLine: {
-                                show: false
+                                show: true
                             }
                         } 
                     }
                 }, {
-                    name: '02',
-                    value: 10
+                    value: 10,
+                    label: {
+                        normal: {
+                            formatter: '\n确认',
+                            textStyle: {
+                                color: '#fff',
+                                fontSize: 14
+                            }
+                        }
+                    },
                 }]
             }]
         }
@@ -792,7 +971,7 @@ class Echartdata extends Component {
         return (
             <ReactEcharts
                 option={this.state.option}
-                style={_this.state.type=='xianmap'?{height:'100%'}:''}
+                style={{height:this.props.winhe+'px'}}
                 onEvents={this.onClickByModel}
             />
         )
