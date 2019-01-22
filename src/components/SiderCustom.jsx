@@ -50,6 +50,7 @@ class SiderCustom extends Component {
         const state = SiderCustom.setMenuOpen(this.props);
         this.setState(state);
     }
+
     menuClick = e => {
         this.setState({
             selectedKey: e.key
@@ -63,16 +64,24 @@ class SiderCustom extends Component {
             firstHide: false,
         })
     };
+
     render() {
-        let user=JSON.parse(localStorage.getItem('user'));
-        let identify=user&&user.ctype=='5'?'user':'comp';
-        let func=['basic'];
-        if(user&&user.servicetype.indexOf('保安巡更')>-1){
+        let func=['basic'],identify='';
+        let user=this.props.user.data;
+        if(user&&user.servicetype&&user.servicetype.includes('保安巡更')){
             func.push('patrol')
         }
-        if(user&&user.servicetype.indexOf('物品点名')>-1){
+        if(user&&user.servicetype&&user.servicetype.includes('物品点名')){
             func.push('rollcall')
         }
+        if(user&&user.ctype==5){
+               identify='user'
+
+        }else{
+            if(user.activecount) identify='comptop';
+            else identify='comp'
+        }
+        
         return (
             <Sider
                 trigger={null}

@@ -43,7 +43,6 @@ class Login extends React.Component {
             qrcode({url:"/login/qrcode_ret",data:{qrcode:this.state.qrcode}},(res)=>{
                 if(count<60){
                     count++;
-                    console.log(count,"1111")
                 }else if(count==60){
                     clearInterval(qrcodeSet);
                     this.setState({
@@ -102,7 +101,8 @@ class Login extends React.Component {
             if(nextAuth.data.data.ctype==='5'){
                 history.push('/app/userhome/index');
             }else{
-                history.push('/app/companyhome/index');
+                 if(nextAuth.data.data.activecount) history.push('/app/companyhome/visual');
+                 else history.push('/app/companyhome/index');  
             }
             
         }
