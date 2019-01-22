@@ -17,7 +17,6 @@ class Echartpie extends Component {
     componentWillMount(){
         this.setState({
             type:this.props.type,
-
         })
     }
 
@@ -27,9 +26,8 @@ class Echartpie extends Component {
     }
     xianmap=()=>{ //地图
         echarts.registerMap('xian', xianmap);
-        let datasMap=this.state.father.datasMap;
-        let option={
-            background:"#091e57",
+        const option={
+            background:"#404a59",
             geo: {
                 map: 'xian',
                 roam: true,
@@ -39,55 +37,30 @@ class Echartpie extends Component {
                             [{ offset: 0, color: '#80D6EB' },{ offset: 1, color: '#3B80B4' }]
                         )}
                 },
-                aspectScale:.8, //长宽比 
-                zoom:1.2, //当前视角的缩放比例
-                //取消鼠标移入地图上的文字
+                itemStyle:{
+                    normal:{
+                        areaColor:"#3C82B5",
+                        borderColor:"#78CDE5"
+                    },
+                    emphasis:{
+                        areaColor:"#3A80B4"
+                    }
+                },
                 label: {
                     emphasis: {
                         show: false
                     }
                 },
-                itemStyle:{
-                    normal:{
-                        areaColor:"#091e57", //地图的背景
-                        borderColor:"#0bf9f9" //分界线的颜色
-                    },
-                    emphasis:{
-                        areaColor:"#091e57" //悬浮时的颜色
-                    },
-                }
             },
             series:[
                 {
-                    name: 'light',
-                    type: 'scatter',
-                    coordinateSystem: 'geo',
-                    data: [{name:'33333',value:[109.06,34.32]}],
-                    symbolSize: 18, //圈圈大小
-                    label: {
-                        normal: {
-                            formatter: '{b}',
-                            position: 'right',
-                            show: false  //字体显示
-                        },
-                        emphasis: {
-                            show: true
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            color: '#F4E925'
-                        }
-                    }
-                },
-                {
                     type:"effectScatter",// series图表类型
                     coordinateSystem:"geo",// series坐标系类型
-                    data:datasMap, // series数据内容
-                    effectType:"ripple", //涟漪特效
+                    data:this.props.xianmap, // series数据内容
+                    effectType:"ripple",
                     itemStyle: {
                         normal: {
-                            color: '#f4e925', //圈圈的颜色 
+                            color: '#D5656E',
                             shadowBlur: 10,
                             shadowColor: '#333'
                         }
@@ -107,10 +80,10 @@ class Echartpie extends Component {
                         },
                         emphasis: {
                             show: true,
-                            color: '#f4e925', //hover时字的颜色
+                            color: '#D5656E',
                         }
                     },
-                    symbolSize:20 //涟漪大小
+                    symbolSize:20
                 }
             ]
         }
@@ -245,6 +218,18 @@ class Echartpie extends Component {
     //报警分析
     alarmanalyze =()=>{
         let option = {
+            tooltip: {
+                formatter:function (params,percent) {
+                    if(percent==="item_确认_1"){
+                        return "确认:1";
+                    }else if(percent==="item_虚报警数_1"){
+                        return "虚报警数:1";
+                    }
+                    if(params.name!==""){
+                        return params.name+":"+params.value;
+                    }
+                }
+            },
             color: ['rgba(76, 132, 210, .4)'], 
             series: [{
                 name: '未处理报警数',
@@ -273,11 +258,11 @@ class Echartpie extends Component {
                 },
                 hoverAnimation: false, 
                 data: [{
-                    value: 90,
-                    name: '忽略数',
+                    value: 13618,
+                    name: '未处理报警数',
                     label: {
                         normal: {
-                            formatter: '40%',
+                            formatter: (13618/16521*100).toFixed(2)+"%",
                             textStyle: {
                                 color: '#fff',
                                 fontSize: 20
@@ -303,7 +288,7 @@ class Echartpie extends Component {
                         } 
                     }
                 }, {
-                    value: 10,
+                    value: 2903,
                     label: {
                         normal: {
                             formatter: '\n未处理报警数',
@@ -338,11 +323,11 @@ class Echartpie extends Component {
                 },
                 hoverAnimation: false, 
                 data: [{
-                    value: 90,
+                    value: 1,
                     name: '虚报警数',
                     label: {
                         normal: {
-                            formatter: '10%',
+                            formatter: (1/(16521-1)*100).toFixed(2)+"%",
                             textStyle: {
                                 color: '#fff',
                                 fontSize: 20
@@ -368,7 +353,7 @@ class Echartpie extends Component {
                         } 
                     }
                 }, {
-                    value: 10,
+                    value: (16521-1),
                     label: {
                         normal: {
                             formatter: '\n虚报警数',
@@ -406,11 +391,11 @@ class Echartpie extends Component {
                 },
                 hoverAnimation: false, 
                 data: [{
-                    value: 90,
+                    value: 2901,
                     name: '忽略数',
                     label: {
                         normal: {
-                            formatter: '40%',
+                            formatter: (2901/16521*100).toFixed(2)+"%",
                             textStyle: {
                                 color: '#fff',
                                 fontSize: 20
@@ -436,7 +421,7 @@ class Echartpie extends Component {
                         } 
                     }
                 }, {
-                    value: 10,
+                    value: (16521-2901),
                     label: {
                         normal: {
                             formatter: '\n忽略数',
@@ -474,11 +459,11 @@ class Echartpie extends Component {
                 },
                 hoverAnimation: false, 
                 data: [{
-                    value: 90,
+                    value: 1,
                     name: '确认',
                     label: {
                         normal: {
-                            formatter: '10%',
+                            formatter: (1/16520*100).toFixed(2)+"%",
                             textStyle: {
                                 color: '#fff',
                                 fontSize: 20
@@ -504,7 +489,7 @@ class Echartpie extends Component {
                         } 
                     }
                 }, {
-                    value: 10,
+                    value: 16520,
                     label: {
                         normal: {
                             formatter: '\n确认',
@@ -534,7 +519,7 @@ class Echartpie extends Component {
                             [{ offset: 0, color: '#80D6EB' },{ offset: 1, color: '#3B80B4' }]
                         )}
                 },
-                aspectScale:.8, //长宽比 
+                aspectScale:.8, //长宽比
                 zoom:1.2, //当前视角的缩放比例
                 //取消鼠标移入地图上的文字
                 label: {
@@ -554,35 +539,13 @@ class Echartpie extends Component {
             },
             series:[
                 {
-                    name: 'light',
-                    type: 'scatter',
-                    coordinateSystem: 'geo',
-                    data: [{name:'33333',value:[109.06,34.32]}],
-                    symbolSize: 18, //圈圈大小
-                    label: {
-                        normal: {
-                            formatter: '{b}',
-                            position: 'right',
-                            show: false  //字体显示
-                        },
-                        emphasis: {
-                            show: true
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            color: '#F4E925'
-                        }
-                    }
-                },
-                {
                     type:"effectScatter",// series图表类型
                     coordinateSystem:"geo",// series坐标系类型
-                    data:datasMap, // series数据内容
+                    data:this.props.xianmap, // series数据内容
                     effectType:"ripple", //涟漪特效
                     itemStyle: {
                         normal: {
-                            color: '#f4e925', //圈圈的颜色 
+                            color: '#f4e925', //圈圈的颜色
                             shadowBlur: 10,
                             shadowColor: '#333'
                         }
