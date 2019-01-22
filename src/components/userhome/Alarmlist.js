@@ -357,7 +357,8 @@ class Alarmlist extends React.Component{
                     </Row>
                 </LocaleProvider>
                 <Row style={{marginTop:"70px",display:this.state.type===0?"block":"none"}}>
-                    <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
+                     <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
+
                 </Row>
                 <Row gutter={32}>
                     {
