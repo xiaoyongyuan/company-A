@@ -256,7 +256,7 @@ margin: 20px 0;
         color:red;
         position:absolute;
         right:0; 
-        top:24px;
+        top:10px!important;
         border:1px solid red;
         border-top-left-radius:17px;
         border-top-right-radius:0;
@@ -311,7 +311,7 @@ margin: 20px 0;
 }
 
 .cardPdd{
-    margin:60px 0 0 0;
+    margin:0px 0 0 0;
     padding-left:45px;
     box-sizing:content-box;
 }
@@ -319,7 +319,7 @@ margin: 20px 0;
     padding-left:45px;
 }
 .ant-card-body{
-    padding: 10px 24px;
+    padding: 10px 10px !important;
 }
 
 /* 设备信息和摄像头信息页 */
