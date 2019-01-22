@@ -62,7 +62,6 @@ class PatrolPlan extends React.Component{
     };
     showModal = (e) => { //新增弹窗
         e.preventDefault();
-        console.log('******************',this.state.list_length);
         post({url:"/api/patrol/getlist"}, (res)=>{
             if(res.data.length<6){
                 this.setState({
