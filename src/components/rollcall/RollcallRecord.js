@@ -7,6 +7,7 @@ import "../../style/ztt/css/rollCall.css";
 import Button from "antd/es/button/button";
 import {post} from "../../axios/tools";
 import nodata from "../../style/imgs/nodata.png";
+import nopic from "../../style/imgs/nopic.png";
 const RangePicker = DatePicker.RangePicker;
 const Option = Select.Option;
 class RollcallRecord extends React.Component{
@@ -198,7 +199,7 @@ class RollcallRecord extends React.Component{
                     {!this.state.rollsetList.length?<div className="zwsj"><img src={nodata} /></div>:this.state.rollsetList.map((v,i)=>(
                         <Col className="rollcalllist" key={i} span={7} style={{marginTop:"30px",marginLeft:"30px"}}>
                             <Col span={11}>
-                                <img src={v.rrpic} alt="" width="100%" onClick={()=>this.handlerollCallType(v.code)} />
+                                <img src={v.rrpic?v.rrpic:nopic} alt="" width="100%" onClick={()=>this.handlerollCallType(v.code)} />
                             </Col>
                             <Col span={11} className="rollRow">
                                 <Row className="rollCall">{v.cameraname}-{v.rname}</Row>
