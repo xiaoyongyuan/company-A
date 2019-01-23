@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col, Button, DatePicker, LocaleProvider, Table, Form, Select,Modal,message} from "antd";
+import {Row, Col, Button, DatePicker, LocaleProvider, Table, Form, Select, Modal, message, Spin} from "antd";
 import zh_CN from "antd/lib/locale-provider/zh_CN";
 import {post} from "../../axios/tools";
 import "../../style/ztt/css/patrolRecord.css";
@@ -218,10 +218,15 @@ class PatrolRecord extends React.Component{
                     </Row>
                     <Row className="row-table">
                         <Col span={24}>
-                            <Table dataSource={this.state.dataSource} columns={columns}
-                            pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
-                           bordered={true}
-                            />
+                            {
+                                this.state.dataSource.length?
+                                    <Table dataSource={this.state.dataSource} columns={columns}
+                                           pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
+                                           bordered={true}
+                                    />
+                                    :
+                                    <div className="textcenter"><Spin size="large" /></div>
+                            }
                         </Col>
                         <Modal
                             width={700}
