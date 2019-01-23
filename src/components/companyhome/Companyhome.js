@@ -14,8 +14,8 @@ import gongxiang from "../../style/ztt/img/gongxiang.png";
 import quyumidu from "../../style/ztt/img/quyumidu.png";
 import shumeipaiTitle from "../../style/ztt/img/shumeipaiTitle.png";
 import cloud from "../../style/ztt/img/cloud.png";
-import zonglan from "../../style/ztt/img/fwnleiruwang.png";
 import nopic from "../../style/imgs/nopic.png";
+import zonglan from "../../style/ztt/img/fwnleiruwang.png";
 class Companyhome extends Component {
     constructor(props){
         super(props);
@@ -30,7 +30,6 @@ class Companyhome extends Component {
             activelist:[], //共享设备
             passivelist:[], //查看我的用户
             scenegraph:nopic,
-            type:1
         }
     }
     componentDidMount(){
@@ -208,7 +207,12 @@ class Companyhome extends Component {
                 </Row>
                 <Row className="topShift">
                     <Col xl={22} xxl={20}>
-                       <Equipment type={this.state.type}/>
+                        <Card>
+                            <Row>
+                                <Col xl={10} xxl={12}><img src={zonglan} alt="" />&nbsp;&nbsp;<span className="titleFont">用户设备</span></Col>
+                            </Row>
+                           <Equipment/>
+                        </Card>
                     </Col>
                 </Row>
             </div>

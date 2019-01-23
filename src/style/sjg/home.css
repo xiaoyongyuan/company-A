@@ -1,6 +1,11 @@
-.equipmentCard{
-    margin:30px 30px;
-    width: 95%;
+.equipment{
+   /* margin: 20px 0px 0px 20px;*/
+    margin-left: 20px;
+    margin-top:20px;
+}
+.loadding{
+    width: 100%;
+    margin:215px auto;
 }
 .home_top{
     margin-bottom: 30px;
@@ -256,7 +261,6 @@ margin: 20px 0;
 .bell{
         min-width:60px;
         height:34px;
-        line-height: 31px;
         color:red;
         position:absolute;
         right:0; 

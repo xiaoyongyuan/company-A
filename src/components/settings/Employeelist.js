@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import BreadcrumbCustom from '../BreadcrumbCustom';
 import ModalForm from './ModalForm.js';
-import {Form,Input, Row, Col, Button, Modal,Table, message} from 'antd';
+import {Form, Input, Row, Col, Button, Modal, Table, message, Spin} from 'antd';
 // import '../../style/sjg/home.css';
 import {post} from "../../axios/tools";
 
@@ -73,7 +73,7 @@ class Adminteam extends Component {
                 }else{
                     forms.resetFields()
                 }
-                
+
             }
         });
     };
@@ -123,7 +123,7 @@ class Adminteam extends Component {
                     return;
                 }else{
                     this.requestdata(values)
-                }                
+                }
             }
         })
     };
@@ -163,24 +163,23 @@ class Adminteam extends Component {
                 render: (text,record,index) => {
                     if(usertype.utype === "0"){
                         if(record.utype){
-                            return( 
-                            <div>
-                                {/* <Button onClick={()=>_this.showModalEdit(text,record,index)}>查看</Button>
+                            return(
+                                <div>
+                                    {/* <Button onClick={()=>_this.showModalEdit(text,record,index)}>查看</Button>
                                 <span className="ant-divider" /> */}
-                                <Button style={this.state.utype?{display:"inline-block"}:{display:"none"}} onClick={()=>_this.showModaldelete(text,index)}>删除</Button>
-                            </div>
+                                    <Button style={this.state.utype?{display:"inline-block"}:{display:"none"}} onClick={()=>_this.showModaldelete(text,index)}>删除</Button>
+                                </div>
                             )
                         }
-                    } 
+                    }
                 }
             }
         ];
         return (
-            <div>
-                <BreadcrumbCustom first="系统管理" second="人员管理" />
+            <div className="warrper" style={{margin:'20px 10px',background:'#fff',minHeight:'600px' }}>
                 <div className="shange">
-                    <Row>
-                        <Col span={14}>
+                    <Row className="row-query" style={{ marginBottom:'30px' }}>
+                        <Col span={22}>
                             <Form layout="inline" onSubmit={this.selectopt}>
                                 <FormItem label="姓名">
                                     {getFieldDecorator('realname', {
@@ -188,7 +187,7 @@ class Adminteam extends Component {
                                             required: false,
                                             message: '请输入名称!'
                                         }],
-                                    })( 
+                                    })(
                                         <Input />
                                     )}
                                 </FormItem>
@@ -210,22 +209,29 @@ class Adminteam extends Component {
                                 </FormItem>
                             </Form>
                         </Col>
-                        <Col span={2}>
+                        <Col span={2} style={{textAlign:'right' }}>
                             <Button style={this.state.utype?{display:"inline-block"}:{display:"none"}} onClick={this.showModal}>新增</Button>
-
                         </Col>
-
                     </Row>
                     <Row>
-                        <Table columns={columns} dataSource={this.state.list} bordered={true} style={{width:"75%"}} />
+                        <Col>
+                            <div>
+                                {
+                                    this.state.list.length?
+                                        <Table columns={columns} dataSource={this.state.list} bordered={true} />
+                                        :
+                                        <div className="textcenter"><Spin size="large" tip="Loading..." /></div>
+                                }
+                            </div>
+                        </Col>
                     </Row>
                 </div>
                 <Modal title='新增'
-                    okText="确认"
-                    cancelText="取消"
-                    visible={this.state.visible}
-                    onOk={this.handleCreate}
-                    onCancel={this.handleCancel}
+                       okText="确认"
+                       cancelText="取消"
+                       visible={this.state.visible}
+                       onOk={this.handleCreate}
+                       onCancel={this.handleCancel}
                 >
                     <ModalForm visible={this.state.visible}
                                code={this.state.type}
