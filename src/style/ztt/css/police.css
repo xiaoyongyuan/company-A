@@ -86,7 +86,7 @@
     border-radius: 5px;
 }
 .typeblue{
-    border:1px solid #2C39B1;
+    border:1px solid #28B6E6;
     width: 100%;
     height: auto;
     border-radius: 5px;
@@ -204,7 +204,7 @@
 .circle-sure{
     width: 10px;
     height: 10px;
-    background-color:#0fa420;
+    background-color:#5DCB9A;
     border-radius: 50%;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -214,7 +214,7 @@
     float: left;
 }
 .word-sure{
-    color: #0fa420;
+    color: #5DCB9A;
     position: relative;
     left: 35%;
     top: -15px;
@@ -222,7 +222,7 @@
 .circle-xj{
     width: 10px;
     height: 10px;
-    background-color:#F22727;
+    background-color:#FB7575;
     border-radius: 50%;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -232,7 +232,7 @@
     float: left;
 }
 .word-xj{
-    color: #F22727;
+    color: #FB7575;
     position: relative;
     left: 35%;
     top: 34%;
@@ -240,7 +240,7 @@
 .circle-hl{
     width: 10px;
     height: 10px;
-    background-color:#2C39B1;
+    background-color:#28B6E6;
     border-radius: 50%;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -250,7 +250,7 @@
     float: left;
 }
 .word-hl{
-    color: #2C39B1;
+    color: #28B6E6;
     position: relative;
     left: 35%;
     top: 34%;
@@ -265,13 +265,13 @@
     right: 0;
 }
 .trianglegreen{
-    border-color:transparent  #0fa420!important;
+    border-color:transparent  #5DCB9A!important;
 }
 .trianglered{
-    border-color:transparent #F22727!important;
+    border-color:transparent #FB7575!important;
 }
 .triangleblue{
-    border-color:transparent #2C39B1!important;
+    border-color:transparent #28B6E6!important;
 }
 .triangle{
     width: 0;

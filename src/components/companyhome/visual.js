@@ -63,6 +63,12 @@ class Datavisual extends Component {
         post({url:'/api/company/getone_special'},(res)=>{
             if(res.success){
                 var dataMap = Object.keys(res.info.lnglat).map(key=> res.info.lnglat[key]);
+                dataMap.map((v)=>{
+                    if(v.name==="西安文物局"){
+                        v.name="";
+                        v.value="";
+                    }
+                })
                 var analysis=Object.keys(res.info.alarmcount).map(key=> res.info.alarmcount[key]);
                 /*var analysisCount=0;//总报警数
                 var unhandle=0;//未处理报警数
