@@ -176,7 +176,7 @@ class Adminteam extends Component {
             }
         ];
         return (
-            <div className="warrper" style={{margin:'20px 10px',height:'600px',background:'#fff' }}>
+            <div className="warrper" style={{margin:'20px 10px',background:'#fff',minHeight:'600px' }}>
                 <div className="shange">
                     <Row className="row-query" style={{ marginBottom:'30px' }}>
                         <Col span={22}>
