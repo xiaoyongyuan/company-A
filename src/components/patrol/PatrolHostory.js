@@ -220,13 +220,14 @@ class RollcallHostory extends React.Component{
                                     {getFieldDecorator('range-picker2')(
                                         <DatePicker
                                             format="YYYY-MM-DD"
-                                            placeholder="结束日期"
-                                            setFieldsValue={this.state.pedate}
-                                            onChange={this.onChange2}
-                                            disabledDate={this.disabledEndDate}
-                                            onOpenChange={this.handleEndOpenChange}
+                                            placeholder="开始日期"
+                                            setFieldsValue={this.state.pbdate}
+                                            onChange={this.onChange1}
+                                            disabledDate={this.disabledStartDate}
+                                            onOpenChange={this.handleStartOpenChange}
                                         />
                                     )}
+
                                 </Form.Item>
                             </Col>
                           

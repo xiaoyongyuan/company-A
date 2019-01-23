@@ -218,12 +218,10 @@ class RollcallHostory extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                          
                             <Col xl={3} xxl={2} lg={2} className="msch">
                                 <Button type="primary" htmlType="submit">查询</Button>
                             </Col>
                         </Form>
-                       
                     </Row>
                 </LocaleProvider>
                 {/* <div>{this.state.list.length?<div></div>:<div className="textcenter">暂无数据</div>}</div> */}
