@@ -1,3 +1,7 @@
+.equipmentCard{
+    margin:30px 30px;
+    width: 95%;
+}
 .home_top{
     margin-bottom: 30px;
 }
@@ -261,8 +265,8 @@ margin: 20px 0;
         border-top-left-radius:17px;
         border-top-right-radius:0;
         border-bottom-right-radius:0;
-        border-bottom-left-radius:17px;   
-        padding-left: 10px;
+        border-bottom-left-radius:17px;
+        padding: 1px 5px;
 }
 .actionsBbottom{
     height:40px;
@@ -305,9 +309,8 @@ margin: 20px 0;
 }
 .paddRow{     
      position:relative;
-     padding:0;
+     padding-top:5px;
      box-sizing: border-box;
-  
 }
 
 .cardPdd{

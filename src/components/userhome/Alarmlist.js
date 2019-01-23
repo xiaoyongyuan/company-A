@@ -358,12 +358,11 @@ class Alarmlist extends React.Component{
                 </LocaleProvider>
                 <Row style={{marginTop:"70px",display:this.state.type===0?"block":"none"}}>
                      <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
-
                 </Row>
                 <Row gutter={32}>
                     {
                         this.state.policeList.map((v,i)=>(
-                            <Col lg={16} xl={10} xxl={6} offset={1} push={1} key={i}>
+                            <Col xm={16} sm={16} md={16} lg={16} xl={9} xxl={6} offset={1} key={i}>
                                 <div className="listmargintop">
                                     <div className={this.redgreenblue(v.status)} >
                                         <Row>
