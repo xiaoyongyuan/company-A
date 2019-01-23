@@ -176,11 +176,10 @@ class Adminteam extends Component {
             }
         ];
         return (
-            <div>
-                <BreadcrumbCustom first="系统管理" second="人员管理" />
+            <div className="warrper" style={{margin:'20px 10px',background:'#fff',minHeight:'600px' }}>
                 <div className="shange">
-                    <Row>
-                        <Col span={14}>
+                    <Row className="row-query" style={{ marginBottom:'30px' }}>
+                        <Col span={22}>
                             <Form layout="inline" onSubmit={this.selectopt}>
                                 <FormItem label="姓名">
                                     {getFieldDecorator('realname', {
@@ -210,14 +209,14 @@ class Adminteam extends Component {
                                 </FormItem>
                             </Form>
                         </Col>
-                        <Col span={2}>
+                        <Col span={2} style={{textAlign:'right' }}>
                             <Button style={this.state.utype?{display:"inline-block"}:{display:"none"}} onClick={this.showModal}>新增</Button>
-
                         </Col>
-
                     </Row>
                     <Row>
-                        <Table columns={columns} dataSource={this.state.list} bordered={true} style={{width:"75%"}} />
+                        <Col>
+                            <Table columns={columns} dataSource={this.state.list} bordered={true} />
+                        </Col>
                     </Row>
                 </div>
                 <Modal title='新增'
