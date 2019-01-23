@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePicker, Row, Col, Select, Button, Modal, Pagination, Form, message,LocaleProvider } from "antd";
+import { DatePicker, Row, Col, Select, Button, Modal, Pagination, Form, message,LocaleProvider,Spin } from "antd";
 import "../../style/ztt/css/police.css";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
@@ -12,6 +12,7 @@ const formItemLayout = {
     labelCol: {
         xs: { span: 24 },
         sm: { span: 5 },
+        xxl:{ span: 6}
     },
     wrapperCol: {
         xs: { span: 24 },
@@ -29,6 +30,7 @@ class Alarmlist extends React.Component{
             equipment:[],
             equipment1:[],
             alermType:[],
+            loadding:true,
             alarmImgType:false,
             bdate:'',//检索的开始时间
             edate:'',//检索的结束时间
@@ -128,6 +130,7 @@ class Alarmlist extends React.Component{
                         policeList:res.data,
                         type:1,
                         totalcount:res.totalcount,
+                        loadding:false
                     })
                 }else{
                     this.setState({
@@ -300,7 +303,7 @@ class Alarmlist extends React.Component{
                 <LocaleProvider locale={zh_CN}>
                     <Row style={{marginTop:"20px"}}>
                         <Form onSubmit={this.handleSubmit}>
-                            <Col xl={6} xxl={4} lg={8}>
+                            <Col xl={6} xxl={5} lg={10}>
                                 <Form.Item
                                     {...formItemLayout}
                                     label="日期"
@@ -318,7 +321,7 @@ class Alarmlist extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                            <Col xl={5} xxl={3} lg={8}>
+                            <Col xl={5} xxl={4} lg={10}>
                                 <Form.Item>
                                     {getFieldDecorator('range-picker2')(
                                         <DatePicker
@@ -364,6 +367,7 @@ class Alarmlist extends React.Component{
                 <Row style={{marginTop:"70px",display:this.state.type===0?"block":"none"}}>
                      <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
                 </Row>
+                <Spin size="large" spinning={this.state.loadding} tip="Loading..." className="loadding" />
                 <Row style={{marginLeft:"10px"}}>
                     {
                         this.state.policeList.map((v,i)=>(
