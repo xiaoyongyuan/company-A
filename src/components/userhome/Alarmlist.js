@@ -410,13 +410,13 @@ class Alarmlist extends React.Component{
                                                 </Row>
                                                 <Row className="sure-row" type="flex" align="bottom">
                                                     <Col span={8} >
-                                                        <div className="sure-col-l" onClick={()=>this.changeredgreenblue(0,i,v.code)}>
+                                                        <div className="sure-col-l" onClick={()=>this.changeredgreenblue(1,i,v.code)}>
                                                             <div className="circle-sure" />
                                                             <div className="word-sure">确认</div>
                                                         </div>
                                                     </Col>
                                                     <Col span={8} >
-                                                        <div className="sure-col-c" onClick={()=>this.changeredgreenblue(1,i,v.code)}>
+                                                        <div className="sure-col-c" onClick={()=>this.changeredgreenblue(3,i,v.code)}>
                                                             <div className="circle-xj" />
                                                             <div className="word-xj">虚警</div>
                                                         </div>
