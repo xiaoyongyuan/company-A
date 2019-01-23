@@ -14,7 +14,6 @@ import gongxiang from "../../style/ztt/img/gongxiang.png";
 import quyumidu from "../../style/ztt/img/quyumidu.png";
 import shumeipaiTitle from "../../style/ztt/img/shumeipaiTitle.png";
 import cloud from "../../style/ztt/img/cloud.png";
-import zonglan from "../../style/ztt/img/fwnleiruwang.png";
 import nopic from "../../style/imgs/nopic.png";
 class Companyhome extends Component {
     constructor(props){

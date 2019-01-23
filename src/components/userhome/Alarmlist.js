@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePicker, Row, Col, Select, Button, Modal, Pagination, Form, message,LocaleProvider } from "antd";
+import { DatePicker, Row, Col, Select, Button, Modal, Pagination, Form, message,LocaleProvider,Spin } from "antd";
 import "../../style/ztt/css/police.css";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
@@ -11,7 +11,8 @@ const Option = Select.Option;
 const formItemLayout = {
     labelCol: {
         xs: { span: 24 },
-        sm: { span: 8 },
+        sm: { span: 5 },
+        xxl:{ span: 6}
     },
     wrapperCol: {
         xs: { span: 24 },
@@ -29,6 +30,7 @@ class Alarmlist extends React.Component{
             equipment:[],
             equipment1:[],
             alermType:[],
+            loadding:true,
             alarmImgType:false,
             bdate:'',//检索的开始时间
             edate:'',//检索的结束时间
@@ -91,17 +93,6 @@ class Alarmlist extends React.Component{
             visible: false,
         });
     };
-    //报警状态
-    handleState = (code)=>{
-        if(code === 0){
-            return "确认";
-        }else if(code === 1){
-            return "虚警";
-        }else if(code === 2){
-            return "忽略";
-        }
-    };
-
     //查看报警详情
     alarmImg =(code)=>{
         const toson={
@@ -139,6 +130,7 @@ class Alarmlist extends React.Component{
                         policeList:res.data,
                         type:1,
                         totalcount:res.totalcount,
+                        loadding:false
                     })
                 }else{
                     this.setState({
@@ -261,20 +253,36 @@ class Alarmlist extends React.Component{
 
     redgreenblue = (status)=>{
         if(status === 0){
-            return("typegreen");
+            return("typeOrange");
         }else if(status === 1){
-            return("typered");
-        }else {
+            return("typegreen");
+        }else if(status === 2){
             return("typeblue");
+        }else if(status === 3){
+            return("typered");
         }
-    }
+    };
+    //报警状态
+    handleState = (code)=>{
+        if(code === 0){
+            return "未处理";
+        }else if(code === 1){
+            return "确认";
+        }else if(code === 2){
+            return "忽略";
+        }else if(code === 3){
+            return "虚警";
+        }
+    };
     sanjiaose = (status)=>{
         if(status === 0){
-            return("triangle-topright-green trianglegreen");
+            return("triangle-topright-green triangleOrange");
         }else if(status === 1){
-            return("triangle-topright-green trianglered");
+            return("triangle-topright-green trianglegreen");
         }else if(status === 2){
             return("triangle-topright-green triangleblue");
+        }else if(status === 3){
+            return("triangle-topright-green trianglered");
         }
     }
     changeredgreenblue =(type,index,code)=>{
@@ -293,9 +301,9 @@ class Alarmlist extends React.Component{
         return(
             <div className="Alarmlist">
                 <LocaleProvider locale={zh_CN}>
-                    <Row style={{marginTop:"50px"}}>
+                    <Row style={{marginTop:"20px"}}>
                         <Form onSubmit={this.handleSubmit}>
-                            <Col xl={7} xxl={5} lg={9}>
+                            <Col xl={6} xxl={5} lg={10}>
                                 <Form.Item
                                     {...formItemLayout}
                                     label="日期"
@@ -313,7 +321,7 @@ class Alarmlist extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                            <Col xl={4} xxl={3} lg={6}>
+                            <Col xl={5} xxl={4} lg={10}>
                                 <Form.Item>
                                     {getFieldDecorator('range-picker2')(
                                         <DatePicker
@@ -328,7 +336,7 @@ class Alarmlist extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                            <Col xl={5} xxl={4} lg={6}>
+                            <Col xl={4} xxl={3} lg={8}>
                                 <Form.Item
                                     {...formItemLayout}
                                     label="设备"
@@ -347,10 +355,10 @@ class Alarmlist extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                            <Col xl={3} xxl={2} lg={3} className="mt">
+                            <Col xl={2} xxl={2} lg={6} className="mt">
                                 <Button type="primary" htmlType="submit">查询</Button>
                             </Col>
-                            <Col xl={3} xxl={2} lg={4} className="lr">
+                            <Col xl={2} xxl={2} lg={6} className="lr">
                                 <Button onClick={this.handleProcessing} >一键处理</Button>
                             </Col>
                         </Form>
@@ -359,10 +367,11 @@ class Alarmlist extends React.Component{
                 <Row style={{marginTop:"70px",display:this.state.type===0?"block":"none"}}>
                      <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
                 </Row>
-                <Row gutter={32}>
+                <Spin size="large" spinning={this.state.loadding} tip="Loading..." className="loadding" />
+                <Row style={{marginLeft:"10px",display:this.state.type===0?"none":"block"}}>
                     {
                         this.state.policeList.map((v,i)=>(
-                            <Col xm={16} sm={16} md={16} lg={16} xl={9} xxl={6} offset={1} key={i}>
+                            <Col xm={11} sm={11} md={11} lg={11} xl={11} xxl={7}  key={i} style={{margin:"0px 10px"}}>
                                 <div className="listmargintop">
                                     <div className={this.redgreenblue(v.status)} >
                                         <Row>
@@ -402,31 +411,20 @@ class Alarmlist extends React.Component{
                                                 <Row className="sure-row" type="flex" align="bottom">
                                                     <Col span={8} >
                                                         <div className="sure-col-l" onClick={()=>this.changeredgreenblue(0,i,v.code)}>
-                                                            <div className="circle-sure">
-                                                            </div>
-                                                            <div className="word-sure">
-                                                                确认
-                                                            </div>
+                                                            <div className="circle-sure" />
+                                                            <div className="word-sure">确认</div>
                                                         </div>
                                                     </Col>
                                                     <Col span={8} >
                                                         <div className="sure-col-c" onClick={()=>this.changeredgreenblue(1,i,v.code)}>
-                                                            <div className="circle-xj">
-
-                                                            </div>
-                                                            <div className="word-xj">
-                                                                虚警
-                                                            </div>
+                                                            <div className="circle-xj" />
+                                                            <div className="word-xj">虚警</div>
                                                         </div>
                                                     </Col>
                                                     <Col span={8} >
                                                         <div className="sure-col-r" onClick={()=>this.changeredgreenblue(2,i,v.code)}>
-                                                            <div className="circle-hl">
-
-                                                            </div>
-                                                            <div className="word-hl">
-                                                                忽略
-                                                            </div>
+                                                            <div className="circle-hl" />
+                                                            <div className="word-hl">忽略</div>
                                                         </div>
                                                     </Col>
                                                 </Row>

@@ -146,7 +146,7 @@ class RollcallRecord extends React.Component{
         return(
             <div className="RollcallRecord">
                 <LocaleProvider locale={zh_CN}>
-                    <div style={{marginTop:"50px"}}>
+                    <div style={{marginTop:"50px",marginLeft:"30px"}}>
                         <Form layout="inline" onSubmit={this.handleSubmit}>
                             <Form.Item
                                 label="日期"
