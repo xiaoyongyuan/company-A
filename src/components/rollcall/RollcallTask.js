@@ -6,6 +6,7 @@ import RollcallRecordModel from "./RollcallRecordModel";
 import noImg from "../../style/imgs/nopic.png";
 import scan from "../../style/imgs/scan.gif";
 import moment from "moment";
+import nodata from "../../style/imgs/nodata.png";
 const Option = Select.Option;
 const FormItem = Form.Item;
 
@@ -287,36 +288,34 @@ class RollcallTask extends Component{
 
                 </Row>
                 <div className="flexbox">
-                {this.state.list.map((el,i)=>(
-                    <div className="cardflex" key={i+1} style={{margin:"1vmax 1vmax"}}>
-                       <Card>
-                            <h4 style={{textAlign:'center',fontSize:"1max"}}>{el.rname}<Icon type="delete" style={{float:'right'}} onClick={()=>this.deleteobj(el.code,i)} /></h4>
-                            <div className="cardContext">
-                                <a className="scan" href={"#/app/rollcall/adoptlook?id="+el.code}>
-                                    <canvas id={"canvas"+(i+1)}  width='270px' height='221px' style={el.fieldpath?{backgroundImage:'url('+el.fieldpath+')'}:{backgroundImage:'url('+noImg+')'}} />
-                                    <img src={scan} className={el.scan?"scangif":"scanno"} />
-                                </a>
-                                <div className="titles">{el.cameraname}</div>
-                           </div>
-                           
-                           {el.detail[0]
-                            ?
-                            <p>{el.detail[0].resultdate} 
-                                {el.rstatus===1
-                                ? <span style={{float:"right"}}>正常</span>
-                                : <span style={{float:"right",color:'#f00'}}>报警</span>}
-                            </p>
-                            : <p>暂无点名记录  </p>
-                           }
-                           <Button type="primary" block onClick={()=>this.rollcall(el.code,i)} visible={el.rstatus} disabled={el.rhandle==1&&el.rstatus?false:true}>点名</Button>
-                        </Card>
-                    </div>
-                ))
-                }   
+                    {!this.state.list.length?<div className="zwsj"><Spin size="large" /></div>:this.state.list.map((el,i)=>(
+                        <div className="cardflex" key={i+1} style={{margin:"1vmax 1vmax"}}>
+                            <Card>
+                                <h4 style={{textAlign:'center',fontSize:"1max"}}>{el.rname}<Icon type="delete" style={{float:'right'}} onClick={()=>this.deleteobj(el.code,i)} /></h4>
+                                <div className="cardContext">
+                                    <a className="scan" href={"#/app/rollcall/adoptlook?id="+el.code}>
+                                        <canvas id={"canvas"+(i+1)}  width='270px' height='221px' style={el.fieldpath?{backgroundImage:'url('+el.fieldpath+')'}:{backgroundImage:'url('+noImg+')'}} />
+                                        <img src={scan} className={el.scan?"scangif":"scanno"} />
+                                    </a>
+                                    <div className="titles">{el.cameraname}</div>
+                                </div>
+
+                                {el.detail[0]
+                                    ?
+                                    <p>{el.detail[0].resultdate}
+                                        {el.rstatus===1
+                                            ? <span style={{float:"right"}}>正常</span>
+                                            : <span style={{float:"right",color:'#f00'}}>报警</span>}
+                                    </p>
+                                    : <p>暂无点名记录  </p>
+                                }
+                                <Button type="primary" block onClick={()=>this.rollcall(el.code,i)} visible={el.rstatus} disabled={el.rhandle==1&&el.rstatus?false:true}>点名</Button>
+                            </Card>
+                        </div>
+                    ))}
                 </div>
                 <Pagination hideOnSinglePage={true} current={this.state.pageindex} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} className="pageSize" />
-
-              </Spin>
+                </Spin>
                 <Modal
                     title="设置点名任务"
                     visible={this.state.settingType}
@@ -360,7 +359,6 @@ class RollcallTask extends Component{
                 >
                     <p>确认删除吗？</p>
                 </Modal>
-                
             </div>
         )
     }
