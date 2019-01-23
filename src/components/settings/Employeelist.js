@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import BreadcrumbCustom from '../BreadcrumbCustom';
 import ModalForm from './ModalForm.js';
-import {Form,Input, Row, Col, Button, Modal,Table, message} from 'antd';
+import {Form, Input, Row, Col, Button, Modal, Table, message, Spin} from 'antd';
 // import '../../style/sjg/home.css';
 import {post} from "../../axios/tools";
 
@@ -215,7 +215,14 @@ class Adminteam extends Component {
                     </Row>
                     <Row>
                         <Col>
-                            <Table columns={columns} dataSource={this.state.list} bordered={true} />
+                            <div>
+                                {
+                                    this.state.list.length?
+                                        <Table columns={columns} dataSource={this.state.list} bordered={true} />
+                                        :
+                                        <div className="textcenter"><Spin size="large" /></div>
+                                }
+                            </div>
                         </Col>
                     </Row>
                 </div>
