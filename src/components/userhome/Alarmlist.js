@@ -368,7 +368,7 @@ class Alarmlist extends React.Component{
                      <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
                 </Row>
                 <Spin size="large" spinning={this.state.loadding} tip="Loading..." className="loadding" />
-                <Row style={{marginLeft:"10px"}}>
+                <Row style={{marginLeft:"10px",display:this.state.type===0?"none":"block"}}>
                     {
                         this.state.policeList.map((v,i)=>(
                             <Col xm={11} sm={11} md={11} lg={11} xl={11} xxl={7}  key={i} style={{margin:"0px 10px"}}>
