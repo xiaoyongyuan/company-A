@@ -69,73 +69,6 @@ class Datavisual extends Component {
                         v.value="";
                     }
                 })
-                //报警次数
-                var alarmnum = Object.keys(res.info.alarm).map(key=> res.info.alarm[key]);
-                //阿房宫报警次数
-                var alarmnumapgdx = alarmnum[0].count;
-                var alarmnumapg = [];
-                for(var i = alarmnumapgdx.length-1;i>=0;i--){
-                    alarmnumapg.push(alarmnumapgdx[i])
-                }
-                //明秦王陵报警次数
-                var alarmnumqwldx = alarmnum[1].count;
-                var alarmnumqwl = [];
-                for(var i = alarmnumqwldx.length-1;i>=0;i--){
-                    alarmnumqwl.push(alarmnumqwldx[i])
-                }
-                //阿房宫名称
-                var apgname = alarmnum[0].name;
-                //明秦王陵名称
-                var qwlname = alarmnum[1].name;
-                //时间
-                var time = alarmnum[0].hour;
-                var timehour = [];
-                for(var i=time.length-1;i>=0;i--){
-                    time[i].substring(11);
-                    timehour.push(time[i].substring(11));
-                }
-
-                //巡更次数
-                var patrol = Object.keys(res.info.patrol).map(key=> res.info.patrol[key]);
-                //阿房宫巡更次数
-                var patrolNumepgdx = patrol[0].count;
-                var patrolNumepg = [];
-                for(var i = patrolNumepgdx.length-1;i>=0;i--){
-                    patrolNumepg.push(patrolNumepgdx[i]);
-                }
-                //名秦王巡更次数
-                var patrolNumqwldx = patrol[1].count;
-                var patrolNumqwl = [];
-                for (var i = patrolNumqwldx.length-1;i>=0;i--) {
-                    patrolNumqwl.push(patrolNumqwldx[i]);
-                }
-                //巡更次数日期
-                var daylydx = patrol[0].dayly;
-                var dayly = [];
-                for(var i = daylydx.length-1;i>=0;i--){
-                    dayly.push(daylydx[i].substring(8));
-                }
-                //巡更次数阿房宫名称
-                var patroNameepg = patrol[0].name;
-                //巡更次数秦王陵名称
-                var patroNameqwl = patrol[1].name;
-                //野外文物点名
-                var rollcall = Object.keys(res.info.rollcall).map(key=> res.info.rollcall[key]);
-                //名秦王点名次数
-                var rollcallNumqwldx = rollcall[1].count;
-                var rollcallNumqwl = [];
-                for (var i = rollcallNumqwldx.length-1;i>=0;i--) {
-                    rollcallNumqwl.push(rollcallNumqwldx[i]);
-                }
-                //点名次数日期
-                var dmdaylydx = rollcall[0].dayly;
-                var dmdayly = [];
-                for(var i = dmdaylydx.length-1;i>=0;i--){
-                    dmdayly.push(dmdaylydx[i].substring(8));
-                }
-                //点名次数秦王陵名称
-                var rollcallNameqwl = rollcall[1].name;
-
                 var analysis=Object.keys(res.info.alarmcount).map(key=> res.info.alarmcount[key]);
                 /*var analysisCount=0;//总报警数
                 var unhandle=0;//未处理报警数
@@ -163,24 +96,7 @@ class Datavisual extends Component {
                 }
                 _this.setState({
                     xianmap:dataMap, //位置信息
-                    alarmnumapg:alarmnumapg,//阿房宫报警次数
-                    alarmnumqwl:alarmnumqwl,//明秦王陵报警次数
-                    timehour:timehour,//报警次数时间轴
-                    apgname:apgname,//报警次数阿房宫名称
-                    qwlname:qwlname,//报警次数秦王陵名称
-                    patrolNumepg:patrolNumepg,//阿房宫巡更次数
-                    patrolNumqwl:patrolNumqwl,//秦王陵巡更次数
-                    dayly:dayly,//巡更次数时间轴
-                    patroNameepg:patroNameepg,//巡更次数阿房宫名称
-                    patroNameqwl:patroNameqwl,//巡更次数秦王陵名称
-                    rollcallNumqwl:rollcallNumqwl,//明秦王陵点名次数
-                    dmdayly:dmdayly,//点名次数时间轴
-                    rollcallNameqwl:rollcallNameqwl,//点名明秦王陵名称
                 },()=>{
-                    console.log("daylydx",this.state.daylydx);
-                    console.log("dayly",this.state.dayly);
-                    console.log("阿房宫报警次数",this.state.alarmnumapg);
-                    console.log("明秦王陵报警次数",this.state.alarmnumqwl);
                     console.log(this.state.ignore);
                     console.log(this.state.xufalse);
                     console.log(this.state.okconfirm);
@@ -382,15 +298,7 @@ class Datavisual extends Component {
                                 <span className="titlename">报警次数</span>
                             </div>
                             <div className="comp">
-                                <Echartline
-                                    type='alarmnum'
-                                    winhe={(parseInt(this.state.DHeight)*0.7-10)*0.5-10}
-                                    alarmnumapg={this.state.alarmnumapg}
-                                    alarmnumqwl={this.state.alarmnumqwl}
-                                    timehour = {this.state.timehour}
-                                    apgname={ this.state.apgname }
-                                    qwlname = { this.state.qwlname }
-                                />
+                                <Echartline type='alarmnum' winhe={(parseInt(this.state.DHeight)*0.7-10)*0.5-10} />
                             </div>
                         </div>
                     </div>
@@ -403,13 +311,7 @@ class Datavisual extends Component {
                                 <span className="titlename">野外文物点名</span>
                             </div>
                             <div className="comp">
-                                    <Echartline
-                                        type='rollcall'
-                                        winhe={parseInt(this.state.DHeight)*0.3-70}
-                                        rollcallNumqwl = { this.state.rollcallNumqwl }
-                                        dmdayly = { this.state.dmdayly }
-                                        rollcallNameqwl = { this.state.rollcallNameqwl }
-                                    />
+                                    <Echartline type='rollcall' winhe={parseInt(this.state.DHeight)*0.3-70} />
                             </div>
                         </div>
                     </Col>
@@ -429,18 +331,11 @@ class Datavisual extends Component {
                                 <span className="titlename">巡更次数</span>
                             </div>
                             <div className="comp">
-                                <Echartline
-                                    type='patrol'
-                                    winhe={parseInt(this.state.DHeight)*0.3-70}
-                                    patrolNumepg = { this.state.patrolNumepg }
-                                    patrolNumqwl = { this.state.patrolNumqwl }
-                                    dayly = { this.state.dayly }
-                                    patroNameepg = { this.state.patroNameepg }
-                                    patroNameqwl = { this.state.patroNameqwl }
-                                />
+                                <Echartline type='patrol' winhe={parseInt(this.state.DHeight)*0.3-70} />
                             </div>
                         </div>
                     </Col>
+                        
                 </Row>
 
 

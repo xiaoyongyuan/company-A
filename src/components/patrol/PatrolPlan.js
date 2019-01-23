@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Row, Col, Button, Modal, Icon, Card, message, Spin} from 'antd';
+import {Form, Row, Col, Button, Modal,Icon,Card,message} from 'antd';
 import ModalForm from './ModalForm.js';
 import {post} from "../../axios/tools";
 import '../../style/sjg/home.css';
@@ -209,7 +209,7 @@ class PatrolPlan extends React.Component{
     render(){
         return(
             <div className="PatrolPlan">
-                <Card className="margin_top50 card_width m-r card-center"
+                <Card className="margin_top50 card_width m-r"
                  title="最多可以新增六个巡更"
                     extra={<Row>
                             <Col span={2} offset={6}>
@@ -218,39 +218,43 @@ class PatrolPlan extends React.Component{
                         </Row>
                         }
                 >
-                <Row>
-                         <div> {this.state.list.length?<div></div>:<div className="textcenter"><Spin size="large" /></div>}</div>
-                        {
-                            this.state.list.map((item,i)=>{
-                                return(
-                                    <Col key={i} className="margin_top50 m_r" span={7}>
+                     <Row>
+                     <div> {this.state.list.length?<div></div>:<div className="textcenter">暂无巡更计划</div>}</div>
+                    {
+                        this.state.list.map((item,i)=>{
+                            return(
+                                <Col key={i} className="margin_top50 m_r" span={7}>
+                                
+                                    <div className="patrol_item">
+                                        <div className="patrol_head">
 
-                                        <div className="patrol_item">
-                                            <div className="patrol_head">
-
-                                               <div className={this.bgcolor(i)}>{this.state.list[i].pteam.toString().substring(0,2)}</div>
-                                            </div>
-                                            <div className="patrol_detail">
-                                                <div className="coverflow">{this.state.list[i].pbdate}:00--{this.state.list[i].pedate}:00</div>
-                                                <div className="coverflow">
-                                                { this.state.list[i].camera}
-                                                </div>
-                                            </div>
-                                            <div className="patrol_query">
-                                             <span onClick={() => {this.showModalEdit( this.state.list[i].code,{i})}}><Icon type="edit" />编辑</span>
-                                            </div>
-                                            <div className="del">
-                                              <span onClick={() => {this.showModaldelete( this.state.list[i].code,{i})}}><Icon type="delete" />删除 </span>
-                                            </div>
-
+                                           <div className={this.bgcolor(i)}>{this.state.list[i].pteam.toString().substring(0,2)}</div>
                                         </div>
-
-                                    </Col>
-                                    )
-                            })
-                        }
+                                        <div className="patrol_detail">
+                                            <div className="coverflow">{this.state.list[i].pbdate}:00--{this.state.list[i].pedate}:00</div>
+                                            <div className="coverflow">
+                                            { this.state.list[i].camera}
+                                            </div>
+                                        </div>
+                                        <div className="patrol_query">
+                                         <span onClick={() => {this.showModalEdit( this.state.list[i].code,{i})}}><Icon type="search" />编辑</span>
+                                        </div>
+                                        <div className="del">
+                                          <span onClick={() => {this.showModaldelete( this.state.list[i].code,{i})}}><Icon type="delete" />删除 </span>
+                                        </div>
+                                       
+                                    </div>
+                                   
+                                </Col>
+                                )
+                        })
+                    }
                 </Row>
                 </Card>
+
+
+
+
                 <Modal title={this.state.type?'编辑':'新增'}
                     okText="确认"
                     cancelText="取消"

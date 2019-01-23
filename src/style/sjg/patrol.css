@@ -1,11 +1,3 @@
 .PatrolPlan .ant-card-head-title{
     color: red
 }
-.PatrolPlan{
-    margin: 20px;
-    min-height: 600px;
-    background: #fff;
-}
-.PatrolPlan .card-center{
-    margin: 0 auto;
-}

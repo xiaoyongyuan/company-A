@@ -45,22 +45,19 @@ class Echartline extends Component {
     // 报警次数
     alarmnum=()=>{
         let option = {
-            tooltip: {
-                trigger: 'axis'
-            },
             color:['#165ecc','#13fcff'],
             legend: { //图标设置
 
                 x: '50%',
-                top: '-1%',
+                top: '-2%',
                 data:[{
-                    name: this.props.apgname,
+                    name: '阿房宫',
                     icon: 'circle',
                     textStyle: {
                         color: '#165ecc',
                     }
                 },{
-                    name: this.props.qwlname,
+                    name: '明秦王陵遗址',
                     icon: 'circle',
                     textStyle: {
                         color: '#13fcff'
@@ -78,7 +75,7 @@ class Echartline extends Component {
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
-                data:this.props.timehour,
+                data: ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23',],
                 name:'时',
                 nameTextStyle:{
                     color:'#788cae'
@@ -107,38 +104,30 @@ class Echartline extends Component {
             },
             series: [
                 {
-                    name:this.props.apgname,
+                    name:'阿房宫',
                     type:'line',
-                    stack: '阿房宫总量',
+                    stack: '总量',
                     itemStyle : {
                         normal : {
                             lineStyle:{
                                 color:'#165ecc'
-                            },
-                            label : {
-                                //点上是否显示数值
-                                show: false
                             }
                         }
                     },
-                    data:this.props.alarmnumapg
+                    data:[11 ,9 ,3 ,1 ,0,0 ,0 ,0 ,0 ,0 ,0 ,0,1 ,76 ,172 ,97 ,148,131 ,233 ,250 ,173 ,182 ,126 ,36]
                 },
                 {
-                    name:this.props.qwlname,
+                    name:'明秦王陵遗址',
                     type:'line',
-                    stack: '明秦王总量',
+                    stack: '总量',
                     itemStyle : {
                         normal : {
                             lineStyle:{
                                 color:'#13fcff'
-                            },
-                            label : {
-                                ////点上是否显示数值
-                                show: false
                             }
                         }
                     },
-                    data:this.props.alarmnumqwl
+                    data:[1 ,4 ,0 ,0 ,2,1 ,0 ,0 ,1 ,3 ,6 ,0,1 ,0 ,4 ,14 ,125,89 ,22 ,10 ,31 ,11 ,11 ,13]
                 }
             ]
         }
@@ -150,6 +139,7 @@ class Echartline extends Component {
             tooltip: {
                 trigger: 'axis'
             },
+
             textStyle: {
                 color: '#32cbd7',
                 fontSize: '10px'
@@ -165,7 +155,7 @@ class Echartline extends Component {
                 x: '65%',
                 top: '0%',
                 data:[{
-                    name: this.props.rollcallNameqwl,
+                    name: '明秦王陵遗址',
                     icon: 'circle',
                     textStyle: {
                         color: '#13fcff',
@@ -178,7 +168,7 @@ class Echartline extends Component {
                 show: true,
                 type: 'category',
                 boundaryGap: true,
-                data: this.props.dmdayly,
+                data: ["16","17","18","19","20","21","22"],
                 name:'日',
                 //刻度线是否显示
                 axisTick: {
@@ -213,7 +203,6 @@ class Echartline extends Component {
                         show: false,
                     },
                     splitLine: {
-                        //Y轴刻度值线
                         show: false,
                         lineStyle: {
                             color: 'rgb(20,203,215,0.2)'
@@ -242,7 +231,7 @@ class Echartline extends Component {
                 }
             ],
             series: [{
-                name: this.props.rollcallNameqwl,
+                name: '明秦王陵遗址',
                 type: 'bar',
                 barWidth: '10px',
                 symbol: 'symbol',
@@ -268,7 +257,7 @@ class Echartline extends Component {
                         )
                     }
                 },
-                data: this.props.rollcallNumqwl
+                data: [1, 0, 6, 0, 0, 1, 15]
             }]
         };
         this.setState({option})
@@ -277,26 +266,24 @@ class Echartline extends Component {
     //巡更次数
     patrol=()=>{
         var color = "#189cbb";var scale = 1;
+        let data=[{name:'2017-12-09',value:4},{name:'2017-12-10',value:6},{name:'2017-12-11',value:2},{name:'2017-12-12',value:5},{name:'2017-12-13',value:3},{name:'2017-12-14',value:2},{name:'2017-12-15',value:2}]
         let option = {
-            tooltip: {
-                trigger: 'axis'
-            },
-             grid: { //图的位置
+                    grid: { //图的位置
                         left: "3%",
                         right: "10%",
                         top:'26%',
                         bottom: "0%",
                         containLabel: true
                     },
-             legend: { //图标
+                    legend: { //图标
                         x: '50%',
                         top: '0',
-                        data: [this.props.patroNameqwl, this.props.patroNameepg],
+                        data: ['明秦王陵遗址', '阿房宫'],
                         textStyle: {
                             color: '#ccc'
                         }
                     },
-             yAxis: [{
+                    yAxis: [{
                         type: "value",
                         max: 10,
                         axisLabel: {
@@ -330,45 +317,46 @@ class Echartline extends Component {
                             padding: [0, 0, 10, 0]
                         }
                     }],
-             xAxis: [{
-                 type: "category",
-                 data: this.props.dayly,
-                 axisLabel: {
+                    xAxis: [{
+                        type: "category",
+                        data: ["16","17","18","19","20","21","22"],
+                        axisLabel: {
                             padding: [0, 15, 0, 0],
                             textStyle: {
                                 color: '#fff', //x轴字体
                                 fontSize: 14*scale,
                             }
                         },
-                 axisTick: {
+                        axisTick: {
                             show: false,
                             lineStyle: {
                                 color: color,
                             }
                         },
-                 axisLine: {
+                        axisLine: {
                             lineStyle: {
                                 color: '#fff', //x轴线颜色
                             }
                         },
-                 splitLine: {
+                        splitLine: {
                             show:false,
                             lineStyle: {
                                show:false,
                               
                             }
                         },
-                 name: '日',
-                 nameTextStyle: {
+                        name: '日',
+                        nameTextStyle: {
                             color: "#fff",
                             fontSize: 14*scale,
                             padding: [0, 0, 10, 0]
                         }
                     }],
-              series: [{
-                        name: this.props.patroNameqwl,
+
+                    series: [{
+                        name: "明秦王陵遗址",
                         type: "bar",
-                        data: this.props.patrolNumqwl,
+                        data: [0,0,5,0,0,0,8],
                         barWidth: '30%',
                         barCategoryGap: "35%",
                         label: {
@@ -416,9 +404,9 @@ class Echartline extends Component {
                             }]
                         },
                     },{
-                        name: this.props.patroNameepg,
+                        name: "阿房宫",
                         type: "bar",
-                        data: this.props.patrolNumepg,
+                        data: [0,0,0,0,0,0,9],
                         barWidth: '30%',
                         barCategoryGap: "35%",
                         label: {
@@ -466,7 +454,7 @@ class Echartline extends Component {
                             }]
                         },
                     }]
-        };
+                };
         this.setState({option})
     }
     render() {

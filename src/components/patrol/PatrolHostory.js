@@ -3,10 +3,13 @@ import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,Spin,messa
 import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
+import nopic from "../../style/imgs/nopic.png";
+import nodata from "../../style/imgs/nodata.png";
+
 const formItemLayout = {
     labelCol: {
         xs: { span: 24 },
-        sm: { span: 8 },
+        sm: { span:5},
     },
     wrapperCol: {
         xs: { span: 24 },
@@ -20,10 +23,11 @@ class RollcallHostory extends React.Component{
             pbdate:'',//检索的开始时间
             pedate:'',//检索的结束时间
             list:[],
-            loading:false,
+            loading:true,
             page:1, //当前页数
             pageSize:20, //每页显示数量
             isrequest:true,
+            //status  //0执行中//1已完成//2未完成
         }
     }
     componentDidMount() {
@@ -31,14 +35,19 @@ class RollcallHostory extends React.Component{
             if(res.success){
                 //  console.log('******************', res);
                     this.setState({
-                          list:res.data
+                          list:res.data,
+                          loading: false,
+                          type:true,
                     })
+            }else{
+                this.setState({
+                    type:false,
+              })
             }
         })
         var _this=this;
         let pag=1;
         document.getElementById("scorll").onscroll=function() {
-        
             var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
             var scrollTop = document.getElementById("scorll").scrollTop;
             var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度
@@ -140,12 +149,19 @@ class RollcallHostory extends React.Component{
                 }
             })
     };
+    handlerollCallType =(index)=>{
+        console.log(index,"index");
+        this.setState({
+            rollCallType:true,
+            code:index
+        })
+    };
     statepatarol =(e,item)=>{
-       if(e==0){
+       if(e===0){
             return(
                 "patrolnone"
             )
-       }else if(e==1){
+       }else if(e===1){
             return(
                 "patrolblock"
             )
@@ -155,21 +171,53 @@ class RollcallHostory extends React.Component{
         )
        }
     };
+    colorline=(e)=>{
+        if(e===0){
+             return(
+                 "#FFC125"
+             )
+        }else if(e===1){
+             return(
+                 "green"
+             )
+        }else{
+         return(
+             "red"
+         )
+        }
+     };
     render(){
         const { getFieldDecorator } = this.props.form;
         return(       
-            <div className="RollcallHostory scrollable-container" id="scorll" >  
-                 <Spin spinning={this.state.loading} className="spin" size="large">
-                  <Button type="primary" className="backtop" onClick={this.backtop} style={this.state.scrollTop>20?{display:'block'}:{display:'none'}}>返回顶部</Button>
-                    <LocaleProvider locale={zh_CN}>
-                        <Row style={{marginTop:"20px"}}>
-                            <Form onSubmit={this.handleSubmit}>
-                                <Col xl={7} xxl={5} lg={9}>
-                                    <Form.Item
-                                        {...formItemLayout}
-                                        label="日期"
-                                    >
-                                    {getFieldDecorator('range-picker1')(
+            <div className="PatrolHostory scrollable-container" id="scorll" >  
+                <div style={{marginTop:"70px",display:this.state.type===0?"block":"none"}}>
+                    <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
+                </div>
+              <Button type="primary" className="backtop" onClick={this.backtop} style={this.state.scrollTop>20?{display:'block'}:{display:'none'}}>返回顶部</Button>
+                <LocaleProvider locale={zh_CN}>
+                    <Row className="sear_mtop Patrol_ml">
+                        <Form onSubmit={this.handleSubmit}>
+                            <Col xl={5} xxl={4} lg={6}>
+                                <Form.Item
+                                    {...formItemLayout}
+                                    label="日期"
+                                >
+                                {getFieldDecorator('range-picker1')(
+                                    <DatePicker
+                                        format="YYYY-MM-DD"
+                                        placeholder="开始日期"
+                                        setFieldsValue={this.state.pbdate}
+                                        onChange={this.onChange1}
+                                        disabledDate={this.disabledStartDate}
+                                        onOpenChange={this.handleStartOpenChange}
+                                    />
+                                )}
+
+                            </Form.Item>
+                            </Col>
+                            <Col xl={4} xxl={3} lg={4}>
+                                <Form.Item>
+                                    {getFieldDecorator('range-picker2')(
                                         <DatePicker
                                             format="YYYY-MM-DD"
                                             placeholder="开始日期"
@@ -181,66 +229,68 @@ class RollcallHostory extends React.Component{
                                     )}
 
                                 </Form.Item>
-                                </Col>
-                                <Col xl={4} xxl={3} lg={6}>
-                                    <Form.Item>
-                                        {getFieldDecorator('range-picker2')(
-                                            <DatePicker
-                                                format="YYYY-MM-DD"
-                                                placeholder="结束日期"
-                                                setFieldsValue={this.state.pedate}
-                                                onChange={this.onChange2}
-                                                disabledDate={this.disabledEndDate}
-                                                onOpenChange={this.handleEndOpenChange}
-                                            />
-                                        )}
-                                    </Form.Item>
-                                </Col>
-                                <Col xl={3} xxl={2} lg={2} className="msch">
-                                    <Button type="primary" htmlType="submit">查询</Button>
-                                </Col>
-                            </Form>
-                        </Row>
-                    </LocaleProvider>
-                    <div>{this.state.list.length?<div></div>:<div className="textcenter"><Spin size="large" /></div>}</div>
-                    <div className="timeline_ml">
-                     <Timeline pending={true}>
-                        {
-                            this.state.list.map((item,j)=>{
-                                return (
-                                    <div key={j}>
-                                    <Timeline.Item>
-                                        <div className="inlineb"> {item.pdate} </div>
-                                        <div className="timess"> {item.pteam}({item.pbdate}:00 —— {item.pedate}:00)</div>
-                                        {item.status===0? <span style={{padding:"0 0 0 14px",color:"#FFC125"}}>执行中...</span>:''}
-                                        {item.status===1? <span style={{padding:"0 0 0 14px",color:"green"}}>已完成</span>:''}
-                                        {item.status===2? <span style={{padding:"0 0 0 14px",color:"red"}}>未完成</span>:''}
-                                        <div className="xun_detail">
-                                            {item.totalcount===0? <span></span>: <span>该班次有 {item.totalcount}个巡更点</span>}  {item.status===0? '':','}
-                                            <span style={{padding:"0 0 0 8px"}}>
-                                                {item.status===1?<span>
-                                                   {item.handle_true===0? <span></span>: <span>{item.handle_true}个巡更正常 ,</span>}
-                                                   {item.handle_false===0? <span></span>: <span>{item.handle_false}个巡更异常 ,</span>}
-                                                    <a href={'#/app/patrol/patrolrecord?patrolid='+item.patrolid+"&pdate="+item.pdate } className="underline"> 查看详情</a>
-                                                    </span>: ""
-                                                }
-                                                {item.status===2?<span>
-                                                    {item.unhandle===0? <span></span>: <span>{item.unhandle}个未巡更，</span>}
-                                                    {item.handle_true===0? <span></span>: <span>{item.handle_true}个巡更正常，</span>}
-                                                    {item.handle_false===0? <span></span>: <span>{item.handle_false}个巡更异常，</span>}
-                                                    <a href={'#/app/patrol/patrolrecord?patrolid='+item.patrolid+"&pdate="+item.pdate }className="underline"> 查看详情</a>
-                                                    </span>: ""
-                                               }
-                                            </span>
-                                        </div>
-                                    </Timeline.Item>
+                            </Col>
+                          
+                            <Col xl={1} xxl={1} lg={1} className="msch">
+                                <Button type="primary" htmlType="submit">查询</Button>
+                            </Col>
+                        </Form>
+                       
+                    </Row>
+                </LocaleProvider>
+                
+                <Spin spinning={this.state.loading} className="spin" size="large"tip="Loading..." />
+                <div className="timeline_ml">
+                 <Timeline pending={true}>
+                    {
+                        this.state.list.length?this.state.list.map((item,j)=>{
+                            return (
+                                <div key={j}> 
+                                <Timeline.Item color={this.colorline(item.status)}>
+                                    <div>
+                                    <div className="inlineb"> {item.pdate} </div> 
+                                    <div className="timess"> {item.pteam}({item.pbdate}:00 —— {item.pedate}:00)</div>
+                                    <span className="xun_detail">
+                                        {item.totalcount===0? <span></span>: <span>该班次有 {item.totalcount}个巡更点</span>}  {item.status===0? <span>,</span>:','}
+                                        <span style={{padding:"0 0 0 8px"}}>  
+                                            {item.status===1?<span>
+                                               {item.handle_true===0? <span></span>: <span>{item.handle_true}个巡更正常 ,</span>}
+                                               {item.handle_false===0? <span></span>: <span>{item.handle_false}个巡更异常 ,</span>}
+                                                {/* <a href={'#/app/patrol/patrolrecord?patrolid='+item.patrolid+"&pdate="+item.pdate } className="underline"> 查看详情</a> */}
+                                                </span>: "" 
+                                            }
+                                            {item.status===2?<span>
+                                                {item.unhandle===0? <span></span>: <span>{item.unhandle}个未巡更,</span>}
+                                                {item.handle_true===0? <span></span>: <span>{item.handle_true}个巡更正常，</span>}
+                                                {item.handle_false===0? <span></span>: <span>{item.handle_false}个巡更异常，</span>}
+                                                {/* <a href={'#/app/patrol/patrolrecord?patrolid='+item.patrolid+"&pdate="+item.pdate }className="underline"> 查看详情</a> */}
+                                                </span>: ""
+                                           }
+                                        </span>
+                                    </span>
+                                    {item.status===0? <span style={{padding:"0 0 0 14px",color:"#FFC125"}}>执行中...</span>:''}
+                                    {item.status===1? <span style={{padding:"0 0 0 14px",color:"green"}}>已完成</span>:''}
+                                    {item.status===2? <span style={{padding:"0 0 0 14px",color:"red"}}>未完成</span>:''}
                                     </div>
-                                )
-                            })
-                        }
-                    </Timeline>
-                    </div>
-                 </Spin>
+                                    {item.info.map((num,n)=>{
+                                        return (
+                                            
+                                            <div key={n} className="alarm_img">
+                                                <img src={num.ppic?num.ppic:nopic} alt="alarm_img" width="100%"style={{marginBottom:'30px'}} onClick={()=>this.handlerollCallType(num.code)} />
+                                            </div> 
+                                            )
+                                    })
+                                   }
+                                </Timeline.Item>
+                                   
+                                </div>
+                            )
+                        }):<div className="textcenter">暂无数据</div>
+                    } 
+                </Timeline>
+                </div>
+                
+             {/* </Spin> */}
             </div>
         )
     }
