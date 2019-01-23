@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col, Button, DatePicker, LocaleProvider, Table, Form, Select,Modal,message} from "antd";
+import {Row, Col, Button, DatePicker, LocaleProvider, Table, Form, Select,Modal,} from "antd";
 import zh_CN from "antd/lib/locale-provider/zh_CN";
 import {post} from "../../axios/tools";
 import "../../style/ztt/css/patrolRecord.css";
@@ -123,7 +123,7 @@ class PatrolRecord extends React.Component{
             key: 'ppic',
             render: (text,record) => {
                 return(
-                    <div><img src={text} alt="" width="100px" height="50px"  onClick={()=>this.patrolStatus(record.code)}/></div>
+                    <div><img src={text} alt="" width="100px" height="50px" onClick={()=>this.patrolStatus(record.code)} /></div>
                 )
             },
         }, {
@@ -220,8 +220,8 @@ class PatrolRecord extends React.Component{
                 <Row style={{marginTop:"40px",marginLeft:"30px"}}>
                     <Col span={23}>
                         <Table dataSource={this.state.dataSource} columns={columns} 
-                        pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
-                       bordered={true}
+                         pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
+                         bordered={true}
                         />
                     </Col>
                     <Modal

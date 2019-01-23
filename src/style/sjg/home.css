@@ -508,6 +508,12 @@ margin: 20px 0;
 .timeline_ml{
     margin-left: 60px;
 }
+.RollcallHostory .timeline_ml{
+    margin-left: 20px;
+}
+.PatrolHostory .timeline_ml{
+    margin-left: 20px;
+}
 .times{
     width:100px;
     height:30px;
@@ -518,14 +524,17 @@ margin: 20px 0;
 .line_detail{
     width: auto;
     line-height:30px;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
 }
 .alarm_img{
     width: 20%;
     height:auto;
     display: inline-block;
-    margin-right: 20px;
-   
+    margin: 20px 20px 20px 30px;
+
+}
+.mm_l{
+    padding: 0 0 0 30px;
 }
 /* //返回到顶部 */
  .ant-back-top {
@@ -547,6 +556,12 @@ margin: 20px 0;
     right:20px;
     
 }
+.PatrolHostory .backtop{
+    position: fixed;
+    bottom:20px;
+    right:20px;
+    
+}
 #scorll{
    
     width: 100%;
@@ -554,9 +569,9 @@ margin: 20px 0;
     overflow: scroll;
 }
 .spin{
-    position: fixed;
-    bottom: 30px;
-    left: 60px
+  width: 100%;
+  margin: 30px auto;
+margin-top: 300px;
 }
 
 #scorll .ant-spin-nested-loading{
@@ -639,16 +654,41 @@ margin: 4px 0 0 20px ;
     margin-left: 10px;
 }
 .xun_detail{
-    display: inline-block;
-    width:100%;
-    height:30px;
-    line-height:30px;
-    text-align: left;
-    margin-top: 20px
+   padding-left: 16px;
 }
 .patrolnone{
     display: none;
 }
 .patrolblock{
     display:  inline-block;
+}
+.PatrolHostory .sear_mtop{
+    margin-top:20px;
+    text-align: left;
+}
+.PatrolHostory .Patrol_ml{
+    margin-left:20PX;
+}
+.PatrolHostory .xun_detail{
+    display: inline-block;
+}
+.RollcallHostory .sear_mtop{
+    margin-top:20px;
+    text-align: left;
+}
+.RollcallHostory .Patrol_ml{
+    margin-left:20PX;
+}
+.PatrolHostory .ant-timeline-item-tail {
+    border-left: 2px solid #ccc7c7 !important;
+}
+.PatrolHostory .backImg{
+    width:100%;
+    height:120px;
+    text-align: center;
+}
+.RollcallHostory .backImg{
+    width:100%;
+    height:120px;
+    text-align: center;
 }
