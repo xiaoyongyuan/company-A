@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Row, Col, Button, Modal,Icon,Card,message} from 'antd';
+import {Form, Row, Col, Button, Modal, Icon, Card, message, Spin} from 'antd';
 import ModalForm from './ModalForm.js';
 import {post} from "../../axios/tools";
 import '../../style/sjg/home.css';
@@ -219,7 +219,7 @@ class PatrolPlan extends React.Component{
                         }
                 >
                 <Row>
-                         <div> {this.state.list.length?<div></div>:<div className="textcenter">暂无巡更计划</div>}</div>
+                         <div> {this.state.list.length?<div></div>:<div className="textcenter"><Spin size="large" /></div>}</div>
                         {
                             this.state.list.map((item,i)=>{
                                 return(
