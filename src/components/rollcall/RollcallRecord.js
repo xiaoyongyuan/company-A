@@ -121,7 +121,6 @@ class RollcallRecord extends React.Component{
                 })
             }
         });
-
     };
     handleMenuClick = ()=>{
         this.setState({
