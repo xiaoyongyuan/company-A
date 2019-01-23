@@ -652,3 +652,9 @@ margin: 4px 0 0 20px ;
 .patrolblock{
     display:  inline-block;
 }
+.row-query-rollcallhostory{
+    margin-top: 20px;
+}
+.row-query-patrolhostory{
+    margin-top: 20px;
+}

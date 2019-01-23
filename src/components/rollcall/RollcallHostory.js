@@ -177,7 +177,7 @@ class RollcallHostory extends React.Component{
              <Spin spinning={this.state.loading} className="spin" size="large">
               <Button type="primary" className="backtop" onClick={this.backtop} style={this.state.scrollTop>20?{display:'block'}:{display:'none'}}>返回顶部</Button>
                 <LocaleProvider locale={zh_CN}>
-                    <Row style={{marginTop:"50px"}}>
+                    <Row className="row-query-rollcallhostory">
                         <Form onSubmit={this.handleSubmit}>
                             <Col xl={7} xxl={5} lg={9}>
                                 <Form.Item
@@ -210,16 +210,13 @@ class RollcallHostory extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                          
                             <Col xl={3} xxl={2} lg={2} className="msch">
                                 <Button type="primary" htmlType="submit">查询</Button>
                             </Col>
                         </Form>
-                       
                     </Row>
                 </LocaleProvider>
-                <div>{this.state.list.length?<div></div>:<div className="textcenter">暂无数据</div>}</div>
-
+                <div>{this.state.list.length?<div></div>:<div className="textcenter"><Spin size="large" /></div>}</div>
                 <div className="timeline_ml">
                
                  <Timeline pending={true}>
