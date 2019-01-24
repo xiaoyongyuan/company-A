@@ -62,7 +62,7 @@
 }
 
 .equiptable .equipment{
-    height: 14.3%;  
+    height: 25%;  
     color:#fff;
     padding-bottom: 1em;
     text-align: center; 
@@ -100,10 +100,7 @@
 }
 .yundate{
     font-size: 16px;    
-    line-height: 3em;
-    height: 3em;
-    padding-left:35px;
-    margin-bottom: 15px;   
+    padding-left:35px; 
 }
 .yundate b{
     letter-spacing:2px;
@@ -117,9 +114,9 @@
     padding-bottom: 5px;
 }
 .message .heihgdabo .messthis{
-    padding-top: 5px;
+    /*padding-top: 5px;
     padding-bottom: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 10px;*/
     background:#0483e2;
     border-radius: 8px;
 }
@@ -153,10 +150,10 @@
 }
 .untreated.alarmtitle{
     top:calc(25%);
-    font-size: 16px;
+    font-size: 15px;
 }
 .untreated.alarmvalue{
-    top:calc(65%);
+    top:calc(60%);
     font-size: 24px;
 }
 .Datavisual{
@@ -184,19 +181,21 @@
 .titletop .titlevalue:after,.titletop .titlevalue:before{
     position: absolute;
     height: 100%;
-    top: 6px;
+    top: 8px;
     content: '';
-    height: 65px;
+    height: 50px;
     width: calc(50% - 100px); 
     background-size:  100% 100%;
 }
 .titletop .titlevalue:after{
     right: 0;
-    background: url("../img/titler.png") no-repeat;
+    background-image: url("../img/titler.png");
+    background-repeat: no-repeat;
 }
 .titletop .titlevalue:before{
     left:0;
-    background: url("../img/titlel.png") no-repeat;
+    background-repeat: no-repeat;
+    background-image: url("../img/titlel.png");
 }
 .ant-layout p.sgxdword{
     margin: 0;

@@ -23,6 +23,11 @@ class Connent extends Component{
                     main:res.data.cname,
                     come:res.passivelist,
                     out :res.activelist
+                },()=>{
+                    console.log('main',this.state.main)
+                    console.log('come',this.state.come)
+                    console.log('out',this.state.out)
+                    
                 })
             }
         })
@@ -31,7 +36,6 @@ class Connent extends Component{
     render() {
         return(
             <div className="gutter-example button-demo">
-                <span>所在位置:首页/关系网</span>
                 <Row>
                     <Col span={6} offset={5} className="topShift">
                         <Card>
@@ -81,7 +85,7 @@ class Connent extends Component{
                         </Card>
                     </Col>
                 </Row>
-            <Relationshipnetwork  main={this.state.main} come={this.state.come} out={this.state.out} />
+            <Relationshipnetwork  main={this.state.main} come={this.state.come} />
             </div>
         );
     }

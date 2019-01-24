@@ -144,8 +144,13 @@ class RollcallHostory extends React.Component{
                 if(res.success){
                         this.setState({
                             isrequest: true,
-                            list:res.data
+                            list:res.data,
+                            type:true,
                         })
+                }else{
+                    this.setState({
+                        type:false,
+                    })
                 }
             })
     };
@@ -190,9 +195,7 @@ class RollcallHostory extends React.Component{
         const { getFieldDecorator } = this.props.form;
         return(       
             <div className="PatrolHostory scrollable-container" id="scorll" >  
-                <div style={{marginTop:"70px",display:this.state.type===0?"block":"none"}}>
-                    <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
-                </div>
+              
               <Button type="primary" className="backtop" onClick={this.backtop} style={this.state.scrollTop>20?{display:'block'}:{display:'none'}}>返回顶部</Button>
                 <LocaleProvider locale={zh_CN}>
                     <Row className="sear_mtop Patrol_ml">
@@ -238,9 +241,11 @@ class RollcallHostory extends React.Component{
                        
                     </Row>
                 </LocaleProvider>
-                
+                <div style={{marginTop:"70px",display:this.state.type?" none":"block"}}>
+                    <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
+                </div>
                 <Spin spinning={this.state.loading} className="spin" size="large"tip="Loading..." />
-                <div className="timeline_ml">
+                <div className="timeline_ml" style={{display:this.state.type?"block":"none"}}>
                  <Timeline pending={true}>
                     {
                         this.state.list.length?this.state.list.map((item,j)=>{

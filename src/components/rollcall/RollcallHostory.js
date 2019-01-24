@@ -26,10 +26,10 @@ class RollcallHostory extends React.Component{
             rollCallType:false,
             list:[],
             dataitem:{},
-            loading:true,
+            loading:true, //加载中的状态
             page:1, //当前页数
             pageSize:20, //每页显示数量
-            isrequest:true,
+            isrequest:true,//是否请求接口
             scrollTop:Number,
         }
     }
@@ -154,13 +154,13 @@ class RollcallHostory extends React.Component{
                 if(res.success){
                         this.setState({
                             isrequest: true,
-                            list:res.data
-                        },()=>{
-                            console.log('******************',this.state.list.length);
-                            
-                        }
-                        
-                        )
+                            list:res.data,
+                            type:true,
+                        })
+                }else{
+                    this.setState({
+                        type:false,
+                    })
                 }
             })
     };
@@ -225,18 +225,19 @@ class RollcallHostory extends React.Component{
                     </Row>
                 </LocaleProvider>
                 {/* <div>{this.state.list.length?<div></div>:<div className="textcenter">暂无数据</div>}</div> */}
-                <Spin spinning={this.state.loading} size="large" className="spin" tip="Loading..." />
-                <div className="timeline_ml">
-               
+                  <Spin spinning={this.state.loading} size="large" className="spin" tip="Loading..." />
+                <div style={{marginTop:"70px",display:this.state.type?" none":"block"}}>
+                    <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
+                </div>
+                <div className="timeline_ml" style={{display:this.state.type?" block":"none"}}>
                  <Timeline pending={true}>
                          
                         {
                             this.state.list.length?this.state.list.map((item,j)=>{
                                 return (
+
                                     <div key={j}> 
-                                    <div style={{marginTop:"70px",display:this.state.type===0?"block":"none"}}>
-                                        <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
-                                    </div>
+                                    
                                     <Timeline.Item>
                                         <p> {item.dayly} </p>
                                          { 

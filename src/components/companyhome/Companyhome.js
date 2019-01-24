@@ -30,7 +30,6 @@ class Companyhome extends Component {
             activelist:[], //共享设备
             passivelist:[], //查看我的用户
             scenegraph:nopic,
-            type:1
         }
     }
     componentDidMount(){
@@ -212,7 +211,7 @@ class Companyhome extends Component {
                             <Row>
                                 <Col xl={10} xxl={12}><img src={zonglan} alt="" />&nbsp;&nbsp;<span className="titleFont">用户设备</span></Col>
                             </Row>
-                           <Equipment type={this.state.type}/>
+                           <Equipment/>
                         </Card>
                     </Col>
                 </Row>

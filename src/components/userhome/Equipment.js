@@ -3,13 +3,13 @@ import { Card ,Row, Col, Icon,Spin  } from 'antd';
 import '../../style/sjg/home.css';
 import {post} from "../../axios/tools";
 import nopic from "../../style/imgs/nopic.png";
-import zonglan from "../../style/ztt/img/fwnleiruwang.png";
 class Equipment extends React.Component{
     constructor(props){
         super(props);
         this.state={
             camera:[],
-            loading:true
+            loading:true,
+            type:1
         };
       }
     componentDidMount() {        
@@ -20,9 +20,7 @@ class Equipment extends React.Component{
                     res:res, //用户信息
                     camera:res.camera, //摄像头信息
                     loading:false
-                },()=>{
-                    
-                }); 
+                });
             }   
         })
         
@@ -84,8 +82,9 @@ class Equipment extends React.Component{
     render(){
 
         return(
-            <Spin size="large" tip="Loading......" spinning={this.state.loading} className={this.props.type!==1?"equipment":""}>
-                <div className="Equipment">
+
+                <div className="equipment">
+                    <Spin size="large" tip="Loading......" spinning={this.state.loading} className="loadding" />
                     <Row className="paddRow" gutter={32}>
                             {
                             this.state.camera.map((el,i)=>{
@@ -143,7 +142,6 @@ class Equipment extends React.Component{
                            }
                         </Row>
                 </div>
-            </Spin>
         )
     }
 }

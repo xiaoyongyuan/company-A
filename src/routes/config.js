@@ -12,16 +12,16 @@ export default {
         {
             key: '/app/patrol', title: '巡更' , identi:['comp','comptop','patrol'], funct:'patrol', icon: 'environment',
             subs: [
-                { key: '/app/patrol/patrolrecord', identi:['comp','comptop','patrol'], funct:'patrol', title: '巡更记录', component: 'PatrolRecord'},
-                { key: '/app/patrol/patrolhostory', identi:['comp','comptop','patrol'], funct:'patrol', title: '巡更历史', component: 'PatrollHostory'},            
+                { key: '/app/patrol/patrolhistory', identi:['comp','comptop','patrol'], funct:'patrol', title: '巡更记录', component: 'PatrollHostory'},
+                { key: '/app/patrol/patrolrecord', identi:['comp','comptop','patrol'], funct:'patrol', title: '巡更历史', component: 'PatrolRecord'},            
                 { key: '/app/patrol/patrolplan', identi:['comp','comptop','patrol'], funct:'patrol',  title: '巡更计划', component: 'PatrolPlan'}, 
             ],
         },
         {
             key: '/app/rollcall', title: '点名' , identi:['comp','comptop','rollcall'], funct:'rollcall', icon: 'scan',
             subs: [
-                { key: '/app/rollcall/rollcallrecord', identi:['comp','comptop','rollcall'], funct:'rollcall', title: '点名记录', component: 'RollcallRecord'},
-                { key: '/app/rollcall/rollcallhostory', identi:['comp','comptop','rollcall'], funct:'rollcall', title: '点名历史', component: 'RollcallHostory'},            
+                { key: '/app/rollcall/rollcallhistory', identi:['comp','comptop','rollcall'], funct:'rollcall', title: '点名记录', component: 'RollcallHostory'},
+                { key: '/app/rollcall/rollcallrecord', identi:['comp','comptop','rollcall'], funct:'rollcall', title: '点名历史', component: 'RollcallRecord'},            
                 { key: '/app/rollcall/rollcalltask', identi:['comp','comptop','rollcall'],  funct:'rollcall', title: '点名任务', component: 'RollcallTask'},
             ],
         },
