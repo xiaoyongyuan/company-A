@@ -1,11 +1,62 @@
 /*
  *Companyhome.js  企业用户首页
  */
-/*图标大小*/
+.backBlock{
+    background: #2B3253;
+    border-radius: 4px;
+}
+.boxShow{
+    box-shadow: 0px 0px 25px rgba(34,34,34,0.4);
+}
+.backLitte{
+    background: #323A5D;
+    border-radius: 4px;
+}
 .Companyhome{
     border:20px solid #323A5D;
     background: #323A5D;
 }
+.Companyhome .ant-card-bordered{
+    border:none;
+}
+.marginTop{
+    margin-top:16px;
+}
+.marginBottom{
+    margin-bottom: 16px;
+}
+.marginLeft{
+    margin-left: 16px;
+}
+.cloudLeft{
+    margin-left: 58px;
+}
+@media screen and (max-width: 1280px){
+    .littleLeft{
+        margin-left: 16px;
+    }
+}
+/* 报警数数字颜色*/
+.blockFont{
+    color:#ffffff;
+}
+/*报警字体颜色*/
+.blockNumber{
+    color:#ffffff;
+}
+.noBorder{
+    width: 100px;
+    height: 100px;
+    padding: 22px;
+}
+.noBorder img{
+    width: 100%;
+    height:100%;
+}
+
+
+
+
 .relationship {
     line-height: 2em;
     text-align: right;
@@ -13,8 +64,13 @@
 .icon_size{
     font-size: 30px;
 }
-.title_font{
-    font-size: 22px;
+.titleFont {
+    color: #ffffff;
+    /* margin-bottom: 19px; */
+    display: block;
+    float: left;
+    margin-top: -5px;
+    margin-left: 9px;
 }
 .modelCard{
     display: none!important;
@@ -175,17 +231,8 @@
 *Dashboard.js 管理员首页
 */
 
-.rightShift{
-    margin-left: 20px;
-}
-.topShift{
-    margin-top:15px;
-}
-.admin .ant-card-body,.maintenanceTeam .ant-card-body,.cloudIndex .ant-card-body,.LANCard .ant-card-body{
-    margin: 0!important;
-    padding: 0!important;
-    border-radius: 4px;
-}
+
+
 .adminEchart .ant-card-body{
     border-radius: 16px!important;
 }
@@ -195,35 +242,20 @@
 .qiYe .ant-card-body{
     border: 2px solid #28B6E6!important;
 }
-.baoJing .ant-card-body{
-    border: 2px solid #FB7575!important;
+.y-center{
+    background: #323A5D;
 }
-.personalUser .ant-card-body{
-    border: 2px solid #F7C35D!important;
+.x-center{
+
 }
 .LAN .ant-card-body{
     border: 2px solid #B292FB!important;
-}
-.noBorder{
-    width: 100px;
-    height: 100px;
-    padding: 22px;
-}
-.noBorder img{
-    width: 100%;
-    height:100%;
 }
 .weiHuBackround{
     background: #5DCB9A;
 }
 .qiYeBackground{
     background:#28B6E6;
-}
-.baoJingBackground{
-    background:#FB7575;
-}
-.personalUserBackground{
-    background:#F7C35D;
 }
 .LANBackground{
     background:#B292FB;
@@ -233,12 +265,6 @@
 }
 .qiYeFont{
     color:#28B6E6;
-}
-.baoJingFont{
-    color:#FB7575;
-}
-.personalUseFont{
-    color:#F7C35D;
 }
 .LANFont{
     color:#B292FB;
@@ -285,13 +311,7 @@
     color:white;
     margin:3px 0px;
 }
-@media screen and (min-width: 1200px) {
-    .noBorder{
-        width: 94px;
-        height: 94px;
-        padding: 26px;
-    }
-}
+
 /*
 *Teamhome.js 维护团队首页
 */
@@ -328,23 +348,59 @@
 }
 .Imgdiv{
      width: 100%;
-     height:47vh;
+     height:70.7vh;
+     margin:16px;
  }
 .Imgdiv img{
     width: 100%;
     height: 100%;
-    padding: 2%;
+    border-radius: 4px;
+}
+/*巡更统计*/
+.patrolStatistics{
+    width: 100%;
+    height: 280px!important;
+}
+/*点名统计*/
+.rollcallStatistics{
+    width: 100%;
+    height: 250px!important;
+}
+.echartsFont{
+    font-size: 14px;
+    display: block;
+    margin-left: 17px!important;
 }
 @media screen and (max-width: 1280px) {
     .Imgdiv{
-        height:77.5vh;
+        height:84.5vh;
+    }
+    .patrolStatistics{
+        height: 150px!important;
+    }
+    /*点名统计*/
+    .rollcallStatistics{
+        height: 150px!important;
     }
 }
 @media screen and (device-width: 1600px) {
     .Imgdiv{
-        height:57vh;
+        height:62vh;
+    }
+    .patrolStatistics{
+        height: 150px!important;
+    }
+    /*点名统计*/
+    .rollcallStatistics{
+        height: 150px!important;
     }
 }
-
+.zonglanCircle{
+    width: 10px;
+    height: 10px;
+    float: left;
+    background:#ffffff;
+    border-radius: 50%;
+}
 
 

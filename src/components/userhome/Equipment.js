@@ -78,20 +78,20 @@ class Equipment extends React.Component{
         }else{
             return "onLine onLineBack";
         }          
-    }
+    };
     render(){
 
         return(
-
                 <div className="equipment">
                     <Spin size="large" tip="Loading......" spinning={this.state.loading} className="loadding" />
-                    <Row className="paddRow" gutter={32}>
+                    <div className="equipmentCard">
+                        <Row className="paddRow" gutter={32}>
                             {
                             this.state.camera.map((el,i)=>{
                                 return(
-                                    <Col key={i} xxl={{ span: 4}} lg={{ span: 6}} md={{span:6}} sm={{span:6}} xs={{span:6}} className="cardPdd">
-                                    <Card
-                                        cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath?this.state.camera[i].picpath:nopic} width="100%" /></a>}
+                                    <Col key={i} xxl={{ span: 5}} lg={{ span: 6}} md={{span:6}} sm={{span:6}} xs={{span:6}} className="cardPdd ">
+                                    <Card className="boxShow"
+                                        cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath?this.state.camera[i].picpath:nopic} width="100%"  /></a>}
                                         actions={
                                             this.state.utype==='1'
                                             ?[
@@ -141,6 +141,7 @@ class Equipment extends React.Component{
                             })
                            }
                         </Row>
+                    </div>
                 </div>
         )
     }
