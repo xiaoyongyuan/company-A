@@ -40,7 +40,7 @@ class RollcallRecord extends React.Component{
     };
     //日期
     onChange = (date, dateString)=> {
-        if(dateString[0] == "" && dateString[1] == ""){
+        if(dateString[0] === "" && dateString[1] === ""){
             this.setState({
                 bdate:dateString[0],
                 edate:dateString[1]
@@ -70,9 +70,9 @@ class RollcallRecord extends React.Component{
         })
     };
     normal =(status)=>{
-        if(status==0){
+        if(status===0){
             return "fontColor";
-        }else if(status==1){
+        }else if(status===1){
             return "fontColor1";
         }
     };
@@ -112,7 +112,7 @@ class RollcallRecord extends React.Component{
                     totalcount:res.totalcount
                 })
             }
-            if(res.data.length == 0){
+            if(res.data.length === 0){
                 this.setState({
                     ishide:true
                 })
@@ -164,7 +164,7 @@ class RollcallRecord extends React.Component{
                                 label="对象名称"
                             >
                                 {getFieldDecorator('name', {})(
-                                    <Input onChange={this.rollcalInput}/>
+                                    <Input onChange={this.rollcalInput} />
                                 )}
                             </Form.Item>
                             <Form.Item
@@ -198,14 +198,14 @@ class RollcallRecord extends React.Component{
                 </LocaleProvider>
                 <Spin spinning={this.state.loading} size="large" className="spin" tip="Loading..." />
                 <Row type="flex" justify="start">
-                    {!this.state.rollsetList.length?<div className="zwsj"><img src={nodata} /></div>:this.state.rollsetList.map((v,i)=>(
+                    {!this.state.rollsetList.length?<div className="zwsj"><img src={nodata} alt="" /></div>:this.state.rollsetList.map((v,i)=>(
                         <Col className="rollcalllist" key={i} span={7} style={{marginTop:"30px",marginLeft:"30px"}}>
                             <Col span={11}>
                                 <img src={v.rrpic?v.rrpic:nopic} alt="" width="100%" onClick={()=>this.handlerollCallType(v.code)} />
                             </Col>
                             <Col span={11} className="rollRow">
                                 <Row className="rollCall">{v.cameraname}-{v.rname}</Row>
-                                <Row className="rollCall">{v.ifeveryday==0?"自动点名":"手动点名"}</Row>
+                                <Row className="rollCall">{v.ifeveryday===0?"自动点名":"手动点名"}</Row>
                                 <Row className="rollCall">
                                     <Col className="overflow" title={v.resultdate}>
                                         {v.resultdate}
@@ -213,7 +213,7 @@ class RollcallRecord extends React.Component{
                                 </Row>
                                 <Row className="rollCall">
                                     <Col className="overflow">
-                                        {v.rfinal==1?<span style={{color:'green'}}>正常</span>:<span style={{color:'red'}}>对象存在状态异常</span>}
+                                        {v.rfinal===1?<span style={{color:'green'}}>正常</span>:<span style={{color:'red'}}>对象存在状态异常</span>}
                                     </Col>
                                 </Row>
                             </Col>
@@ -221,7 +221,6 @@ class RollcallRecord extends React.Component{
                     ))}
                 </Row>
                 <Pagination
-                    hideOnSinglePage={true}
                     defaultPageSize={12}
                     current={this.state.page}
                     total={this.state.totalcount}
