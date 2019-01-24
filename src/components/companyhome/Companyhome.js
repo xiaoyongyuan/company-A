@@ -3,7 +3,6 @@ import { Row,Col,Card } from 'antd';
 import { Link } from 'react-router-dom';
 import '../../style/ztt/css/Companyhome.css';
 import '../../style/publicStyle/publicStyle.css'
-import Locationmap from "./Locationmap";
 import {post} from "../../axios/tools";
 import nodata from "../../style/imgs/nodata.png";
 import Equipment from '../userhome/Equipment';
@@ -76,7 +75,7 @@ class Companyhome extends Component {
                     <Col xl={11} xxl={10} >
                         <Card>
                             <Row>
-                                <Col xl={12} xxl={12}  ><a href={'#/app/companyhome/companyscene?code='+this.state.code} className="title_font shareUsers" className="title_font shareUsers">{this.state.enterpriseTitle}</a></Col>
+                                <Col xl={12} xxl={12} ><a href={'#/app/companyhome/companyscene?code='+this.state.code} className="title_font shareUsers">{this.state.enterpriseTitle}</a></Col>
                                 <Col xl={12} xxl={12} className="relationship">
                                     <img src={zixingguanli} alt="" /><span className="titleFont">自行管理</span>
                                     {
@@ -179,7 +178,7 @@ class Companyhome extends Component {
                                         })
                                         :
                                             <Row>
-                                                <Col xl={24} xxl={24} style={{width:"100%",textAlign:"center",margin:"20px"}}><img src={nodata} alt=""/></Col>
+                                                <Col xl={24} xxl={24} style={{width:"100%",textAlign:"center",margin:"20px"}} ><img src={nodata} alt="" /></Col>
                                             </Row>
                                     }
                                 </Card>
@@ -211,7 +210,7 @@ class Companyhome extends Component {
                             <Row>
                                 <Col xl={10} xxl={12}><img src={zonglan} alt="" />&nbsp;&nbsp;<span className="titleFont">用户设备</span></Col>
                             </Row>
-                           <Equipment/>
+                           <Equipment />
                         </Card>
                     </Col>
                 </Row>
