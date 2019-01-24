@@ -10,13 +10,7 @@ class RollcallRecordModel extends Component {
             rollset:{}
         };
     }
-    normal =(status)=>{
-        if(status==0){
-            return "fontColor rollcallModelTitle";
-        }else if(status==1){
-            return "fontColor1 rollcallModelTitle";
-        }
-    };
+
     componentWillMount() {
         this.setState({
             code:this.props.code
@@ -44,6 +38,13 @@ class RollcallRecordModel extends Component {
             }
         }         
     }
+    normal =(status)=>{
+        if(status===0){
+            return "fontColor rollcallModelTitle";
+        }else if(status===1){
+            return "fontColor1 rollcallModelTitle";
+        }
+    };
 
     render(){
         return(
@@ -51,14 +52,14 @@ class RollcallRecordModel extends Component {
                 <Row><Col span={24} className="rollcallModelTitle fontSizeModel">{this.state.rollset.cameraname} - {this.state.rollset.rname}</Col></Row>
                 <Row className="rollcallModel">
                     <Col span={24}>
-                        <img src={this.state.rollset.rrpic} alt="" width="100%"/>
+                        <img src={this.state.rollset.rrpic} alt="" width="100%" />
                     </Col>
                 </Row>
                 <Row className="rollcallModel">
                     <Col span={8} className="rollcallModelTitle">{this.state.rollset.resultdate}</Col>
-                    <Col span={8} className="rollcallModelTitle">{this.state.rollset.ifeveryday==0?"自动点名":"手动点名"}</Col>
+                    <Col span={8} className="rollcallModelTitle">{this.state.rollset.ifeveryday===0?"自动点名":"手动点名"}</Col>
                     <Col span={8} className={this.normal(this.state.rollset.rfinal)}>
-                        {this.state.rollset.rfinal==1?<span style={{color:'green'}}>正常</span>:<span style={{color:'red'}}>报警</span>}
+                        {this.state.rollset.rfinal===1?<span style={{color:'green'}}>正常</span>:<span style={{color:'red'}}>报警</span>}
                     </Col>
                 </Row>
             </div>

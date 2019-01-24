@@ -592,11 +592,29 @@ margin: 20px 0;
     right:20px;
     
 }
-#scorll{
-    width: 100%;
-    height: 800px;
-    overflow: scroll;
+
+
+@media screen and (min-width: 1280px) {
+
+    #scorll{
+        width: 100%;
+        height: 900px;
+        overflow: scroll;
+    }
+
 }
+@media screen and (max-width: 1280px) {
+
+    #scorll{
+        width: 100%;
+        height: 540px;
+        overflow: scroll;
+    }
+
+}
+
+
+
 .spin{
   width: 100%;
   margin: 30px auto;

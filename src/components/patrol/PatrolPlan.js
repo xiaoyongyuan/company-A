@@ -219,7 +219,7 @@ class PatrolPlan extends React.Component{
                       }
                 >
                     <Row>
-                        <div> {this.state.list.length?<div></div>:<div className="textcenter"><Spin size="large" /></div>}</div>
+                        <div> {this.state.list.length?<div />:<div className="textcenter"><Spin size="large" /></div>}</div>
                         {
                             this.state.list.map((item,i)=>{
                                 return(

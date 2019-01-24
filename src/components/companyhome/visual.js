@@ -6,8 +6,6 @@ import equip from "../../style/yal/img/equip.png";
 import team from "../../style/yal/img/team.png";
 import usernum from "../../style/yal/img/usernum.png";
 import admin from "../../style/yal/img/admin.png";
-import nodata from "../../style/imgs/nodata.png";
-// import Echartdata from "./Echartdata";
 import Echartline from "./Echartline";
 import Echartpie from "./Echartpie";
 import moment from "moment";
@@ -80,8 +78,8 @@ class Datavisual extends Component {
                 //明秦王陵报警次数
                 var alarmnumqwldx = alarmnum[1].count;
                 var alarmnumqwl = [];
-                for(var i = alarmnumqwldx.length-1;i>=0;i--){
-                    alarmnumqwl.push(alarmnumqwldx[i])
+                for(var j = alarmnumqwldx.length-1;j>=0;j--){
+                    alarmnumqwl.push(alarmnumqwldx[j])
                 }
                 //阿房宫名称
                 var apgname = alarmnum[0].name;
@@ -90,9 +88,9 @@ class Datavisual extends Component {
                 //时间
                 var time = alarmnum[0].hour;
                 var timehour = [];
-                for(var i=time.length-1;i>=0;i--){
-                    time[i].substring(11);
-                    timehour.push(time[i].substring(11));
+                for(var k=time.length-1;k>=0;k--){
+                    time[k].substring(11);
+                    timehour.push(time[k].substring(11));
                 }
 
                 //巡更次数
@@ -100,20 +98,20 @@ class Datavisual extends Component {
                 //阿房宫巡更次数
                 var patrolNumepgdx = patrol[0].count;
                 var patrolNumepg = [];
-                for(var i = patrolNumepgdx.length-1;i>=0;i--){
-                    patrolNumepg.push(patrolNumepgdx[i]);
+                for(var m = patrolNumepgdx.length-1;m>=0;m--){
+                    patrolNumepg.push(patrolNumepgdx[m]);
                 }
                 //名秦王巡更次数
                 var patrolNumqwldx = patrol[1].count;
                 var patrolNumqwl = [];
-                for (var i = patrolNumqwldx.length-1;i>=0;i--) {
-                    patrolNumqwl.push(patrolNumqwldx[i]);
+                for (var n = patrolNumqwldx.length-1;n>=0;n--) {
+                    patrolNumqwl.push(patrolNumqwldx[n]);
                 }
                 //巡更次数日期
                 var daylydx = patrol[0].dayly;
                 var dayly = [];
-                for(var i = daylydx.length-1;i>=0;i--){
-                    dayly.push(daylydx[i].substring(8));
+                for(var g = daylydx.length-1;g>=0;g--){
+                    dayly.push(daylydx[g].substring(8));
                 }
                 //巡更次数阿房宫名称
                 var patroNameepg = patrol[0].name;
@@ -124,14 +122,14 @@ class Datavisual extends Component {
                 //名秦王点名次数
                 var rollcallNumqwldx = rollcall[1].count;
                 var rollcallNumqwl = [];
-                for (var i = rollcallNumqwldx.length-1;i>=0;i--) {
-                    rollcallNumqwl.push(rollcallNumqwldx[i]);
+                for (var h = rollcallNumqwldx.length-1;h>=0;h--) {
+                    rollcallNumqwl.push(rollcallNumqwldx[h]);
                 }
                 //点名次数日期
                 var dmdaylydx = rollcall[0].dayly;
                 var dmdayly = [];
-                for(var i = dmdaylydx.length-1;i>=0;i--){
-                    dmdayly.push(dmdaylydx[i].substring(8));
+                for(var f = dmdaylydx.length-1;f>=0;f--){
+                    dmdayly.push(dmdaylydx[f].substring(8));
                 }
                 //点名次数秦王陵名称
                 var rollcallNameqwl = rollcall[1].name;
@@ -146,8 +144,8 @@ class Datavisual extends Component {
                     this.state.analysisCount+=v.a_confirm+v.a_false+v.a_ignore+v.a_unhandle;
                 });
                 //未处理报警数
-                for(var i=0;i<analysis.length;i++){
-                    this.state.unhandle+=analysis[i].a_unhandle
+                for(var t=0;t<analysis.length;t++){
+                    this.state.unhandle+=analysis[t].a_unhandle
                 }
                 //确认数
                 for(var a=0;a<analysis.length;a++){

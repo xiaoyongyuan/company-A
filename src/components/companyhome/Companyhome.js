@@ -70,6 +70,7 @@ class Companyhome extends Component {
                     <Row>
                         <Col xl={11} xxl={11}>
                             <Row>
+<<<<<<< HEAD
                                 <Col span={23}>
                                     <div className="Imgdiv backLitte boxShow">
                                       {/*  <img src={this.state.scenegraph}
@@ -83,6 +84,9 @@ class Companyhome extends Component {
                         <Col xl={11} xxl={11}>
                            {/* <Row>
                                 <Col xl={12} xxl={12}  ><a href={'#/app/companyhome/companyscene?code='+this.state.code} className="title_font shareUsers" className="title_font shareUsers">{this.state.enterpriseTitle}</a></Col>
+=======
+                                <Col xl={12} xxl={12} ><a href={'#/app/companyhome/companyscene?code='+this.state.code} className="title_font shareUsers">{this.state.enterpriseTitle}</a></Col>
+>>>>>>> 4bfeba93f71dc54fbe7b653a5cb4881ff80c8376
                                 <Col xl={12} xxl={12} className="relationship">
                                     <img src={zixingguanli} alt="" /><span className="titleFont">自行管理</span>
                                     {
@@ -124,13 +128,13 @@ class Companyhome extends Component {
                                     </div>
                                 </Col>
                             </Row>
-                            <div className="backLitte marginTop littleLeft boxShow">
+                            <div className="backLitte marginTop littleLeft">
                                 <Row>
                                     <p className="blockNumber echartsFont">巡更统计</p>
                                     <Col span={24}><PatrolStatistics /></Col>
                                 </Row>
                             </div>
-                            <div className="backLitte marginTop littleLeft marginBottom boxShow">
+                            <div className="backLitte marginTop littleLeft marginBottom">
                                 <Row>
                                     <p className="blockNumber echartsFont">点名统计</p>
                                     <Col span={24}><RollcallStatistics /></Col>
