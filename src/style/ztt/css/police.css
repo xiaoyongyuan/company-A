@@ -313,9 +313,8 @@
 .xuanzhuan{
     position: absolute;
     color: #000;
-    right: -65px;
+    right: -57px;
     display: inline-block;
-    width: 37px;
     top: 16px;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
