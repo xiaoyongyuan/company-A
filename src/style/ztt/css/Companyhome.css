@@ -3,8 +3,8 @@
  */
 /*图标大小*/
 .Companyhome{
-    margin-top: 30px;
-    margin-left: 30px;
+    border:20px solid #323A5D;
+    background: #323A5D;
 }
 .relationship {
     line-height: 2em;
@@ -326,16 +326,25 @@
     width: 300px;
     margin: 0 8px 8px 0;
 }
-@media screen and(min-width: 1200px){
-    .Imgdiv{
-        height:70vh!important;
-    }
-}
 .Imgdiv{
-    width: 100%;
-    height:47vh;
-}
+     width: 100%;
+     height:47vh;
+ }
 .Imgdiv img{
     width: 100%;
     height: 100%;
+    padding: 2%;
 }
+@media screen and (max-width: 1280px) {
+    .Imgdiv{
+        height:77.5vh;
+    }
+}
+@media screen and (device-width: 1600px) {
+    .Imgdiv{
+        height:57vh;
+    }
+}
+
+
+
