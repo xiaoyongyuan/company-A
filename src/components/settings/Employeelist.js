@@ -13,7 +13,8 @@ class Adminteam extends Component {
         this.state={
             visible:false,
             list:[],
-            createinfo:[]
+            createinfo:[],
+            page:1, //当前页
         };
     }
     componentDidMount() {
@@ -24,14 +25,23 @@ class Adminteam extends Component {
             utype: utypeObj.utype
         })
     }
-    requestdata=(params={}) => {//取数据
+    requestdata =(params={ pagesize:10,pageindex:this.state.page,}) => {//取数据
         post({url:"/api/companyuser/getlist",data:params}, (res)=>{
             if(res.success){
                 this.setState({
-                    list: res.data
+                    list: res.data,
+                    total:res.totalcount,
                 })
             }
         })
+    }
+    changePage=(page,pageSize)=>{ //分页  页码改变的回调，参数是改变后的页码及每页条数
+        this.setState({
+            page: page,
+        },()=>{
+            this.requestdata();
+        })
+
     }
     showModalEdit= (code,index) => { //查看
         this.setState({
@@ -117,12 +127,17 @@ class Adminteam extends Component {
     selectopt = (e) => { //检索search
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
+            console.log("values",values);
             if(!err){
                 if(values.realname&&values.account){
                     message.warn('请输入检索字段');
                     return;
                 }else{
-                    this.requestdata(values)
+                    this.setState({
+                        page:1,
+                    },()=>{
+                        this.requestdata(values)
+                    })
                 }
             }
         })
@@ -218,7 +233,11 @@ class Adminteam extends Component {
                             <div>
                                 {
                                     this.state.list.length?
-                                        <Table columns={columns} dataSource={this.state.list} bordered={true} />
+                                        <Table columns={columns}
+                                               dataSource={this.state.list}
+                                               bordered={true}
+                                               pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
+                                        />
                                         :
                                         <div className="textcenter"><Spin size="large" tip="Loading..." /></div>
                                 }
