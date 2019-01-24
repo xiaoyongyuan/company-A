@@ -74,28 +74,28 @@
     color:#313653;
 }
 .typeOrange{
-    border:1px solid orange;
+    border:1px solid #4c5784;
     width: 100%;
     height: auto;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 .typegreen{
-    border:1px solid #5DCB9A;
+    border:1px solid #4c5784;
     width: 100%;
     height: auto;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 .typered{
-    border:1px solid #FB7575;
+    border:1px solid #4c5784;
     width: 100%;
     height: auto;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 .typeblue{
-    border:1px solid #28B6E6;
+    border:1px solid #4c5784;
     width: 100%;
     height: auto;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 .typetheme{
     border:1px solid #313653;
@@ -170,8 +170,8 @@
     }
     .pliceImgyal img{
         width: 100%;
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
     }
 }
 @media screen and (max-width: 1600px) {
@@ -185,8 +185,8 @@
     .pliceImgyal img{
         width: 100%;
         height: 100%;
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
     }
 }
 .sure-row{
@@ -196,26 +196,26 @@
 .sure-col-l{
     width: 100%;
     height: 50px;
-    border-top: 1px solid #CBCBCB;
-    border-right: 1px solid #CBCBCB;
+    border-top: 1px solid #4c5784;
+    border-right: 1px solid #4c5784;
     line-height: 77px;
     margin-top:13px;
 }
 .sure-col-c{
     width: 100%;
     height: 50px;
-    border-top: 1px solid #CBCBCB;
-    border-right: 1px solid #CBCBCB;
+    border-top: 1px solid #4c5784;
+    border-right: 1px solid #4c5784;
 }
 .sure-col-r{
     width: 100%;
     height: 50px;
-    border-top: 1px solid #CBCBCB;
+    border-top: 1px solid #4c5784;
 }
 .circle-sure{
     width: 10px;
     height: 10px;
-    background-color:#5DCB9A;
+    background-color:#54cd66;
     border-radius: 50%;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -225,7 +225,7 @@
     float: left;
 }
 .word-sure{
-    color: #5DCB9A;
+    color: #54cd66;
     position: relative;
     left: 34%;
     top: -30%;
@@ -233,7 +233,7 @@
 .circle-xj{
     width: 10px;
     height: 10px;
-    background-color:#FB7575;
+    background-color:#f22727;
     border-radius: 50%;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -243,7 +243,7 @@
     float: left;
 }
 .word-xj{
-    color: #FB7575;
+    color: #f22727;
     position: relative;
     left: 35%;
     top: 28%;
@@ -251,7 +251,7 @@
 .circle-hl{
     width: 10px;
     height: 10px;
-    background-color:#28B6E6;
+    background-color:#00b5d0;
     border-radius: 50%;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -261,7 +261,7 @@
     float: left;
 }
 .word-hl{
-    color: #28B6E6;
+    color: #00b5d0;
     position: relative;
     left: 35%;
     top: 28%;
@@ -276,16 +276,16 @@
     right: 0;
 }
 .trianglegreen{
-    border-color:transparent  #5DCB9A!important;
+    border-color:transparent  #54cd66!important;
 }
 .trianglered{
-    border-color:transparent #FB7575!important;
+    border-color:transparent #f22727!important;
 }
 .triangleblue{
-    border-color:transparent #28B6E6!important;
+    border-color:transparent #00b5d0!important;
 }
 .triangleOrange{
-    border-color:transparent orange!important;
+    border-color:transparent #d99e00!important;
 }
 .triangle{
     width: 0;
@@ -313,10 +313,10 @@
 .xuanzhuan{
     position: absolute;
     color: #000;
-    right: -62px;
+    right: -65px;
     display: inline-block;
     width: 37px;
-    top: 12px;
+    top: 16px;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
     color: white;
@@ -325,5 +325,8 @@
 .loadding{
     width: 100%;
     margin: 25px auto;
+}
+.row-alarmlist-detail{
+    color: #fefefe;
 }
 

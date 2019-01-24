@@ -384,7 +384,7 @@ class Alarmlist extends React.Component{
                                                 </div>
                                             </Col>
                                             <Col span={16} className="r_flex">
-                                                <Row>
+                                                <Row className="row-alarmlist-detail">
                                                     <Col span={20}>
                                                         <Row className="word-row">
                                                             <Col span={18}>
