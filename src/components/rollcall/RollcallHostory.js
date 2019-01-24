@@ -26,10 +26,10 @@ class RollcallHostory extends React.Component{
             rollCallType:false,
             list:[],
             dataitem:{},
-            loading:true,
+            loading:true, //加载中的状态
             page:1, //当前页数
             pageSize:20, //每页显示数量
-            isrequest:true,
+            isrequest:true,//是否请求接口
             scrollTop:Number,
         }
     }

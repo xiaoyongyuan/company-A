@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col, Form, DatePicker, LocaleProvider, Input, Select,Modal,Pagination, Empty} from "antd";
+import {Row, Col, Form, DatePicker, LocaleProvider, Input, Select,Modal,Pagination,Spin} from "antd";
 import RollcallRecordModel from "./RollcallRecordModel";
 import zh_CN from "antd/lib/locale-provider/zh_CN";
 import 'moment/locale/zh-cn';
@@ -18,7 +18,8 @@ class RollcallRecord extends React.Component{
             rollsetList:[],
             rollCallType:false,
             page:1, //当前页数
-            ishide:''
+            ishide:'',
+            loading:true, //加载中的状态
         };
     }
     componentWillMount(){
@@ -86,7 +87,8 @@ class RollcallRecord extends React.Component{
         post({url:"/api/camera/getlist"},(res)=>{
             if(res.success){
                 this.setState({
-                    rollCall:res.data
+                    rollCall:res.data,
+                    loading: false,
                 })
             }
         })
@@ -194,6 +196,7 @@ class RollcallRecord extends React.Component{
                         </Form>
                     </div>
                 </LocaleProvider>
+                <Spin spinning={this.state.loading} size="large" className="spin" tip="Loading..." />
                 <Row type="flex" justify="start">
                     {!this.state.rollsetList.length?<div className="zwsj"><img src={nodata} /></div>:this.state.rollsetList.map((v,i)=>(
                         <Col className="rollcalllist" key={i} span={7} style={{marginTop:"30px",marginLeft:"30px"}}>
