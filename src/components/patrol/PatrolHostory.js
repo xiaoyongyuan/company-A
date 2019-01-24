@@ -78,11 +78,13 @@ class RollcallHostory extends React.Component{
                     }else{
                         if(res.data.length===0){
                             message.success('没有更多了');
+                            _this.setState({
+                                isrequest: false,
+                                loadtip:false,
+                                } )
+                            //return "RollcallHostory .timeline_ml .anticon svg";
                         }
-                        _this.setState({
-                            isrequest: false,
-                            loadtip:false,
-                            } )
+                        
                     }
                 })
              }

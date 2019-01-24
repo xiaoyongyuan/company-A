@@ -31,6 +31,7 @@ class RollcallHostory extends React.Component{
             pageSize:20, //每页显示数量
             isrequest:true,//是否请求接口
             scrollTop:Number,
+            loadtip:"加载中..."//下拉刷新时的提示文字
         }
     }
     componentDidMount() {
@@ -90,6 +91,7 @@ class RollcallHostory extends React.Component{
                         }
                         _this.setState({
                             isrequest: false,
+                            loadtip:false,
                             } )
                     }
                    
@@ -230,7 +232,7 @@ class RollcallHostory extends React.Component{
                     <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
                 </div>
                 <div className="timeline_ml" style={{display:this.state.type?" block":"none"}}>
-                 <Timeline pending={true}>
+                 <Timeline pending={this.state.loadtip}>
                          
                         {
                             this.state.list.length?this.state.list.map((item,j)=>{
