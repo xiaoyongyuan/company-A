@@ -1,11 +1,11 @@
 import React, { Component} from 'react';
-import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,Spin,message} from "antd";
+import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,Spin,message,Modal, Icon} from "antd";
 import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
 import nopic from "../../style/imgs/nopic.png";
 import nodata from "../../style/imgs/nodata.png";
-
+import PatrolRecordModel from "./PatrolRecordModel";
 const formItemLayout = {
     labelCol: {
         xs: { span: 24 },
@@ -27,6 +27,7 @@ class RollcallHostory extends React.Component{
             page:1, //当前页数
             pageSize:20, //每页显示数量
             isrequest:true,
+            loadtip:"加载中..."//下拉刷新时的提示文字
             //status  //0执行中//1已完成//2未完成
         }
     }
@@ -80,6 +81,7 @@ class RollcallHostory extends React.Component{
                         }
                         _this.setState({
                             isrequest: false,
+                            loadtip:false,
                             } )
                     }
                 })
@@ -91,8 +93,8 @@ class RollcallHostory extends React.Component{
     backtop=()=>{ //返回顶部
         document.getElementById("scorll").scrollTop = 0; 
     };
-   //开始时间
-   onChange1 =(dateString1)=> {
+    //开始时间
+    onChange1 =(dateString1)=> {
         this.onChangeDate('startValue',dateString1);
         this.setState({
             pbdate:dateString1
@@ -133,6 +135,12 @@ class RollcallHostory extends React.Component{
     };
     handleEndOpenChange = (open) => {
         this.setState({ endOpen: open });
+    };
+    //model close
+    handlerollClose =()=>{
+        this.setState({
+            rollCallType:false
+        });
     };
     handleSubmit =()=>{
             const data={
@@ -195,7 +203,6 @@ class RollcallHostory extends React.Component{
         const { getFieldDecorator } = this.props.form;
         return(       
             <div className="PatrolHostory scrollable-container" id="scorll" >  
-              
               <Button type="primary" className="backtop" onClick={this.backtop} style={this.state.scrollTop>20?{display:'block'}:{display:'none'}}>返回顶部</Button>
                 <LocaleProvider locale={zh_CN}>
                     <Row className="sear_mtop Patrol_ml">
@@ -215,7 +222,6 @@ class RollcallHostory extends React.Component{
                                         onOpenChange={this.handleStartOpenChange}
                                     />
                                 )}
-
                             </Form.Item>
                             </Col>
                             <Col xl={4} xxl={3} lg={4}>
@@ -230,15 +236,12 @@ class RollcallHostory extends React.Component{
                                             onOpenChange={this.handleStartOpenChange}
                                         />
                                     )}
-
                                 </Form.Item>
                             </Col>
-                          
                             <Col xl={1} xxl={1} lg={1} className="msch">
                                 <Button type="primary" htmlType="submit">查询</Button>
                             </Col>
                         </Form>
-                       
                     </Row>
                 </LocaleProvider>
                 <div style={{marginTop:"70px",display:this.state.type?" none":"block"}}>
@@ -246,12 +249,12 @@ class RollcallHostory extends React.Component{
                 </div>
                 <Spin spinning={this.state.loading} className="spin" size="large"tip="Loading..." />
                 <div className="timeline_ml" style={{display:this.state.type?"block":"none"}}>
-                 <Timeline pending={true}>
+                 <Timeline pending={this.state.loadtip}>
                     {
                         this.state.list.length?this.state.list.map((item,j)=>{
                             return (
-                                <div key={j}> 
-                                <Timeline.Item color={this.colorline(item.status)}>
+                                <div key={j}>    
+                                <Timeline.Item color={this.colorline(item.status)} >
                                     <div>
                                     <div className="inlineb"> {item.pdate} </div> 
                                     <div className="timess"> {item.pteam}({item.pbdate}:00 —— {item.pedate}:00)</div>
@@ -279,7 +282,6 @@ class RollcallHostory extends React.Component{
                                     </div>
                                     {item.info.map((num,n)=>{
                                         return (
-                                            
                                             <div key={n} className="alarm_img">
                                                 <img src={num.ppic?num.ppic:nopic} alt="alarm_img" width="100%"style={{marginBottom:'30px'}} onClick={()=>this.handlerollCallType(num.code)} />
                                             </div> 
@@ -294,8 +296,15 @@ class RollcallHostory extends React.Component{
                     } 
                 </Timeline>
                 </div>
-                
-             {/* </Spin> */}
+                  <Modal
+                        width={700}
+                        title="巡更记录详情"
+                        visible={this.state.rollCallType}
+                        onCancel={this.handlerollClose}
+                        footer={null}
+                  >
+                    <PatrolRecordModel visible={this.state.rollCallType} code={this.state.code} />
+                 </Modal>
             </div>
         )
     }
