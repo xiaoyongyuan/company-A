@@ -53,7 +53,7 @@ class App extends Component {
                 {!responsive.data.isMobile && <SiderCustom collapsed={this.state.collapsed} user={auth} />}
                 <Layout style={{flexDirection: 'column'}}>
                     <HeaderCustom toggle={this.toggle} collapsed={this.state.collapsed} user={auth.data || {}} />
-                    <Content style={{ overflow: 'initial', flex: '1 1 0' }}>
+                    <Content style={{ overflow: 'initial', flex: '1 1 0',background:"#323A5D"}}>
                         <Routes auth={auth} />
                     </Content>
                     {/*<Footer style={{ textAlign: 'center' }}>
