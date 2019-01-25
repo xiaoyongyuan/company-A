@@ -1,0 +1,94 @@
+/*加载*/
+.ant-spin-dot i{
+    background: #ffffff!important;
+}
+.ant-spin{
+    color: #ffffff!important;
+}
+/*按钮*/
+/*.ant-btn-primary {
+    background: #5063ee!important;
+    color: #ffffff!important;
+}*/
+.ant-btn{
+    background: #5063ee!important;
+    color: #ffffff!important;
+    border: 1px solid #5063ee!important;
+}
+.ant-btn:hover{
+    background: #4152cd!important;
+    color: #ffffff!important;
+    border: 1px solid #4152cd!important;
+}
+/*表格*/
+.ant-table-thead > tr > th {
+    background: #394269!important;
+    color: #fff !important;
+}
+/*输入框*/
+.ant-input{
+    background: #3C466E!important;
+    color: #8592C6!important;
+    border: 1px solid #3C466E!important;
+}
+.ant-calendar-picker-icon {
+    color: #8592C6!important;
+}
+/*日历*/
+.ant-calendar-range-picker-separator {
+    color: #8592C6!important;
+}
+/*下拉框*/
+.ant-select-selection {
+    background-color: #3C466E!important;
+    border: 1px solid #3C466E!important;
+    color: #8592C6!important;
+}
+.ant-select-arrow {
+    color: #8592C6!important;
+}
+.ant-table-thead > tr.ant-table-row-hover > td, .ant-table-tbody > tr.ant-table-row-hover > td, .ant-table-thead > tr:hover > td, .ant-table-tbody > tr:hover > td {
+    /* 表格行的hover效果 */
+    background: #4F5574 !important;
+}
+/*分页*/
+.ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link {
+    border: 1px solid #495480!important;
+    background-color: #2B3355!important;
+    color: #ffffff!important;
+}
+.ant-pagination-item-active{
+    border: 1px solid #4286F5!important;
+    background: #4286F5;
+}
+.ant-pagination-item-active:hover{
+    border: 1px solid #4286F5!important;
+    background: #4286F5!important;
+}
+.ant-pagination-item {
+    border: 1px solid #495480;
+    background-color: #2B3355!important;
+}
+.ant-pagination-item a {
+    color: #ffffff!important;
+}
+/*查询 查询*/
+.queryBtn{
+    background:#5063ee!important;
+    border: 1px solid #5063ee!important;
+}
+.queryBtn:hover{
+    background: #4152cd!important;
+    border: 1px solid #4152cd!important;
+}
+/*删除*/
+.deleteBtn{
+    background:#ED2F2F!important;
+    border: 1px solid #ED2F2F!important;
+}
+.deleteBtn:hover{
+    background:#d01616!important;
+    border: 1px solid #d01616!important;
+}
+/*一键处理*/
+/*新增*/
