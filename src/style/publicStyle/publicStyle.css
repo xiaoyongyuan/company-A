@@ -11,10 +11,15 @@
     color: #fff !important;
 }
 /*输入框*/
-.ant-form .ant-input{
-    background: #3C466E;
-    color: #ffffff;
-    border: 1px solid #3C466E;
+/*.ant-input{
+    background: #3C466E!important;
+    color: #ffffff!important;
+    border: 1px solid #3C466E!important;
+}*/
+.ant-calendar-picker-input .ant-input{
+    background: #3C466E!important;
+    color: #ffffff!important;
+    border: 1px solid #3C466E!important;
 }
 .ant-calendar-picker-icon {
     color: #8592C6!important;
@@ -143,9 +148,17 @@
 .tc-label label{
     color: #000!important;
 }
-.warrper .ant-form .ant-input{
-    color: #000;
+.ant-btn + .ant-btn {
+    margin-left: 20px!important;
 }
-.tc-label .ant-form .ant-input{
-    color: #000;
+.warrper .ant-input,.Alarmlist .ant-input,.PatrolHostory .ant-input,.PatrolRecord .ant-input,
+.RollcallHostory .ant-input,.RollcallRecord .ant-input,.RollcallTask .ant-input{
+    background: #3C466E!important;
+    color: #ffffff!important;
+    border: 1px solid #3C466E!important;
 }
+.gutter-example .ant-form-item-label label{
+    color: #000!important;
+}
+
+
