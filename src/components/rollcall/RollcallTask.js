@@ -238,7 +238,7 @@ class RollcallTask extends Component{
             <div className="RollcallTask">
             	<Spin spinning={this.state.loading} indicator={<p />}>
                 <Row style={{margin:"2vmax 1vmax"}}>
-                    <Col span={22}>
+                    <Col span={24}>
                         <Card title="点名任务" extra={<a onClick={this.handleSetting} > <Icon type="setting" theme="filled"style={{color:'#fff'}} /><span style={{color:'#fff'}}>设置</span></a>}>
                             <p>今日自动点名次数: <b>{this.state.time}</b>次 &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; {this.state.state?'执行中':'待生效'}</p>
                             {this.state.last.rollcalldate

@@ -164,8 +164,8 @@ class Setarea extends Component {
                 key: 'code',
                 render: (text, record,index) => (
                     <span>
-                        <Button onClick={() => {this.switch(text,index);}}>{record.cwstatus?'关闭':'开启'}</Button>
-                        <Button onClick={()=>_this.showModaldelete(text,index,record)} >删除</Button>
+                        <Button className="queryBtn" onClick={() => {this.switch(text,index);}}>{record.cwstatus?'关闭':'开启'}</Button>
+                        <Button className="deleteBtn" onClick={()=>_this.showModaldelete(text,index,record)} >删除</Button>
                     </span>
                 ),
             }];
@@ -202,9 +202,9 @@ class Setarea extends Component {
             return hours;
         }
         return (
-            <div>
-                <BreadcrumbCustom first="场景" second="布防时间" />
-                <Row className="margin_top80 margin_bottom40">
+            <div className="padding20">
+                {/* <BreadcrumbCustom first="场景" second="布防时间" /> */}
+                <Row style={{marginBottom:'20px'}}>
                     <Col span={14}>
                         <Form layout="inline" onSubmit={this.add}>
                             <FormItem label="开始时间">
@@ -234,7 +234,7 @@ class Setarea extends Component {
                                 </RadioGroup>
                             </FormItem>
                             <FormItem>
-                                <Button type="primary" htmlType="submit">
+                                <Button className="queryBtn" htmlType="submit">
                                     新增
                                 </Button>
                             </FormItem>

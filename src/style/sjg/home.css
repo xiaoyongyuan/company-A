@@ -369,7 +369,19 @@ margin: 20px 0;
 .ant-card-body{
     padding: 10px 10px !important;
 }
-
+.lg{
+    width: 100px;
+    margin-top: 30px;
+}
+.padding20{
+    padding: 20px;
+}
+.padding20 .ant-table-tbody > tr > td {
+    border: 1px solid #4C5784!important;
+}
+.padding20 .ant-radio-wrapper {
+    color: #fff;
+}
 /* 设备信息和摄像头信息页 */
 .coverflow{
     overflow: hidden;
@@ -377,11 +389,12 @@ margin: 20px 0;
     white-space: nowrap;
 }
 .box-padding{
-    padding:2%;
-    border: 1px solid #DBDBDB;
+    padding:4px;
+    color: #fff;
+    background:#2B3253;
 }
 .box-padding>p{
-   color: #277FD0;
+   color: #fff;
 }
 
 .t_r{
@@ -409,10 +422,10 @@ margin: 20px 0;
   }
 
 .oncolor{
-    color: #5DCB9A;
+    color: #54CD66;
 }
 .reecolor{
-    color: #FB7575;
+    color: #f22727;
 }
 
 /* 巡更计划部分 */

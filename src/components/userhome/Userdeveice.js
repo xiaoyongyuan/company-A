@@ -144,7 +144,7 @@ class Userdeveice extends React.Component{
     render(){
         const _this=this;
         return(     
-            <div style={{backgroundColor:"#323A5D",padding:"1%"}}>
+            <div style={{backgroundColor:"#323A5D",padding:"20px"}}>
                 <div className="box-padding"> 
                     <p> <Icon type="bars" /> 设备信息</p>
                     <Row className="equ_row">
