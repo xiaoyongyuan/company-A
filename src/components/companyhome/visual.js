@@ -6,8 +6,6 @@ import equip from "../../style/yal/img/equip.png";
 import team from "../../style/yal/img/team.png";
 import usernum from "../../style/yal/img/usernum.png";
 import admin from "../../style/yal/img/admin.png";
-import nodata from "../../style/imgs/nodata.png";
-// import Echartdata from "./Echartdata";
 import Echartline from "./Echartline";
 import Echartpie from "./Echartpie";
 import moment from "moment";
@@ -29,7 +27,6 @@ const deveice=[{
     ccom:'阿房宫',
     alarm:212,
 }]
-
 
 class Datavisual extends Component {
     constructor(props){
@@ -59,7 +56,6 @@ class Datavisual extends Component {
                 DHeight:document.documentElement.clientHeight-65+'px'
             })
         }
-
         post({url:'/api/company/getone_special'},(res)=>{
             if(res.success){
                 var dataMap = Object.keys(res.info.lnglat).map(key=> res.info.lnglat[key]);
@@ -80,8 +76,8 @@ class Datavisual extends Component {
                 //明秦王陵报警次数
                 var alarmnumqwldx = alarmnum[1].count;
                 var alarmnumqwl = [];
-                for(var i = alarmnumqwldx.length-1;i>=0;i--){
-                    alarmnumqwl.push(alarmnumqwldx[i])
+                for(var j = alarmnumqwldx.length-1;j>=0;j--){
+                    alarmnumqwl.push(alarmnumqwldx[j])
                 }
                 //阿房宫名称
                 var apgname = alarmnum[0].name;
@@ -90,30 +86,29 @@ class Datavisual extends Component {
                 //时间
                 var time = alarmnum[0].hour;
                 var timehour = [];
-                for(var i=time.length-1;i>=0;i--){
-                    time[i].substring(11);
-                    timehour.push(time[i].substring(11));
+                for(var k=time.length-1;k>=0;k--){
+                    time[k].substring(11);
+                    timehour.push(time[k].substring(11));
                 }
-
                 //巡更次数
                 var patrol = Object.keys(res.info.patrol).map(key=> res.info.patrol[key]);
                 //阿房宫巡更次数
                 var patrolNumepgdx = patrol[0].count;
                 var patrolNumepg = [];
-                for(var i = patrolNumepgdx.length-1;i>=0;i--){
-                    patrolNumepg.push(patrolNumepgdx[i]);
+                for(var m = patrolNumepgdx.length-1;m>=0;m--){
+                    patrolNumepg.push(patrolNumepgdx[m]);
                 }
                 //名秦王巡更次数
                 var patrolNumqwldx = patrol[1].count;
                 var patrolNumqwl = [];
-                for (var i = patrolNumqwldx.length-1;i>=0;i--) {
-                    patrolNumqwl.push(patrolNumqwldx[i]);
+                for (var n = patrolNumqwldx.length-1;n>=0;n--) {
+                    patrolNumqwl.push(patrolNumqwldx[n]);
                 }
                 //巡更次数日期
                 var daylydx = patrol[0].dayly;
                 var dayly = [];
-                for(var i = daylydx.length-1;i>=0;i--){
-                    dayly.push(daylydx[i].substring(8));
+                for(var g = daylydx.length-1;g>=0;g--){
+                    dayly.push(daylydx[g].substring(8));
                 }
                 //巡更次数阿房宫名称
                 var patroNameepg = patrol[0].name;
@@ -124,30 +119,24 @@ class Datavisual extends Component {
                 //名秦王点名次数
                 var rollcallNumqwldx = rollcall[1].count;
                 var rollcallNumqwl = [];
-                for (var i = rollcallNumqwldx.length-1;i>=0;i--) {
-                    rollcallNumqwl.push(rollcallNumqwldx[i]);
+                for (var h = rollcallNumqwldx.length-1;h>=0;h--) {
+                    rollcallNumqwl.push(rollcallNumqwldx[h]);
                 }
                 //点名次数日期
                 var dmdaylydx = rollcall[0].dayly;
                 var dmdayly = [];
-                for(var i = dmdaylydx.length-1;i>=0;i--){
-                    dmdayly.push(dmdaylydx[i].substring(8));
+                for(var f = dmdaylydx.length-1;f>=0;f--){
+                    dmdayly.push(dmdaylydx[f].substring(8));
                 }
                 //点名次数秦王陵名称
                 var rollcallNameqwl = rollcall[1].name;
-
                 var analysis=Object.keys(res.info.alarmcount).map(key=> res.info.alarmcount[key]);
-                /*var analysisCount=0;//总报警数
-                var unhandle=0;//未处理报警数
-                var okconfirm=0;//确认数
-                var xufalse=0;//虚报警数
-                var ignore=0;//忽略数*/
                 analysis.map((v)=>{
                     this.state.analysisCount+=v.a_confirm+v.a_false+v.a_ignore+v.a_unhandle;
                 });
                 //未处理报警数
-                for(var i=0;i<analysis.length;i++){
-                    this.state.unhandle+=analysis[i].a_unhandle
+                for(var t=0;t<analysis.length;t++){
+                    this.state.unhandle+=analysis[t].a_unhandle
                 }
                 //确认数
                 for(var a=0;a<analysis.length;a++){
@@ -188,7 +177,6 @@ class Datavisual extends Component {
                     console.log(this.state.analysisCount);
                 })
             }
-
         })
     }
     render() {
@@ -208,7 +196,7 @@ class Datavisual extends Component {
                                     <span className="titlename">可查看单位</span>
                                 </div>
                                 <div className="comp">
-                                    <Echartpie type='lookcomp' winhe={(parseInt(this.state.DHeight)*0.7-20)*0.5-50} />
+                                    <Echartpie type="lookcomp" winhe={(parseInt(this.state.DHeight)*0.7-20)*0.5-50} />
                                 </div>
                             </div>
                         </div>
@@ -220,7 +208,7 @@ class Datavisual extends Component {
                                 <div className="comp">
                                     <div className="equiptable">
                                         <div className="equipment equiphead">
-                                            <Row className='lines'>
+                                            <Row className="lines">
                                                 <Col className="gutter-row" xl={8}>
                                                     名称
                                                 </Col>
@@ -233,9 +221,8 @@ class Datavisual extends Component {
                                             </Row>
                                         </div>
                                         {_this.state.deveice.map((el,i)=>(
-
                                             <div className="equipment equipbody" key={'row'+i}>
-                                                <Row className='lines'>
+                                                <Row className="lines">
                                                     <Col className="gutter-row" xl={8}>
                                                         {el.name}
                                                     </Col>
@@ -249,7 +236,6 @@ class Datavisual extends Component {
                                             </div>
                                         ))}
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -262,7 +248,7 @@ class Datavisual extends Component {
                             </div>
                         </div>
                         <div className="maps">
-                            <Echartpie type='xianmap'  winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-60} xianmap={this.state.xianmap} />
+                            <Echartpie type="xianmap" winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-60} xianmap={this.state.xianmap} />
                         </div>
                         <div className="draw">
                             <div className="untreated alarmtitle">
@@ -283,7 +269,7 @@ class Datavisual extends Component {
                                     <div className="yundate">
                                         云服务到期日期: <b>{this.state.today}</b>
                                     </div>
-                                    <div className="newsclo"  style={{height:'calc(100% - 55px)'}}>
+                                    <div className="newsclo" style={{height:'calc(100% - 55px)'}}>
                                         <Row className="message">
                                             <Col className="heihgdabo" span={10} offset={1}>
                                                 <Row className="messthis">
@@ -354,7 +340,7 @@ class Datavisual extends Component {
                                                 <Row className="messthis">
                                                     <Col span={8}>
                                                         <div className="equiptu">
-                                                            <img src={admin} />
+                                                            <img src={admin} alt="" />
                                                         </div>
                                                     </Col>
                                                     <Col span={16}>
@@ -383,7 +369,7 @@ class Datavisual extends Component {
                                 </div>
                                 <div className="comp">
                                     <Echartline
-                                        type='alarmnum'
+                                        type="alarmnum"
                                         winhe={(parseInt(this.state.DHeight)*0.7-10)*0.5-10}
                                         alarmnumapg={this.state.alarmnumapg}
                                         alarmnumqwl={this.state.alarmnumqwl}
@@ -404,7 +390,7 @@ class Datavisual extends Component {
                             </div>
                             <div className="comp">
                                 <Echartline
-                                    type='rollcall'
+                                    type="rollcall"
                                     winhe={parseInt(this.state.DHeight)*0.3-70}
                                     rollcallNumqwl = { this.state.rollcallNumqwl }
                                     dmdayly = { this.state.dmdayly }
@@ -419,18 +405,18 @@ class Datavisual extends Component {
                                 <span className="titlename">报警分析</span>
                             </div>
                             <div className="comp">
-                                <Echartpie type='alarmanalyze' winhe={parseInt(this.state.DHeight)*0.3-70}/>
+                                <Echartpie type="alarmanalyze" winhe={parseInt(this.state.DHeight)*0.3-70} />
                             </div>
                         </div>
                     </Col>
-                    <Col span={7} className="bottomheig"  style={{paddingRight:0,paddingLeft:'17px'}}>
+                    <Col span={7} className="bottomheig" style={{paddingRight:0,paddingLeft:'17px'}}>
                         <div className="wappscol">
                             <div className="titleechart">
                                 <span className="titlename">巡更次数</span>
                             </div>
                             <div className="comp">
                                 <Echartline
-                                    type='patrol'
+                                    type="patrol"
                                     winhe={parseInt(this.state.DHeight)*0.3-70}
                                     patrolNumepg = { this.state.patrolNumepg }
                                     patrolNumqwl = { this.state.patrolNumqwl }
@@ -442,10 +428,6 @@ class Datavisual extends Component {
                         </div>
                     </Col>
                 </Row>
-
-
-
-
             </div>
         )
     }

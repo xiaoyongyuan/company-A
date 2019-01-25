@@ -140,9 +140,8 @@ class Setarea extends Component {
                             return ('工作日');
                         case 'today':
                             return ('每天');
-                        case 'playday':
+                        default:
                             return ('周末');
-                            break;
                     }
                 },
             },
@@ -154,9 +153,8 @@ class Setarea extends Component {
                     switch(text){
                         case 1:
                             return ('开启');
-                        case 0:
+                        default:
                             return ('关闭');
-                            break;
                     }
                 }
             },

@@ -371,7 +371,7 @@ class Alarmlist extends React.Component{
                 <Row style={{marginLeft:"10px",display:this.state.type===0?"none":"block"}}>
                     {
                         this.state.policeList.map((v,i)=>(
-                            <Col xm={11} sm={11} md={11} lg={11} xl={11} xxl={7}  key={i} style={{margin:"0px 10px"}}>
+                            <Col xm={11} sm={11} md={11} lg={11} xl={11} xxl={7} key={i} style={{margin:"0px 10px"}}>
                                 <div className="listmargintop">
                                     <div className={this.redgreenblue(v.status)} >
                                         <Row>
@@ -384,12 +384,12 @@ class Alarmlist extends React.Component{
                                                 </div>
                                             </Col>
                                             <Col span={16} className="r_flex">
-                                                <Row>
+                                                <Row className="row-alarmlist-detail">
                                                     <Col span={20}>
                                                         <Row className="word-row">
                                                             <Col span={18}>
                                                                 <Row>
-                                                                    <Col span={14}  style={{marginLeft:'5px' }} push={1}>
+                                                                    <Col span={14} style={{marginLeft:'5px'}} push={1}>
                                                                         <p className="fontstyle">{v.name}</p>
                                                                     </Col>
                                                                     <Col span={9} push={4} style={{textAlign:'right' }}>
@@ -399,7 +399,7 @@ class Alarmlist extends React.Component{
                                                             </Col>
                                                         </Row>
                                                         <Row className="word-row">
-                                                            <Col span={13}  push={1}>
+                                                            <Col span={13} push={1}>
                                                                 <p className="time-col fontstyle fontstyletime">{v.atime}</p>
                                                             </Col>
                                                             <Col span={9} push={1} style={{marginLeft:'13px'}}>
@@ -444,8 +444,7 @@ class Alarmlist extends React.Component{
                     onCancel={this.handleCancel}
                     okText="确认"
                     cancelText="取消"
-                >
-                </Modal>
+                />
                 <Modal
                     title="报警批量处理"
                     visible={this.state.alarm}

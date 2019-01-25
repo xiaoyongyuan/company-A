@@ -36,14 +36,14 @@ class ModalForm extends Component {
     }
   
     componentWillReceiveProps(nextProps){
-        if( nextProps.visible != vis){
+        if( nextProps.visible !== vis){
             vis=nextProps.visible;
             if(nextProps.visible){
                  vis=nextProps.visible;
                 this.setState({
                     code:this.props.code,
                 },()=>{
-                    if(nextProps.code==0){
+                    if(nextProps.code===0){
                     }else{
                         post({url:"/api/patrol/getone",data:{code:nextProps.code} }, (res)=>{
                             // console.log('******************',res.data.clist.toString().split(",").map(Number));
@@ -106,7 +106,7 @@ class ModalForm extends Component {
 
         function disabledHours() {
             let hours = newArray(0, 60);
-            if(times== '00'){
+            if(times === '00'){
                 hours.splice(times,24-times);
             }else{
                 hours.splice(parseInt(times)+1,24-times);

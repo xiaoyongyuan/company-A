@@ -112,6 +112,7 @@ class PatrolRecord extends React.Component{
     
     render(){
         const { getFieldDecorator } = this.props.form;
+        const haveborder = true;
         const columns = [{
             title: '序号',
             dataIndex: 'index',
@@ -157,7 +158,7 @@ class PatrolRecord extends React.Component{
             title: '处理结果',
             dataIndex: 'phandle',
             key: 'phandle',
-            render: text => <span>{text==1?<p style={{color:'#429019'}}>通过</p>:<p style={{color:'#f5222d'}}>不通过</p>}</span>,
+            render: text => <span>{text===1?<p style={{color:'#429019'}}>通过</p>:<p style={{color:'#f5222d'}}>不通过</p>}</span>,
         },{
             title: '操作',
             dataIndex: 'code',
@@ -178,7 +179,7 @@ class PatrolRecord extends React.Component{
                             <LocaleProvider locale={zh_CN}>
                                 <Form.Item
                                 label="日期"
-                            >
+                                >
                                 {getFieldDecorator('range-picker1')(
                                     <RangePicker
                                         ranges={{ Today: [moment(), moment()], 'This Month': [moment().startOf('month'), moment().endOf('month')] }}
@@ -222,7 +223,7 @@ class PatrolRecord extends React.Component{
                     <Col span={23}>
                         <Table dataSource={this.state.dataSource} columns={columns} 
                          pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
-                         bordered={true}
+                         bordered={haveborder}
                         />
                     </Col>
                     <Modal
@@ -233,7 +234,7 @@ class PatrolRecord extends React.Component{
                         onCancel={this.patrolCancel}
                         footer={null}
                     >
-                    <PatrolRecordModel visible={this.state.patrolImg}  code={this.state.patrolImgStatus} />
+                    <PatrolRecordModel visible={this.state.patrolImg} code={this.state.patrolImgStatus} />
                     </Modal>
                 </Row>
             </div>
