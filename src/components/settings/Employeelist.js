@@ -217,7 +217,7 @@ class Adminteam extends Component {
                                     )}
                                 </FormItem>
                                 <FormItem>
-                                    <Button type="primary" htmlType="submit">
+                                    <Button type="primary" htmlType="submit" className="queryBtn">
                                         查询
                                     </Button>
                                 </FormItem>

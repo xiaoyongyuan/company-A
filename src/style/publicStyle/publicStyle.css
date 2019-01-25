@@ -5,21 +5,6 @@
 .ant-spin{
     color: #ffffff!important;
 }
-/*按钮*/
-/*.ant-btn-primary {
-    background: #5063ee!important;
-    color: #ffffff!important;
-}*/
-.ant-btn{
-    background: #5063ee!important;
-    color: #ffffff!important;
-    border: 1px solid #5063ee!important;
-}
-.ant-btn:hover{
-    background: #4152cd!important;
-    color: #ffffff!important;
-    border: 1px solid #4152cd!important;
-}
 /*表格*/
 .ant-table-thead > tr > th {
     background: #394269!important;
