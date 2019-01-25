@@ -65,7 +65,10 @@ class PatrolRecordModel extends Component{
                   <Col span={8}>处理时间: {this.state.paList.phdate}</Col>
                </Row>
                <Row>
-                  <Col span={8} ><Button type="primary" onClick={()=>this.patrolAdopt(1)}>通过</Button><Button type="primary" onClick={()=>this.patrolAdopt(2)}>不通过</Button></Col> 
+                  <Col span={24} style={{ textAlign:'right' }}>
+                      <Button type="primary" onClick={()=>this.patrolAdopt(1)}>通过</Button>
+                      <Button type="primary" onClick={()=>this.patrolAdopt(2)}>不通过</Button>
+                  </Col>
                </Row>
            </div>
         )
