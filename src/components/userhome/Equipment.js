@@ -28,11 +28,11 @@ class Equipment extends React.Component{
  
     statework=(i)=>{ //布防转换     
         if(this.state.camera[i].work===2){
-            return (<span><Icon type="clock-circle" style={{color:'#5dcb9a'}} /> 布防中</span>)
+            return (<span className="defence"><Icon type="clock-circle" /> 布防中</span>)
         }else if(this.state.camera[i].work===1){
-            return (<span><Icon type="clock-circle" style={{color:'#666'}} /> 不在布防中</span>)
+            return (<span className="nodefence coverflow" title="不在布防中"><Icon type="clock-circle" /> 不在布防中</span>)
         }else{
-            return (<span><Icon type="clock-circle" style={{color:'#666'}} /> 未设置</span>)          
+            return (<span className="setup"><Icon type="clock-circle" /> 未设置</span>)
         }
     }
     field=(i)=>{ //布防区域的个数 
@@ -101,8 +101,8 @@ class Equipment extends React.Component{
                                                  </p>
                                                  <p>布防区域 </p>
                                             </div>,
-                                            <div className="actionsBbottom colCen">
-                                                    {this.statework(i)}
+                                            <div className="actionsBbottom colCen ">
+                                                   {this.statework(i)}
                                             </div>,
                                              <div className="colCen actionsBbottom ">
                                                  <Icon type="setting" /> 设定

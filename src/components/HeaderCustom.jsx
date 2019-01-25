@@ -94,7 +94,7 @@ class HeaderCustom extends Component {
                         <Icon type="arrows-alt" onClick={this.screenFull} />
                     </Menu.Item>
                     <SubMenu style={{borderBottom:'2px solid #31365'}} title={<span className="avatar"><img src={this.props.user.utype==='1'?icon_user:icon_admin} alt="头像" /></span>}>
-                        <MenuItemGroup title="用户中心" style={{background:"#ccc"}}>
+                        <MenuItemGroup title="用户中心" style={{background:"rgba(255,255,255,0.5)"}}>
                             <Menu.Item key="setting:1">你好 - {this.props.user.realname}</Menu.Item>
                             {/*<Menu.Item key="setting:2">个人信息</Menu.Item>*/}
                             <Menu.Item key="logoutto" onClick={this.showModaldelete}><span>退出登录</span></Menu.Item>

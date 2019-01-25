@@ -312,6 +312,7 @@ class Alarmlist extends React.Component{
                                 >
                                     {getFieldDecorator('range-picker1')(
                                         <DatePicker
+                                            className="allInput"
                                             showTime={{format:"HH"}}
                                             format="YYYY-MM-DD HH:00:00"
                                             placeholder="开始时间"
@@ -334,6 +335,7 @@ class Alarmlist extends React.Component{
                                             onChange={this.onChange2}
                                             disabledDate={this.disabledEndDate}
                                             onOpenChange={this.handleEndOpenChange}
+                                            className="allInput"
                                         />
                                     )}
                                 </Form.Item>
