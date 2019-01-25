@@ -293,7 +293,7 @@ class RollcallTask extends Component{
                             <h4 style={{textAlign:'center',fontSize:"1max"}}>{el.rname}<Icon type="delete" style={{float:'right'}} onClick={()=>this.deleteobj(el.code,i)} /></h4>
                             <div className="cardContext">
                                 <a className="scan" href={"#/app/rollcall/adoptlook?id="+el.code}>
-                                    <canvas id={"canvas"+(i+1)}  width='270px' height='221px' style={el.fieldpath?{backgroundImage:'url('+el.fieldpath+')'}:{backgroundImage:'url('+noImg+')'}} />
+                                    <canvas id={"canvas"+(i+1)} width="270px" height="221px" style={el.fieldpath?{backgroundImage:'url('+el.fieldpath+')'}:{backgroundImage:'url('+noImg+')'}} />
                                     <img src={scan} className={el.scan?"scangif":"scanno"} />
                                 </a>
                                 <div className="titles">{el.cameraname}</div>
