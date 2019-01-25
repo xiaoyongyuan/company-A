@@ -24,7 +24,7 @@
     box-shadow: 0px 0px 30px rgba(34,34,34,0.4);
 }
 .equipmentCard.ant-card-actions{
-    border-top: 1px solid #4C5784;
+    border-top: 1px solid #4C5784!important;
 }
 .loadding{
     width: 100%;
