@@ -94,7 +94,7 @@ class HeaderCustom extends Component {
                         <Icon type="arrows-alt" onClick={this.screenFull} />
                     </Menu.Item>
                     <SubMenu style={{borderBottom:'2px solid #31365'}} title={<span className="avatar"><img src={this.props.user.utype==='1'?icon_user:icon_admin} alt="头像" /></span>}>
-                        <MenuItemGroup title="用户中心">
+                        <MenuItemGroup title="用户中心" style={{background:"#ccc"}}>
                             <Menu.Item key="setting:1">你好 - {this.props.user.realname}</Menu.Item>
                             {/*<Menu.Item key="setting:2">个人信息</Menu.Item>*/}
                             <Menu.Item key="logoutto" onClick={this.showModaldelete}><span>退出登录</span></Menu.Item>
@@ -104,9 +104,10 @@ class HeaderCustom extends Component {
             </Header>
 
             <Modal title="提示信息" visible={this.state.deleteshow} onOk={this.deleteOk}
-            onCancel={this.deleteCancel}
-            okText="确认"
-            cancelText="取消"
+                   width={370}
+                onCancel={this.deleteCancel}
+                okText="确认"
+                cancelText="取消"
             >
             <p>确认退出吗？</p>
             </Modal>
