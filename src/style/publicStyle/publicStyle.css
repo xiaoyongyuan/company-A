@@ -157,5 +157,8 @@
     color: #ffffff!important;
     border: 1px solid #3C466E!important;
 }
+.gutter-example .ant-form-item-label label{
+    color: #000!important;
+}
 
 
