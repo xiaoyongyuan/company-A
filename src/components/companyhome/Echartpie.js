@@ -24,6 +24,16 @@ class Echartpie extends Component {
         this[this.state.type]()
         
     }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps!==this.state.father){
+            this.setState({
+                father:nextProps
+            },()=>{                
+                this.componentDidMount()
+            })
+        }
+    }
     xianmap=()=>{ //地图
         echarts.registerMap('xian', xianmap);
         const option={
@@ -89,25 +99,6 @@ class Echartpie extends Component {
         }
         this.setState({option})
     }
-    componentWillReceiveProps(nextProps){
-        if(nextProps!==this.state.father){
-            this.setState({
-                father:nextProps
-            },()=>{                
-                this.componentDidMount()
-            })
-        }
-    }
-   /* onByModelClick = (e)=>{
-        if(e.componentType === "series"){
-            window.location.href="#/app/companyhome/companyscene?code="+this.props.codeID
-        }
-    }*/
-
-  /*  onClickByModel={
-        'click':this.onByModelClick
-    }*/
-    
     // 可查看单位
     lookcomp=()=>{
         let option = {
@@ -499,7 +490,6 @@ class Echartpie extends Component {
     }
     xianmap=()=>{ //地图
         echarts.registerMap('xian', xianmap);
-        let datasMap=this.state.father.datasMap;
         let option={
             background:"#091e57",
             geo: {
@@ -568,7 +558,6 @@ class Echartpie extends Component {
         this.setState({option})
     }
     render() {
-        const _this=this;
         return (
             <ReactEcharts
                 option={this.state.option}

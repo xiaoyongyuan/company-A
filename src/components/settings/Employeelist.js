@@ -1,8 +1,6 @@
 import React, { Component} from 'react';
-import BreadcrumbCustom from '../BreadcrumbCustom';
 import ModalForm from './ModalForm.js';
 import {Form, Input, Row, Col, Button, Modal, Table, message, Spin} from 'antd';
-// import '../../style/sjg/home.css';
 import {post} from "../../axios/tools";
 
 const FormItem = Form.Item;
@@ -145,6 +143,7 @@ class Adminteam extends Component {
     render() {
         const _this=this;
         const { getFieldDecorator } = this.props.form;
+        const isbordered = true;
         const columns = [
             {
                 title: '序号',
@@ -235,7 +234,7 @@ class Adminteam extends Component {
                                     this.state.list.length?
                                         <Table columns={columns}
                                                dataSource={this.state.list}
-                                               bordered={true}
+                                               bordered={isbordered}
                                                pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
                                         />
                                         :
@@ -245,7 +244,7 @@ class Adminteam extends Component {
                         </Col>
                     </Row>
                 </div>
-                <Modal title='新增'
+                <Modal title="新增"
                        okText="确认"
                        cancelText="取消"
                        visible={this.state.visible}

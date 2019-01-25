@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import {Row, Col, Card,Modal,Spin, message } from 'antd';
+import {Row,Col,Modal,Spin,message} from 'antd';
 import '../../style/sjg/home.css';
 import BreadcrumbCustom from '../BreadcrumbCustom';
 import "../../style/yal/css/calling.css";
@@ -27,7 +27,6 @@ class Calling extends Component{
         });
     }
     componentDidMount() {
-        const _this=this;
         this.reuestdata();
         this.showModal();
     }
@@ -78,9 +77,7 @@ class Calling extends Component{
                 <div className="dmword">
                     <span style={{display:this.state.type?"block":"none"}}>此次点名共<b>{this.state.totalcount}</b>个对象
                     {this.state.edate
-                        ?<div>
-
-                        </div>
+                        ?<div />
                         :''
                     }</span>
                     <span style={{display:this.state.type?"none":"block"}}>此次点名共<b>{this.state.count}</b>个对象，用时<b>14</b>秒。<b>{this.state.unusual}</b>个异常，<b>{this.state.normal}</b>个正常。</span>
@@ -89,7 +86,7 @@ class Calling extends Component{
                     <Row gutter={50}>
                         {this.state.list.map((el,i)=>(
                         <Col className="gutter-row" span={7} key={i}>
-                            <div className="gutter-box divout"  style={{border:this.state.type?"none":"2px solid #E5E5E5" ,background:this.state.type?"none":"#fff" ,height:this.state.type?"230px":"460px"}} >
+                            <div className="gutter-box divout" style={{border:this.state.type?"none":"2px solid #E5E5E5" ,background:this.state.type?"none":"#fff" ,height:this.state.type?"230px":"460px"}} >
                                 <div className="divinnertop" style={{border:this.state.type?"2px solid #E5E5E5":"none", height:this.state.type?"100%":"50%"}}>
                                     <div className="divinnertopT">
                                     </div>
@@ -117,7 +114,7 @@ class Calling extends Component{
                                                 {
                                                     el.rfinal
                                                     ?<div>
-                                                    {el.rfinal==1
+                                                    {el.rfinal===1
                                                     ? <span style={{ color:"green" }}>正常</span>
                                                     : <span style={{ color:"red" }}>报警</span>
                                                     }   
@@ -144,7 +141,7 @@ class Calling extends Component{
                     </Row>
                 </div>
                 <div className="modelcircle">
-                    <Modal visible={this.state.visible} className="modelCard"/>
+                    <Modal visible={this.state.visible} className="modelCard" />
                     <div className="scanningImg" style={{display:this.state.type?"block":"none"}}><Spin size="large" /></div>
                 </div>
             </div>

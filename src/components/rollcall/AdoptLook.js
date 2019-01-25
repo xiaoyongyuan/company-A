@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import '../../style/sjg/home.css';
-import { Card, Form, Input, Row, Col, Button,Upload, message, Icon, Radio, Select } from 'antd';
+import {Card,Form,Input,Row,Col,Button,message,Radio,Select} from 'antd';
 import BreadcrumbCustom from '../BreadcrumbCustom';
 import {post} from "../../axios/tools";
 import nopic from "../../style/imgs/nopic.png";
@@ -31,7 +31,7 @@ class AdoptLook extends Component {
                     cameraname: res.data.cameraname, //用户名
                     rname: res.data.rname, //对象名
                     applydate: res.data.applydate, 
-                    rhandle: res.data.rhandle,   //审核结果 
+                    rhandle: res.data.rhandle, //审核结果
                 });
                 _this.setState({
                     imgsrc: res.data.basepic, //图片
@@ -86,6 +86,7 @@ class AdoptLook extends Component {
 
     render() {
         const _this=this;
+        const isdisabled = true;
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
             labelCol: {
@@ -143,7 +144,7 @@ class AdoptLook extends Component {
                                         {getFieldDecorator('rhandle', {
                                             rules: [{required: false}],
                                         })(
-                                            <Select disabled={true}>
+                                            <Select disabled={isdisabled}>
                                               <Option value={0}>未审核</Option>
                                               <Option value={1}>审核通过</Option>
                                               <Option value={2}>审核未通过</Option>
@@ -184,7 +185,7 @@ class AdoptLook extends Component {
                                         :''
                                     }
                                     {
-                                        this.state.rhandle==1
+                                        this.state.rhandle===1
                                         ?<Row>
                                             <Col span={16} offset={8}>
                                                 <Button type="primary" htmlType="submit" className="login-form-button" >提交</Button>

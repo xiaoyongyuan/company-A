@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Row,Col,Card } from 'antd';
-import { Link } from 'react-router-dom';
+import { Row,Col } from 'antd';
 import '../../style/ztt/css/Companyhome.css';
 import {post} from "../../axios/tools";
 import Equipment from '../userhome/Equipment';
@@ -146,10 +145,9 @@ class Companyhome extends Component {
                     <Row >
                     <Col xl={22} xxl={20}>
                         <Row>
-                            <Col xl={24} xxl={24} className="marginTop marginLeft marginBottom"><div className="zonglanCircle"/>&nbsp;&nbsp;<span className="titleFont">用户设备</span></Col>
-                            <Equipment/>
+                            <Col xl={24} xxl={24} className="marginTop marginLeft marginBottom"><div className="zonglanCircle" />&nbsp;&nbsp;<span className="titleFont">用户设备</span></Col>
+                            <Equipment />
                         </Row>
-
                     </Col>
                 </Row>
                 </div>
