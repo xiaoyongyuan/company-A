@@ -424,6 +424,7 @@ margin: 20px 0;
     justify-content: flex-start; 
     box-shadow: #d6d4d4 0px 0px 4px 2px;
     border-radius: 6px;
+    color: #fff;
 }
 .patrol_detail{
     display: flex;
@@ -684,15 +685,7 @@ margin: 4px 0 0 20px ;
 .inlineb{
     display: inline-block;
 }
-.timess{
-    display: inline-block;
-    width:170px;
-    height:30px;
-    line-height:30px;
-    text-align: center;
-    background: #ccc;
-    margin-left: 10px;
-}
+
 .xun_detail{
    padding-left: 16px;
 }
@@ -799,4 +792,48 @@ margin: 4px 0 0 20px ;
 }
 .ant-pagination-item-ellipsis{
     color:#fff !important;
+}
+.redpic{
+    background-image: url(../imgs/hongse.png);
+    background-size: 100% 100%;
+    display: inline-block;
+    width:160px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+    margin-left: 10px;
+}
+.yellowpic{
+    background-image: url(../imgs/huangse.png);
+    background-size: 100% 100%;
+    display: inline-block;
+    width:160px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+    margin-left: 10px;
+}
+.greenpic{
+    background-image: url(../imgs/lvse.png);
+    background-size: 100% 100%;
+    display: inline-block;
+    width:160px;
+    height:30px;
+    line-height:30px;
+    text-align: center;
+    margin-left: 10px;
+}
+.PatrolPlan .ant-card {
+
+    background: #2B3151;
+  
+}
+.ant-card-bordered {
+    border: 1px solid #4C5784!important;
+}
+.ant-card-head {
+    border-bottom: 1px solid #4C5784!important;
+}
+.ant-timeline-item-head {
+    background-color: #323A5D !important;
 }
