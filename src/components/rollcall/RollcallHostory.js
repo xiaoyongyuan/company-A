@@ -17,7 +17,7 @@ const formItemLayout = {
         sm: { span: 16 },
     },
 };
-class RollcallHostory extends React.Component{
+class RollcallHostory extends Component{
 	constructor(props){
         super(props);
         this.state={
@@ -246,15 +246,22 @@ class RollcallHostory extends React.Component{
                                                         {/* <div className="times"> 第{i+1}次</div> */}
                                                             <div className="line_detail">
                                                                 <div className="line_alerm">
-                                                                   <div> {el.alarm.length>0?<div className="circle"><div></div></div>:<div className="circlegreen"><div></div></div>}</div>
+                                                                   <div>
+                                                                       {
+                                                                           el.alarm.length>0?
+                                                                               <div className="circle"><div /></div>
+                                                                               :
+                                                                               <div className="circlegreen"><div /></div>
+                                                                       }
+                                                                   </div>
                                                                         <div className="m_l">
                                                                             {el.rollcalldate.slice(11,20)}
                                                                             {el.ifeveryday===0?"自动点名":"手动点名"}，
                                                                             共点名 {el.totalcount}个对象，
-                                                                            {el.executing===0? <span></span>: <span> {el.executing} 正在点名，</span>}
-                                                                            {el.alarm.length===0? <span></span>: <span> {el.alarm.length} 个报警，</span>}
-                                                                            {el.normal===0? <span></span>: <span> {el.normal} 个正常，</span>}
-                                                                            {el.fail===0? <span></span>: <span> {el.fail} 失败，</span>}
+                                                                            {el.executing===0? <span />: <span> {el.executing} 正在点名，</span>}
+                                                                            {el.alarm.length===0? <span />: <span> {el.alarm.length} 个报警，</span>}
+                                                                            {el.normal===0? <span />: <span> {el.normal} 个正常，</span>}
+                                                                            {el.fail===0? <span />: <span> {el.fail} 失败，</span>}
                                                                             <a href={"#/app/rollcall/rollcallrecord?taskid="+el.taskid+"&rollcalldate="+el.rollcalldate} className="underline">查看详情</a>
                                                                         </div>
                                                                 </div>

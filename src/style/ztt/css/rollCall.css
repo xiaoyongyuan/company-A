@@ -2,7 +2,7 @@
     RollcallRecord.js 点名记录
 */
 .rollcalllist{
-    background: #fcfcfc;
+    background: #2B3355;
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 0 9px #ccc;
@@ -16,6 +16,7 @@
         display: flex;
         flex-direction:row;
         margin: 12px 0!important;
+        color: #ffffff;
     }
     .rollRow{
         margin-left: 8%;
@@ -24,6 +25,7 @@
 .rollCall{
     display: flex;
     flex-direction:row;
+    color: #ffffff;
 }
 .fontColor{
     color:#429019;

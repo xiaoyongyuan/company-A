@@ -149,6 +149,7 @@ class Adopt extends Component {
     };
 
     render() {
+        const isdisabled = true;
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
             labelCol: {
@@ -168,7 +169,7 @@ class Adopt extends Component {
                     <Col className="gutter-row" span={10}>
                         <div className="gutter-box">
                             <Card title="" bordered={false}>
-                                <p span={4} offset={4} style={{textAlign:'center'}}>新增点名对象</p><br/>
+                                <p span={4} offset={4} style={{textAlign:'center'}}>新增点名对象</p><br />
                                 <Form onSubmit={this.handleSubmit}>
                                     <FormItem
                                         {...formItemLayout}
@@ -189,7 +190,7 @@ class Adopt extends Component {
                                             initialValue: 1,
                                             rules: [{required: false}],
                                         })(
-                                            <RadioGroup disabled={true}  onChange={this.onChange}>
+                                            <RadioGroup disabled={isdisabled} onChange={this.onChange}>
                                                 <Radio value={1}>关闭</Radio>
                                                 <Radio value={2}>开启</Radio>
                                             </RadioGroup>

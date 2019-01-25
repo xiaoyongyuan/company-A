@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Row,Col,Card } from 'antd';
-import { Link } from 'react-router-dom';
+import { Row,Col } from 'antd';
 import '../../style/ztt/css/Companyhome.css';
 import {post} from "../../axios/tools";
 import Equipment from '../userhome/Equipment';
@@ -10,6 +9,8 @@ import PatrolStatistics from "./PatrolStatistics";
 import baojing from "../../style/ztt/img/baojing.png";
 import cloud from "../../style/ztt/img/cloud.png";
 import nopic from "../../style/imgs/nopic.png";
+import Scenedata from '../companyhome/Scenedata';
+
 class Companyhome extends Component {
     constructor(props){
         super(props);
@@ -72,6 +73,7 @@ class Companyhome extends Component {
                             <Row>
                                 <Col span={23}>
                                     <div className="Imgdiv backLitte boxShow">
+                                        <Scenedata type="maps" />
                                       {/*  <img src={this.state.scenegraph}
                                              className="img-responsive"
                                              alt=""
@@ -146,10 +148,9 @@ class Companyhome extends Component {
                     <Row >
                     <Col xl={22} xxl={20}>
                         <Row>
-                            <Col xl={24} xxl={24} className="marginTop marginLeft marginBottom"><div className="zonglanCircle"/>&nbsp;&nbsp;<span className="titleFont">用户设备</span></Col>
-                            <Equipment/>
+                            <Col xl={24} xxl={24} className="marginTop marginLeft marginBottom"><div className="zonglanCircle" />&nbsp;&nbsp;<span className="titleFont">用户设备</span></Col>
+                            <Equipment />
                         </Row>
-
                     </Col>
                 </Row>
                 </div>

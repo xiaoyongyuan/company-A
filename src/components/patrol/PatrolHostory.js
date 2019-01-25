@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,Spin,message,Modal, Icon} from "antd";
+import {Row,Col,Button,DatePicker,LocaleProvider,Timeline,Form,Spin,message,Modal} from "antd";
 import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
@@ -20,7 +20,7 @@ const formItemLayout = {
         sm: { span: 16 },
     },
 };
-class RollcallHostory extends React.Component{
+class RollcallHostory extends Component{
 	constructor(props){
         super(props);
         this.state={
@@ -279,18 +279,18 @@ class RollcallHostory extends React.Component{
                                     <div className="inlineb"> {item.pdate} </div> 
                                     <div className={this.colorpic(item.status)}> {item.pteam}({item.pbdate}:00 —— {item.pedate}:00)</div>
                                     <span className="xun_detail">
-                                        {item.totalcount===0? <span></span>: <span>该班次有 {item.totalcount}个巡更点</span>}  {item.status===0? <span>,</span>:','}
+                                        {item.totalcount===0? <span />: <span>该班次有 {item.totalcount}个巡更点</span>}  {item.status===0? <span>,</span>:','}
                                         <span style={{padding:"0 0 0 8px"}}>  
                                             {item.status===1?<span>
-                                               {item.handle_true===0? <span></span>: <span>{item.handle_true}个巡更正常 ,</span>}
-                                               {item.handle_false===0? <span></span>: <span>{item.handle_false}个巡更异常 ,</span>}
+                                               {item.handle_true===0? <span />: <span>{item.handle_true}个巡更正常 ,</span>}
+                                               {item.handle_false===0? <span />: <span>{item.handle_false}个巡更异常 ,</span>}
                                                 {/* <a href={'#/app/patrol/patrolrecord?patrolid='+item.patrolid+"&pdate="+item.pdate } className="underline"> 查看详情</a> */}
                                                 </span>: "" 
                                             }
                                             {item.status===2?<span>
-                                                {item.unhandle===0? <span></span>: <span>{item.unhandle}个未巡更,</span>}
-                                                {item.handle_true===0? <span></span>: <span>{item.handle_true}个巡更正常，</span>}
-                                                {item.handle_false===0? <span></span>: <span>{item.handle_false}个巡更异常，</span>}
+                                                {item.unhandle===0? <span />: <span>{item.unhandle}个未巡更,</span>}
+                                                {item.handle_true===0? <span />: <span>{item.handle_true}个巡更正常，</span>}
+                                                {item.handle_false===0? <span />: <span>{item.handle_false}个巡更异常，</span>}
                                                 {/* <a href={'#/app/patrol/patrolrecord?patrolid='+item.patrolid+"&pdate="+item.pdate }className="underline"> 查看详情</a> */}
                                                 </span>: ""
                                            }
