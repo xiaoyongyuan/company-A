@@ -17,8 +17,6 @@ class Connent extends Component{
     componentDidMount() {
         post({url:"/api/company/getone"},(res)=>{
             if(res.success){
-                var  myLookUserNum=res.activelist.length;
-                var  lookMyuserNum=res.passivelist.length;
                 this.setState({
                     main:res.data.cname,
                     come:res.passivelist,
@@ -85,7 +83,7 @@ class Connent extends Component{
                         </Card>
                     </Col>
                 </Row>
-            <Relationshipnetwork  main={this.state.main} come={this.state.come} />
+            <Relationshipnetwork main={this.state.main} come={this.state.come} />
             </div>
         );
     }
