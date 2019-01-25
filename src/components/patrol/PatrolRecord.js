@@ -158,7 +158,7 @@ class PatrolRecord extends React.Component{
             title: '处理结果',
             dataIndex: 'phandle',
             key: 'phandle',
-            render: text => <span>{text===1?<p style={{color:'#429019'}}>通过</p>:<p style={{color:'#f5222d'}}>不通过</p>}</span>,
+            render: text => <span>{text===1?<p style={{color:'#FFF'}}>通过</p>:<p style={{color:'#f5222d'}}>不通过</p>}</span>,
         },{
             title: '操作',
             dataIndex: 'code',
@@ -166,8 +166,8 @@ class PatrolRecord extends React.Component{
             render:(text,record,index)=>{
                 return(
                     <div>
-                        <Button className="operationBtn" onClick={()=>this.patrolAdopt(record.code,1,index)}>通过</Button>
-                        <Button type="danger" className="nopass" onClick={()=>this.patrolAdopt(record.code,2,index)}>不通过</Button>
+                        <Button onClick={()=>this.patrolAdopt(record.code,1,index)}>通过</Button>
+                        <Button className="nopass" onClick={()=>this.patrolAdopt(record.code,2,index)}>不通过</Button>
                     </div>
                 )
             }
