@@ -208,8 +208,9 @@ class PatrolRecord extends React.Component{
                             </Form.Item>
                             <Form.Item>
                                 <Button
-                                    type="primary"
+                                    className="butBg"
                                     htmlType="submit"
+                              
                                 >
                                     查询
                                 </Button>

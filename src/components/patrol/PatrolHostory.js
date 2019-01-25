@@ -54,6 +54,8 @@ class RollcallHostory extends React.Component{
             var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度
             var scrollbottom=scrollHeight-clientHeight;
             var scrollTopP=Math.floor(scrollTop);
+            console.log('******************',scrollTop);
+            
             _this.setState({
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTop
@@ -80,7 +82,7 @@ class RollcallHostory extends React.Component{
                             message.success('没有更多了');
                             _this.setState({
                                 isrequest: false,
-                                loadtip:false,
+                                loadtip:' ',
                                 } )
                             //return "RollcallHostory .timeline_ml .anticon svg";
                         }
@@ -93,6 +95,8 @@ class RollcallHostory extends React.Component{
         };
     }   
     backtop=()=>{ //返回顶部
+        console.log('******************');
+        
         document.getElementById("scorll").scrollTop = 0; 
     };
     //开始时间
@@ -205,7 +209,7 @@ class RollcallHostory extends React.Component{
         const { getFieldDecorator } = this.props.form;
         return(       
             <div className="PatrolHostory scrollable-container" id="scorll" >  
-              <Button type="primary" className="backtop" onClick={this.backtop} style={this.state.scrollTop>20?{display:'block'}:{display:'none'}}>返回顶部</Button>
+              <Button onClick={this.backtop} className="backtop butBg" style={this.state.scrollTop>20?{display:'block'}:{display:'none'}}>返回顶部</Button>
                 <LocaleProvider locale={zh_CN}>
                     <Row className="sear_mtop Patrol_ml">
                         <Form onSubmit={this.handleSubmit}>
@@ -241,7 +245,7 @@ class RollcallHostory extends React.Component{
                                 </Form.Item>
                             </Col>
                             <Col xl={1} xxl={1} lg={1} className="msch">
-                                <Button type="primary" htmlType="submit">查询</Button>
+                                <Button className="butBg" htmlType="submit">查询</Button>
                             </Col>
                         </Form>
                     </Row>

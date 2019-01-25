@@ -91,7 +91,7 @@ class RollcallHostory extends React.Component{
                         }
                         _this.setState({
                             isrequest: false,
-                            loadtip:false,
+                            loadtip:'  ',
                             } )
                     }
                    
@@ -185,7 +185,7 @@ class RollcallHostory extends React.Component{
         return(       
             <div className="RollcallHostory scrollable-container" id="scorll" >  
              {/* <Spin spinning={this.state.loading} className="spin" size="large">  style={this.state.loading?{display:'block'}:{display:'none'}} */}
-              <Button type="primary" className="backtop" onClick={this.backtop} style={this.state.scrollTop>20?{display:'block'}:{display:'none'}}>返回顶部</Button>
+              <Button className="backtop butBg" onClick={this.backtop} style={this.state.scrollTop>20?{display:'block'}:{display:'none'}}>返回顶部</Button>
                 <LocaleProvider locale={zh_CN}>
                     <Row className="sear_mtop Patrol_ml">
                         <Form onSubmit={this.handleSubmit}>
@@ -221,7 +221,7 @@ class RollcallHostory extends React.Component{
                                 </Form.Item>
                             </Col>
                             <Col xl={3} xxl={2} lg={2} className="msch">
-                                <Button type="primary" htmlType="submit">查询</Button>
+                                <Button className="butBg" htmlType="submit">查询</Button>
                             </Col>
                         </Form>
                     </Row>
@@ -240,7 +240,7 @@ class RollcallHostory extends React.Component{
 
                                     <div key={j}> 
                                     
-                                    <Timeline.Item>
+                                    <Timeline.Item color="green">
                                         <p> {item.dayly} </p>
                                          { 
                                              item.info.map((el,i)=>{
