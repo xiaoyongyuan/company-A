@@ -5,6 +5,10 @@ import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
 import nopic from "../../style/imgs/nopic.png";
 import nodata from "../../style/imgs/nodata.png";
+import ing from "../../style/imgs/ing.png";
+import redpic from "../../style/imgs/hongse.png";
+import yellowpic from "../../style/imgs/huangse.png";
+import greenpic from "../../style/imgs/lvse.png";
 import PatrolRecordModel from "./PatrolRecordModel";
 const formItemLayout = {
     labelCol: {
@@ -199,6 +203,22 @@ class RollcallHostory extends React.Component{
          )
         }
      };
+     colorpic=(e)=>{
+        if(e===0){
+             return(
+                 "yellowpic"
+             )
+        }else if(e===1){
+             return(
+                 "greenpic"
+             )
+        }else{
+         return(
+             "redpic"
+         )
+        }
+     };
+     
     render(){
         const { getFieldDecorator } = this.props.form;
         return(       
@@ -257,7 +277,7 @@ class RollcallHostory extends React.Component{
                                 <Timeline.Item color={this.colorline(item.status)} >
                                     <div>
                                     <div className="inlineb"> {item.pdate} </div> 
-                                    <div className="timess"> {item.pteam}({item.pbdate}:00 —— {item.pedate}:00)</div>
+                                    <div className={this.colorpic(item.status)}> {item.pteam}({item.pbdate}:00 —— {item.pedate}:00)</div>
                                     <span className="xun_detail">
                                         {item.totalcount===0? <span></span>: <span>该班次有 {item.totalcount}个巡更点</span>}  {item.status===0? <span>,</span>:','}
                                         <span style={{padding:"0 0 0 8px"}}>  
@@ -283,8 +303,9 @@ class RollcallHostory extends React.Component{
                                     {item.info.map((num,n)=>{
                                         return (
                                             <div key={n} className="alarm_img">
-                                                <img src={num.ppic?num.ppic:nopic} alt="alarm_img" width="100%"style={{marginBottom:'30px'}} onClick={()=>this.handlerollCallType(num.code)} />
-                                            </div> 
+                                                {item.status===0? <img src={num.ppic?num.ppic:ing} alt="alarm_img" width="100%"style={{marginBottom:'30px'}} onClick={()=>this.handlerollCallType(num.code)} />:''}
+                                                {item.status===1? <img src={num.ppic?num.ppic:nopic} alt="alarm_img" width="100%"style={{marginBottom:'30px'}} onClick={()=>this.handlerollCallType(num.code)} />:''}
+                                                {item.status===2? <img src={num.ppic?num.ppic:nodata} alt="alarm_img" width="100%"style={{marginBottom:'30px'}} onClick={()=>this.handlerollCallType(num.code)} />:''}</div> 
                                             )
                                     })
                                    }
