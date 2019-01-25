@@ -47,13 +47,10 @@
 .ant-table-thead > tr > th {
     background: #2B3355!important;
     color: #ffffff;
-    border: 1px solid #4C5784;
+    border: 1px solid #4C5784!important;
 }
 .ant-table-bordered .ant-table-tbody > tr > td {
-    border-right: 1px solid #4C5784;
-}
-.ant-table-tbody > tr > td {
-    border-bottom: 1px solid #4C5784;
+    border: 1px solid #4C5784!important;
 }
 .ant-table {
     color: #ffffff;
