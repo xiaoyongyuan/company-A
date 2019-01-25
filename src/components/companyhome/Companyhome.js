@@ -9,6 +9,8 @@ import PatrolStatistics from "./PatrolStatistics";
 import baojing from "../../style/ztt/img/baojing.png";
 import cloud from "../../style/ztt/img/cloud.png";
 import nopic from "../../style/imgs/nopic.png";
+import Scenedata from '../companyhome/Scenedata';
+
 class Companyhome extends Component {
     constructor(props){
         super(props);
@@ -71,6 +73,7 @@ class Companyhome extends Component {
                             <Row>
                                 <Col span={23}>
                                     <div className="Imgdiv backLitte boxShow">
+                                        <Scenedata type="maps" />
                                       {/*  <img src={this.state.scenegraph}
                                              className="img-responsive"
                                              alt=""

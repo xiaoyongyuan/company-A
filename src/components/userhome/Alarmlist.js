@@ -154,7 +154,8 @@ class Alarmlist extends React.Component{
     * 检索
     * 开始时间、结束时间、设备cid
     * */
-    handleSubmit =()=>{
+    handleSubmit =(e)=>{
+        e.preventDefault();
         if(this.state.propsid){
             this.setState({
                     propsid:'',
