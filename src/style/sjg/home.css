@@ -422,7 +422,6 @@ margin: 20px 0;
     height:50px;
     line-height: 50px;
     text-align: left ;
-    
 }
 .patrol_head{
     display: flex;
@@ -432,9 +431,7 @@ margin: 20px 0;
     justify-content: center;/*水平居中*/
     width:20%;
     height:100px;
-   
 }
-
 @media screen and (min-width: 1280px) {
     .patrol_head>div{
         width:50px;
@@ -468,7 +465,6 @@ margin: 20px 0;
         height:100px;
     }
 }
-
 @media screen and (max-width: 1280px) {
     .patrol_head>div{
         width:40px;
@@ -502,9 +498,6 @@ margin: 20px 0;
         height:100px;
     }
 }
-
-
-
 .m_r{
     margin:20px 2%;
 }
@@ -533,7 +526,6 @@ margin: 20px 0;
 .m-r{
     margin-left: 40px
 }
-
 /* 点名历史部分 */
 .timeline_ml{
     margin-left: 60px;
@@ -561,7 +553,6 @@ margin: 20px 0;
     height:auto;
     display: inline-block;
     margin: 20px 20px 20px 10px;
-
 }
 .mm_l{
     padding: 0 0 0 30px;
@@ -584,37 +575,28 @@ margin: 20px 0;
     position: fixed;
     bottom:20px;
     right:20px;
-    
+    z-index: 100;
 }
 .PatrolHostory .backtop{
     position: fixed;
     bottom:20px;
     right:20px;
-    
+    z-index: 100;
 }
-
-
 @media screen and (min-width: 1280px) {
-
     #scorll{
         width: 100%;
         height: 900px;
         overflow: scroll;
     }
-
 }
 @media screen and (max-width: 1280px) {
-
     #scorll{
         width: 100%;
         height: 540px;
         overflow: scroll;
     }
-
 }
-
-
-
 .spin{
   width: 100%;
   margin: 30px auto;
@@ -747,15 +729,60 @@ margin: 4px 0 0 20px ;
 
 
 .PatrolHostory .timeline_ml .anticon svg {
+    /* 加载中圈的颜色 */
     display: inline-block;
+    color: red;
 }
 .RollcallHostory .timeline_ml .anticon svg {
+     /* 加载中圈的颜色 */
     display: none;
+    color: red; 
 }
-/* .ant-timeline-item-pending .ant-timeline-item-head */
-.ant-spin-dot i{
-    background: #ffffff!important;
+.PatrolHostory .ant-timeline-item-pending .ant-timeline-item-head {
+     /* 加载中圈的外边的背景 */
+    background: #323A5D;
 }
-.ant-spin {
-    color: #ffffff!important;
+
+.PatrolHostory .ant-form-item-label label {
+    color: #fff !important;
+}
+.PatrolHostory .ant-timeline {
+    color: #fff;
+}
+.RollcallHostory .ant-timeline-item-pending .ant-timeline-item-head {
+    /* 加载中圈的外边的背景 */
+    background: #323A5D;
+}
+.RollcallHostory .ant-form-item-label label {
+     /* 所有的字体为白色 */
+    color: #fff !important;
+}
+.RollcallHostory .ant-timeline {
+    /* 所有的字体为白色 */
+    color: #fff;
+}
+.RollcallHostory a{
+    color: #fff;
+}
+.PatrolHostory a{
+    color: #fff;
+}
+.PatrolPlan{
+    background:#323A5D !important;
+}
+.ant-form-item-label label {
+    /* 所有的label都变成白色 */
+    color: #fff !important;
+}
+.ant-table-thead > tr > th {
+    /* 所有表格th的背景和颜色 */
+    background: #323A5D!important;
+    color: #fff !important;
+}
+.ant-table {
+    /* 所有表格的字体颜色 */
+    color: #fff!important;
+}
+.butBg{
+    background:5063ee;
 }
