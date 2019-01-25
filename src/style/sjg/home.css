@@ -22,7 +22,7 @@
     color: #ffffff;
 }
 .equipmentCard .ant-card-actions > li > span a:hover {
-    color: #aaa;
+    color: #ccc;
 }
 .boxShow{
     box-shadow: 0px 0px 30px rgba(34,34,34,0.4);
@@ -302,7 +302,7 @@ margin: 20px 0;
     color:red;
     position:absolute;
     right:0;
-    top:10px!important;
+    top:26px!important;
     border:1px solid red;
     border-top-left-radius:17px;
     border-top-right-radius:0;
@@ -312,6 +312,7 @@ margin: 20px 0;
     border-right: none;
 }
 .actionsBbottom{
+    width: 100%;
     height:40px;
     color:#ffffff;
 }
@@ -866,4 +867,24 @@ margin: 4px 0 0 20px ;
 .equipmentRight p{
     color: #ffffff;
 }
+/*布防中*/
+.defence{
+    color: #54CD66;
+}
+.defence:hover{
+    color: #43a952;
+}
+/*不在布防中*/
+.nodefence{
+    width: 60px;
+    display: inline-block;
+    color: #AAAAAA;
+}
+/*未设置*/
+.setup{
+    color: #5063EE;
+}
+/*.nodefenceType{
+    width: 20px;
+}*/
 /* box-shadow: 0px 0px 30px rgba(34,34,34,0.4); */
