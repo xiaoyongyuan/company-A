@@ -74,7 +74,7 @@ class SiderCustom extends Component {
         if(user&&user.servicetype&&user.servicetype.includes('物品点名')){
             func.push('rollcall')
         }
-        if(user&&user.ctype==5){
+        if(user&&user.ctype===5){
                identify='user'
 
         }else{
@@ -90,7 +90,7 @@ class SiderCustom extends Component {
                 style={{ overflowY: 'auto' }}
             >
                 <div>
-                    <img src={this.props.collapsed?logoicon:logofont} />
+                    <img src={this.props.collapsed?logoicon:logofont} alt="" />
                 </div>
                 <SiderMenu
                     identify={identify}
