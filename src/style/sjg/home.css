@@ -801,14 +801,3 @@ margin: 4px 0 0 20px ;
     color:#fff !important;
     
 }
- /* .ant-table-tbody > tr:hover{
-    background: red !important;
-}
-.ant-table-tbody > tr > td:hover {
-    background: red !important;
-} */
-
-.ant-table-thead > tr.ant-table-row-hover > td, .ant-table-tbody > tr.ant-table-row-hover > td, .ant-table-thead > tr:hover > td, .ant-table-tbody > tr:hover > td {
-    background: #ccc !important;
-}
-    

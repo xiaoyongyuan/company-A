@@ -74,10 +74,7 @@ class RollcallHostory extends React.Component{
                })
                if(_this.state.isrequest){ 
                 post({url:'/api/rollcalldetail/getlist_info_dayly',data:{pageindex:_this.state.page}},(res)=>{
-                    console.log(res,"res");
-                   
                     if(res.data.length>0){
-                        
                             pag++;
                             const list=_this.state.list;
                             const alist = list.concat(res.data);
