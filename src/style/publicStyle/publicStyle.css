@@ -57,7 +57,7 @@
 .ant-pagination-item a {
     color: #ffffff!important;
 }
-/*查询 修改*/
+/*查询 修改 新增*/
 .queryBtn{
     background:#5063ee!important;
     border: 1px solid #5063ee!important;
@@ -91,4 +91,6 @@
     color:#ffffff!important;
 }
 /*一键处理*/
-/*新增*/
+.processingBtn{
+    color: #5063ee!important;
+}

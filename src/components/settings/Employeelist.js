@@ -224,7 +224,7 @@ class Adminteam extends Component {
                             </Form>
                         </Col>
                         <Col span={2} style={{textAlign:'right' }}>
-                            <Button style={this.state.utype?{display:"inline-block"}:{display:"none"}} onClick={this.showModal}>新增</Button>
+                            <Button style={this.state.utype?{display:"inline-block"}:{display:"none"}} onClick={this.showModal} className="queryBtn">新增</Button>
                         </Col>
                     </Row>
                     <Row>
