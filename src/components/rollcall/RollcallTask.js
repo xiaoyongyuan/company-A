@@ -232,6 +232,7 @@ class RollcallTask extends Component{
     
     render(){
         const { getFieldDecorator } = this.props.form;
+        const ishideOnSinglePage = true;
         return(       
             <div className="RollcallTask">
             	<Spin spinning={this.state.loading} indicator={<p />}>
@@ -293,8 +294,8 @@ class RollcallTask extends Component{
                             <h4 style={{textAlign:'center',fontSize:"1max"}}>{el.rname}<Icon type="delete" style={{float:'right'}} onClick={()=>this.deleteobj(el.code,i)} /></h4>
                             <div className="cardContext">
                                 <a className="scan" href={"#/app/rollcall/adoptlook?id="+el.code}>
-                                    <canvas id={"canvas"+(i+1)}  width='270px' height='221px' style={el.fieldpath?{backgroundImage:'url('+el.fieldpath+')'}:{backgroundImage:'url('+noImg+')'}} />
-                                    <img src={scan} className={el.scan?"scangif":"scanno"} />
+                                    <canvas id={"canvas"+(i+1)} width="270px" height="221px" style={el.fieldpath?{backgroundImage:'url('+el.fieldpath+')'}:{backgroundImage:'url('+noImg+')'}} />
+                                    <img src={scan} className={el.scan?"scangif":"scanno"} alt="" />
                                 </a>
                                 <div className="titles">{el.cameraname}</div>
                            </div>
@@ -308,13 +309,13 @@ class RollcallTask extends Component{
                             </p>
                             : <p>暂无点名记录  </p>
                            }
-                           <Button type="primary" block onClick={()=>this.rollcall(el.code,i)} visible={el.rstatus} disabled={el.rhandle==1&&el.rstatus?false:true}>点名</Button>
+                           <Button type="primary" block onClick={()=>this.rollcall(el.code,i)} visible={el.rstatus} disabled={el.rhandle===1&&el.rstatus?false:true}>点名</Button>
                         </Card>
                     </div>
                 ))
                 }   
                 </div>
-                <Pagination hideOnSinglePage={true} current={this.state.pageindex} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} className="pageSize" />
+                <Pagination hideOnSinglePage={ishideOnSinglePage} current={this.state.pageindex} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} className="pageSize" />
 
               </Spin>
                 <Modal
