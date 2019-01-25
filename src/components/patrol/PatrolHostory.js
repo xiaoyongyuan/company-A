@@ -6,6 +6,7 @@ import '../../style/sjg/home.css';
 import nopic from "../../style/imgs/nopic.png";
 import nodata from "../../style/imgs/nodata.png";
 import ing from "../../style/imgs/ing.png";
+import unsucc from "../../style/imgs/unsucc.png";
 import redpic from "../../style/imgs/hongse.png";
 import yellowpic from "../../style/imgs/huangse.png";
 import greenpic from "../../style/imgs/lvse.png";
@@ -304,8 +305,8 @@ class RollcallHostory extends Component{
                                         return (
                                             <div key={n} className="alarm_img">
                                                 {item.status===0? <img src={num.ppic?num.ppic:ing} alt="alarm_img" width="100%"style={{marginBottom:'30px'}} onClick={()=>this.handlerollCallType(num.code)} />:''}
-                                                {item.status===1? <img src={num.ppic?num.ppic:nopic} alt="alarm_img" width="100%"style={{marginBottom:'30px'}} onClick={()=>this.handlerollCallType(num.code)} />:''}
-                                                {item.status===2? <img src={num.ppic?num.ppic:nodata} alt="alarm_img" width="100%"style={{marginBottom:'30px'}} onClick={()=>this.handlerollCallType(num.code)} />:''}</div> 
+                                                {item.status===1? <img src={num.ppic} alt="alarm_img" width="100%"style={{marginBottom:'30px'}} onClick={()=>this.handlerollCallType(num.code)} />:''}
+                                                {item.status===2? <img src={num.ppic?num.ppic:unsucc} alt="alarm_img" width="100%"style={{marginBottom:'30px'}} onClick={()=>this.handlerollCallType(num.code)} />:''}</div> 
                                             )
                                     })
                                    }
