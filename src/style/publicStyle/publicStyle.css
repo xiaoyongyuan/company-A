@@ -114,3 +114,14 @@
     margin-top: -18px!important;
     padding-bottom: 22px!important;
 }
+
+.ant-table-placeholder{
+    background: #2B3355!important;
+    border-top: 1px solid #4C5784;
+    border-bottom:1px solid #4C5784!important;
+    color:#fff!important;
+}
+.ant-table-bordered.ant-table-empty .ant-table-placeholder {
+    border-left: 1px solid #4C5784!important;
+    border-right: 1px solid #4C5784!important;
+}
