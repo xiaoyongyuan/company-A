@@ -3,13 +3,9 @@ import {Row,Col,Button,DatePicker,LocaleProvider,Timeline,Form,Spin,message,Moda
 import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
-import nopic from "../../style/imgs/nopic.png";
 import nodata from "../../style/imgs/nodata.png";
 import ing from "../../style/imgs/ing.png";
 import unsucc from "../../style/imgs/unsucc.png";
-import redpic from "../../style/imgs/hongse.png";
-import yellowpic from "../../style/imgs/huangse.png";
-import greenpic from "../../style/imgs/lvse.png";
 import PatrolRecordModel from "./PatrolRecordModel";
 const formItemLayout = {
     labelCol: {

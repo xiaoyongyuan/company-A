@@ -5,6 +5,7 @@ import {post} from "../../axios/tools";
 import "../../style/ztt/css/patrolRecord.css";
 import PatrolRecordModel from "./PatrolRecordModel";
 import moment from "moment";
+import "../../style/publicStyle/publicStyle.css";
 const Option = Select.Option;
 const RangePicker = DatePicker.RangePicker;
 class PatrolRecord extends React.Component{
@@ -166,8 +167,8 @@ class PatrolRecord extends React.Component{
             render:(text,record,index)=>{
                 return(
                     <div>
-                        <Button onClick={()=>this.patrolAdopt(record.code,1,index)}>通过</Button>
-                        <Button className="nopass" onClick={()=>this.patrolAdopt(record.code,2,index)}>不通过</Button>
+                        <Button className="adoptBtn" onClick={()=>this.patrolAdopt(record.code,1,index)}>通过</Button>
+                        <Button className="nopass deleteBtn" onClick={()=>this.patrolAdopt(record.code,2,index)}>不通过</Button>
                     </div>
                 )
             }
