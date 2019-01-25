@@ -86,7 +86,7 @@ class RollcallTask extends Component{
     rollcall=(rid,index)=>{ //手动点名
     	post({url:"/api/rollcalltask/add_manualforAPP",data:{rid:rid}},(res)=>{
         if(res.success){
-        	if(rid=='all'){ //全部点名
+        	if(rid==='all'){ //全部点名
         		this.props.history.push('/app/companyhome/calling?id='+res.code)
         	}else{ //单点
                 let duration=moment().format('YYYY-MM-DD HH:mm:ss');
@@ -234,7 +234,7 @@ class RollcallTask extends Component{
         const { getFieldDecorator } = this.props.form;
         return(       
             <div className="RollcallTask">
-            	<Spin spinning={this.state.loading} indicator={<p></p>}>
+            	<Spin spinning={this.state.loading} indicator={<p />}>
                 <Row style={{margin:"2vmax 1vmax"}}>
                     <Col span={22}>
                         <Card title="点名任务" extra={<a onClick={this.handleSetting}> <Icon type="setting" theme="filled" /><span>设置</span></a>}>
@@ -258,7 +258,7 @@ class RollcallTask extends Component{
                                         message: '请输入名称!'
                                     }],
                                 })( 
-                                    <Input onChange={this.handleRealname}/>
+                                    <Input onChange={this.handleRealname} />
                                 )}
                             </FormItem>
                             <FormItem label="设备">
@@ -268,7 +268,7 @@ class RollcallTask extends Component{
                                         message: '请输入设备!',
                                     }],
                                 })(
-                                    <Input onChange={this.handleAccount}/>
+                                    <Input onChange={this.handleAccount} />
                                 )}
                             </FormItem>
                             <FormItem>

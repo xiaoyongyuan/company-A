@@ -86,8 +86,8 @@ class Echartline extends Component {
                 axisLabel: {
                     show: true,
                     textStyle: {
-                        color: '#7d91b4',  //更改坐标轴文字颜色
-                        fontSize : 14      //更改坐标轴文字大小
+                        color: '#7d91b4', //更改坐标轴文字颜色
+                        fontSize : 14 //更改坐标轴文字大小
                     }
                 },
             },
@@ -100,8 +100,8 @@ class Echartline extends Component {
                 axisLabel: {
                     show: true,
                     textStyle: {
-                        color: '#7d91b4',  //更改坐标轴文字颜色
-                        fontSize : 14      //更改坐标轴文字大小
+                        color: '#7d91b4', //更改坐标轴文字颜色
+                        fontSize : 14 //更改坐标轴文字大小
                     }
                 },
             },
@@ -470,7 +470,6 @@ class Echartline extends Component {
         this.setState({option})
     }
     render() {
-        const _this=this;
         return (
             <ReactEcharts
                 option={this.state.option}
