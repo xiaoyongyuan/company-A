@@ -21,6 +21,9 @@
 .equipmentCard .ant-card-actions > li > span a {
     color: #ffffff;
 }
+.equipmentCard .ant-card-actions > li > span a:hover {
+    color: #aaa;
+}
 .boxShow{
     box-shadow: 0px 0px 30px rgba(34,34,34,0.4);
 }
@@ -39,7 +42,21 @@
     height: auto;
     margin: 0 auto;
     padding: 1%;
-    background: #fff;
+    background: #2B3355;
+}
+.ant-table-thead > tr > th {
+    background: #2B3355!important;
+    color: #ffffff;
+    border: 1px solid #4C5784;
+}
+.ant-table-bordered .ant-table-tbody > tr > td {
+    border-right: 1px solid #4C5784;
+}
+.ant-table-tbody > tr > td {
+    border-bottom: 1px solid #4C5784;
+}
+.ant-table {
+    color: #ffffff;
 }
 .search input{
     width: 60%;

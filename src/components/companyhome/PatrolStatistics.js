@@ -36,7 +36,7 @@ class PatrolStatistics extends Component{
                 },
 
             ]
-        };
+        }
 
 
         let xAxisMonth = [],
@@ -54,11 +54,14 @@ class PatrolStatistics extends Component{
             });
         }
 
-       let option = {
-            //backgroundColor: "#fff",
+       var option = {
+           /* backgroundColor: "#fff",*/
             title: '',
             grid: {
+                top: '24%',
                 left: '15%',
+                bottom: '6%',
+                containLabel: true
             },
 
             xAxis: [
@@ -69,7 +72,7 @@ class PatrolStatistics extends Component{
                     position: "bottom",
                     data: xAxisMonth,
                     boundaryGap: true,
-                    offset: 7,
+                    offset: 10,
                     axisTick: {
                         show: false
                     },
@@ -106,7 +109,7 @@ class PatrolStatistics extends Component{
                     splitLine: {
                         show:false,
                         lineStyle: {
-                            color: '#418ABC',
+                            color: '#e1e3e5',
                             type: 'solid'
                         }
                     },
@@ -118,7 +121,7 @@ class PatrolStatistics extends Component{
 
                 type: 'pictorialBar',
                 xAxisIndex: 1,
-                barCategoryGap: '-30%',
+                barCategoryGap: '-80%',
                 // barCategoryGap: '-5%',
                 symbol: 'path://d="M150 50 L130 130 L170 130  Z"',
                 itemStyle: {
