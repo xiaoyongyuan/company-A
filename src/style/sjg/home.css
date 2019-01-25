@@ -376,8 +376,6 @@ margin: 20px 0;
 .padding20{
     padding: 20px;
 }
-
-
 .padding20 .ant-table-tbody > tr > td {
     border: 1px solid #4C5784!important;
 }
