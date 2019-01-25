@@ -6,6 +6,7 @@ import RollcallRecordModel from "./RollcallRecordModel";
 import noImg from "../../style/imgs/nopic.png";
 import scan from "../../style/imgs/scan.gif";
 import moment from "moment";
+import "../../style/publicStyle/publicStyle.css";
 const Option = Select.Option;
 const FormItem = Form.Item;
 
@@ -273,17 +274,17 @@ class RollcallTask extends Component{
                                 )}
                             </FormItem>
                             <FormItem>
-                                <Button className="butBg" htmlType="submit">
+                                <Button className="butBg queryBtn" htmlType="submit">
                                     查询
                                 </Button>
                             </FormItem>
                         </Form>
                     </Col>
                     <Col span={2}>
-                        <a href="#/app/rollcall/adopt"><Button>新增</Button></a>
+                        <a href="#/app/rollcall/adopt"><Button className="queryBtn">新增</Button></a>
                     </Col>
                     <Col span={2}>
-                        <Button onClick={()=>this.rollcall('all')}>全部点名</Button>
+                        <Button className="processingBtn" onClick={()=>this.rollcall('all')}>全部点名</Button>
                     </Col>
 
                 </Row>
@@ -291,7 +292,7 @@ class RollcallTask extends Component{
                 {this.state.list.map((el,i)=>(
                     <div className="cardflex" key={i+1} style={{margin:"1vmax 1vmax"}}>
                        <Card>
-                            <h4 style={{textAlign:'center',fontSize:"1max"}}>{el.rname}<Icon type="delete" style={{float:'right'}} onClick={()=>this.deleteobj(el.code,i)} /></h4>
+                            <h4 style={{textAlign:'center',fontSize:"1max",color:'#fff'}}>{el.rname}<Icon type="delete" style={{float:'right'}} onClick={()=>this.deleteobj(el.code,i)} /></h4>
                             <div className="cardContext">
                                 <a className="scan" href={"#/app/rollcall/adoptlook?id="+el.code}>
                                     <canvas id={"canvas"+(i+1)} width="270px" height="221px" style={el.fieldpath?{backgroundImage:'url('+el.fieldpath+')'}:{backgroundImage:'url('+noImg+')'}} />
@@ -309,7 +310,7 @@ class RollcallTask extends Component{
                             </p>
                             : <p>暂无点名记录  </p>
                            }
-                           <Button type="primary" block onClick={()=>this.rollcall(el.code,i)} visible={el.rstatus} disabled={el.rhandle===1&&el.rstatus?false:true}>点名</Button>
+                           <Button type="primary"className="queryBtn" block onClick={()=>this.rollcall(el.code,i)} visible={el.rstatus} disabled={el.rhandle===1&&el.rstatus?false:true}>点名</Button>
                         </Card>
                     </div>
                 ))

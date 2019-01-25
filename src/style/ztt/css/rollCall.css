@@ -5,9 +5,15 @@
     background: #2B3355;
     padding: 10px;
     border-radius: 5px;
-    box-shadow: 0 0 9px #ccc;
+    box-shadow: 0px 0px 30px rgba(34,34,34,0.4);
 }
 
+.ercolor{
+    background: #2B3253;
+    margin-left: 20px;
+    margin-top: 20px;
+    padding-top: 10px
+}
 .rollRow{
     margin-left: 8%;
 }

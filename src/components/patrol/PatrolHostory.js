@@ -81,7 +81,7 @@ class RollcallHostory extends Component{
                             message.success('没有更多了');
                             _this.setState({
                                 isrequest: false,
-                                loadtip:' ',
+                                loadtip:false,
                                 } )
                             //return "RollcallHostory .timeline_ml .anticon svg";
                         }
