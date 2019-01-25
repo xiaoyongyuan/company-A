@@ -797,6 +797,7 @@ margin: 4px 0 0 20px ;
     /* 所有表格的字体颜色 */
     color: #fff!important;
 }
-.butBg{
-    background:5063ee;
+.ant-pagination-item-ellipsis{
+    color:#fff !important;
+    
 }

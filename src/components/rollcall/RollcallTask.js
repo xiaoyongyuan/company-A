@@ -86,7 +86,7 @@ class RollcallTask extends Component{
     rollcall=(rid,index)=>{ //手动点名
     	post({url:"/api/rollcalltask/add_manualforAPP",data:{rid:rid}},(res)=>{
         if(res.success){
-        	if(rid=='all'){ //全部点名
+        	if(rid==='all'){ //全部点名
         		this.props.history.push('/app/companyhome/calling?id='+res.code)
         	}else{ //单点
                 let duration=moment().format('YYYY-MM-DD HH:mm:ss');
@@ -232,9 +232,10 @@ class RollcallTask extends Component{
     
     render(){
         const { getFieldDecorator } = this.props.form;
+        const ishideOnSinglePage = true;
         return(       
             <div className="RollcallTask">
-            	<Spin spinning={this.state.loading} indicator={<p></p>}>
+            	<Spin spinning={this.state.loading} indicator={<p />}>
                 <Row style={{margin:"2vmax 1vmax"}}>
                     <Col span={22}>
                         <Card title="点名任务" extra={<a onClick={this.handleSetting}> <Icon type="setting" theme="filled" /><span>设置</span></a>}>
@@ -258,7 +259,7 @@ class RollcallTask extends Component{
                                         message: '请输入名称!'
                                     }],
                                 })( 
-                                    <Input onChange={this.handleRealname}/>
+                                    <Input onChange={this.handleRealname} />
                                 )}
                             </FormItem>
                             <FormItem label="设备">
@@ -268,7 +269,7 @@ class RollcallTask extends Component{
                                         message: '请输入设备!',
                                     }],
                                 })(
-                                    <Input onChange={this.handleAccount}/>
+                                    <Input onChange={this.handleAccount} />
                                 )}
                             </FormItem>
                             <FormItem>
@@ -293,8 +294,8 @@ class RollcallTask extends Component{
                             <h4 style={{textAlign:'center',fontSize:"1max"}}>{el.rname}<Icon type="delete" style={{float:'right'}} onClick={()=>this.deleteobj(el.code,i)} /></h4>
                             <div className="cardContext">
                                 <a className="scan" href={"#/app/rollcall/adoptlook?id="+el.code}>
-                                    <canvas id={"canvas"+(i+1)}  width='270px' height='221px' style={el.fieldpath?{backgroundImage:'url('+el.fieldpath+')'}:{backgroundImage:'url('+noImg+')'}} />
-                                    <img src={scan} className={el.scan?"scangif":"scanno"} />
+                                    <canvas id={"canvas"+(i+1)} width="270px" height="221px" style={el.fieldpath?{backgroundImage:'url('+el.fieldpath+')'}:{backgroundImage:'url('+noImg+')'}} />
+                                    <img src={scan} className={el.scan?"scangif":"scanno"} alt="" />
                                 </a>
                                 <div className="titles">{el.cameraname}</div>
                            </div>
@@ -308,13 +309,13 @@ class RollcallTask extends Component{
                             </p>
                             : <p>暂无点名记录  </p>
                            }
-                           <Button type="primary" block onClick={()=>this.rollcall(el.code,i)} visible={el.rstatus} disabled={el.rhandle==1&&el.rstatus?false:true}>点名</Button>
+                           <Button type="primary" block onClick={()=>this.rollcall(el.code,i)} visible={el.rstatus} disabled={el.rhandle===1&&el.rstatus?false:true}>点名</Button>
                         </Card>
                     </div>
                 ))
                 }   
                 </div>
-                <Pagination hideOnSinglePage={true} current={this.state.pageindex} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} className="pageSize" />
+                <Pagination hideOnSinglePage={ishideOnSinglePage} current={this.state.pageindex} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} className="pageSize" />
 
               </Spin>
                 <Modal

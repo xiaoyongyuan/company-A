@@ -174,7 +174,7 @@ class PatrolRecord extends React.Component{
         }];
         return(       
             <div className="PatrolRecord">
-                    <Row style={{marginTop:"50px",marginLeft:"30px"}}>
+                    <Row style={{marginTop:"20px",marginLeft:"30px"}}>
                         <Form layout="inline" onSubmit={this.handlePatrolSelect} className="rangeForm">
                             <LocaleProvider locale={zh_CN}>
                                 <Form.Item
