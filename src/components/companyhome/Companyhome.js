@@ -92,7 +92,9 @@ class Companyhome extends Component {
                                 </Col>
                             </Row>*/}
                             <Row>
-                                <Col xl={11} xxl={11}>
+                              {/*  <Col xl={12} xxl={12} >111</Col>
+                                <Col xl={12} xxl={12} >222</Col>*/}
+                                <Col xl={12} xxl={12}>
                                     <div className="clear y-center marginTop littleLeft boxShow">
                                         <Col span={8}>
                                             <img src={baojing} alt="" className="noBorder" />
@@ -107,7 +109,7 @@ class Companyhome extends Component {
                                         </Col>
                                     </div>
                                 </Col>
-                                <Col xl={11} xxl={11}>
+                                <Col xl={12} xxl={12}>
                                     <div className="clear y-center marginTop marginLeft boxShow">
                                         <Col span={8}>
                                             <img src={cloud} alt="" className="noBorder" />
@@ -144,7 +146,7 @@ class Companyhome extends Component {
                     <Row >
                     <Col xl={22} xxl={20}>
                         <Row>
-                            <Col xl={24} xxl={24} className="marginTop marginLeft"><div className="zonglanCircle"/>&nbsp;&nbsp;<span className="titleFont">用户设备</span></Col>
+                            <Col xl={24} xxl={24} className="marginTop marginLeft marginBottom"><div className="zonglanCircle"/>&nbsp;&nbsp;<span className="titleFont">用户设备</span></Col>
                             <Equipment/>
                         </Row>
 

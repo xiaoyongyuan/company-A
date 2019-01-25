@@ -60,7 +60,7 @@ class RollcallStatistics extends Component{
                 show: false
             },
             grid: {
-                left: '3%',
+                left: '5%',
                 right: '3%',
                 bottom: '5%',
                 top: '7%',

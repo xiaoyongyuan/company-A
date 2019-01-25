@@ -4,6 +4,7 @@
 }
 .equipmentCard{
     padding: 20px;
+    padding-bottom: 30px;
 }
 .equipmentCard .ant-card-body{
     background: #2B3355;
@@ -23,7 +24,7 @@
 .boxShow{
     box-shadow: 0px 0px 30px rgba(34,34,34,0.4);
 }
-.equipmentCard.ant-card-actions{
+.equipmentCard .ant-card-actions{
     border-top: 1px solid #4C5784!important;
 }
 .loadding{
@@ -241,7 +242,6 @@ margin: 20px 0;
     position: absolute;
     bottom: 0;
     right: 0;
-
     width: 50px;
     height: 50px;
     background-image:url(img/jiao3.png) ;
@@ -273,7 +273,7 @@ margin: 20px 0;
     color: #ffffff;
 }
 .onLineBack{
-    background:#54CD66;
+    background:#14c12e;
 }
 .offLineBack{
     background:#aaa;
@@ -753,3 +753,9 @@ margin: 4px 0 0 20px ;
     display: none;
 }
 /* .ant-timeline-item-pending .ant-timeline-item-head */
+.ant-spin-dot i{
+    background: #ffffff!important;
+}
+.ant-spin {
+    color: #ffffff!important;
+}

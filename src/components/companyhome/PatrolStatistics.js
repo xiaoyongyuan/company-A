@@ -58,10 +58,7 @@ class PatrolStatistics extends Component{
             //backgroundColor: "#fff",
             title: '',
             grid: {
-                top: '24%',
-                left: '10%',
-                bottom: '6%',
-                containLabel: true
+                left: '15%',
             },
 
             xAxis: [
