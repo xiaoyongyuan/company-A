@@ -143,3 +143,9 @@
 .tc-label label{
     color: #000!important;
 }
+.warrper .ant-form .ant-input{
+    color: #000;
+}
+.tc-label .ant-form .ant-input{
+    color: #000;
+}

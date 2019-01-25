@@ -188,7 +188,7 @@ class Adminteam extends Component {
             <div className="warrper" style={{margin:'20px 10px',minHeight:'600px' }}>
                 <div className="shange">
                     <Row className="row-query" style={{ marginBottom:'30px' }}>
-                        <Col span={22}>
+                        <Col span={22} className="col-employ-queryinput">
                             <Form layout="inline" onSubmit={this.selectopt}>
                                 <FormItem label="姓名">
                                     {getFieldDecorator('realname', {
@@ -205,7 +205,6 @@ class Adminteam extends Component {
                                         rules: [{
                                             required: false,
                                             message: '请输入账号!',
-
                                         }],
                                     })(
                                         <Input />
@@ -253,6 +252,7 @@ class Adminteam extends Component {
                     />
                 </Modal>
                 <Modal title="提示信息" visible={this.state.deleteshow} onOk={this.deleteOk}
+                       width={370}
                        onCancel={this.deleteCancel} okText="确认" cancelText="取消"
                 >
                     <p>确认删除吗？</p>
