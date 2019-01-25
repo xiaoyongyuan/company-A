@@ -123,18 +123,21 @@ class Equipment extends React.Component{
                                         ]}
                                     >
                                         <Row className="paddRow">
-                                            <Col xxl={{ span:9}} lg={{span:9}} >
-                                                   {this.isonline(i)}
-                                            </Col>
-                                            <Col xxl={{span: 10}} lg={{ span: 12}} className="titcon">
-                                               <p>{el.name}</p>
-                                               <p>{el.eid}</p>
+                                            <Col xxl={{ span:24}} lg={{span:24}} >
+                                                <div className="equipmentNumber">
+                                                    <div >{this.isonline(i)}</div>
+                                                    <div className="equipmentRight">
+                                                        <p>{el.name}</p>
+                                                        <p>{el.eid}</p>
+                                                    </div>
+                                                </div>
+
                                             </Col>
                                         </Row>
                                         <div className="bell">
-                                        <a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"} style={{color:'#f00'}}>
-                                            <Icon type="bell" /> <span>{this.state.camera[i].alarm}</span>
-                                        </a>
+                                            <a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"} style={{color:'#f00'}}>
+                                                <Icon type="bell" /> <span>{this.state.camera[i].alarm}</span>
+                                            </a>
                                         </div>
                                     </Card>
                                 </Col>
