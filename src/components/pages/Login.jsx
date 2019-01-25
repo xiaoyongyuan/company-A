@@ -22,27 +22,6 @@ class Login extends React.Component {
             qrcode:""
         }
     }
-
-    componentWillMount() {
-        const { receiveData } = this.props;
-        receiveData(null, 'auth');
-    }
-    componentDidUpdate(prevProps) { 
-        const { auth: nextAuth = {}, history } = this.props;
-        if (nextAuth.data && nextAuth.data.success) {
-            localStorage.setItem('token', nextAuth.data.token);
-            localStorage.setItem('user', JSON.stringify(nextAuth.data.data));
-            localStorage.setItem('comid', nextAuth.data.data.companycode);
-            localStorage.setItem('account', nextAuth.data.data.account);
-            if(nextAuth.data.data.ctype==='5'){
-                history.push('/app/userhome/index');
-            }else{
-                 if(nextAuth.data.data.activecount) history.push('/app/companyhome/visual');
-                 else history.push('/app/companyhome/index');  
-            }
-            
-        }
-    }
     //请求二维码
     handleQrcoderequest =()=>{
         //60秒之后归零
@@ -64,7 +43,7 @@ class Login extends React.Component {
             qrcode({url:"/login/qrcode_ret",data:{qrcode:this.state.qrcode}},(res)=>{
                 if(count<60){
                     count++;
-                }else if(count===60){
+                }else if(count==60){
                     clearInterval(qrcodeSet);
                     this.setState({
                         qrcodeStatus:1
@@ -108,6 +87,26 @@ class Login extends React.Component {
         const { fetchData } = this.props;
         fetchData({funcName: 'webapp', url:'/login/verify_qrcode', params:values, stateName:'auth'});
     }
+    componentWillMount() {
+        const { receiveData } = this.props;
+        receiveData(null, 'auth');
+    }
+    componentDidUpdate(prevProps) { 
+        const { auth: nextAuth = {}, history } = this.props;
+        if (nextAuth.data && nextAuth.data.success) {
+            localStorage.setItem('token', nextAuth.data.token);
+            localStorage.setItem('user', JSON.stringify(nextAuth.data.data));
+            localStorage.setItem('comid', nextAuth.data.data.companycode);
+            localStorage.setItem('account', nextAuth.data.data.account);
+            if(nextAuth.data.data.ctype==='5'){
+                history.push('/app/userhome/index');
+            }else{
+                 if(nextAuth.data.data.activecount) history.push('/app/companyhome/visual');
+                 else history.push('/app/companyhome/index');  
+            }
+            
+        }
+    }
     handleSubmit = (e) => {
         e.preventDefault();
         //在从此处登录，并记录下来
@@ -126,30 +125,20 @@ class Login extends React.Component {
                 <div className="login-form" >
                     <div className="login-top" >
                         <div className="login-form1">
-                            <div className="master-login-title">
-                                {this.state.typeState?
-                                    this.setState({
-                                        loginTitle:'扫码登录'
-                                    })
-                                    :
-                                    this.setState({
-                                        loginTitle:'密码登录'
-                                    })
-                                }
-                            </div>
-                            <div className={"pwdBtn iconfont"+(this.state.typeState?" icon-diannao ":" icon-erweima")} onClick={this.handlerImg} />
+                            <div className="master-login-title">{this.state.typeState?this.state.loginTitle="扫码登录":this.state.loginTitle="密码登录"}</div>
+                            <div className={"pwdBtn iconfont"+(this.state.typeState?" icon-diannao ":" icon-erweima")} onClick={this.handlerImg}></div>
                         </div>
                     </div>
                     <div className="qrcode">
-                        <div className="login-code" style={{display:this.state.typeState?"block":"none"}}>
+                        <div  className="login-code" style={{display:this.state.typeState?"block":"none"}}>
                             <QRCode size={150} value={this.state.qrcode} />
                         </div>
                         <div className="qrcodeModel" style={{display:this.state.qrcodeStatus?"block":"none"}}>
                             <p className="qrcodeModelFont">二维码已失效</p>
-                            <Button type="primary" className="btn" onClick={this.handleQrcoderequest}>刷新二维码</Button>
+                            <Button type="primary"  className="btn" onClick={this.handleQrcoderequest}>刷新二维码</Button>
                         </div>
                     </div>
-                    <Form onSubmit={this.handleSubmit} style={{display:this.state.typeState?"none":"block",maxWidth: '300px'}}>
+                    <Form onSubmit={this.handleSubmit}  style={{display:this.state.typeState?"none":"block",maxWidth: '300px'}}>
                         <FormItem>
                             {getFieldDecorator('account', {
                                 rules: [{ required: true, message: '请输入用户名(手机号)!'
