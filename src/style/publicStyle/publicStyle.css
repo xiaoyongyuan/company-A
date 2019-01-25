@@ -13,7 +13,7 @@
 /*输入框*/
 .ant-input{
     background: #3C466E!important;
-    color: #ffffff!important;
+    /*color: #ffffff!important;*/
     border: 1px solid #3C466E!important;
 }
 .ant-calendar-picker-icon {
