@@ -11,10 +11,10 @@
     color: #fff !important;
 }
 /*输入框*/
-.ant-input{
-    background: #3C466E!important;
-    /*color: #ffffff!important;*/
-    border: 1px solid #3C466E!important;
+.ant-form .ant-input{
+    background: #3C466E;
+    color: #ffffff;
+    border: 1px solid #3C466E;
 }
 .ant-calendar-picker-icon {
     color: #8592C6!important;
@@ -81,13 +81,13 @@
 }
 /*通过*/
 .adoptBtn{
-    background:#14c12e!important;
-    border: 1px solid #14c12e!important;
+    background:#5063ee!important;
+    border: 1px solid #5063ee!important;
     color:#ffffff!important;
 }
 .adoptBtn:hover{
-    background:#3c9010!important;
-    border: 1px solid #3c9010!important;
+    background:#4152cd!important;
+    border: 1px solid #4152cd!important;
     color:#ffffff!important;
 }
 /*一键处理*/
@@ -124,6 +124,19 @@
 .ant-table-bordered.ant-table-empty .ant-table-placeholder {
     border-left: 1px solid #4C5784!important;
     border-right: 1px solid #4C5784!important;
+}
+/*查询框前字*/
+.ant-form-item-label label{
+    color:#fff!important;
+}
+/*输入框*/
+/*.allInput{
+    background: #3C466E!important;
+    color: #ffffff!important;
+    border: 1px solid #3C466E!important;
+}*/
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: #d1d2d4!important;
 }
 
 /*!*弹层字颜色*!*/
