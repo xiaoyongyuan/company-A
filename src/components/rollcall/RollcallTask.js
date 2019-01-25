@@ -310,7 +310,10 @@ class RollcallTask extends Component{
                             </p>
                             : <p>暂无点名记录  </p>
                            }
-                           <Button type="primary"className="queryBtn" block onClick={()=>this.rollcall(el.code,i)} visible={el.rstatus} disabled={el.rhandle===1&&el.rstatus?false:true}>点名</Button>
+                           
+                            {el.rhandle===1&&el.rstatus? <Button type="primary"className="queryBtn" block onClick={()=>this.rollcall(el.code,i)} visible={el.rstatus} disabled={false}>点名</Button>:''}
+                            {el.rhandle===1&&el.rstatus? '':<Button type="primary"block onClick={()=>this.rollcall(el.code,i)} visible={el.rstatus} disabled={true}>点名</Button>}
+                           {/* <Button type="primary"className="queryBtn" block onClick={()=>this.rollcall(el.code,i)} visible={el.rstatus} disabled={el.rhandle===1&&el.rstatus?false:true}>点名</Button> */}
                         </Card>
                     </div>
                 ))
