@@ -759,6 +759,9 @@ margin: 4px 0 0 20px ;
 .PatrolHostory .ant-form-item-label label {
     color: #fff !important;
 }
+.patrolrecord .ant-form-item-label label {
+    color: #fff !important;
+}
 .PatrolHostory .ant-timeline {
     color: #fff;
 }
@@ -868,4 +871,8 @@ margin: 4px 0 0 20px ;
     line-height: 30px;
     text-align: center;
     margin-left: 10px;
+}
+.ant-table-placeholder{
+    background:#323A5D !important; 
+    border: 
 }

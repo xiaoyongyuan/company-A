@@ -256,7 +256,7 @@ class RollcallHostory extends Component{
                                 </Form.Item>
                             </Col>
                             <Col xl={1} xxl={1} lg={1} className="msch">
-                                <Button className="butBg" htmlType="submit">查询</Button>
+                                <Button className="queryBtn" htmlType="submit">查询</Button>
                             </Col>
                         </Form>
                     </Row>
