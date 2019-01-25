@@ -11,7 +11,7 @@ import Routes from './routes';
 
 
 // auth  根据权限取菜单
-const { Content, Footer } = Layout;
+const {Content} = Layout;
 
 class App extends Component {
     state = {
