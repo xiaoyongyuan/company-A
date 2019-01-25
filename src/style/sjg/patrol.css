@@ -12,3 +12,6 @@
 .PatrolPlan .card-center{
     margin: 0 auto;
 }
+.patrol_detail_lable label{
+    color: #000!important;
+}
