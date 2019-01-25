@@ -94,6 +94,14 @@
 .processingBtn{
     color: #5063ee!important;
 }
+/*弹层字颜色*/
+.ant-form-item-label label{
+    color: #000!important;
+}
+/*弹层input颜色*/
+.ModelFormInput{
+    background: #fff!important;
+}
 /*弹窗*/
 .ant-modal-header {
     border-radius: 4px 4px 0 0;

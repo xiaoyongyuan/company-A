@@ -356,6 +356,7 @@ margin: 20px 0;
      padding-top:5px;
      box-sizing: border-box;
 }
+
 .cardPdd{
     margin:0px 0 0 0;
     padding-left:45px;
@@ -647,7 +648,7 @@ margin: 4px 0 0 20px ;
     width: 6px;
     height:6px;
     border-radius: 50%;
-    background: #F0F2F5;
+    background: #323A5D;
 }
 .circlegreen{
     display: flex;
@@ -835,6 +836,32 @@ margin: 4px 0 0 20px ;
 }
 .ant-timeline-item-head {
     background-color: #323A5D !important;
+}
+
+/*  */
+
+.patrol_item {
+    border: 1px solid #4C5784;
+    box-shadow: 0px 0px 30px rgba(34,34,34,0.4);
+}
+.RollcallTask .ant-card {
+    color: #fff;
+    background: #323A5D;
+    border-radius: 2px;
+    box-shadow: 0px 0px 30px rgba(34,34,34,0.4);
+}
+.RollcallTask .ant-card-head-title {
+    color: #fff;
+}
+.arr{
+    background-image:url(../imgs/arr.png);
+    background-size: 100% 100%;
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    margin-left: 10px;
 }
 .equipmentRight p{
     color: #ffffff;

@@ -213,7 +213,7 @@ class PatrolPlan extends React.Component{
                       title="最多可以新增六个巡更"
                       extra={<Row>
                           <Col span={2} offset={6}>
-                              <Button type="primary" onClick={this.showModal}>新增</Button>
+                              <Button type="primary" className="queryBtn" onClick={this.showModal}>新增</Button>
                           </Col>
                       </Row>
                       }
@@ -237,6 +237,7 @@ class PatrolPlan extends React.Component{
                                                 </div>
                                             </div>
                                             <div className="patrol_query">
+                                                 
                                                 <span onClick={() => {this.showModalEdit( this.state.list[i].code,{i})}}><Icon type="edit" />编辑</span>
                                             </div>
                                             <div className="del">

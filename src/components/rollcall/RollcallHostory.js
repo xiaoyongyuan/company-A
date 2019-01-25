@@ -6,7 +6,8 @@ import '../../style/sjg/home.css';
 import RollcallRecordModel from "./RollcallRecordModel";
 import nopic from "../../style/imgs/nopic.png";
 import nodata from "../../style/imgs/nodata.png";
-
+import arr from "../../style/imgs/arr.png";
+import err from "../../style/imgs/err.png";
 const formItemLayout = {
     labelCol: {
         xs: { span: 24 },
@@ -237,7 +238,7 @@ class RollcallHostory extends Component{
 
                                     <div key={j}> 
                                     
-                                    <Timeline.Item color="green">
+                                    <Timeline.Item color="#fff">
                                         <p> {item.dayly} </p>
                                          { 
                                              item.info.map((el,i)=>{
@@ -255,7 +256,7 @@ class RollcallHostory extends Component{
                                                                        }
                                                                    </div>
                                                                         <div className="m_l">
-                                                                            {el.rollcalldate.slice(11,20)}
+                                                                            <div className="arr">{el.rollcalldate.slice(11,20)}</div>　 
                                                                             {el.ifeveryday===0?"自动点名":"手动点名"}，
                                                                             共点名 {el.totalcount}个对象，
                                                                             {el.executing===0? <span />: <span> {el.executing} 正在点名，</span>}
@@ -269,7 +270,7 @@ class RollcallHostory extends Component{
                                                                 el.alarm.map((num,n)=>{
                                                                      return (
                                                                                 <div key={n} className="alarm_img" style={num.rpic?{display:'inlin-block'}:{display:'none'}} >
-                                                                                    <img src={num.rrpic?num.rrpic:nopic} alt="alarm_img" width="100%" onClick={()=>this.handlerollCallType(num.code)} />
+                                                                                    <img src={num.rrpic?num.rrpic:err} alt="alarm_img" width="100%" onClick={()=>this.handlerollCallType(num.code)} />
                                                                                 </div> 
                                                                             )
                                                                     })
