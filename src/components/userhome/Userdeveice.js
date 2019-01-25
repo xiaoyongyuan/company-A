@@ -144,7 +144,7 @@ class Userdeveice extends React.Component{
     render(){
         const _this=this;
         return(     
-            <div style={{backgroundColor:"#fff",padding:"1%"}}>
+            <div style={{backgroundColor:"#323A5D",padding:"1%"}}>
                 <div className="box-padding"> 
                     <p> <Icon type="bars" /> 设备信息</p>
                     <Row className="equ_row">
@@ -295,7 +295,7 @@ class Userdeveice extends React.Component{
                     <Row className="equ_row">
                            
                             <Col span={21} offset={3} className="t_l">
-                            <Button type="primary" onClick={this.updata}> 提交 </Button>
+                            <Button className="queryBtn lg" onClick={this.updata}> 提交 </Button>
                             </Col>
                         </Row>
                     
