@@ -210,7 +210,7 @@ class PatrolRecord extends React.Component{
                             </Form.Item>
                             <Form.Item>
                                 <Button
-                                    className="butBg"
+                                    className="queryBtn"
                                     htmlType="submit"
                               
                                 >

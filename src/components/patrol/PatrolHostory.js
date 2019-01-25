@@ -256,14 +256,14 @@ class RollcallHostory extends Component{
                                 </Form.Item>
                             </Col>
                             <Col xl={1} xxl={1} lg={1} className="msch">
-                                <Button className="butBg" htmlType="submit">查询</Button>
+                                <Button className="queryBtn" htmlType="submit">查询</Button>
                             </Col>
                         </Form>
                     </Row>
                 </LocaleProvider>
-                <div style={{marginTop:"70px",display:this.state.type?" none":"block"}}>
+                {/* <div style={{marginTop:"70px",display:this.state.type?" none":"block"}}>
                     <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
-                </div>
+                </div> */}
                 <Spin spinning={this.state.loading} className="spin" size="large"tip="Loading..." />
                 <div className="timeline_ml" style={{display:this.state.type?"block":"none"}}>
                  <Timeline pending={this.state.loadtip}>

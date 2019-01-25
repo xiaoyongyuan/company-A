@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Form,TimePicker,Input,Checkbox} from 'antd';
 import {post} from "../../axios/tools";
 import moment from 'moment';
+import '../../style/sjg/patrol.css';
 const FormItem = Form.Item;
 let vis=false;
 class ModalForm extends Component {
@@ -116,6 +117,7 @@ class ModalForm extends Component {
         
        
         return (
+            <div className="patrol_detail_lable">
                 <Form layout="vertical" onSubmit={this.handleSubmit}>
                 <FormItem label="班次名称">
                     {getFieldDecorator('pteam', {
@@ -154,11 +156,9 @@ class ModalForm extends Component {
                             )}
                         </FormItem>
                 </Form>
-
+            </div>
         )
     }
-
-
 }
 
 export default ModalForm = Form.create({})(ModalForm);

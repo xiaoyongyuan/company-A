@@ -127,16 +127,11 @@ class Adminteam extends Component {
         this.props.form.validateFields((err, values) => {
             console.log("values",values);
             if(!err){
-                if(values.realname&&values.account){
-                    message.warn('请输入检索字段');
-                    return;
-                }else{
-                    this.setState({
-                        page:1,
-                    },()=>{
-                        this.requestdata(values)
-                    })
-                }
+                this.setState({
+                    page:1,
+                },()=>{
+                    this.requestdata(values)
+                })
             }
         })
     };
@@ -231,7 +226,7 @@ class Adminteam extends Component {
                         <Col>
                             <div>
                                 {
-                                    this.state.list.length?
+                                    this.state.list.length>=0?
                                         <Table columns={columns}
                                                dataSource={this.state.list}
                                                bordered={isbordered}

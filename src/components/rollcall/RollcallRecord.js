@@ -212,7 +212,7 @@ class RollcallRecord extends React.Component{
                                 </Row>
                                 <Row className="rollCall">
                                     <Col className="overflow">
-                                        {v.rfinal===1?<span style={{color:'green'}}>正常</span>:<span style={{color:'red'}}>对象存在状态异常</span>}
+                                        {v.rfinal===1?<span style={{color:'#54CD66'}}>正常</span>:<span style={{color:'red'}}>对象存在状态异常</span>}
                                     </Col>
                                 </Row>
                             </Col>

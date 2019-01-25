@@ -864,8 +864,15 @@ margin: 4px 0 0 20px ;
     text-align: center;
     margin-left: 10px;
 }
+.PatrolPlan .card-center{
+    margin: 0 !important;
+}
+
 .equipmentRight p{
     color: #ffffff;
+}
+.ercolor{
+    padding-bottom: 20px;
 }
 /*布防中*/
 .defence{
@@ -884,7 +891,5 @@ margin: 4px 0 0 20px ;
 .setup{
     color: #5063EE;
 }
-/*.nodefenceType{
-    width: 20px;
-}*/
+
 /* box-shadow: 0px 0px 30px rgba(34,34,34,0.4); */
