@@ -88,9 +88,9 @@ class Userdeveice extends React.Component{
          return count;
     }
     status=()=>{ //报警类型 
-        if(this.state.edata.status=="stop"){
+        if(this.state.edata.status==="stop"){
             return "停止运行"
-        }else if(this.state.edata.status=="run"){
+        }else if(this.state.edata.status==="run"){
             return "运行中";
         }else{
             return "摄像头未连接";
@@ -113,7 +113,7 @@ class Userdeveice extends React.Component{
             if(timc-timq>60000){
                 return "离线";
             }else{
-                return(<span className='oncolor'>在线</span>)
+                return(<span className="oncolor">在线</span>)
             }    
         }
     }

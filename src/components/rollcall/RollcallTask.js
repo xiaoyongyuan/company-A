@@ -272,7 +272,7 @@ class RollcallTask extends Component{
                                 )}
                             </FormItem>
                             <FormItem>
-                                <Button type="primary" htmlType="submit">
+                                <Button className="butBg" htmlType="submit">
                                     查询
                                 </Button>
                             </FormItem>
