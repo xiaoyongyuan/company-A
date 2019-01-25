@@ -111,7 +111,7 @@
     box-shadow: 0px 0px 0px rgba(255,32,32,0.6);
 }
 
-
+/*表格无数据样式*/
 .ant-table-placeholder{
     background: #2B3355!important;
     border-top: 1px solid #4C5784;
@@ -121,4 +121,8 @@
 .ant-table-bordered.ant-table-empty .ant-table-placeholder {
     border-left: 1px solid #4C5784!important;
     border-right: 1px solid #4C5784!important;
+}
+/*查询框前字*/
+.ant-form-item-label label{
+    color:#fff!important;
 }
