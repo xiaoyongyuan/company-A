@@ -159,8 +159,6 @@ class ModalForm extends Component {
             </div>
         )
     }
-
-
 }
 
 export default ModalForm = Form.create({})(ModalForm);
