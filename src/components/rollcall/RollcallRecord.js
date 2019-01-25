@@ -45,15 +45,13 @@ class RollcallRecord extends React.Component{
                 bdate:dateString[0],
                 edate:dateString[1]
             });
-            console.log(dateString[0]);
-            console.log(dateString[1]);
+            
         }else {
             this.setState({
                 bdate:dateString[0]+' 00:00:00',
                 edate:dateString[1]+' 23:59:59'
             });
-            console.log(dateString[0]);
-            console.log(dateString[1]);
+            
         }
     }
     //model open
