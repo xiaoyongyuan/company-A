@@ -444,16 +444,26 @@
     /* 表格行的hover效果 */
     background: #4F5574 !important;
 }
+/*分页*/
 .ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link {
-    border: 1px solid #d9d9d9!important;
+    border: 1px solid #495480!important;
     background-color: #2B3355!important;
     color: #ffffff!important;
+}
+.ant-pagination-item-active{
+    border: 1px solid #4286F5!important;
+    background: #4286F5;
+}
+.ant-pagination-item-active:hover{
+    border: 1px solid #4286F5!important;
+    background: #4286F5!important;
 }
 .ant-pagination-item {
-    border: 1px solid #ffffff!important;
+    border: 1px solid #495480;
     background-color: #2B3355!important;
 }
-.ant-pagination-item-active a {
+.ant-pagination-item a {
     color: #ffffff!important;
 }
+
 
