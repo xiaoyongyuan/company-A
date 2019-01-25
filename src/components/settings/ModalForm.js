@@ -57,35 +57,20 @@ class ModalForm extends Component {
         const { getFieldDecorator } = this.props.form;
         // const plainOptions = ['Apple', 'Pear', 'Orange']; //分組
         return (
-            <Form layout="vertical" onSubmit={this.handleSubmit}>
-                <FormItem label="账号(手机号)">
-                    {getFieldDecorator('account', {
-                        rules: [{
-                            required: true, message: '请输入手机号!',
-                            pattern: new RegExp(/^1(3|4|5|7|8)\d{9}$/, "g")
-                        }],
-                    })(
-                        <Input className="ModelFormInput" disabled={this.state.code?true:false} />
-                    )}
-                </FormItem>
-                {/*<FormItem label="姓名">
-                    {getFieldDecorator('realname', {
-                        rules: [{ required: true, message: '请输入姓名!' }],
-                    })(
-                        <Input />
-                    )}
-                </FormItem>
-                <FormItem label="邮箱">
-                    {getFieldDecorator('emailaddress', {
-                        rules: [{
-                            required: false, message: '请输入正确的邮箱!',
-                            pattern: new RegExp(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/, "g")
-                        }],
-                    })(
-                        <Input />
-                    )}
-                </FormItem>*/}
-            </Form>
+            <div className="tc-label">
+                <Form layout="vertical" onSubmit={this.handleSubmit}>
+                    <FormItem label="账号(手机号)">
+                        {getFieldDecorator('account', {
+                            rules: [{
+                                required: true, message: '请输入手机号!',
+                                pattern: new RegExp(/^1(3|4|5|7|8)\d{9}$/, "g")
+                            }],
+                        })(
+                            <Input className="ModelFormInput" disabled={this.state.code?true:false} />
+                        )}
+                    </FormItem>
+                </Form>
+            </div>
 
         )
     }
