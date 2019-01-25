@@ -65,7 +65,7 @@ class ModalForm extends Component {
                             pattern: new RegExp(/^1(3|4|5|7|8)\d{9}$/, "g")
                         }],
                     })(
-                        <Input disabled={this.state.code?true:false} />
+                        <Input className="ModelFormInput" disabled={this.state.code?true:false} />
                     )}
                 </FormItem>
                 {/*<FormItem label="姓名">

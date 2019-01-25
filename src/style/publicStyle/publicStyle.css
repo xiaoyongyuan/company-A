@@ -94,3 +94,11 @@
 .processingBtn{
     color: #5063ee!important;
 }
+/*弹层字颜色*/
+.ant-form-item-label label{
+    color: #000!important;
+}
+/*弹层input颜色*/
+.ModelFormInput{
+    background: #fff!important;
+}
