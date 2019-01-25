@@ -261,9 +261,9 @@ class RollcallHostory extends Component{
                         </Form>
                     </Row>
                 </LocaleProvider>
-                <div style={{marginTop:"70px",display:this.state.type?" none":"block"}}>
+                {/* <div style={{marginTop:"70px",display:this.state.type?" none":"block"}}>
                     <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
-                </div>
+                </div> */}
                 <Spin spinning={this.state.loading} className="spin" size="large"tip="Loading..." />
                 <div className="timeline_ml" style={{display:this.state.type?"block":"none"}}>
                  <Timeline pending={this.state.loadtip}>
