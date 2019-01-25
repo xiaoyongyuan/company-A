@@ -2,7 +2,7 @@ import React, { Component} from 'react';
 import ModalForm from './ModalForm.js';
 import {Form, Input, Row, Col, Button, Modal, Table, message, Spin} from 'antd';
 import {post} from "../../axios/tools";
-
+import "../../style/publicStyle/publicStyle.css";
 const FormItem = Form.Item;
 const usertype=JSON.parse(localStorage.getItem('user'));
 class Adminteam extends Component {
@@ -181,7 +181,7 @@ class Adminteam extends Component {
                                 <div>
                                     {/* <Button onClick={()=>_this.showModalEdit(text,record,index)}>查看</Button>
                                 <span className="ant-divider" /> */}
-                                    <Button style={this.state.utype?{display:"inline-block"}:{display:"none"}} onClick={()=>_this.showModaldelete(text,index)}>删除</Button>
+                                    <Button style={this.state.utype?{display:"inline-block"}:{display:"none"}} onClick={()=>_this.showModaldelete(text,index)} className="deleteBtn">删除</Button>
                                 </div>
                             )
                         }
@@ -217,7 +217,7 @@ class Adminteam extends Component {
                                     )}
                                 </FormItem>
                                 <FormItem>
-                                    <Button type="primary" htmlType="submit">
+                                    <Button type="primary" htmlType="submit" className="queryBtn">
                                         查询
                                     </Button>
                                 </FormItem>
