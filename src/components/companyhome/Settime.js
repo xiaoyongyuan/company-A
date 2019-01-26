@@ -201,7 +201,7 @@ class Setarea extends Component {
             return hours;
         }
         return (
-            <div className="padding20">
+            <div className="padding20" className="Settime">
                 {/* <BreadcrumbCustom first="场景" second="布防时间" /> */}
                 <Row style={{marginBottom:'20px'}}>
                     <Col span={24}>
