@@ -1,6 +1,8 @@
 import React,{Component} from "react";
 import {Button, Col, Row} from "antd";
 import {post} from "../../axios/tools";
+import ing from "../../style/imgs/ing.png";
+import unsucc from "../../style/imgs/unsucc.png";
 let vis=false;
 class PatrolRecordModel extends Component{
     constructor(props){
@@ -13,9 +15,16 @@ class PatrolRecordModel extends Component{
     componentWillMount() {
         this.setState({
             code:this.props.code,
+            itemStatus:this.props.itemStatus,
         })
     }
     componentDidMount() {
+        this.setState({
+            itemStatus:this.props.itemStatus,
+        },()=>{
+console.log('******************',this.state.itemStatus);
+
+        })
         post({url:"/api/patrolresult/getone",data:{code:this.state.code}},(res)=>{
             this.setState({
                 paList:res.data
@@ -57,7 +66,10 @@ class PatrolRecordModel extends Component{
                    <Col span={7} offset={3}>{this.state.paList.pteam+' ('+this.state.paList.pbdate+':00:00 —— '+this.state.paList.pedate+':00:00)'}</Col>
                </Row>
                <Row>
-                   <Col span={24}><img src={this.state.paList.ppic} alt="nodata" width="100%" /></Col>
+                   {/* <Col span={24}><img src={this.state.paList.ppic} alt="nodata" width="100%" /></Col> */}
+                    {this.state.itemStatus===0? <Col span={24}><img src={ing} alt="nodata" width="100%" /></Col>:''}
+                    {this.state.itemStatus===1? <Col span={24}><img src={this.state.paList.ppic} alt="nodata" width="100%" /></Col>:''}
+                    {this.state.itemStatus===2? <Col span={24}><img src={this.state.paList.ppic?this.state.paList.ppic:unsucc} alt="nodata" width="100%" /></Col>:''}
                </Row>
                <Row style={{margin:"10px 0px"}}>
                    <Col span={8}>处理结果: {this.state.paList.phandle===1?<span style={{color:'#0f0'}}>通过</span>:<span style={{color:'#f00'}}>不通过</span>}</Col>
