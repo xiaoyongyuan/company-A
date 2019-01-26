@@ -3,6 +3,7 @@ import {Card,Row,Col,Icon,Spin} from 'antd';
 import '../../style/sjg/home.css';
 import {post} from "../../axios/tools";
 import nopic from "../../style/imgs/nopic.png";
+import nodata from "../../style/imgs/nodata.png";
 class Equipment extends React.Component{
     constructor(props){
         super(props);
@@ -14,14 +15,27 @@ class Equipment extends React.Component{
       }
     componentDidMount() {        
         post({url:'/api/company/getone'},(res)=>{ //获取团队列表
-            if(res.success){
+            if(res){
+                if(res.camera.length){
+                    this.setState({
+                        loading:false,
+                        data:res.data, //用户信息
+                        res:res, //用户信息
+                        camera:res.camera, //摄像头信息
+                        type:1
+                    })
+                }else{
+                    this.setState({
+                        loading:false,
+                        type:0
+                    })
+                }
+            } else{
                 this.setState({
-                    data:res.data, //用户信息
-                    res:res, //用户信息
-                    camera:res.camera, //摄像头信息
-                    loading:false
-                });
-            }   
+                    loading:false,
+                    type:0
+                })
+            }
         })
         
     }
@@ -44,7 +58,6 @@ class Equipment extends React.Component{
         }    
         var count = 0;
         for(var j in jsonData){
-            console.log(j);//得到键
             count++;
         }
         return count;
@@ -85,64 +98,67 @@ class Equipment extends React.Component{
         return(
                 <div className="equipment">
                     <Spin size="large" tip="Loading......" spinning={this.state.loading} className="loadding" />
+                    <Row style={{display:this.state.type===0?"block":"none",paddingTop:"40px"}}>
+                        <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
+                    </Row>
                     <div className="equipmentCard">
                         <Row className="paddRow" gutter={32}>
                             {
-                            this.state.camera.map((el,i)=>{
-                                return(
-                                    <Col key={i} xxl={{ span: 5}} lg={{ span: 6}} md={{span:6}} sm={{span:6}} xs={{span:6}} className="cardPdd ">
-                                    <Card className="boxShow"
-                                        cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath?this.state.camera[i].picpath:nopic} width="100%" /></a>}
-                                        actions={
-                                            this.state.utype==='1'
-                                            ?[
-                                            <div className="actionsBbottom">
-                                                 <p>{this.field(i)}条
-                                                 </p>
-                                                 <p>布防区域 </p>
-                                            </div>,
-                                            <div className="actionsBbottom colCen ">
-                                                   {this.statework(i)}
-                                            </div>,
-                                             <div className="colCen actionsBbottom ">
-                                                 <Icon type="setting" /> 设定
-                                             </div>
-                                        ]
-                                        :[
-                                            <a href={"#/app/companyhome/setarea?id="+el.code} className="actionsBbottom">
-                                                 <p> {this.field(i)}条
-                                                 </p>
-                                                 <p>布防区域 </p>
-                                            </a>,
-                                            <a href={"#/app/companyhome/settime?id="+el.code} className="actionsBbottom colCen">
-                                                    {this.statework(i)}
-                                            </a>,
-                                             <a href={"#/app/userhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
-                                                 <Icon type="setting" /> 设定
-                                             </a>
-                                        ]}
-                                    >
-                                        <Row className="paddRow">
-                                            <Col xxl={{ span:24}} lg={{span:24}} >
-                                                <div className="equipmentNumber">
-                                                    <div >{this.isonline(i)}</div>
-                                                    <div className="equipmentRight">
-                                                        <p>{el.name}</p>
-                                                        <p>{el.eid}</p>
-                                                    </div>
-                                                </div>
+                                    this.state.camera.map((el,i)=>{
+                                        return(
+                                            <Col key={i} xxl={{ span: 5}} lg={{ span: 6}} md={{span:6}} sm={{span:6}} xs={{span:6}} className="cardPdd ">
+                                                <Card className="boxShow"
+                                                      cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath?this.state.camera[i].picpath:nopic} width="100%" /></a>}
+                                                      actions={
+                                                          this.state.utype==='1'
+                                                              ?[
+                                                                  <div className="actionsBbottom">
+                                                                      <p>{this.field(i)}条
+                                                                      </p>
+                                                                      <p>布防区域 </p>
+                                                                  </div>,
+                                                                  <div className="actionsBbottom colCen ">
+                                                                      {this.statework(i)}
+                                                                  </div>,
+                                                                  <div className="colCen actionsBbottom ">
+                                                                      <Icon type="setting" /> 设定
+                                                                  </div>
+                                                              ]
+                                                              :[
+                                                                  <a href={"#/app/companyhome/setarea?id="+el.code} className="actionsBbottom">
+                                                                      <p> {this.field(i)}条
+                                                                      </p>
+                                                                      <p>布防区域 </p>
+                                                                  </a>,
+                                                                  <a href={"#/app/companyhome/settime?id="+el.code} className="actionsBbottom colCen">
+                                                                      {this.statework(i)}
+                                                                  </a>,
+                                                                  <a href={"#/app/userhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
+                                                                      <Icon type="setting" /> 设定
+                                                                  </a>
+                                                              ]}
+                                                >
+                                                    <Row className="paddRow">
+                                                        <Col xxl={{ span:24}} lg={{span:24}} >
+                                                            <div className="equipmentNumber">
+                                                                <div >{this.isonline(i)}</div>
+                                                                <div className="equipmentRight">
+                                                                    <p>{el.name}</p>
+                                                                    <p>{el.eid}</p>
+                                                                </div>
+                                                            </div>
 
+                                                        </Col>
+                                                    </Row>
+                                                    <div className="bell">
+                                                        <a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"} style={{color:'#f00'}}>
+                                                            <Icon type="bell" /> <span>{this.state.camera[i].alarm}</span>
+                                                        </a>
+                                                    </div>
+                                                </Card>
                                             </Col>
-                                        </Row>
-                                        <div className="bell">
-                                            <a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"} style={{color:'#f00'}}>
-                                                <Icon type="bell" /> <span>{this.state.camera[i].alarm}</span>
-                                            </a>
-                                        </div>
-                                    </Card>
-                                </Col>
-                                )
-                            })
+                                        )
+                                    })
                            }
                         </Row>
                     </div>
