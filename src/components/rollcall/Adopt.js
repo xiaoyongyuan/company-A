@@ -164,8 +164,7 @@ class Adopt extends Component {
 
         return (
             <div className="gutter-example">
-                <BreadcrumbCustom first="点名" second="新增点名对象" />
-                <Row className="white">
+                <Row className="adopt-white">
                     <Col className="gutter-row" span={10}>
                         <div className="gutter-box">
                             <Card title="" bordered={false}>
@@ -225,7 +224,7 @@ class Adopt extends Component {
                                     <Row>
                                         <Col span={8} offset={8}>
                                         <Button type="primary" htmlType="submit" className="login-form-button" >确认</Button>
-                                        <Button style={{display:"inline-block"}} onClick={this.cancelarea}>重绘围界</Button>
+                                        <Button style={{display:"inline-block"}} onClick={this.cancelarea} className="login-form-button-chwj">重绘围界</Button>
                                         </Col>
                                     </Row>  
                                     </Form.Item>

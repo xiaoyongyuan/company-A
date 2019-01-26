@@ -923,3 +923,28 @@ margin: 4px 0 0 20px ;
     border: 1px solid #000!important;
 }
 /* box-shadow: 0px 0px 30px rgba(34,34,34,0.4); */
+.gutter-example .ant-input{
+    border: 1px solid #000!important;
+}
+.adopt-white{
+    background:rgb(50, 58, 93) ;
+}
+.adopt-white .ant-card{
+    background:rgb(50, 58, 93) ;
+}
+.adopt-white .ant-card{
+    color: #fff;
+}
+.gutter-example .adopt-white .ant-form-item-label label{
+    color: #fff!important;
+}
+.gutter-example .adopt-white .ant-form{
+    color: #fff;
+}
+.gutter-example .adopt-white .ant-btn-primary{
+    background-color: #5063ee;
+    width: 88px;
+}
+.gutter-example .adopt-white .login-form-button-chwj{
+    color: #5063ee;
+}
