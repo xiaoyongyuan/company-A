@@ -185,7 +185,7 @@ class Userdeveice extends React.Component{
                         防区设置：
                         </Col>
                         <Col span={21} className="t_l">
-                             <a href={"#/app/companyhome/setarea?id="+_this.props.query.id} className="underline">
+                             <a style={{color:"#fff"}} href={"#/app/companyhome/setarea?id="+_this.props.query.id} className="underline">
                               {this.field()}个
                              </a>
                         </Col>
@@ -195,7 +195,7 @@ class Userdeveice extends React.Component{
                            设防时间：
                         </Col>
                         <Col span={21} className="t_l">
-                        <a href={"#/app/companyhome/settime?id="+_this.props.query.id} className="underline">
+                        <a style={{color:"#fff"}} href={"#/app/companyhome/settime?id="+_this.props.query.id} className="underline">
                         {this.state.workingtime.length}段
                          </a>                     
                         </Col>

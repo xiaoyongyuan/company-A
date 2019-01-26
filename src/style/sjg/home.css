@@ -389,7 +389,7 @@ margin: 20px 0;
     white-space: nowrap;
 }
 .box-padding{
-    padding:4px;
+    padding:4px 0 30px 20px;
     color: #fff;
     background:#2B3253;
 }
@@ -821,7 +821,8 @@ margin: 4px 0 0 20px ;
     background-image: url(../imgs/huangse.png);
     background-size: 100% 100%;
     display: inline-block;
-    width:160px;
+    width:auto;
+    padding: 0 6px;
     height:30px;
     line-height:30px;
     text-align: center;
@@ -904,5 +905,9 @@ margin: 4px 0 0 20px ;
 .setup{
     color: #5063EE;
 }
-
+.backImg {
+    width: 100%;
+    height: 120px;
+    text-align: center;
+}
 /* box-shadow: 0px 0px 30px rgba(34,34,34,0.4); */
