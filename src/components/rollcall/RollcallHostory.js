@@ -4,9 +4,7 @@ import {post} from "../../axios/tools";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
 import RollcallRecordModel from "./RollcallRecordModel";
-import nopic from "../../style/imgs/nopic.png";
 import nodata from "../../style/imgs/nodata.png";
-import arr from "../../style/imgs/arr.png";
 import err from "../../style/imgs/err.png";
 const formItemLayout = {
     labelCol: {
@@ -183,7 +181,6 @@ class RollcallHostory extends Component{
     };
     //model open
     handlerollCallType =(index)=>{
-        console.log(index,"3333");
         this.setState({
             rollCallType:true,
             code:index

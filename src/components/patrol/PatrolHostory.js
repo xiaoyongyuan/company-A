@@ -179,10 +179,11 @@ class RollcallHostory extends Component{
                 }
             })
     };
-    handlerollCallType =(index)=>{
+    handlerollCallType =(index,e)=>{
         this.setState({
             rollCallType:true,
-            code:index
+            code:index,
+            itemStatus:e
         })
     };
     statepatarol =(e,item)=>{
@@ -316,9 +317,9 @@ class RollcallHostory extends Component{
                                     {item.info.map((num,n)=>{
                                         return (
                                             <div key={n} className="alarm_img">
-                                                {item.status===0? <img src={num.ppic?num.ppic:ing} alt="alarm_img" width="100%"style={{marginBottom:'30px'}} onClick={()=>this.handlerollCallType(num.code)} />:''}
-                                                {item.status===1? <img src={num.ppic} alt="alarm_img" width="100%"style={{marginBottom:'30px'}} onClick={()=>this.handlerollCallType(num.code)} />:''}
-                                                {item.status===2? <img src={num.ppic?num.ppic:unsucc} alt="alarm_img" width="100%"style={{marginBottom:'30px'}} onClick={()=>this.handlerollCallType(num.code)} />:''}</div> 
+                                                {item.status===0? <img src={num.ppic?num.ppic:ing} alt="alarm_img" width="100%"style={{marginBottom:'30px'}} onClick={()=>this.handlerollCallType(num.code,0)} />:''}
+                                                {item.status===1? <img src={num.ppic} alt="alarm_img" width="100%"style={{marginBottom:'30px'}} onClick={()=>this.handlerollCallType(num.code,1)} />:''}
+                                                {item.status===2? <img src={num.ppic?num.ppic:unsucc} alt="alarm_img" width="100%"style={{marginBottom:'30px'}} onClick={()=>this.handlerollCallType(num.code,2)} />:''}</div> 
                                             )
                                     })
                                    }
@@ -337,7 +338,7 @@ class RollcallHostory extends Component{
                         onCancel={this.handlerollClose}
                         footer={null}
                   >
-                    <PatrolRecordModel visible={this.state.rollCallType} code={this.state.code} />
+                    <PatrolRecordModel visible={this.state.rollCallType} code={this.state.code} itemStatus={this.state.itemStatus}/>
                  </Modal>
             </div>
         )

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../../style/sjg/home.css';
 import {Form,Table, Row, Col, Button,Radio, Modal,TimePicker} from 'antd';
-import BreadcrumbCustom from "../BreadcrumbCustom";
 import moment from 'moment';
 import {post} from "../../axios/tools";
 const RadioGroup = Radio.Group;
@@ -205,7 +204,7 @@ class Setarea extends Component {
             <div className="padding20" className="Settime">
                 {/* <BreadcrumbCustom first="场景" second="布防时间" /> */}
                 <Row style={{marginBottom:'20px'}}>
-                    <Col span={14}>
+                    <Col span={24}>
                         <Form layout="inline" onSubmit={this.add}>
                             <FormItem label="开始时间">
                                 {getFieldDecorator('bdate', {

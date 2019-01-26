@@ -2,6 +2,8 @@ import React,{Component} from "react";
 import {Row,Col} from "antd";
 import {post} from "../../axios/tools";
 import "../../style/ztt/css/rollCall.css";
+import err from "../../style/imgs/err.png";
+
 let vis=false;
 class RollcallRecordModel extends Component {
     constructor(props){
@@ -52,7 +54,7 @@ class RollcallRecordModel extends Component {
                 <Row><Col span={24} className="rollcallModelTitle fontSizeModel">{this.state.rollset.cameraname} - {this.state.rollset.rname}</Col></Row>
                 <Row className="rollcallModel">
                     <Col span={24}>
-                        <img src={this.state.rollset.rrpic} alt="" width="100%" />
+                        <img src={this.state.rollset.rrpic?this.state.rollset.rrpic:err} alt="" width="100%" />
                     </Col>
                 </Row>
                 <Row className="rollcallModel">

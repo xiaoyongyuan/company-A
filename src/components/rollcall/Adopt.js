@@ -222,7 +222,7 @@ class Adopt extends Component {
                                     </Row>
                                     <Form.Item>
                                     <Row>
-                                        <Col span={8} offset={8}>
+                                        <Col span={16} offset={8}>
                                         <Button type="primary" htmlType="submit" className="login-form-button" >确认</Button>
                                         <Button style={{display:"inline-block"}} onClick={this.cancelarea} className="login-form-button-chwj">重绘围界</Button>
                                         </Col>
