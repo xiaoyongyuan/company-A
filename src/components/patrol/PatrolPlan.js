@@ -237,11 +237,9 @@ class PatrolPlan extends React.Component{
                                                 </div>
                                             </div>
                                             <div className="patrol_query">
-                                                <div className="patrol_query_line"></div>
                                                 <span style={{cursor:"pointer"}} onClick={() => {this.showModalEdit( this.state.list[i].code,{i})}}><Icon type="edit" />编辑</span>
                                             </div>
                                             <div className="del">
-                                                <div className="patrol_query_line"></div>  
                                                 <span style={{cursor:"pointer"}} onClick={() => {this.showModaldelete( this.state.list[i].code,{i})}}><Icon type="delete" />删除 </span>
                                             </div>
 
