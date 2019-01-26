@@ -65,10 +65,9 @@ class Scenedata extends Component {
                         shadowOffsetY: 2,
                         shadowBlur: 10
                     },
-                    emphasis: {
-                        areaColor:  'rgba(147, 235, 248, 0.4)',
-                        borderWidth: 0,
-                    }
+                    emphasis:{
+                        areaColor:"#091e57" //悬浮时的颜色
+                    },
                 }
             },
             series:[

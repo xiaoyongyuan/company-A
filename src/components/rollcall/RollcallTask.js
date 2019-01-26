@@ -8,7 +8,6 @@ import scan from "../../style/imgs/scan.gif";
 import nodata from "../../style/imgs/nodata.png";
 import moment from "moment";
 import "../../style/publicStyle/publicStyle.css";
-import errs from "../../style/imgs/errs.png";
 const Option = Select.Option;
 const FormItem = Form.Item;
 

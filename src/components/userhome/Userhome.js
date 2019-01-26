@@ -88,7 +88,6 @@ class Userhome extends React.Component{
     }
     render(){
         var styleObj={
-            topMar:{ margin:'60px 0 0 0',},
             successBg:{ background:'#96FF66'},
         }
         return(       

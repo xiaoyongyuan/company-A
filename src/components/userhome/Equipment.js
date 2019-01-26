@@ -142,9 +142,9 @@ class Equipment extends React.Component{
                                                         <Col xxl={{ span:24}} lg={{span:24}} >
                                                             <div className="equipmentNumber">
                                                                 <div >{this.isonline(i)}</div>
-                                                                <div className="equipmentRight">
-                                                                    <p>{el.name}</p>
-                                                                    <p>{el.eid}</p>
+                                                                <div className="equipmentRight ">
+                                                                    <p className="coverflow" title={el.name}>{el.name}</p>
+                                                                    <p className="coverflow" title={el.eid}>{el.eid}</p>
                                                                 </div>
                                                             </div>
 
