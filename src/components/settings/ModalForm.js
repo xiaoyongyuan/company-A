@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Form,Input} from 'antd';
 import {post} from "../../axios/tools";
+import "../../style/publicStyle/publicStyle.css";
 const FormItem = Form.Item;
 let vis=false;
 class ModalForm extends Component {
