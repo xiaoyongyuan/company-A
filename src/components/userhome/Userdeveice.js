@@ -256,7 +256,7 @@ class Userdeveice extends React.Component{
                             用户名：
                         </Col>
                         <Col span={21} className="t_l">
-                              <input type="text"value={this.state.camerauser} id="ip"
+                              <input className="padd_left" type="text"value={this.state.camerauser} id="ip"
                               onChange={(e)=>this.onChangeuser(e)}
                               /> 
                         </Col>
@@ -266,7 +266,7 @@ class Userdeveice extends React.Component{
                            密码：
                         </Col>
                         <Col span={21} className="t_l">
-                            <input type="text"value={this.state.camerapasswd}
+                            <input className="padd_left" type="text"value={this.state.camerapasswd}
                              onChange={(e)=>this.onChangepwd(e)}
                              id="port"
                             />      
@@ -277,7 +277,7 @@ class Userdeveice extends React.Component{
                            设备IP：
                         </Col>
                         <Col span={21} className="t_l">
-                              <input type="text"value={this.state.ipvalue} id="ip"
+                              <input className="padd_left" type="text"value={this.state.ipvalue} id="ip"
                               onChange={(e)=>this.onChangeip(e)}
                               /> 
                         </Col>
@@ -287,7 +287,7 @@ class Userdeveice extends React.Component{
                            设备端口：
                         </Col>
                         <Col span={21} className="t_l">
-                            <input type="text"value={this.state.portvalue} id="port"
+                            <input className="padd_left" type="text"value={this.state.portvalue} id="port"
                              onChange={(e)=>this.onChangeport(e)}
                             />      
                         </Col>
