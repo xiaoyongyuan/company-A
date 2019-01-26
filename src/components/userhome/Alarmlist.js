@@ -126,7 +126,7 @@ class Alarmlist extends React.Component{
     handleAlerm = (data={})=>{
         post({url:'/api/alarm/getlist',data:Object.assign(data,{pageindex:this.state.page,pagesize:18})},(res)=>{
             if(res.success){
-                if(res.data.length>1){
+                if(res.data.length){
                     this.setState({
                         policeList:res.data,
                         type:1,
@@ -136,8 +136,14 @@ class Alarmlist extends React.Component{
                 }else{
                     this.setState({
                         type:0,
+                        loadding:false
                     })
                 }
+            }else{
+                this.setState({
+                    loadding:false,
+                    type:0,
+                })
             }
         })
     };
