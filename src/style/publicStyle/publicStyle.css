@@ -173,17 +173,17 @@
 .Settime{
     padding: 20px
 }
-.ant-form-item-label label {
+.Settime .ant-form-item-label label {
     color: #fff !important;
 }
-.ant-table-tbody > tr > td {
+.Settime .ant-table-tbody > tr > td {
     border: 1px solid #4C5784!important;
 }
-.ant-time-picker-input {
+.Settime .ant-time-picker-input {
     color: #8a97cc!important;
     background-color: #3c466e!important;
     border: 0 !important;
 }
-.ant-time-picker-icon .ant-time-picker-clock-icon {
+.Settime .ant-time-picker-icon .ant-time-picker-clock-icon {
     color: #fff !important;
 }
