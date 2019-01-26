@@ -60,9 +60,9 @@ class RollcallHostoryModel extends Component {
     }
 
     normal =(status)=>{
-        if(status==0){
+        if(status===0){
             return "fontColor rollcallModelTitle";
-        }else if(status==1){
+        }else if(status===1){
             return "fontColor1 rollcallModelTitle";
         }
     };
@@ -78,7 +78,7 @@ class RollcallHostoryModel extends Component {
                 </Row>
                 <Row className="rollcallModel">
                     <Col span={24}>
-                        <img src={this.state.list.rrpic} alt="" width="100%"/>
+                        <img src={this.state.list.rrpic} alt="" width="100%" />
                     </Col>
                 </Row>
                 <Row className="rollcallModel">
@@ -86,12 +86,12 @@ class RollcallHostoryModel extends Component {
                     {this.state.list.resultdate}
                     </Col>
                     <Col span={8} className="rollcallModelTitle">
-                    {this.state.list.ifeveryday==0?"自动点名":"手动点名"}
+                    {this.state.list.ifeveryday===0?"自动点名":"手动点名"}
                     </Col>
                     <Col span={8}
                      className={this.normal(this.state.list.rfinal)}
-                     >
-                     {this.state.list.rfinal==0?"正常":"报警"}
+                    >
+                     {this.state.list.rfinal===0?"正常":"报警"}
                      </Col>
                 </Row>
             </div>

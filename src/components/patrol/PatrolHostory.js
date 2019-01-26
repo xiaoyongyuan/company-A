@@ -338,7 +338,7 @@ class RollcallHostory extends Component{
                         onCancel={this.handlerollClose}
                         footer={null}
                   >
-                    <PatrolRecordModel visible={this.state.rollCallType} code={this.state.code} itemStatus={this.state.itemStatus}/>
+                    <PatrolRecordModel visible={this.state.rollCallType} code={this.state.code} itemStatus={this.state.itemStatus} />
                  </Modal>
             </div>
         )
