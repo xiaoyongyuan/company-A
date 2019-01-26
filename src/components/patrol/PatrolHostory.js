@@ -28,8 +28,9 @@ class RollcallHostory extends Component{
             page:1, //当前页数
             pageSize:20, //每页显示数量
             isrequest:true,
-            loadtip:"加载中..."//下拉刷新时的提示文字
+            loadtip:"加载中...",//下拉刷新时的提示文字
             //status  //0执行中//1已完成//2未完成
+            type:true,//无数据图
         }
     }
     componentDidMount() {
@@ -318,7 +319,7 @@ class RollcallHostory extends Component{
                                    
                                 </div>
                             )
-                        }):<div className="textcenter">暂无数据</div>
+                        }):''
                     } 
                 </Timeline>
                 </div>

@@ -32,7 +32,8 @@ class RollcallHostory extends Component{
             pageSize:20, //每页显示数量
             isrequest:true,//是否请求接口
             scrollTop:Number,
-            loadtip:"加载中..."//下拉刷新时的提示文字
+            loadtip:"加载中...",//下拉刷新时的提示文字
+            type:true,//无数据图
         }
     }
     componentDidMount() {
@@ -289,7 +290,7 @@ class RollcallHostory extends Component{
                                     </Timeline.Item>
                                     </div>
                                 )
-                            }):<div className="textcenter"> 暂无数据</div>
+                            }):''
                         } 
                 </Timeline>
                 </div>
