@@ -34,6 +34,9 @@ class RollcallHostory extends Component{
         }
     }
     componentDidMount() {
+            this.setState({
+            loadtip:false,
+            })
         post({url:'/api/patrolresult/getlist_team'},(res)=>{
             if(res.success){
                 //  console.log('******************', res);
@@ -148,6 +151,9 @@ class RollcallHostory extends Component{
         });
     };
     handleSubmit =()=>{
+        this.setState({
+            loading:true,
+        })
             const data={
                 startdate :this.state.pbdate?this.state.pbdate.format('YYYY-MM-DD'):'',
                 enddate :this.state.pedate?this.state.pedate.format('YYYY-MM-DD'):'',
@@ -155,6 +161,7 @@ class RollcallHostory extends Component{
             post({url:'/api/patrolresult/getlist_team',data:data},(res)=>{
                 if(res.success){
                         this.setState({
+                            loading:false,
                             isrequest: true,
                             list:res.data,
                             type:true,

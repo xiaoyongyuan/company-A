@@ -37,6 +37,9 @@ class RollcallHostory extends Component{
         }
     }
     componentDidMount() {
+        this.setState({
+            loadtip:false,
+            })
         post({url:'/api/rollcalldetail/getlist_info_dayly'},(res)=>{
             if(res.success){
                 //  console.log('******************', res);
@@ -147,6 +150,9 @@ class RollcallHostory extends Component{
         this.setState({ endOpen: open });
     };
     handleSubmit =()=>{
+            this.setState({
+                loading:true,
+            })
             const data={
                 daylybdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD'):'',
                 daylyedate:this.state.edate?this.state.edate.format('YYYY-MM-DD'):'',
@@ -157,7 +163,9 @@ class RollcallHostory extends Component{
                             isrequest: true,
                             list:res.data,
                             type:true,
+                            loading:false,
                         })
+                       
                         if(res.data.length===0){
                             this.setState({
                                 loadtip:'  ',
@@ -168,6 +176,7 @@ class RollcallHostory extends Component{
                 }else{
                     this.setState({
                         type:false,
+                       
                     })
                 }
             })
