@@ -222,7 +222,7 @@ class Adminteam extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col>
+                        <Col style={{ minHeight:'600px' }}>
                             <div>
                                 {
                                     this.state.list.length>=0?
