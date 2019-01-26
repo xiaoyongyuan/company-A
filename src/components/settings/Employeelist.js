@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import ModalForm from './ModalForm.js';
-import {Form, Input, Row, Col, Button, Modal, Table, message, Spin} from 'antd';
+import {Form, Input, Row, Col, Button, Modal, Table, Spin} from 'antd';
 import {post} from "../../axios/tools";
 import "../../style/publicStyle/publicStyle.css";
 
