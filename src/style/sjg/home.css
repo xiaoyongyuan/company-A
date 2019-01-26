@@ -479,13 +479,12 @@ margin: 20px 0;
     }
     .patrol_query{
         display: flex;
-        margin-top:15px;
         flex-direction:column;
         align-items:center;/*垂直居中*/
         justify-content: center;/*水平居中*/
         width:14%;
-        height:70px;
-        border-left: 1px solid #4C5784;
+        height:100px;
+        
     }
     .del{
         display: flex;
@@ -514,13 +513,12 @@ margin: 20px 0;
     }
     .patrol_query{
         display: flex;
-        margin-top:15px ;
         flex-direction:column;
         align-items:center;/*垂直居中*/
         justify-content: center;/*水平居中*/
         width:20%;
-        height:70px;
-        border-left: 1px solid #4C5784; 
+        height:100px;
+        
     }
     .del{
         display: flex;
