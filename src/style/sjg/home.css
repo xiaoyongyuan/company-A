@@ -793,22 +793,6 @@ margin: 4px 0 0 20px ;
 .PatrolPlan{
     background:#323A5D !important;
 }
-.ant-form-item-label label {
-    /* 所有的label都变成白色 */
-    color: #fff !important;
-}
-.ant-table-thead > tr > th {
-    /* 所有表格th的背景和颜色 */
-    background: #323A5D!important;
-    color: #fff !important;
-}
-.ant-table {
-    /* 所有表格的字体颜色 */
-    color: #fff!important;
-}
-.ant-pagination-item-ellipsis{
-    color:#fff !important;
-}
 .redpic{
     background-image: url(../imgs/hongse.png);
     background-size: 100% 100%;
@@ -845,15 +829,7 @@ margin: 4px 0 0 20px ;
     background: #2B3151;
   
 }
-.ant-card-bordered {
-    border: 1px solid #4C5784!important;
-}
-.ant-card-head {
-    border-bottom: 1px solid #4C5784!important;
-}
-.ant-timeline-item-head {
-    background-color: #323A5D !important;
-}
+
 
 /*  */
 

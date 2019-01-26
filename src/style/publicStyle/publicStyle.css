@@ -10,17 +10,6 @@
     background: #394269!important;
     color: #fff !important;
 }
-/*输入框*/
-/*.ant-input{
-    background: #3C466E!important;
-    color: #ffffff!important;
-    border: 1px solid #3C466E!important;
-}*/
-.ant-calendar-picker-input .ant-input{
-    background: #3C466E!important;
-    color: #ffffff!important;
-    border: 1px solid #3C466E!important;
-}
 .ant-calendar-picker-icon {
     color: #8592C6!important;
 }
@@ -29,11 +18,17 @@
     color: #8592C6!important;
 }
 /*下拉框*/
-.ant-select-selection {
+/*.ant-select-selection {
     background-color: #fff!important;
     border: 1px solid #3C466E!important;
     color: #000!important;
+}*/
+.Alarmlist .ant-select-selection,.PatrolRecord .ant-select-selection,.RollcallRecord .ant-select-selection{
+    background: #3C466E;
+    border: 1px solid #3C466E;
+    color: #fff;
 }
+
 .ant-select-arrow {
     color: #8592C6!important;
 }
@@ -117,8 +112,6 @@
     margin-top: -18px!important;
     padding-bottom: 22px!important;
 }
-
-
 /*表格无数据样式*/
 .ant-table-placeholder{
     background: #2B3355!important;
@@ -130,20 +123,30 @@
     border-left: 1px solid #4C5784!important;
     border-right: 1px solid #4C5784!important;
 }
-/*查询框前字*/
-.ant-form-item-label label{
-    color:#fff!important;
+.ant-table-thead > tr > th {
+    /* 所有表格th的背景和颜色 */
+    background: #323A5D!important;
+    color: #fff !important;
 }
-/*输入框*/
-/*.allInput{
-    background: #3C466E!important;
-    color: #ffffff!important;
-    border: 1px solid #3C466E!important;
-}*/
+.ant-table {
+    /* 所有表格的字体颜色 */
+    color: #fff!important;
+}
+.ant-pagination-item-ellipsis{
+    color:#fff !important;
+}
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
     background-color: #d1d2d4!important;
 }
-
+.ant-card-bordered {
+    border: 1px solid #4C5784!important;
+}
+.ant-card-head {
+    border-bottom: 1px solid #4C5784!important;
+}
+.ant-timeline-item-head {
+    background-color: #323A5D !important;
+}
 /*!*弹层字颜色*!*/
 .tc-label label{
     color: #000!important;
@@ -157,8 +160,11 @@
     color: #ffffff!important;
     border: 1px solid #3C466E!important;
 }
-.gutter-example .ant-form-item-label label{
-    color: #000!important;
+/*查询框前字*/
+.Alarmlist .ant-form-item-label label,.PatrolHostory .ant-form-item-label label,
+.PatrolRecord .ant-form-item-label label,.RollcallRecord .ant-form-item-label label,
+.RollcallTask .ant-form-item-label label,.warrper .ant-form-item-label label{
+    color:#fff!important;
 }
 .ant-table-placeholder {
     min-height: 200px !important;
