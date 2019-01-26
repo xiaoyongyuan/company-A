@@ -948,3 +948,18 @@ margin: 4px 0 0 20px ;
 .gutter-example .adopt-white .login-form-button-chwj{
     color: #5063ee;
 }
+.adoptlook-white{
+    background:rgb(50, 58, 93) ;
+}
+.adoptlook-white .ant-card{
+    background:rgb(50, 58, 93) ;
+}
+.gutter-example .adoptlook-white .ant-form{
+    color: #fff;
+}
+.gutter-example .adoptlook-white .ant-form-item-label label{
+    color: #fff!important;
+}
+.gutter-example .adoptlook-white .ant-input-disabled{
+    color: #000;
+}

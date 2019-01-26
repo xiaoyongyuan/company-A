@@ -102,9 +102,7 @@ class AdoptLook extends Component {
 
         return (
             <div className="gutter-example">
-                <BreadcrumbCustom first="维护团队管理" second="点名审核" />
-
-                <Row className="white">
+                <Row className="adoptlook-white">
                     <Col className="gutter-row" span={10}>
                         <div className="gutter-box">
                             <Card title="" bordered={false}>
