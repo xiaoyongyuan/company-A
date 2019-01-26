@@ -858,7 +858,7 @@ margin: 4px 0 0 20px ;
     height: 30px;
     line-height: 30px;
     text-align: center;
-    margin-left: 10px;
+    margin-left:5px;
 }
 .PatrolPlan .card-center{
     margin: 0 !important;
@@ -956,3 +956,6 @@ margin: 4px 0 0 20px ;
 }
 
 
+.PatrolPlan .ant-card {
+    min-height: 700px;
+}

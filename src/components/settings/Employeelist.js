@@ -24,7 +24,7 @@ class Adminteam extends Component {
             utype: utypeObj.utype
         })
     }
-    requestdata =(params={ pagesize:2,pageindex:this.state.page,}) => {//取数据
+    requestdata =(params={ pagesize:10,pageindex:this.state.page,}) => {//取数据
         post({url:"/api/companyuser/getlist",data:params}, (res)=>{
             if(res.success){
                 this.setState({
@@ -242,7 +242,7 @@ class Adminteam extends Component {
                                         <Table columns={columns}
                                                dataSource={this.state.list}
                                                bordered={isbordered}
-                                               pagination={{defaultPageSize:2,current:this.state.page, total:this.state.total,onChange:this.changePage}}
+                                               pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
                                         />
                                         :
                                         <div className="textcenter"><Spin size="large" tip="Loading..." /></div>
