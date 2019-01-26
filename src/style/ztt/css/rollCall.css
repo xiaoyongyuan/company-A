@@ -122,3 +122,12 @@ RollcallTask.js 点名任务
 .gutter-example .ant-radio-disabled + span{
     color: #fff;
 }
+.ant-radio-wrapper{
+    color: #fff!important;
+}
+.gutter-example .adoptlook-white .ant-btn-primary{
+    background-color: #5063ee!important;
+}
+.gutter-example .adoptlook-white .adoptBtn-fh{
+    color: #5063ee!important;
+}

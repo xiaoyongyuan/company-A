@@ -186,7 +186,7 @@ class AdoptLook extends Component {
                                         ?<Row>
                                             <Col span={16} offset={8}>
                                                 <Button type="primary" htmlType="submit" className="login-form-button" >提交</Button>
-                                                <Button style={{display:"inline-block"}} onClick={this.cancelhandle}>返回</Button>
+                                                <Button style={{display:"inline-block"}} onClick={this.cancelhandle} className="adoptBtn-fh">返回</Button>
                                             </Col>
                                         </Row>
                                         :''
