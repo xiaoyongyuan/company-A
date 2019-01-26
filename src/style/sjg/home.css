@@ -488,6 +488,7 @@ margin: 20px 0;
     }
     .padd_left{
         padding-left: 6px;
+        color:#000;
     }
     .del{
         display: flex;
