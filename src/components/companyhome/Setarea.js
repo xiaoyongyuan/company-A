@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Row, Col,Button,Modal } from 'antd';
-import '../../style/sjg/home.css';
+import '../../style/lff/home.css';
 import {post} from "../../axios/tools";
-const blue='#40a9ff';
-const red='#f5222d';
+const blue='#5063ee';
+const red='#ED2F2F';
 class Setarea extends Component {
     constructor(props){
         super(props);
@@ -241,34 +241,31 @@ class Setarea extends Component {
 
     render() {
         return (
-           <div style={{marginTop:"30px"}}>
-                <Row>
-                    <Col xl={{ span:16}} xxl={{ span: 14 }}>
-                        <div className="photo" id="canvasphoto">
-                           <canvas id="time_graph_canvas" width="704px" height="576px" style={{backgroundImage:'url('+this.state.src+')',backgroundSize:'100% 100%'}} onClick={this.clickgetcorrd} onMouseMove={this.drawmove} />
-                        </div>
-                    </Col>
-                    <Col xl={{ span: 8}} xxl={{ span: 10 }}>
-                       
-                        <div className="clearInfo">
-                            <Row>
-                                <Button type="primary" onClick={()=>this.submitok(1)}>{this.state.areaone.length?'删除防区一':'新增防区一'}</Button>
-                            </Row>
-                            <br /><br />
-                            <Row>
-                                <Button type="danger" onClick={()=>this.submitok()}>{this.state.areatwo.length?'删除防区二':'新增防区二'}</Button>
-                            </Row>
-                        </div>
-                        <div className="restartAlg">
-                            <Row>
-                                <Col span={14}>
-                                        围界设定方法：请在左侧图片处鼠标单击绘制防区，防区均为四边形，
-                                    每个设备最多可设置两处防区。防区绘制完成后请点击“新增”按钮生效。
-                                </Col>
-                            </Row>
-                        </div>
-                    </Col>
-                </Row>
+           <div className="Setarea">
+                <div className="Setarea_cont">
+                    <Row>
+                        <Col xl={{ span:24}} xxl={{ span: 24 }}>
+                            <div className="photo" id="canvasphoto">
+                                <canvas id="time_graph_canvas" width="704px" height="576px" style={{backgroundImage:'url('+this.state.src+')',backgroundSize:'100% 100%'}} onClick={this.clickgetcorrd} onMouseMove={this.drawmove} />
+                                <div className="optbtn">
+                                    <Row>
+                                        <Button type="primary" className="queryBtn" onClick={()=>this.submitok(1)}>{this.state.areaone.length?'删除防区一':'新增防区一'}</Button>
+                                    </Row>
+                                    <br /><br />
+                                    <Row>
+                                        <Button type="primary" className="deleteBtn" onClick={()=>this.submitok()}>{this.state.areatwo.length?'删除防区二':'新增防区二'}</Button>
+                                    </Row>
+                                </div>
+                            </div>   
+                        </Col>
+                        </Row>
+                    <Row className="areaexplain">
+                        <Col xl={{ span: 24}} xxl={{ span: 24}}>
+                        <p>围界设定方法：<br />请在左侧图片处鼠标单击绘制防区，防区均为四边形，
+                                        每个设备最多可设置两处防区。防区绘制完成后请点击“新增”按钮生效。</p>
+                        </Col>
+                    </Row>
+                </div>
                 <Modal title="提示信息" visible={this.state.deleteshow} onOk={this.deleteCancel}
                        onCancel={this.deleteCancel} cancelText='取消'  okText='确定'>
                     <p>您还有未提交的防区，请先点击新增按钮进行提交</p>

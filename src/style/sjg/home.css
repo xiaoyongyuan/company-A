@@ -905,9 +905,21 @@ margin: 4px 0 0 20px ;
 .setup{
     color: #5063EE;
 }
+
 .backImg {
     width: 100%;
     height: 120px;
     text-align: center;
+}
+.gutter-example .ant-radio-disabled + span{
+    color: #000;
+}
+.gutter-example .ant-select-selection{
+    background-color: #fff!important;
+    color: #000!important;
+    /*border: #d9d9d9!important;*/
+}
+.gutter-example .ant-input{
+    border: 1px solid #000!important;
 }
 /* box-shadow: 0px 0px 30px rgba(34,34,34,0.4); */
