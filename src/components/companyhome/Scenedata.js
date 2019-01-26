@@ -38,7 +38,7 @@ class Scenedata extends Component {
                             [{ offset: 0, color: '#80D6EB' },{ offset: 1, color: '#3B80B4' }]
                         )}
                 },
-                aspectScale:.8, //长宽比 
+                aspectScale:0.8, //长宽比
                 zoom:1.2, //当前视角的缩放比例
                 //取消鼠标移入地图上的文字
                 label: {
