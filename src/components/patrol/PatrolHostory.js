@@ -110,6 +110,7 @@ class RollcallHostory extends Component{
             pedate:dateString2
         })
     };
+
     //禁止的开始时间
     disabledStartDate = (startValue) => {
         const endValue = this.state.endValue;
@@ -157,6 +158,11 @@ class RollcallHostory extends Component{
                             list:res.data,
                             type:true,
                         })
+                        if(res.data.length===0){
+                            this.setState({
+                                loadtip:false ,
+                                })
+                        }
                 }else{
                     this.setState({
                         type:false,
@@ -246,11 +252,11 @@ class RollcallHostory extends Component{
                                     {getFieldDecorator('range-picker2')(
                                         <DatePicker
                                             format="YYYY-MM-DD"
-                                            placeholder="开始日期"
-                                            setFieldsValue={this.state.pbdate}
-                                            onChange={this.onChange1}
-                                            disabledDate={this.disabledStartDate}
-                                            onOpenChange={this.handleStartOpenChange}
+                                            placeholder="结束日期"
+                                            setFieldsValue={this.state.pedate}
+                                            onChange={this.onChange2}
+                                            disabledDate={this.disabledEndDate}
+                                            onOpenChange={this.handleEndOpenChange}
                                         />
                                     )}
                                 </Form.Item>
@@ -264,6 +270,7 @@ class RollcallHostory extends Component{
                 {/* <div style={{marginTop:"70px",display:this.state.type?" none":"block"}}>
                     <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
                 </div> */}
+                
                 <Spin spinning={this.state.loading} className="spin" size="large"tip="Loading..." />
                 <div className="timeline_ml" style={{display:this.state.type?"block":"none"}}>
                  <Timeline pending={this.state.loadtip}>

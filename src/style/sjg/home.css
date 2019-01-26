@@ -389,7 +389,7 @@ margin: 20px 0;
     white-space: nowrap;
 }
 .box-padding{
-    padding:4px;
+    padding:4px 0 30px 20px;
     color: #fff;
     background:#2B3253;
 }
@@ -821,7 +821,8 @@ margin: 4px 0 0 20px ;
     background-image: url(../imgs/huangse.png);
     background-size: 100% 100%;
     display: inline-block;
-    width:160px;
+    width:auto;
+    padding: 0 6px;
     height:30px;
     line-height:30px;
     text-align: center;
@@ -905,4 +906,45 @@ margin: 4px 0 0 20px ;
     color: #5063EE;
 }
 
+.backImg {
+    width: 100%;
+    height: 120px;
+    text-align: center;
+}
+.gutter-example .ant-radio-disabled + span{
+    color: #000;
+}
+.gutter-example .ant-select-selection{
+    background-color: #fff!important;
+    color: #000!important;
+    /*border: #d9d9d9!important;*/
+}
+.gutter-example .ant-input{
+    border: 1px solid #000!important;
+}
 /* box-shadow: 0px 0px 30px rgba(34,34,34,0.4); */
+.gutter-example .ant-input{
+    border: 1px solid #000!important;
+}
+.adopt-white{
+    background:rgb(50, 58, 93) ;
+}
+.adopt-white .ant-card{
+    background:rgb(50, 58, 93) ;
+}
+.adopt-white .ant-card{
+    color: #fff;
+}
+.gutter-example .adopt-white .ant-form-item-label label{
+    color: #fff!important;
+}
+.gutter-example .adopt-white .ant-form{
+    color: #fff;
+}
+.gutter-example .adopt-white .ant-btn-primary{
+    background-color: #5063ee;
+    width: 88px;
+}
+.gutter-example .adopt-white .login-form-button-chwj{
+    color: #5063ee;
+}

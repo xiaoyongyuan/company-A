@@ -188,7 +188,6 @@ class RollcallHostory extends Component{
         const { getFieldDecorator } = this.props.form;
         return(       
             <div className="RollcallHostory scrollable-container" id="scorll" >  
-             {/* <Spin spinning={this.state.loading} className="spin" size="large">  style={this.state.loading?{display:'block'}:{display:'none'}} */}
               <Button className="backtop butBg" onClick={this.backtop} style={this.state.scrollTop>20?{display:'block'}:{display:'none'}}>返回顶部</Button>
                 <LocaleProvider locale={zh_CN}>
                     <Row className="sear_mtop Patrol_ml">

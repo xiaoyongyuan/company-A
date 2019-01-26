@@ -64,7 +64,8 @@ class Adminteam extends Component {
                     const data={
                         realname:values.realname,
                         account:values.account,
-                        emailaddress:values.emailaddress
+                        emailaddress:values.emailaddress,
+                        utype:1
                     }
                     post({url:"/api/companyuser/add",data:data}, (res)=>{
                         if(res.success){
@@ -75,7 +76,7 @@ class Adminteam extends Component {
                                 list:list,
                                 visible: false,
                             })
-                            forms.resetFields()
+                            forms.resetFields();
                         }
                     })
                 }else{
@@ -222,7 +223,7 @@ class Adminteam extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col>
+                        <Col style={{ minHeight:'600px' }}>
                             <div>
                                 {
                                     this.state.list.length>=0?

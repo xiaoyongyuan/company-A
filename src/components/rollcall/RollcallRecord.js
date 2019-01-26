@@ -185,6 +185,7 @@ class RollcallRecord extends React.Component{
                             </Form.Item>
                             <Form.Item>
                                 <Button
+                                    className="queryBtn"
                                     type="primary"
                                     htmlType="submit"
                                     onClick={this.handleMenuClick}
