@@ -25,9 +25,19 @@ class Companyhome extends Component {
             activelist:[], //共享设备
             passivelist:[], //查看我的用户
             scenegraph:nopic,
+            topLeftHeight:0,
         }
     }
     componentDidMount(){
+        var alertHeight=document.getElementById("alertHeight").clientHeight;
+        var patrolStatisticsHeight=document.getElementById("patrolStatistics").clientHeight;
+        var rollcallStatisticsHeight=document.getElementById("rollcallStatistics").clientHeight;
+        window.onresize = () => {
+            this.setState({
+               topLeftHeight:(alertHeight+patrolStatisticsHeight+rollcallStatisticsHeight)-80+"px",
+                policeHeight:alertHeight
+            })
+        };
         post({url:'/api/company/getone'},(res)=>{
             if(res.success){
                 let mapJson=[{
@@ -66,94 +76,64 @@ class Companyhome extends Component {
     };
     render() {
         return (
-            <div className="Companyhome gutter-example button-demo" >
-                <div className="backBlock">
-                    <Row>
-                        <Col xl={11} xxl={11}>
-                            <Row>
-                                <Col span={23}>
-                                    <div className="Imgdiv backLitte boxShow">
-                                        <Scenedata type="maps" />
-                                      {/*  <img src={this.state.scenegraph}
-                                             className="img-responsive"
-                                             alt=""
-                                        />*/}
-                                    </div>
-                                </Col>
-                            </Row>
-                        </Col>
-                        <Col xl={11} xxl={11}>
-                           {/* <Row>
-                                <Col xl={12} xxl={12}  ><a href={'#/app/companyhome/companyscene?code='+this.state.code} className="title_font shareUsers" className="title_font shareUsers">{this.state.enterpriseTitle}</a></Col>
-                                <Col xl={12} xxl={12} ><a href={'#/app/companyhome/companyscene?code='+this.state.code} className="title_font shareUsers">{this.state.enterpriseTitle}</a></Col>
-                                <Col xl={12} xxl={12} className="relationship">
-                                    <img src={zixingguanli} alt="" /><span className="titleFont">自行管理</span>
-                                    {
-                                        this.state.activelist.length||this.state.passivelist.length?<Link to={'/app/companyhome/connent'} className="qiYeFont">&nbsp;&nbsp;关系网</Link>:''
-                                    }
-                                </Col>
-                            </Row>*/}
-                            <Row>
-                              {/*  <Col xl={12} xxl={12} >111</Col>
-                                <Col xl={12} xxl={12} >222</Col>*/}
-                                <Col xl={12} xxl={12}>
-                                    <div className="clear y-center marginTop littleLeft boxShow">
-                                        <Col span={8}>
-                                            <img src={baojing} alt="" className="noBorder" />
-                                        </Col>
-                                        <Col span={12} offset={1}>
-                                            <Row>
-                                                <Col span={24} className="blockFont adminFont">{this.state.alarmcount}</Col>
-                                            </Row>
-                                            <Row>
-                                                <Col span={24} className="listContext blockNumber">未处理报警数</Col>
-                                            </Row>
-                                        </Col>
-                                    </div>
-                                </Col>
-                                <Col xl={12} xxl={12}>
-                                    <div className="clear y-center marginTop marginLeft boxShow">
-                                        <Col span={8}>
-                                            <img src={cloud} alt="" className="noBorder" />
-                                        </Col>
-                                        <Col span={12} offset={1}>
-                                            <Row>
-                                                <Col span={24} className="cloudFont adminFont blockFont listContext" title= {this.state.cloudDate?this.state.cloudDate:'无期限'}>
-                                                    {this.state.cloudDate?this.state.cloudDate:'无期限'}
-                                                </Col>
-                                            </Row>
-                                            <Row>
-                                                <Col span={24} className="listContext blockNumber">云服务到期日期</Col>
-                                            </Row>
-                                        </Col>
-                                    </div>
-                                </Col>
-                            </Row>
-                            <div className="backLitte marginTop littleLeft">
+            <div className="Companyhome gutter-example button-demo" style={{height:this.state.DHeight}}>
+                <div className="companyhome" >
+                    <div className="boxHeight backBlock" >
+                        <div className="backLitte boxShow "style={{width:'50%',height:this.state.DHeight,margin:"16px"}}>
+                            <Scenedata type="maps" />
+                        </div>
+                        <div className="topRightContext">
+                            <div id="alertHeight">
                                 <Row>
-                                    <p className="blockNumber echartsFont">巡更统计</p>
-                                    <Col span={24}><PatrolStatistics /></Col>
+                                    <Col xl={12} xxl={12}>
+                                        <div className="clear y-center marginTop littleLeft boxShow">
+                                            <Col span={8}>
+                                                <img src={baojing} alt="" className="noBorder" />
+                                            </Col>
+                                            <Col span={12} offset={1}>
+                                                <Row>
+                                                    <Col span={24} className="blockFont adminFont">{this.state.alarmcount}</Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col span={24} className="listContext blockNumber">未处理报警数</Col>
+                                                </Row>
+                                            </Col>
+                                        </div>
+                                    </Col>
+                                    <Col xl={12} xxl={12}>
+                                        <div className="clear y-center marginTop marginLeft boxShow">
+                                            <Col span={8}>
+                                                <img src={cloud} alt="" className="noBorder" />
+                                            </Col>
+                                            <Col span={12} offset={1}>
+                                                <Row>
+                                                    <Col span={24} className="cloudFont adminFont blockFont listContext" title= {this.state.cloudDate?this.state.cloudDate:'无期限'}>
+                                                        {this.state.cloudDate?this.state.cloudDate:'无期限'}
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col span={24} className="listContext blockNumber">云服务到期日期</Col>
+                                                </Row>
+                                            </Col>
+                                        </div>
+                                    </Col>
                                 </Row>
                             </div>
-                            <div className="backLitte marginTop littleLeft marginBottom">
-                                <Row>
-                                    <p className="blockNumber echartsFont">点名统计</p>
-                                    <Col span={24}><RollcallStatistics /></Col>
-                                </Row>
+                            <div className="backLitte marginTop littleLeft" id="patrolStatistics">
+                                <p className="blockNumber echartsFont">巡更统计</p>
+                                <Col span={24}><PatrolStatistics patrolHeight={this.state.topLeftHeight} policeHeight={this.state.policeHeight}/></Col>
                             </div>
-                        </Col>
-                    </Row>
+                            <div className="backLitte marginTop littleLeft marginBottom" id="rollcallStatistics">
+                                <p className="blockNumber echartsFont">点名统计</p>
+                                <Col span={24}><RollcallStatistics rollcallHeight={this.state.topLeftHeight} policeHeight={this.state.policeHeight} /></Col>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="backBlock marginTop">
-                    <Row >
-                    <Col xl={22} xxl={20}>
-                        <Row>
-                            <Col xl={24} xxl={24} className="marginTop marginLeft marginBottom"><div className="zonglanCircle" />&nbsp;&nbsp;<span className="titleFont">用户设备</span></Col>
-                            <Equipment />
-                        </Row>
-                    </Col>
+                <Row className="equipmentUser">
+                    <Col xl={24} xxl={24} className="marginTop marginLeft marginBottom"><div className="zonglanCircle" />&nbsp;&nbsp;<span className="titleFont">用户设备</span></Col>
+                    <Equipment />
                 </Row>
-                </div>
             </div>
         )
     }

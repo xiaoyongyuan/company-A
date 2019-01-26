@@ -37,8 +37,6 @@ class PatrolStatistics extends Component{
 
             ]
         }
-
-
         let xAxisMonth = [],
             barData = [],
             lineData = [];
