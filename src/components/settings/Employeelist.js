@@ -3,6 +3,7 @@ import ModalForm from './ModalForm.js';
 import {Form, Input, Row, Col, Button, Modal, Table, message, Spin} from 'antd';
 import {post} from "../../axios/tools";
 import "../../style/publicStyle/publicStyle.css";
+
 const FormItem = Form.Item;
 const usertype=JSON.parse(localStorage.getItem('user'));
 class Adminteam extends Component {
@@ -228,6 +229,7 @@ class Adminteam extends Component {
                                 {
                                     this.state.list.length>=0?
                                         <Table columns={columns}
+                                        
                                                dataSource={this.state.list}
                                                bordered={isbordered}
                                                pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}

@@ -160,5 +160,7 @@
 .gutter-example .ant-form-item-label label{
     color: #000!important;
 }
-
-
+.ant-table-placeholder {
+    min-height: 200px !important;
+    padding-top: 100px;
+}
