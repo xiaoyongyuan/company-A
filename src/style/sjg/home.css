@@ -479,7 +479,7 @@ margin: 20px 0;
     }
     .patrol_query{
         display: flex;
-        margin-top:17px ;
+        margin-top:15px;
         flex-direction:column;
         align-items:center;/*垂直居中*/
         justify-content: center;/*水平居中*/
@@ -514,7 +514,7 @@ margin: 20px 0;
     }
     .patrol_query{
         display: flex;
-        margin-top:17px ;
+        margin-top:15px ;
         flex-direction:column;
         align-items:center;/*垂直居中*/
         justify-content: center;/*水平居中*/
