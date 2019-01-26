@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import '../../style/sjg/home.css';
 import {Card,Form,Input,Row,Col,Button,message,Radio,Select} from 'antd';
-import BreadcrumbCustom from '../BreadcrumbCustom';
 import {post} from "../../axios/tools";
 import nopic from "../../style/imgs/nopic.png";
 const FormItem = Form.Item;
@@ -102,9 +101,7 @@ class AdoptLook extends Component {
 
         return (
             <div className="gutter-example">
-                <BreadcrumbCustom first="维护团队管理" second="点名审核" />
-
-                <Row className="white">
+                <Row className="adoptlook-white">
                     <Col className="gutter-row" span={10}>
                         <div className="gutter-box">
                             <Card title="" bordered={false}>
@@ -189,7 +186,7 @@ class AdoptLook extends Component {
                                         ?<Row>
                                             <Col span={16} offset={8}>
                                                 <Button type="primary" htmlType="submit" className="login-form-button" >提交</Button>
-                                                <Button style={{display:"inline-block"}} onClick={this.cancelhandle}>返回</Button>
+                                                <Button style={{display:"inline-block"}} onClick={this.cancelhandle} className="adoptBtn-fh">返回</Button>
                                             </Col>
                                         </Row>
                                         :''

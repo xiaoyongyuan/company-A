@@ -30,9 +30,9 @@
 }
 /*下拉框*/
 .ant-select-selection {
-    background-color: #3C466E!important;
+    background-color: #fff!important;
     border: 1px solid #3C466E!important;
-    color: #8592C6!important;
+    color: #000!important;
 }
 .ant-select-arrow {
     color: #8592C6!important;
@@ -160,5 +160,7 @@
 .gutter-example .ant-form-item-label label{
     color: #000!important;
 }
-
-
+.ant-table-placeholder {
+    min-height: 200px !important;
+    padding-top: 100px;
+}

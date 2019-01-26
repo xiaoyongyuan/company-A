@@ -32,7 +32,8 @@ class RollcallHostory extends Component{
             pageSize:20, //每页显示数量
             isrequest:true,//是否请求接口
             scrollTop:Number,
-            loadtip:"加载中..."//下拉刷新时的提示文字
+            loadtip:"加载中...",//下拉刷新时的提示文字
+            type:true,//无数据图
         }
     }
     componentDidMount() {
@@ -160,6 +161,7 @@ class RollcallHostory extends Component{
                         if(res.data.length===0){
                             this.setState({
                                 loadtip:'  ',
+                                type:false,
                                 } )
                         }
                        
@@ -231,9 +233,9 @@ class RollcallHostory extends Component{
                 </LocaleProvider>
                 {/* <div>{this.state.list.length?<div></div>:<div className="textcenter">暂无数据</div>}</div> */}
                   <Spin spinning={this.state.loading} size="large" className="spin" tip="Loading..." />
-                {/* <div style={{marginTop:"70px",display:this.state.type?" none":"block"}}>
+                <div style={{marginTop:"70px",display:this.state.type?" none":"block"}}>
                     <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
-                </div> */}
+                </div>
                 <div className="timeline_ml" style={{display:this.state.type?" block":"none"}}>
                  <Timeline pending={this.state.loadtip}>
                          
@@ -288,7 +290,7 @@ class RollcallHostory extends Component{
                                     </Timeline.Item>
                                     </div>
                                 )
-                            }):<div className="textcenter"> 暂无数据</div>
+                            }):''
                         } 
                 </Timeline>
                 </div>

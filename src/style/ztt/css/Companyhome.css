@@ -42,6 +42,9 @@
 .Companyhome .ant-card-bordered{
     border:none;
 }
+.button-demo .ant-card{
+    color:#fff !important;
+}
 .marginTop{
     margin-top:16px;
 }
