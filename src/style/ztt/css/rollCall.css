@@ -131,3 +131,10 @@ RollcallTask.js 点名任务
 .gutter-example .adoptlook-white .adoptBtn-fh{
     color: #5063ee!important;
 }
+.RollcallTask .ant-select-selection {
+    background-color: #fff!important;
+    color: #000!important;
+}
+.setrollcalltask .ant-form-item-label label{
+    color: #000!important;
+}

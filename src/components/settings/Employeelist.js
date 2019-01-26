@@ -24,7 +24,7 @@ class Adminteam extends Component {
             utype: utypeObj.utype
         })
     }
-    requestdata =(params={ pagesize:10,pageindex:this.state.page,}) => {//取数据
+    requestdata =(params={ pagesize:2,pageindex:this.state.page,}) => {//取数据
         post({url:"/api/companyuser/getlist",data:params}, (res)=>{
             if(res.success){
                 this.setState({
@@ -66,7 +66,7 @@ class Adminteam extends Component {
                         realname:values.realname,
                         account:values.account,
                         emailaddress:values.emailaddress,
-                        utype:1
+                        // utype:1
                     }
                     post({url:"/api/companyuser/add",data:data}, (res)=>{
                         if(res.success){
@@ -78,6 +78,16 @@ class Adminteam extends Component {
                                 visible: false,
                             })
                             forms.resetFields();
+                            this.setState({
+                                page:1,
+                            },()=>{
+                                this.requestdata();
+                                this.props.form.setFieldsValue({
+                                    // console.log("132444444",values);
+                                    "account":'',
+                                    "realname":''
+                                })
+                            })
                         }
                     })
                 }else{
@@ -137,6 +147,7 @@ class Adminteam extends Component {
             }
         })
     };
+
     render() {
         const _this=this;
         const { getFieldDecorator } = this.props.form;
@@ -229,10 +240,9 @@ class Adminteam extends Component {
                                 {
                                     this.state.list.length>=0?
                                         <Table columns={columns}
-                                        
                                                dataSource={this.state.list}
                                                bordered={isbordered}
-                                               pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
+                                               pagination={{defaultPageSize:2,current:this.state.page, total:this.state.total,onChange:this.changePage}}
                                         />
                                         :
                                         <div className="textcenter"><Spin size="large" tip="Loading..." /></div>
