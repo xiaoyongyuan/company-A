@@ -32,12 +32,6 @@ class Scenedata extends Component {
             geo: {
                 map: 'xiant',
                 roam: true,
-                areaStyle: {
-                    normal: {
-                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1,
-                            [{ offset: 0, color: '#80D6EB' },{ offset: 1, color: '#3B80B4' }]
-                        )}
-                },
                 aspectScale:.8, //长宽比 
                 zoom:1.2, //当前视角的缩放比例
                 //取消鼠标移入地图上的文字
@@ -46,14 +40,35 @@ class Scenedata extends Component {
                         show: false
                     }
                 },
-                itemStyle:{
-                    normal:{
-                        areaColor:"#091e57", //地图的背景
-                        borderColor:"#0bf9f9" //分界线的颜色
+                itemStyle: {
+                    normal: {
+                        //         	color: '#ddd',
+                        borderColor: 'rgba(147, 235, 248, 1)',
+                        borderWidth: 1,
+                        areaColor: {
+                            type: 'radial',
+                            x: 0.5,
+                            y: 0.5,
+                            r: 0.8,
+                            colorStops: [{
+                                offset: 0,
+                                color: 'rgba(175,238,238, 0)' // 0% 处的颜色
+                            }, {
+                                offset: 1,
+                                color: 'rgba(	47,79,79, .2)' // 100% 处的颜色
+                            }],
+                            globalCoord: false // 缺省为 false
+                        },
+                        shadowColor: 'rgba(128, 217, 248, 1)',
+                        // shadowColor: 'rgba(255, 255, 255, 1)',
+                        shadowOffsetX: -2,
+                        shadowOffsetY: 2,
+                        shadowBlur: 10
                     },
-                    emphasis:{
-                        areaColor:"#091e57" //悬浮时的颜色
-                    },
+                    emphasis: {
+                        areaColor:  'rgba(147, 235, 248, 0.4)',
+                        borderWidth: 0,
+                    }
                 }
             },
             series:[
