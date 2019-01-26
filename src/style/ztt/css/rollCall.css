@@ -116,3 +116,6 @@ RollcallTask.js 点名任务
     text-align: center;
     width: 100%;
 }
+.RollcallTask .setrollcalltask select{
+    background-color: #fff!important;
+}
