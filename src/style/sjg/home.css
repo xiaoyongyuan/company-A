@@ -920,7 +920,7 @@ margin: 4px 0 0 20px ;
 }
 .gutter-example .ant-select-selection{
     background-color: #fff!important;
-    color: #000!important;
+    color: rgba(0,0,0,0.4)!important;
     /*border: #d9d9d9!important;*/
 }
 .gutter-example .ant-input{
@@ -966,6 +966,6 @@ margin: 4px 0 0 20px ;
     color: #fff!important;
 }
 .gutter-example .adoptlook-white .ant-input-disabled{
-    color: #000;
+    color: rgba(0,0,0,0.4);
 }
 

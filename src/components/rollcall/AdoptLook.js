@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import '../../style/sjg/home.css';
 import {Card,Form,Input,Row,Col,Button,message,Radio,Select} from 'antd';
-import BreadcrumbCustom from '../BreadcrumbCustom';
 import {post} from "../../axios/tools";
 import nopic from "../../style/imgs/nopic.png";
 const FormItem = Form.Item;
