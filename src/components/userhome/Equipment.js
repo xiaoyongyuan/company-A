@@ -98,7 +98,7 @@ class Equipment extends React.Component{
         return(
                 <div className="equipment">
                     <Spin size="large" tip="Loading......" spinning={this.state.loading} className="loadding" />
-                    <Row style={{display:this.state.type===0?"block":"none"}}>
+                    <Row style={{display:this.state.type===0?"block":"none",paddingTop:"40px"}}>
                         <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
                     </Row>
                     <div className="equipmentCard">
