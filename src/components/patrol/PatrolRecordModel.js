@@ -16,6 +16,7 @@ class PatrolRecordModel extends Component{
         this.setState({
             code:this.props.code,
             itemStatus:this.props.itemStatus,
+            rollcallhostory:this.props.rollcallhostory
         })
     }
     componentDidMount() {
@@ -69,7 +70,7 @@ console.log('******************',this.state.itemStatus);
                
                    {/* <Col span={24}><img src={this.state.paList.ppic} alt="nodata" width="100%" /></Col> */}
                     {this.state.itemStatus===0? <Col span={24}><img src={ing} alt="nodata" width="100%" /></Col>:''}
-                    {this.state.paList.ppic? <Col span={24}><img src={this.state.paList.ppic} alt="nodata" width="100%" /></Col>:''}
+                    {this.state.paList.ppic&&this.state.rollcallhostory? <Col span={24}><img src={this.state.paList.ppic} alt="nodata" width="100%" /></Col>:''}
                     {this.state.itemStatus===2? <Col span={24}><img src={this.state.paList.ppic?this.state.paList.ppic:unsucc} alt="nodata" width="100%" /></Col>:''}
                </Row>
                <Row style={{margin:"10px 0px"}}>

@@ -307,7 +307,7 @@ class RollcallHostory extends Component{
                     onCancel={this.handlerollClose}
                     footer={null}
                  >
-                    <RollcallRecordModel code={this.state.code} visible={this.state.rollCallType} />
+                    <RollcallRecordModel code={this.state.code} visible={this.state.rollCallType} rollcallhostory="1" />
                  </Modal>
              {/* </Spin> */}
             </div>
