@@ -187,3 +187,6 @@
 .Settime .ant-time-picker-icon .ant-time-picker-clock-icon {
     color: #fff !important;
 }
+.tc-label label{
+    color: #000!important;
+}
