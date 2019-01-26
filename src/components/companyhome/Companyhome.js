@@ -121,11 +121,11 @@ class Companyhome extends Component {
                             </div>
                             <div className="backLitte marginTop littleLeft" id="patrolStatistics">
                                 <p className="blockNumber echartsFont">巡更统计</p>
-                                <Col span={24}><PatrolStatistics patrolHeight={this.state.topLeftHeight} policeHeight={this.state.policeHeight}/></Col>
+                                <Col span={24}><PatrolStatistics /></Col>
                             </div>
                             <div className="backLitte marginTop littleLeft marginBottom" id="rollcallStatistics">
                                 <p className="blockNumber echartsFont">点名统计</p>
-                                <Col span={24}><RollcallStatistics rollcallHeight={this.state.topLeftHeight} policeHeight={this.state.policeHeight} /></Col>
+                                <Col span={24}><RollcallStatistics /></Col>
                             </div>
                         </div>
                     </div>
