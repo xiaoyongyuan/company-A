@@ -157,6 +157,12 @@ class RollcallHostory extends Component{
                             list:res.data,
                             type:true,
                         })
+                        if(res.data.length===0){
+                            this.setState({
+                                loadtip:'  ',
+                                } )
+                        }
+                       
                 }else{
                     this.setState({
                         type:false,
@@ -283,7 +289,7 @@ class RollcallHostory extends Component{
                                     </Timeline.Item>
                                     </div>
                                 )
-                            }):<div className="textcenter">暂无数据</div>
+                            }):<div className="textcenter"> 暂无数据</div>
                         } 
                 </Timeline>
                 </div>
