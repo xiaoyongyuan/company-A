@@ -1,6 +1,32 @@
 /*
  *Companyhome.js  企业用户首页
  */
+.companyhome{
+    border:20px solid #323A5D;
+    background: #323A5D;
+}
+.Companyhome{
+    display: flex;
+    flex-direction:column;
+    justify-content: flex-start;
+}
+.topLeftContext{
+    width: 50%;
+    height: 50%;
+    background: #323A5D;
+}
+.topRightContext{
+    display: flex;
+    flex-direction:column;
+    justify-content: flex-start;
+    width:45%;
+    height:50%;
+}
+.boxHeight{
+    display: flex;
+    flex-direction:row ;
+    justify-content: flex-start;
+}
 .backBlock{
     background: #2B3253;
     border-radius: 4px;
@@ -12,10 +38,7 @@
     background: #323A5D!important;
     border-radius: 4px;
 }
-.Companyhome{
-    border:20px solid #323A5D;
-    background: #323A5D;
-}
+
 .Companyhome .ant-card-bordered{
     border:none;
 }
@@ -350,7 +373,7 @@
     margin: 0 8px 8px 0;
 }
 .Imgdiv{
-     width: 100%;
+     width: 50%;
      height:70.7vh;
      margin:16px;
  }
@@ -404,6 +427,13 @@
     float: left;
     background:#ffffff;
     border-radius: 50%;
+}
+.equipmentUser{
+    background:#2B3253;
+    margin-left:20px!important;
+    margin-right: 20px!important;
+    margin-bottom: 10px!important;
+    border-radius: 4px!important;
 }
 
 
