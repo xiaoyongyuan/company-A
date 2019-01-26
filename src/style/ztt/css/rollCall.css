@@ -119,3 +119,6 @@ RollcallTask.js 点名任务
 .RollcallTask .setrollcalltask select{
     background-color: #fff!important;
 }
+.gutter-example .ant-radio-disabled + span{
+    color: #fff;
+}
