@@ -946,7 +946,7 @@ margin: 4px 0 0 20px ;
 .gutter-example .adoptlook-white .ant-input-disabled{
     color: rgba(0,0,0,0.4);
 }
-.paddL .ant-card-head-title,.paddL .ant-timeline,.paddL .ant-timeline-item-head-blue{
+.paddL .ant-card-head-title,.paddL .ant-timeline{
     color:#ffffff;
 }
 .paddL .ant-card{
@@ -954,7 +954,9 @@ margin: 4px 0 0 20px ;
     background: #2B3355!important;
     color:#ffffff;
 }
-
+.paddL .ant-timeline-item-head{
+    border-color: #FFF;
+}
 
 .PatrolPlan .ant-card {
     min-height: 700px;
