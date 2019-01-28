@@ -30,6 +30,7 @@ class RollcallTask extends Component{
             pageindex:1, //当前页
             pageSize:9, //每页显示的数据
             duration:'',
+            loadding:true,
         }
     }
     componentDidMount() {
@@ -147,7 +148,9 @@ class RollcallTask extends Component{
             rname:this.state.realname,
             cameraname:this.state.account,
             pageindex:1,
+
             loading:true,
+
         },()=>{
             this.reuestdata()
         })
@@ -295,6 +298,7 @@ class RollcallTask extends Component{
                         <Button className="processingBtn" onClick={()=>this.rollcall('all')}>全部点名</Button>
                     </Col>
                 </Row>
+                <Spin size="large" spinning={this.state.loadding} tip="Loading..." className="loadding" />
                 <div className="flexbox">
                     {!this.state.list.length?<div style={{width:"100%",textAlign:"center",marginTop:'80px'}}><div className="backImg"><img src={nodata} alt="" /></div></div>:this.state.list.map((el,i)=>(
                         <div className="cardflex" key={i+1} style={{margin:"1vmax 1vmax"}}>
