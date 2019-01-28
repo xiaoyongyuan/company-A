@@ -4,143 +4,135 @@ import '../../style/ztt/css/Companyhome.css';
 import echarts from "echarts";
 class PatrolStatistics extends Component{
     render() {
-        let data = {
-            "chart": [{
-                month: "数据库\n\n192.168.1.44",
-                value: 76,
-
-            },
-
-                {
-                    month: "网站\n\n192.168.1.56",
-                    value: 55,
-
-                },
-
-                {
-                    month: "服务器\n\n192.168.1.89",
-                    value: 39,
-
-                },
-
-                {
-                    month: "服务器\n\n192.168.1.71",
-                    value: 30,
-
-                },
-
-                {
-                    month: "服务器\n\n192.168.1.55",
-                    value: 15,
-
-                },
-
-            ]
-        }
-        let xAxisMonth = [],
-            barData = [],
-            lineData = [];
-        for (let i = 0; i < data.chart.length; i++) {
-            xAxisMonth.push(data.chart[i].month);
-            barData.push({
-                "name": xAxisMonth[i],
-                "value": data.chart[i].value
-            });
-            lineData.push({
-                "name": xAxisMonth[i],
-                "value": data.chart[i].ratio
-            });
-        }
-
        var option = {
-           /* backgroundColor: "#fff",*/
-            title: '',
-            grid: {
-                top: '24%',
-                left: '15%',
-                bottom: '6%',
-                containLabel: true
-            },
+           title: {
+               textStyle: {
+                   color: '#00FFFF',
+                   fontSize: 24
+               }
+           },
+           grid: {
+               left: '3%',
+               right: '4%',
+               bottom: '10%',
+               containLabel: true
+           },
 
-            xAxis: [
-                {
-                },
-                {
-                    type: 'category',
-                    position: "bottom",
-                    data: xAxisMonth,
-                    boundaryGap: true,
-                    offset: 10,
-                    axisTick: {
-                        show: false
-                    },
-                    axisLine: {
-                        show: false
-                    },
-                    axisLabel: {
-                        textStyle: {
-                            color: '#ffffff'
-                        }
-                    }
-                }
+           tooltip: {
+               trigger: 'axis',
+               axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                   type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+               },
+               formatter:function (params) {
+                   var unOk=params[1].data-params[0].data;
+                   var rollcal=`<div>
+                                    <p>${params[0].name}</p>
+                                     <p>${params[1].marker}${params[1].seriesName}:${params[1].data}</p>
+                                     <p><span style="display:inline-block;width:10px;height: 10px;border-radius: 50%;background:linear-gradient(#00F9E5,#277ACE);margin-right: 5px"></span>${params[0].seriesName}:${params[0].data}</p>
+                                    <p>${params[1].marker}未完成次数:${unOk}</p>
+                               </div>`;
+                   return rollcal;
+               }
+           },
+           yAxis: {
+               type: 'value',
+               axisTick: {
+                   show: false
+               },
+               axisLine: {
+                   show: false,
+                   lineStyle: {
+                       color: '#fff',
+                   }
+               },
+               splitLine: {
+                   show: false,
+                   lineStyle: {
+                       color: '#aaa',
+                   }
+               },
+           },
+           xAxis: [{
+               type: 'category',
+               axisTick: {
+                   show: false
+               },
+               axisLine: {
+                   show: false,
+                   lineStyle: {
+                       color: '#fff',
+                   }
+               },
+               data: this.props.patrolListX,
+           }, {
+               type: 'category',
+               axisLine: {
+                   show: false
+               },
+               axisTick: {
+                   show: false
+               },
+               axisLabel: {
+                   show: false
+               },
+               splitArea: {
+                   show: false
+               },
+               splitLine: {
+                   show: false
+               },
+               data: this.props.patrolListX
+           },
 
-            ],
-            yAxis: [
-                {
-                    show: true,
-                    offset: 52,
+           ],
+           series: [{
+               name: '总次数',
+               type: 'bar',
+               xAxisIndex: 1,
+               itemStyle: {
+                   normal: {
+                       show: true,
+                       color: '#277ace',
+                       barBorderRadius: 50,
+                       borderWidth: 0,
+                       borderColor: '#333',
+                   }
+               },
+               barWidth: '20%',
+               data: this.props.patrolCount
+           }, {
+               name: '完成次数',
+               type: 'bar',
+               barWidth: '20%',
+               itemStyle: {
+                   normal: {
+                       show: true,
+                       color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                           offset: 0,
+                           color: '#00F9E5'
+                       }, {
+                           offset: 1,
+                           color: '#277ACE'
+                       }]),
+                       barBorderRadius: 50,
+                       borderWidth: 0,
+                       borderColor: '#333',
+                   }
+               },
+               label: {
+                   normal: {
+                       show: true,
+                       position: 'top',
+                       textStyle: {
+                           color: '#fff'
+                       }
+                   }
+               },
+               barGap: '100%',
+               data: this.props.normal
+           }
 
-                    axisTick: {
-                        show: false
-                    },
-                    min: 0,
-                    max: 80,
-                    interval: 20,
-                    axisLine: {
-                        show: false
-                    },
-
-                    axisLabel: {
-                        show: true,
-                        color: '#ffffff'
-                    },
-                    splitLine: {
-                        show:false,
-                        lineStyle: {
-                            color: '#e1e3e5',
-                            type: 'solid'
-                        }
-                    },
-                },
-
-            ],
-
-            series: [{
-
-                type: 'pictorialBar',
-                xAxisIndex: 1,
-                barCategoryGap: '-80%',
-                // barCategoryGap: '-5%',
-                symbol: 'path://d="M150 50 L130 130 L170 130  Z"',
-                itemStyle: {
-                    normal: {
-                        color: function(params) {
-                            let colorList = [
-                                'rgba(40,115,240,0.8)', 'rgba(3,182,244,0.8)',
-                                'rgba(40,115,240,0.8)', 'rgba(3,182,244,0.8)',
-                                'rgba(40,115,240,0.8)',
-                            ];
-                            return colorList[params.dataIndex];
-                        }
-                    },
-                    emphasis: {
-                        opacity: 1
-                    }
-                },
-                data: barData,
-            },
-
-            ]
+           ]
         }
         return (
             <ReactEcharts

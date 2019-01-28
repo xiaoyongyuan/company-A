@@ -3,183 +3,136 @@ import ReactEcharts from 'echarts-for-react';
 import echarts from 'echarts';
 class RollcallStatistics extends Component{
     render() {
-        var data = [{
-            "name": "一月",
-            "value": 80
-        }, {
-            "name": "二月",
-            "value": 87.8
-        }, {
-            "name": "三月",
-            "value": 71
-        }, {
-            "name": "四月",
-            "value": 80
-        }, {
-            "name": "五月",
-            "value": 66
-        }, {
-            "name": "六月",
-            "value": 80
-        }, {
-            "name": "七月",
-            "value": 80
-        }];
-        var xData = [],
-            yData = [];
-        var min = 50;
-        data.map(function(a, b) {
-            xData.push(a.name);
-            if (a.value === 0) {
-                yData.push(a.value + min);
-            } else {
-                yData.push(a.value);
-            }
-        });
-        let option = {
-           /* backgroundColor:"#323A5D",*/
-            color: ['#3398DB'],
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'line',
-                    lineStyle: {
-                        opacity: 0
-                    }
-                },
-                formatter: function(prams) {
-                    if (prams[0].data === min) {
-                        return "合格率：0%"
-                    } else {
-                        return "合格率：" + prams[0].data + "%"
-                    }
+        var option = {
+            title: {
+                textStyle: {
+                    color: '#00FFFF',
+                    fontSize: 24
                 }
             },
-            legend: {
-                data: ['直接访问', '背景'],
-                show: false
-            },
             grid: {
-                left: '5%',
-                right: '3%',
-                bottom: '5%',
-                top: '7%',
-                containLabel: true,
-                z: 22
+                left: '3%',
+                right: '4%',
+                bottom: '10%',
+                containLabel: true
+            },
+
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                },
+                formatter:function (params) {
+                  var unOk=params[1].data-params[0].data;
+                  var rollcal=`<div>
+                                    <p>${params[0].name}</p>
+                                     <p>${params[1].marker}${params[1].seriesName}:${params[1].data}</p>
+                                     <p><span style="display:inline-block;width:10px;height: 10px;border-radius: 50%;background:linear-gradient(#3023AE,#C96DD8);margin-right: 5px"></span>${params[0].seriesName}:${params[0].data}</p>
+                                    <p>${params[1].marker}未完成次数:${unOk}</p>
+                               </div>`;
+                  return rollcal;
+                }
+            },
+            yAxis: {
+                type: 'value',
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    show: false,
+                    lineStyle: {
+                        color: '#fff',
+                    }
+                },
+                splitLine: {
+                    show: false,
+                    lineStyle: {
+                        color: '#aaa',
+                    }
+                },
             },
             xAxis: [{
                 type: 'category',
-                gridIndex: 0,
-                data: xData,
                 axisTick: {
-                    alignWithLabel: true
+                    show: false
                 },
                 axisLine: {
+                    show: false,
                     lineStyle: {
-                        color: '#323A5D'
+                        color: '#fff',
                     }
                 },
+                data: this.props.rollcallX,
+            }, {
+                type: 'category',
+                axisLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
                 axisLabel: {
-                    show: true,
-                    color: '#ffffff',
-                    fontSize:14
-                }
-            }],
-            yAxis: [{
-                type: 'value',
-                gridIndex: 0,
+                    show: false
+                },
+                splitArea: {
+                    show: false
+                },
                 splitLine: {
                     show: false
                 },
-                axisTick: {
-                    show: false
-                },
-                min: min,
-                max: 100,
-                axisLine: {
-                    lineStyle: {
-                        color: '#323A5D'
-                    }
-                },
-                axisLabel: {
-                    color: '#ffffff',
-                    formatter: '{value} %'
-                }
+                data: this.props.rollcallX
             },
-                {
-                    type: 'value',
-                    gridIndex: 0,
-                    min: min,
-                    max: 100,
-                    splitNumber: 12,
-                    splitLine: {
-                        show: false
-                    },
-                    axisLine: {
-                        show: false
-                    },
-                    axisTick: {
-                        show: false
-                    },
-                    axisLabel: {
-                        show: false
-                    },
-                    splitArea: {
-                        show: true,
-                        areaStyle: {
-                            color: ['rgba(250,250,250,0.0)', 'rgba(250,250,250,0.05)']
-                        }
-                    }
-                }
+
             ],
             series: [{
-                name: '合格率',
+                name: '总次数',
                 type: 'bar',
-                barWidth: '30%',
-                xAxisIndex: 0,
-                yAxisIndex: 0,
+                xAxisIndex: 1,
+                barWidth: '20%',
                 itemStyle: {
                     normal: {
-                        barBorderRadius: 30,
-                        color: new echarts.graphic.LinearGradient(
-                            0, 0, 0, 1, [{
-                                offset: 0,
-                                color: '#00feff'
-                            },
-                                {
-                                    offset: 0.5,
-                                    color: '#027eff'
-                                },
-                                {
-                                    offset: 1,
-                                    color: '#0286ff'
-                                }
-                            ]
-                        )
+                        show: true,
+                        color: '#277ace',
+                        barBorderRadius: 50,
+                        borderWidth: 0,
+                        borderColor: '#333',
                     }
                 },
-                data: yData,
-                zlevel: 11
-
-            },
-                {
-                    name: '背景',
-                    type: 'bar',
-                    barWidth: '50%',
-                    xAxisIndex: 0,
-                    yAxisIndex: 1,
-                    barGap: '-135%',
-                    data: [100, 100, 100, 100, 100, 100, 100],
-                    itemStyle: {
-                        normal: {
-                            color: 'rgba(255,255,255,0.1)'
-                        }
-                    },
-                    zlevel: 9
+                data: this.props.rollcallCount
+            }, {
+                name: '完成次数',
+                type: 'bar',
+                barWidth: '20%',
+                itemStyle: {
+                    normal: {
+                        show: true,
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#3023AE'
+                        }, {
+                            offset: 1,
+                            color: '#C96DD8'
+                        }]),
+                        barBorderRadius: 50,
+                        borderWidth: 0,
+                        borderColor: '#333',
+                    }
                 },
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'top',
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    }
+                },
+                barGap: '100%',
+                data: this.props.rollcallNormal
+            }
 
             ]
-        };
+        }
         return (
             <ReactEcharts
                 option={option}
