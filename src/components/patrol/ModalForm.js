@@ -29,7 +29,7 @@ class ModalForm extends Component {
                 })
                 this.setState({
                     plainOptions: codearr
-                    
+
                 },()=>{
                 })
             }

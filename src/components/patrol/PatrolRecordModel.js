@@ -69,7 +69,9 @@ console.log('******************',this.state.itemStatus);
                <Row>
                
                    {/* <Col span={24}><img src={this.state.paList.ppic} alt="nodata" width="100%" /></Col> */}
+                   
                     {this.state.itemStatus===0? <Col span={24}><img src={ing} alt="nodata" width="100%" /></Col>:''}
+                    {this.state.itemStatus===1? <Col span={24}><img src={this.state.paList.ppic} alt="nodata" width="100%" /></Col>:''}
                     {this.state.paList.ppic&&this.state.rollcallhostory? <Col span={24}><img src={this.state.paList.ppic} alt="nodata" width="100%" /></Col>:''}
                     {this.state.itemStatus===2? <Col span={24}><img src={this.state.paList.ppic?this.state.paList.ppic:unsucc} alt="nodata" width="100%" /></Col>:''}
                </Row>

@@ -84,15 +84,17 @@ class RollcallHostory extends Component{
                             _this.setState({
                                  list: alist,
                                  loading: false,
+                                 loadtip:"加载中...",
                             } )
                     }else{
                         if(res.data.length===0){
                             message.success('没有更多了');
+                            _this.setState({
+                                isrequest: false,
+                                loadtip:" ",
+                                } )
                         }
-                        _this.setState({
-                            isrequest: false,
-                            loadtip:'  ',
-                            } )
+                        
                     }
                    
                 })
