@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row,Col } from 'antd';
+import { Row,Col,Carousel} from 'antd';
 import '../../style/yal/css/overView.css';
 import {post} from "../../axios/tools";
 import equip from "../../style/yal/img/equip.png";
@@ -254,8 +254,14 @@ class overView extends Component {
                             <div className="untreated alarmtitle">
                                 未处理报警
                             </div>
-                            <div className="untreated alarmvalue">
-                                13621
+                            <div className="alarmover ">
+                                    <Carousel vertical autoplay className="alarmcarousel">
+                                        <div className="carouselbg"><h3>1111111</h3></div>
+                                        <div className="carouselbg"><h3>13621</h3></div>
+                                        <div className="carouselbg"><h3>3333333</h3></div>
+                                        <div className="carouselbg"><h3>444444</h3></div>
+                                    </Carousel>
+                                
                             </div>
                         </div>
                     </Col>
