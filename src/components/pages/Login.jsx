@@ -37,7 +37,7 @@ class Login extends React.Component {
             if(nextAuth.data.data.ctype==='5'){
                 history.push('/app/userhome/index');
             }else{
-                 if(nextAuth.data.data.activecount) history.push('/app/companyhome/visual');
+                 if(nextAuth.data.data.activecount) history.push('/app/overView/index');
                  else history.push('/app/companyhome/index');  
             }
             
