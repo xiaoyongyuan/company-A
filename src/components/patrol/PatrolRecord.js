@@ -175,52 +175,51 @@ class PatrolRecord extends React.Component{
         }];
         return(       
             <div className="PatrolRecord">
-                    <Row style={{marginTop:"20px",marginLeft:"30px"}}>
-                        <Form layout="inline" onSubmit={this.handlePatrolSelect} className="rangeForm">
-                            <LocaleProvider locale={zh_CN}>
-                                <Form.Item
-                                label="日期"
-                                >
-                                {getFieldDecorator('range-picker1')(
-                                    <RangePicker
-                                        ranges={{ Today: [moment(), moment()], 'This Month': [moment().startOf('month'), moment().endOf('month')] }}
-                                        format="YYYY/MM/DD HH:mm:ss"
-                                        showTime
-                                        placeholder={['开始时间', '结束时间']}
-                                        onChange={this.onChangeDate}
-                                    />
-                                )}
-                            </Form.Item>
-                            </LocaleProvider>
+                <Row className="patrolTop">
+                    <Form layout="inline" onSubmit={this.handlePatrolSelect} className="rangeForm">
+                        <LocaleProvider locale={zh_CN}>
                             <Form.Item
-                                label="设备"
+                            label="日期"
                             >
-                                {getFieldDecorator('residence',{
-                                    initialValue:""
-                                } )(
-                                    <Select style={{ width: 120 }} onChange={this.patrolChange}>
-                                        <Option value="" >所有</Option>
-                                        {
-                                            this.state.equipment.map((v,i)=>(
-                                                <Option value={v.code} key={i}>{v.name}</Option>
-                                            ))
-                                        }
-                                    </Select>
-                                )}
-                            </Form.Item>
-                            <Form.Item>
-                                <Button
-                                    className="queryBtn"
-                                    htmlType="submit"
-                              
-                                >
-                                    查询
-                                </Button>
-                            </Form.Item>
-                        </Form>
-                    </Row>
+                            {getFieldDecorator('range-picker1')(
+                                <RangePicker
+                                    ranges={{ Today: [moment(), moment()], 'This Month': [moment().startOf('month'), moment().endOf('month')] }}
+                                    format="YYYY/MM/DD HH:mm:ss"
+                                    showTime
+                                    placeholder={['开始时间', '结束时间']}
+                                    onChange={this.onChangeDate}
+                                />
+                            )}
+                        </Form.Item>
+                        </LocaleProvider>
+                        <Form.Item
+                            label="设备"
+                        >
+                            {getFieldDecorator('residence',{
+                                initialValue:""
+                            } )(
+                                <Select style={{ width: 120 }} onChange={this.patrolChange}>
+                                    <Option value="" >所有</Option>
+                                    {
+                                        this.state.equipment.map((v,i)=>(
+                                            <Option value={v.code} key={i}>{v.name}</Option>
+                                        ))
+                                    }
+                                </Select>
+                            )}
+                        </Form.Item>
+                        <Form.Item>
+                            <Button
+                                className="queryBtn"
+                                htmlType="submit"
 
-                <Row style={{marginTop:"40px",marginLeft:"30px"}}>
+                            >
+                                查询
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </Row>
+                <Row className="patrolTop">
                     <Col span={23}>
                         <Table dataSource={this.state.dataSource} columns={columns} 
                          pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}

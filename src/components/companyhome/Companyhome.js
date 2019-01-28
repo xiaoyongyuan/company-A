@@ -25,31 +25,30 @@ class Companyhome extends Component {
             activelist:[], //共享设备
             passivelist:[], //查看我的用户
             scenegraph:nopic,
-            topLeftHeight:0,
         }
     }
     componentDidMount(){
-        var alertHeight=document.getElementById("alertHeight").clientHeight;
-        var patrolStatisticsHeight=document.getElementById("patrolStatistics").clientHeight;
-        var rollcallStatisticsHeight=document.getElementById("rollcallStatistics").clientHeight;
-        window.onresize = () => {
-            this.setState({
-               topLeftHeight:(alertHeight+patrolStatisticsHeight+rollcallStatisticsHeight)-80+"px",
-                policeHeight:alertHeight
-            })
-        };
+        //巡更计划
+        this.patrolresul();
+        //点名统计
+        this.rollcalldetail();
+        //总览
+        this.companyHome();
+    }
+    //总览
+    companyHome =()=>{
         post({url:'/api/company/getone'},(res)=>{
             if(res.success){
                 let mapJson=[{
                     name:res.data.cname,
                     value:[res.data.clng,res.data.clat]
                 }];
-                res.activelist.map((el,i)=>{
+                /*res.activelist.map((el)=>{
                     mapJson.push({
                         name:el.activename,
                         value:[el.activelng,el.activelat]
                     })
-                })
+                })*/
                 this.setState({
                     activelist:res.activelist, //共享用户
                     passivelist:res.passivelist, //查看我的用户
@@ -63,23 +62,45 @@ class Companyhome extends Component {
                 });
             }
         })
-    }
-    //设备状态
-    handleStatus =(status)=>{
-        if(status===""){
-            return "离线";
-        }else if(status===1){
-            return "启用";
-        }else if(status===0){
-            return "禁用";
-        }
+    };
+    //巡更计划
+    patrolresul =()=>{
+        post({url:"/api/patrolresult/gets_patrol_weeks"},(res)=>{
+          var  patroList=Object.keys(res.data).map(key=> res.data[key]);
+          var patrolListX= patroList.map((v)=>v.pdate).reverse();
+          var patrolCount=patroList.map((v)=>v.totalcount).reverse();
+          var normal=patroList.map((v)=>v.normal).reverse();
+            if(res.success){
+                this.setState({
+                    patrolListX:patrolListX,
+                    patrolCount:patrolCount,
+                    normal:normal
+                })
+            }
+        })
+    };
+    //点名统计
+    rollcalldetail =()=>{
+        post({url:"/api/rollcalldetail/gets_rollcall_weeks"},(res)=>{
+            var rollcall=Object.keys(res.data).map(key=> res.data[key]);
+            var rollcallX= rollcall.map((v)=>v.pdate).reverse();
+            var rollcallCount=rollcall.map((v)=>v.totalcount).reverse();
+            var rollcallNormal=rollcall.map((v)=>v.normal).reverse();
+            if(res.success){
+                this.setState({
+                    rollcallX:rollcallX,
+                    rollcallCount:rollcallCount,
+                    rollcallNormal:rollcallNormal
+                })
+            }
+        })
     };
     render() {
         return (
-            <div className="Companyhome gutter-example button-demo" style={{height:this.state.DHeight}}>
+            <div className="Companyhome gutter-example button-demo">
                 <div className="companyhome" >
                     <div className="boxHeight backBlock" >
-                        <div className="backLitte boxShow "style={{width:'50%',height:this.state.DHeight,margin:"16px"}}>
+                        <div className="backLitte boxShow " style={{width:'50%',margin:"16px"}}>
                             <Scenedata type="maps" />
                         </div>
                         <div className="topRightContext">
@@ -119,13 +140,13 @@ class Companyhome extends Component {
                                     </Col>
                                 </Row>
                             </div>
-                            <div className="backLitte marginTop littleLeft" id="patrolStatistics">
+                            <div className="backLitte marginTop littleLeft" >
                                 <p className="blockNumber echartsFont">巡更统计</p>
-                                <Col span={24}><PatrolStatistics /></Col>
+                                <Col span={24}><PatrolStatistics patrolListX={this.state.patrolListX} patrolCount={this.state.patrolCount} normal={this.state.normal}/></Col>
                             </div>
-                            <div className="backLitte marginTop littleLeft marginBottom" id="rollcallStatistics">
+                            <div className="backLitte marginTop littleLeft marginBottom">
                                 <p className="blockNumber echartsFont">点名统计</p>
-                                <Col span={24}><RollcallStatistics /></Col>
+                                <Col span={24}><RollcallStatistics rollcallX={this.state.rollcallX} rollcallCount={this.state.rollcallCount} rollcallNormal={this.state.rollcallNormal} /></Col>
                             </div>
                         </div>
                     </div>

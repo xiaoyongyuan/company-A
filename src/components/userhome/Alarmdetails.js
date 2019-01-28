@@ -125,31 +125,34 @@ class Alarmdetails extends React.Component{
 
     
     const datafield=this.state.data.field;
-  	if(this.state.field && datafield.length){ 
+  	if(this.state.field && datafield.length){
+      const xi=604/704, yi=476/576;
       let areafield = ele.getContext("2d"); 
       area.lineWidth=1;    
   		areafield.strokeStyle='#f00';
         datafield.map((el,i)=>{
         areafield.beginPath();
-        areafield.moveTo(datafield[i][0][0],datafield[i][0][1]);
-        areafield.lineTo(datafield[i][1][0],datafield[i][1][1]);
-        areafield.lineTo(datafield[i][2][0],datafield[i][2][1]);
-        areafield.lineTo(datafield[i][3][0],datafield[i][3][1]);
-        areafield.lineTo(datafield[i][0][0],datafield[i][0][1]);
+        areafield.moveTo(parseInt(datafield[i][0][0]*xi),parseInt(datafield[i][0][1]*yi));
+        areafield.lineTo(parseInt(datafield[i][1][0]*xi),parseInt(datafield[i][1][1]*yi));
+        areafield.lineTo(parseInt(datafield[i][2][0]*xi),parseInt(datafield[i][2][1]*yi));
+        areafield.lineTo(parseInt(datafield[i][3][0]*xi),parseInt(datafield[i][3][1]*yi));
+        areafield.lineTo(parseInt(datafield[i][0][0]*xi),parseInt(datafield[i][0][1]*yi));
         areafield.stroke();
         areafield.closePath();
+        return '';
       })
   	}
     const objs=this.state.data.finalresult;
   	if(this.state.obj && objs.length){
       //计算缩放比例
-      const x=704/this.state.data.pic_width, y=576/this.state.data.pic_height;
+      const x=604/this.state.data.pic_width, y=476/this.state.data.pic_height;
       objs.map((el,i)=>{
         area.strokeStyle='#ff0';
         area.beginPath();
         area.rect(parseInt(el.x*x),parseInt(el.y*y),parseInt(el.w*x),parseInt(el.h*y));
         area.stroke();
         area.closePath();
+        return '';
       })
   		
   	}
@@ -173,7 +176,7 @@ class Alarmdetails extends React.Component{
             <div className="alarmDetails">
             	<div className="alarmflex">
             		<div className="flexleft">
-            			<canvas id="canvasobj" width="704px" height="576px" style={{backgroundImage:'url('+this.state.data.src+')',backgroundSize:"100% 100%"}} />
+            			<canvas id="canvasobj" width="604px" height="476px" style={{backgroundImage:'url('+this.state.data.src+')',backgroundSize:"100% 100%"}} />
             			<div style={{textAlign:'center'}}>
             				<ButtonGroup>
       							  <Button type="primary" onClick={()=>this.looknew('prev')} disabled={this.state.prev?false:true}>

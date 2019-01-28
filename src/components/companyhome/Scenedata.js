@@ -10,8 +10,6 @@ class Scenedata extends Component {
         this.state= {
             option:{},
             type:'rollcall',
-            width:'400px',
-            height:'300px',
         }
     }
     componentWillMount(){

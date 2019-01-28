@@ -93,8 +93,8 @@ class Userhome extends React.Component{
         return(       
             <div>
                  <Row>
-                    <Col span={23} className="paddL">
-                      <Card 
+                    <div className="paddL">
+                      <Card className=""
                             title={this.state.data.cname} style={styleObj.topMar} extra={this.state.alarmdata.length===5?<a href="#/app/userhome/Alarmlist">更多报警</a>:''}                        
                       >
                             <Row>
@@ -124,7 +124,7 @@ class Userhome extends React.Component{
                                 </Col>
                             </Row>
                         </Card>
-                    </Col>                    
+                    </div>
                 </Row>
                 <Row className="paddRow"> 
                    <Equipment />

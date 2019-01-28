@@ -1,7 +1,8 @@
 export default {
     menus: [ 
         //企业用户
-        { key: '/app/companyhome/visual', identi:['comptop'], title: '首页', icon: 'home', funct:'basic', component: 'Datavisual' },
+        { key: '/app/overView/index', identi:['comptop'], title: '首页', icon: 'home', funct:'basic', component: 'Overview' },
+        // { key: '/app/companyhome/visual', identi:['comptop'], title: '首页', icon: 'home', funct:'basic', component: 'Datavisual' },
         { key: '/app/companyhome/index', identi:['comp','comptop'], title: '总览', icon: 'home', funct:'basic', component: 'Companyhome' },
         //个人用户总览
         { key: '/app/Userhome/index', identi:['user'], title: '总览', icon: 'home', funct:'basic', component: 'Userhome' },
@@ -30,7 +31,7 @@ export default {
             key: '/app/settings', title: '系统管理' , identi:['comp','comptop','user'], icon: 'bars', funct:'basic',
             subs: [
                 { key: '/app/settings/employeelist', identi:['comp','comptop','user'], title: '用户管理', funct:'basic', component: 'Employeelist'}, 
-                { key: '/app/settings/loglist', identi:['comp','comptop','user'], title: '日志', funct:'basic', component: 'Loglist'},             
+                // { key: '/app/settings/loglist', identi:['comp','comptop','user'], title: '日志', funct:'basic', component: 'Loglist'},             
             ],
         },
         { key: '/app/live/index', identi:['comp','comptop','user'], title: '直播', icon: 'camera', funct:'basic', component: 'Live' },

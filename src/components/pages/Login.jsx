@@ -19,7 +19,8 @@ class Login extends React.Component {
         this.state={
             typeState:0,//控制扫码登录和密码登录
             qrcodeStatus:0,//控制二维码失效页面
-            qrcode:""
+            qrcode:"",
+            loginTitle:"密码登录"
         }
     }
 
@@ -37,7 +38,7 @@ class Login extends React.Component {
             if(nextAuth.data.data.ctype==='5'){
                 history.push('/app/userhome/index');
             }else{
-                 if(nextAuth.data.data.activecount) history.push('/app/companyhome/visual');
+                 if(nextAuth.data.data.activecount) history.push('/app/overView/index');
                  else history.push('/app/companyhome/index');  
             }
             
@@ -89,12 +90,14 @@ class Login extends React.Component {
             //请求二维码
             this.handleQrcoderequest();
             this.setState({
-                typeState:1
+                typeState:1,
+                loginTitle:"扫码登录",
             })
         }else if(this.state.typeState===1){
             clearInterval(qrcodeSet);
             this.setState({
                 typeState:0,
+                loginTitle:"密码登录",
                 qrcodeStatus:0
             })
         }
@@ -126,7 +129,7 @@ class Login extends React.Component {
                 <div className="login-form" >
                     <div className="login-top" >
                         <div className="login-form1">
-                            <div className="master-login-title">{this.state.typeState?this.state.loginTitle="扫码登录":this.state.loginTitle="密码登录"}</div>
+                            <div className="master-login-title">{this.state.loginTitle}</div>
                             <div className={"pwdBtn iconfont"+(this.state.typeState?" icon-diannao ":" icon-erweima")} onClick={this.handlerImg} />
                         </div>
                     </div>
@@ -148,7 +151,7 @@ class Login extends React.Component {
                                     message: '请输入正确的手机号！'
                                  }],
                             })(
-                                <Input prefix={<Icon type="user" style={{ fontSize: 13}} />}  placeholder="请输入用户名" className="usersInput" />
+                                <Input prefix={<Icon type="user" style={{ fontSize: 13}} />} placeholder="请输入用户名" className="usersInput" />
                             )}
                         </FormItem>
                         <FormItem>

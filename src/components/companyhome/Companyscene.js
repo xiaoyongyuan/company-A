@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Row, Col, Card} from 'antd';
+import {Row, Col} from 'antd';
 import 'antd/dist/antd.css';
 import '../../style/ztt/css/Companyhome.css';
 import {queryString} from "../../utils/index";
@@ -54,7 +54,7 @@ class Companyscene extends Component {
         } else if (state === 4) {
             return 'LANCardHeaderColor4 LANCardHeader';
         }
-    }
+    };
     fontColor = (state) => {
         if (state === 1) {
             return 'titleColor jiYu_font listContext';
@@ -75,21 +75,19 @@ class Companyscene extends Component {
     render() {
         return (
             <div className="gutter-example button-demo">
-                <span style={{color: '#4B4B5F'}}>所在位置:场景</span>
                 <Row className="gutter-row" gutter={10}>
-                    <Card bordered={false}>
+                    <div className="mapOne">
                         <Row gutter={10}>
-                            <Col xl={24} xxl={20} className="changjing_title"><h3>{this.state.title}</h3></Col>
+                            <Col xl={24} xxl={20} className="changjing_title"><h3 className="blockFont">{this.state.title}</h3></Col>
                         </Row>
                         <Row gutter={10}>
                             <Col xl={9} xxl={9}>
                                 <img src={this.state.scenegraph} className="img-responsive" alt="test"
-                                     style={{width: "100%", height: "220px"}}/>
+                                     style={{width:"100%", height: "220px"}}/>
                             </Col>
                             <Col xl={8} xxl={6}>
                                 <Row className="cloud_data">
-                                    <Col xl={15} xxl={15} offset={1}
-                                         className="cloud_title">云服务到期日期: {this.state.cloudDate ?
+                                    <Col xl={15} xxl={15} offset={1} className="cloud_title">云服务到期日期: {this.state.cloudDate ?
                                         <span style={{color: '#1890ff'}}>{this.state.cloudDate}</span> :
                                         <span>无期限</span>}</Col>
                                 </Row>
@@ -103,48 +101,11 @@ class Companyscene extends Component {
                                     <Col offset={1}>用户数: {this.state.usercount ? this.state.usercount : 0}</Col>
                                 </Row>
                                 <Row className="cloud_data">
-                                    <Col
-                                        offset={1}>管理员: {this.state.adminname ? this.state.adminname : '********'}</Col>
+                                    <Col offset={1}>管理员: {this.state.adminname ? this.state.adminname : '********'}</Col>
                                 </Row>
-                                {/*<Row className="cloud_data">
-                                    <Col xl={8} xxl={4} offset={4}>
-                                        <Link to={'/app/companyhome/calling'}><Button type="primary">点名</Button></Link>
-                                    </Col>
-                                </Row>*/}
                             </Col>
-                            {/*<Col xl={7} xxl={6}>
-                                <div className="gutter-box LANCard">
-                                    <Card>
-                                        <Row className="LANCardHeaderColor LANCardHeader">
-                                            <Col xl={8} xxl={8}>最后一次点名</Col>
-                                            <Col xl={8} xxl={8}>2018-12-11</Col>
-                                        </Row>
-                                        <Carousel vertical autoplay dots={false}>
-                                            <Row>
-                                                <Col xl={24} xxl={24}>
-                                                    <div className="sceneLastCallImg">193.167.90</div>
-                                                    <div className="lastCallImg"><img src={juyuwang} alt="" /></div>
-                                                    <div className="lastCallFont">正常</div>
-                                                </Col>
-                                            </Row>
-                                            <Row >
-                                                <Col xl={24} xxl={24}>
-                                                    <div className="sceneLastCallImg">193.167.90</div>
-                                                    <div className="lastCallImg"><img src={juyuwang} alt="" /></div>
-                                                    <div className="lastCallFont">正常</div></Col>
-                                            </Row>
-                                            <Row>
-                                                <Col xl={24} xxl={24}>
-                                                    <div className="sceneLastCallImg">193.167.90</div>
-                                                    <div className="lastCallImg"><img src={juyuwang} alt="" /></div>
-                                                    <div className="lastCallFont">正常</div></Col>
-                                            </Row>
-                                        </Carousel>
-                                    </Card>
-                                </div>
-                            </Col>*/}
                         </Row>
-                    </Card>
+                    </div>
                 </Row>
                 <Equipment/>
 

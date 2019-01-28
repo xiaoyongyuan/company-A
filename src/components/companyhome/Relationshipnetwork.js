@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 
 import ReactEcharts from 'echarts-for-react';
-import echarts from 'echarts';
 const mainColor='#ffb402';
 const comeColor='#ec407a';
 const outColor='#35c2ff';
@@ -30,14 +29,14 @@ class Relationshipnetwork extends Component{
             }
         })
         if(this.state.nextProps.come.length){
-            this.state.nextProps.come.map((el,i)=>{
+            this.state.nextProps.come.map((el)=>{
                 links.push({
                     target:this.state.nextProps.main,
                     source:el.activename,
                     label:{
                         show:false
                     }
-                })
+                });
                 data.push({
                     name: el.activename,
                     symbolSize: 60,
@@ -47,6 +46,7 @@ class Relationshipnetwork extends Component{
                         }
                     }
                 })
+                return '';
             })
         }
         if(this.state.nextProps.out.length){
@@ -67,6 +67,7 @@ class Relationshipnetwork extends Component{
                         }
                     }
                 })
+                return '';
             })
         }
 
