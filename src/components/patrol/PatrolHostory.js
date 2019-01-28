@@ -30,13 +30,14 @@ class RollcallHostory extends Component{
             isrequest:true,
             loadtip:"加载中...",//下拉刷新时的提示文字
             //status  //0执行中//1已完成//2未完成
-            type:true,//无数据图
+            type:true,//无数据图,
+            loadtype:true,
         }
     }
     componentDidMount() {
             this.setState({
-            loadtip:false,
-            })
+                loadtip:false,
+                })
         post({url:'/api/patrolresult/getlist_team'},(res)=>{
             if(res.success){
                 //  console.log('******************', res);
@@ -44,7 +45,9 @@ class RollcallHostory extends Component{
                           list:res.data,
                           loading: false,
                           type:true,
+                          loadtype: false,
                     })
+                    
             }else{
                 this.setState({
                     type:false,
@@ -64,14 +67,22 @@ class RollcallHostory extends Component{
                 scrollTop:scrollTop
                })
             if(scrollbottom-scrollTopP===0){//滚动到底部了
+                if(pag===1){
+                    _this.setState({
+                        loadtip:"加载中...",
+                   } )
+                }
                 pag++;
                 _this.setState({
                     scrollbottom:scrollbottom,
                     scrollTop:scrollTop,
                     page:pag
                 })
+                
                if(_this.state.isrequest){ 
+                
                 post({url:'/api/patrolresult/getlist_team',data:{pageindex:_this.state.page}},(res)=>{
+                   
                     // console.log(res,"res"); 
                     if(res.data.length>0){
                         const list=_this.state.list;
@@ -79,7 +90,10 @@ class RollcallHostory extends Component{
                         _this.setState({
                              list: alist,
                              loading: false,
+                             loadtip:"加载中...",
                         } )
+                       
+                        
                     }else{
                         if(res.data.length===0){
                             message.success('没有更多了');

@@ -38,6 +38,15 @@ class Companyhome extends Component {
                 policeHeight:alertHeight
             })
         };
+        //巡更计划
+        this.patrolresul();
+        //点名统计
+        this.rollcalldetail();
+        //总览
+        this.companyHome();
+    }
+    //总览
+    companyHome =()=>{
         post({url:'/api/company/getone'},(res)=>{
             if(res.success){
                 let mapJson=[{
@@ -61,6 +70,39 @@ class Companyhome extends Component {
                     cloudDate:res.data.cloudvaliddate,
                     scenegraph:res.data.scenegraph?res.data.scenegraph:nopic, //场景图
                 });
+            }
+        })
+    };
+    //巡更计划
+    patrolresul =()=>{
+        post({url:"/api/patrolresult/gets_patrol_weeks"},(res)=>{
+          var  patroList=Object.keys(res.data).map(key=> res.data[key]);
+          var patrolListX= patroList.map((v)=>v.pdate).reverse();
+          var patrolCount=patroList.map((v)=>v.totalcount).reverse();
+          var normal=patroList.map((v)=>v.normal).reverse();
+            if(res.success){
+                this.setState({
+                    patrolListX:patrolListX,
+                    patrolCount:patrolCount,
+                    normal:normal
+                })
+            }
+        })
+    };
+    //点名统计
+    rollcalldetail =()=>{
+        post({url:"/api/rollcalldetail/gets_rollcall_weeks"},(res)=>{
+            var rollcall=Object.keys(res.data).map(key=> res.data[key]);
+            console.log(rollcall);
+            var rollcallX= rollcall.map((v)=>v.pdate).reverse();
+            var rollcallCount=rollcall.map((v)=>v.totalcount).reverse();
+            var rollcallNormal=rollcall.map((v)=>v.normal).reverse();
+            if(res.success){
+                this.setState({
+                    rollcallX:rollcallX,
+                    rollcallCount:rollcallCount,
+                    rollcallNormal:rollcallNormal
+                })
             }
         })
     }
@@ -121,11 +163,11 @@ class Companyhome extends Component {
                             </div>
                             <div className="backLitte marginTop littleLeft" id="patrolStatistics">
                                 <p className="blockNumber echartsFont">巡更统计</p>
-                                <Col span={24}><PatrolStatistics /></Col>
+                                <Col span={24}><PatrolStatistics patrolListX={this.state.patrolListX} patrolCount={this.state.patrolCount} normal={this.state.normal}/></Col>
                             </div>
                             <div className="backLitte marginTop littleLeft marginBottom" id="rollcallStatistics">
                                 <p className="blockNumber echartsFont">点名统计</p>
-                                <Col span={24}><RollcallStatistics /></Col>
+                                <Col span={24}><RollcallStatistics rollcallX={this.state.rollcallX} rollcallCount={this.state.rollcallCount} rollcallNormal={this.state.rollcallNormal} /></Col>
                             </div>
                         </div>
                     </div>

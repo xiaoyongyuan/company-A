@@ -148,7 +148,7 @@ class Login extends React.Component {
                                     message: '请输入正确的手机号！'
                                  }],
                             })(
-                                <Input prefix={<Icon type="user" style={{ fontSize: 13}} />}  placeholder="请输入用户名" className="usersInput" />
+                                <Input prefix={<Icon type="user" style={{ fontSize: 13}} />} placeholder="请输入用户名" className="usersInput" />
                             )}
                         </FormItem>
                         <FormItem>

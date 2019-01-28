@@ -26,10 +26,11 @@ class ModalForm extends Component {
                   let codearr=[];
                 res.data.map((el,i) => {
                     codearr.push({ label: el.name, value:el.code,})
+                    return '';
                 })
                 this.setState({
                     plainOptions: codearr
-                    
+
                 },()=>{
                 })
             }

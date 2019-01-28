@@ -47,11 +47,8 @@ class Live extends React.Component {
                 >
               </VideoJsForReact>
             </div>
-
-
-        )
+            )
     }
 }
 
 export default Live;
-

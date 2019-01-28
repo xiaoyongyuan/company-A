@@ -50,6 +50,7 @@ class Adopt extends Component {
                } 
                area.stroke();
             }
+            return '';
         })
     }
     getcoord = (coords) => { //获取坐标

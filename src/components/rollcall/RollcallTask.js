@@ -180,6 +180,7 @@ class RollcallTask extends Component{
                        } 
                        area.stroke();
                     }
+                    return '';
                 })
             }
         }        
@@ -235,12 +236,13 @@ class RollcallTask extends Component{
     render(){
         const { getFieldDecorator } = this.props.form;
         const ishideOnSinglePage = true;
+        const isdisabled = true;
         return(       
             <div className="RollcallTask">
             	<Spin spinning={this.state.loading} indicator={<p />}>
                 <Row style={{margin:"2vmax 1vmax"}}>
                     <Col span={24}>
-                        <Card title="点名任务" extra={<a onClick={this.handleSetting} > <Icon type="setting" theme="filled"style={{color:'#fff'}} /><span style={{color:'#fff'}}>设置</span></a>}>
+                        <Card title="点名任务" extra={<span onClick={this.handleSetting} style={{ cursor:"pointer" }} > <Icon type="setting" theme="filled"style={{color:'#fff'}} /><span style={{color:'#fff'}}>设置</span></span>}>
                             <p>今日自动点名次数: <b>{this.state.time}</b>次 &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; {this.state.state?'执行中':'待生效'}</p>
                             {this.state.last.rollcalldate
                                 ?<div>{this.state.last.executing<=0
@@ -312,7 +314,7 @@ class RollcallTask extends Component{
                                 }
 
                                 {el.rhandle===1&&el.rstatus? <Button type="primary"className="queryBtn" block onClick={()=>this.rollcall(el.code,i)} visible={el.rstatus} disabled={false}>点名</Button>:''}
-                                {el.rhandle===1&&el.rstatus? '':<Button type="primary"block onClick={()=>this.rollcall(el.code,i)} visible={el.rstatus} disabled={true}>点名</Button>}
+                                {el.rhandle===1&&el.rstatus? '':<Button type="primary"block onClick={()=>this.rollcall(el.code,i)} visible={el.rstatus} disabled={isdisabled}>点名</Button>}
                                 {/* <Button type="primary"className="queryBtn" block onClick={()=>this.rollcall(el.code,i)} visible={el.rstatus} disabled={el.rhandle===1&&el.rstatus?false:true}>点名</Button> */}
                             </Card>
                         </div>
