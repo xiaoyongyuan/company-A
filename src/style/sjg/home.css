@@ -363,9 +363,6 @@ margin: 20px 0;
     padding-left:45px;
     box-sizing:content-box;
 }
-.paddL{
-    padding-left:45px;
-}
 .ant-card-body{
     padding: 10px 10px !important;
 }
@@ -829,12 +826,8 @@ margin: 4px 0 0 20px ;
     margin-left: 10px;
 }
 .PatrolPlan .ant-card {
-
     background: #2B3151;
-  
 }
-
-
 /*  */
 
 .patrol_item {
@@ -946,11 +939,13 @@ margin: 4px 0 0 20px ;
 .gutter-example .adoptlook-white .ant-input-disabled{
     color: rgba(0,0,0,0.4);
 }
+.paddL{
+    margin: 20px 20px 0 20px;
+}
 .paddL .ant-card-head-title,.paddL .ant-timeline{
     color:#ffffff;
 }
 .paddL .ant-card{
-    margin: 16px;
     background: #2B3355!important;
     color:#ffffff;
 }

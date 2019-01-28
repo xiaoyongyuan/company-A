@@ -170,6 +170,7 @@ class Alarmlist extends React.Component{
         }
         this.setState({
                     page:1,
+                    loadding:true,
                 },()=>{
                     const data={
                         bdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
