@@ -88,8 +88,7 @@ class Calling extends Component{
                         <Col className="gutter-row" span={7} key={i}>
                             <div className="gutter-box divout" style={{border:this.state.type?"none":"2px solid #E5E5E5" ,background:this.state.type?"none":"#fff" ,height:this.state.type?"230px":"460px"}} >
                                 <div className="divinnertop" style={{border:this.state.type?"2px solid #E5E5E5":"none", height:this.state.type?"100%":"50%"}}>
-                                    <div className="divinnertopT">
-                                    </div>
+                                    <div className="divinnertopT" />
                                     <div className="divinnertopM">
                                         <div className="divinnertopML">
                                             <div className="divimg">

@@ -61,6 +61,7 @@ class AdoptLook extends Component {
                    } 
                    area.stroke();
                 }
+                return '';
             }) 
         }     
     }

@@ -46,7 +46,8 @@ class Relationshipnetwork extends Component{
                         }
                     }
                 })
-            });
+                return '';
+            })
         }
         if(this.state.nextProps.out.length){
             this.state.nextProps.out.map((el,i)=>{
@@ -66,6 +67,7 @@ class Relationshipnetwork extends Component{
                         }
                     }
                 })
+                return '';
             })
         }
 
