@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import ModalForm from './ModalForm.js';
-import {Form, Input, Row, Col, Button, Modal, Table, Spin} from 'antd';
+import {Form, Input, Row, Col, Button, Modal, Table, Spin, message} from 'antd';
 import {post} from "../../axios/tools";
 import "../../style/publicStyle/publicStyle.css";
 
@@ -72,6 +72,7 @@ class Adminteam extends Component {
                     }
                     post({url:"/api/companyuser/add",data:data}, (res)=>{
                         if(res.success){
+                            message.success('新增成功')
                             data.code=res.code;
                             const list=this.state.list;
                             list.unshift(data);
@@ -123,6 +124,7 @@ class Adminteam extends Component {
         list.splice(this.state.index,1);
         post({url:"/api/companyuser/del",data:data}, (res)=>{
             if(res.success){
+                message.success('删除成功')
                 this.setState({
                     list:list,
                     deleteshow: false,
