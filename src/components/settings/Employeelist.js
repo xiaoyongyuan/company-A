@@ -14,6 +14,7 @@ class Adminteam extends Component {
             list:[],
             createinfo:[],
             page:1, //当前页
+            loading:true,
         };
     }
     componentDidMount() {
@@ -30,6 +31,7 @@ class Adminteam extends Component {
                 this.setState({
                     list: res.data,
                     total:res.totalcount,
+                    loading: false,
                 })
             }
         })
@@ -141,6 +143,7 @@ class Adminteam extends Component {
             if(!err){
                 this.setState({
                     page:1,
+                    loading: true,
                 },()=>{
                     this.requestdata(values)
                 })
@@ -234,19 +237,15 @@ class Adminteam extends Component {
                             <Button style={this.state.utype?{display:"inline-block"}:{display:"none"}} onClick={this.showModal} className="queryBtn">新增</Button>
                         </Col>
                     </Row>
+                    <Spin spinning={this.state.loading} className="spin" size="large"tip="Loading..." />
                     <Row>
                         <Col style={{ minHeight:'600px' }}>
                             <div>
-                                {
-                                    this.state.list.length>=0?
-                                        <Table columns={columns}
-                                               dataSource={this.state.list}
-                                               bordered={isbordered}
-                                               pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
-                                        />
-                                        :
-                                        <div className="textcenter"><Spin size="large" tip="Loading..." /></div>
-                                }
+                                <Table columns={columns}
+                                       dataSource={this.state.list}
+                                       bordered={isbordered}
+                                       pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
+                                />
                             </div>
                         </Col>
                     </Row>
