@@ -8,15 +8,15 @@ class Live extends React.Component {
       super()
       this.state = {
         videoJsOptions: {
-          preload: 'auto',  // 预加载
-          bigPlayButton: {},  // 大按钮
-          autoplay: true,   // 自动播放
-          controls: true,  // 是否开启控制栏
-          width: 800,   // 播放器宽度
-          height: 600,  // 播放器高度
+          preload: 'auto', // 预加载
+          bigPlayButton: {}, // 大按钮
+          autoplay: true,// 自动播放
+          controls: true,// 是否开启控制栏
+          width: 800,// 播放器宽度
+          height: 600,// 播放器高度
           // teachOrder:['flash'],
           playbackRates: [1, 1.5, 2], // 播放倍速
-          sources: [  // 视频源
+          sources: [// 视频源
             {
               src: 'http://yunxianchang.live.ujne7.com/vod-system-bj/44_176_20170224113626af3a75cd-3508-4bc3-b51f-366fca3c7e39.m3u8',
               type: 'application/x-mpegURL',
@@ -44,8 +44,7 @@ class Live extends React.Component {
                 sourceChanged={(player) => console.log(player)}
                 onReady={(player) => console.log('准备完毕', player)}
                 {...this.state.videoJsOptions}
-                >
-              </VideoJsForReact>
+                />
             </div>
             )
     }

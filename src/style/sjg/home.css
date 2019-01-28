@@ -3,7 +3,7 @@
     background: #2B3355;
 }
 .equipmentCard{
-    padding: 20px;
+    padding: 0px 20px 0 20px;
     padding-bottom: 30px;
 }
 .equipmentCard .ant-card-body{
@@ -359,9 +359,9 @@ margin: 20px 0;
 }
 
 .cardPdd{
-    margin:0px 0 0 0;
     padding-left:45px;
     box-sizing:content-box;
+    margin-top: 20px;
 }
 .ant-card-body{
     padding: 10px 10px !important;

@@ -106,7 +106,7 @@ class Equipment extends React.Component{
                             {
                                     this.state.camera.map((el,i)=>{
                                         return(
-                                            <Col key={i} xxl={{ span: 4}} xl={{ span:6}} lg={{ span: 6}} md={{span:6}} sm={{span:6}} xs={{span:6}} className="cardPdd ">
+                                            <Col key={i} xxl={{ span: 5}} xl={{ span:6}} lg={{ span: 6}} md={{span:6}} sm={{span:6}} xs={{span:6}} className="cardPdd ">
                                                 <Card className="boxShow"
                                                       cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath?this.state.camera[i].picpath:nopic} width="100%" /></a>}
                                                       actions={
