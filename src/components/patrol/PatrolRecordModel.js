@@ -23,8 +23,7 @@ class PatrolRecordModel extends Component{
         this.setState({
             itemStatus:this.props.itemStatus,
         },()=>{
-console.log('******************',this.state.itemStatus);
-
+         // console.log('******************',this.state.itemStatus);        
         })
         post({url:"/api/patrolresult/getone",data:{code:this.state.code}},(res)=>{
             this.setState({
@@ -67,9 +66,7 @@ console.log('******************',this.state.itemStatus);
                    <Col span={7} offset={3}>{this.state.paList.pteam+' ('+this.state.paList.pbdate+':00:00 —— '+this.state.paList.pedate+':00:00)'}</Col>
                </Row>
                <Row>
-               
-                   {/* <Col span={24}><img src={this.state.paList.ppic} alt="nodata" width="100%" /></Col> */}
-                   
+                    {/* <Col span={24}><img src={this.state.paList.ppic} alt="nodata" width="100%" /></Col> */}
                     {this.state.itemStatus===0? <Col span={24}><img src={ing} alt="nodata" width="100%" /></Col>:''}
                     {this.state.itemStatus===1? <Col span={24}><img src={this.state.paList.ppic} alt="nodata" width="100%" /></Col>:''}
                     {this.state.paList.ppic&&this.state.rollcallhostory? <Col span={24}><img src={this.state.paList.ppic} alt="nodata" width="100%" /></Col>:''}
