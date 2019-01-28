@@ -62,16 +62,14 @@ class PatrolPlan extends React.Component{
     };
     showModal = (e) => { //新增弹窗
         e.preventDefault();
-        post({url:"/api/patrol/getlist"}, (res)=>{
-            if(res.data.length<6){
-                this.setState({
-                    visible: true,
-                    type:0,
-                });
-            }else{
-                message.warning('最多可以新增六个巡更');
-            }
-        })
+        if(this.state.list.length < 6){
+            this.setState({
+                visible:true,
+                type:0,
+            });
+        }else {
+            message.warning('最多可以新增六个巡更');
+        }
 
     };
     showModalEdit=(code,index)=>{ //编辑
