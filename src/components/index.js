@@ -7,6 +7,8 @@ import Loading from './widget/Loading';
 
 //大数据
 import Datavisual from './companyhome/visual';
+import Overview from './overView/index';
+
 
 //企业用户
 import Companyhome from './companyhome/Companyhome';
@@ -52,7 +54,7 @@ const WysiwygBundle = Loadable({ // 按需加载富文本配置
 });
 
 export default {
-	Datavisual,
+	Datavisual, Overview,
     WysiwygBundle
     , Companyhome, Companyscene, Companydeveice, Calling, Connent, Deveicedet, Settime, Setarea
     , Alarmdetails, Alarmlist, Equipment, Userhome, Userdeveice

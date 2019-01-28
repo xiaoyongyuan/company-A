@@ -74,9 +74,8 @@ class SiderCustom extends Component {
         if(user&&user.servicetype&&user.servicetype.includes('物品点名')){
             func.push('rollcall')
         }
-        if(user&&user.ctype===5){
+        if(user&&user.ctype==5){
                identify='user'
-
         }else{
             if(user.activecount) identify='comptop';
             else identify='comp'
