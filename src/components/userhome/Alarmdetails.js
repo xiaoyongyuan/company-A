@@ -138,6 +138,7 @@ class Alarmdetails extends React.Component{
         areafield.lineTo(datafield[i][0][0],datafield[i][0][1]);
         areafield.stroke();
         areafield.closePath();
+        return '';
       })
   	}
     const objs=this.state.data.finalresult;
@@ -150,6 +151,7 @@ class Alarmdetails extends React.Component{
         area.rect(parseInt(el.x*x),parseInt(el.y*y),parseInt(el.w*x),parseInt(el.h*y));
         area.stroke();
         area.closePath();
+        return '';
       })
   		
   	}
