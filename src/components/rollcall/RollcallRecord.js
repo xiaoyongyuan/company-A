@@ -200,7 +200,7 @@ class RollcallRecord extends React.Component{
                 </LocaleProvider>
                 <Spin spinning={this.state.loading} size="large" className="spin" tip="Loading..." />
                 <Row type="flex" justify="start">
-                    {!this.state.rollsetList.length?<div style={{width:"100%",textAlign:"center",marginTop:'80px'}}><div className="backImg"><img src={nodata} alt="" /></div></div>:this.state.rollsetList.map((v,i)=>(
+                    {this.state.rollsetList.map((v,i)=>(
                         <Col className="rollcalllist" key={i} span={7} style={{marginTop:"30px",marginLeft:"30px"}}>
                             <Col span={11}>
                                 <img src={v.rrpic?v.rrpic:errs} alt="" width="100%" onClick={()=>this.handlerollCallType(v.code)} />

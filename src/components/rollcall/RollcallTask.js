@@ -23,7 +23,7 @@ class RollcallTask extends Component{
             unusual:2,
             list:[],
             settingType:false,
-            loading:false, //加载开关
+            loading:true, //加载开关
             everynum:1, //点名任务次数
             rname:'', //检索的字段-对象名称
             cameraname:'', //检索的字段-设备名称
@@ -38,6 +38,7 @@ class RollcallTask extends Component{
                 this.setState({
                     time:res.task.rollcallnum, //当日点名次数
                     last:res.last, //上次点名
+                    loading:false,
                 },()=>{
                     this.draw()
                 })
@@ -108,6 +109,7 @@ class RollcallTask extends Component{
       })
     }
     rollcallresult =()=>{ //查询点名结果
+        
     	const _this=this;
     	let inter=setInterval(function(){
             let list=_this.state.list;
@@ -144,7 +146,8 @@ class RollcallTask extends Component{
         this.setState({
             rname:this.state.realname,
             cameraname:this.state.account,
-            pageindex:1
+            pageindex:1,
+            loading:true,
         },()=>{
             this.reuestdata()
         })
@@ -196,6 +199,7 @@ class RollcallTask extends Component{
                 this.setState({
                     list:res.data,
                     totalcount:res.totalcount,
+                    loading:false,
                 },()=>{
                     this.draw()
                 })
@@ -239,7 +243,8 @@ class RollcallTask extends Component{
         const isdisabled = true;
         return(       
             <div className="RollcallTask">
-            	<Spin spinning={this.state.loading} indicator={<p />}>
+                {/* <Spin spinning={this.state.loading} indicator={<p />}> */}
+                <Spin spinning={this.state.loading} size="large" className="spin" tip="Loading..." />
                 <Row style={{margin:"2vmax 1vmax"}}>
                     <Col span={24}>
                         <Card title="点名任务" extra={<span onClick={this.handleSetting} style={{ cursor:"pointer" }} > <Icon type="setting" theme="filled"style={{color:'#fff'}} /><span style={{color:'#fff'}}>设置</span></span>}>
@@ -321,7 +326,7 @@ class RollcallTask extends Component{
                     ))}
                 </div>
                 <Pagination hideOnSinglePage={ishideOnSinglePage} current={this.state.pageindex} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} className="pageSize" />
-              </Spin>
+              {/* </Spin> */}
                 <Modal
                     title="设置点名任务"
                     visible={this.state.settingType}

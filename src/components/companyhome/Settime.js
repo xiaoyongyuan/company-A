@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../style/sjg/home.css';
-import {Form,Table, Row, Col, Button,Radio, Modal,TimePicker} from 'antd';
+import {Form,Table, Row, Col, Button,Radio, Modal,TimePicker,message} from 'antd';
 import moment from 'moment';
 import {post} from "../../axios/tools";
 const RadioGroup = Radio.Group;
@@ -58,6 +58,7 @@ class Setarea extends Component {
                     list:list,
                     deleteshow: false,
                 })
+                message.success('This is a message of success'); 
             }
         })
     };
@@ -101,11 +102,13 @@ class Setarea extends Component {
                         this.setState({
                             list:list,
                         })
+                        message.success('This is a message of success');
                     }
+                    
                 })
 
             }
-
+            this.props.form.resetFields();
         })
   
     }
