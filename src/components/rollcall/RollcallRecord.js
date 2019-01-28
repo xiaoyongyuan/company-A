@@ -107,7 +107,8 @@ class RollcallRecord extends React.Component{
             if(res.success){
                 this.setState({
                     rollsetList:res.data,
-                    totalcount:res.totalcount
+                    totalcount:res.totalcount,
+                    loading:false, //加载中的状态
                 })
             }
             if(res.data.length === 0){
@@ -133,6 +134,7 @@ class RollcallRecord extends React.Component{
             page:1,
             rollcalldate:'',
             taskid:'',
+            loading:true, //加载中的状态
         },()=>{this.handleRollCallList()})
     };
     hanlePageSize = (page) => { //翻页
