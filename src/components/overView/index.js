@@ -50,6 +50,14 @@ class overView extends Component {
         })
 
     }
+
+    // yidong = () =>{
+    //     //   document.getElementById("lm").scrollTop=60
+    //     //    // lm+10;
+    //     //
+    //     //     // console.log("lm",lm);
+    //     // }
+
     componentDidMount() {
         const _this=this;
         window.onresize = () => {
@@ -169,12 +177,42 @@ class overView extends Component {
                 })
             }
         })
+        var bl = 20;
+        // setInterval(bl=bl+1,3000);
+        // bl=bl+1;
+        setInterval(
+            document.getElementById("wm").onscroll=function() {
+                bl=bl+0.9;
+                var scrollHeight = document.getElementById("wm").scrollHeight;//div里内容的高度
+                var scrollTop = document.getElementById("wm").scrollTop;//0-18
+                var clientHeight = document.getElementById("wm").clientHeight;//div内里框框的高度
+                var scrollbottom=scrollHeight-clientHeight;
+                var scrollTopP=Math.ceil(scrollTop);
+                if(scrollbottom-scrollTopP===0) {//滚动到底部了
+                    console.log("到底部了");
+                    document.getElementById("wm").scrollTop=0;
+                }
+                if(scrollbottom-scrollTopP===0) {//滚动到底部了
+                    document.getElementById("wm").scrollTop=0;
+                    bl=20;
+                }else{
+                    document.getElementById("wm").scrollTop = bl;
+                    console.log("wm", document.getElementById("wm").scrollTop);
+                }
+            },2000);
+
+        // document.getElementById("wm").onscroll=function() {
+        //     var wm= document.getElementById("wm").scrollTop;
+        //      console.log("wm",wm);
+        // }
     }
     render() {
         const _this=this;
         return (
             <div className="overView" style={{height:this.state.DHeight}}>
-             {/* <Universebg />*/}
+
+                <Universebg />
+
                 <div className="titletop">
                     <div className="titlevalue">
                         西安文物局
@@ -212,23 +250,35 @@ class overView extends Component {
                                                 </Col>
                                             </Row>
                                         </div>
-                                        <Carousel vertical autoplay style={{ height:'300px' }}>
-                                            {_this.state.deveice.map((el,i)=>(
-                                                <div className="equipment equipbody" key={'row'+i}>
-                                                    <Row className="lines">
-                                                        <Col className="gutter-row" xl={8}>
-                                                            {el.name}
-                                                        </Col>
-                                                        <Col className="gutter-row" xl={8}>
-                                                            {el.ccom}
-                                                        </Col>
-                                                        <Col className="gutter-row" xl={8}>
-                                                            {el.alarm}
-                                                        </Col>
-                                                    </Row>
-                                                </div>
-                                            ))}
-                                        </Carousel>
+                                        <div className="waimian" id="wm">
+                                            <div className="limian" id="lm">
+                                                <div className="xiaode">1</div>
+                                                <div className="xiaode">2</div>
+                                                <div className="xiaode">3</div>
+                                                <div className="xiaode">4</div>
+                                                <div className="xiaode">5</div>
+                                                <div className="xiaode">1</div>
+                                                <div className="xiaode">1</div>
+                                                <div className="xiaode">1</div>
+                                            </div>
+                                        </div>
+                                        {/*<Carousel vertical autoplay style={{ height:'300px' }}>*/}
+                                        {/*{_this.state.deveice.map((el,i)=>(*/}
+                                        {/*<div className="equipment equipbody" key={'row'+i}>*/}
+                                        {/*<Row className="lines">*/}
+                                        {/*<Col className="gutter-row" xl={8}>*/}
+                                        {/*{el.name}*/}
+                                        {/*</Col>*/}
+                                        {/*<Col className="gutter-row" xl={8}>*/}
+                                        {/*{el.ccom}*/}
+                                        {/*</Col>*/}
+                                        {/*<Col className="gutter-row" xl={8}>*/}
+                                        {/*{el.alarm}*/}
+                                        {/*</Col>*/}
+                                        {/*</Row>*/}
+                                        {/*</div>*/}
+                                        {/*))}*/}
+                                        {/*</Carousel>*/}
                                     </div>
                                 </div>
                             </div>
@@ -249,13 +299,13 @@ class overView extends Component {
                                 未处理报警
                             </div>
                             <div className="alarmover ">
-                                    <Carousel vertical autoplay className="alarmcarousel">
+                                <Carousel vertical autoplay className="alarmcarousel">
                                     {pao.map((el,i)=>(
                                         <div className="carouselbg"><h3>{el.a}</h3></div>
-                                       ))
+                                    ))
                                     }
-                                    </Carousel>
-                                
+                                </Carousel>
+
                             </div>
                         </div>
                     </Col>
@@ -371,11 +421,11 @@ class overView extends Component {
                                     <Echartline
                                         type="alarmnum"
                                         winhe={(parseInt(this.state.DHeight)*0.7-10)*0.5-10}
-                                      /*  alarmnumapg={this.state.alarmnumapg}
-                                        alarmnumqwl={this.state.alarmnumqwl}
-                                        timehour = {this.state.timehour}
-                                        apgname={ this.state.apgname }
-                                        qwlname = { this.state.qwlname }*/
+                                        /*  alarmnumapg={this.state.alarmnumapg}
+                                          alarmnumqwl={this.state.alarmnumqwl}
+                                          timehour = {this.state.timehour}
+                                          apgname={ this.state.apgname }
+                                          qwlname = { this.state.qwlname }*/
                                     />
                                 </div>
                             </div>
