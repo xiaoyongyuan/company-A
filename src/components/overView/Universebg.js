@@ -9,7 +9,11 @@ class Universebg extends Component {
           
         }
     }
-   
+    componentWillMount=()=>{
+        this.setState({
+           
+        })
+    }
     componentDidMount() {
         //宇宙特效
         var canvas = document.getElementById('canvas'),
@@ -60,12 +64,12 @@ class Universebg extends Component {
         var Star = function() {
 
         this.orbitRadius = random(maxOrbit(w, h));
-        this.radius = random(60, this.orbitRadius) / 8; 
+        this.radius = random(60, this.orbitRadius) / 15; 
         //星星大小
         this.orbitX = w / 2;
         this.orbitY = h / 2;
         this.timePassed = random(0, maxStars);
-        this.speed = random(this.orbitRadius) / 50000; 
+        this.speed = random(this.orbitRadius) / 150000; 
         //星星移动速度
         this.alpha = random(2, 10) / 10;
 
