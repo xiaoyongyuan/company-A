@@ -8,8 +8,8 @@ import usernum from "../../style/yal/img/usernum.png";
 import admin from "../../style/yal/img/admin.png";
 import Echartline from "./Echartline";
 import Echartpie from "./Echartpie";
+import Universebg from "./Universebg";
 import moment from "moment";
-
 const deveice=[{
     name:'神道西侧',
     ccom:'明秦王陵遗址',
@@ -183,6 +183,9 @@ class overView extends Component {
         const _this=this;
         return (
             <div className="overView" style={{height:this.state.DHeight}}>
+            
+              <Universebg />
+            
                 <div className="titletop">
                     <div className="titlevalue">
                         西安文物局
