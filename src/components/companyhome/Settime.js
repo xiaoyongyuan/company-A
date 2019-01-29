@@ -58,7 +58,7 @@ class Setarea extends Component {
                     list:list,
                     deleteshow: false,
                 })
-                message.success('This is a message of success'); 
+                message.success('删除成功'); 
             }
         })
     };
@@ -80,7 +80,14 @@ class Setarea extends Component {
             if(res.success){
                 this.setState({
                     list:list
+                },()=>{
+                    if(stype===1){
+                        message.success('开启成功'); 
+                    }else{
+                        message.success('关闭成功'); 
+                    }
                 })
+                
             }
         })
     };
@@ -103,7 +110,7 @@ class Setarea extends Component {
                         this.setState({
                             list:list,
                         })
-                        message.success('This is a message of success');
+                        message.success('新增成功');
                     }
                     
                 })
@@ -116,7 +123,7 @@ class Setarea extends Component {
                         this.setState({
                             list:list,
                         })
-                        message.success('This is a message of success');
+                        message.success('新增成功');
                     }
                     
                 })
