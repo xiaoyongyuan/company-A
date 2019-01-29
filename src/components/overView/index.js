@@ -174,9 +174,7 @@ class overView extends Component {
         const _this=this;
         return (
             <div className="overView" style={{height:this.state.DHeight}}>
-            
-              <Universebg />
-            
+             {/* <Universebg />*/}
                 <div className="titletop">
                     <div className="titlevalue">
                         西安文物局

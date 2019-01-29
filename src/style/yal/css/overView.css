@@ -34,19 +34,11 @@
 .overView .titlename{
     position: relative;
     display: inline-block;
-    padding-left: 35px;
-    font-size:16px;
+    padding-left: 18px;
+    padding-top: 18px;
+    font-size:15px;
 }
-/*.titlename:before{
-    position: absolute;
-    left: 10px;
-    top: 18px;
-    content: '';
-    width:12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #fff;
-}*/
+
 .wcolum .clunm{
     height: 50%;
 }
@@ -179,7 +171,7 @@
     margin: 0 auto;
     position: relative;
 }
-.titletop .titlevalue:after,.titletop .titlevalue:before{
+/*.titletop .titlevalue:after,.titletop .titlevalue:before{
     position: absolute;
     height: 100%;
     top: 8px;
@@ -187,7 +179,7 @@
     height: 50px;
     width: calc(50% - 100px); 
     background-size:  100% 100%;
-}
+}*/
 .titletop .titlevalue:after{
     right: 0;
     background-image: url("../img/titler.png");
@@ -210,27 +202,14 @@
 .lines .gutter-row{
     font-size: 14px;
 }
-
-
-
-
-
-
-
-
-
-
-
 .overView .echartmap{
     padding:20px;
 }
-
-
 .overView .today{
     display: inline-block;
     float: right;
-    padding-right: 20px;
-
+    padding-top: 29px;
+    padding-right: 31px;
 }
 .draw .ant-carousel .slick-slide {
     position: relative;
@@ -240,7 +219,6 @@
     background: #364d79;
     overflow: hidden;
   }
-  
 .draw .ant-carousel .slick-slide h3 {
     color: #fff;
   }
@@ -248,8 +226,6 @@
    position: absolute;
    bottom: 5px;
 }
-
-
 @media screen and (max-width: 1280px) {
     .draw .alarmcarousel{
         position: relative;
@@ -258,8 +234,6 @@
         bottom:-6px;
     }
 }
-
-
 @media screen and (max-width: 1500px) and (min-width: 1280px) {
     .draw .alarmcarousel{
         position: relative;
@@ -279,8 +253,6 @@
 .draw .ant-carousel-vertical .slick-dots li button {
     display: none !important;
 }
-
-
 .slick-slider{
     height: 30px;
     overflow: hidden;

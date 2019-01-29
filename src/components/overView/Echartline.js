@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactEcharts from 'echarts-for-react';
+import "../../style/yal/css/overView.css";
 import echarts from 'echarts';
 require('echarts/map/js/china.js');
 class Echartline extends Component {
@@ -42,13 +43,26 @@ class Echartline extends Component {
     onClickByModel={
         'click':this.onByModelClick
     }
-    // 报警次数
+    // 巡更次数
     alarmnum=()=>{
         let option = {
             tooltip: {
                 trigger: 'axis',
+                backgroundColor: "rgba(11,71,153,0.7)",
                 axisPointer: {
-                    type: 'shadow'
+                    type: "shadow",
+                    textStyle: {
+                        color: "#fff"
+                    }
+                },
+                borderColor:{
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#DB8A20'
+                    }, {
+                        offset: 1,
+                        color: '#CF3D29'
+                    }])
                 }
             },
             legend: {
@@ -56,9 +70,6 @@ class Echartline extends Component {
                 data: [ '阿房宫','明秦王陵'],
                 align: 'left',
                 right: 10,
-                textStyle: {
-                    color:[""]
-                },
                 itemWidth: 10,
                 itemHeight: 10,
                 itemGap: 35
@@ -176,14 +187,17 @@ class Echartline extends Component {
         var option = {
             tooltip: {
                 trigger: 'axis',
-                formatter:function(params){
-                    var roall=`<div><p>{params[0].marker}{params[0].seriesName}{params[0].data}</p></div>`;
+                backgroundColor: "rgba(11,71,153,0.7)",
+               /* formatter:function(params){
+                    var roall=`<div class="rollEcharts"><p>${params[0].marker}${params[0].seriesName}：${params[0].data}次</p>
+                                    <p>${params[1].marker}${params[1].seriesName}：${params[1].data}次</p>
+                                </div>`;
                    console.log(params);
                    return roall;
-                },
+                },*/
                 axisPointer: {
                     lineStyle: {
-                        color: '#57617B'
+                        color:"rgba(11,71,153,0.7)"
                     }
                 }
             },
@@ -336,7 +350,7 @@ class Echartline extends Component {
         this.setState({option})
 
     }
-    //巡更次数
+    //点名次数
     patrol=()=>{
         let option = {
             grid: {
@@ -345,9 +359,19 @@ class Echartline extends Component {
                 bottom: '13%',
                 top: '20%',
             },
+            tooltip: {
+                trigger: 'axis',
+                backgroundColor: "rgba(11,71,153,0.7)",
+                axisPointer: {
+                    type: "shadow",
+                    textStyle: {
+                        color: "#fff"
+                    }
+                }
+            },
             legend: {
-                icon:"circle",
                 data: ['阿房宫', '明秦王陵'],
+                icon:"circle",
                 align: 'left',
                 right: 10,
                 textStyle: {
@@ -369,13 +393,12 @@ class Echartline extends Component {
                 axisLabel: { //坐标轴刻度标签的相关设置
                     textStyle: {
                         color: '#d1e6eb',
-                        margin: 15,
                     },
                 },
                 axisTick: {
                     show: false,
                 },
-                data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', ],
+                data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月'],
             }],
             yAxis: [{
                 type: 'value',
@@ -408,8 +431,6 @@ class Echartline extends Component {
             series: [{
                 name: '阿房宫',
                 type: 'line',
-                // smooth: true, //是否平滑曲线显示
-                // 			symbol:'circle',  // 默认是空心圆（中间是白色的），改成实心圆
                 showAllSymbol: true,
                 symbol: 'emptyCircle',
                 symbolSize: 6,
@@ -419,21 +440,13 @@ class Echartline extends Component {
                     },
                     borderColor: '#f0f'
                 },
-                label: {
-                    show: false,
-                    position: 'top',
-                    textStyle: {
-                        color: '#fff',
-                    }
-                },
                 itemStyle: {
                     normal: {
                         color: "#D53A25",
-
                     }
                 },
                 tooltip: {
-                    show: false
+                    show: true
                 },
                 data: [393, 438, 485, 631, 689, 824, 987]
             }, {
@@ -441,14 +454,7 @@ class Echartline extends Component {
                 type: 'bar',
                 barWidth: 20,
                 tooltip: {
-                    show: false
-                },
-                label: {
-                    show: false,
-                    position: 'top',
-                    textStyle: {
-                        color: '#fff',
-                    }
+                    show: true
                 },
                 itemStyle: {
                     normal: {
@@ -464,11 +470,7 @@ class Echartline extends Component {
                                     color: '#2971CD'
                                 }
                             ]
-                        ),
-                        /*color: function(params) {
-                            var colorList = ['#0ec1ff', '#10cdff', '#12daff', '#15ebff', '#17f8ff', '#1cfffb', '#1dfff1'];
-                            return colorList[params.dataIndex];
-                        }*/
+                        )
                     }
                 },
                 data: [200, 382, 102, 267, 186, 315, 316]
