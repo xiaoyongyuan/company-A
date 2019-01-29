@@ -19,7 +19,7 @@ class Universebg extends Component {
         hue = 217,
         stars = [],
         count = 0,
-        maxStars = 1300;//星星数量
+        maxStars = 0;//星星数量
         var canvas2 = document.createElement('canvas'),
         ctx2 = canvas2.getContext('2d');
         canvas2.width = 100;

@@ -21,7 +21,7 @@ class ModalForm extends Component {
         },()=>{
             this.requestdata()
         });
-        post({url:"/api/camera/getlist"}, (res)=>{ //获取摄像头
+        post({url:"/api/camera/get_cameralist"}, (res)=>{ //获取摄像头
             if(res.success){
                   let codearr=[];
                 res.data.map((el,i) => {

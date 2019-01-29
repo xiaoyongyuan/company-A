@@ -86,7 +86,7 @@ class Echartpie extends Component {
     }
     //报警分析
     alarmanalyze =()=>{
-        let option = {
+       /* let option = {
             tooltip: {
                 formatter:function (params,percent) {
                     if(percent==="item_确认_1"){
@@ -367,7 +367,7 @@ class Echartpie extends Component {
                 }]
             }]
         }
-        this.setState({option})
+        this.setState({option})*/
 
     }
     xianmap=()=>{ //地图
@@ -393,8 +393,8 @@ class Echartpie extends Component {
                 },
                 itemStyle:{
                     normal:{
-                        areaColor:"#091e57", //地图的背景
-                        borderColor:"#0bf9f9" //分界线的颜色
+                        areaColor:"#091E57", //地图的背景
+                        borderColor:"#0EC8D5" //分界线的颜色
                     },
                     emphasis:{
                         areaColor:"#091e57" //悬浮时的颜色

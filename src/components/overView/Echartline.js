@@ -53,11 +53,11 @@ class Echartline extends Component {
             },
             legend: {
                 icon:"circle",
-                data: ['阿房宫', '明秦王陵'],
+                data: [ '阿房宫','明秦王陵'],
                 align: 'left',
                 right: 10,
                 textStyle: {
-                    color: "#fff"
+                    color:[""]
                 },
                 itemWidth: 10,
                 itemHeight: 10,
@@ -137,8 +137,6 @@ class Echartline extends Component {
                 name: '阿房宫',
                 type: 'bar',
                 data: [20, 50, 80, 58, 83, 68, 57, 80, 42, 66],
-                //barWidth: 20, //柱子宽度
-                //barGap: 1, //柱子之间间距
                 itemStyle: {
                     normal: {
                         barBorderRadius: 50,
@@ -156,8 +154,6 @@ class Echartline extends Component {
                 name: '明秦王陵',
                 type: 'bar',
                 data: [70, 48, 73, 68, 53, 47, 50, 72, 96, 86],
-                //barWidth: 20,
-                //barGap: 1,
                 itemStyle: {
                     normal: {
                         barBorderRadius: 50,
@@ -180,6 +176,11 @@ class Echartline extends Component {
         var option = {
             tooltip: {
                 trigger: 'axis',
+                formatter:function(params){
+                    var roall=`<div><p>{params[0].marker}{params[0].seriesName}{params[0].data}</p></div>`;
+                   console.log(params);
+                   return roall;
+                },
                 axisPointer: {
                     lineStyle: {
                         color: '#57617B'
@@ -192,7 +193,7 @@ class Echartline extends Component {
                 align: 'left',
                 right: 10,
                 textStyle: {
-                    color: "#fff"
+                    color:["#0D77A4","#CE3929"]
                 },
                 itemWidth: 10,
                 itemHeight: 10,
@@ -214,8 +215,7 @@ class Echartline extends Component {
                 },
                 axisLabel: {
                     textStyle: {
-                        fontSize: 14,
-                        color:"#fff"
+                        color:"#BBD1D9"
                     }
                 },
                 data: ['13:00', '13:05', '13:10', '13:15', '13:20', '13:25', '13:30', '13:35']
@@ -234,8 +234,7 @@ class Echartline extends Component {
                 axisLabel: {
                     margin: 10,
                     textStyle: {
-                        fontSize: 14,
-                        color:"#fff"
+                        color:"#BBD1D9"
                     }
                 },
                 splitLine: {
@@ -261,7 +260,7 @@ class Echartline extends Component {
                     normal: {
                         color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
                             offset: 0,
-                            color: 'rgba(16,97,204, 0.3)'
+                            color: 'rgba(16,97,204, 0.5)'
                         }, {
                             offset: 0.8,
                             color: 'rgba(17,235,210, 0)'
@@ -274,7 +273,7 @@ class Echartline extends Component {
                     normal: {
                         color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
                             offset: 0,
-                            color: 'rgba(16,97,204,1)'
+                            color: 'rgba(16,97,204,0.5)'
                         }, {
                             offset: 1,
                             color: 'rgba(17,235,210,1)'
@@ -318,10 +317,10 @@ class Echartline extends Component {
 
                         color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
                             offset: 0,
-                            color: 'rgba(205,52,42,1)'
+                            color: 'rgba(235,234,21,0.5)'
                         }, {
                             offset: 1,
-                            color: 'rgba(235,234,21,1)'
+                            color: 'rgba(205,52,42,1)'
                         }])
                     },
                     emphasis: {
@@ -352,7 +351,7 @@ class Echartline extends Component {
                 align: 'left',
                 right: 10,
                 textStyle: {
-                    color: "#fff"
+                    color:["#BD3827","#2971CD"]
                 },
                 itemWidth: 10,
                 itemHeight: 10,

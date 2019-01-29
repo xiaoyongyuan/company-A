@@ -18,7 +18,7 @@
 .overView .lump, .overView .wappscol{
     height: 100%;
     background:url("../img/xiaotudikuang.png") no-repeat;
-    background-size:  100% 100%; 
+    background-size:  100% 100%;
 }
 .lumpbott{
     padding-top:10px;
@@ -37,7 +37,7 @@
     padding-left: 35px;
     font-size:16px;
 }
-.titlename:before{
+/*.titlename:before{
     position: absolute;
     left: 10px;
     top: 18px;
@@ -46,7 +46,7 @@
     height: 12px;
     border-radius: 50%;
     background: #fff;
-}
+}*/
 .wcolum .clunm{
     height: 50%;
 }

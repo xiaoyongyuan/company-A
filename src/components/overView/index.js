@@ -238,7 +238,7 @@ class overView extends Component {
                     <Col span={10} className="wcolummap">
                         <div className="mainmap">
                             <div className="titleechart">
-                                <span className="titlename">下辖单位区位图</span>
+                                <span className="titlename">位置图</span>
                                 <span className="today">当前日期:{this.state.today}</span>
                             </div>
                         </div>
@@ -264,7 +264,7 @@ class overView extends Component {
                         <div className="clunm">
                             <div className="lump">
                                 <div className="titleechart">
-                                    <span className="titlename">账号信息</span>
+                                    <span className="titlename">及时信息</span>
                                 </div>
                                 <div className="comp" style={{height:'calc(100% - 60px)'}}>
                                     <div className="yundate">
@@ -366,7 +366,7 @@ class overView extends Component {
                         <div className="clunm lumpbott">
                             <div className="lump">
                                 <div className="titleechart">
-                                    <span className="titlename">报警次数</span>
+                                    <span className="titlename">巡更次数</span>
                                 </div>
                                 <div className="comp">
                                     <Echartline
@@ -403,7 +403,7 @@ class overView extends Component {
                     <Col span={10} className="bottomheig" style={{paddingRight:0}}>
                         <div className="wappscol">
                             <div className="titleechart">
-                                <span className="titlename">报警分析</span>
+                                <span className="titlename">视频</span>
                             </div>
                             <div className="comp">
                                 <Echartpie type="alarmanalyze" winhe={parseInt(this.state.DHeight)*0.3-70} />

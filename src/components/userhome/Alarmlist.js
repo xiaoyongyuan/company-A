@@ -149,7 +149,7 @@ class Alarmlist extends React.Component{
     };
     //设备select
     handleEquipment = ()=>{
-        post({url:"/api/camera/getlist"},(res)=>{
+        post({url:"/api/camera/get_cameralist"},(res)=>{
             if(res.success){
                 this.setState({
                     equipment:res.data,
