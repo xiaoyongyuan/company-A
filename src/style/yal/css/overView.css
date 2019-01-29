@@ -67,15 +67,15 @@
     padding-bottom: 1em;
     text-align: center; 
 }
-.equiphead .lines{ 
+.equiphead .lines{
     width: 100%;
     display: table;
     height: 100%; 
     line-height: 2.5;
-    background: -webkit-linear-gradient(left, rgba(30,110,212,.3) ,rgba(30,110,212,1)); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(right, rgba(30,110,212,.3) ,rgba(30,110,212,1)); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(right, rgba(30,110,212,.3) ,rgba(30,110,212,1)); /* Firefox 3.6 - 15 */
-    background: linear-gradient(to right, rgba(30,110,212,.3) ,rgba(30,110,212,1)); /* 标准的语法（必须放在最后） */
+    background: -webkit-linear-gradient(left, rgba(2,28,63,.3) ,rgba(9,90,200,1)); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, rgba(2,28,63,.3) ,rgba(30,110,212,1)); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, rgba(2,28,63,.3) ,rgba(30,110,212,1)); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, rgba(2,28,63,.3) ,rgba(30,110,212,1)); /* 标准的语法（必须放在最后） */
 }
 .equiptable .gutter-row{
     display: table-cell;
@@ -89,7 +89,7 @@
     background: -webkit-linear-gradient(left, rgba(30,110,212,.1) ,rgba(30,110,212,.5)); /* Safari 5.1 - 6.0 */
     background: -o-linear-gradient(right, rgba(30,110,212,.1) ,rgba(30,110,212,.5)); /* Opera 11.1 - 12.0 */
     background: -moz-linear-gradient(right, rgba(30,110,212,.1) ,rgba(30,110,212,.5)); /* Firefox 3.6 - 15 */
-    background: linear-gradient(to right, rgba(30,110,212,.1) ,rgba(30,110,212,.5)); /* 标准的语法（必须放在最后） */ 
+    background: linear-gradient(to right, rgba(30,110,212,.1) ,rgba(30,110,212,.5)); /* 标准的语法（必须放在最后） */
 }
 
 .wcolummap{
@@ -114,9 +114,9 @@
     padding-bottom: 5px;
 }
 .message .heihgdabo .messthis{
-    /*padding-top: 5px;
+    padding-top: 5px;
     padding-bottom: 5px;
-    margin-bottom: 10px;*/
+    margin-bottom: 10px;
     background:#0483e2;
     border-radius: 8px;
 }

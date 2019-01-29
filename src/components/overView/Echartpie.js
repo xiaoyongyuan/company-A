@@ -19,12 +19,9 @@ class Echartpie extends Component {
             type:this.props.type,
         })
     }
-
     componentDidMount(){
         this[this.state.type]()
-        
     }
-
     componentWillReceiveProps(nextProps){
         if(nextProps!==this.state.father){
             this.setState({
@@ -34,171 +31,56 @@ class Echartpie extends Component {
             })
         }
     }
-    xianmap=()=>{ //地图
-        echarts.registerMap('xian', xianmap);
-        const option={
-            background:"#404a59",
-            geo: {
-                map: 'xian',
-                roam: true,
-                areaStyle: {
-                    normal: {
-                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1,
-                            [{ offset: 0, color: '#80D6EB' },{ offset: 1, color: '#3B80B4' }]
-                        )}
-                },
-                itemStyle:{
-                    normal:{
-                        areaColor:"#3C82B5",
-                        borderColor:"#78CDE5"
-                    },
-                    emphasis:{
-                        areaColor:"#3A80B4"
-                    }
-                },
-                label: {
-                    emphasis: {
-                        show: false
-                    }
-                },
-            },
-            series:[
-                {
-                    type:"effectScatter",// series图表类型
-                    coordinateSystem:"geo",// series坐标系类型
-                    data:this.props.xianmap, // series数据内容
-                    effectType:"ripple",
-                    itemStyle: {
-                        normal: {
-                            color: '#D5656E',
-                            shadowBlur: 10,
-                            shadowColor: '#333'
-                        }
-                    },
-                    showEffectOn: 'render',
-                    rippleEffect: {
-                        brushType: 'stroke',
-                        scale: 3, //设置缩放
-                        period: 2, //设置时间
-                    },
-                    hoverAnimation: true,
-                    label: {
-                        normal: {
-                            formatter: '{b}',
-                            position: 'right',
-                            show: false
-                        },
-                        emphasis: {
-                            show: true,
-                            color: '#D5656E',
-                        }
-                    },
-                    symbolSize:20
-                }
-            ]
-        }
-        this.setState({option})
-    }
-    // 可查看单位
+    // 报警分析
     lookcomp=()=>{
         let option = {
-            title: {
-                text: "2个",
-                subtext: '可查看单位',
-                x: 'center',
-                y: 'center',
-                textStyle: {
-                    color: "#fff",
-                    fontSize: 15,
-                    fontWeight: 'normal'
+            tooltip: {},
+            radar: {
+                name: {
+                    formatter: '{value}',//蛛网轴尖的数据名称
+                    textStyle: {//蛛网轴尖的文字样式
+                        fontSize: 14, //外圈标签字体大小
+                        color: '#fff' //外圈标签字体颜色
+                    },
+                    lineStyle: {
+                        color: '#A22A40'
+                    }
                 },
-                subtextStyle: {
-                    color: "rgba(255,255,255,.45)",
-                    fontSize: 14,
-                    fontWeight: 'normal'
+                indicator: [
+                    { name: '人', max: 6500},
+                    { name: '点名', max: 16000},
+                    { name: '车', max: 30000},
+                    { name: '火警', max: 38000},
+                    { name: '巡逻', max: 52000},
+                ],
+                axisLine: { //蛛网轴线上的颜色，由内向外发散的那条
+                    lineStyle: {
+                        color: '#153269'
+                    }
+                },
+                splitArea: { // 蛛网在 grid 区域中的分隔区域，默认不显示。
+                    show: true,
+                    areaStyle: { // 分隔区域的样式设置。
+                        color: '#09152E', // 分隔区域颜色。分隔区域会按数组中颜色的顺序依次循环设置颜色。默认是一个深浅的间隔色。
+                    }
+                },
+                splitLine: {//蛛网环形的线条颜色
+                    lineStyle: {
+                        color: '#113865', // 分隔线颜色
+                        width: 2, // 分隔线线宽
+                    }
                 }
             },
-            calculable: true,
-            series: [
-                {
-                    name: '阿房宫',
-                    type: 'pie',
-                    radius: [55, 75],
-                    center: ['50%', '50%'],
-                    data: [{
-                            value: 15,
-                            name: '阿房宫',
-                            itemStyle: {
-                                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
-                                    offset: 0,
-                                    color: '#f6e3a1'
-                                }, {
-                                    offset: 1,
-                                    color: '#ff4236'
-                                }])
-                            },
-                            label: {
-                                color: "rgba(255,255,255,.45)",
-                                fontSize: 14,
-                                formatter: '阿房宫\n{a|15}个',
-                                rich: {
-                                    a: {
-                                        color: "#fff",
-                                        fontSize: 20,
-                                        lineHeight: 30,
-                                    },
-                                }
-                            }
-                        },
-                        {
-                            value: 15,
-                            name: 'rose2',
-                            itemStyle: {
-                                color: "transparent"
-                            }
-                        }
-                    ]
-                },
-                {
-                    name: '明秦王陵',
-                    type: 'pie',
-                    radius: [60, 70],
-                    center: ['50%', '50%'],
-                    data: [{
-                            value: 3,
-                            name: '明秦王陵',
-                            itemStyle: {
-                                color: "transparent"
-                            }
-                        },
-                        {
-                            value: 3,
-                            name: '明秦王陵',
-                            itemStyle: {
-                                color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
-                                    offset: 0,
-                                    color: '#348fe6'
-                                }, {
-                                    offset: 1,
-                                    color: '#625bef'
-                                }])
-                            },
-                            label: {
-                                color: "rgba(255,255,255,.45)",
-                                fontSize: 14,
-                                formatter: '明秦王陵\n{a|3}个',
-                                rich: {
-                                    a: {
-                                        color: "#fff",
-                                        fontSize: 20,
-                                        lineHeight: 30
-                                    },
-                                }
-                            }
-                        }
-                    ]
-                }
-            ]
+            series: [{
+                type: 'radar',
+                data : [
+                    {
+                        value : [4300, 10000, 28000, 35000, 50000],
+                        name : '报警分析',
+                        areaStyle: {color: '#A22A40'}
+                    }
+                ]
+            }]
         };
         this.setState({option})
     }
