@@ -10,6 +10,7 @@ import Echartline from "./Echartline";
 import Echartpie from "./Echartpie";
 import Universebg from "./Universebg";
 import moment from "moment";
+const pao=[{a:"13621"},{a:"534534"},{a:"1564358"},{a:"964983"},{a:"154684"}]
 const deveice=[{
     name:'神道西侧',
     ccom:'明秦王陵遗址',
@@ -251,10 +252,10 @@ class overView extends Component {
                             </div>
                             <div className="alarmover ">
                                     <Carousel vertical autoplay className="alarmcarousel">
-                                        <div className="carouselbg"><h3>1111111</h3></div>
-                                        <div className="carouselbg"><h3>13621</h3></div>
-                                        <div className="carouselbg"><h3>3333333</h3></div>
-                                        <div className="carouselbg"><h3>444444</h3></div>
+                                    {pao.map((el,i)=>(
+                                        <div className="carouselbg"><h3>{el.a}</h3></div>
+                                       ))
+                                    }
                                     </Carousel>
                                 
                             </div>
