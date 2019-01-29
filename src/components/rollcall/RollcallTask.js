@@ -246,8 +246,6 @@ class RollcallTask extends Component{
         const isdisabled = true;
         return(       
             <div className="RollcallTask">
-                {/* <Spin spinning={this.state.loading} indicator={<p />}> */}
-                <Spin spinning={this.state.loading} size="large" className="spin" tip="Loading..." />
                 <Row style={{margin:"2vmax 1vmax"}}>
                     <Col span={24}>
                         <Card title="点名任务" extra={<span onClick={this.handleSetting} style={{ cursor:"pointer" }} > <Icon type="setting" theme="filled"style={{color:'#fff'}} /><span style={{color:'#fff'}}>设置</span></span>}>
@@ -298,7 +296,9 @@ class RollcallTask extends Component{
                         <Button className="processingBtn" onClick={()=>this.rollcall('all')}>全部点名</Button>
                     </Col>
                 </Row>
-                <Spin size="large" spinning={this.state.loadding} tip="Loading..." className="loadding" />
+                {/* <Spin size="large" spinning={this.state.loadding} tip="Loading..." className="loadding" /> */}
+                <Spin spinning={this.state.loading} size="large" className="spin" tip="Loading..." />
+
                 <div className="flexbox">
                     {!this.state.list.length?<div style={{width:"100%",textAlign:"center",marginTop:'80px'}}><div className="backImg"><img src={nodata} alt="" /></div></div>:this.state.list.map((el,i)=>(
                         <div className="cardflex" key={i+1} style={{margin:"1vmax 1vmax"}}>
