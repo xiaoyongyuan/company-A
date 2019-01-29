@@ -6,7 +6,6 @@ import 'moment/locale/zh-cn';
 import "../../style/ztt/css/rollCall.css";
 import Button from "antd/es/button/button";
 import {post} from "../../axios/tools";
-import nodata from "../../style/imgs/nodata.png";
 import errs from "../../style/imgs/errs.png";
 const RangePicker = DatePicker.RangePicker;
 const Option = Select.Option;
