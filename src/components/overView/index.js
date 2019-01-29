@@ -220,21 +220,23 @@ class overView extends Component {
                                                 </Col>
                                             </Row>
                                         </div>
-                                        {_this.state.deveice.map((el,i)=>(
-                                            <div className="equipment equipbody" key={'row'+i}>
-                                                <Row className="lines">
-                                                    <Col className="gutter-row" xl={8}>
-                                                        {el.name}
-                                                    </Col>
-                                                    <Col className="gutter-row" xl={8}>
-                                                        {el.ccom}
-                                                    </Col>
-                                                    <Col className="gutter-row" xl={8}>
-                                                        {el.alarm}
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        ))}
+                                        <Carousel vertical autoplay style={{ height:'300px' }}>
+                                            {_this.state.deveice.map((el,i)=>(
+                                                <div className="equipment equipbody" key={'row'+i}>
+                                                    <Row className="lines">
+                                                        <Col className="gutter-row" xl={8}>
+                                                            {el.name}
+                                                        </Col>
+                                                        <Col className="gutter-row" xl={8}>
+                                                            {el.ccom}
+                                                        </Col>
+                                                        <Col className="gutter-row" xl={8}>
+                                                            {el.alarm}
+                                                        </Col>
+                                                    </Row>
+                                                </div>
+                                            ))}
+                                        </Carousel>
                                     </div>
                                 </div>
                             </div>
