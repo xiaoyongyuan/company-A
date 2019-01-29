@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col, Button, DatePicker, LocaleProvider, Table, Form, Select,Modal,} from "antd";
+import {Row, Col, Button, DatePicker, LocaleProvider, Table, Form, Select,Modal,Spin} from "antd";
 import zh_CN from "antd/lib/locale-provider/zh_CN";
 import {post} from "../../axios/tools";
 import "../../style/ztt/css/patrolRecord.css";
@@ -16,6 +16,7 @@ class PatrolRecord extends React.Component{
             patrolImg:false,
             equipment:[],//设备
             page:1, //当前页
+            loading:true,
         }
     }
     componentDidMount() {
@@ -77,6 +78,7 @@ class PatrolRecord extends React.Component{
                 this.setState({
                     dataSource:res.data,
                     total:res.totalcount,
+                    loading: false,
                 })
             }
         });
@@ -98,6 +100,8 @@ class PatrolRecord extends React.Component{
             edate:this.state.edate,
             cid:this.state.cid,
             page:1,
+            loading: true,
+
         },()=>{
             this.patrolList()
         })
@@ -219,6 +223,8 @@ class PatrolRecord extends React.Component{
                         </Form.Item>
                     </Form>
                 </Row>
+                <Spin spinning={this.state.loading} className="spin" size="large"tip="Loading..." />
+
                 <Row className="patrolTop">
                     <Col span={23}>
                         <Table dataSource={this.state.dataSource} columns={columns} 
@@ -234,7 +240,7 @@ class PatrolRecord extends React.Component{
                         onCancel={this.patrolCancel}
                         footer={null}
                     >
-                    <PatrolRecordModel visible={this.state.patrolImg} code={this.state.patrolImgStatus} />
+                    <PatrolRecordModel visible={this.state.patrolImg} code={this.state.patrolImgStatus} par={1} />
                     </Modal>
                 </Row>
             </div>

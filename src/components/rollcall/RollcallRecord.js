@@ -6,7 +6,6 @@ import 'moment/locale/zh-cn';
 import "../../style/ztt/css/rollCall.css";
 import Button from "antd/es/button/button";
 import {post} from "../../axios/tools";
-import nodata from "../../style/imgs/nodata.png";
 import errs from "../../style/imgs/errs.png";
 const RangePicker = DatePicker.RangePicker;
 const Option = Select.Option;
@@ -107,7 +106,8 @@ class RollcallRecord extends React.Component{
             if(res.success){
                 this.setState({
                     rollsetList:res.data,
-                    totalcount:res.totalcount
+                    totalcount:res.totalcount,
+                    loading:false, //加载中的状态
                 })
             }
             if(res.data.length === 0){
@@ -133,6 +133,7 @@ class RollcallRecord extends React.Component{
             page:1,
             rollcalldate:'',
             taskid:'',
+            loading:true, //加载中的状态
         },()=>{this.handleRollCallList()})
     };
     hanlePageSize = (page) => { //翻页
@@ -198,7 +199,7 @@ class RollcallRecord extends React.Component{
                 </LocaleProvider>
                 <Spin spinning={this.state.loading} size="large" className="spin" tip="Loading..." />
                 <Row type="flex" justify="start">
-                    {!this.state.rollsetList.length?<div style={{width:"100%",textAlign:"center",marginTop:'80px'}}><div className="backImg"><img src={nodata} alt="" /></div></div>:this.state.rollsetList.map((v,i)=>(
+                    {this.state.rollsetList.map((v,i)=>(
                         <Col className="rollcalllist" key={i} span={7} style={{marginTop:"30px",marginLeft:"30px"}}>
                             <Col span={11}>
                                 <img src={v.rrpic?v.rrpic:errs} alt="" width="100%" onClick={()=>this.handlerollCallType(v.code)} />

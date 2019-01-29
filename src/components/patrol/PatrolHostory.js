@@ -166,7 +166,8 @@ class RollcallHostory extends Component{
             rollCallType:false
         });
     };
-    handleSubmit =()=>{
+    handleSubmit =(e)=>{
+        e.preventDefault();
         this.setState({
             loading:true,
         })

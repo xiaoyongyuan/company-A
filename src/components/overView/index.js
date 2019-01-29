@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row,Col } from 'antd';
+import { Row,Col,Carousel} from 'antd';
 import '../../style/yal/css/overView.css';
 import {post} from "../../axios/tools";
 import equip from "../../style/yal/img/equip.png";
@@ -8,8 +8,8 @@ import usernum from "../../style/yal/img/usernum.png";
 import admin from "../../style/yal/img/admin.png";
 import Echartline from "./Echartline";
 import Echartpie from "./Echartpie";
+import Universebg from "./Universebg";
 import moment from "moment";
-
 const deveice=[{
     name:'神道西侧',
     ccom:'明秦王陵遗址',
@@ -173,6 +173,9 @@ class overView extends Component {
         const _this=this;
         return (
             <div className="overView" style={{height:this.state.DHeight}}>
+            
+              <Universebg />
+            
                 <div className="titletop">
                     <div className="titlevalue">
                         西安文物局
@@ -210,21 +213,23 @@ class overView extends Component {
                                                 </Col>
                                             </Row>
                                         </div>
-                                        {_this.state.deveice.map((el,i)=>(
-                                            <div className="equipment equipbody" key={'row'+i}>
-                                                <Row className="lines">
-                                                    <Col className="gutter-row" xl={8}>
-                                                        {el.name}
-                                                    </Col>
-                                                    <Col className="gutter-row" xl={8}>
-                                                        {el.ccom}
-                                                    </Col>
-                                                    <Col className="gutter-row" xl={8}>
-                                                        {el.alarm}
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        ))}
+                                        <Carousel vertical autoplay style={{ height:'300px' }}>
+                                            {_this.state.deveice.map((el,i)=>(
+                                                <div className="equipment equipbody" key={'row'+i}>
+                                                    <Row className="lines">
+                                                        <Col className="gutter-row" xl={8}>
+                                                            {el.name}
+                                                        </Col>
+                                                        <Col className="gutter-row" xl={8}>
+                                                            {el.ccom}
+                                                        </Col>
+                                                        <Col className="gutter-row" xl={8}>
+                                                            {el.alarm}
+                                                        </Col>
+                                                    </Row>
+                                                </div>
+                                            ))}
+                                        </Carousel>
                                     </div>
                                 </div>
                             </div>
@@ -244,8 +249,14 @@ class overView extends Component {
                             <div className="untreated alarmtitle">
                                 未处理报警
                             </div>
-                            <div className="untreated alarmvalue">
-                                13621
+                            <div className="alarmover ">
+                                    <Carousel vertical autoplay className="alarmcarousel">
+                                        <div className="carouselbg"><h3>1111111</h3></div>
+                                        <div className="carouselbg"><h3>13621</h3></div>
+                                        <div className="carouselbg"><h3>3333333</h3></div>
+                                        <div className="carouselbg"><h3>444444</h3></div>
+                                    </Carousel>
+                                
                             </div>
                         </div>
                     </Col>

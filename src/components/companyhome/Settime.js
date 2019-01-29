@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../style/sjg/home.css';
-import {Form,Table, Row, Col, Button,Radio, Modal,TimePicker} from 'antd';
+import {Form,Table, Row, Col, Button,Radio, Modal,TimePicker,message} from 'antd';
 import moment from 'moment';
 import {post} from "../../axios/tools";
 const RadioGroup = Radio.Group;
@@ -58,6 +58,7 @@ class Setarea extends Component {
                     list:list,
                     deleteshow: false,
                 })
+                message.success('删除成功'); 
             }
         })
     };
@@ -79,7 +80,14 @@ class Setarea extends Component {
             if(res.success){
                 this.setState({
                     list:list
+                },()=>{
+                    if(stype===1){
+                        message.success('开启成功'); 
+                    }else{
+                        message.success('关闭成功'); 
+                    }
                 })
+                
             }
         })
     };
@@ -93,6 +101,7 @@ class Setarea extends Component {
                     cwstatus:1,
                     cid:this.state.cid,
                 }
+                if(values.bdate.format("HH")==="00"&&values.edate.format("HH")==="00"){
                  post({url:"/api/workingtime/add",data:data}, (res)=>{
                     if(res.success){
                         data.code=res.code;
@@ -101,11 +110,29 @@ class Setarea extends Component {
                         this.setState({
                             list:list,
                         })
+                        message.success('新增成功');
                     }
+                    
                 })
+              }else if(values.bdate.format("HH")<values.edate.format("HH")){
+                post({url:"/api/workingtime/add",data:data}, (res)=>{
+                    if(res.success){
+                        data.code=res.code;
+                        const list=this.state.list;
+                        list.unshift(data);
+                        this.setState({
+                            list:list,
+                        })
+                        message.success('新增成功');
+                    }
+                    
+                })
+              }else{
+                message.warning('开始时间不能大于结束时间');
 
+             }
             }
-
+            this.props.form.resetFields();
         })
   
     }

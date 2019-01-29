@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import ModalForm from './ModalForm.js';
-import {Form, Input, Row, Col, Button, Modal, Table, Spin} from 'antd';
+import {Form, Input, Row, Col, Button, Modal, Table, Spin, message} from 'antd';
 import {post} from "../../axios/tools";
 import "../../style/publicStyle/publicStyle.css";
 
@@ -14,6 +14,7 @@ class Adminteam extends Component {
             list:[],
             createinfo:[],
             page:1, //当前页
+            loading:true,
         };
     }
     componentDidMount() {
@@ -30,6 +31,7 @@ class Adminteam extends Component {
                 this.setState({
                     list: res.data,
                     total:res.totalcount,
+                    loading: false,
                 })
             }
         })
@@ -70,6 +72,7 @@ class Adminteam extends Component {
                     }
                     post({url:"/api/companyuser/add",data:data}, (res)=>{
                         if(res.success){
+                            message.success('新增成功')
                             data.code=res.code;
                             const list=this.state.list;
                             list.unshift(data);
@@ -121,6 +124,7 @@ class Adminteam extends Component {
         list.splice(this.state.index,1);
         post({url:"/api/companyuser/del",data:data}, (res)=>{
             if(res.success){
+                message.success('删除成功')
                 this.setState({
                     list:list,
                     deleteshow: false,
@@ -141,6 +145,7 @@ class Adminteam extends Component {
             if(!err){
                 this.setState({
                     page:1,
+                    loading: true,
                 },()=>{
                     this.requestdata(values)
                 })
@@ -234,19 +239,15 @@ class Adminteam extends Component {
                             <Button style={this.state.utype?{display:"inline-block"}:{display:"none"}} onClick={this.showModal} className="queryBtn">新增</Button>
                         </Col>
                     </Row>
+                    <Spin spinning={this.state.loading} className="spin" size="large"tip="Loading..." />
                     <Row>
                         <Col style={{ minHeight:'600px' }}>
                             <div>
-                                {
-                                    this.state.list.length>=0?
-                                        <Table columns={columns}
-                                               dataSource={this.state.list}
-                                               bordered={isbordered}
-                                               pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
-                                        />
-                                        :
-                                        <div className="textcenter"><Spin size="large" tip="Loading..." /></div>
-                                }
+                                <Table columns={columns}
+                                       dataSource={this.state.list}
+                                       bordered={isbordered}
+                                       pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
+                                />
                             </div>
                         </Col>
                     </Row>

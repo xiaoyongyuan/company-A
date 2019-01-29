@@ -11,6 +11,7 @@ class Userdeveice extends React.Component{
             code:"1000001",
             data:{},
             edata:{},
+            login:{},
             heartdata:{},
             workingtime:[],
         };
@@ -25,6 +26,7 @@ class Userdeveice extends React.Component{
                 this.setState({
                     data:res.data, 
                     edata:res.edata, 
+                    login:res.login,
                     heartdata:res.heartdata, 
                     workingtime:res.workingtime,
                     ipvalue:res.edata.cameraip,
@@ -232,7 +234,7 @@ class Userdeveice extends React.Component{
                            设备软件版本：
                         </Col>
                         <Col span={21} className="t_l">
-                           {this.state.edata.softversion?this.state.edata.softversion:'**'}
+                           {this.state.login.version?this.state.login.version:'**'}
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -240,7 +242,7 @@ class Userdeveice extends React.Component{
                           设备硬件版本：
                         </Col>
                         <Col span={21} className="t_l">
-                        {this.state.edata.hardversion?this.state.edata.hardversion:'**'}
+                        {this.state.login.version?this.state.login.version:'**'}
                         </Col>
                     </Row>
                     <Row className="equ_row">

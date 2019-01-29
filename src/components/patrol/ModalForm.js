@@ -123,7 +123,7 @@ class ModalForm extends Component {
                 <FormItem label="班次名称">
                     {getFieldDecorator('pteam', {
                         rules: [{
-                            required: true, message: '班次名称',
+                            required: true, message: '最多输入6个字', max:6, 
                         }],
                     })(
                         <Input />
