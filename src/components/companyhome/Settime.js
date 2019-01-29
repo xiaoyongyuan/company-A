@@ -94,6 +94,7 @@ class Setarea extends Component {
                     cwstatus:1,
                     cid:this.state.cid,
                 }
+                if(values.bdate.format("HH")==="00"&&values.edate.format("HH")==="00"){
                  post({url:"/api/workingtime/add",data:data}, (res)=>{
                     if(res.success){
                         data.code=res.code;
@@ -106,7 +107,23 @@ class Setarea extends Component {
                     }
                     
                 })
+              }else if(values.bdate.format("HH")<values.edate.format("HH")){
+                post({url:"/api/workingtime/add",data:data}, (res)=>{
+                    if(res.success){
+                        data.code=res.code;
+                        const list=this.state.list;
+                        list.unshift(data);
+                        this.setState({
+                            list:list,
+                        })
+                        message.success('This is a message of success');
+                    }
+                    
+                })
+              }else{
+                message.warning('开始时间不能大于结束时间');
 
+             }
             }
             this.props.form.resetFields();
         })
