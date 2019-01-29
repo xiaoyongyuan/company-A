@@ -91,7 +91,7 @@ class RollcallHostory extends Component{
                             message.success('没有更多了');
                             _this.setState({
                                 isrequest: false,
-                                loadtip:" ",
+                                loadtip:false,
                                 } )
                         }
                         
@@ -149,7 +149,8 @@ class RollcallHostory extends Component{
     handleEndOpenChange = (open) => {
         this.setState({ endOpen: open });
     };
-    handleSubmit =()=>{
+    handleSubmit =(e)=>{
+        e.preventDefault();
             this.setState({
                 loading:true,
             })
@@ -239,7 +240,6 @@ class RollcallHostory extends Component{
                         </Form>
                     </Row>
                 </LocaleProvider>
-                {/* <div>{this.state.list.length?<div></div>:<div className="textcenter">暂无数据</div>}</div> */}
                   <Spin spinning={this.state.loading} size="large" className="spin" tip="Loading..." />
                 <div style={{marginTop:"70px",display:this.state.type?" none":"block"}}>
                     <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>

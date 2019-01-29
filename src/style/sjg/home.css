@@ -759,7 +759,7 @@ margin: 4px 0 0 20px ;
 }
 .RollcallHostory .timeline_ml .anticon svg {
      /* 加载中圈的颜色 */
-    display: none;
+    display: inline-block;
     color: red; 
 }
 .PatrolHostory .ant-timeline-item-pending .ant-timeline-item-head {
