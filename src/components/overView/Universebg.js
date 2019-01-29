@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import '../../style/yal/css/overView.css';
-import {post} from "../../axios/tools";
 import '../../style/sjg/home.css';
 class Universebg extends Component {
     constructor(props){
@@ -23,7 +21,7 @@ class Universebg extends Component {
         hue = 217,
         stars = [],
         count = 0,
-        maxStars = 1300;//星星数量
+        maxStars = 1800;//星星数量
         var canvas2 = document.createElement('canvas'),
         ctx2 = canvas2.getContext('2d');
         canvas2.width = 100;
@@ -57,7 +55,7 @@ class Universebg extends Component {
         function maxOrbit(x, y) {
         var max = Math.max(x, y),
         diameter = Math.round(Math.sqrt(max * max + max * max));
-        return diameter / 2;
+        return diameter /2;
         //星星移动范围，值越大范围越小，
         }
 
@@ -99,7 +97,7 @@ class Universebg extends Component {
 
         function animation() {
         ctx.globalCompositeOperation = 'source-over';
-        ctx.globalAlpha = 0.5; //尾巴
+        ctx.globalAlpha = 0.7; //尾巴
         ctx.fillStyle = 'hsla(' + hue + ', 64%, 6%, 2)';
         ctx.fillRect(0, 0, w, h)
 
