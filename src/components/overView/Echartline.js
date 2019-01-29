@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactEcharts from 'echarts-for-react';
+import "../../style/yal/css/overView.css";
 import echarts from 'echarts';
 require('echarts/map/js/china.js');
 class Echartline extends Component {
@@ -42,429 +43,437 @@ class Echartline extends Component {
     onClickByModel={
         'click':this.onByModelClick
     }
-    // 报警次数
+    // 巡更次数
     alarmnum=()=>{
         let option = {
             tooltip: {
-                trigger: 'axis'
-            },
-            color:['#165ecc','#13fcff'],
-            legend: { //图标设置
-
-                x: '50%',
-                top: '-1%',
-                data:[{
-                    name: this.props.apgname,
-                    icon: 'circle',
+                trigger: 'axis',
+                backgroundColor: "rgba(11,71,153,0.7)",
+                axisPointer: {
+                    type: "shadow",
                     textStyle: {
-                        color: '#165ecc',
+                        color: "#fff"
                     }
-                },{
-                    name: this.props.qwlname,
-                    icon: 'circle',
-                    textStyle: {
-                        color: '#13fcff'
-                    }
+                },
+                borderColor:{
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#DB8A20'
+                    }, {
+                        offset: 1,
+                        color: '#CF3D29'
+                    }])
                 }
-                ],
             },
-            grid: { //图像的位置
+            legend: {
+                icon:"circle",
+                data: [ '阿房宫','明秦王陵'],
+                align: 'left',
+                right: 10,
+                itemWidth: 10,
+                itemHeight: 10,
+                itemGap: 35
+            },
+            grid: {
                 left: '10%',
                 right: '8%',
-                bottom: '37%',
-                top: '11%',
+                bottom: '33%',
                 containLabel: false
             },
-            xAxis: {
+            xAxis: [{
                 type: 'category',
-                boundaryGap: false,
-                data:this.props.timehour,
-                name:'时',
+                name:"天",
                 nameTextStyle:{
-                    color:'#788cae'
+                    color:"#fff"
+                },
+                data: ['喀什市',
+                    '疏附县',
+                    '疏勒县',
+                    '英吉沙县',
+                    '泽普县',
+                    '岳普湖县',
+                    '巴楚县',
+                    '伽师县',
+                    '叶城县',
+                    '莎车县 ',
+                ],
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: "#586680",
+                        width: 1,
+                        type: "solid"
+                    }
+                },
+                axisTick: {
+                    show: false,
                 },
                 axisLabel: {
                     show: true,
                     textStyle: {
-                        color: '#7d91b4', //更改坐标轴文字颜色
-                        fontSize : 14 //更改坐标轴文字大小
+                        color: "#fff",
                     }
                 },
-            },
-            yAxis: {
+            }],
+            yAxis: [{
+                name:"次数",
+                nameTextStyle:{
+                    color:"#fff"
+                },
                 type: 'value',
-                name:'次',
-                nameTextStyle:{
-                    color:'#788cae'
-                },
                 axisLabel: {
-                    show: true,
+                    formatter: '{value}',
                     textStyle: {
-                        color: '#7d91b4', //更改坐标轴文字颜色
-                        fontSize : 14 //更改坐标轴文字大小
+                        color: "#fff",
                     }
                 },
-            },
-            series: [
-                {
-                    name:this.props.apgname,
-                    type:'line',
-                    stack: '阿房宫总量',
-                    itemStyle : {
-                        normal : {
-                            lineStyle:{
-                                color:'#165ecc'
-                            },
-                            label : {
-                                //点上是否显示数值
-                                show: false
-                            }
-                        }
-                    },
-                    data:this.props.alarmnumapg
+                axisTick: {
+                    show: false,
                 },
-                {
-                    name:this.props.qwlname,
-                    type:'line',
-                    stack: '明秦王总量',
-                    itemStyle : {
-                        normal : {
-                            lineStyle:{
-                                color:'#13fcff'
-                            },
-                            label : {
-                                ////点上是否显示数值
-                                show: false
-                            }
-                        }
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: "#586680",
+                        width: 1,
+                        type: "solid"
                     },
-                    data:this.props.alarmnumqwl
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: "#061C3C",
+                    }
+                },
+            }],
+            series: [{
+                name: '阿房宫',
+                type: 'bar',
+                data: [20, 50, 80, 58, 83, 68, 57, 80, 42, 66],
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: 50,
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#DB8A20'
+                        }, {
+                            offset: 1,
+                            color: '#CF3D29'
+                        }]),
+                        opacity: 1,
+                    }
                 }
-            ]
-        }
+            },{
+                name: '明秦王陵',
+                type: 'bar',
+                data: [70, 48, 73, 68, 53, 47, 50, 72, 96, 86],
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: 50,
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#4BAFD3'
+                        }, {
+                            offset: 1,
+                            color: '#1664C2'
+                        }]),
+                        opacity: 1,
+                    }
+                }
+            }]
+        };
         this.setState({option})
     }
     // 点名次数
     rollcall=()=>{
         var option = {
             tooltip: {
-                trigger: 'axis'
-            },
-            textStyle: {
-                color: '#32cbd7',
-                fontSize: '10px'
-            },
-            grid: { //图像的位置
-                left: '10%',
-                right: '8%',
-                bottom: '13%',
-                top: '20%',
-                containLabel: false
+                trigger: 'axis',
+                backgroundColor: "rgba(11,71,153,0.7)",
+               /* formatter:function(params){
+                    var roall=`<div class="rollEcharts"><p>${params[0].marker}${params[0].seriesName}：${params[0].data}次</p>
+                                    <p>${params[1].marker}${params[1].seriesName}：${params[1].data}次</p>
+                                </div>`;
+                   console.log(params);
+                   return roall;
+                },*/
+                axisPointer: {
+                    lineStyle: {
+                        color:"rgba(11,71,153,0.7)"
+                    }
+                }
             },
             legend: {
-                x: '65%',
-                top: '0%',
-                data:[{
-                    name: this.props.rollcallNameqwl,
-                    icon: 'circle',
-                    textStyle: {
-                        color: '#13fcff',
-                    }
-                }
-                ],
+                icon:"circle",
+                data: ['阿房宫', '明秦王陵'],
+                align: 'left',
+                right: 10,
+                textStyle: {
+                    color:["#0D77A4","#CE3929"]
+                },
+                itemWidth: 10,
+                itemHeight: 10,
+                itemGap: 35
             },
-            calculable: true,
+            grid: {
+                left: '10%',
+                right: '8%',
+                bottom: '15%',
+                containLabel: false
+            },
             xAxis: [{
-                show: true,
                 type: 'category',
-                boundaryGap: true,
-                data: this.props.dmdayly,
-                name:'日',
-                //刻度线是否显示
-                axisTick: {
-                    show: false
+                boundaryGap: false,
+                axisLine: {
+                    lineStyle: {
+                        color: '#657D9D'
+                    }
                 },
                 axisLabel: {
-                    interval: 0,
-                    show: true
-                },
-                splitLine: {
-                    show: false,
-                    lineStyle: {
-                        // 使用深浅的间隔色
-                        color: '#7d91b4'
+                    textStyle: {
+                        color:"#BBD1D9"
                     }
-                }
+                },
+                data: ['13:00', '13:05', '13:10', '13:15', '13:20', '13:25', '13:30', '13:35']
             }],
             yAxis: [{
                 type: 'value',
-                name: '次',
-                axisLine: {
-                    onZero: false,
-                    show: false,
-                    symbol: ['none', 'arrow'],
-                    symbolSize: [10, 10],
-                    symbolOffset: [0, 10],
-                    lineStyle: {
-                        color: '#7d91b4'
-                    }
-                },
                 axisTick: {
-                    show: false,
+                    show: false
                 },
-                splitLine: {
-                    //Y轴刻度值线
-                    show: false,
+                axisLine: {
+                    show:false,
                     lineStyle: {
-                        color: 'rgb(20,203,215,0.2)'
-                    }
-                }
-            },
-                {
-                    type: 'value',
-                    name: '',
-                    axisLine: {
-                        show: false,
-                        symbol: ['none', 'arrow'],
-                        symbolSize: [10, 10],
-                        symbolOffset: [0, 10],
-                        lineStyle: {
-                            color: 'rgb(20,203,215,0.2)'
-                        },
-                    },
-                    axisTick: {
-                        show: false
-                    },
-                    splitLine: {
-                        show: false
-                    },
-                    axisLabel: {}
-                }
-            ],
-            series: [{
-                name: this.props.rollcallNameqwl,
-                type: 'bar',
-                barWidth: '10px',
-                symbol: 'symbol',
-                itemStyle: {
-                    normal: {
-                        barBorderRadius: [30, 30, 0, 0],
-                        //颜色渐变函数 前四个参数分别表示四个位置依次为左、下、右、上
-                        color: new echarts.graphic.LinearGradient(
-                            0, 0, 0, 1,
-                            [{
-                                offset: 0,
-                                color: '#0394ef'
-                            },
-                                {
-                                    offset: 0.5,
-                                    color: '#047ee4'
-                                },
-                                {
-                                    offset: 1,
-                                    color: '#066ada'
-                                }
-                            ]
-                        )
+                        color: '#57617B'
                     }
                 },
-                data: this.props.rollcallNumqwl
-            }]
-        };
-        this.setState({option})
-
-    }
-    //巡更次数
-    patrol=()=>{
-        var color = "#189cbb";var scale = 1;
-        let option = {
-            tooltip: {
-                trigger: 'axis'
-            },
-            grid: { //图的位置
-                left: "3%",
-                right: "10%",
-                top:'26%',
-                bottom: "0%",
-                containLabel: true
-            },
-            legend: { //图标
-                x: '50%',
-                top: '0',
-                data: [this.props.patroNameqwl, this.props.patroNameepg],
-                textStyle: {
-                    color: '#ccc'
-                }
-            },
-            yAxis: [{
-                type: "value",
-                max: 10,
                 axisLabel: {
+                    margin: 10,
                     textStyle: {
-                        color: '#fff',
-                        fontSize: 14*scale,
-                    }
-                },
-                axisTick: {
-                    show: false,
-                    lineStyle: {
-                        color: color,
-                    }
-                },
-                axisLine: {
-                    lineStyle: {
-                        color: '#fff', //y轴线颜色
-                    }
-                },
-                splitLine: {
-                    show: false,
-                    lineStyle: {
-
-
-                    }
-                },
-                name: '次',
-                nameTextStyle: {
-                    color: "#fff",
-                    fontSize: 14*scale,
-                    padding: [0, 0, 10, 0]
-                }
-            }],
-            xAxis: [{
-                type: "category",
-                data: this.props.dayly,
-                axisLabel: {
-                    padding: [0, 15, 0, 0],
-                    textStyle: {
-                        color: '#fff', //x轴字体
-                        fontSize: 14*scale,
-                    }
-                },
-                axisTick: {
-                    show: false,
-                    lineStyle: {
-                        color: color,
-                    }
-                },
-                axisLine: {
-                    lineStyle: {
-                        color: '#fff', //x轴线颜色
+                        color:"#BBD1D9"
                     }
                 },
                 splitLine: {
                     show:false,
                     lineStyle: {
-                        show:false,
-
+                        color: '#021833'
                     }
-                },
-                name: '日',
-                nameTextStyle: {
-                    color: "#fff",
-                    fontSize: 14*scale,
-                    padding: [0, 0, 10, 0]
                 }
             }],
             series: [{
-                name: this.props.patroNameqwl,
-                type: "bar",
-                data: this.props.patrolNumqwl,
-                barWidth: '30%',
-                barCategoryGap: "35%",
-                label: {
+                name: '阿房宫',
+                type: 'line',
+                smooth: true,
+                symbol: 'circle',
+                symbolSize: 5,
+                showSymbol: false,
+                lineStyle: {
                     normal: {
-                        show: false,
-                        position: "top",
-                        distance:20,
-                        formatter: function(params) {
-                            return params.data.value;
-                        },
-                        textStyle: {
-                            color: "#ffc72b",
-                            fontSize: 16*scale
-                        }
+                        width: 3
+                    }
+                },
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                            offset: 0,
+                            color: 'rgba(16,97,204, 0.5)'
+                        }, {
+                            offset: 0.8,
+                            color: 'rgba(17,235,210, 0)'
+                        }], false),
+                        shadowColor: 'rgba(0, 0, 0, 0.1)',
+                        shadowBlur: 10
                     }
                 },
                 itemStyle: {
                     normal: {
                         color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
                             offset: 0,
-                            color: "#04dad5" // 0% 处的颜色
+                            color: 'rgba(16,97,204,0.5)'
                         }, {
                             offset: 1,
-                            color: "#009cd2" // 100% 处的颜色
-                        }], false),
+                            color: 'rgba(17,235,210,1)'
+                        }])
+                    },
+                    emphasis: {
+                        color: 'rgb(0,196,132)',
+                        borderColor: 'rgba(0,196,132,0.2)',
+                        extraCssText: 'box-shadow: 8px 8px 8px rgba(0, 0, 0, 1);',
+                        borderWidth: 10
                     }
                 },
-                markLine: {
-                    symbol: 'none',
-                    data: [{
-                        type: 'average',
-                        valueIndex: 1,
-                        lineStyle: {
-                            normal: {
-                                color: color,
-                                type: 'dashed',
-                                width: 0,
-                            }
-                        },
-                        label: {
-                            normal: {
-                                show: false,
-                            }
-                        },
-                    }]
-                },
-            },{
-                name: this.props.patroNameepg,
-                type: "bar",
-                data: this.props.patrolNumepg,
-                barWidth: '30%',
-                barCategoryGap: "35%",
-                label: {
+                data: [220, 182, 191, 134, 150, 120, 110, 125 ]
+            }, {
+                name: '明秦王陵',
+                type: 'line',
+                smooth: true,
+                symbol: 'circle',
+                symbolSize: 5,
+                showSymbol: false,
+                lineStyle: {
                     normal: {
-                        show: false,
-                        position: "top",
-                        distance:20,
-                        formatter: function(params) {
-                            return params.data.value;
-                        },
-                        textStyle: {
-                            color: "#ffc72b",
-                            fontSize: 16*scale
-                        }
+                        width: 3
                     }
+                },
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: 'rgba(205,52,42, 0.5)'
+                        }, {
+                            offset: 0.8,
+                            color: 'rgba(235,235,21, 0)'
+                        }], false),
+                        shadowColor: 'rgba(0, 0, 0, 0.1)',
+                        shadowBlur: 10
+                    },
                 },
                 itemStyle: {
                     normal: {
+
                         color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
                             offset: 0,
-                            color: "#0b8fc7" // 0% 处的颜色
+                            color: 'rgba(235,234,21,0.5)'
                         }, {
                             offset: 1,
-                            color: "#0c59d0" // 100% 处的颜色
-                        }], false),
+                            color: 'rgba(205,52,42,1)'
+                        }])
+                    },
+                    emphasis: {
+                        color: 'rgb(99,250,235)',
+                        borderColor: 'rgba(99,250,235,0.2)',
+                        extraCssText: 'box-shadow: 8px 8px 8px rgba(0, 0, 0, 1);',
+                        borderWidth: 10
                     }
                 },
-                markLine: {
-                    symbol: 'none',
-                    data: [{
-                        type: 'average',
-                        valueIndex: 1,
-                        lineStyle: {
-                            normal: {
-                                color: color,
-                                type: 'dashed',
-                                width: 0,
-                            }
-                        },
-                        label: {
-                            normal: {
-                                show: false,
-                            }
-                        },
-                    }]
+                data: [120, 110, 125, 145, 122, 165, 122, 220]
+            }  ]
+        };
+        this.setState({option})
+
+    }
+    //点名次数
+    patrol=()=>{
+        let option = {
+            grid: {
+                left: '13%',
+                right: '8%',
+                bottom: '13%',
+                top: '20%',
+            },
+            tooltip: {
+                trigger: 'axis',
+                backgroundColor: "rgba(11,71,153,0.7)",
+                axisPointer: {
+                    type: "shadow",
+                    textStyle: {
+                        color: "#fff"
+                    }
+                }
+            },
+            legend: {
+                data: ['阿房宫', '明秦王陵'],
+                icon:"circle",
+                align: 'left',
+                right: 10,
+                textStyle: {
+                    color:["#BD3827","#2971CD"]
                 },
+                itemWidth: 10,
+                itemHeight: 10,
+                itemGap: 35
+            },
+            xAxis: [{
+                type: 'category',
+                boundaryGap: true,
+                axisLine: { //坐标轴轴线相关设置。数学上的x轴
+                    show: true,
+                    lineStyle: {
+                        color: '#5B6B89'
+                    },
+                },
+                axisLabel: { //坐标轴刻度标签的相关设置
+                    textStyle: {
+                        color: '#d1e6eb',
+                    },
+                },
+                axisTick: {
+                    show: false,
+                },
+                data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月'],
+            }],
+            yAxis: [{
+                type: 'value',
+                min: 0,
+                max: 980,
+                splitNumber: 5,
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#07234B'
+                    }
+                },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#5B6B89'
+                    },
+                },
+                axisLabel: {
+                    margin: 20,
+                    textStyle: {
+                        color: '#d1e6eb',
+
+                    },
+                },
+                axisTick: {
+                    show: false,
+                },
+            }],
+            series: [{
+                name: '阿房宫',
+                type: 'line',
+                showAllSymbol: true,
+                symbol: 'emptyCircle',
+                symbolSize: 6,
+                lineStyle: {
+                    normal: {
+                        color: "#BD3827", // 线条颜色
+                    },
+                    borderColor: '#f0f'
+                },
+                itemStyle: {
+                    normal: {
+                        color: "#D53A25",
+                    }
+                },
+                tooltip: {
+                    show: true
+                },
+                data: [393, 438, 485, 631, 689, 824, 987]
+            }, {
+                name: '明秦王陵',
+                type: 'bar',
+                barWidth: 20,
+                tooltip: {
+                    show: true
+                },
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: 5,
+                        color: new echarts.graphic.LinearGradient(
+                            0, 0, 0, 1,
+                            [{
+                                offset: 0,
+                                color: '#14c8d4'
+                            },
+                                {
+                                    offset: 1,
+                                    color: '#2971CD'
+                                }
+                            ]
+                        )
+                    }
+                },
+                data: [200, 382, 102, 267, 186, 315, 316]
             }]
         };
         this.setState({option})

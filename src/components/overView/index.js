@@ -166,16 +166,6 @@ class overView extends Component {
                     rollcallNumqwl:rollcallNumqwl,//明秦王陵点名次数
                     dmdayly:dmdayly,//点名次数时间轴
                     rollcallNameqwl:rollcallNameqwl,//点名明秦王陵名称
-                },()=>{
-                    console.log("daylydx",this.state.daylydx);
-                    console.log("dayly",this.state.dayly);
-                    console.log("阿房宫报警次数",this.state.alarmnumapg);
-                    console.log("明秦王陵报警次数",this.state.alarmnumqwl);
-                    console.log(this.state.ignore);
-                    console.log(this.state.xufalse);
-                    console.log(this.state.okconfirm);
-                    console.log(this.state.unhandle);
-                    console.log(this.state.analysisCount);
                 })
             }
         })
@@ -184,9 +174,7 @@ class overView extends Component {
         const _this=this;
         return (
             <div className="overView" style={{height:this.state.DHeight}}>
-            
-              <Universebg />
-            
+             {/* <Universebg />*/}
                 <div className="titletop">
                     <div className="titlevalue">
                         西安文物局
@@ -197,7 +185,7 @@ class overView extends Component {
                         <div className="clunm">
                             <div className="lump">
                                 <div className="titleechart">
-                                    <span className="titlename">可查看单位</span>
+                                    <span className="titlename">报警分析</span>
                                 </div>
                                 <div className="comp">
                                     <Echartpie type="lookcomp" winhe={(parseInt(this.state.DHeight)*0.7-20)*0.5-50} />
@@ -207,17 +195,17 @@ class overView extends Component {
                         <div className="clunm lumpbott">
                             <div className="lump ">
                                 <div className="titleechart">
-                                    <span className="titlename">可查看设备</span>
+                                    <span className="titlename">设备近状</span>
                                 </div>
                                 <div className="comp">
                                     <div className="equiptable">
                                         <div className="equipment equiphead">
                                             <Row className="lines">
                                                 <Col className="gutter-row" xl={8}>
-                                                    名称
+                                                    单位
                                                 </Col>
                                                 <Col className="gutter-row" xl={8}>
-                                                    单位
+                                                    设备
                                                 </Col>
                                                 <Col className="gutter-row" xl={8}>
                                                     未处理报警数
@@ -249,7 +237,7 @@ class overView extends Component {
                     <Col span={10} className="wcolummap">
                         <div className="mainmap">
                             <div className="titleechart">
-                                <span className="titlename">下辖单位区位图</span>
+                                <span className="titlename">位置图</span>
                                 <span className="today">当前日期:{this.state.today}</span>
                             </div>
                         </div>
@@ -275,7 +263,7 @@ class overView extends Component {
                         <div className="clunm">
                             <div className="lump">
                                 <div className="titleechart">
-                                    <span className="titlename">账号信息</span>
+                                    <span className="titlename">及时信息</span>
                                 </div>
                                 <div className="comp" style={{height:'calc(100% - 60px)'}}>
                                     <div className="yundate">
@@ -377,17 +365,17 @@ class overView extends Component {
                         <div className="clunm lumpbott">
                             <div className="lump">
                                 <div className="titleechart">
-                                    <span className="titlename">报警次数</span>
+                                    <span className="titlename">巡更次数</span>
                                 </div>
                                 <div className="comp">
                                     <Echartline
                                         type="alarmnum"
                                         winhe={(parseInt(this.state.DHeight)*0.7-10)*0.5-10}
-                                        alarmnumapg={this.state.alarmnumapg}
+                                      /*  alarmnumapg={this.state.alarmnumapg}
                                         alarmnumqwl={this.state.alarmnumqwl}
                                         timehour = {this.state.timehour}
                                         apgname={ this.state.apgname }
-                                        qwlname = { this.state.qwlname }
+                                        qwlname = { this.state.qwlname }*/
                                     />
                                 </div>
                             </div>
@@ -398,15 +386,15 @@ class overView extends Component {
                     <Col span={7} className="bottomheig">
                         <div className="wappscol">
                             <div className="titleechart">
-                                <span className="titlename">野外文物点名</span>
+                                <span className="titlename">报警次数</span>
                             </div>
                             <div className="comp">
                                 <Echartline
                                     type="rollcall"
                                     winhe={parseInt(this.state.DHeight)*0.3-70}
-                                    rollcallNumqwl = { this.state.rollcallNumqwl }
+                                    /*rollcallNumqwl = { this.state.rollcallNumqwl }
                                     dmdayly = { this.state.dmdayly }
-                                    rollcallNameqwl = { this.state.rollcallNameqwl }
+                                    rollcallNameqwl = { this.state.rollcallNameqwl }*/
                                 />
                             </div>
                         </div>
@@ -414,7 +402,7 @@ class overView extends Component {
                     <Col span={10} className="bottomheig" style={{paddingRight:0}}>
                         <div className="wappscol">
                             <div className="titleechart">
-                                <span className="titlename">报警分析</span>
+                                <span className="titlename">视频</span>
                             </div>
                             <div className="comp">
                                 <Echartpie type="alarmanalyze" winhe={parseInt(this.state.DHeight)*0.3-70} />
@@ -424,17 +412,17 @@ class overView extends Component {
                     <Col span={7} className="bottomheig" style={{paddingRight:0,paddingLeft:'17px'}}>
                         <div className="wappscol">
                             <div className="titleechart">
-                                <span className="titlename">巡更次数</span>
+                                <span className="titlename">点名次数</span>
                             </div>
                             <div className="comp">
                                 <Echartline
                                     type="patrol"
                                     winhe={parseInt(this.state.DHeight)*0.3-70}
-                                    patrolNumepg = { this.state.patrolNumepg }
+                                    /*patrolNumepg = { this.state.patrolNumepg }
                                     patrolNumqwl = { this.state.patrolNumqwl }
                                     dayly = { this.state.dayly }
                                     patroNameepg = { this.state.patroNameepg }
-                                    patroNameqwl = { this.state.patroNameqwl }
+                                    patroNameqwl = { this.state.patroNameqwl }*/
                                 />
                             </div>
                         </div>

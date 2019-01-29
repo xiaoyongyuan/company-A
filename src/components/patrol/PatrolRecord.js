@@ -85,7 +85,7 @@ class PatrolRecord extends React.Component{
     };
     //设备
     handlePatrol =()=>{
-        post({url:"/api/camera/getlist"},(res)=>{
+        post({url:"/api/camera/get_cameralist"},(res)=>{
            if(res.success){
                this.setState({
                    equipment:res.data
@@ -94,7 +94,8 @@ class PatrolRecord extends React.Component{
         })
     };
     //查询
-    handlePatrolSelect =()=>{
+    handlePatrolSelect =(e)=>{
+       e.preventDefault();
         this.setState({
             bdate:this.state.bdate,
             edate:this.state.edate,
