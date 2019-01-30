@@ -13,10 +13,12 @@ class PatrolRecordModel extends Component{
         }
     }
     componentWillMount() {
+      const activecompcode=localStorage.getItem('activecompcode');
         this.setState({
             code:this.props.code,
             itemStatus:this.props.itemStatus,
             rollcallhostory:this.props.rollcallhostory,
+            activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:''
             
         })
     }
@@ -24,10 +26,8 @@ class PatrolRecordModel extends Component{
         this.setState({
             itemStatus:this.props.itemStatus,
             par:this.props.par
-        },()=>{
-        //   console.log('******************',this.state.par);        
         })
-        post({url:"/api/patrolresult/getone",data:{code:this.state.code}},(res)=>{
+        post({url:"/api/patrolresult/getone",data:{code:this.state.code,passivecode:this.state.activecompcode}},(res)=>{
             this.setState({
                 paList:res.data
             });
@@ -79,12 +79,16 @@ class PatrolRecordModel extends Component{
                   <Col span={8}>处理人: {this.state.paList.handlename}</Col>
                   <Col span={8}>处理时间: {this.state.paList.phdate}</Col>
                </Row>
+               {
+                  !this.state.activecompcode
+                  ?
                <Row>
                   <Col span={24} style={{ textAlign:'right' }}>
                       <Button type="primary" onClick={()=>this.patrolAdopt(1)}>通过</Button>
                       <Button type="primary" onClick={()=>this.patrolAdopt(2)}>不通过</Button>
                   </Col>
                </Row>
+               :''}
            </div>
         )
     }

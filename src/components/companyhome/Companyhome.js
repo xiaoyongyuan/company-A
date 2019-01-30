@@ -27,6 +27,12 @@ class Companyhome extends Component {
             scenegraph:nopic,
         }
     }
+    componentWillMount(){
+        const activecompcode=localStorage.getItem('activecompcode');
+        this.setState({
+            activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:''
+        })
+    }
     componentDidMount(){
         //巡更计划
         this.patrolresul();
@@ -37,7 +43,7 @@ class Companyhome extends Component {
     }
     //总览
     companyHome =()=>{
-        post({url:'/api/company/getone'},(res)=>{
+        post({url:'/api/company/getone',data:{passivecode:this.state.activecompcode}},(res)=>{
             if(res.success){
                 let mapJson=[{
                     name:res.data.cname,
@@ -65,7 +71,7 @@ class Companyhome extends Component {
     };
     //巡更计划
     patrolresul =()=>{
-        post({url:"/api/patrolresult/gets_patrol_weeks"},(res)=>{
+        post({url:"/api/patrolresult/gets_patrol_weeks",data:{passivecode:this.state.activecompcode}},(res)=>{
             if(res.success){
               var  patroList=Object.keys(res.data).map(key=> res.data[key]);
               var patrolListX= patroList.map((v)=>v.pdate).reverse();
@@ -81,7 +87,7 @@ class Companyhome extends Component {
     };
     //点名统计
     rollcalldetail =()=>{
-        post({url:"/api/rollcalldetail/gets_rollcall_weeks"},(res)=>{
+        post({url:"/api/rollcalldetail/gets_rollcall_weeks",data:{passivecode:this.state.activecompcode}},(res)=>{
             if(res.success){
                 var rollcall=Object.keys(res.data).map(key=> res.data[key]);
                 var rollcallX= rollcall.map((v)=>v.pdate).reverse();
@@ -101,7 +107,9 @@ class Companyhome extends Component {
                 <div className="companyhome" >
                     <div className="boxHeight backBlock" >
                         <div className="backLitte boxShow " style={{width:'50%',margin:"16px"}}>
+                            <div style={{padding:'50px 10px',height:'550px'}}>
                             <Scenedata type="maps" />
+                            </div>
                         </div>
                         <div className="topRightContext">
                             <div id="alertHeight">

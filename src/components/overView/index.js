@@ -7,21 +7,7 @@ import Echartline from "./Echartline";
 import Echartpie from "./Echartpie";
 import Universebg from "./Universebg";
 import moment from "moment";
-const pao=[{a:"13621"},{a:"534534"},{a:"1564358"},{a:"964983"},{a:"154684"}];
-var videoList=[
-    {
-        id:"1",
-        img:"http://pic01.aokecloud.cn/alarm/1000004/pic/20190119/1000004_20190119110806_320X240.jpg"
-    },
-    {
-        id:"2",
-        img:"http://pic01.aokecloud.cn/alarm/1000004/pic/20190119/1000004_20190119110806_320X240.jpg"
-    },
-    {
-        id:"3",
-        img:"http://pic01.aokecloud.cn/alarm/1000004/pic/20190119/1000004_20190119110806_320X240.jpg"
-    }
-];
+const pao=[{a:"13621"},{a:"534534"},{a:"1564358"},{a:"964983"},{a:"154684"}]
 const deveice=[{
     name:'神道西侧',
     ccom:'明秦王陵遗址',
@@ -56,14 +42,14 @@ class overView extends Component {
     constructor(props){
         super(props);
         this.state= {
-            option: {},
-            deveice: deveice,
-            analysisCount: 0,//总报警数
-            unhandle: 0,//未处理报警数
-            okconfirm: 0,//确认数
-            xufalse: 0,//虚报警数
-            ignore: 0,//忽略数
-            today: moment().format('LL'),
+            option:{},
+            deveice:deveice,
+            analysisCount:0,//总报警数
+            unhandle:0,//未处理报警数
+            okconfirm:0,//确认数
+            xufalse:0,//虚报警数
+            ignore:0,//忽略数
+            today:moment().format('LL'),
             rollArrX: [],//点名次数x轴
             rollName: [],//点名次数名称
             afang: [],

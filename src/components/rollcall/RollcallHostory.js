@@ -34,13 +34,18 @@ class RollcallHostory extends Component{
             type:true,//无数据图
         }
     }
+    componentWillMount() {
+        const activecompcode=localStorage.getItem('activecompcode');
+        this.setState({
+            activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:''
+        })   
+    }
     componentDidMount() {
         this.setState({
             loadtip:false,
             })
-        post({url:'/api/rollcalldetail/getlist_info_dayly'},(res)=>{
+        post({url:'/api/rollcalldetail/getlist_info_dayly',data:{passivecode:this.state.activecompcode}},(res)=>{
             if(res.success){
-                //  console.log('******************', res);
                     this.setState({
                           list:res.data,
                           loading: false,
@@ -74,7 +79,7 @@ class RollcallHostory extends Component{
                 page:pag
                })
                if(_this.state.isrequest){ 
-                post({url:'/api/rollcalldetail/getlist_info_dayly',data:{pageindex:_this.state.page}},(res)=>{
+                post({url:'/api/rollcalldetail/getlist_info_dayly',data:{pageindex:_this.state.page,passivecode:this.state.activecompcode}},(res)=>{
                     if(res.data.length>0){
                             pag++;
                             const list=_this.state.list;
@@ -151,10 +156,12 @@ class RollcallHostory extends Component{
         e.preventDefault();
             this.setState({
                 loading:true,
+                list:[]
             })
             const data={
                 daylybdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD'):'',
                 daylyedate:this.state.edate?this.state.edate.format('YYYY-MM-DD'):'',
+                passivecode:this.state.activecompcode,
             }
             post({url:'/api/rollcalldetail/getlist_info_dayly',data:data},(res)=>{
                 if(res.success){
@@ -296,7 +303,10 @@ class RollcallHostory extends Component{
                                     </Timeline.Item>
                                     </div>
                                 )
-                            }):''
+                            })
+                            :<Row style={{marginTop:"70px"}}>
+                                <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
+                            </Row>
                         } 
                 </Timeline>
                 </div>

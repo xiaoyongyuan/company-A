@@ -49,6 +49,10 @@ class Alarmlist extends React.Component{
         };
     }
     componentWillMount() {
+        const activecompcode=localStorage.getItem('activecompcode');
+        this.setState({
+            activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:''
+        })
         if(this.props.query.id){
             this.setState({
                 propsid:this.props.query.id,
@@ -56,9 +60,6 @@ class Alarmlist extends React.Component{
         }   
     }
     componentDidMount() {
-       setTimeout(()=>{
-
-       });
         const data={};
         if(this.state.propsid){
             data.cid=this.state.propsid;
@@ -124,7 +125,7 @@ class Alarmlist extends React.Component{
     };
     //报警信息列表
     handleAlerm = (data={})=>{
-        post({url:'/api/alarm/getlist',data:Object.assign(data,{pageindex:this.state.page,pagesize:18})},(res)=>{
+        post({url:'/api/alarm/getlist',data:Object.assign(data,{pageindex:this.state.page,pagesize:18,passivecode:this.state.activecompcode})},(res)=>{
             if(res.success){
                 if(res.data.length){
                     this.setState({
@@ -295,6 +296,7 @@ class Alarmlist extends React.Component{
         }
     }
     changeredgreenblue =(type,index,code)=>{
+        if(this.state.activecompcode) return;
         post({url:'/api/alarm/update',data:{code:code,status:type}},(res)=>{
             if(res.success){
                 const policeList=this.state.policeList;
@@ -370,7 +372,7 @@ class Alarmlist extends React.Component{
                                 <Button type="primary" htmlType="submit" className="queryBtn">查询</Button>
                             </Col>
                             <Col xl={2} xxl={2} lg={6} className="lr">
-                                <Button onClick={this.handleProcessing} className="processingBtn">一键处理</Button>
+                                <Button onClick={this.handleProcessing} className="processingBtn" disabled={this.state.activecompcode?true:false}>一键处理</Button>
                             </Col>
                         </Form>
                     </Row>
@@ -419,6 +421,7 @@ class Alarmlist extends React.Component{
                                                         </Row>
                                                     </Col>
                                                 </Row>
+
                                                 <Row className="sure-row" type="flex" align="bottom">
                                                     <Col span={8} >
                                                         <div className="sure-col-l" onClick={()=>this.changeredgreenblue(1,i,v.code)}>

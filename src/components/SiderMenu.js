@@ -31,9 +31,9 @@ export default ({ menus, ...props }) => (
         {
             menus && menus.map((item)=>{
                 if(item.identi.includes({...props}.identify)){
-                    if({...props}.func.includes(item.funct)){
+                    // if({...props}.func.includes(item.funct)){
                         return( item.subs ? renderSubMenu(item) : renderMenuItem(item) )  
-                    }
+                    // }
                   
                 }
             }

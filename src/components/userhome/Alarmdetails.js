@@ -25,14 +25,16 @@ class Alarmdetails extends React.Component{
       };
   }
   componentWillMount() {
+    const activecompcode=localStorage.getItem('activecompcode');
   	//此处拿到父页面参数
     this.setState({
       faths:this.props.toson,
-      code:this.props.toson.code
+      code:this.props.toson.code,
+      activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:''
     });
   }
   componentDidMount() {
-    post({url:"/api/alarm/getone",data:this.state.faths},(res)=>{
+    post({url:"/api/alarm/getone",data:Object.assign(this.state.faths,{passivecode:this.state.activecompcode})},(res)=>{
         let data={
           src:res.data.picpath,
           field:res.data.field,
@@ -196,7 +198,12 @@ class Alarmdetails extends React.Component{
             				<p><label>报警时间：<span>{this.state.data.atime}</span></label></p>
                     {/*<p><label>报警结果：<TextArea rows={3} /></label></p>*/}
             				<p><label>处理结果：</label><span style={{color:this.state.color}}>{this.state.typetext}</span></p>
-            				<p><label>处理类型：</label> <Button type="primary" onClick={()=>this.alarmdeal(1)}>确认</Button> <Button type="primary" onClick={()=>this.alarmdeal(3)}>虚警</Button> <Button type="primary" onClick={()=>this.alarmdeal(2)}>忽略</Button></p>
+            				{
+                      !this.state.activecompcode
+                      ?<p><label>处理类型：</label> <Button type="primary" onClick={()=>this.alarmdeal(1)}>确认</Button> <Button type="primary" onClick={()=>this.alarmdeal(3)}>虚警</Button> <Button type="primary" onClick={()=>this.alarmdeal(2)}>忽略</Button></p>
+                      :''
+                    }
+                    
             		</div>
             	</div>
             </div>
