@@ -51,13 +51,6 @@ class overView extends Component {
 
     }
 
-    // yidong = () =>{
-    //     //   document.getElementById("lm").scrollTop=60
-    //     //    // lm+10;
-    //     //
-    //     //     // console.log("lm",lm);
-    //     // }
-
     componentDidMount() {
         const _this=this;
         window.onresize = () => {
@@ -178,33 +171,26 @@ class overView extends Component {
             }
         })
         var bl = 20;
-        // setInterval(bl=bl+1,3000);
-        // bl=bl+1;
         setInterval(
-            document.getElementById("wm").onscroll=function() {
+            document.getElementById("ScollhiddenOut").onscroll=function() {
                 bl=bl+0.9;
-                var scrollHeight = document.getElementById("wm").scrollHeight;//div里内容的高度
-                var scrollTop = document.getElementById("wm").scrollTop;//0-18
-                var clientHeight = document.getElementById("wm").clientHeight;//div内里框框的高度
+                var scrollHeight = document.getElementById("ScollhiddenOut").scrollHeight;//div里内容的高度
+                var scrollTop = document.getElementById("ScollhiddenOut").scrollTop;//0-18
+                var clientHeight = document.getElementById("ScollhiddenOut").clientHeight;//div内里框框的高度
                 var scrollbottom=scrollHeight-clientHeight;
                 var scrollTopP=Math.ceil(scrollTop);
                 if(scrollbottom-scrollTopP===0) {//滚动到底部了
                     console.log("到底部了");
-                    document.getElementById("wm").scrollTop=0;
+                    document.getElementById("ScollhiddenOut").scrollTop=0;
                 }
                 if(scrollbottom-scrollTopP===0) {//滚动到底部了
-                    document.getElementById("wm").scrollTop=0;
+                    document.getElementById("ScollhiddenOut").scrollTop=0;
                     bl=20;
                 }else{
-                    document.getElementById("wm").scrollTop = bl;
-                    console.log("wm", document.getElementById("wm").scrollTop);
+                    document.getElementById("ScollhiddenOut").scrollTop = bl;
+                    console.log("ScollhiddenOut", document.getElementById("ScollhiddenOut").scrollTop);
                 }
             },2000);
-
-        // document.getElementById("wm").onscroll=function() {
-        //     var wm= document.getElementById("wm").scrollTop;
-        //      console.log("wm",wm);
-        // }
     }
     render() {
         const _this=this;
@@ -251,28 +237,27 @@ class overView extends Component {
                                             </Row>
                                         </div>
                                         <div className="scollhidden">
-                                            <div className="waimian" id="wm">
-                                                <div className="limian" id="lm">
-                                                    <div className="xiaode">1</div>
-                                                    <div className="xiaode">2</div>
-                                                    <div className="xiaode">3</div>
-                                                    <div className="xiaode">4</div>
-                                                    <div className="xiaode">5</div>
-                                                    <div className="xiaode">1</div>
-                                                    <div className="xiaode">1</div>
-                                                    <div className="xiaode">1</div>
-                                                    <div className="xiaode">1</div>
-                                                    <div className="xiaode">2</div>
-                                                    <div className="xiaode">3</div>
-                                                    <div className="xiaode">4</div>
-                                                    <div className="xiaode">5</div>
-                                                    <div className="xiaode">1</div>
-                                                    <div className="xiaode">1</div>
-                                                    <div className="xiaode">1</div>
+                                            <div className="scollhidden-out" id="ScollhiddenOut">
+                                                <div className="scollhidden-inner">
+
+                                                    {_this.state.deveice.map((el,i)=>(
+                                                    <div className="equipment equipbody" key={'row'+i}>
+                                                        <Row className="lines">
+                                                            <Col className="gutter-row" xl={8}>
+                                                            {el.name}
+                                                            </Col>
+                                                            <Col className="gutter-row" xl={8}>
+                                                            {el.ccom}
+                                                            </Col>
+                                                            <Col className="gutter-row" xl={8}>
+                                                            {el.alarm}
+                                                            </Col>
+                                                        </Row>
+                                                    </div>
+                                                    ))}
                                                 </div>
                                             </div>
                                         </div>
-                                        {/*<Carousel vertical autoplay style={{ height:'300px' }}>*/}
                                         {/*{_this.state.deveice.map((el,i)=>(*/}
                                         {/*<div className="equipment equipbody" key={'row'+i}>*/}
                                         {/*<Row className="lines">*/}
@@ -288,7 +273,6 @@ class overView extends Component {
                                         {/*</Row>*/}
                                         {/*</div>*/}
                                         {/*))}*/}
-                                        {/*</Carousel>*/}
                                     </div>
                                 </div>
                             </div>
