@@ -81,7 +81,7 @@
     .Rotation_chart>div:nth-of-type(1){
         width: 68%;
         height: auto;
-        margin: 0 auto;
+        
      }
 
 
@@ -93,6 +93,7 @@
         height: auto;
         min-height: 210px;
         margin: 0 auto;
+        margin: 2px auto;
      }
 
 
@@ -309,6 +310,10 @@
 }
 
 .draw .ant-carousel .slick-slide h3 {
+    background-image: url("../img/ren.png")  !important;
+    background-repeat: no-repeat;
+    background-position: 16px 0;
+    background-size: auto 26px;
     color: #fff;
 }
 .draw .alarmover{
@@ -352,9 +357,7 @@
     height: 30px;
     overflow: hidden;
 }
-.draw .ant-carousel .slick-slide h3{
-    background:#923E20!important ;
-}
+
 .draw .ant-carousel .slick-slide {
     background:#923E20 !important ;
 }

@@ -60,6 +60,7 @@ class overView extends Component {
             patrolafangafang:[],
             patrolafangming:[],
             deveicek:[],//设备
+            callist:[],
         }
 
         this.saveRef = ref => {this.refDom = ref};
@@ -177,6 +178,17 @@ class overView extends Component {
 
         })
     }
+    cal =()=>{//设备轮播
+        post({url:"/api/alarm/gets_info_big"},(res)=>{
+        console.log('******************2222',res.data);
+             this.setState({
+                callist:res.data,
+             },()=>{
+                 console.log('******************333',this.state.callist);
+                 
+             })
+        })
+    }
     componentDidMount() {
         window.onresize = () => {
             this.setState({
@@ -193,6 +205,8 @@ class overView extends Component {
         this.alarmList();
         //设备近况
         this.deveicek();
+        //设备轮播
+        this.cal();
     }
     render() {
         const _this=this;
@@ -239,7 +253,7 @@ class overView extends Component {
                                         <div className="scollhidden">
                                             <div className="scollhidden-out" id="ScollhiddenOut">
                                                 <div className="scollhidden-inner">
-                                                    {_this.state.deveicek.map((el,i)=>(
+                                                    {this.state.deveicek.map((el,i)=>(
                                                     <div className="equipment equipbody" key={'row'+i}>
                                                         <Row className="lines">
                                                             <Col className="gutter-row" xl={8}>
@@ -301,18 +315,21 @@ class overView extends Component {
                                 </div>
                                 <div className="comp" style={{height:'calc(100% - 60px)'}}>
                                 <Carousel vertical autoplay className="righttop">
+                                
+                                {this.state.callist.map((el,i)=>(
+                                    <div>
                                         <div className="Rotation_chart">
-                                           <div><img src={w1} alt="" /></div>  
-                                           <div>222</div>
+                                           <div><img src={el.picpath} alt="" /></div>  
+                                           <div>
+                                               <span> {el.cname}</span> ,<span>{el.cameraname}</span>,<span>{el.time}</span>,
+                                               <span>{el.type==="alarm"?"报警":""} </span>
+                                               <span>{el.type==="rollcall"?"点名报警":""}</span>
+                                               <span>{el.type==="patrol"?"巡更":""}</span>
+                                           </div>
                                         </div>
-                                        <div className="Rotation_chart">
-                                            <div><img src={w1} alt="" /> </div>  
-                                            <div> 444 </div>
-                                        </div>
-                                        <div className="Rotation_chart">
-                                            <div><img src={w1} alt="" /></div>  
-                                            <div> 444</div>
-                                        </div>
+                                    </div>
+                                   ))}
+                                        
                                 </Carousel>
                                 </div>
                             </div> 
