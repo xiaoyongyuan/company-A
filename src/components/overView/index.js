@@ -6,6 +6,9 @@ import equip from "../../style/yal/img/equip.png";
 import team from "../../style/yal/img/team.png";
 import usernum from "../../style/yal/img/usernum.png";
 import admin from "../../style/yal/img/admin.png";
+import w1 from "../../style/yal/img/w1.png";
+import w2 from "../../style/yal/img/w2.png";
+import w3 from "../../style/yal/img/w3.png";
 import Echartline from "./Echartline";
 import Echartpie from "./Echartpie";
 import Universebg from "./Universebg";
@@ -326,7 +329,35 @@ class overView extends Component {
                                     <span className="titlename">及时信息</span>
                                 </div>
                                 <div className="comp" style={{height:'calc(100% - 60px)'}}>
-                                    <div className="yundate">
+                                <Carousel vertical autoplay className="righttop">
+                                        <div className="Rotation_chart">
+                                           <div>
+                                               <img src={w1} alt="" />
+                                           </div>  
+                                           <div>
+                                               222
+                                           </div>
+                                        </div>
+                                        <div className="Rotation_chart">
+                                            <div>
+                                            <img src={w1} alt="" />
+                                           </div>  
+                                           <div>
+                                               444
+                                           </div>
+                                        </div>
+                                        <div className="Rotation_chart">
+                                            <div>
+                                            <img src={w1} alt="" />
+                                           </div>  
+                                           <div>
+                                               444
+                                           </div>
+                                        </div>
+                                        
+                                       
+                                </Carousel>
+                                    {/* <div className="yundate">
                                         云服务到期日期: <b>{this.state.today}</b>
                                     </div>
                                     <div className="newsclo" style={{height:'calc(100% - 55px)'}}>
@@ -418,9 +449,9 @@ class overView extends Component {
                                                 </Row>
                                             </Col>
                                         </Row>
-                                    </div>
+                                    </div>*/}
                                 </div>
-                            </div>
+                            </div> 
                         </div>
                         <div className="clunm lumpbott">
                             <div className="lump">
