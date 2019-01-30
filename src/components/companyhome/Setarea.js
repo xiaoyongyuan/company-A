@@ -24,7 +24,6 @@ class Setarea extends Component {
     //摄像头详情 
         post({url:'/api/camera/getone',data:{code:this.state.cid}},(res)=>{
             if(res){
-                console.log(res)
                 let field=res.data.field,areaone=[],areatwo=[];
                 if(field){
                     areaone=field[1]?JSON.parse(field[1]):[];
@@ -47,8 +46,7 @@ class Setarea extends Component {
         let area = ele.getContext("2d");
         area.clearRect(0,0,704,576);
         if(this.state.areaone.length){
-                let areaone=this.state.areaone[0]; 
-                console.log('areaone',this.state.areaone,areaone,areaone[0],areaone[0][0])           
+                let areaone=this.state.areaone[0];          
                 area.strokeStyle=blue;
                 area.lineWidth=3;
                 area.beginPath();
