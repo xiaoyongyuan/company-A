@@ -86,7 +86,7 @@ class overView extends Component {
     };
     //背景动态
     dynamic =()=>{
-        var bl = 0.96;
+        var bl = 5;
         setInterval(
             document.getElementById("ScollhiddenOut").onscroll=function() {
                 bl=bl+0.96;
