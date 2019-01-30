@@ -295,10 +295,10 @@
     width: 90%;
     margin: 0 auto;
     height: 175px;
-    /*background: red;*/
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     overflow: scroll;
 }
+.waimian::-webkit-scrollbar {display:none}
 .limian{
     width: 100%;
     height: 500px;
