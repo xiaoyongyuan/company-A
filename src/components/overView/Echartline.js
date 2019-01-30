@@ -68,6 +68,9 @@ class Echartline extends Component {
             legend: {
                 icon:"circle",
                 data: [ '阿房宫','明秦王陵'],
+                textStyle: {
+                    color:["#DB8A20","#4BAFD3"],
+                },
                 align: 'left',
                 right: 10,
                 itemWidth: 10,
@@ -188,13 +191,6 @@ class Echartline extends Component {
             tooltip: {
                 trigger: 'axis',
                 backgroundColor: "rgba(11,71,153,0.7)",
-               /* formatter:function(params){
-                    var roall=`<div class="rollEcharts"><p>${params[0].marker}${params[0].seriesName}：${params[0].data}次</p>
-                                    <p>${params[1].marker}${params[1].seriesName}：${params[1].data}次</p>
-                                </div>`;
-                   console.log(params);
-                   return roall;
-                },*/
                 axisPointer: {
                     lineStyle: {
                         color:"rgba(11,71,153,0.7)"
@@ -328,7 +324,6 @@ class Echartline extends Component {
                 },
                 itemStyle: {
                     normal: {
-
                         color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
                             offset: 0,
                             color: 'rgba(235,234,21,0.5)'
@@ -436,7 +431,13 @@ class Echartline extends Component {
                 symbolSize: 6,
                 lineStyle: {
                     normal: {
-                        color: "#BD3827", // 线条颜色
+                        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                            offset: 0,
+                            color: 'rgba(205,52,42,1)'
+                        }, {
+                            offset: 1,
+                            color: 'rgba(235,234,21,1)'
+                        }])
                     },
                     borderColor: '#f0f'
                 },

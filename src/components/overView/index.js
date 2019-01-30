@@ -49,7 +49,26 @@ class overView extends Component {
             DHeight:document.documentElement.clientHeight-65+'px'
         })
 
-    }
+    };
+    //点名次数
+    rollcalldetail =()=>{
+        post({url:"/api/rollcalldetail/gets_rollcall_weeks_big"},(res)=>{
+            if(res.success){
+                for(var a in res.data){
+                    console.log(a,res.data[a].cname);
+                }
+               /* //转化为数组
+                console.log(typeof(rollcallArr));
+                //获取点名次数时间
+                var roll= rollcallArr.map((v,i)=>rollcallArr[i].rollcall);
+                //名称
+                var rollName= rollcallArr.map((v,i)=>rollcallArr[i].cname);
+                this.setState({
+
+                })*/
+            }
+        })
+    };
     componentDidMount() {
         const _this=this;
         window.onresize = () => {
@@ -57,7 +76,9 @@ class overView extends Component {
                 DHeight:document.documentElement.clientHeight-65+'px'
             })
         }
-        post({url:'/api/company/getone_special'},(res)=>{
+        //点名次数
+       this.rollcalldetail();
+       /* post({url:'/api/company/getone_special'},(res)=>{
             if(res.success){
                 var dataMap = Object.keys(res.info.lnglat).map(key=> res.info.lnglat[key]);
                 dataMap.map((v)=>{
@@ -168,13 +189,13 @@ class overView extends Component {
                     rollcallNameqwl:rollcallNameqwl,//点名明秦王陵名称
                 })
             }
-        })
+        })*/
     }
     render() {
         const _this=this;
         return (
             <div className="overView" style={{height:this.state.DHeight}}>
-             {/* <Universebg />*/}
+              {/*<Universebg />*/}
                 <div className="titletop">
                     <div className="titlevalue">
                         西安文物局
@@ -234,7 +255,7 @@ class overView extends Component {
                             </div>
                         </div>
                     </Col>
-                    <Col span={10} className="wcolummap">
+                    <Col span={10} className="wcolumMap">
                         <div className="mainmap">
                             <div className="titleechart">
                                 <span className="titlename">位置图</span>
@@ -263,7 +284,7 @@ class overView extends Component {
                         <div className="clunm">
                             <div className="lump">
                                 <div className="titleechart">
-                                    <span className="titlename">及时信息</span>
+                                    <span className="titlename">即时信息</span>
                                 </div>
                                 <div className="comp" style={{height:'calc(100% - 60px)'}}>
                                     <div className="yundate">
@@ -402,7 +423,7 @@ class overView extends Component {
                     <Col span={10} className="bottomheig" style={{paddingRight:0}}>
                         <div className="wappscol">
                             <div className="titleechart">
-                                <span className="titlename">视频</span>
+                                <span className="titlename">即时视频</span>
                             </div>
                             <div className="comp">
                                 <Echartpie type="alarmanalyze" winhe={parseInt(this.state.DHeight)*0.3-70} />
