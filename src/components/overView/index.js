@@ -105,7 +105,7 @@ class overView extends Component {
                     bl=0;
                 }else{
                     ScollOut.scrollTop = bl;
-                    console.log("ScollhiddenOut", document.getElementById("ScollhiddenOut").scrollTop);
+                    // console.log("ScollhiddenOut", document.getElementById("ScollhiddenOut").scrollTop);
                 }
             },2000);
      };
@@ -355,31 +355,17 @@ class overView extends Component {
                                 <div className="comp" style={{height:'calc(100% - 60px)'}}>
                                 <Carousel vertical autoplay className="righttop">
                                         <div className="Rotation_chart">
-                                           <div>
-                                               <img src={w1} alt="" />
-                                           </div>  
-                                           <div>
-                                               222
-                                           </div>
+                                           <div><img src={w1} alt="" /></div>  
+                                           <div>222</div>
                                         </div>
                                         <div className="Rotation_chart">
-                                            <div>
-                                            <img src={w1} alt="" />
-                                           </div>  
-                                           <div>
-                                               444
-                                           </div>
+                                            <div><img src={w1} alt="" /> </div>  
+                                            <div> 444 </div>
                                         </div>
                                         <div className="Rotation_chart">
-                                            <div>
-                                            <img src={w1} alt="" />
-                                           </div>  
-                                           <div>
-                                               444
-                                           </div>
+                                            <div><img src={w1} alt="" /></div>  
+                                            <div> 444</div>
                                         </div>
-                                        
-                                       
                                 </Carousel>
                                     {/* <div className="yundate">
                                         云服务到期日期: <b>{this.state.today}</b>
