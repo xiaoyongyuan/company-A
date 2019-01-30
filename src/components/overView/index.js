@@ -148,12 +148,12 @@ class overView extends Component {
             document.getElementById("ScollhiddenOut").onscroll=function() {
                 bl=bl+0.98;
                 var scrollHeight = ScollOut.scrollHeight;//div里内容的高度
-                var scrollTop =ScollOut.scrollTop;//0-18
+                var scrollTop =ScollOut.scrollTop;//滚动条距离顶部的距离
                 var clientHeight = ScollOut.clientHeight;//div内里框框的高度
                 var scrollbottom=scrollHeight-clientHeight;
                 var scrollTopP=Math.ceil(scrollTop);
                 if(scrollbottom-scrollTopP===0) {//滚动到底部了
-                    console.log("到底部了");
+                    // console.log("到底部了");
                     ScollOut.scrollTop=0;
                 }
                 if(scrollbottom-scrollTopP===0) {//滚动到底部了
@@ -168,7 +168,6 @@ class overView extends Component {
 
      deveicek =()=>{//设备近况
         post({url:"/api/camera/gets_camerainfo_big"},(res)=>{
-             console.log('******************1',res.data);
              this.setState({
                 deveicek:res.data,
                 lasttime:res.data.lasttime,
@@ -251,7 +250,7 @@ class overView extends Component {
                                                             </Col>
                                                             <Col className="gutter-row" xl={8}>
                                                                     <div>
-                                                                        {moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime && moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime
+                                                                        {moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.lasttime && moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime
                                                                             ? <div>离线</div>
                                                                             :<div> 在线 </div>
                                                                         }
