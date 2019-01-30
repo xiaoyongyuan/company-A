@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { Row,Col,Carousel} from 'antd';
 import '../../style/yal/css/overView.css';
 import {post} from "../../axios/tools";
-import equip from "../../style/yal/img/equip.png";
-import team from "../../style/yal/img/team.png";
-import usernum from "../../style/yal/img/usernum.png";
-import admin from "../../style/yal/img/admin.png";
+// import equip from "../../style/yal/img/equip.png";
+// import team from "../../style/yal/img/team.png";
+// import usernum from "../../style/yal/img/usernum.png";
+// import admin from "../../style/yal/img/admin.png";
 import w1 from "../../style/yal/img/w1.png";
-import w2 from "../../style/yal/img/w2.png";
-import w3 from "../../style/yal/img/w3.png";
+// import w2 from "../../style/yal/img/w2.png";
+// import w3 from "../../style/yal/img/w3.png";
 import Echartline from "./Echartline";
 import Echartpie from "./Echartpie";
 import Universebg from "./Universebg";
@@ -18,6 +18,18 @@ const deveice=[{
     name:'神道西侧',
     ccom:'明秦王陵遗址',
     alarm:1282,
+},{
+    name:'神道东侧',
+    ccom:'明秦王陵遗址',
+    alarm:1159,
+},{
+    name:'神道入口',
+    ccom:'明秦王陵遗址',
+    alarm:18,
+},{
+    name:'15',
+    ccom:'阿房宫',
+    alarm:212,
 },{
     name:'神道东侧',
     ccom:'明秦王陵遗址',
@@ -74,10 +86,10 @@ class overView extends Component {
     };
     //背景动态
     dynamic =()=>{
-        var bl = 20;
+        var bl = 0.96;
         setInterval(
             document.getElementById("ScollhiddenOut").onscroll=function() {
-                bl=bl+0.9;
+                bl=bl+0.96;
                 var scrollHeight = document.getElementById("ScollhiddenOut").scrollHeight;//div里内容的高度
                 var scrollTop = document.getElementById("ScollhiddenOut").scrollTop;//0-18
                 var clientHeight = document.getElementById("ScollhiddenOut").clientHeight;//div内里框框的高度
@@ -89,7 +101,7 @@ class overView extends Component {
                 }
                 if(scrollbottom-scrollTopP===0) {//滚动到底部了
                     document.getElementById("ScollhiddenOut").scrollTop=0;
-                    bl=20;
+                    bl=0;
                 }else{
                     document.getElementById("ScollhiddenOut").scrollTop = bl;
                     console.log("ScollhiddenOut", document.getElementById("ScollhiddenOut").scrollTop);
@@ -280,6 +292,7 @@ class overView extends Component {
                                                             {el.alarm}
                                                             </Col>
                                                         </Row>
+                                                        
                                                     </div>
                                                     ))}
                                                 </div>
@@ -335,7 +348,7 @@ class overView extends Component {
                     <Col span={7} className="wcolum">
                         <div className="clunm">
                             <div className="lump">
-                                <div className="titleechart">
+                                <div className="titleechart timely">
                                     <span className="titlename">即时信息</span>
                                 </div>
                                 <div className="comp" style={{height:'calc(100% - 60px)'}}>

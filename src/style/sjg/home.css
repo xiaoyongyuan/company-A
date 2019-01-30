@@ -1,23 +1,9 @@
-.equipment{
-    border:20px solid #323A5D;
-    background: #2B3355;
-}
+
 .equipmentCard{
     padding: 0px 20px 0 20px;
     padding-bottom: 30px;
 }
-.equipmentCard .ant-card-body{
-    background: #2B3355;
-}
-.equipmentCard .ant-card-actions{
-    background: #2B3355;
-}
-.equipmentCard .ant-card-bordered{
-    border: 1px solid #4C5784;
-}
-.equipmentCard .ant-card-actions > li:not(:last-child) {
-    border-right: 1px solid #4C5784;
-}
+
 .equipmentCard .ant-card-actions > li > span a {
     color: #ffffff;
 }
