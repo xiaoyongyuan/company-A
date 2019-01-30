@@ -10,7 +10,8 @@ class PatrolPlan extends React.Component{
         super(props);
         this.state={
             visible:false,
-            list:[]
+            list:[],
+            loading:true,
         };
     }
 
@@ -22,8 +23,8 @@ class PatrolPlan extends React.Component{
             if(res.success){
                 this.setState({
                     resdatd:res,
-                    list: res.data
-
+                    list: res.data,
+                    loading: false,
                 },()=>{
                 })
             }
@@ -217,7 +218,8 @@ class PatrolPlan extends React.Component{
                       }
                 >
                     <Row>
-                        <div> {this.state.list.length?<div />:<div className="textcenter"><Spin size="large" /></div>}</div>
+                        {/* <div> {this.state.list.length?<div />:<div className="textcenter"><Spin size="large" /></div>}</div> */}
+                        <Spin spinning={this.state.loading} className="spin" size="large"tip="Loading..." />
                         {
                             this.state.list.map((item,i)=>{
                                 return(
