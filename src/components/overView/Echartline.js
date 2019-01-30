@@ -67,7 +67,7 @@ class Echartline extends Component {
             },
             legend: {
                 icon:"circle",
-                data: [ '阿房宫','明秦王陵'],
+                data: this.props.patrolName,
                 textStyle: {
                     color:["#DB8A20","#4BAFD3"],
                 },
@@ -89,17 +89,7 @@ class Echartline extends Component {
                 nameTextStyle:{
                     color:"#fff"
                 },
-                data: ['喀什市',
-                    '疏附县',
-                    '疏勒县',
-                    '英吉沙县',
-                    '泽普县',
-                    '岳普湖县',
-                    '巴楚县',
-                    '伽师县',
-                    '叶城县',
-                    '莎车县 ',
-                ],
+                data:this.props.patrolX,
                 axisLine: {
                     show: true,
                     lineStyle: {
@@ -150,7 +140,7 @@ class Echartline extends Component {
             series: [{
                 name: '阿房宫',
                 type: 'bar',
-                data: [20, 50, 80, 58, 83, 68, 57, 80, 42, 66],
+                data: this.props.patrolafangafang,
                 itemStyle: {
                     normal: {
                         barBorderRadius: 50,
@@ -165,9 +155,9 @@ class Echartline extends Component {
                     }
                 }
             },{
-                name: '明秦王陵',
+                name: '明秦王陵遗址',
                 type: 'bar',
-                data: [70, 48, 73, 68, 53, 47, 50, 72, 96, 86],
+                data: this.props.patrolafangming,
                 itemStyle: {
                     normal: {
                         barBorderRadius: 50,
@@ -185,7 +175,7 @@ class Echartline extends Component {
         };
         this.setState({option})
     }
-    // 点名次数
+    //报警次数
     rollcall=()=>{
         var option = {
             tooltip: {
@@ -199,7 +189,7 @@ class Echartline extends Component {
             },
             legend: {
                 icon:"circle",
-                data: ['阿房宫', '明秦王陵'],
+                data: this.props.alarmName,
                 align: 'left',
                 right: 10,
                 textStyle: {
@@ -228,7 +218,7 @@ class Echartline extends Component {
                         color:"#BBD1D9"
                     }
                 },
-                data: ['13:00', '13:05', '13:10', '13:15', '13:20', '13:25', '13:30', '13:35']
+                data:this.props.alarmX
             }],
             yAxis: [{
                 type: 'value',
@@ -296,9 +286,9 @@ class Echartline extends Component {
                         borderWidth: 10
                     }
                 },
-                data: [220, 182, 191, 134, 150, 120, 110, 125 ]
+                data: this.props.alarmafang
             }, {
-                name: '明秦王陵',
+                name: '明秦王陵遗址',
                 type: 'line',
                 smooth: true,
                 symbol: 'circle',
@@ -339,8 +329,8 @@ class Echartline extends Component {
                         borderWidth: 10
                     }
                 },
-                data: [120, 110, 125, 145, 122, 165, 122, 220]
-            }  ]
+                data: this.props.alarmming
+            }]
         };
         this.setState({option})
 
@@ -365,12 +355,12 @@ class Echartline extends Component {
                 }
             },
             legend: {
-                data: ['阿房宫', '明秦王陵'],
+                data: this.props.rollName,
                 icon:"circle",
                 align: 'left',
                 right: 10,
                 textStyle: {
-                    color:["#BD3827","#2971CD"]
+                    color:["#BD3827","#2971CD","#BD3827"]
                 },
                 itemWidth: 10,
                 itemHeight: 10,
@@ -393,13 +383,10 @@ class Echartline extends Component {
                 axisTick: {
                     show: false,
                 },
-                data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月'],
+                data: this.props.rollArrX,
             }],
             yAxis: [{
                 type: 'value',
-                min: 0,
-                max: 980,
-                splitNumber: 5,
                 splitLine: {
                     show: true,
                     lineStyle: {
@@ -449,9 +436,9 @@ class Echartline extends Component {
                 tooltip: {
                     show: true
                 },
-                data: [393, 438, 485, 631, 689, 824, 987]
+                data: this.props.afang
             }, {
-                name: '明秦王陵',
+                name: '明秦王陵遗址',
                 type: 'bar',
                 barWidth: 20,
                 tooltip: {
@@ -474,7 +461,34 @@ class Echartline extends Component {
                         )
                     }
                 },
-                data: [200, 382, 102, 267, 186, 315, 316]
+                data:this.props.ming
+            },{
+                name: '西安文物局',
+                type: 'bar',
+                showAllSymbol: true,
+                symbol: 'emptyCircle',
+                symbolSize: 6,
+                lineStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                            offset: 0,
+                            color: 'rgba(205,52,42,1)'
+                        }, {
+                            offset: 1,
+                            color: 'rgba(235,234,21,1)'
+                        }])
+                    },
+                    borderColor: '#f0f'
+                },
+                itemStyle: {
+                    normal: {
+                        color: "#D53A25",
+                    }
+                },
+                tooltip: {
+                    show: true
+                },
+                data: this.props.bowen
             }]
         };
         this.setState({option})
