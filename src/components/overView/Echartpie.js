@@ -84,294 +84,144 @@ class Echartpie extends Component {
         };
         this.setState({option})
     }
-    //报警分析
-    alarmanalyze =()=>{
-       /* let option = {
-            tooltip: {
-                formatter:function (params,percent) {
-                    if(percent==="item_确认_1"){
-                        return "确认:1";
-                    }else if(percent==="item_虚报警数_1"){
-                        return "虚报警数:1";
-                    }
-                    if(params.name!==""){
-                        return params.name+":"+params.value;
-                    }
-                }
-            },
-            color: ['rgba(76, 132, 210, .4)'], 
-            series: [{
-                name: '未处理',
-                type: 'pie',
-                radius: ['55%', '65%'],
-                center: ['15%', 'center'],
-                label: {
-                    show: true,
-                    normal: {
-                        position: 'center',
-                        textStyle: {
-                            color: '#ffd285',
-                        },
-                    }
-                },
-                itemStyle: {
-                    normal: {
-                        label: {
-                            show: true
-                        },
-                        labelLine: {
-                            show: false
-                        }
-                    }
-                },
-                hoverAnimation: true,
-                data: [{
-                    value: 13618,
-                    name: '未处理',
-                    label: {
-                        normal: {
-                            formatter: (13618/16521*100).toFixed(2)+"%",
-                            textStyle: {
-                                color: '#fff',
-                                fontSize: 20
-
-                            }
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            color: { // 完成的圆环的颜色
-                                colorStops: [{
-                                    offset: 0,
-                                    color: '#00cefc' // 0% 处的颜色
-                                }, {
-                                    offset: 1,
-                                    color: '#367bec' // 100% 处的颜色
-                                }]
-                            },
-
-                            labelLine: {
-                                show: true
-                            }
-                        } 
-                    }
-                }, {
-                    value: 2903,
-                    label: {
-                        normal: {
-                            formatter: '\n未处理',
-                            textStyle: {
-                                color: '#fff',
-                                fontSize: 14
-                            }
-                        }
-                    },
-                }]
-            },{
-                name: '虚报',
-                type: 'pie',
-                radius: ['55%', '65%'],
-                center: ['38%', 'center'],
-                label: {
-                    show: true,
-                    normal: {
-                        position: 'center',
-                    }
-                },
-                itemStyle: {
-                    normal: {
-                        label: {
-                            show: true
-                        },
-                        labelLine: {
-                            show: false
-                        }
-                    }
-                },
-                hoverAnimation: true,
-                data: [{
-                    value: 1,
-                    name: '虚报',
-                    label: {
-                        normal: {
-                            formatter: (1/(16521-1)*100).toFixed(2)+"%",
-                            textStyle: {
-                                color: '#fff',
-                                fontSize: 20
-
-                            }
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            color: { // 完成的圆环的颜色
-                                colorStops: [{
-                                    offset: 0,
-                                    color: '#00cefc' // 0% 处的颜色
-                                }, {
-                                    offset: 1,
-                                    color: '#367bec' // 100% 处的颜色
-                                }]
-                            },
-
-                            labelLine: {
-                                show: true
-                            }
-                        } 
-                    }
-                }, {
-                    value: (16521-1),
-                    label: {
-                        normal: {
-                            formatter: '\n虚报',
-                            textStyle: {
-                                color: '#fff',
-                                fontSize: 14
-                            }
-                        }
-                    },
-                }]
-            },{
-                name: '忽略',
-                type: 'pie',
-                radius: ['55%', '65%'],
-                center: ['61%', 'center'],
-                itemStyle: {
-                    normal: {
-                        label: {
-                            show: true,
-                        },
-                        labelLine: {
-                            show: false
-                        }
-                    }
-                },
-                label: {
-                    show: true,
-                    normal: {
-                        position: 'center',
-                        textStyle: {
-                            color: '#ffd285',
-                        },
-                    }
-                },
-                hoverAnimation: true,
-                data: [{
-                    value: 2901,
-                    name: '忽略',
-                    label: {
-                        normal: {
-                            formatter: (2901/16521*100).toFixed(2)+"%",
-                            textStyle: {
-                                color: '#fff',
-                                fontSize: 20
-
-                            }
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            color: { // 完成的圆环的颜色
-                                colorStops: [{
-                                    offset: 0,
-                                    color: '#00cefc' // 0% 处的颜色
-                                }, {
-                                    offset: 1,
-                                    color: '#367bec' // 100% 处的颜色
-                                }]
-                            },
-
-                            labelLine: {
-                                show: true
-                            }
-                        } 
-                    }
-                }, {
-                    value: (16521-2901),
-                    label: {
-                        normal: {
-                            formatter: '\n忽略',
-                            textStyle: {
-                                color: '#fff',
-                                fontSize: 14
-                            }
-                        }
-                    },
-                }]
-            },{
-                name: '确认',
-                type: 'pie',
-                radius: ['55%', '65%'],
-                center: ['85%', 'center'],
-                label: {
-                    show: true,
-                    normal: {
-                        position: 'center',
-                        textStyle: {
-                            color: '#ffd285',
-                        },
-                    }
-                },
-                itemStyle: {
-                    normal: {
-                        label: {
-                            show: true
-                        },
-                        labelLine: {
-                            show: false
-                        }
-                    }
-                },
-                hoverAnimation: true,
-                data: [{
-                    value: 1,
-                    name: '确认',
-                    label: {
-                        normal: {
-                            formatter: (1/16520*100).toFixed(2)+"%",
-                            textStyle: {
-                                color: '#fff',
-                                fontSize: 20
-
-                            }
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            color: { // 完成的圆环的颜色
-                                colorStops: [{
-                                    offset: 0,
-                                    color: '#00cefc' // 0% 处的颜色
-                                }, {
-                                    offset: 1,
-                                    color: '#367bec' // 100% 处的颜色
-                                }]
-                            },
-
-                            labelLine: {
-                                show: true
-                            }
-                        } 
-                    }
-                }, {
-                    value: 16520,
-                    label: {
-                        normal: {
-                            formatter: '\n确认',
-                            textStyle: {
-                                color: '#fff',
-                                fontSize: 14
-                            }
-                        }
-                    },
-                }]
-            }]
-        }
-        this.setState({option})*/
-
-    }
     xianmap=()=>{ //地图
         echarts.registerMap('xian', xianmap);
+        var geoCoordMap = {
+            '阿房宫': [108.755878,34.270149],
+            '明秦王陵': [109.478744,34.086169],
+            "西安文物局":[108.222183,34.160065]
+        };
+        var goData = [{
+            name: '阿房宫',
+            value: 32689
+        },{
+            name: '明秦王陵',
+            value: 24084
+        },{
+            name: '西安文物局',
+            value: 1400
+        }];
+        var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
+        var convertData = function(name, data) {
+            var res = [];
+            for (var i = 0; i < data.length; i++) {
+                var fromCoord = geoCoordMap[name];
+                var toCoord = geoCoordMap[data[i].name];
+                if (fromCoord && toCoord) {
+                    res.push({
+                        //对换即可调整方向
+                        coords: [toCoord, fromCoord]
+                    });
+                }
+            }
+            return res;
+        };
+        var series = [];
+        [
+            ['西安文物局', goData],
+        ].forEach(function(item, i) {
+            series.push({
+                name: item[0],
+                type: 'lines',
+                zlevel: 2,
+                //线特效配置
+                effect: {
+                    show: true,
+                    period: 6,
+                    trailLength: 0.1,
+                    symbol: planePath, //标记类型
+                    symbolSize: 10
+                },
+                lineStyle: {
+                    normal: {
+                        width: 1,
+                        opacity: 0.4,
+                        curveness: 0.2, //弧线角度
+                        color: '#FFEA93'
+                    }
+                },
+                data: convertData(item[0], item[1])
+            }, {  //终点
+                name: item[0],
+                type: 'effectScatter',
+                coordinateSystem: 'geo',
+                effectType:"ripple", //涟漪特效
+                itemStyle: {
+                    normal: {
+                        color: '#f4e925', //圈圈的颜色
+                        shadowBlur: 10,
+                        shadowColor: '#333'
+                    }
+                },
+                showEffectOn: 'render',
+                rippleEffect: {
+                    brushType: 'stroke',
+                    scale: 3, //设置缩放
+                    period: 2, //设置时间
+                },
+                zlevel: 2,
+                label: {
+                    normal: {
+                        formatter: '{b}',
+                        position: 'right',
+                        show: false
+                    },
+                    emphasis: {
+                        show: true,
+                        color: '#f4e925', //hover时字的颜色
+                    }
+                },
+                symbol: 'circle',
+                //圆点大小
+                symbolSize:10,
+                data: item[1].map(function(dataItem) {
+                    console.log(dataItem)
+                    return {
+                        name: dataItem.name,
+                        value: geoCoordMap[dataItem.name].concat([dataItem.value])
+                    };
+                })
+
+            }, {//起点
+                name: 'item[0]',
+                type: 'scatter',
+                coordinateSystem: 'geo',
+                effectType:"ripple", //涟漪特效
+                itemStyle: {
+                    normal: {
+                        color: '#f4e925', //圈圈的颜色
+                        shadowBlur: 10,
+                        shadowColor: '#333'
+                    }
+                },
+                showEffectOn: 'render',
+                rippleEffect: {
+                    brushType: 'stroke',
+                    scale: 3, //设置缩放
+                    period: 2, //设置时间
+                },
+                zlevel: 2,
+                label: {
+                    normal: {
+                        formatter: '{b}',
+                        position: 'right',
+                        show: false
+                    },
+                    emphasis: {
+                        show: true,
+                        color: '#f4e925', //hover时字的颜色
+                    }
+                },
+                symbolSize:1 ,
+                symbol: 'circle',
+                data: [{
+                    name: item[0],
+                    value: geoCoordMap[item[0]].concat([100])
+                }]
+
+            })
+
+        });
         let option={
             background:"#091e57",
             geo: {
@@ -401,8 +251,8 @@ class Echartpie extends Component {
                     },
                 }
             },
-            series:[
-                {
+            series:series
+            /*[{
                     type:"effectScatter",// series图表类型
                     coordinateSystem:"geo",// series坐标系类型
                     //data:this.props.xianmap, // series数据内容
@@ -435,7 +285,7 @@ class Echartpie extends Component {
                     },
                     symbolSize:20 //涟漪大小
                 }
-            ]
+            ]*/
         }
         this.setState({option})
     }

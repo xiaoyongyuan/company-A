@@ -59,6 +59,34 @@
     overflow: hidden;
     /* border: 1px solid #fff; */
 }
+/*.compCount{
+    display: flex;
+    flex-direction: row;
+}*/
+.compCountVideo{
+    width: 97%;
+    display: flex;
+    flex-direction: row;
+    margin: 5% 1%;
+}
+.compCountVideo .compVideo{
+    margin: 0 1%;
+    width: 50%;
+    height: 70%;
+   background: url("../../yal/img/video.png") no-repeat;
+    background-size: 100% 100%;
+}
+.compCountVideo .compVideo img{
+    width: 91%;
+    height: 90%;
+    margin: 4% 5%;
+}
+.compCountVideo .compVideoRight{
+    margin-right: 15px;
+}
+.compCountVideo .compVideoLeft{
+    margin-left: 15px;
+}
 .righttop{
     /* border: 1px solid red; */
     height: 300px !important;

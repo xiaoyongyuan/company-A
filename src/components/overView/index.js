@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
-import { Row,Col,Carousel} from 'antd';
+import { Row,Col,Carousel,Modal} from 'antd';
 import '../../style/yal/css/overView.css';
 import {post} from "../../axios/tools";
-// import equip from "../../style/yal/img/equip.png";
-// import team from "../../style/yal/img/team.png";
-// import usernum from "../../style/yal/img/usernum.png";
-// import admin from "../../style/yal/img/admin.png";
 import w1 from "../../style/yal/img/w1.png";
-// import w2 from "../../style/yal/img/w2.png";
-// import w3 from "../../style/yal/img/w3.png";
 import Echartline from "./Echartline";
 import Echartpie from "./Echartpie";
 import Universebg from "./Universebg";
 import moment from "moment";
-const pao=[{a:"13621"},{a:"534534"},{a:"1564358"},{a:"964983"},{a:"154684"}]
+const pao=[{a:"13621"},{a:"534534"},{a:"1564358"},{a:"964983"},{a:"154684"}];
+var videoList=[
+    {
+        id:"1",
+        img:"http://pic01.aokecloud.cn/alarm/1000004/pic/20190119/1000004_20190119110806_320X240.jpg"
+    },
+    {
+        id:"2",
+        img:"http://pic01.aokecloud.cn/alarm/1000004/pic/20190119/1000004_20190119110806_320X240.jpg"
+    },
+    {
+        id:"3",
+        img:"http://pic01.aokecloud.cn/alarm/1000004/pic/20190119/1000004_20190119110806_320X240.jpg"
+    }
+];
 const deveice=[{
     name:'神道西侧',
     ccom:'明秦王陵遗址',
@@ -65,8 +73,10 @@ class overView extends Component {
             patrolafang:[],
             patrolafangafang:[],
             patrolafangming:[],
-        }
+            visible: false,
+            alarmVideo:[]
 
+        };
         this.saveRef = ref => {this.refDom = ref};
     }
     componentWillMount=()=>{
@@ -75,6 +85,28 @@ class overView extends Component {
         })
 
     };
+    //即时视频model
+    instantVideo =()=>{
+        this.setState({
+            visible:true
+        })
+    };
+    VideoCancel =()=>{
+        this.setState({
+            visible:false
+        })
+    };
+    //报警视频
+    alarmVideo =()=>{
+        post({url:"/api/alarm/gets_alarm_video_big"},(res)=>{
+            if(res.success){
+                var videoList=Object.keys(res.data).map(key=> res.data[key]);
+                this.setState({
+                    alarmVideo:videoList.slice(0,3)
+                })
+            }
+        })
+    }
     //报警次数
     alarmList =()=>{
         post({url:"/api/alarm/gets_alarm_afterday_big"},(res)=>{
@@ -143,7 +175,7 @@ class overView extends Component {
                 });
             }
         })
-    }
+    };
     //背景动态
     dynamic =()=>{
         var ScollOut=document.getElementById("ScollhiddenOut");
@@ -183,6 +215,8 @@ class overView extends Component {
         this.patrolresult();
         //报警次数
         this.alarmList();
+        //报警视频
+        this.alarmVideo();
     }
     render() {
         const _this=this;
@@ -358,8 +392,14 @@ class overView extends Component {
                             <div className="titleechart">
                                 <span className="titlename">即时视频</span>
                             </div>
-                            <div className="comp">
-                                <Echartpie type="alarmanalyze" winhe={parseInt(this.state.DHeight)*0.3-70} />
+                            <div className="comp compCount">
+                                <div className="compCountVideo">
+                                    {
+                                        this.state.alarmVideo.map((v,i)=>(
+                                            <div className="compVideo" key={i}><img src={v.picpath} alt="" onClick={this.instantVideo} /></div>
+                                        ))
+                                    }
+                                </div>
                             </div>
                         </div>
                     </Col>
@@ -382,6 +422,16 @@ class overView extends Component {
                         </div>
                     </Col>
                 </Row>
+                <Modal
+                    title="Basic Modal"
+                    visible={this.state.visible}
+                    onCancel={this.VideoCancel}
+                    footer={null}
+                >
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                </Modal>
             </div>
         )
     }
