@@ -59,6 +59,34 @@
     overflow: hidden;
     /* border: 1px solid #fff; */
 }
+/*.compCount{
+    display: flex;
+    flex-direction: row;
+}*/
+.compCountVideo{
+    width: 97%;
+    display: flex;
+    flex-direction: row;
+    margin: 5% 1%;
+}
+.compCountVideo .compVideo{
+    margin: 0 1%;
+    width: 50%;
+    height: 70%;
+   background: url("../../yal/img/video.png") no-repeat;
+    background-size: 100% 100%;
+}
+.compCountVideo .compVideo img{
+    width: 91%;
+    height: 90%;
+    margin: 4% 5%;
+}
+.compCountVideo .compVideoRight{
+    margin-right: 15px;
+}
+.compCountVideo .compVideoLeft{
+    margin-left: 15px;
+}
 .righttop{
     /* border: 1px solid red; */
     height: 300px !important;
@@ -206,20 +234,11 @@
     width: 100%;
     height: 50%;
 }
-.untreated:before{
-    content: "";
-    width: 0px;
-    height: 0px;
-    border-left: 90px solid transparent;
-    border-right: 90px solid transparent;
-    border-bottom: 60px solid red;
-    position: relative;
-    top: -52px;
-    left: 40px;
-}
+
 .untreated .alarmtitle{
     top:calc(25%);
     font-size: 15px;
+    font-family: 黑体;
 }
 .untreated.alarmvalue{
     top:calc(60%);
@@ -308,7 +327,6 @@
     background: #364d79;
     overflow: hidden;
 }
-
 .draw .ant-carousel .slick-slide h3 {
     background-image: url("../img/ren.png")  !important;
     background-repeat: no-repeat;
@@ -318,10 +336,9 @@
 }
 .draw .alarmover{
     position: absolute;
-    bottom: 5px;
+    bottom: 10px;
+    /*background: #5a5e75;*/
 }
-
-
 @media screen and (max-width: 1280px) {
     .draw .alarmcarousel{
         position: relative;
@@ -332,20 +349,52 @@
 }
 
 
-@media screen and (max-width: 1500px) and (min-width: 1280px) {
+@media screen  and (max-width: 1280px) {
     .draw .alarmcarousel{
         position: relative;
-        width: 20%;
+        width: 40%;
         margin: 0 auto;
         bottom:-1px;
     }
+    .draw .ant-carousel .slick-slide h3 {
+        background-image: url("../img/ren.png") !important;
+        background-repeat: no-repeat;
+        background-position: 5px 0;
+        background-size: auto 26px;
+        color: #fff;
+        font-size: 20px;
+    }
 }
-@media screen and (max-width: 1920px) and (min-width: 1500px) {
+@media screen and (max-width: 1600px) and (min-width: 1280px) {
     .draw .alarmcarousel{
         position: relative;
-        width: 20%;
+        width: 28%;
+        margin: 0 auto;
+        bottom:5px;
+    }
+    .draw .ant-carousel .slick-slide h3 {
+        background-image: url("../img/ren.png") !important;
+        background-repeat: no-repeat;
+        background-position: 15px 0;
+        background-size: auto 26px;
+        color: #fff;
+        font-size: 20px;
+    }
+}
+@media screen and (min-width: 1920px){
+    .draw .alarmcarousel{
+        position: relative;
+        width: 28%;
         margin: 0 auto;
         bottom:10px;
+    }
+    .draw .ant-carousel .slick-slide h3 {
+        background-image: url("../img/ren.png") !important;
+        background-repeat: no-repeat;
+        background-position: 30px 0;
+        background-size: auto 26px;
+        color: #fff;
+        font-size: 20px;
     }
 }
 .draw .ant-carousel-vertical .slick-dots li button {
@@ -359,7 +408,7 @@
 }
 
 .draw .ant-carousel .slick-slide {
-    background:#923E20 !important ;
+    background: transparent!important;
 }
 .scollhidden-out{
     width: 110%;
@@ -373,7 +422,6 @@
 .scollhidden-inner{
     width: 91%;
     height: auto;
-    /* background: #5a5e75; */
 }
 .xiaode{
     width: 100%;
