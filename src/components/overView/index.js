@@ -188,7 +188,7 @@ class overView extends Component {
         const _this=this;
         return (
             <div className="overView" style={{height:this.state.DHeight}}>
-              {/*  <Universebg />*/}
+                <Universebg />
                 <div className="titletop">
                     <div className="titlevalue">
                         西安文物局
@@ -229,8 +229,7 @@ class overView extends Component {
                                         <div className="scollhidden">
                                             <div className="scollhidden-out" id="ScollhiddenOut">
                                                 <div className="scollhidden-inner">
-
-                                                    {/*{_this.state.deveice.map((el,i)=>(
+                                                    {_this.state.deveice.map((el,i)=>(
                                                     <div className="equipment equipbody" key={'row'+i}>
                                                         <Row className="lines">
                                                             <Col className="gutter-row" xl={8}>
@@ -245,27 +244,10 @@ class overView extends Component {
                                                         </Row>
                                                         
                                                     </div>
-                                                    ))}*/}
+                                                    ))}
                                                 </div>
                                             </div>
                                         </div>
-                                        {/*<Carousel vertical autoplay style={{ height:'300px' }}>*/}
-                                        {/*{_this.state.deveice.map((el,i)=>(*/}
-                                        {/*<div className="equipment equipbody" key={'row'+i}>*/}
-                                        {/*<Row className="lines">*/}
-                                        {/*<Col className="gutter-row" xl={8}>*/}
-                                        {/*{el.name}*/}
-                                        {/*</Col>*/}
-                                        {/*<Col className="gutter-row" xl={8}>*/}
-                                        {/*{el.ccom}*/}
-                                        {/*</Col>*/}
-                                        {/*<Col className="gutter-row" xl={8}>*/}
-                                        {/*{el.alarm}*/}
-                                        {/*</Col>*/}
-                                        {/*</Row>*/}
-                                        {/*</div>*/}
-                                        {/*))}*/}
-                                        {/*</Carousel>*/}
                                     </div>
                                 </div>
                             </div>
@@ -331,99 +313,6 @@ class overView extends Component {
                                         
                                        
                                 </Carousel>
-                                    {/* <div className="yundate">
-                                        云服务到期日期: <b>{this.state.today}</b>
-                                    </div>
-                                    <div className="newsclo" style={{height:'calc(100% - 55px)'}}>
-                                        <Row className="message">
-                                            <Col className="heihgdabo" span={10} offset={1}>
-                                                <Row className="messthis">
-                                                    <Col span={8}>
-                                                        <div className="equiptu">
-                                                            <img src={equip} alt="" />
-                                                        </div>
-                                                    </Col>
-                                                    <Col span={16}>
-                                                        <Row>
-                                                            <Col span={24}>
-                                                                <p className="sgxdword">设备总数</p>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className="sgxdnum-row">
-                                                            <Col span={24} className="sgxdnum-col">
-                                                                <p className="sgxdword"><span className="sgxdnum">18</span> 个</p>
-                                                            </Col>
-                                                        </Row>
-                                                    </Col>
-                                                </Row>
-                                            </Col>
-                                            <Col className="heihgdabo" span={10} offset={2}>
-                                                <Row className="messthis">
-                                                    <Col span={8}>
-                                                        <div className="equiptu">
-                                                            <img src={team} alt="" />
-                                                        </div>
-                                                    </Col>
-                                                    <Col span={16}>
-                                                        <Row>
-                                                            <Col span={24}>
-                                                                <p className="sgxdword">所属团队</p>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className="sgxdnum-row">
-                                                            <Col span={24} className="sgxdnum-col">
-                                                                <p className="sgxdword">维护团队</p>
-                                                            </Col>
-                                                        </Row>
-                                                    </Col>
-                                                </Row>
-                                            </Col>
-                                        </Row>
-                                        <Row className="message">
-                                            <Col className="heihgdabo" span={10} offset={1}>
-                                                <Row className="messthis">
-                                                    <Col span={8}>
-                                                        <div className="equiptu">
-                                                            <img src={usernum} alt="" />
-                                                        </div>
-                                                    </Col>
-                                                    <Col span={16}>
-                                                        <Row>
-                                                            <Col span={24}>
-                                                                <p className="sgxdword">用户数</p>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className="sgxdnum-row">
-                                                            <Col span={24} className="sgxdnum-col">
-                                                                <p className="sgxdword"><span className="sgxdnum">3</span> 个</p>
-                                                            </Col>
-                                                        </Row>
-                                                    </Col>
-                                                </Row>
-                                            </Col>
-                                            <Col className="heihgdabo" span={10} offset={2}>
-                                                <Row className="messthis">
-                                                    <Col span={8}>
-                                                        <div className="equiptu">
-                                                            <img src={admin} alt="" />
-                                                        </div>
-                                                    </Col>
-                                                    <Col span={16}>
-                                                        <Row>
-                                                            <Col span={24}>
-                                                                <p className="sgxdword">管理员</p>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className="sgxdnum-row">
-                                                            <Col span={24} className="sgxdnum-col">
-                                                                <p className="sgxdword">15319403465</p>
-                                                            </Col>
-                                                        </Row>
-                                                    </Col>
-                                                </Row>
-                                            </Col>
-                                        </Row>
-                                    </div>*/}
                                 </div>
                             </div> 
                         </div>
@@ -488,11 +377,6 @@ class overView extends Component {
                                     afang={this.state.afang}
                                     ming={this.state.ming}
                                     bowen={this.state.bowen}
-                                    /*patrolNumepg = { this.state.patrolNumepg }
-                                    patrolNumqwl = { this.state.patrolNumqwl }
-                                    dayly = { this.state.dayly }
-                                    patroNameepg = { this.state.patroNameepg }
-                                    patroNameqwl = { this.state.patroNameqwl }*/
                                 />
                             </div>
                         </div>
