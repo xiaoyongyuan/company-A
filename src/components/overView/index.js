@@ -33,15 +33,25 @@ class overView extends Component {
     constructor(props){
         super(props);
         this.state= {
-            option:{},
-            deveice:deveice,
-            analysisCount:0,//总报警数
-            unhandle:0,//未处理报警数
-            okconfirm:0,//确认数
-            xufalse:0,//虚报警数
-            ignore:0,//忽略数
-            today:moment().format('LL'),
+            option: {},
+            deveice: deveice,
+            analysisCount: 0,//总报警数
+            unhandle: 0,//未处理报警数
+            okconfirm: 0,//确认数
+            xufalse: 0,//虚报警数
+            ignore: 0,//忽略数
+            today: moment().format('LL'),
+            rollArrX: [],//点名次数x轴
+            rollName: [],//点名次数名称
+            afang: [],
+            ming: [],
+            patrolX: [],//巡更
+            patrolName: [],
+            patrolafang:[],
+            patrolafangafang:[],
+            patrolafangming:[],
         }
+
         this.saveRef = ref => {this.refDom = ref};
     }
     componentWillMount=()=>{
@@ -50,25 +60,75 @@ class overView extends Component {
         })
 
     };
+    //报警次数
+    alarmList =()=>{
+        post({url:"/api/alarm/gets_alarm_afterday_big"},(res)=>{
+            var alarmX=[];
+            var alarmName=[];
+            var alarmafang=[];
+            for(var a in res.data){
+                alarmName.push(res.data[a].cname);
+                for(var b in res.data[a].alarm){
+                    alarmX.push(res.data[a].alarm[b].ahour);
+                    alarmafang.push(res.data[a].alarm[b].alarmnum)
+                }
+            }
+            this.setState({
+                alarmX:alarmX.slice(0,24),
+                alarmName:alarmName,
+                alarmafang:alarmafang.slice(0,24),
+                alarmming:alarmafang.slice(24,48),
+            });
+            console.log(alarmafang.slice(0,24))
+            console.log(alarmafang.slice(24,48))
+        })
+    }
     //点名次数
     rollcalldetail =()=>{
         post({url:"/api/rollcalldetail/gets_rollcall_weeks_big"},(res)=>{
             if(res.success){
+                var rollX=[];
+                var rollName=[];
+                var afang=[];
                 for(var a in res.data){
-                    console.log(a,res.data[a].cname);
+                    rollName.push(res.data[a].cname);
+                    for(var b in res.data[a].rollcall){
+                        rollX.push(moment(res.data[a].rollcall[b].pdate).format("MM.DD"));
+                        afang.push(res.data[a].rollcall[b].totalcount)
+                    }
                 }
-               /* //转化为数组
-                console.log(typeof(rollcallArr));
-                //获取点名次数时间
-                var roll= rollcallArr.map((v,i)=>rollcallArr[i].rollcall);
-                //名称
-                var rollName= rollcallArr.map((v,i)=>rollcallArr[i].cname);
                 this.setState({
-
-                })*/
+                    rollArrX:rollX.reverse().slice(0,7),
+                    rollName:rollName,
+                    afang:afang.reverse().slice(0,7),
+                    ming:afang.slice(7,14),
+                });
             }
         })
     };
+    //巡更次数
+    patrolresult =()=>{
+        post({url:"/api/patrolresult/gets_patrol_weeks_big"},(res)=>{
+            if(res.success){
+                var patrolX=[];
+                var patrolName=[];
+                var patrolafang=[];
+                for(var a in res.data){
+                    patrolName.push(res.data[a].cname);
+                    for(var b in res.data[a].patrol){
+                        patrolX.push(moment(res.data[a].patrol[b].pdate).format("MM.DD"));
+                        patrolafang.push(res.data[a].patrol[b].totalcount)
+                    }
+                }
+                this.setState({
+                    patrolX:patrolX.reverse().slice(0,7),
+                    patrolName:patrolName,
+                    patrolafangafang:patrolafang.reverse().slice(0,7),
+                    patrolafangming:patrolafang.slice(7,14),
+                });
+            }
+        })
+    }
     //背景动态
     dynamic =()=>{
         var bl = 20;
@@ -103,126 +163,16 @@ class overView extends Component {
         this.dynamic();
         //点名次数
         this.rollcalldetail();
-        /* post({url:'/api/company/getone_special'},(res)=>{
-             if(res.success){
-                 var dataMap = Object.keys(res.info.lnglat).map(key=> res.info.lnglat[key]);
-                 dataMap.map((v)=>{
-                     if(v.name==="西安文物局"){
-                         v.name="";
-                         v.value="";
-                     }
-                 })
-                 //报警次数
-                 var alarmnum = Object.keys(res.info.alarm).map(key=> res.info.alarm[key]);
-                 //阿房宫报警次数
-                 var alarmnumapgdx = alarmnum[0].count;
-                 var alarmnumapg = [];
-                 for(var i = alarmnumapgdx.length-1;i>=0;i--){
-                     alarmnumapg.push(alarmnumapgdx[i])
-                 }
-                 //明秦王陵报警次数
-                 var alarmnumqwldx = alarmnum[1].count;
-                 var alarmnumqwl = [];
-                 for(var j = alarmnumqwldx.length-1;j>=0;j--){
-                     alarmnumqwl.push(alarmnumqwldx[j])
-                 }
-                 //阿房宫名称
-                 var apgname = alarmnum[0].name;
-                 //明秦王陵名称
-                 var qwlname = alarmnum[1].name;
-                 //时间
-                 var time = alarmnum[0].hour;
-                 var timehour = [];
-                 for(var k=time.length-1;k>=0;k--){
-                     time[k].substring(11);
-                     timehour.push(time[k].substring(11));
-                 }
-                 //巡更次数
-                 var patrol = Object.keys(res.info.patrol).map(key=> res.info.patrol[key]);
-                 //阿房宫巡更次数
-                 var patrolNumepgdx = patrol[0].count;
-                 var patrolNumepg = [];
-                 for(var m = patrolNumepgdx.length-1;m>=0;m--){
-                     patrolNumepg.push(patrolNumepgdx[m]);
-                 }
-                 //名秦王巡更次数
-                 var patrolNumqwldx = patrol[1].count;
-                 var patrolNumqwl = [];
-                 for (var n = patrolNumqwldx.length-1;n>=0;n--) {
-                     patrolNumqwl.push(patrolNumqwldx[n]);
-                 }
-                 //巡更次数日期
-                 var daylydx = patrol[0].dayly;
-                 var dayly = [];
-                 for(var g = daylydx.length-1;g>=0;g--){
-                     dayly.push(daylydx[g].substring(8));
-                 }
-                 //巡更次数阿房宫名称
-                 var patroNameepg = patrol[0].name;
-                 //巡更次数秦王陵名称
-                 var patroNameqwl = patrol[1].name;
-                 //野外文物点名
-                 var rollcall = Object.keys(res.info.rollcall).map(key=> res.info.rollcall[key]);
-                 //名秦王点名次数
-                 var rollcallNumqwldx = rollcall[1].count;
-                 var rollcallNumqwl = [];
-                 for (var h = rollcallNumqwldx.length-1;h>=0;h--) {
-                     rollcallNumqwl.push(rollcallNumqwldx[h]);
-                 }
-                 //点名次数日期
-                 var dmdaylydx = rollcall[0].dayly;
-                 var dmdayly = [];
-                 for(var f = dmdaylydx.length-1;f>=0;f--){
-                     dmdayly.push(dmdaylydx[f].substring(8));
-                 }
-                 //点名次数秦王陵名称
-                 var rollcallNameqwl = rollcall[1].name;
-                 var analysis=Object.keys(res.info.alarmcount).map(key=> res.info.alarmcount[key]);
-                 analysis.map((v)=>{
-                     this.state.analysisCount+=v.a_confirm+v.a_false+v.a_ignore+v.a_unhandle;
-                 });
-                 //未处理报警数
-                 for(var t=0;t<analysis.length;t++){
-                     this.state.unhandle+=analysis[t].a_unhandle
-                 }
-                 //确认数
-                 for(var a=0;a<analysis.length;a++){
-                     this.state.okconfirm+=analysis[a].a_confirm
-                 }
-                 //虚报警数
-                 for(var b=0;b<analysis.length;b++){
-                     this.state.xufalse+=analysis[b].a_false
-                 }
-                 //忽略数
-                 for(var c=0;c<analysis.length;c++){
-                     this.state.ignore+=analysis[c].a_ignore
-                 }
-                 _this.setState({
-                     xianmap:dataMap, //位置信息
-                     alarmnumapg:alarmnumapg,//阿房宫报警次数
-                     alarmnumqwl:alarmnumqwl,//明秦王陵报警次数
-                     timehour:timehour,//报警次数时间轴
-                     apgname:apgname,//报警次数阿房宫名称
-                     qwlname:qwlname,//报警次数秦王陵名称
-                     patrolNumepg:patrolNumepg,//阿房宫巡更次数
-                     patrolNumqwl:patrolNumqwl,//秦王陵巡更次数
-                     dayly:dayly,//巡更次数时间轴
-                     patroNameepg:patroNameepg,//巡更次数阿房宫名称
-                     patroNameqwl:patroNameqwl,//巡更次数秦王陵名称
-                     rollcallNumqwl:rollcallNumqwl,//明秦王陵点名次数
-                     dmdayly:dmdayly,//点名次数时间轴
-                     rollcallNameqwl:rollcallNameqwl,//点名明秦王陵名称
-                 })
-             }
-         })*/
+        //巡更次数
+        this.patrolresult();
+        //报警次数
+        this.alarmList();
     }
     render() {
         const _this=this;
         return (
             <div className="overView" style={{height:this.state.DHeight}}>
-
-                <Universebg />
-
+              {/*  <Universebg />*/}
                 <div className="titletop">
                     <div className="titlevalue">
                         西安文物局
@@ -264,7 +214,7 @@ class overView extends Component {
                                             <div className="scollhidden-out" id="ScollhiddenOut">
                                                 <div className="scollhidden-inner">
 
-                                                    {_this.state.deveice.map((el,i)=>(
+                                                    {/*{_this.state.deveice.map((el,i)=>(
                                                     <div className="equipment equipbody" key={'row'+i}>
                                                         <Row className="lines">
                                                             <Col className="gutter-row" xl={8}>
@@ -278,7 +228,7 @@ class overView extends Component {
                                                             </Col>
                                                         </Row>
                                                     </div>
-                                                    ))}
+                                                    ))}*/}
                                                 </div>
                                             </div>
                                         </div>
@@ -441,11 +391,10 @@ class overView extends Component {
                                     <Echartline
                                         type="alarmnum"
                                         winhe={(parseInt(this.state.DHeight)*0.7-10)*0.5-10}
-                                        /*  alarmnumapg={this.state.alarmnumapg}
-                                          alarmnumqwl={this.state.alarmnumqwl}
-                                          timehour = {this.state.timehour}
-                                          apgname={ this.state.apgname }
-                                          qwlname = { this.state.qwlname }*/
+                                        patrolX={this.state.patrolX}
+                                        patrolName={this.state.patrolName}
+                                        patrolafangafang={this.state.patrolafangafang}
+                                        patrolafangming={this.state.patrolafangming}
                                     />
                                 </div>
                             </div>
@@ -462,9 +411,10 @@ class overView extends Component {
                                 <Echartline
                                     type="rollcall"
                                     winhe={parseInt(this.state.DHeight)*0.3-70}
-                                    /*rollcallNumqwl = { this.state.rollcallNumqwl }
-                                    dmdayly = { this.state.dmdayly }
-                                    rollcallNameqwl = { this.state.rollcallNameqwl }*/
+                                    alarmName={this.state.alarmName}
+                                    alarmX={this.state.alarmX}
+                                    alarmafang={this.state.alarmafang}
+                                    alarmming={this.state.alarmming}
                                 />
                             </div>
                         </div>
@@ -488,6 +438,11 @@ class overView extends Component {
                                 <Echartline
                                     type="patrol"
                                     winhe={parseInt(this.state.DHeight)*0.3-70}
+                                    rollArrX={this.state.rollArrX}
+                                    rollName={this.state.rollName}
+                                    afang={this.state.afang}
+                                    ming={this.state.ming}
+                                    bowen={this.state.bowen}
                                     /*patrolNumepg = { this.state.patrolNumepg }
                                     patrolNumqwl = { this.state.patrolNumqwl }
                                     dayly = { this.state.dayly }
