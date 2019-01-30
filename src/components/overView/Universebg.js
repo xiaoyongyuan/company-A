@@ -28,7 +28,7 @@ class Universebg extends Component {
         canvas2.height = 100;
         var half = canvas2.width / 2,
         gradient2 = ctx2.createRadialGradient(half, half, 0, half, half, half);
-        gradient2.addColorStop(0.025, '#CCC');
+        gradient2.addColorStop(0.025, '#333');//星星的亮度
         gradient2.addColorStop(0.1, 'hsl(' + hue + ', 61%, 33%)');
         gradient2.addColorStop(0.25, 'hsl(' + hue + ', 64%, 6%)');
         gradient2.addColorStop(1, 'transparent');
@@ -97,7 +97,7 @@ class Universebg extends Component {
 
         function animation() {
         ctx.globalCompositeOperation = 'source-over';
-        ctx.globalAlpha = 0.7; //尾巴
+        ctx.globalAlpha = 1; //尾巴
         ctx.fillStyle = 'hsla(' + hue + ', 64%, 6%, 2)';
         ctx.fillRect(0, 0, w, h)
 
