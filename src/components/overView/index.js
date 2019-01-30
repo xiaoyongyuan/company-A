@@ -86,24 +86,25 @@ class overView extends Component {
     };
     //背景动态
     dynamic =()=>{
+        var ScollOut=document.getElementById("ScollhiddenOut");
         var bl = 5;
         setInterval(
             document.getElementById("ScollhiddenOut").onscroll=function() {
                 bl=bl+0.96;
-                var scrollHeight = document.getElementById("ScollhiddenOut").scrollHeight;//div里内容的高度
-                var scrollTop = document.getElementById("ScollhiddenOut").scrollTop;//0-18
-                var clientHeight = document.getElementById("ScollhiddenOut").clientHeight;//div内里框框的高度
+                var scrollHeight = ScollOut.scrollHeight;//div里内容的高度
+                var scrollTop =ScollOut.scrollTop;//0-18
+                var clientHeight = ScollOut.clientHeight;//div内里框框的高度
                 var scrollbottom=scrollHeight-clientHeight;
                 var scrollTopP=Math.ceil(scrollTop);
                 if(scrollbottom-scrollTopP===0) {//滚动到底部了
                     console.log("到底部了");
-                    document.getElementById("ScollhiddenOut").scrollTop=0;
+                    ScollOut.scrollTop=0;
                 }
                 if(scrollbottom-scrollTopP===0) {//滚动到底部了
-                    document.getElementById("ScollhiddenOut").scrollTop=0;
+                    ScollOut.scrollTop=0;
                     bl=0;
                 }else{
-                    document.getElementById("ScollhiddenOut").scrollTop = bl;
+                    ScollOut.scrollTop = bl;
                     console.log("ScollhiddenOut", document.getElementById("ScollhiddenOut").scrollTop);
                 }
             },2000);
