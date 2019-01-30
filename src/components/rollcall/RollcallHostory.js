@@ -53,10 +53,8 @@ class RollcallHostory extends Component{
             }
         })
          var _this=this;
-        //  var x=0;
         let pag=2;
         document.getElementById("scorll").onscroll=function() {
-            // console.log(`滚动了${x += 1}次`);
             var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
             var scrollTop = document.getElementById("scorll").scrollTop;//0-18
             var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度

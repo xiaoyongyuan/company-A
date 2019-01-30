@@ -964,7 +964,7 @@ margin: 4px 0 0 20px ;
 
 .Universe .header .canvaszz{  /*用来解决视频右键菜单，用于视频上面的遮罩层*/
 	width:100%;
-	background-image: url(../imgs/in_top_bj.jpg);
+	/* background-image: url(../imgs/in_top_bj.jpg); */
 	/* height:640px; */
 	position:absolute;
 	z-index:10;
@@ -977,4 +977,10 @@ margin: 4px 0 0 20px ;
         padding: 0;
         padding-right: 40px;
         height: 0px !important;
+    }
+
+
+.equiptable .slick-slider {
+        height: auto !important;
+        overflow: hidden;
     }
