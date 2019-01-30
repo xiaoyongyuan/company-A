@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
-import { Row,Col,Carousel} from 'antd';
+import { Row,Col,Carousel,Icon} from 'antd';
 import '../../style/yal/css/overView.css';
 import {post} from "../../axios/tools";
-// import equip from "../../style/yal/img/equip.png";
-// import team from "../../style/yal/img/team.png";
-// import usernum from "../../style/yal/img/usernum.png";
-// import admin from "../../style/yal/img/admin.png";
 import w1 from "../../style/yal/img/w1.png";
-// import w2 from "../../style/yal/img/w2.png";
-// import w3 from "../../style/yal/img/w3.png";
 import Echartline from "./Echartline";
 import Echartpie from "./Echartpie";
 import Universebg from "./Universebg";
@@ -65,6 +59,7 @@ class overView extends Component {
             patrolafang:[],
             patrolafangafang:[],
             patrolafangming:[],
+            deveicek:[],//设备
         }
 
         this.saveRef = ref => {this.refDom = ref};
@@ -98,6 +93,7 @@ class overView extends Component {
             console.log(alarmafang.slice(24,48))
         })
     }
+
     //点名次数
     rollcalldetail =()=>{
         post({url:"/api/rollcalldetail/gets_rollcall_weeks_big"},(res)=>{
@@ -150,7 +146,7 @@ class overView extends Component {
         var bl = 5;
         setInterval(
             document.getElementById("ScollhiddenOut").onscroll=function() {
-                bl=bl+0.96;
+                bl=bl+0.98;
                 var scrollHeight = ScollOut.scrollHeight;//div里内容的高度
                 var scrollTop =ScollOut.scrollTop;//0-18
                 var clientHeight = ScollOut.clientHeight;//div内里框框的高度
@@ -169,6 +165,19 @@ class overView extends Component {
                 }
             },2000);
      };
+
+     deveicek =()=>{//设备近况
+        post({url:"/api/camera/gets_camerainfo_big"},(res)=>{
+             console.log('******************1',res.data);
+             this.setState({
+                deveicek:res.data,
+                lasttime:res.data.lasttime,
+                hearttime:res.data.hearttime,
+            })
+
+
+        })
+    }
     componentDidMount() {
         window.onresize = () => {
             this.setState({
@@ -183,6 +192,8 @@ class overView extends Component {
         this.patrolresult();
         //报警次数
         this.alarmList();
+        //设备近况
+        this.deveicek();
     }
     render() {
         const _this=this;
@@ -222,24 +233,29 @@ class overView extends Component {
                                                     设备
                                                 </Col>
                                                 <Col className="gutter-row" xl={8}>
-                                                    未处理报警数
+                                                    状态
                                                 </Col>
                                             </Row>
                                         </div>
                                         <div className="scollhidden">
                                             <div className="scollhidden-out" id="ScollhiddenOut">
                                                 <div className="scollhidden-inner">
-                                                    {_this.state.deveice.map((el,i)=>(
+                                                    {_this.state.deveicek.map((el,i)=>(
                                                     <div className="equipment equipbody" key={'row'+i}>
                                                         <Row className="lines">
+                                                            <Col className="gutter-row" xl={8}>
+                                                            {el.cname}
+                                                            </Col>
                                                             <Col className="gutter-row" xl={8}>
                                                             {el.name}
                                                             </Col>
                                                             <Col className="gutter-row" xl={8}>
-                                                            {el.ccom}
-                                                            </Col>
-                                                            <Col className="gutter-row" xl={8}>
-                                                            {el.alarm}
+                                                                    <div>
+                                                                        {moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime && moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime
+                                                                            ? <div>离线</div>
+                                                                            :<div> 在线 </div>
+                                                                        }
+                                                                    </div>
                                                             </Col>
                                                         </Row>
                                                         
