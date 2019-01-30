@@ -13,8 +13,14 @@ class Equipment extends React.Component{
             type:1
         };
       }
+      componentWillMount(){
+        const activecompcode=localStorage.getItem('activecompcode');
+        this.setState({
+            activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:''
+        })
+      }
     componentDidMount() {        
-        post({url:'/api/camera/get_camerainfolist'},(res)=>{ //获取团队列表
+        post({url:'/api/camera/get_camerainfolist',data:{passivecode:this.state.activecompcode}},(res)=>{ //获取团队列表
             if(res){
                 if(res.camera.length){
                     this.setState({
@@ -110,7 +116,7 @@ class Equipment extends React.Component{
                                                 <Card className="boxShow"
                                                       cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath?this.state.camera[i].picpath:nopic} width="100%" /></a>}
                                                       actions={
-                                                          this.state.utype==='1'
+                                                          this.state.utype==='1' || this.state.activecompcode
                                                               ?[
                                                                   <div className="actionsBbottom">
                                                                       <p>{this.field(i)}条

@@ -32,15 +32,21 @@ class RollcallHostory extends Component{
             //status  //0执行中//1已完成//2未完成
             type:true,//无数据图,
             loadtype:true,
+            activecompcode:'',
         }
+    }
+    componentWillMount() {
+        const activecompcode=localStorage.getItem('activecompcode');
+        this.setState({
+            activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:''
+        })   
     }
     componentDidMount() {
             this.setState({
                 loadtip:false,
                 })
-        post({url:'/api/patrolresult/getlist_team'},(res)=>{
+        post({url:'/api/patrolresult/getlist_team',data:{passivecode:this.state.activecompcode}},(res)=>{
             if(res.success){
-                //  console.log('******************', res);
                     this.setState({
                           list:res.data,
                           loading: false,
@@ -66,7 +72,6 @@ class RollcallHostory extends Component{
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTopP
                })
-            //    console.log('******************',scrollbottom-scrollTopP);
                
             if(scrollbottom-scrollTopP===0){//滚动到底部了
                 if(pag===1){
@@ -83,9 +88,7 @@ class RollcallHostory extends Component{
                 
                if(_this.state.isrequest){ 
                 
-                post({url:'/api/patrolresult/getlist_team',data:{pageindex:_this.state.page}},(res)=>{
-                   
-                    // console.log(res,"res"); 
+                post({url:'/api/patrolresult/getlist_team',data:{pageindex:_this.state.page,passivecode:_this.state.activecompcode}},(res)=>{
                     if(res.data.length>0){
                         const list=_this.state.list;
                         const alist = list.concat(res.data);
@@ -170,10 +173,12 @@ class RollcallHostory extends Component{
         e.preventDefault();
         this.setState({
             loading:true,
+            list:[],
         })
             const data={
                 startdate :this.state.pbdate?this.state.pbdate.format('YYYY-MM-DD'):'',
                 enddate :this.state.pedate?this.state.pedate.format('YYYY-MM-DD'):'',
+                passivecode:this.state.activecompcode,
             }
             post({url:'/api/patrolresult/getlist_team',data:data},(res)=>{
                 if(res.success){
@@ -344,7 +349,10 @@ class RollcallHostory extends Component{
                                    
                                 </div>
                             )
-                        }):''
+                        })
+                        :<Row style={{marginTop:"70px"}}>
+                            <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
+                        </Row>
                     } 
                 </Timeline>
                 </div>
