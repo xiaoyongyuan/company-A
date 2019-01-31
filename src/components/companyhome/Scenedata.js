@@ -227,7 +227,7 @@ class Scenedata extends Component {
             <ReactEcharts
                 option={this.state.option}
                 onEvents={this.onClickByModel}
-                style={{height:'550px'}}
+                style={{height:'450px'}}
             />
         )
     }
