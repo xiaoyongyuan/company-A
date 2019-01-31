@@ -124,7 +124,7 @@ class overView extends Component {
                 alarmafang:alarmafang.slice(0,24),
                 alarmming:alarmafang.slice(24,48),
             });
-         
+
         })
     }
     //点名次数
@@ -173,8 +173,8 @@ class overView extends Component {
             }
         })
     };
-    //背景动态
-    dynamic =()=>{
+
+    dynamic =()=>{//设备近况
         var ScollOut=document.getElementById("ScollhiddenOut");
         var bl = 5;
         setInterval(
@@ -196,33 +196,34 @@ class overView extends Component {
                     // console.log("ScollhiddenOut", document.getElementById("ScollhiddenOut").scrollTop);
                 }
             },2000);
-     };
+    };
     deveicek =()=>{//设备近况
         post({url:"/api/camera/gets_camerainfo_big"},(res)=>{
-            if(res.success){
-                this.setState({
-                    deveicek:res.data,
-                    lasttime:res.data.lasttime,
-                    hearttime:res.data.hearttime,
-                })
-            }
+            this.setState({
+                deveicek:res.data,
+                lasttime:res.data.lasttime,
+                hearttime:res.data.hearttime,
+            })
+
+
         })
     }
     cal=()=>{//设备轮播
         post({url:"/api/alarm/gets_info_big"},(res)=>{
-             this.setState({
+            this.setState({
                 callist:res.data,
-             })
+            })
         })
     }
     alarmnumber=()=>{//报警数量
         post({url:"/api/alarm/gets_radar_big"},(res)=>{
-             this.setState({
+            this.setState({
                 alarmnumber:res.data,
                 cars:res.data.cars,
                 fire:res.data.fire,
                 person:res.data.person,
-             })
+                dashu:35046300,
+            })
         })
     }
     componentDidMount() {
@@ -249,8 +250,6 @@ class overView extends Component {
         this.locationMap();
         //报警数量
         this.alarmnumber();
-        //报警分析
-        this.alarmAnalysis();
     }
     render() {
         const _this=this;
@@ -306,25 +305,25 @@ class overView extends Component {
                                             <div className="scollhidden-out" id="ScollhiddenOut">
                                                 <div className="scollhidden-inner">
                                                     {this.state.deveicek.map((el,i)=>(
-                                                    <div className="equipment equipbody" key={'row'+i}>
-                                                        <Row className="lines">
-                                                            <Col className="gutter-row" xl={8}>
-                                                            {el.cname}
-                                                            </Col>
-                                                            <Col className="gutter-row" xl={8}>
-                                                            {el.name}
-                                                            </Col>
-                                                            <Col className="gutter-row" xl={8}>
-                                                                <div>
-                                                                    {moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime && 
-                                                                     moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime
-                                                                      ? <div>离线</div>:<div> 在线 </div>
-                                                                    }
-                                                                </div>
-                                                            </Col>
-                                                        </Row>
-                                                        
-                                                    </div>
+                                                        <div className="equipment equipbody" key={'row'+i}>
+                                                            <Row className="lines">
+                                                                <Col className="gutter-row" xl={8}>
+                                                                    {el.cname}
+                                                                </Col>
+                                                                <Col className="gutter-row" xl={8}>
+                                                                    {el.name}
+                                                                </Col>
+                                                                <Col className="gutter-row" xl={8}>
+                                                                    <div>
+                                                                        {moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime &&
+                                                                        moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime
+                                                                            ? <div>离线</div>:<div> 在线 </div>
+                                                                        }
+                                                                    </div>
+                                                                </Col>
+                                                            </Row>
+
+                                                        </div>
                                                     ))}
                                                 </div>
                                             </div>
@@ -354,9 +353,21 @@ class overView extends Component {
                             </div>
                             <div className="alarmover ">
                                 <Carousel vertical autoplay className="alarmcarousel">
-                                    <div className="carouselbg"><h3 className="cars">{this.state.cars.value}</h3></div>
-                                    <div className="carouselbg"><h3 className="fire">{this.state.fire.value}</h3></div>
-                                    <div className="carouselbg"><h3 className="person">{this.state.person.value}</h3></div>
+                                    <div className="carouselbg">
+                                        <h3 className="cars">
+                                           {this.state.cars.value<1000000?this.state.cars.value:(this.state.cars.value/1000000).toFixed(2)+"百万"}
+                                        </h3>
+                                    </div>
+                                    <div className="carouselbg">
+                                        <h3 className="fire">
+                                          {this.state.fire.value<1000000?this.state.fire.value:(this.state.fire.value/1000000).toFixed(2)+"百万"}
+                                        </h3>
+                                    </div>
+                                    <div className="carouselbg">
+                                        <h3 className="person">
+                                          {this.state.person.value<1000000?this.state.person.value:(this.state.person.value/1000000).toFixed(2)+"百万"}
+                                        </h3>
+                                    </div>
                                 </Carousel>
 
                             </div>
@@ -369,25 +380,24 @@ class overView extends Component {
                                     <span className="titlename">即时信息</span>
                                 </div>
                                 <div className="comp" style={{height:'calc(100% - 60px)'}}>
-                                <Carousel vertical autoplay className="righttop">
-                                
-                                {this.state.callist.map((el,i)=>(
-                                    <div key={i}>
-                                        <div className="Rotation_chart">
-                                           <div style={{height:'calc(100% - 60px)'}}><img src={el.picpath} alt="" /></div>
-                                           <div className="redcolor">
-                                               <span> {el.cname}</span> ,<span>{el.cameraname}</span>,
-                                               <span>{el.type==="alarm"?"报警":""} </span>
-                                               <span>{el.type==="rollcall"?"点名报警":""}</span>
-                                               <span>{el.type==="patrol"?"巡更":""}</span>,
-                                               <span>{el.time}</span>
-                                           </div>
-                                        </div>
-                                    </div>
-                                   ))}
-                                </Carousel>
+                                    <Carousel vertical className="righttop">
+                                        {this.state.callist.map((el,i)=>(
+                                            <div key={i}>
+                                                <div className="Rotation_chart">
+                                                    <div><img src={el.picpath} alt="" /></div>
+                                                    <div className="redcolor">
+                                                        <span> {el.cname}</span> ,<span>{el.cameraname}</span>,
+                                                        <span>{el.type==="alarm"?"报警":""} </span>
+                                                        <span>{el.type==="rollcall"?"点名报警":""}</span>
+                                                        <span>{el.type==="patrol"?"巡更":""}</span>,
+                                                        <span>{el.time}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </Carousel>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <div className="clunm lumpbott">
                             <div className="lump">
