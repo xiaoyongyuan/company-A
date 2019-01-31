@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Row,Col,Carousel,Modal} from 'antd';
 import '../../style/yal/css/overView.css';
 import {post} from "../../axios/tools";
-import w1 from "../../style/yal/img/w1.png";
 import Echartline from "./Echartline";
 import Echartpie from "./Echartpie";
 import Universebg from "./Universebg";
