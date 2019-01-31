@@ -327,13 +327,7 @@
     background: #364d79;
     overflow: hidden;
 }
-.draw .ant-carousel .slick-slide h3 {
-    background-image: url("../img/ren.png")  !important;
-    background-repeat: no-repeat;
-    background-position: 16px 0;
-    background-size: auto 26px;
-    color: #fff;
-}
+
 .draw .alarmover{
     position: absolute;
     bottom: 10px;
@@ -381,7 +375,7 @@
         font-size: 20px;
     }
 }
-@media screen and (min-width: 1920px){
+@media screen and (min-width: 1600px){
     .draw .alarmcarousel{
         position: relative;
         width: 28%;
@@ -391,7 +385,7 @@
     .draw .ant-carousel .slick-slide h3 {
         background-image: url("../img/ren.png") !important;
         background-repeat: no-repeat;
-        background-position: 30px 0;
+        background-position: 15px 0;
         background-size: auto 26px;
         color: #fff;
         font-size: 20px;
