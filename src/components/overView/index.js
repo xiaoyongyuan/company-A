@@ -273,7 +273,7 @@ class overView extends Component {
                                                     设备
                                                 </Col>
                                                 <Col className="gutter-row" xl={8}>
-                                                    未处理报警数
+                                                    状态
                                                 </Col>
                                             </Row>
                                         </div>
@@ -342,11 +342,12 @@ class overView extends Component {
                                     <div>
                                         <div className="Rotation_chart">
                                            <div><img src={el.picpath} alt="" /></div>  
-                                           <div>
-                                               <span> {el.cname}</span> ,<span>{el.cameraname}</span>,<span>{el.time}</span>,
+                                           <div className="redcolor">
+                                               <span> {el.cname}</span> ,<span>{el.cameraname}</span>,
                                                <span>{el.type==="alarm"?"报警":""} </span>
                                                <span>{el.type==="rollcall"?"点名报警":""}</span>
-                                               <span>{el.type==="patrol"?"巡更":""}</span>
+                                               <span>{el.type==="patrol"?"巡更":""}</span>,
+                                               <span>{el.time}</span>,
                                            </div>
                                         </div>
                                     </div>
