@@ -60,6 +60,22 @@ class overView extends Component {
             visible:false
         })
     };
+    //报警分析
+    alarmAnalysis =()=>{
+        post({url:"/api/alarm/gets_radar_big"},(res)=>{
+            if(res.success){
+                var countalar=res.data.cars.value+res.data.fire.value+res.data.patrol.value+res.data.person.value+res.data.rollcall.value;
+                this.setState({
+                    cars:res.data.cars.value,
+                    fire:res.data.fire.value,
+                    patrol:res.data.patrol.value,
+                    person:res.data.person.value,
+                    rollcall:res.data.rollcall.value,
+                    countalar:countalar,
+                })
+            }
+        })
+    };
     //位置图
     locationMap =()=>{
         post({url:"/api/company/getone_special"},(res)=>{
@@ -75,8 +91,6 @@ class overView extends Component {
                     mapJson:mapJson,
                     mapValue:mapValue
                 });
-                console.log(mapJson);
-                console.log(mapValue);
             }
         })
     };
@@ -235,6 +249,8 @@ class overView extends Component {
         this.locationMap();
         //报警数量
         this.alarmnumber();
+        //报警分析
+        this.alarmAnalysis();
     }
     render() {
         const _this=this;
@@ -254,7 +270,15 @@ class overView extends Component {
                                     <span className="titlename">报警分析</span>
                                 </div>
                                 <div className="comp">
-                                    <Echartpie type="lookcomp" winhe={(parseInt(this.state.DHeight)*0.7-20)*0.5-50} />
+                                    <Echartpie type="lookcomp" winhe={(parseInt(this.state.DHeight)*0.7-20)*0.5-50}
+                                               cars={this.state.cars}
+                                               fire={this.state.fire}
+                                               patrol={this.state.patrol}
+                                               person={this.state.person}
+                                               rollcall={this.state.rollcall}
+                                               countalar={this.state.countalar}
+                                               alarmAnalysisName={this.state.alarmAnalysisName}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -411,7 +435,7 @@ class overView extends Component {
                                 <div className="compCountVideo">
                                     {
                                         this.state.alarmVideo.map((v,i)=>(
-                                            <div className="compVideo" key={i}><img src={v.picpath} alt="" onClick={this.instantVideo} /></div>
+                                            <div className="compVideo" key={i}><img src={v.picpath} alt="" /></div>
                                         ))
                                     }
                                 </div>
