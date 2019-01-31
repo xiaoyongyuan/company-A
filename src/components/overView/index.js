@@ -145,8 +145,8 @@ class overView extends Component {
             }
         })
     };
-    //背景动态
-    dynamic =()=>{
+
+    dynamic =()=>{//设备近况
         var ScollOut=document.getElementById("ScollhiddenOut");
         var bl = 5;
         setInterval(
@@ -339,7 +339,7 @@ class overView extends Component {
                                     <span className="titlename">即时信息</span>
                                 </div>
                                 <div className="comp" style={{height:'calc(100% - 60px)'}}>
-                                    <Carousel vertical autoplay className="righttop">
+                                    <Carousel vertical className="righttop">
                                         {this.state.callist.map((el,i)=>(
                                             <div key={i}>
                                                 <div className="Rotation_chart">
