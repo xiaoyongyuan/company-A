@@ -189,15 +189,11 @@ class overView extends Component {
     }
     alarmnumber=()=>{//报警数量
         post({url:"/api/alarm/gets_radar_big"},(res)=>{
-            console.log('******************res.data',res.data);
             this.setState({
                 alarmnumber:res.data,
                 cars:res.data.cars,
                 fire:res.data.fire,
                 person:res.data.person,
-            },()=>{
-                console.log('******************aaaaa',this.state.cars);
-
             })
         })
     }
@@ -331,8 +327,7 @@ class overView extends Component {
                                     <span className="titlename">即时信息</span>
                                 </div>
                                 <div className="comp" style={{height:'calc(100% - 60px)'}}>
-                                    <Carousel vertical  className="righttop">
-
+                                    <Carousel vertical autoplay className="righttop">
                                         {this.state.callist.map((el,i)=>(
                                             <div key={i}>
                                                 <div className="Rotation_chart">
