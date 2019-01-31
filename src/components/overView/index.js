@@ -38,8 +38,7 @@ class overView extends Component {
             name:"",
             value:Number,
             alarmnumber:{},
-            mapJson:{},
-            mapValue:[]
+
         };
         this.saveRef = ref => {this.refDom = ref};
     }
@@ -64,19 +63,6 @@ class overView extends Component {
     locationMap =()=>{
         post({url:"/api/company/getone_special"},(res)=>{
             if(res.success){
-                var mapJson={},mapValue=[];
-                for(var a in res.lnglat) {
-                    mapValue.push({name:res.lnglat[a].name, value:res.lnglat[a].alarmcount})
-                    var name=res.lnglat[a].name;
-                    var value=res.lnglat[a].value
-                    mapJson[name]=value;
-                }
-                this.setState({
-                    mapJson:mapJson,
-                    mapValue:mapValue
-                });
-                console.log(mapJson);
-                console.log(mapValue);
             }
         })
     };
@@ -110,7 +96,7 @@ class overView extends Component {
                 alarmafang:alarmafang.slice(0,24),
                 alarmming:alarmafang.slice(24,48),
             });
-         
+
         })
     }
     //点名次数
@@ -182,33 +168,37 @@ class overView extends Component {
                     // console.log("ScollhiddenOut", document.getElementById("ScollhiddenOut").scrollTop);
                 }
             },2000);
-     };
+    };
     deveicek =()=>{//设备近况
         post({url:"/api/camera/gets_camerainfo_big"},(res)=>{
-            if(res.success){
-                this.setState({
-                    deveicek:res.data,
-                    lasttime:res.data.lasttime,
-                    hearttime:res.data.hearttime,
-                })
-            }
+            this.setState({
+                deveicek:res.data,
+                lasttime:res.data.lasttime,
+                hearttime:res.data.hearttime,
+            })
+
+
         })
     }
     cal=()=>{//设备轮播
         post({url:"/api/alarm/gets_info_big"},(res)=>{
-             this.setState({
+            this.setState({
                 callist:res.data,
-             })
+            })
         })
     }
     alarmnumber=()=>{//报警数量
         post({url:"/api/alarm/gets_radar_big"},(res)=>{
-             this.setState({
+            console.log('******************res.data',res.data);
+            this.setState({
                 alarmnumber:res.data,
                 cars:res.data.cars,
                 fire:res.data.fire,
                 person:res.data.person,
-             })
+            },()=>{
+                console.log('******************aaaaa',this.state.cars);
+
+            })
         })
     }
     componentDidMount() {
@@ -282,25 +272,25 @@ class overView extends Component {
                                             <div className="scollhidden-out" id="ScollhiddenOut">
                                                 <div className="scollhidden-inner">
                                                     {this.state.deveicek.map((el,i)=>(
-                                                    <div className="equipment equipbody" key={'row'+i}>
-                                                        <Row className="lines">
-                                                            <Col className="gutter-row" xl={8}>
-                                                            {el.cname}
-                                                            </Col>
-                                                            <Col className="gutter-row" xl={8}>
-                                                            {el.name}
-                                                            </Col>
-                                                            <Col className="gutter-row" xl={8}>
-                                                                <div>
-                                                                    {moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime && 
-                                                                     moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime
-                                                                      ? <div>离线</div>:<div> 在线 </div>
-                                                                    }
-                                                                </div>
-                                                            </Col>
-                                                        </Row>
-                                                        
-                                                    </div>
+                                                        <div className="equipment equipbody" key={'row'+i}>
+                                                            <Row className="lines">
+                                                                <Col className="gutter-row" xl={8}>
+                                                                    {el.cname}
+                                                                </Col>
+                                                                <Col className="gutter-row" xl={8}>
+                                                                    {el.name}
+                                                                </Col>
+                                                                <Col className="gutter-row" xl={8}>
+                                                                    <div>
+                                                                        {moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime &&
+                                                                        moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime
+                                                                            ? <div>离线</div>:<div> 在线 </div>
+                                                                        }
+                                                                    </div>
+                                                                </Col>
+                                                            </Row>
+
+                                                        </div>
                                                     ))}
                                                 </div>
                                             </div>
@@ -318,11 +308,7 @@ class overView extends Component {
                             </div>
                         </div>
                         <div className="maps">
-                            <Echartpie type="xianmap" winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-100}
-                                                      xianmap={this.state.xianmap}
-                                                      mapJson={this.state.mapJson}
-                                                      mapValue={this.state.mapValue}
-                             />
+                            <Echartpie type="xianmap" winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-100} xianmap={this.state.xianmap} />
                         </div>
                         <div className="draw">
                             <div className="untreated alarmtitle">
@@ -345,25 +331,25 @@ class overView extends Component {
                                     <span className="titlename">即时信息</span>
                                 </div>
                                 <div className="comp" style={{height:'calc(100% - 60px)'}}>
-                                <Carousel vertical autoplay className="righttop">
-                                
-                                {this.state.callist.map((el,i)=>(
-                                    <div key={i}>
-                                        <div className="Rotation_chart">
-                                           <div style={{height:'calc(100% - 60px)'}}><img src={el.picpath} alt="" /></div>
-                                           <div className="redcolor">
-                                               <span> {el.cname}</span> ,<span>{el.cameraname}</span>,
-                                               <span>{el.type==="alarm"?"报警":""} </span>
-                                               <span>{el.type==="rollcall"?"点名报警":""}</span>
-                                               <span>{el.type==="patrol"?"巡更":""}</span>,
-                                               <span>{el.time}</span>
-                                           </div>
-                                        </div>
-                                    </div>
-                                   ))}
-                                </Carousel>
+                                    <Carousel vertical  className="righttop">
+
+                                        {this.state.callist.map((el,i)=>(
+                                            <div key={i}>
+                                                <div className="Rotation_chart">
+                                                    <div><img src={el.picpath} alt="" /></div>
+                                                    <div className="redcolor">
+                                                        <span> {el.cname}</span> ,<span>{el.cameraname}</span>,
+                                                        <span>{el.type==="alarm"?"报警":""} </span>
+                                                        <span>{el.type==="rollcall"?"点名报警":""}</span>
+                                                        <span>{el.type==="patrol"?"巡更":""}</span>,
+                                                        <span>{el.time}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </Carousel>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <div className="clunm lumpbott">
                             <div className="lump">
