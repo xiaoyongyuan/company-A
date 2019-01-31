@@ -234,11 +234,23 @@
     height: 50%;
 }
 
-.untreated .alarmtitle{
-    top:calc(25%);
-    font-size: 15px;
-    font-family: 黑体;
+@media screen and (min-width: 1700px) {
+    .untreated{
+        top:calc(25%);
+        font-size: 15px;
+        font-family: 黑体;
+        margin-top: -5px;
+    }
 }
+@media screen and (max-width: 1700px) and (min-width: 1080px) {
+    .untreated{
+        top:calc(25%);
+        font-size: 10px;
+        font-family: 黑体;
+        margin-top: -3px;
+    }
+}
+
 .untreated.alarmvalue{
     top:calc(60%);
     font-size: 24px;
