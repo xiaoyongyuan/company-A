@@ -85,6 +85,15 @@ class overView extends Component {
             visible:false
         })
     };
+    //位置图
+    locationMap =()=>{
+        post({url:"/api/company/getone_special"},(res)=>{
+            if(res.success){
+
+            }
+            console.log(res.lnglat);
+        })
+    };
     //报警视频
     alarmVideo =()=>{
         post({url:"/api/alarm/gets_alarm_video_big"},(res)=>{
@@ -190,7 +199,7 @@ class overView extends Component {
                 }
             },2000);
      };
-     deveicek =()=>{//设备近况
+    deveicek =()=>{//设备近况
         post({url:"/api/camera/gets_camerainfo_big"},(res)=>{
              this.setState({
                 deveicek:res.data,
@@ -233,6 +242,8 @@ class overView extends Component {
         this.cal();
         //报警视频
         this.alarmVideo();
+        //位置图
+        this.locationMap();
 
     }
     render() {
