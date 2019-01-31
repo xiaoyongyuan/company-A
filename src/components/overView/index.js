@@ -194,6 +194,7 @@ class overView extends Component {
                 cars:res.data.cars,
                 fire:res.data.fire,
                 person:res.data.person,
+                dashu:35046300,
             })
         })
     }
@@ -312,11 +313,22 @@ class overView extends Component {
                             </div>
                             <div className="alarmover ">
                                 <Carousel vertical autoplay className="alarmcarousel">
-                                    <div className="carouselbg"><h3 className="cars">{this.state.cars.value}</h3></div>
-                                    <div className="carouselbg"><h3 className="fire">{this.state.fire.value}</h3></div>
-                                    <div className="carouselbg"><h3 className="person">{this.state.person.value}</h3></div>
+                                    <div className="carouselbg">
+                                        <h3 className="cars">
+                                           {this.state.cars.value<1000000?this.state.cars.value:(this.state.cars.value/1000000).toFixed(2)+"百万"}
+                                        </h3>
+                                    </div>
+                                    <div className="carouselbg">
+                                        <h3 className="fire">
+                                          {this.state.fire.value<1000000?this.state.fire.value:(this.state.fire.value/1000000).toFixed(2)+"百万"}
+                                        </h3>
+                                    </div>
+                                    <div className="carouselbg">
+                                        <h3 className="person">
+                                          {this.state.person.value<1000000?this.state.person.value:(this.state.person.value/1000000).toFixed(2)+"百万"}
+                                        </h3>
+                                    </div>
                                 </Carousel>
-
                             </div>
                         </div>
                     </Col>
