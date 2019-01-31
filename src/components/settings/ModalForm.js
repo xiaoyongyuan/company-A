@@ -64,7 +64,7 @@ class ModalForm extends Component {
                         {getFieldDecorator('account', {
                             rules: [{
                                 required: true, message: '请输入手机号!',
-                                pattern: new RegExp(/^1(3|4|5|7|8)\d{9}$/, "g")
+                                pattern: new RegExp(/^1(3|4|5|6|7|8|9)\d{9}$/, "g")
                             }],
                         })(
                             <Input className="ModelFormInput" disabled={this.state.code?true:false} />
