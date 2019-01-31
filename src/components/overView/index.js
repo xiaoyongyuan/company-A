@@ -2,48 +2,17 @@ import React, { Component } from 'react';
 import { Row,Col,Carousel,Modal} from 'antd';
 import '../../style/yal/css/overView.css';
 import {post} from "../../axios/tools";
-import w1 from "../../style/yal/img/w1.png";
 import Echartline from "./Echartline";
 import Echartpie from "./Echartpie";
 import Universebg from "./Universebg";
 import moment from "moment";
 const pao=[{a:"13621"},{a:"534534"},{a:"1564358"},{a:"964983"},{a:"154684"}]
-const deveice=[{
-    name:'神道西侧',
-    ccom:'明秦王陵遗址',
-    alarm:1282,
-},{
-    name:'神道东侧',
-    ccom:'明秦王陵遗址',
-    alarm:1159,
-},{
-    name:'神道入口',
-    ccom:'明秦王陵遗址',
-    alarm:18,
-},{
-    name:'15',
-    ccom:'阿房宫',
-    alarm:212,
-},{
-    name:'神道东侧',
-    ccom:'明秦王陵遗址',
-    alarm:1159,
-},{
-    name:'神道入口',
-    ccom:'明秦王陵遗址',
-    alarm:18,
-},{
-    name:'15',
-    ccom:'阿房宫',
-    alarm:212,
-}]
 
 class overView extends Component {
     constructor(props){
         super(props);
         this.state= {
             option:{},
-            deveice:deveice,
             analysisCount:0,//总报警数
             unhandle:0,//未处理报警数
             okconfirm:0,//确认数
@@ -63,6 +32,12 @@ class overView extends Component {
             callist:[],
             visible: false,
             alarmVideo:[],
+            cars:{},//车报警数量
+            fire:{},//火报警数量
+            person:{},//人报警数量
+            name:"",
+            value:Number,
+            alarmnumber:{},
             mapJson:{},
             mapValue:[]
         };
@@ -219,14 +194,23 @@ class overView extends Component {
             }
         })
     }
-    cal =()=>{//设备轮播
+    cal=()=>{//设备轮播
         post({url:"/api/alarm/gets_info_big"},(res)=>{
              this.setState({
                 callist:res.data,
              })
         })
     }
-
+    alarmnumber=()=>{//报警数量
+        post({url:"/api/alarm/gets_radar_big"},(res)=>{
+             this.setState({
+                alarmnumber:res.data,
+                cars:res.data.cars,
+                fire:res.data.fire,
+                person:res.data.person,
+             })
+        })
+    }
     componentDidMount() {
         window.onresize = () => {
             this.setState({
@@ -249,7 +233,8 @@ class overView extends Component {
         this.alarmVideo();
         //位置图
         this.locationMap();
-
+        //报警数量
+        this.alarmnumber();
     }
     render() {
         const _this=this;
@@ -341,14 +326,13 @@ class overView extends Component {
                         </div>
                         <div className="draw">
                             <div className="untreated alarmtitle">
-                                未处理报警
+                                报警数
                             </div>
                             <div className="alarmover ">
                                 <Carousel vertical autoplay className="alarmcarousel">
-                                    {pao.map((el,i)=>(
-                                        <div className="carouselbg"><h3>{el.a}</h3></div>
-                                    ))
-                                    }
+                                    <div className="carouselbg"><h3 className="cars">{this.state.cars.value}</h3></div>
+                                    <div className="carouselbg"><h3 className="fire">{this.state.fire.value}</h3></div>
+                                    <div className="carouselbg"><h3 className="person">{this.state.person.value}</h3></div>
                                 </Carousel>
 
                             </div>
@@ -364,9 +348,9 @@ class overView extends Component {
                                 <Carousel vertical autoplay className="righttop">
                                 
                                 {this.state.callist.map((el,i)=>(
-                                    <div>
+                                    <div key={i}>
                                         <div className="Rotation_chart">
-                                           <div><img src={el.picpath} alt="" /></div>  
+                                           <div style={{height:'calc(100% - 60px)'}}><img src={el.picpath} alt="" /></div>
                                            <div className="redcolor">
                                                <span> {el.cname}</span> ,<span>{el.cameraname}</span>,
                                                <span>{el.type==="alarm"?"报警":""} </span>

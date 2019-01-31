@@ -169,6 +169,7 @@ class PatrolRecord extends React.Component{
             title: '操作',
             dataIndex: 'code',
             key: 'code',
+            width:200,
             render:(text,record,index)=>{
                 return(
                     <div>
