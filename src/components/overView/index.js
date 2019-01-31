@@ -89,9 +89,7 @@ class overView extends Component {
     locationMap =()=>{
         post({url:"/api/company/getone_special"},(res)=>{
             if(res.success){
-
             }
-            console.log(res.lnglat);
         })
     };
     //报警视频
@@ -124,8 +122,7 @@ class overView extends Component {
                 alarmafang:alarmafang.slice(0,24),
                 alarmming:alarmafang.slice(24,48),
             });
-            console.log(alarmafang.slice(0,24))
-            console.log(alarmafang.slice(24,48))
+         
         })
     }
     //点名次数
@@ -187,7 +184,6 @@ class overView extends Component {
                 var scrollbottom=scrollHeight-clientHeight;
                 var scrollTopP=Math.ceil(scrollTop);
                 if(scrollbottom-scrollTopP===0) {//滚动到底部了
-                    console.log("到底部了");
                     ScollOut.scrollTop=0;
                 }
                 if(scrollbottom-scrollTopP===0) {//滚动到底部了
@@ -195,7 +191,7 @@ class overView extends Component {
                     bl=0;
                 }else{
                     ScollOut.scrollTop = bl;
-                    console.log("ScollhiddenOut", document.getElementById("ScollhiddenOut").scrollTop);
+                    // console.log("ScollhiddenOut", document.getElementById("ScollhiddenOut").scrollTop);
                 }
             },2000);
      };
@@ -212,12 +208,8 @@ class overView extends Component {
     }
     cal =()=>{//设备轮播
         post({url:"/api/alarm/gets_info_big"},(res)=>{
-        console.log('******************2222',res.data);
              this.setState({
                 callist:res.data,
-             },()=>{
-                 console.log('******************333',this.state.callist);
-                 
              })
         })
     }
