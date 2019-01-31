@@ -71,7 +71,7 @@ class RollcallHostory extends Component{
                },()=>{
                 }
                )
-            if(scrollbottom-scrollTopP===0){//滚动到底部了
+            if(scrollbottom-scrollTopP===1){//滚动到底部了
                
                _this.setState({
                 scrollbottom:scrollbottom,
