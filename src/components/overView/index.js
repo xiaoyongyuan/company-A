@@ -284,13 +284,18 @@ class overView extends Component {
                                                     <div className="equipment equipbody" key={'row'+i}>
                                                         <Row className="lines">
                                                             <Col className="gutter-row" xl={8}>
+                                                            {el.cname}
+                                                            </Col>
+                                                            <Col className="gutter-row" xl={8}>
                                                             {el.name}
                                                             </Col>
                                                             <Col className="gutter-row" xl={8}>
-                                                            {el.ccom}
-                                                            </Col>
-                                                            <Col className="gutter-row" xl={8}>
-                                                            {el.alarm}
+                                                                <div>
+                                                                    {moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime && 
+                                                                     moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime
+                                                                      ? <div>离线</div>:<div> 在线 </div>
+                                                                    }
+                                                                </div>
                                                             </Col>
                                                         </Row>
                                                         
