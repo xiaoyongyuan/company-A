@@ -328,7 +328,7 @@ class overView extends Component {
                             <div className="alarmover ">
                                 <Carousel vertical autoplay className="alarmcarousel">
                                     {pao.map((el,i)=>(
-                                        <div className="carouselbg"><h3>{el.a}</h3></div>
+                                        <div key={i} className="carouselbg"><h3>{el.a}</h3></div>
                                     ))
                                     }
                                 </Carousel>
@@ -346,7 +346,7 @@ class overView extends Component {
                                 <Carousel vertical autoplay className="righttop">
                                 
                                 {this.state.callist.map((el,i)=>(
-                                    <div>
+                                    <div key={i}>
                                         <div className="Rotation_chart">
                                            <div><img src={el.picpath} alt="" /></div>  
                                            <div className="redcolor">
