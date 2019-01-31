@@ -85,6 +85,15 @@ class overView extends Component {
             visible:false
         })
     };
+    //位置图
+    locationMap =()=>{
+        post({url:"/api/company/getone_special"},(res)=>{
+            if(res.success){
+
+            }
+            console.log(res.lnglat);
+        })
+    };
     //报警视频
     alarmVideo =()=>{
         post({url:"/api/alarm/gets_alarm_video_big"},(res)=>{
@@ -190,7 +199,7 @@ class overView extends Component {
                 }
             },2000);
      };
-     deveicek =()=>{//设备近况
+    deveicek =()=>{//设备近况
         post({url:"/api/camera/gets_camerainfo_big"},(res)=>{
              this.setState({
                 deveicek:res.data,
@@ -228,11 +237,13 @@ class overView extends Component {
         //报警次数
         this.alarmList();
         //设备近况
-        this.deveicek();
+        setInterval(this.deveicek(),10000);
         //设备轮播
-        this.cal();
+        setInterval(this.cal(),10000);
         //报警视频
         this.alarmVideo();
+        //位置图
+        this.locationMap();
 
     }
     render() {
@@ -352,7 +363,7 @@ class overView extends Component {
                                                <span>{el.type==="alarm"?"报警":""} </span>
                                                <span>{el.type==="rollcall"?"点名报警":""}</span>
                                                <span>{el.type==="patrol"?"巡更":""}</span>,
-                                               <span>{el.time}</span>,
+                                               <span>{el.time}</span>
                                            </div>
                                         </div>
                                     </div>
