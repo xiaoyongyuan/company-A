@@ -339,11 +339,7 @@
     overflow: hidden;
 }
 
-.draw .alarmover{
-    position: absolute;
-    bottom: 10px;
-    /*background: #5a5e75;*/
-}
+
 @media screen and (max-width: 1280px) {
     .draw .alarmcarousel{
         position: relative;
@@ -351,10 +347,16 @@
         margin: 0 auto;
         bottom:-6px;
     }
+    
 }
 
 
 @media screen  and (max-width: 1280px) {
+    .draw .alarmover{
+        position: absolute;
+        bottom: 10px;
+        /*background: #5a5e75;*/
+    }
     .draw .alarmcarousel{
         position: relative;
         width: 40%;
@@ -362,15 +364,31 @@
         bottom:-1px;
     }
     .draw .ant-carousel .slick-slide h3 {
-        background-image: url("../img/ren.png") !important;
+        
         background-repeat: no-repeat;
-        background-position: 5px 0;
-        background-size: auto 26px;
+        background-position: 5px 4px;
+        background-size: auto 22px;
         color: #fff;
         font-size: 20px;
     }
+    .draw .ant-carousel .slick-slide .person {
+        background-image: url("../img/ren.png") !important;
+       
+    }
+    .draw .ant-carousel .slick-slide .fire {
+        background-image: url("../img/huo.png") !important;
+       
+    }
+    .draw .ant-carousel .slick-slide .cars {
+        background-image: url("../img/che.png") !important;
+       
+    }
 }
-@media screen and (max-width: 1600px) and (min-width: 1280px) {
+@media screen and (max-width: 1601px) and (min-width: 1280px) {
+    .draw .alarmover{
+        position: absolute;
+        bottom: 13px;
+    }
     .draw .alarmcarousel{
         position: relative;
         width: 28%;
@@ -378,15 +396,27 @@
         bottom:5px;
     }
     .draw .ant-carousel .slick-slide h3 {
-        background-image: url("../img/ren.png") !important;
         background-repeat: no-repeat;
-        background-position: 15px 0;
-        background-size: auto 26px;
+        background-position: 15px 4px;
+        background-size: auto 22px;
         color: #fff;
         font-size: 20px;
     }
+    .draw .ant-carousel .slick-slide .person {
+        background-image: url("../img/ren.png") !important;
+    }
+    .draw .ant-carousel .slick-slide .fire {
+        background-image: url("../img/huo.png") !important;
+    }
+    .draw .ant-carousel .slick-slide .cars {
+        background-image: url("../img/che.png") !important;
+    }
 }
-@media screen and (min-width: 1600px){
+@media screen and (min-width: 1601px){
+    .draw .alarmover{
+        position: absolute;
+        bottom: 17px;
+    }
     .draw .alarmcarousel{
         position: relative;
         width: 28%;
@@ -394,20 +424,26 @@
         bottom:7px;
     }
     .draw .ant-carousel .slick-slide h3 {
-        background-image: url("../img/ren.png") !important;
         background-repeat: no-repeat;
-        background-position: 5px 0;
-        background-size: auto 26px;
+        background-position: 5px 4px;
+        background-size: auto 22px;
         color: #fff;
         font-size: 20px;
         margin-left: 20px;
+    }
+    .draw .ant-carousel .slick-slide .person {
+        background-image: url("../img/ren.png") !important;
+    }
+    .draw .ant-carousel .slick-slide .fire {
+        background-image: url("../img/huo.png") !important;
+    }
+    .draw .ant-carousel .slick-slide .cars {
+        background-image: url("../img/che.png") !important;
     }
 }
 .draw .ant-carousel-vertical .slick-dots li button {
     display: none !important;
 }
-
-
 .slick-slider{
     height: 30px;
     overflow: hidden;

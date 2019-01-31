@@ -7,42 +7,12 @@ import Echartpie from "./Echartpie";
 import Universebg from "./Universebg";
 import moment from "moment";
 const pao=[{a:"13621"},{a:"534534"},{a:"1564358"},{a:"964983"},{a:"154684"}]
-const deveice=[{
-    name:'神道西侧',
-    ccom:'明秦王陵遗址',
-    alarm:1282,
-},{
-    name:'神道东侧',
-    ccom:'明秦王陵遗址',
-    alarm:1159,
-},{
-    name:'神道入口',
-    ccom:'明秦王陵遗址',
-    alarm:18,
-},{
-    name:'15',
-    ccom:'阿房宫',
-    alarm:212,
-},{
-    name:'神道东侧',
-    ccom:'明秦王陵遗址',
-    alarm:1159,
-},{
-    name:'神道入口',
-    ccom:'明秦王陵遗址',
-    alarm:18,
-},{
-    name:'15',
-    ccom:'阿房宫',
-    alarm:212,
-}]
 
 class overView extends Component {
     constructor(props){
         super(props);
         this.state= {
             option:{},
-            deveice:deveice,
             analysisCount:0,//总报警数
             unhandle:0,//未处理报警数
             okconfirm:0,//确认数
@@ -61,8 +31,13 @@ class overView extends Component {
             deveicek:[],//设备
             callist:[],
             visible: false,
-            alarmVideo:[]
-
+            alarmVideo:[],
+            cars:{},//车报警数量
+            fire:{},//火报警数量
+            person:{},//人报警数量
+            name:"",
+            value:Number,
+            alarmnumber:{},
 
         };
         this.saveRef = ref => {this.refDom = ref};
@@ -205,14 +180,27 @@ class overView extends Component {
 
         })
     }
-    cal =()=>{//设备轮播
+    cal=()=>{//设备轮播
         post({url:"/api/alarm/gets_info_big"},(res)=>{
              this.setState({
                 callist:res.data,
              })
         })
     }
+    alarmnumber=()=>{//报警数量
+        post({url:"/api/alarm/gets_radar_big"},(res)=>{
+            console.log('******************res.data',res.data);
+             this.setState({
+                alarmnumber:res.data,
+                cars:res.data.cars,
+                fire:res.data.fire,
+                person:res.data.person,
+             },()=>{
+               console.log('******************aaaaa',this.state.cars);
 
+             })
+        })
+    }
     componentDidMount() {
         window.onresize = () => {
             this.setState({
@@ -235,7 +223,8 @@ class overView extends Component {
         this.alarmVideo();
         //位置图
         this.locationMap();
-
+        //报警数量
+        this.alarmnumber();
     }
     render() {
         const _this=this;
@@ -323,14 +312,13 @@ class overView extends Component {
                         </div>
                         <div className="draw">
                             <div className="untreated alarmtitle">
-                                未处理报警
+                                报警数
                             </div>
                             <div className="alarmover ">
                                 <Carousel vertical autoplay className="alarmcarousel">
-                                    {pao.map((el,i)=>(
-                                        <div key={i} className="carouselbg"><h3>{el.a}</h3></div>
-                                    ))
-                                    }
+                                    <div className="carouselbg"><h3 className="cars">{this.state.cars.value}</h3></div>
+                                    <div className="carouselbg"><h3 className="fire">{this.state.fire.value}</h3></div>
+                                    <div className="carouselbg"><h3 className="person">{this.state.person.value}</h3></div>
                                 </Carousel>
 
                             </div>
