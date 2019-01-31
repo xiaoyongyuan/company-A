@@ -380,15 +380,16 @@
         position: relative;
         width: 28%;
         margin: 0 auto;
-        bottom:10px;
+        bottom:7px;
     }
     .draw .ant-carousel .slick-slide h3 {
         background-image: url("../img/ren.png") !important;
         background-repeat: no-repeat;
-        background-position: 15px 0;
+        background-position: 5px 0;
         background-size: auto 26px;
         color: #fff;
         font-size: 20px;
+        margin-left: 20px;
     }
 }
 .draw .ant-carousel-vertical .slick-dots li button {
