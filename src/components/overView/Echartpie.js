@@ -86,23 +86,26 @@ class Echartpie extends Component {
     }
     xianmap=()=>{ //地图
         echarts.registerMap('xian', xianmap);
-        var geoCoordMap = {
-            '阿房宫': [108.755878,34.270149],
-            '明秦王陵': [109.478744,34.086169],
-            "西安文物局":[108.222183,34.160065]
-        };
+       /* var geoCoordMap = {
+            '阿房宫': [108.83, 34.26],
+            '明秦王陵遗址': [108, 34],
+            "西安文物局":[108.93, 34.34]
+        };*/
+        var geoCoordMap=this.props.mapJson;
+       /* var goData =this.props.mapValue;*/
         var goData = [{
             name: '阿房宫',
-            value: 32689
+            value: 16079
         },{
-            name: '明秦王陵',
-            value: 24084
+            name: '明秦王陵遗址',
+            value: 6275
         },{
             name: '西安文物局',
-            value: 1400
+            value: 6275
         }];
         var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
         var convertData = function(name, data) {
+            console.log(data);
             var res = [];
             for (var i = 0; i < data.length; i++) {
                 var fromCoord = geoCoordMap[name];
@@ -121,7 +124,7 @@ class Echartpie extends Component {
             ['西安文物局', goData],
         ].forEach(function(item, i) {
             series.push({
-                name: item[0],
+                name: 'item[0]',
                 type: 'lines',
                 zlevel: 2,
                 //线特效配置
@@ -142,7 +145,7 @@ class Echartpie extends Component {
                 },
                 data: convertData(item[0], item[1])
             }, {  //终点
-                name: item[0],
+                name: 'item[0]',
                 type: 'effectScatter',
                 coordinateSystem: 'geo',
                 effectType:"ripple", //涟漪特效
@@ -175,16 +178,15 @@ class Echartpie extends Component {
                 //圆点大小
                 symbolSize:10,
                 data: item[1].map(function(dataItem) {
-                    console.log(dataItem)
                     return {
                         name: dataItem.name,
-                        value: geoCoordMap[dataItem.name].concat([dataItem.value])
+                        value: geoCoordMap[dataItem.name]
                     };
                 })
 
             }, {//起点
                 name: 'item[0]',
-                type: 'scatter',
+                type: 'effectScatter',
                 coordinateSystem: 'geo',
                 effectType:"ripple", //涟漪特效
                 itemStyle: {
@@ -216,7 +218,7 @@ class Echartpie extends Component {
                 symbol: 'circle',
                 data: [{
                     name: item[0],
-                    value: geoCoordMap[item[0]].concat([100])
+                    value: geoCoordMap[item[0]]
                 }]
 
             })

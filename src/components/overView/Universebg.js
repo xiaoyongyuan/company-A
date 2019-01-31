@@ -114,8 +114,8 @@ class Universebg extends Component {
     render() {
         return (
             <div className="Universe">
-                <div class="header" id="demo">
-                    <div class="canvaszz"> </div>
+                <div className="header" id="demo">
+                    <div className="canvaszz"> </div>
                     <canvas id="canvas"></canvas> 
                 </div>  
             </div>

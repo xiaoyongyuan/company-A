@@ -62,9 +62,9 @@ class overView extends Component {
             deveicek:[],//设备
             callist:[],
             visible: false,
-            alarmVideo:[]
-
-
+            alarmVideo:[],
+            mapJson:{},
+            mapValue:[]
         };
         this.saveRef = ref => {this.refDom = ref};
     }
@@ -89,6 +89,19 @@ class overView extends Component {
     locationMap =()=>{
         post({url:"/api/company/getone_special"},(res)=>{
             if(res.success){
+                var mapJson={},mapValue=[];
+                for(var a in res.lnglat) {
+                    mapValue.push({name:res.lnglat[a].name, value:res.lnglat[a].alarmcount})
+                    var name=res.lnglat[a].name;
+                    var value=res.lnglat[a].value
+                    mapJson[name]=value;
+                }
+                this.setState({
+                    mapJson:mapJson,
+                    mapValue:mapValue
+                });
+                console.log(mapJson);
+                console.log(mapValue);
             }
         })
     };
@@ -197,13 +210,13 @@ class overView extends Component {
      };
     deveicek =()=>{//设备近况
         post({url:"/api/camera/gets_camerainfo_big"},(res)=>{
-             this.setState({
-                deveicek:res.data,
-                lasttime:res.data.lasttime,
-                hearttime:res.data.hearttime,
-            })
-
-
+            if(res.success){
+                this.setState({
+                    deveicek:res.data,
+                    lasttime:res.data.lasttime,
+                    hearttime:res.data.hearttime,
+                })
+            }
         })
     }
     cal =()=>{//设备轮播
@@ -320,7 +333,11 @@ class overView extends Component {
                             </div>
                         </div>
                         <div className="maps">
-                            <Echartpie type="xianmap" winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-100} xianmap={this.state.xianmap} />
+                            <Echartpie type="xianmap" winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-100}
+                                                      xianmap={this.state.xianmap}
+                                                      mapJson={this.state.mapJson}
+                                                      mapValue={this.state.mapValue}
+                             />
                         </div>
                         <div className="draw">
                             <div className="untreated alarmtitle">
