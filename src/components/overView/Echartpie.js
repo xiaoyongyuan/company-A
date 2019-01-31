@@ -86,12 +86,12 @@ class Echartpie extends Component {
     }
     xianmap=()=>{ //地图
         echarts.registerMap('xian', xianmap);
-       /* var geoCoordMap = {
+        var geoCoordMap = {
             '阿房宫': [108.83, 34.26],
             '明秦王陵遗址': [108, 34],
             "西安文物局":[108.93, 34.34]
-        };*/
-        var geoCoordMap=this.props.mapJson;
+        };
+        //var geoCoordMap=this.props.mapJson;
        /* var goData =this.props.mapValue;*/
         var goData = [{
             name: '阿房宫',
