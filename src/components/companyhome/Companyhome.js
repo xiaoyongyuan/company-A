@@ -108,7 +108,7 @@ class Companyhome extends Component {
                     <div className="boxHeight backBlock" >
                         <div className="backLitte boxShow " style={{width:'50%',margin:"16px"}}>
                             <div style={{padding:'50px 10px',height:'550px'}}>
-                            <Scenedata type="maps" />
+                                <Scenedata type="maps" />
                             </div>
                         </div>
                         <div className="topRightContext">
