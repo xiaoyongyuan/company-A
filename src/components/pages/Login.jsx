@@ -147,7 +147,7 @@ class Login extends React.Component {
                             {getFieldDecorator('account', {
                                 rules: [{ required: true, message: '请输入用户名(手机号)!'
                                  },{
-                                    pattern: new RegExp(/^1(3|4|5|7|8)\d{9}$/, "g"),
+                                    pattern: new RegExp(/^1(3|4|5|6|7|8|9)\d{9}$/, "g"),
                                     message: '请输入正确的手机号！'
                                  }],
                             })(

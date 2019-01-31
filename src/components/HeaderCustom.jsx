@@ -153,6 +153,7 @@ class HeaderCustom extends Component {
                         />
                     )
                 }
+                <div style={{ lineHeight: '63px', float: 'right',color:'#fff' }}>{this.props.user.realname},欢迎您</div>
                 <Menu
                     mode="horizontal"
                     style={{ lineHeight: '63px', float: 'right' }}
@@ -163,7 +164,7 @@ class HeaderCustom extends Component {
                     </Menu.Item>
                     <SubMenu style={{borderBottom:'2px solid #31365'}} title={<span className="avatar"><img src={this.props.user.utype==='1'?icon_user:icon_admin} alt="头像" /> </span>}>
                         <MenuItemGroup title="用户中心" style={{background:"rgba(255,255,255,0.5)"}}>
-                            <Menu.Item key="setting:1">你好 - {this.props.user.realname}</Menu.Item>
+                            {/*<Menu.Item key="setting:1">你好 - {this.props.user.realname}</Menu.Item>*/}
                             <Menu.Item key="setting:2" onClick={this.sitchcomp}>{this.state.activecname?this.state.activecname:this.props.user.cname} <Icon type="sync" /></Menu.Item>
                             <Menu.Item key="logoutto" onClick={this.showModaldelete}><span>退出登录</span></Menu.Item>
                         </MenuItemGroup>
