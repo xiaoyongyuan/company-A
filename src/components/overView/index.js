@@ -336,7 +336,7 @@ class overView extends Component {
                                 {this.state.callist.map((el,i)=>(
                                     <div key={i}>
                                         <div className="Rotation_chart">
-                                           <div><img src={el.picpath} alt="" /></div>  
+                                           <div style={{height:'calc(100% - 60px)'}}><img src={el.picpath} alt="" /></div>  
                                            <div className="redcolor">
                                                <span> {el.cname}</span> ,<span>{el.cameraname}</span>,
                                                <span>{el.type==="alarm"?"报警":""} </span>
