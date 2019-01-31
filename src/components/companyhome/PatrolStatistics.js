@@ -137,7 +137,8 @@ class PatrolStatistics extends Component{
         return (
             <ReactEcharts
                 option={option}
-                className="react_for_echarts rollcallStatistics"
+                className="react_for_echarts"
+                style={{width:"100%",height:this.props.echartsHeight}}
             />
         );
     }

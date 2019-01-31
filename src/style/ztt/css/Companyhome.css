@@ -373,15 +373,15 @@
     border-radius: 4px;
 }
 /*巡更统计*/
-.patrolStatistics{
+/*.patrolStatistics{
     width: 100%;
     height: 280px!important;
 }
-/*点名统计*/
+!*点名统计*!
 .rollcallStatistics{
     width: 100%;
     height: 250px!important;
-}
+}*/
 .echartsFont{
     font-size: 14px;
     display: block;

@@ -250,6 +250,8 @@ class overView extends Component {
         this.locationMap();
         //报警数量
         this.alarmnumber();
+        //报警分析
+        this.alarmAnalysis();
     }
     render() {
         const _this=this;

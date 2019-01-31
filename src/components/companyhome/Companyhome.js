@@ -25,6 +25,7 @@ class Companyhome extends Component {
             activelist:[], //共享设备
             passivelist:[], //查看我的用户
             scenegraph:nopic,
+            echartsHeight:"250px"
         }
     }
     componentWillMount(){
@@ -40,6 +41,9 @@ class Companyhome extends Component {
         this.rollcalldetail();
         //总览
         this.companyHome();
+        this.setState({
+            DHeight:document.documentElement.clientHeight-65+"px",
+        })
     }
     //总览
     companyHome =()=>{
@@ -107,7 +111,7 @@ class Companyhome extends Component {
                 <div className="companyhome" >
                     <div className="boxHeight backBlock" >
                         <div className="backLitte boxShow " style={{width:'50%',margin:"16px"}}>
-                            <div style={{padding:'50px 10px',height:'550px'}}>
+                            <div style={{padding:'50px 10px'}}>
                                 <Scenedata type="maps" />
                             </div>
                         </div>
@@ -148,13 +152,13 @@ class Companyhome extends Component {
                                     </Col>
                                 </Row>
                             </div>
-                            <div className="backLitte marginTop littleLeft" >
+                            <div className="backLitte marginTop littleLeft">
                                 <p className="blockNumber echartsFont">巡更统计</p>
-                                <Col span={24}><PatrolStatistics patrolListX={this.state.patrolListX} patrolCount={this.state.patrolCount} normal={this.state.normal}/></Col>
+                                <Col span={24}><PatrolStatistics patrolListX={this.state.patrolListX} patrolCount={this.state.patrolCount} normal={this.state.normal} echartsHeight={this.state.echartsHeight} /></Col>
                             </div>
                             <div className="backLitte marginTop littleLeft marginBottom">
                                 <p className="blockNumber echartsFont">点名统计</p>
-                                <Col span={24}><RollcallStatistics rollcallX={this.state.rollcallX} rollcallCount={this.state.rollcallCount} rollcallNormal={this.state.rollcallNormal} /></Col>
+                                <Col span={24}><RollcallStatistics rollcallX={this.state.rollcallX} rollcallCount={this.state.rollcallCount} rollcallNormal={this.state.rollcallNormal} echartsHeight={this.state.echartsHeight} /></Col>
                             </div>
                         </div>
                     </div>

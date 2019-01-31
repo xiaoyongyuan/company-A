@@ -64,7 +64,7 @@ class Scenedata extends Component {
                         shadowBlur: 10
                     },
                     emphasis:{
-                        areaColor:"#091e57" //悬浮时的颜色
+                        areaColor:"#3F5874" //悬浮时的颜色
                     },
                 }
             },
@@ -189,7 +189,7 @@ class Scenedata extends Component {
                         },
                         emphasis: {
                             show: true,
-                            color: '#f4e925', //hover时字的颜色
+                            color: '#3F5874', //hover时字的颜色
                         }
                     },
                     symbolSize:20 //涟漪大小
