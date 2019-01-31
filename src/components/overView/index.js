@@ -352,7 +352,7 @@ class overView extends Component {
                                                <span>{el.type==="alarm"?"报警":""} </span>
                                                <span>{el.type==="rollcall"?"点名报警":""}</span>
                                                <span>{el.type==="patrol"?"巡更":""}</span>,
-                                               <span>{el.time}</span>,
+                                               <span>{el.time}</span>
                                            </div>
                                         </div>
                                     </div>
