@@ -38,7 +38,8 @@ class overView extends Component {
             name:"",
             value:Number,
             alarmnumber:{},
-
+            mapJson:{},
+            mapValue:[]
         };
         this.saveRef = ref => {this.refDom = ref};
     }
@@ -59,10 +60,37 @@ class overView extends Component {
             visible:false
         })
     };
+    //报警分析
+    alarmAnalysis =()=>{
+        post({url:"/api/alarm/gets_radar_big"},(res)=>{
+            if(res.success){
+                var countalar=res.data.cars.value+res.data.fire.value+res.data.patrol.value+res.data.person.value+res.data.rollcall.value;
+                this.setState({
+                    cars:res.data.cars.value,
+                    fire:res.data.fire.value,
+                    patrol:res.data.patrol.value,
+                    person:res.data.person.value,
+                    rollcall:res.data.rollcall.value,
+                    countalar:countalar,
+                })
+            }
+        })
+    };
     //位置图
     locationMap =()=>{
         post({url:"/api/company/getone_special"},(res)=>{
             if(res.success){
+                var mapJson={},mapValue=[];
+                for(var a in res.lnglat) {
+                    mapValue.push({name:res.lnglat[a].name, value:res.lnglat[a].alarmcount})
+                    var name=res.lnglat[a].name;
+                    var value=res.lnglat[a].value
+                    mapJson[name]=value;
+                }
+                this.setState({
+                    mapJson:mapJson,
+                    mapValue:mapValue
+                });
             }
         })
     };
@@ -241,7 +269,15 @@ class overView extends Component {
                                     <span className="titlename">报警分析</span>
                                 </div>
                                 <div className="comp">
-                                    <Echartpie type="lookcomp" winhe={(parseInt(this.state.DHeight)*0.7-20)*0.5-50} />
+                                    <Echartpie type="lookcomp" winhe={(parseInt(this.state.DHeight)*0.7-20)*0.5-50}
+                                               cars={this.state.cars}
+                                               fire={this.state.fire}
+                                               patrol={this.state.patrol}
+                                               person={this.state.person}
+                                               rollcall={this.state.rollcall}
+                                               countalar={this.state.countalar}
+                                               alarmAnalysisName={this.state.alarmAnalysisName}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -305,7 +341,11 @@ class overView extends Component {
                             </div>
                         </div>
                         <div className="maps">
-                            <Echartpie type="xianmap" winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-100} xianmap={this.state.xianmap} />
+                            <Echartpie type="xianmap" winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-100}
+                                                      xianmap={this.state.xianmap}
+                                                      mapJson={this.state.mapJson}
+                                                      mapValue={this.state.mapValue}
+                             />
                         </div>
                         <div className="draw">
                             <div className="untreated alarmtitle">
@@ -329,6 +369,7 @@ class overView extends Component {
                                         </h3>
                                     </div>
                                 </Carousel>
+
                             </div>
                         </div>
                     </Col>
@@ -404,7 +445,7 @@ class overView extends Component {
                                 <div className="compCountVideo">
                                     {
                                         this.state.alarmVideo.map((v,i)=>(
-                                            <div className="compVideo" key={i}><img src={v.picpath} alt="" onClick={this.instantVideo} /></div>
+                                            <div className="compVideo" key={i}><img src={v.picpath} alt="" /></div>
                                         ))
                                     }
                                 </div>

@@ -34,7 +34,9 @@ class Echartpie extends Component {
     // 报警分析
     lookcomp=()=>{
         let option = {
-            tooltip: {},
+            tooltip: {
+                backgroundColor: "rgba(11,71,153,0.7)",
+            },
             radar: {
                 name: {
                     formatter: '{value}',//蛛网轴尖的数据名称
@@ -46,28 +48,32 @@ class Echartpie extends Component {
                         color: '#A22A40'
                     }
                 },
-                indicator: [
-                    { name: '人', max: 6500},
-                    { name: '点名', max: 16000},
-                    { name: '车', max: 30000},
-                    { name: '火警', max: 38000},
-                    { name: '巡逻', max: 52000},
+                indicator: [ { name: '人', max:this.props.countalar},
+                    { name: '点名', max:this.props.countalar},
+                    { name: '车', max: this.props.countalar},
+                    { name: '火警', max: this.props.countalar},
+                    { name: '巡更', max: this.props.countalar},
                 ],
-                axisLine: { //蛛网轴线上的颜色，由内向外发散的那条
-                    lineStyle: {
-                        color: '#153269'
-                    }
-                },
+                center: ['50%', '50%'],//统计图位置，示例是居中
+                radius: '70%',//统计图大小
+                startAngle: 90,//统计图起始的角度
+                splitNumber: 3,//统计图蛛网的网格分段，示例分为三段
+                // shape: 'circle',//蛛网是圆角还是尖角
                 splitArea: { // 蛛网在 grid 区域中的分隔区域，默认不显示。
                     show: true,
                     areaStyle: { // 分隔区域的样式设置。
-                        color: '#09152E', // 分隔区域颜色。分隔区域会按数组中颜色的顺序依次循环设置颜色。默认是一个深浅的间隔色。
+                        color: ['rgba(76, 140, 200, 0.05)', 'rgba(76, 140, 200, 0.1)'], // 分隔区域颜色。分隔区域会按数组中颜色的顺序依次循环设置颜色。默认是一个深浅的间隔色。
+                    }
+                },
+                axisLine: { //蛛网轴线上的颜色，由内向外发散的那条
+                    lineStyle: {
+                        color: '#25419E'
                     }
                 },
                 splitLine: {//蛛网环形的线条颜色
                     lineStyle: {
-                        color: '#113865', // 分隔线颜色
-                        width: 2, // 分隔线线宽
+                        color: '#25419E', // 分隔线颜色
+                        width: 1, // 分隔线线宽
                     }
                 }
             },
@@ -75,7 +81,7 @@ class Echartpie extends Component {
                 type: 'radar',
                 data : [
                     {
-                        value : [4300, 10000, 28000, 35000, 50000],
+                        value : [this.props.person,this.props.rollcall,this.props.cars,this.props.fire,this.props.patrol],
                         name : '报警分析',
                         areaStyle: {color: '#A22A40'}
                     }
@@ -86,14 +92,14 @@ class Echartpie extends Component {
     }
     xianmap=()=>{ //地图
         echarts.registerMap('xian', xianmap);
-        var geoCoordMap = {
+        /*var geoCoordMap = {
             '阿房宫': [108.83, 34.26],
             '明秦王陵遗址': [108, 34],
             "西安文物局":[108.93, 34.34]
-        };
-        //var geoCoordMap=this.props.mapJson;
-       /* var goData =this.props.mapValue;*/
-        var goData = [{
+        };*/
+        var geoCoordMap=this.props.mapJson;
+        var goData =this.props.mapValue;
+       /* var goData = [{
             name: '阿房宫',
             value: 16079
         },{
@@ -102,10 +108,9 @@ class Echartpie extends Component {
         },{
             name: '西安文物局',
             value: 6275
-        }];
+        }];*/
         var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
         var convertData = function(name, data) {
-            console.log(data);
             var res = [];
             for (var i = 0; i < data.length; i++) {
                 var fromCoord = geoCoordMap[name];
@@ -295,7 +300,7 @@ class Echartpie extends Component {
         return (
             <ReactEcharts
                 option={this.state.option}
-                style={{height:this.props.winhe+'px'}}
+                style={{height:this.props.winhe+'px',width:"100%"}}
                 onEvents={this.onClickByModel}
             />
         )
