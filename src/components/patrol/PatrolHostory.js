@@ -78,7 +78,7 @@ class RollcallHostory extends Component{
                 scrollTop:scrollTopP
                })
                
-            if(scrollbottom-scrollTopP===0){//滚动到底部了
+            if(scrollbottom-scrollTopP===1){//滚动到底部了
                 if(pag===1){
                     _this.setState({
                         loadtip:"加载中...",
@@ -94,6 +94,8 @@ class RollcallHostory extends Component{
                if(_this.state.isrequest){ 
                 
                 post({url:'/api/patrolresult/getlist_team',data:{pageindex:_this.state.page,passivecode:_this.state.activecompcode}},(res)=>{
+                    console.log('******************resresres',res);
+                    
                     if(res.data.length>0){
                         const list=_this.state.list;
                         const alist = list.concat(res.data);
