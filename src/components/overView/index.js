@@ -228,9 +228,9 @@ class overView extends Component {
         //报警次数
         this.alarmList();
         //设备近况
-        this.deveicek();
+        setInterval(this.deveicek(),10000);
         //设备轮播
-        this.cal();
+        setInterval(this.cal(),10000);
         //报警视频
         this.alarmVideo();
 
