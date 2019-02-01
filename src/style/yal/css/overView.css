@@ -1,3 +1,24 @@
+@font-face {
+    font-family:chuangyi ;
+    src: url("../../yal/font/ZONGYISF.TTF");
+}
+@font-face {
+    font-family: dateFont;
+    src: url("../../yal/font/汉仪菱心体简.ttf");
+}
+@font-face {
+    font-family: alarmNumer;
+    src: url("../../yal/font/百度综艺简.ttf");
+}
+.today{
+    font-size: 18px;
+}
+.timeBig{
+    display: inline-block;
+    font-family: dateFont;
+    font-size: 17px;
+    margin-left: 4px;
+}
 .overView{
     padding:0 10px;
 }
@@ -114,10 +135,7 @@
     .Rotation_chart>div:nth-of-type(1){
         width: 68%;
         height: auto;
-
     }
-
-
 }
 
 @media screen and (min-width:1700px) {
@@ -127,8 +145,6 @@
         margin: 0 auto;
         margin: 2px auto;
     }
-
-
 }
 .Rotation_chart>div:nth-of-type(1) img{
     width: 100%;
@@ -280,6 +296,9 @@
     width: 100%;
     margin: 0 auto;
     position: relative;
+    font-family: chuangyi;
+    font-size: 28px;
+    text-shadow: 0 0 10px #fff;
 }
 .titletop .titlevalue:after,.titletop .titlevalue:before{
     position: absolute;
@@ -368,7 +387,6 @@
         bottom:-1px;
     }
     .draw .ant-carousel .slick-slide h3 {
-
         background-repeat: no-repeat;
         background-position: 5px 4px;
         background-size: auto 22px;
@@ -433,8 +451,9 @@
         background-position: 5px 4px;
         background-size: auto 22px;
         color: #fff;
-        font-size: 20px;
+        font-size: 30px;
         margin-left: 20px;
+        font-family: alarmNumer;
     }
     .draw .ant-carousel .slick-slide .person {
         background-image: url("../img/ren.png") !important;

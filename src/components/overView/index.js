@@ -32,9 +32,9 @@ class overView extends Component {
             callist:[],
             visible: false,
             alarmVideo:[],
-            cars:{},//车报警数量
-            fire:{},//火报警数量
-            person:{},//人报警数量
+            carsalarm:{},//车报警数量
+            fireCount:{},//火报警数量
+            personalarm:{},//人报警数量
             name:"",
             value:Number,
             alarmnumber:{},
@@ -217,13 +217,15 @@ class overView extends Component {
     }
     alarmnumber=()=>{//报警数量
         post({url:"/api/alarm/gets_radar_big"},(res)=>{
-            this.setState({
-                alarmnumber:res.data,
-                cars:res.data.cars,
-                fire:res.data.fire,
-                person:res.data.person,
-                dashu:35046300,
-            })
+            if(res.success){
+                this.setState({
+                    alarmnumber:res.data,
+                    carsalarm:res.data.cars,
+                    fireCount:res.data.fire,
+                    personalarm:res.data.person,
+                    dashu:35046300,
+                })
+            }
         })
     }
     componentDidMount() {
@@ -339,7 +341,7 @@ class overView extends Component {
                         <div className="mainmap">
                             <div className="titleechart">
                                 <span className="titlename">位置图</span>
-                                <span className="today">当前日期:{this.state.today}</span>
+                                <span className="today">当前日期:<span className="timeBig">{this.state.today}</span></span>
                             </div>
                         </div>
                         <div className="maps">
@@ -357,17 +359,17 @@ class overView extends Component {
                                 <Carousel vertical autoplay className="alarmcarousel">
                                     <div className="carouselbg">
                                         <h3 className="cars">
-                                           {this.state.cars.value<1000000?this.state.cars.value:(this.state.cars.value/1000000).toFixed(2)+"百万"}
+                                           {this.state.carsalarm.value<1000000?this.state.carsalarm.value:(this.state.carsalarm.value/1000000).toFixed(2)+"百万"}
                                         </h3>
                                     </div>
                                     <div className="carouselbg">
                                         <h3 className="fire">
-                                          {this.state.fire.value<1000000?this.state.fire.value:(this.state.fire.value/1000000).toFixed(2)+"百万"}
+                                          {this.state.fireCount.value<1000000?this.state.fireCount.value:(this.state.fireCount.value/1000000).toFixed(2)+"百万"}
                                         </h3>
                                     </div>
                                     <div className="carouselbg">
                                         <h3 className="person">
-                                          {this.state.person.value<1000000?this.state.person.value:(this.state.person.value/1000000).toFixed(2)+"百万"}
+                                          {this.state.personalarm.value<1000000?this.state.personalarm.value:(this.state.personalarm.value/1000000).toFixed(2)+"百万"}
                                         </h3>
                                     </div>
                                 </Carousel>
