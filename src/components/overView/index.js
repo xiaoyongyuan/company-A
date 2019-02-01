@@ -39,7 +39,8 @@ class overView extends Component {
             value:Number,
             alarmnumber:{},
             mapJson:{},
-            mapValue:[]
+            mapValue:[],
+            tootilp:[]
         };
         this.saveRef = ref => {this.refDom = ref};
     }
@@ -80,16 +81,20 @@ class overView extends Component {
     locationMap =()=>{
         post({url:"/api/company/getone_special"},(res)=>{
             if(res.success){
-                var mapJson={},mapValue=[];
+                var mapJson={},mapValue=[],tootilp=[];
                 for(var a in res.lnglat) {
-                    mapValue.push({name:res.lnglat[a].name, value:res.lnglat[a].alarmcount})
+                    mapValue.push({name:res.lnglat[a].name, value:res.lnglat[a].alarmcount});
                     var name=res.lnglat[a].name;
-                    var value=res.lnglat[a].value
+                    var value=res.lnglat[a].value;
                     mapJson[name]=value;
+                    tootilp.push({name:res.lnglat[a].name,ecount:res.lnglat[a].ecount,alarmcount:res.lnglat[a].alarmcount});
+
                 }
+                console.log(tootilp,'333');
                 this.setState({
                     mapJson:mapJson,
-                    mapValue:mapValue
+                    mapValue:mapValue,
+                    tootilp:tootilp
                 });
             }
         })
@@ -347,9 +352,9 @@ class overView extends Component {
                         </div>
                         <div className="maps">
                             <Echartpie type="xianmap" winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-100}
-                                                      xianmap={this.state.xianmap}
                                                       mapJson={this.state.mapJson}
                                                       mapValue={this.state.mapValue}
+                                                      tootilp={this.state.tootilp}
                              />
                         </div>
                         <div className="draw">
