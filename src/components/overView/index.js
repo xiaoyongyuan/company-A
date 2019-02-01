@@ -335,6 +335,7 @@ class overView extends Component {
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </Col>
                     <Col span={10} className="wcolumMap">
