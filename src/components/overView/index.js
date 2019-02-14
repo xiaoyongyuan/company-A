@@ -88,9 +88,7 @@ class overView extends Component {
                     var value=res.lnglat[a].value;
                     mapJson[name]=value;
                     tootilp.push({name:res.lnglat[a].name,ecount:res.lnglat[a].ecount,alarmcount:res.lnglat[a].alarmcount});
-
                 }
-                console.log(tootilp,'333');
                 this.setState({
                     mapJson:mapJson,
                     mapValue:mapValue,
@@ -457,7 +455,7 @@ class overView extends Component {
                                 <div className="compCountVideo">
                                     {
                                         this.state.alarmVideo.map((v,i)=>(
-                                            <div className="compVideo" key={i}><img src={v.picpath} alt="" /></div>
+                                            <div className="compVideo" key={i} onClick={this.instantVideo}><img src={v.picpath} alt="" /></div>
                                         ))
                                     }
                                 </div>
@@ -482,17 +480,16 @@ class overView extends Component {
                             </div>
                         </div>
                     </Col>
+                    <Modal
+                        width={700}
+                        visible={this.state.visible}
+                        footer={null}
+                    >
+                        <div className="shipin" style={{height:(this.state.DHeight)/2}}>
+                            <div className="shipin-context"><img src="http://pic01.aokecloud.cn/alarm/1000020/pic/20190214/1000020_20190214143717_640X360.jpg" alt=""/></div>
+                        </div>
+                    </Modal>
                 </Row>
-                <Modal
-                    title="Basic Modal"
-                    visible={this.state.visible}
-                    onCancel={this.VideoCancel}
-                    footer={null}
-                >
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                </Modal>
             </div>
         )
     }

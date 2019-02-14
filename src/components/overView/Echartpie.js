@@ -23,6 +23,7 @@ class Echartpie extends Component {
         this[this.state.type]()
     }
     componentWillReceiveProps(nextProps){
+        return ;
         if(nextProps!==this.state.father){
             this.setState({
                 father:nextProps

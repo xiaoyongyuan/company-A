@@ -500,3 +500,26 @@
     height: 170px;
     overflow: hidden;
 }
+.shipin{
+    background:url("../img/xiaotudikuang.png") no-repeat;
+    background-size:  100% 100%;
+}
+.shipin-context{
+    position: relative;
+    padding: 30px;
+}
+.shipin-context img{
+   width: 100%;
+    height: 100%;
+    padding-top: 25px;
+}
+.shipin .ant-modal-body{
+    height: 50%!important;
+}
+.shipin .ant-modal-body{
+    background: rgba(0, 0, 0, 0)!important;
+}
+.ant-modal-content {
+
+}
+
