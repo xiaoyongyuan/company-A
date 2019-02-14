@@ -69,10 +69,10 @@ class RollcallHostory extends Component{
             var scrollbottom=scrollHeight-clientHeight;
             var scrollTopP=Math.ceil(scrollTop);
             var tom=scrollbottom-scrollTopP;
-            console.log('******************scrollTop',scrollTop);
-            console.log('******************scrollTopP',scrollTopP);
-            console.log('******************scrollbottom',scrollbottom);
-            console.log('******************scrollbottom-scrollTopP',tom);
+            // console.log('******************scrollTop',scrollTop);
+            // console.log('******************scrollTopP',scrollTopP);
+            // console.log('******************scrollbottom',scrollbottom);
+            // console.log('******************scrollbottom-scrollTopP',tom);
             _this.setState({
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTopP
@@ -94,8 +94,7 @@ class RollcallHostory extends Component{
                if(_this.state.isrequest){ 
                 
                 post({url:'/api/patrolresult/getlist_team',data:{pageindex:_this.state.page,passivecode:_this.state.activecompcode}},(res)=>{
-                    console.log('******************resresres',res);
-                    
+                    // console.log('******************resresres',res);
                     if(res.data.length>0){
                         const list=_this.state.list;
                         const alist = list.concat(res.data);

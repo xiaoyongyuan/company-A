@@ -202,20 +202,22 @@ class overView extends Component {
     };
     deveicek =()=>{//设备近况
         post({url:"/api/camera/gets_camerainfo_big"},(res)=>{
-            this.setState({
-                deveicek:res.data,
-                lasttime:res.data.lasttime,
-                hearttime:res.data.hearttime,
-            })
-
-
+            if(res.success){
+                this.setState({
+                    deveicek:res.data,
+                    lasttime:res.data.lasttime,
+                    hearttime:res.data.hearttime,
+                })
+            }
         })
     }
     cal=()=>{//设备轮播
         post({url:"/api/alarm/gets_info_big"},(res)=>{
-            this.setState({
-                callist:res.data,
-            })
+            if(res.success){
+                this.setState({
+                    callist:res.data,
+                })
+            }
         })
     }
     alarmnumber=()=>{//报警数量
