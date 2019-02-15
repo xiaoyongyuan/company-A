@@ -484,6 +484,7 @@ class overView extends Component {
                         width={700}
                         visible={this.state.visible}
                         footer={null}
+                        className="video"
                     >
                         <div className="shipin" style={{height:(this.state.DHeight)/2}}>
                             <div className="shipin-context"><img src="http://pic01.aokecloud.cn/alarm/1000020/pic/20190214/1000020_20190214143717_640X360.jpg" alt=""/></div>

@@ -501,6 +501,7 @@
     overflow: hidden;
 }
 .shipin{
+    position: relative;
     background:url("../img/xiaotudikuang.png") no-repeat;
     background-size:  100% 100%;
 }
@@ -511,16 +512,28 @@
 .shipin-context img{
    width: 100%;
     height: 100%;
-    padding-top: 25px;
+    padding-top: 35px;
 }
-.shipin .ant-modal-body{
-    height: 50%!important;
+.shipin .shipin-close{
+    width: 50px;
+    height: 40px;
+    position: absolute;
+    left: 550px;
+    background: red;
 }
-.shipin .ant-modal-body{
+.video .ant-modal-content{
     background: rgba(0, 0, 0, 0)!important;
 }
-.ant-modal-content {
-
+.video .ant-modal-close{
+    top:43px!important;
+    right:30px!important;
+    color: #FFFFFF!important;
+    background: url("../img/btnBack.png") no-repeat;
+    background-size: 100% 100%;
+}
+.video .ant-modal-close-x{
+    width: 40px!important;
+    height: 30px!important;
 }
 
 #ScollhiddenOut .scollhidden-inner {
