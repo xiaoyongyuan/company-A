@@ -523,3 +523,7 @@
 
 }
 
+#ScollhiddenOut .scollhidden-inner {
+    width: 100% !important;
+    height: auto;
+}

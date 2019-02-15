@@ -53,12 +53,6 @@ class Companyhome extends Component {
                     name:res.data.cname,
                     value:[res.data.clng,res.data.clat]
                 }];
-                /*res.activelist.map((el)=>{
-                    mapJson.push({
-                        name:el.activename,
-                        value:[el.activelng,el.activelat]
-                    })
-                })*/
                 this.setState({
                     activelist:res.activelist, //共享用户
                     passivelist:res.passivelist, //查看我的用户
@@ -78,7 +72,7 @@ class Companyhome extends Component {
         post({url:"/api/patrolresult/gets_patrol_weeks",data:{passivecode:this.state.activecompcode}},(res)=>{
             if(res.success){
               var  patroList=Object.keys(res.data).map(key=> res.data[key]);
-              var patrolListX= patroList.map((v)=>v.pdate).reverse();
+              var patrolListX= patroList.map((v)=>v.pdate.substring(5)).reverse();
               var patrolCount=patroList.map((v)=>v.totalcount).reverse();
               var normal=patroList.map((v)=>v.normal).reverse();
                 this.setState({
@@ -94,7 +88,7 @@ class Companyhome extends Component {
         post({url:"/api/rollcalldetail/gets_rollcall_weeks",data:{passivecode:this.state.activecompcode}},(res)=>{
             if(res.success){
                 var rollcall=Object.keys(res.data).map(key=> res.data[key]);
-                var rollcallX= rollcall.map((v)=>v.pdate).reverse();
+                var rollcallX= rollcall.map((v)=>v.pdate.substring(5)).reverse();
                 var rollcallCount=rollcall.map((v)=>v.totalcount).reverse();
                 var rollcallNormal=rollcall.map((v)=>v.normal).reverse();
                 this.setState({
