@@ -525,15 +525,20 @@
     background: rgba(0, 0, 0, 0)!important;
 }
 .video .ant-modal-close{
-    top:43px!important;
-    right:30px!important;
+    top: 46px!important;
+    right: 26px!important;
     color: #FFFFFF!important;
     background: url("../img/btnBack.png") no-repeat;
     background-size: 100% 100%;
 }
 .video .ant-modal-close-x{
-    width: 40px!important;
-    height: 30px!important;
+    width: 48px!important;
+    height: 34px!important;
+}
+.video .anticon svg{
+    position: absolute;
+    bottom: 9px;
+    right: 11px;
 }
 
 #ScollhiddenOut .scollhidden-inner {
