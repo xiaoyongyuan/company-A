@@ -45,7 +45,8 @@ class Alarmlist extends React.Component{
             displaygreen: 'block',
             displayred:'block',
             displayblue:'block',
-            backColor:''//背景颜色
+            backColor:'',//背景颜色
+            nodatapic:true,
         };
     }
     componentWillMount() {
@@ -127,6 +128,11 @@ class Alarmlist extends React.Component{
     handleAlerm = (data={})=>{
         post({url:'/api/alarm/getlist',data:Object.assign(data,{pageindex:this.state.page,pagesize:18,passivecode:this.state.activecompcode})},(res)=>{
             if(res.success){
+                if(res.data.length===0){
+                    this.setState({
+                      nodatapic:false,
+                  })
+              }
                 if(res.data.length){
                     this.setState({
                         policeList:res.data,
@@ -377,10 +383,12 @@ class Alarmlist extends React.Component{
                         </Form>
                     </Row>
                 </LocaleProvider>
-                <Row style={{marginTop:"70px",display:this.state.type===0?"block":"none"}}>
-                     <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
-                </Row>
                 <Spin size="large" spinning={this.state.loadding} tip="Loading..." className="loadding" />
+                {this.state.nodatapic?"":
+                <Row style={{marginTop:"70px",}}>
+                     <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
+                </Row>}
+                
                 <Row style={{marginLeft:"10px",display:this.state.type===0?"none":"block"}}>
                     {
                         this.state.policeList.map((v,i)=>(

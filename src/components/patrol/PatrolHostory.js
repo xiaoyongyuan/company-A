@@ -33,6 +33,7 @@ class RollcallHostory extends Component{
             type:true,//无数据图,
             loadtype:true,
             activecompcode:'',
+            nodatapic:true,
         }
     }
     componentWillMount() {
@@ -46,18 +47,25 @@ class RollcallHostory extends Component{
                 loadtip:false,
                 })
         post({url:'/api/patrolresult/getlist_team',data:{passivecode:this.state.activecompcode}},(res)=>{
+
+           
+
             if(res.success){
-                    this.setState({
-                          list:res.data,
-                          loading: false,
-                          type:true,
-                          loadtype: false,
+                if(res.data.length===0){
+                      this.setState({
+                        nodatapic:false,
                     })
-                    
+                }
+                this.setState({
+                    list:res.data,
+                    loading: false,
+                    type:true,
+                    loadtype: false,
+                })
             }else{
                 this.setState({
                     type:false,
-              })
+                })
             }
         })
         var _this=this;
@@ -94,7 +102,6 @@ class RollcallHostory extends Component{
                if(_this.state.isrequest){ 
                 
                 post({url:'/api/patrolresult/getlist_team',data:{pageindex:_this.state.page,passivecode:_this.state.activecompcode}},(res)=>{
-                    // console.log('******************resresres',res);
                     if(res.data.length>0){
                         const list=_this.state.list;
                         const alist = list.concat(res.data);
@@ -313,7 +320,7 @@ class RollcallHostory extends Component{
                 <div className="timeline_ml" style={{display:this.state.type?"block":"none"}}>
                  <Timeline pending={this.state.loadtip}>
                     {
-                        this.state.list.length?this.state.list.map((item,j)=>{
+                        this.state.nodatapic?this.state.list.map((item,j)=>{
                             return (
                                 <div key={j}>    
                                 <Timeline.Item color={this.colorline(item.status)} >
@@ -357,7 +364,7 @@ class RollcallHostory extends Component{
                             )
                         })
                         :<Row style={{marginTop:"70px"}}>
-                            <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
+                           <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
                         </Row>
                     } 
                 </Timeline>

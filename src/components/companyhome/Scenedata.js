@@ -43,20 +43,7 @@ class Scenedata extends Component {
                         //         	color: '#ddd',
                         borderColor: 'rgba(147, 235, 248, 1)',
                         borderWidth: 1,
-                        areaColor: {
-                            type: 'radial',
-                            x: 0.5,
-                            y: 0.5,
-                            r: 0.8,
-                            colorStops: [{
-                                offset: 0,
-                                color: 'rgba(175,238,238, 0)' // 0% 处的颜色
-                            }, {
-                                offset: 1,
-                                color: 'rgba(	47,79,79, .2)' // 100% 处的颜色
-                            }],
-                            globalCoord: false // 缺省为 false
-                        },
+                        areaColor: "#35425F",
                         shadowColor: 'rgba(128, 217, 248, 1)',
                         // shadowColor: 'rgba(255, 255, 255, 1)',
                         shadowOffsetX: -2,
@@ -64,7 +51,7 @@ class Scenedata extends Component {
                         shadowBlur: 10
                     },
                     emphasis:{
-                        areaColor:"#3F5874" //悬浮时的颜色
+                        areaColor:"#35425F" //悬浮时的颜色
                     },
                 }
             },
@@ -153,7 +140,7 @@ class Scenedata extends Component {
                             show: false  //字体显示
                         },
                         emphasis: {
-                            show: true
+                            show: false
                         }
                     },
                     itemStyle: {
@@ -188,8 +175,8 @@ class Scenedata extends Component {
                             show: false
                         },
                         emphasis: {
-                            show: true,
-                            color: '#3F5874', //hover时字的颜色
+                            show: false,
+                            // color: '#3F5874', //hover时字的颜色
                         }
                     },
                     symbolSize:20 //涟漪大小
