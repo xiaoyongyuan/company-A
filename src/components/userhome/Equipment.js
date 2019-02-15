@@ -10,7 +10,8 @@ class Equipment extends React.Component{
         this.state={
             camera:[],
             loading:true,
-            type:1
+            type:1,
+            nodatapic:true,
         };
       }
       componentWillMount(){
@@ -22,6 +23,11 @@ class Equipment extends React.Component{
     componentDidMount() {        
         post({url:'/api/camera/get_camerainfolist',data:{passivecode:this.state.activecompcode}},(res)=>{ //获取团队列表
             if(res){
+                if(res.camera.length===0){
+                    this.setState({
+                      nodatapic:false,
+                  })
+              }
                 if(res.camera.length){
                     this.setState({
                         loading:false,
@@ -104,9 +110,10 @@ class Equipment extends React.Component{
         return(
                 <div className="equipment">
                     <Spin size="large" tip="Loading......" spinning={this.state.loading} className="loadding" />
+                    {this.state.nodatapic?"":
                     <Row style={{display:this.state.type===0?"block":"none",paddingTop:"40px"}}>
                         <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
-                    </Row>
+                    </Row>}
                     <div className="equipmentCard">
                         <Row className="paddRow" gutter={32}>
                             {

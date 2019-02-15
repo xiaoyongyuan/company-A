@@ -182,7 +182,7 @@ class overView extends Component {
         var bl = 5;
         setInterval(
             document.getElementById("ScollhiddenOut").onscroll=function() {
-                bl=bl+0.96;
+                bl=bl+1.2;
                 var scrollHeight = ScollOut.scrollHeight;//div里内容的高度
                 var scrollTop =ScollOut.scrollTop;//0-18
                 var clientHeight = ScollOut.clientHeight;//div内里框框的高度
@@ -319,14 +319,14 @@ class overView extends Component {
                                                                 <Col className="gutter-row" xl={8}>
                                                                     {el.cname}
                                                                 </Col>
-                                                                <Col className="gutter-row" xl={8}>
+                                                                <Col className="gutter-row" xl={6}>
                                                                     {el.name}
                                                                 </Col>
                                                                 <Col className="gutter-row" xl={8}>
                                                                     <div>
                                                                         {moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime &&
                                                                         moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime
-                                                                            ? <div>离线</div>:<div> 在线 </div>
+                                                                            ? <div>&nbsp; 离线</div>:<div>&nbsp; 在线 </div>
                                                                         }
                                                                     </div>
                                                                 </Col>
