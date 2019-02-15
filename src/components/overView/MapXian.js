@@ -1,108 +1,18 @@
-import React, { Component } from 'react';
+import React,{ Component } from "react";
 import ReactEcharts from 'echarts-for-react';
 import echarts from 'echarts';
 import xianmap from "../../style/ztt/map/xianmap";
-require('echarts/map/js/china.js');
-class Echartpie extends Component {
-    constructor(props){
-        super(props);
-        this.state= {
-            father:{},
-            option:{},
-            type:'rollcall',
-            width:'400px',
-            height:'300px',
-        }
-    }
-    componentWillMount(){
-        this.setState({
-            type:this.props.type
-        })
-    }
-    componentDidMount(){
-        this[this.state.type]()
-    }
-    componentWillReceiveProps(nextProps){
-        if(nextProps!==this.state.father){
-            this.setState({
-                father:nextProps
-            },()=>{                
-                this.componentDidMount()
-            })
-        }
-    }
-    // 报警分析
-    lookcomp=()=>{
-        let option = {
-            tooltip: {
-                backgroundColor: "rgba(11,71,153,0.7)",
-            },
-            radar: {
-                name: {
-                    formatter: '{value}',//蛛网轴尖的数据名称
-                    textStyle: {//蛛网轴尖的文字样式
-                        fontSize: 14, //外圈标签字体大小
-                        color: '#fff' //外圈标签字体颜色
-                    },
-                    lineStyle: {
-                        color: '#A22A40'
-                    }
-                },
-                indicator: [ { name: '人', max:this.props.countalar},
-                    { name: '点名', max:this.props.countalar},
-                    { name: '车', max: this.props.countalar},
-                    { name: '火警', max: this.props.countalar},
-                    { name: '巡更', max: this.props.countalar},
-                ],
-                center: ['50%', '50%'],//统计图位置，示例是居中
-                radius: '70%',//统计图大小
-                startAngle: 90,//统计图起始的角度
-                splitNumber: 3,//统计图蛛网的网格分段，示例分为三段
-                // shape: 'circle',//蛛网是圆角还是尖角
-                splitArea: { // 蛛网在 grid 区域中的分隔区域，默认不显示。
-                    show: true,
-                    areaStyle: { // 分隔区域的样式设置。
-                        color: ['rgba(76, 140, 200, 0.05)', 'rgba(76, 140, 200, 0.1)'], // 分隔区域颜色。分隔区域会按数组中颜色的顺序依次循环设置颜色。默认是一个深浅的间隔色。
-                    }
-                },
-                axisLine: { //蛛网轴线上的颜色，由内向外发散的那条
-                    lineStyle: {
-                        color: '#25419E'
-                    }
-                },
-                splitLine: {//蛛网环形的线条颜色
-                    lineStyle: {
-                        color: '#25419E', // 分隔线颜色
-                        width: 1, // 分隔线线宽
-                    }
-                }
-            },
-            series: [{
-                type: 'radar',
-                data : [
-                    {
-                        value : [this.props.person,this.props.rollcall,this.props.cars,this.props.fire,this.props.patrol],
-                        name : '报警分析',
-                        areaStyle: {color: '#A22A40'}
-                    }
-                ]
-            }]
-        };
-        this.setState({option})
-    }
-    xianmap=()=>{ //地图
+class  MapXian extends Component{
+    render() {
         echarts.registerMap('xian', xianmap);
-         var geoCoordMap=this.props.mapJson;
+       var geoCoordMap=this.props.mapJson;
         var goData =this.props.mapValue;
-        console.log(geoCoordMap);
-        console.log(goData);
         /*var geoCoordMap = {
             '阿房宫': [108.83, 34.26],
             '明秦王陵遗址': [108, 34],
             "西安文物局":[108.93, 34.34]
-        };
-
-        var goData = [{
+        };*/
+       /* var goData = [{
             name: '阿房宫',
             value: 16079
         },{
@@ -130,7 +40,7 @@ class Echartpie extends Component {
         var series = [];
         [
             ['西安文物局', goData],
-        ].forEach(function(item, i) {
+        ].forEach(function(item) {
             series.push({
                 name: 'item[0]',
                 type: 'lines',
@@ -240,7 +150,7 @@ class Echartpie extends Component {
                 formatter:function () {
 
                     //console.log(this.state.tootilp,"ssss");
-                   // var mapList=`<div><p>${params.name}</p><p>报警次数：${params.name}</p><p>设备数：${params.name}</p><div>`;
+                    // var mapList=`<div><p>${params.name}</p><p>报警次数：${params.name}</p><p>设备数：${params.name}</p><div>`;
                 }
             },
             geo: {
@@ -306,17 +216,9 @@ class Echartpie extends Component {
                 }
             ]*/
         }
-        this.setState({option})
-    }
-    render() {
-        return (
-            <ReactEcharts
-                option={this.state.option}
-                style={{height:this.props.winhe+'px',width:"100%"}}
-                onEvents={this.onClickByModel}
-            />
-        )
+        return(
+            <ReactEcharts option={option}   style={{height:this.props.winhe+'px'}}/>
+        );
     }
 }
-
-export default Echartpie;
+export default MapXian;

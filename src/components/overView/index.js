@@ -5,6 +5,7 @@ import {post} from "../../axios/tools";
 import Echartline from "./Echartline";
 import Echartpie from "./Echartpie";
 import Universebg from "./Universebg";
+import MapXian from "./MapXian";
 import moment from "moment";
 const pao=[{a:"13621"},{a:"534534"},{a:"1564358"},{a:"964983"},{a:"154684"}]
 
@@ -40,7 +41,7 @@ class overView extends Component {
             alarmnumber:{},
             mapJson:{},
             mapValue:[],
-            tootilp:[]
+            tootilp:[],
         };
         this.saveRef = ref => {this.refDom = ref};
     }
@@ -51,9 +52,10 @@ class overView extends Component {
 
     };
     //即时视频model
-    instantVideo =()=>{
+    instantVideo =(index)=>{
         this.setState({
-            visible:true
+            visible:true,
+            code:index
         })
     };
     VideoCancel =()=>{
@@ -107,7 +109,7 @@ class overView extends Component {
                 })
             }
         })
-    }
+    };
     //报警次数
     alarmList =()=>{
         post({url:"/api/alarm/gets_alarm_afterday_big"},(res)=>{
@@ -351,7 +353,7 @@ class overView extends Component {
                             </div>
                         </div>
                         <div className="maps">
-                            <Echartpie type="xianmap" winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-100}
+                            <MapXian winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-100}
                                                       mapJson={this.state.mapJson}
                                                       mapValue={this.state.mapValue}
                                                       tootilp={this.state.tootilp}
@@ -455,7 +457,7 @@ class overView extends Component {
                                 <div className="compCountVideo">
                                     {
                                         this.state.alarmVideo.map((v,i)=>(
-                                            <div className="compVideo" key={i} onClick={this.instantVideo}><img src={v.picpath} alt="" /></div>
+                                            <div className="compVideo" key={i} onClick={()=>this.instantVideo(v.code)}><img src={v.picpath} alt="" /></div>
                                         ))
                                     }
                                 </div>
@@ -483,11 +485,12 @@ class overView extends Component {
                     <Modal
                         width={700}
                         visible={this.state.visible}
+                        onCancel={this.VideoCancel}
                         footer={null}
                         className="video"
                     >
-                        <div className="shipin" style={{height:(this.state.DHeight)/2}}>
-                            <div className="shipin-context"><img src="http://pic01.aokecloud.cn/alarm/1000020/pic/20190214/1000020_20190214143717_640X360.jpg" alt=""/></div>
+                        <div className="shipin">
+                            <div className="shipin-context"><img src="http://pic01.aokecloud.cn/alarm/1000020/pic/20190214/1000020_20190214143717_640X360.jpg" alt="" /></div>
                         </div>
                     </Modal>
                 </Row>
