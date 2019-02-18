@@ -5,7 +5,6 @@ import {post} from "../../axios/tools";
 import Echartline from "./Echartline";
 import Echartpie from "./Echartpie";
 import Universebg from "./Universebg";
-import MapXian from "./MapXian";
 import moment from "moment";
 const pao=[{a:"13621"},{a:"534534"},{a:"1564358"},{a:"964983"},{a:"154684"}]
 
@@ -52,10 +51,10 @@ class overView extends Component {
 
     };
     //即时视频model
-    instantVideo =(index)=>{
+    instantVideo =(pathImg)=>{
         this.setState({
             visible:true,
-            code:index
+            pathImg:pathImg
         })
     };
     VideoCancel =()=>{
@@ -271,7 +270,7 @@ class overView extends Component {
                 <Universebg />
                 <div className="titletop">
                     <div className="titlevalue">
-                        西安文物局
+                        椒图安防平台
                     </div>
                 </div>
                 <Row gutter={24} className="warrper" >
@@ -355,7 +354,7 @@ class overView extends Component {
                             </div>
                         </div>
                         <div className="maps">
-                            <MapXian winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-100}
+                            <Echartpie type="xianmap" winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-100}
                                                       mapJson={this.state.mapJson}
                                                       mapValue={this.state.mapValue}
                                                       tootilp={this.state.tootilp}
@@ -459,7 +458,7 @@ class overView extends Component {
                                 <div className="compCountVideo">
                                     {
                                         this.state.alarmVideo.map((v,i)=>(
-                                            <div className="compVideo" key={i} onClick={()=>this.instantVideo(v.code)}><img src={v.picpath} alt="" /></div>
+                                            <div className="compVideo" key={i} onClick={()=>this.instantVideo(v.picpath)}><img src={v.picpath} alt="" /></div>
                                         ))
                                     }
                                 </div>
@@ -492,7 +491,7 @@ class overView extends Component {
                         className="video"
                     >
                         <div className="shipin">
-                            <div className="shipin-context"><img src="http://pic01.aokecloud.cn/alarm/1000020/pic/20190214/1000020_20190214143717_640X360.jpg" alt="" /></div>
+                            <div className="shipin-context"><img src={this.state.pathImg} alt="" /></div>
                         </div>
                     </Modal>
                 </Row>

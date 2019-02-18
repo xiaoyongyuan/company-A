@@ -206,6 +206,10 @@ class Echartline extends Component {
                 containLabel: false
             },
             xAxis: [{
+                name:"天",
+                nameTextStyle:{
+                    color:"#fff"
+                },
                 type: 'category',
                 boundaryGap: false,
                 axisLine: {
@@ -215,34 +219,38 @@ class Echartline extends Component {
                 },
                 axisLabel: {
                     textStyle: {
-                        color:"#BBD1D9"
+                        color:"#ffffff"
                     }
                 },
                 data:this.props.alarmX
             }],
             yAxis: [{
+                name:"次数",
+                nameTextStyle:{
+                    color:"#fff"
+                },
                 type: 'value',
                 axisTick: {
                     show: false
                 },
                 axisLine: {
-                    show:false,
+                    show: true,
                     lineStyle: {
-                        color: '#57617B'
-                    }
+                        color: '#5B6B89'
+                    },
                 },
                 axisLabel: {
                     margin: 10,
                     textStyle: {
-                        color:"#BBD1D9"
+                        color:"#ffffff"
                     }
                 },
                 splitLine: {
-                    show:false,
+                    show: false,
                     lineStyle: {
-                        color: '#021833'
+                        color: '#07234B'
                     }
-                }
+                },
             }],
             series: [{
                 name: '阿房宫',
@@ -368,6 +376,10 @@ class Echartline extends Component {
             },
             xAxis: [{
                 type: 'category',
+                name:"天",
+                nameTextStyle:{
+                    color:"#fff"
+                },
                 boundaryGap: true,
                 axisLine: { //坐标轴轴线相关设置。数学上的x轴
                     show: true,
@@ -387,6 +399,10 @@ class Echartline extends Component {
             }],
             yAxis: [{
                 type: 'value',
+                name:"次数",
+                nameTextStyle:{
+                    color:"#fff"
+                },
                 splitLine: {
                     show: true,
                     lineStyle: {

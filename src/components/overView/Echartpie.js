@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactEcharts from 'echarts-for-react';
 import echarts from 'echarts';
-import xianmap from "../../style/ztt/map/xianmap";
 require('echarts/map/js/china.js');
 class Echartpie extends Component {
     constructor(props){
@@ -91,10 +90,10 @@ class Echartpie extends Component {
         this.setState({option})
     }
     xianmap=()=>{ //地图
-        echarts.registerMap('xian', xianmap);
-        /* var geoCoordMap=this.props.mapJson;
+        //echarts.registerMap('china', china);
+       /*  var geoCoordMap=this.props.mapJson;
         var goData =this.props.mapValue;*/
-        var geoCoordMap = {
+        /*var geoCoordMap = {
             '阿房宫': [108.83, 34.26],
             '明秦王陵遗址': [108, 34],
             "西安文物局":[108.93, 34.34]
@@ -103,12 +102,48 @@ class Echartpie extends Component {
         var goData = [{
             name: '阿房宫',
             value: 16079
-        },{
+           },{
             name: '明秦王陵遗址',
             value: 6275
         },{
             name: '西安文物局',
             value: 89
+        }];*/
+        var geoCoordMap = {
+            '西安': [108.938076,34.376661],
+            '北京': [116.408032,39.903409],
+            "成都":[104.066143,30.573095],
+            "大连":[121.78891,39.104001],
+            "昆明":[102.933351,25.100938],
+            "广东":[114.085947,22.547],
+            "江西":[117.971185,28.44442],
+            "云南":[102.830354,24.871902]
+        };
+
+        var goData = [{
+            name: '北京',
+            value: 16079
+        },{
+            name: '西安',
+            value: 89
+        },{
+            name: '成都',
+            value: 89
+        },{
+            name: '大连',
+            value: 90
+        },{
+            name: '昆明',
+            value: 234
+        },{
+            name: '广东',
+            value: 434
+        },{
+            name: '江西',
+            value: 434
+        },{
+            name: '云南',
+            value: 834
         }];
         var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
         var convertData = function(name, data) {
@@ -127,7 +162,7 @@ class Echartpie extends Component {
         };
         var series = [];
         [
-            ['西安文物局', goData],
+            ['西安', goData],
         ].forEach(function(item, i) {
             series.push({
                 name: 'item[0]',
@@ -233,16 +268,23 @@ class Echartpie extends Component {
         let option={
             background:"#091e57",
             tooltip:{
+                triggerOn: 'click',
                 trigger: 'item',
                 backgroundColor: "rgba(11,71,153,0.7)",
-                formatter:function () {
-
-                    //console.log(this.state.tootilp,"ssss");
-                   // var mapList=`<div><p>${params.name}</p><p>报警次数：${params.name}</p><p>设备数：${params.name}</p><div>`;
-                }
+                alwaysShowContent: true,
+              /*  position (pos) {
+                    let position = getPosOrSize('pos', pos)
+                    return position
+                },
+                formatter (params,p,a) {
+                    canvasAnimation(params)
+                    let size = getPosOrSize('size')
+                    let tooltipDom = `<canvas id="tCanvas" width="${size.width}" height="${size.height}">123</canvas>`
+                    return tooltipDom
+                }*/
             },
             geo: {
-                map: 'xian',
+                map: 'china',
                 roam: true,
                 areaStyle: {
                     normal: {
