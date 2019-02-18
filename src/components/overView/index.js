@@ -190,10 +190,8 @@ class overView extends Component {
                 var clientHeight = ScollOut.clientHeight;//div内里框框的高度
                 var scrollbottom=scrollHeight-clientHeight;
                 var scrollTopP=Math.ceil(scrollTop);
-                if(scrollbottom-scrollTopP===0) {//滚动到底部了
-                    ScollOut.scrollTop=0;
-                }
-                if(scrollbottom-scrollTopP===0) {//滚动到底部了
+              
+                if(scrollbottom-scrollTopP<2) {//滚动到底部了
                     ScollOut.scrollTop=0;
                     bl=0;
                 }else{
@@ -228,7 +226,7 @@ class overView extends Component {
                 console.log(res.data.cars.value,"2222222");
                 if(res.data.cars!=="" || res.data.fire!=="" || res.data.person!==""){
                     this.setState({
-                        carsalarm:34789465,
+                        carsalarm:res.data.cars.value,
                         fireCount:res.data.fire.value,
                         personalarm:res.data.person.value,
                     })
@@ -368,17 +366,20 @@ class overView extends Component {
                                 <Carousel vertical autoplay className="alarmcarousel">
                                     <div className="carouselbg">
                                         <h3 className="cars">
-                                           {this.state.carsalarm<1000000?this.state.carsalarm:(this.state.carsalarm/1000000).toFixed(2)+"百万"}
+                                            <div className="bg_imgcars"> </div>
+                                            <div className="alerm_num">{this.state.carsalarm<1000000?this.state.carsalarm:(this.state.carsalarm/1000000).toFixed(2)+"百万"}</div>
                                         </h3>
                                     </div>
                                     <div className="carouselbg">
                                         <h3 className="fire">
-                                          {this.state.fireCount<1000000?this.state.fireCount:(this.state.fireCount/1000000).toFixed(2)+"百万"}
+                                            <div className="bg_imgfire"> </div>
+                                            <div className="alerm_num"> {this.state.fireCount<1000000?this.state.fireCount:(this.state.fireCount/1000000).toFixed(2)+"百万"}</div>
                                         </h3>
                                     </div>
                                     <div className="carouselbg">
                                         <h3 className="person">
-                                          {this.state.personalarm<1000000?this.state.personalarm:(this.state.personalarm/1000000).toFixed(2)+"百万"}
+                                            <div className="bg_imgperson"> </div>
+                                            <div className="alerm_num"> {this.state.personalarm<1000000?this.state.personalarm:(this.state.personalarm/1000000).toFixed(2)+"百万"}</div>
                                         </h3>
                                     </div>
                                 </Carousel>

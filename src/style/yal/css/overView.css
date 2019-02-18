@@ -365,6 +365,13 @@
 
 
 @media screen and (max-width: 1280px) {
+    .scollhidden-out{
+        width: 110%;
+        margin: 0 auto;
+        height: 90px !important;
+        /* border: 1px solid #ccc; */
+        overflow: scroll;
+    }
     .draw .alarmcarousel{
         position: relative;
         width: 20%;
@@ -373,14 +380,15 @@
     }
 
 }
-
-
+.bg_imgperson,.bg_imgfire,.bg_imgcars{
+    display: inline-block;
+    width: 30px;
+    height: auto;
+}
+.alerm_num{
+    display: inline-block;
+}
 @media screen  and (max-width: 1280px) {
-    .draw .alarmover{
-        position: absolute;
-        bottom: 10px;
-        /*background: #5a5e75;*/
-    }
     .draw .alarmcarousel{
         position: relative;
         width: 40%;
@@ -394,19 +402,26 @@
         color: #fff;
         font-size: 20px;
     }
-    .draw .ant-carousel .slick-slide .person {
+    .draw .ant-carousel .slick-slide .bg_imgperson {
         background-image: url("../img/ren.png") !important;
 
     }
-    .draw .ant-carousel .slick-slide .fire {
+    .draw .ant-carousel .slick-slide .bg_imgfire {
         background-image: url("../img/huo.png") !important;
 
     }
-    .draw .ant-carousel .slick-slide .cars {
+    .draw .ant-carousel .slick-slide .bg_imgcars {
         background-image: url("../img/che.png") !important;
     }
 }
 @media screen and (max-width: 1601px) and (min-width: 1280px) {
+    .scollhidden-out{
+        width: 110%;
+        margin: 0 auto;
+        height: 90px !important;
+        /* border: 1px solid #ccc; */
+        overflow: scroll;
+    }
     .draw .alarmover{
         position: absolute;
         bottom: 13px;
@@ -436,6 +451,12 @@
     }
 }
 @media screen and (min-width: 1601px){
+    .scollhidden-out{
+        width: 110%;
+        margin: 0 auto;
+        height: 220px !important;
+        overflow: scroll;
+    }
     .draw .alarmover{
         position: absolute;
         bottom: 17px;
@@ -476,13 +497,7 @@
 .draw .ant-carousel .slick-slide {
     background: transparent!important;
 }
-.scollhidden-out{
-    width: 110%;
-    margin: 0 auto;
-    height: 220px !important;
-    /* border: 1px solid #ccc; */
-    overflow: scroll;
-}
+
 .scollhidden-out::-webkit-scrollbar {display:none}
 
 .scollhidden-inner{
