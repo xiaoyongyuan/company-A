@@ -373,8 +373,14 @@
     }
 
 }
-
-
+.bg_imgperson,.bg_imgfire,.bg_imgcars{
+    display: inline-block;
+    width: 30px;
+    height: auto;
+}
+.alerm_num{
+    display: inline-block;
+}
 @media screen  and (max-width: 1280px) {
     .draw .alarmover{
         position: absolute;
@@ -394,15 +400,15 @@
         color: #fff;
         font-size: 20px;
     }
-    .draw .ant-carousel .slick-slide .person {
+    .draw .ant-carousel .slick-slide .bg_imgperson {
         background-image: url("../img/ren.png") !important;
 
     }
-    .draw .ant-carousel .slick-slide .fire {
+    .draw .ant-carousel .slick-slide .bg_imgfire {
         background-image: url("../img/huo.png") !important;
 
     }
-    .draw .ant-carousel .slick-slide .cars {
+    .draw .ant-carousel .slick-slide .bg_imgcars {
         background-image: url("../img/che.png") !important;
     }
 }
