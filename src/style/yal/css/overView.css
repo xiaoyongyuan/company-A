@@ -129,8 +129,7 @@
     flex-direction:column;
     justify-content: space-between;
     align-items:center;/*垂直居中*/
-    justify-content: center;/*水平居中*/
-
+    margin: 20px auto 2px;
 }
 @media screen and (min-width:900px) and (max-width:1700px){
     .Rotation_chart>div:nth-of-type(1){
@@ -155,9 +154,9 @@
 }
 .Rotation_chart>div:nth-of-type(2){
     width: 75%;
-    height: 30px;
+    height: 40px;
     margin: 0 auto;
-    line-height:30px;
+    line-height:40px;
     /* border: 1px solid #ccc; */
     text-align: center;
 }
