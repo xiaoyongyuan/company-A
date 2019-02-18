@@ -389,11 +389,6 @@
     display: inline-block;
 }
 @media screen  and (max-width: 1280px) {
-    .draw .alarmover{
-        position: absolute;
-        bottom: 10px;
-        /*background: #5a5e75;*/
-    }
     .draw .alarmcarousel{
         position: relative;
         width: 40%;
@@ -459,8 +454,7 @@
     .scollhidden-out{
         width: 110%;
         margin: 0 auto;
-        height: 230px !important;
-        /* border: 1px solid #ccc; */
+        height: 220px !important;
         overflow: scroll;
     }
     .draw .alarmover{
