@@ -185,7 +185,7 @@ class overView extends Component {
         var bl = 5;
         setInterval(
             document.getElementById("ScollhiddenOut").onscroll=function() {
-                bl=bl+0.95;
+                bl=bl+1.2;
                 var scrollHeight = ScollOut.scrollHeight;//div里内容的高度
                 var scrollTop =ScollOut.scrollTop;//0-18
                 var clientHeight = ScollOut.clientHeight;//div内里框框的高度
