@@ -96,6 +96,7 @@
     height: 70%;
     background: url("../../yal/img/video.png") no-repeat;
     background-size: 100% 100%;
+    cursor: pointer;
 }
 .compCountVideo .compVideo img{
     width: 91%;
@@ -403,7 +404,6 @@
     }
     .draw .ant-carousel .slick-slide .cars {
         background-image: url("../img/che.png") !important;
-
     }
 }
 @media screen and (max-width: 1601px) and (min-width: 1280px) {
@@ -540,6 +540,7 @@
     bottom: 9px;
     right: 11px;
 }
+
 
 #ScollhiddenOut .scollhidden-inner {
     width: 100% !important;

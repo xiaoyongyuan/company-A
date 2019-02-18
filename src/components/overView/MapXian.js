@@ -217,7 +217,7 @@ class  MapXian extends Component{
             ]*/
         }
         return(
-            <ReactEcharts option={option}   style={{height:this.props.winhe+'px'}}/>
+            <ReactEcharts option={option} style={{height:this.props.winhe+'px'}} />
         );
     }
 }

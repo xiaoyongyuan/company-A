@@ -113,23 +113,24 @@ class overView extends Component {
     //报警次数
     alarmList =()=>{
         post({url:"/api/alarm/gets_alarm_afterday_big"},(res)=>{
-            var alarmX=[];
-            var alarmName=[];
-            var alarmafang=[];
-            for(var a in res.data){
-                alarmName.push(res.data[a].cname);
-                for(var b in res.data[a].alarm){
-                    alarmX.push(res.data[a].alarm[b].ahour);
-                    alarmafang.push(res.data[a].alarm[b].alarmnum)
+            if(res.success){
+                var alarmX=[];
+                var alarmName=[];
+                var alarmafang=[];
+                for(var a in res.data){
+                    alarmName.push(res.data[a].cname);
+                    for(var b in res.data[a].alarm){
+                        alarmX.push(res.data[a].alarm[b].ahour);
+                        alarmafang.push(res.data[a].alarm[b].alarmnum)
+                    }
                 }
+                this.setState({
+                    alarmX:alarmX.slice(0,24),
+                    alarmName:alarmName,
+                    alarmafang:alarmafang.slice(0,24),
+                    alarmming:alarmafang.slice(24,48),
+                });
             }
-            this.setState({
-                alarmX:alarmX.slice(0,24),
-                alarmName:alarmName,
-                alarmafang:alarmafang.slice(0,24),
-                alarmming:alarmafang.slice(24,48),
-            });
-
         })
     }
     //点名次数
@@ -225,13 +226,14 @@ class overView extends Component {
     alarmnumber=()=>{//报警数量
         post({url:"/api/alarm/gets_radar_big"},(res)=>{
             if(res.success){
-                this.setState({
-                    alarmnumber:res.data,
-                    carsalarm:res.data.cars,
-                    fireCount:res.data.fire,
-                    personalarm:res.data.person,
-                    dashu:35046300,
-                })
+                console.log(res.data.cars.value,"2222222");
+                if(res.data.cars!=="" || res.data.fire!=="" || res.data.person!==""){
+                    this.setState({
+                        carsalarm:34789465,
+                        fireCount:res.data.fire.value,
+                        personalarm:res.data.person.value,
+                    })
+                }
             }
         })
     }
@@ -367,17 +369,17 @@ class overView extends Component {
                                 <Carousel vertical autoplay className="alarmcarousel">
                                     <div className="carouselbg">
                                         <h3 className="cars">
-                                           {this.state.carsalarm.value<1000000?this.state.carsalarm.value:(this.state.carsalarm.value/1000000).toFixed(2)+"百万"}
+                                           {this.state.carsalarm<1000000?this.state.carsalarm:(this.state.carsalarm/1000000).toFixed(2)+"百万"}
                                         </h3>
                                     </div>
                                     <div className="carouselbg">
                                         <h3 className="fire">
-                                          {this.state.fireCount.value<1000000?this.state.fireCount.value:(this.state.fireCount.value/1000000).toFixed(2)+"百万"}
+                                          {this.state.fireCount<1000000?this.state.fireCount:(this.state.fireCount/1000000).toFixed(2)+"百万"}
                                         </h3>
                                     </div>
                                     <div className="carouselbg">
                                         <h3 className="person">
-                                          {this.state.personalarm.value<1000000?this.state.personalarm.value:(this.state.personalarm.value/1000000).toFixed(2)+"百万"}
+                                          {this.state.personalarm<1000000?this.state.personalarm:(this.state.personalarm/1000000).toFixed(2)+"百万"}
                                         </h3>
                                     </div>
                                 </Carousel>
