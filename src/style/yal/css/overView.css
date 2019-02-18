@@ -365,6 +365,13 @@
 
 
 @media screen and (max-width: 1280px) {
+    .scollhidden-out{
+        width: 110%;
+        margin: 0 auto;
+        height: 90px !important;
+        /* border: 1px solid #ccc; */
+        overflow: scroll;
+    }
     .draw .alarmcarousel{
         position: relative;
         width: 20%;
@@ -413,6 +420,13 @@
     }
 }
 @media screen and (max-width: 1601px) and (min-width: 1280px) {
+    .scollhidden-out{
+        width: 110%;
+        margin: 0 auto;
+        height: 90px !important;
+        /* border: 1px solid #ccc; */
+        overflow: scroll;
+    }
     .draw .alarmover{
         position: absolute;
         bottom: 13px;
@@ -442,6 +456,13 @@
     }
 }
 @media screen and (min-width: 1601px){
+    .scollhidden-out{
+        width: 110%;
+        margin: 0 auto;
+        height: 230px !important;
+        /* border: 1px solid #ccc; */
+        overflow: scroll;
+    }
     .draw .alarmover{
         position: absolute;
         bottom: 17px;
@@ -482,13 +503,7 @@
 .draw .ant-carousel .slick-slide {
     background: transparent!important;
 }
-.scollhidden-out{
-    width: 110%;
-    margin: 0 auto;
-    height: 220px !important;
-    /* border: 1px solid #ccc; */
-    overflow: scroll;
-}
+
 .scollhidden-out::-webkit-scrollbar {display:none}
 
 .scollhidden-inner{

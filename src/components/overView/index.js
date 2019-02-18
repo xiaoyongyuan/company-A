@@ -191,10 +191,8 @@ class overView extends Component {
                 var clientHeight = ScollOut.clientHeight;//div内里框框的高度
                 var scrollbottom=scrollHeight-clientHeight;
                 var scrollTopP=Math.ceil(scrollTop);
-                if(scrollbottom-scrollTopP===0) {//滚动到底部了
-                    ScollOut.scrollTop=0;
-                }
-                if(scrollbottom-scrollTopP===0) {//滚动到底部了
+              
+                if(scrollbottom-scrollTopP<2) {//滚动到底部了
                     ScollOut.scrollTop=0;
                     bl=0;
                 }else{
