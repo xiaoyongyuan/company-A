@@ -223,7 +223,6 @@ class overView extends Component {
     alarmnumber=()=>{//报警数量
         post({url:"/api/alarm/gets_radar_big"},(res)=>{
             if(res.success){
-                console.log(res.data.cars.value,"2222222");
                 if(res.data.cars!=="" || res.data.fire!=="" || res.data.person!==""){
                     this.setState({
                         carsalarm:res.data.cars.value,
@@ -360,7 +359,7 @@ class overView extends Component {
                         </div>
                         <div className="draw">
                             <div className="untreated alarmtitle">
-                                报警数
+                                <strong>报&nbsp;警&nbsp;数</strong>
                             </div>
                             <div className="alarmover ">
                                 <Carousel vertical autoplay className="alarmcarousel">
@@ -393,11 +392,10 @@ class overView extends Component {
                                 <div className="titleechart timely">
                                     <span className="titlename">即时信息</span>
                                 </div>
-                                <div className="comp" style={{height:'calc(100% - 60px)'}}>
-                                    <Carousel vertical className="righttop">
+                               {/* <div className="comp" style={{height:'calc(100% - 60px)'}}>*/}
+                                   {/* <Carousel vertical autoplay className="righttop">
                                         {this.state.callist.map((el,i)=>(
-                                            <div key={i}>
-                                                <div className="Rotation_chart">
+                                                <div className="Rotation_chart" key={i}>
                                                     <div><img src={el.picpath} alt="" /></div>
                                                     <div className="redcolor">
                                                         <span> {el.cname}</span> ,<span>{el.cameraname}</span>,
@@ -407,10 +405,23 @@ class overView extends Component {
                                                         <span>{el.time}</span>
                                                     </div>
                                                 </div>
-                                            </div>
                                         ))}
-                                    </Carousel>
-                                </div>
+                                    </Carousel>*/}
+                                <Carousel vertical autoplay className="righttop">
+                                    {this.state.callist.map((el,i)=>(
+                                        <div className="" key={i}>
+                                            <div><img src={el.picpath} alt="" style={{width:"85%",height:"70%",margin:"0 auto"}}/></div>
+                                            <div className="" style={{width:"85%",height:"10%",margin:"0 auto"}}>
+                                                <span> {el.cname}</span> ,<span>{el.cameraname}</span>,
+                                                <span>{el.type==="alarm"?"报警":""} </span>
+                                                <span>{el.type==="rollcall"?"点名报警":""}</span>
+                                                <span>{el.type==="patrol"?"巡更":""}</span>,
+                                                <span>{el.time}</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </Carousel>
+                               {/* </div>*/}
                             </div>
                         </div>
                         <div className="clunm lumpbott">

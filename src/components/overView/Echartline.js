@@ -201,12 +201,12 @@ class Echartline extends Component {
             },
             grid: {
                 left: '10%',
-                right: '8%',
+                right: '11%',
                 bottom: '15%',
                 containLabel: false
             },
             xAxis: [{
-                name:"天",
+                name:"小时",
                 nameTextStyle:{
                     color:"#fff"
                 },

@@ -114,36 +114,40 @@ class Echartpie extends Component {
             '北京': [116.408032,39.903409],
             "成都":[104.066143,30.573095],
             "大连":[121.78891,39.104001],
-            "昆明":[102.933351,25.100938],
             "广东":[114.085947,22.547],
-            "江西":[117.971185,28.44442],
-            "云南":[102.830354,24.871902]
+            "江西":[115.870178,28.68071],
+            "云南":[102.830354,24.871902],
+            "拉萨":[91.171961,29.653482],
+            "西宁":[101.778112,36.617042]
         };
 
         var goData = [{
-            name: '北京',
-            value: 16079
+            name: '西安',
+            value: 12
         },{
             name: '西安',
-            value: 89
+            value: 126
         },{
             name: '成都',
-            value: 89
+            value: 126
         },{
             name: '大连',
-            value: 90
-        },{
-            name: '昆明',
-            value: 234
+            value: 126
         },{
             name: '广东',
-            value: 434
+            value: 126
         },{
             name: '江西',
-            value: 434
+            value: 126
         },{
             name: '云南',
-            value: 834
+            value: 126
+        },{
+            name: '拉萨',
+            value: 126
+        },{
+            name: '西宁',
+            value: 126
         }];
         var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
         var convertData = function(name, data) {
@@ -160,7 +164,55 @@ class Echartpie extends Component {
             }
             return res;
         };
-        var series = [];
+        var color = ['#F4E925', '#FF0000'];
+        function formtGCData(geoData, data, srcNam, dest) {
+            var tGeoDt = [];
+            if (dest) {
+                for (var i = 0, len = data.length; i < len; i++) {
+                    if (srcNam != data[i].name) {
+                        tGeoDt.push({
+                            coords: [geoData[srcNam], geoData[data[i].name]]
+                        });
+                    }
+                }
+            } else {
+                for (var i = 0, len = data.length; i < len; i++) {
+                    if (srcNam != data[i].name) {
+                        tGeoDt.push({
+                            coords: [geoData[data[i].name], geoData[srcNam]]
+                        });
+                    }
+                }
+            }
+            return tGeoDt;
+        }
+
+        function formtVData(geoData, data, srcNam) {
+            var tGeoDt = [];
+            for (var i = 0, len = data.length; i < len; i++) {
+                var tNam = data[i].name
+                if (srcNam != tNam) {
+                    tGeoDt.push({
+                        name: tNam,
+                        value: geoData[tNam]
+                    });
+                }
+
+            }
+            tGeoDt.push({
+                name: srcNam,
+                value: geoData[srcNam],
+                symbolSize: 10,
+                itemStyle: {
+                    normal: {
+                        color: '#F29E2E',
+                        borderColor: '#F29E2E'
+                    }
+                }
+            });
+            return tGeoDt;
+        }
+       /* var series = [];
         [
             ['西安', goData],
         ].forEach(function(item, i) {
@@ -181,7 +233,7 @@ class Echartpie extends Component {
                         width: 1,
                         opacity: 0.4,
                         curveness: 0.2, //弧线角度
-                        color: '#FFEA93'
+                        color: color[i]
                     }
                 },
                 data: convertData(item[0], item[1])
@@ -192,8 +244,8 @@ class Echartpie extends Component {
                 effectType:"ripple", //涟漪特效
                 itemStyle: {
                     normal: {
-                        color: '#f4e925', //圈圈的颜色
-                        shadowBlur: 10,
+                        color:color[i] ,
+                        shadowBlur: 2,
                         shadowColor: '#333'
                     }
                 },
@@ -217,7 +269,7 @@ class Echartpie extends Component {
                 },
                 symbol: 'circle',
                 //圆点大小
-                symbolSize:10,
+                symbolSize:7,
                 data: item[1].map(function(dataItem) {
                     return {
                         name: dataItem.name,
@@ -232,7 +284,7 @@ class Echartpie extends Component {
                 effectType:"ripple", //涟漪特效
                 itemStyle: {
                     normal: {
-                        color: '#f4e925', //圈圈的颜色
+                        color:color[i],
                         shadowBlur: 10,
                         shadowColor: '#333'
                     }
@@ -247,8 +299,8 @@ class Echartpie extends Component {
                 label: {
                     normal: {
                         formatter: '{b}',
-                        position: 'right',
-                        show: false
+                        position: 'left',
+                        show: true
                     },
                     emphasis: {
                         show: true,
@@ -264,15 +316,15 @@ class Echartpie extends Component {
 
             })
 
-        });
+        });*/
         let option={
             background:"#091e57",
-            tooltip:{
+            /*tooltip:{
                 triggerOn: 'click',
                 trigger: 'item',
                 backgroundColor: "rgba(11,71,153,0.7)",
                 alwaysShowContent: true,
-              /*  position (pos) {
+              /!*  position (pos) {
                     let position = getPosOrSize('pos', pos)
                     return position
                 },
@@ -281,8 +333,8 @@ class Echartpie extends Component {
                     let size = getPosOrSize('size')
                     let tooltipDom = `<canvas id="tCanvas" width="${size.width}" height="${size.height}">123</canvas>`
                     return tooltipDom
-                }*/
-            },
+                }*!/
+            },*/
             geo: {
                 map: 'china',
                 roam: true,
@@ -310,7 +362,74 @@ class Echartpie extends Component {
                     },
                 }
             },
-            series:series
+            series:[{
+                type: 'lines',
+                zlevel: 2,
+                effect: {
+                    show: true,
+                    period: 6,
+                    trailLength: 0.1,
+                    color: 'blue',
+                    symbol: planePath,
+                    symbolSize: 8
+                },
+                lineStyle: {
+                    normal: {
+                        color: '#A6C84C',
+                        width: 1,
+                        opacity: 0.4,
+                        curveness: 0.2
+                    }
+                },
+                //  data: formtGCData(geoCoordMap, data, '贵阳', true)
+            }, {
+
+                type: 'lines',
+                zlevel: 2,
+                effect: {
+                    show: true,
+                    period: 6,
+                    trailLength: 0.1,
+                    color: '#A6C84C', // 移动箭头颜色
+                    symbol: planePath,
+                    symbolSize: 10
+                },
+                lineStyle: {
+                    normal: {
+                        color: "#A6C84C",
+                        width: 1.5,
+                        opacity: 0.4,
+                        curveness: 0.2
+                    }
+                },
+                data: formtGCData(geoCoordMap, goData, '西安', false)
+            }, {
+
+                type: 'effectScatter',
+                coordinateSystem: 'geo',
+                zlevel: 2,
+                rippleEffect: {
+                    period: 4,
+                    scale: 2.5,
+                    brushType: 'stroke'
+                },
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'right',
+                        formatter: '{b}'
+                    }
+                },
+                symbolSize: 5,
+                itemStyle: {
+                    normal: {
+                        color: 'a6c84c',
+                        borderColor: 'gold'
+                    }
+                },
+
+                data: formtVData(geoCoordMap, goData, '西安')
+            }]
             /*[{
                     type:"effectScatter",// series图表类型
                     coordinateSystem:"geo",// series坐标系类型
