@@ -114,6 +114,7 @@ class HeaderCustom extends Component {
         localStorage.removeItem('user');
         localStorage.removeItem('token');
         localStorage.removeItem('activecompcode');
+        localStorage.removeItem('activecomp');
         this.props.history.push('/login')
     };
     deleteCancel = () =>{//取消退出
@@ -121,7 +122,6 @@ class HeaderCustom extends Component {
             deleteshow: false,
         });
     };
-
     logout = () => { //退出
         localStorage.removeItem('user');
         localStorage.removeItem('token');
