@@ -395,8 +395,8 @@ class overView extends Component {
                                     <Carousel autoplay className="righttop">
                                         {this.state.callist.map((el,i)=>(
                                             <div key={i} className="Rotation_chart">
-                                                <div>
-                                                    <div><img src={el.picpath} alt="" /></div>
+                                                <div >
+                                                    <div><img className="ccimg" src={el.picpath} alt="" /></div>
                                                     <div className="redcolor">
                                                         <span> {el.cname}</span> ,<span>{el.cameraname}</span>,
                                                         <span>{el.type==="alarm"?"报警":""} </span>
