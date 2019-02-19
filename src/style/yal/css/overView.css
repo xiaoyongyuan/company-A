@@ -131,7 +131,6 @@
     align-items:center;/*垂直居中*/
     justify-content: center;/*水平居中*/
     margin-top: 14px;
-
 }
 .comp .ant-carousel .slick-track {
     text-align: center;
@@ -142,9 +141,15 @@
         width: 68%;
         height: auto;
     }
+    .Rotation_chart{
+        margin-top: 7px !important;
+    }
 }
 
 @media screen and (min-width:1700px) {
+    .Rotation_chart{
+        margin-top: 14px !important;
+    }
     .Rotation_chart>div:nth-of-type(1){
         width: 75%;
         height:90%;
@@ -159,15 +164,12 @@
 .Rotation_chart>div:nth-of-type(1) img{
     width: 100%;
     height: auto;
-    height: 100%;
-    /* min-height: 157px; */
-    /* border: 1px solid #ccc; */
+ 
 }
 .Rotation_chart>div:nth-of-type(2){
     width: 75%;
     height: 30px;
-    
-    /* border: 1px solid #ccc; */
+    line-height: 30px;
     text-align: center;
 }
 .equiptable{
