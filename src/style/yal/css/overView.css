@@ -130,7 +130,7 @@
     justify-content: space-between;
     align-items:center;/*垂直居中*/
     justify-content: center;/*水平居中*/
-    margin-top: 14px;
+    margin-top:7px;
 }
 .comp .ant-carousel .slick-track {
     text-align: center;
@@ -141,15 +141,11 @@
         width: 68%;
         height: auto;
     }
-    .Rotation_chart{
-        margin-top: 7px !important;
-    }
+   
 }
 
 @media screen and (min-width:1700px) {
-    .Rotation_chart{
-        margin-top: 14px !important;
-    }
+    
     .Rotation_chart>div:nth-of-type(1){
         width: 75%;
         height:90%;
