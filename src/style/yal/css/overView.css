@@ -141,27 +141,30 @@
         width: 68%;
         height: auto;
     }
-   
+    .ccimg{
+        width: 100%;
+        height:auto;
+        margin-bottom: 6px;
+    }
 }
 
 @media screen and (min-width:1700px) {
-    
     .Rotation_chart>div:nth-of-type(1){
         width: 75%;
         height:90%;
         margin: 0 auto;
-       
     }
     .Rotation_chart>div:nth-of-type(2){
         width: 75%;
         height: 10%;
     }
+    .ccimg{
+        width: 100%;
+        height:auto;
+        margin-bottom: 10px;
+    }
 }
-.Rotation_chart>div:nth-of-type(1) img{
-    width: 100%;
-    height: auto;
- 
-}
+
 .Rotation_chart>div:nth-of-type(2){
     width: 75%;
     height: 30px;
