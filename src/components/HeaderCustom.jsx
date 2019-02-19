@@ -10,7 +10,7 @@ import SiderCustom from './SiderCustom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {post} from "../axios/tools";
-
+import "../style/publicStyle/publicStyle.css"
 const { Header } = Layout;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;

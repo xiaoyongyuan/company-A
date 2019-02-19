@@ -17,12 +17,6 @@
 .ant-calendar-range-picker-separator {
     color: #8592C6!important;
 }
-/*下拉框*/
-/*.ant-select-selection {
-    background-color: #fff!important;
-    border: 1px solid #3C466E!important;
-    color: #000!important;
-}*/
 .Alarmlist .ant-select-selection,.PatrolRecord .ant-select-selection,.RollcallRecord .ant-select-selection{
     background: #3C466E;
     border: 1px solid #3C466E;
@@ -136,7 +130,7 @@
     color:#fff !important;
 }
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
-    background-color: #d1d2d4!important;
+    background-color: #272b42;
 }
 .ant-card-bordered {
     border: 1px solid #4C5784!important;
@@ -189,4 +183,7 @@
 }
 .tc-label label{
     color: #000!important;
+}
+.custom-theme .ant-menu-item-selected {
+    background-color: #d1d2d4!important;
 }
