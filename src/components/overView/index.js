@@ -382,7 +382,6 @@ class overView extends Component {
                                         </h3>
                                     </div>
                                 </Carousel>
-
                             </div>
                         </div>
                     </Col>
@@ -393,10 +392,10 @@ class overView extends Component {
                                     <span className="titlename">即时信息</span>
                                 </div>
                                 <div className="comp" style={{height:'100% - 60px)'}}>
-                                    <Carousel  className="righttop">
+                                    <Carousel autoplay className="righttop">
                                         {this.state.callist.map((el,i)=>(
                                             <div key={i} className="Rotation_chart">
-                                                <div >
+                                                <div>
                                                     <div><img src={el.picpath} alt="" /></div>
                                                     <div className="redcolor">
                                                         <span> {el.cname}</span> ,<span>{el.cameraname}</span>,
