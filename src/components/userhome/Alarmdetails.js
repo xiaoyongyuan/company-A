@@ -35,7 +35,9 @@ class Alarmdetails extends React.Component{
   }
   componentDidMount() {
     post({url:"/api/alarm/getone",data:Object.assign(this.state.faths,{passivecode:this.state.activecompcode})},(res)=>{
-        let data={
+      console.log('******************res.data',res.data);
+       
+      let data={
           src:res.data.picpath,
           field:res.data.field,
           name:res.data.name,
@@ -172,6 +174,31 @@ class Alarmdetails extends React.Component{
   		}
   	})
   }
+  delete=()=>{ //删除报警
+    console.log('******************code1', this.state.code);
+    
+  	post({url:'/api/alarm/delete',data:{code:this.state.code}},(res)=>{
+      // console.log('******************delete',res);
+  		if(res){
+        let data=this.state.data;
+				this.setState({
+		  		data:data,
+		    })
+  		}
+  	})
+  }
+  doCollection=()=>{ //收藏报警
+    console.log('******************code2', this.state.code);
+  	post({url:'/api/alarm/collection',data:{code:this.state.code}},(res)=>{
+      // console.log('******************collection',res);
+  		if(res){
+        let data=this.state.data;
+				this.setState({
+		  		data:data,
+		    })
+  		}
+  	})
+  }
     
     render(){      
         return(
@@ -187,7 +214,7 @@ class Alarmdetails extends React.Component{
       							  <Button type="primary" onClick={()=>this.looknew('next')} disabled={this.state.next?false:true}>
       								下一条<Icon type="right" />
       							  </Button>
-      							</ButtonGroup>
+      							</ButtonGroup> 
             			</div>
             		</div>	
             		<div className="flexright">
@@ -200,7 +227,12 @@ class Alarmdetails extends React.Component{
             				<p><label>处理结果：</label><span style={{color:this.state.color}}>{this.state.typetext}</span></p>
             				{
                       !this.state.activecompcode
-                      ?<p><label>处理类型：</label> <Button type="primary" onClick={()=>this.alarmdeal(1)}>确认</Button> <Button type="primary" onClick={()=>this.alarmdeal(3)}>虚警</Button> <Button type="primary" onClick={()=>this.alarmdeal(2)}>忽略</Button></p>
+                      ?<p><label>处理类型：</label> <Button style={{background:'#2A8E39',color:'#fff'}} onClick={()=>this.alarmdeal(1)}>确认</Button> <Button style={{background:'#F22727',color:'#fff'}}  onClick={()=>this.alarmdeal(3)}>虚警</Button> <Button  style={{background:'#00B5D0',color:'#fff'}} onClick={()=>this.alarmdeal(2)}>忽略</Button></p>
+                      :''
+                    }
+                    {
+                      !this.state.activecompcode
+                      ?<p><label>报警处理：</label> <Button onClick={()=>this.doCollection()}>收藏</Button> <Button type="primary" onClick={()=>this.delete()}>删除</Button> </p>
                       :''
                     }
                     

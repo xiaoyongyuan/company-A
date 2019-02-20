@@ -188,7 +188,23 @@ class Alarmlist extends React.Component{
                 })
         
     };
-
+    canCollection =(e)=>{ //只看收藏
+        e.preventDefault();
+        if(this.state.propsid){
+            this.setState({
+                    propsid:'',
+                })
+        }
+        this.setState({
+                    page:1,
+                    loadding:true,
+                },()=>{
+                    const data={
+                        cid:this.state.cid
+                    };
+                    this.handleAlerm(data);
+                })
+    };
     //搜索设备选中的值
     handleChange =(value)=>{
         this.setState({
@@ -379,6 +395,9 @@ class Alarmlist extends React.Component{
                             </Col>
                             <Col xl={2} xxl={2} lg={6} className="lr">
                                 <Button onClick={this.handleProcessing} className="processingBtn" disabled={this.state.activecompcode?true:false}>一键处理</Button>
+                            </Col>
+                            <Col xl={2} xxl={2} lg={6} className="lr">
+                                <Button onClick={this.canCollection} className="processingBtn">只看收藏</Button>
                             </Col>
                         </Form>
                     </Row>
