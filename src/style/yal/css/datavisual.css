@@ -168,12 +168,13 @@
     display: inline-block;
     line-height: 63px;
 }
-@media screen and (min-width: 1600px) and (min-width: 1080px) {
+@media screen and (min-width: 1600px) and (min-width: 1920px) {
     .titletop{
         width: 65%;
         display: inline-block;
         line-height: 63px;
         margin-left: 7%;
+        margin-right: 7%;
     }
 }
 .titletop .titlevalue{
