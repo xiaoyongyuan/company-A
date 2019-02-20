@@ -146,40 +146,44 @@ class HeaderCustom extends Component {
                         {this.props.user.cname}
                     </div>
                 </div>
-                {
-                    responsive.data.isMobile ? (
-                        <Popover content={<SiderCustom path={path} popoverHide={this.popoverHide} />} trigger="click" placement="bottomLeft" visible={this.state.visible} onVisibleChange={this.handleVisibleChange}>
-                            <Icon type="bars" className="header__trigger custom-trigger" />
-                        </Popover>
-                    ) : (
-                        <Icon
-                            className="header__trigger custom-trigger"
-                            type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
-                            onClick={this.props.toggle}
-                        />
-                    )
-                }
-                <div style={{ lineHeight: '63px', float: 'right',color:'#fff' }}>{this.props.user.realname},欢迎您</div>
 
-                <Menu
-                    mode="horizontal"
-                    style={{ lineHeight: '63px', float: 'right' }}
-                    onClick={this.menuClick}
-                >
-                    <Menu.Item style={{borderBottom:'2px solid #31365'}} key="full" onClick={this.screenFull} >
-                        <Icon type="arrows-alt" onClick={this.screenFull} />
-                    </Menu.Item>
-                    <SubMenu style={{borderBottom:'2px solid #31365'}} title={<span className="avatar"><img src={this.props.user.utype==='1'?icon_user:icon_admin} alt="头像" /> </span>}>
-                        <MenuItemGroup title="用户中心" style={{background:"rgba(255,255,255,0.5)"}}>
-                            {/* <Menu.Item key="setting:1">你好 - {this.props.user.realname}</Menu.Item> */}
-                            {this.props.user.activecount
-                            	?<Menu.Item key="setting:2" onClick={this.sitchcomp}>{this.state.activecname?this.state.activecname:this.props.user.cname} <Icon type="sync" /></Menu.Item>
-                            	:''
-                            }
-                            <Menu.Item key="logoutto" onClick={this.showModaldelete}><span>退出登录</span></Menu.Item>
-                        </MenuItemGroup>
-                    </SubMenu>
-                </Menu>
+                <div style={{width:"20%",float:"left"}} className="leftIcon">
+                    {
+                        responsive.data.isMobile ? (
+                            <Popover content={<SiderCustom path={path} popoverHide={this.popoverHide} />} trigger="click" placement="bottomLeft" visible={this.state.visible} onVisibleChange={this.handleVisibleChange}>
+                                <Icon type="bars" className="header__trigger custom-trigger" />
+                            </Popover>
+                        ) : (
+                            <Icon
+                                className="header__trigger custom-trigger"
+                                type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
+                                onClick={this.props.toggle}
+                            />
+                        )
+                    }
+                </div>
+                <div style={{width:"28%",float:"right"}}>
+                    <div style={{ lineHeight: '63px', float: 'right',color:'#fff' }}>{this.props.user.realname},欢迎您</div>
+                    <Menu
+                        mode="horizontal"
+                        style={{ lineHeight: '63px', float: 'right' }}
+                        onClick={this.menuClick}
+                    >
+                        <Menu.Item style={{borderBottom:'2px solid #31365'}} key="full" onClick={this.screenFull} >
+                            <Icon type="arrows-alt" onClick={this.screenFull} />
+                        </Menu.Item>
+                        <SubMenu style={{borderBottom:'2px solid #31365'}} title={<span className="avatar"><img src={this.props.user.utype==='1'?icon_user:icon_admin} alt="头像" /> </span>}>
+                            <MenuItemGroup title="用户中心" style={{background:"rgba(255,255,255,0.5)"}}>
+                                {/* <Menu.Item key="setting:1">你好 - {this.props.user.realname}</Menu.Item> */}
+                                {this.props.user.activecount
+                                    ?<Menu.Item key="setting:2" onClick={this.sitchcomp}>{this.state.activecname?this.state.activecname:this.props.user.cname} <Icon type="sync" /></Menu.Item>
+                                    :''
+                                }
+                                <Menu.Item key="logoutto" onClick={this.showModaldelete}><span>退出登录</span></Menu.Item>
+                            </MenuItemGroup>
+                        </SubMenu>
+                    </Menu>
+                </div>
             </Header>
 
             <Modal title="提示信息" visible={this.state.deleteshow} onOk={this.deleteOk}

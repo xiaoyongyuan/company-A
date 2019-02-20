@@ -164,18 +164,9 @@
     background-size:  100% 100%;
 }
 .titletop{
-    width: 65%;
+    width:52%;
     display: inline-block;
     line-height: 63px;
-}
-@media screen and (min-width: 1600px) and (min-width: 1920px) {
-    .titletop{
-        width: 65%;
-        display: inline-block;
-        line-height: 63px;
-        margin-left: 7%;
-        margin-right: 7%;
-    }
 }
 .titletop .titlevalue{
     font-size: 175%;
@@ -188,9 +179,6 @@
     font-family: chuangyi;
     text-shadow: 0 0 10px #fff;
     color:#fff;
-}
-.header__trigger{
-    float: left;
 }
 .titletop .titlevalue:after,.titletop .titlevalue:before{
     position: absolute;
