@@ -359,23 +359,29 @@ class overView extends Component {
                                 报警数
                             </div>
                             <div className="alarmover ">
-                                <Carousel vertical autoplay className="alarmcarousel">
+                                <Carousel vertical className="alarmcarousel">
                                     <div className="carouselbg">
                                         <h3 className="cars">
                                             <div className="bg_imgcars"> </div>
-                                            <div className="alerm_num">{this.state.carsalarm<1000000?this.state.carsalarm:(this.state.carsalarm/1000000).toFixed(2)+"百万"}</div>
+                                            <div className="alerm_num">
+                                               {this.state.carsalarm<1000000? this.state.carsalarm: <span> {(this.state.carsalarm/1000000).toFixed(2)}<span style={{fontSize:'20PX'}}>&nbsp;百万</span></span>}
+                                            </div>
                                         </h3>
                                     </div>
                                     <div className="carouselbg">
                                         <h3 className="fire">
                                             <div className="bg_imgfire"> </div>
-                                            <div className="alerm_num"> {this.state.fireCount<1000000?this.state.fireCount:(this.state.fireCount/1000000).toFixed(2)+"百万"}</div>
+                                            <div className="alerm_num">
+                                               {this.state.fireCount<1000000?this.state.fireCount: <span> {(this.state.fireCount/1000000).toFixed(2)}<span style={{fontSize:'20PX'}}>&nbsp;百万</span></span>}
+                                            </div>
                                         </h3>
                                     </div>
                                     <div className="carouselbg">
                                         <h3 className="person">
                                             <div className="bg_imgperson"> </div>
-                                            <div className="alerm_num"> {this.state.personalarm<1000000?this.state.personalarm:(this.state.personalarm/1000000).toFixed(2)+"百万"}</div>
+                                            <div className="alerm_num">
+                                               {this.state.personalarm<1000000?this.state.personalarm: <span> {(this.state.personalarm/1000000).toFixed(2)}<span style={{fontSize:'20PX'}}>&nbsp;百万</span></span>}
+                                            </div>
                                         </h3>
                                     </div>
                                 </Carousel>
