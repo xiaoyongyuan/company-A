@@ -226,7 +226,7 @@ class overView extends Component {
             if(res.success){
                 if(res.data.cars!=="" || res.data.fire!=="" || res.data.person!==""){
                     this.setState({
-                        carsalarm:9656463,
+                        carsalarm:res.data.cars.value,
                         fireCount:res.data.fire.value,
                         personalarm:res.data.person.value,
                     })
