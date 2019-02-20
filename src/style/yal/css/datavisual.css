@@ -164,19 +164,32 @@
     background-size:  100% 100%;
 }
 .titletop{
-    position: fixed;
-    width: calc(100% - 600px);
-    top: 0;
-    left:300px;
+    width: 65%;
+    display: inline-block;
+    line-height: 63px;
+}
+@media screen and (min-width: 1600px) and (min-width: 1080px) {
+    .titletop{
+        width: 65%;
+        display: inline-block;
+        line-height: 63px;
+        margin-left: 7%;
+    }
 }
 .titletop .titlevalue{
-    font-size: 28px;
+    font-size: 175%;
     text-align: center;
     line-height: 65px;
     height: 65px;
     width: 100%;
     margin: 0 auto;
     position: relative;
+    font-family: chuangyi;
+    text-shadow: 0 0 10px #fff;
+    color:#fff;
+}
+.header__trigger{
+    float: left;
 }
 .titletop .titlevalue:after,.titletop .titlevalue:before{
     position: absolute;
@@ -184,7 +197,7 @@
     top: 8px;
     content: '';
     height: 50px;
-    width: calc(50% - 100px); 
+    width: calc(50% - 100px);
     background-size:  100% 100%;
 }
 .titletop .titlevalue:after{
