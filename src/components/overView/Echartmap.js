@@ -34,9 +34,6 @@ class Echartmap extends Component {
         if(next.mapValue.length !==state.mapValue.length){
             this.setState({
                 mapValue:next.mapValue,
-                mapJson:next.mapJson,
-            },()=>{
-               
             })
             return true;
         }else return false;

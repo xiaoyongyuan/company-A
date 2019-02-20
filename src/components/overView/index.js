@@ -39,8 +39,8 @@ class overView extends Component {
             name:"",
             value:Number,
             alarmnumber:{},
-            mapJson:{'明秦王陵遗址': [108, 34]},
-            mapValue:[{name: "明秦王陵遗址", value: 6275}],
+            mapJson:{},
+            mapValue:[],
             tootilp:[],
         };
         this.saveRef = ref => {this.refDom = ref};
@@ -93,13 +93,9 @@ class overView extends Component {
                     tootilp.push({name:res.lnglat[a].name,ecount:res.lnglat[a].ecount,alarmcount:res.lnglat[a].alarmcount});
                 }
                 this.setState({
-                    mapJson:{'明秦王陵遗址': [108, 34],
-                      '西安文物局': [108.93, 34.34],
-                      '阿房宫': [108.83, 34.26]},
-                    mapValue:[{name: "阿房宫", value: 16079},
-                      {name: "明秦王陵遗址", value: 6275},
-                      {name: "西安文物局", value: undefined}],
-                    // tootilp:tootilp
+                    mapJson:mapJson,
+                    mapValue:mapValue,
+                    tootilp:tootilp
                 });
             }
         })
