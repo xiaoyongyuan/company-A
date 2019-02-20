@@ -19,7 +19,7 @@ const Option = Select.Option;
 
 class HeaderCustom extends Component {
     state = {
-        user: '',
+        user: {},
         visible: false,
         complist:[],
         activecompanycode:'',
@@ -143,7 +143,7 @@ class HeaderCustom extends Component {
             <Header className="custom-theme header" >
                 <div className="titletop">
                     <div className="titlevalue">
-                        西安文物局
+                        {this.props.user.cname}
                     </div>
                 </div>
                 {
