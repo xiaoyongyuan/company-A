@@ -289,7 +289,7 @@ class overView extends Component {
                         <div className="clunm lumpbott">
                             <div className="lump ">
                                 <div className="titleechart">
-                                    <span className="titlename">设备近状</span>
+                                    <span className="titlename">设备状态</span>
                                 </div>
                                 <div className="comp">
                                     <div className="equiptable">

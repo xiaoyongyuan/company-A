@@ -194,15 +194,15 @@ class HeaderCustom extends Component {
             >
             <p>确认退出吗？</p>
             </Modal>
-            <Modal title="切换公司" visible={this.state.sitchshow} onOk={this.switchput}
+            <Modal title="切换单位" visible={this.state.sitchshow} onOk={this.switchput}
                    width={370}
                 onCancel={this.switchCancel}
                 okText="确认"
                 cancelText="取消"
             >
                 <div>
-                           选择公司：
-                    <Select defaultValue="请选择公司" style={{ width: 180 }} onChange={this.handleOnekey}>
+                           选择单位：
+                    <Select defaultValue="请选择单位" style={{ width: 180 }} onChange={this.handleOnekey}>
                         <Option value={'onself'} key={'x'}>{this.props.user.cname}</Option>
                         {
                         this.state.complist.map((v,i)=>(
