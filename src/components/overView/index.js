@@ -7,7 +7,6 @@ import Echartpie from "./Echartpie";
 import Echartmap from "./Echartmap";
 import Universebg from "./Universebg";
 import moment from "moment";
-const pao=[{a:"13621"},{a:"534534"},{a:"1564358"},{a:"964983"},{a:"154684"}]
 
 class overView extends Component {
     constructor(props){
@@ -198,7 +197,6 @@ class overView extends Component {
                     bl=0;
                 }else{
                     ScollOut.scrollTop = bl;
-                    // console.log("ScollhiddenOut", document.getElementById("ScollhiddenOut").scrollTop);
                 }
             },6000);
     };
