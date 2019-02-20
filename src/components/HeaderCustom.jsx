@@ -160,6 +160,7 @@ class HeaderCustom extends Component {
                     )
                 }
                 <div style={{ lineHeight: '63px', float: 'right',color:'#fff' }}>{this.props.user.realname},欢迎您</div>
+
                 <Menu
                     mode="horizontal"
                     style={{ lineHeight: '63px', float: 'right' }}

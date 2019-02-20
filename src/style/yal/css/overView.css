@@ -278,6 +278,9 @@
     top:calc(60%);
     font-size: 24px;
 }
+.header__trigger{
+   float: left;
+}
 .overView{
     width: 100%;
     overflow: hidden;
@@ -286,13 +289,20 @@
     background-size:  100% 100%;
 }
 .titletop{
-    position: fixed;
-    width: calc(100% - 600px);
-    top: 0;
-    left:300px;
+    width: 65%;
+    display: inline-block;
+    line-height: 63px;
+}
+@media screen and (min-width: 1600px) and (min-width: 1080px) {
+    .titletop{
+        width: 65%;
+        display: inline-block;
+        line-height: 63px;
+        margin-left: 7%;
+    }
 }
 .titletop .titlevalue{
-    font-size: 28px;
+    font-size: 175%;
     text-align: center;
     line-height: 65px;
     height: 65px;
