@@ -226,7 +226,7 @@ class overView extends Component {
             if(res.success){
                 if(res.data.cars!=="" || res.data.fire!=="" || res.data.person!==""){
                     this.setState({
-                        carsalarm:res.data.cars.value,
+                        carsalarm:9656463,
                         fireCount:res.data.fire.value,
                         personalarm:res.data.person.value,
                     })
@@ -359,7 +359,7 @@ class overView extends Component {
                                 报警数
                             </div>
                             <div className="alarmover ">
-                                <Carousel vertical className="alarmcarousel">
+                                <Carousel autoplay vertical className="alarmcarousel">
                                     <div className="carouselbg">
                                         <h3 className="cars">
                                             <div className="bg_imgcars"> </div>
