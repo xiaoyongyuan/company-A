@@ -4,6 +4,7 @@ import '../../style/yal/css/overView.css';
 import {post} from "../../axios/tools";
 import Echartline from "./Echartline";
 import Echartpie from "./Echartpie";
+import Echartmap from "./Echartmap";
 import Universebg from "./Universebg";
 import moment from "moment";
 const pao=[{a:"13621"},{a:"534534"},{a:"1564358"},{a:"964983"},{a:"154684"}]
@@ -38,8 +39,8 @@ class overView extends Component {
             name:"",
             value:Number,
             alarmnumber:{},
-            mapJson:{},
-            mapValue:[],
+            mapJson:{'明秦王陵遗址': [108, 34]},
+            mapValue:[{name: "明秦王陵遗址", value: 6275}],
             tootilp:[],
         };
         this.saveRef = ref => {this.refDom = ref};
@@ -80,6 +81,7 @@ class overView extends Component {
     };
     //位置图
     locationMap =()=>{
+      // return;
         post({url:"/api/company/getone_special"},(res)=>{
             if(res.success){
                 var mapJson={},mapValue=[],tootilp=[];
@@ -91,9 +93,13 @@ class overView extends Component {
                     tootilp.push({name:res.lnglat[a].name,ecount:res.lnglat[a].ecount,alarmcount:res.lnglat[a].alarmcount});
                 }
                 this.setState({
-                    mapJson:mapJson,
-                    mapValue:mapValue,
-                    tootilp:tootilp
+                    mapJson:{'明秦王陵遗址': [108, 34],
+                      '西安文物局': [108.93, 34.34],
+                      '阿房宫': [108.83, 34.26]},
+                    mapValue:[{name: "阿房宫", value: 16079},
+                      {name: "明秦王陵遗址", value: 6275},
+                      {name: "西安文物局", value: undefined}],
+                    // tootilp:tootilp
                 });
             }
         })
@@ -198,7 +204,7 @@ class overView extends Component {
                     ScollOut.scrollTop = bl;
                     // console.log("ScollhiddenOut", document.getElementById("ScollhiddenOut").scrollTop);
                 }
-            },2000);
+            },6000);
     };
     deveicek =()=>{//设备近况
         post({url:"/api/camera/gets_camerainfo_big"},(res)=>{
@@ -211,7 +217,7 @@ class overView extends Component {
             }
         })
     }
-    cal=()=>{//设备轮播
+    cal=()=>{//即时信息轮播
         post({url:"/api/alarm/gets_info_big"},(res)=>{
             if(res.success){
                 this.setState({
@@ -236,7 +242,7 @@ class overView extends Component {
     componentDidMount() {
         window.onresize = () => {
             this.setState({
-                DHeight:document.documentElement.clientHeight-65+'px',
+                DHeight:document.documentElement.clientHeight-65+'px'
             })
         };
         //背景动态
@@ -250,7 +256,7 @@ class overView extends Component {
         //设备近况
         setInterval(this.deveicek(),10000);
         //设备轮播
-        setInterval(this.cal(),10000);
+        setInterval(this.cal(),60000);
         //报警视频
         this.alarmVideo();
         //位置图
@@ -267,7 +273,7 @@ class overView extends Component {
                 <Universebg />
                 <div className="titletop">
                     <div className="titlevalue">
-                        椒图安防平台
+                        西安文物局
                     </div>
                 </div>
                 <Row gutter={24} className="warrper" >
@@ -351,7 +357,7 @@ class overView extends Component {
                             </div>
                         </div>
                         <div className="maps">
-                            <Echartpie type="xianmap" winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-100}
+                            <Echartmap type="xianmap" winhe={(parseInt(this.state.DHeight)*0.7-10)*0.8-100}
                                                       mapJson={this.state.mapJson}
                                                       mapValue={this.state.mapValue}
                                                       tootilp={this.state.tootilp}
@@ -359,7 +365,7 @@ class overView extends Component {
                         </div>
                         <div className="draw">
                             <div className="untreated alarmtitle">
-                                <strong>报&nbsp;警&nbsp;数</strong>
+                                报警数
                             </div>
                             <div className="alarmover ">
                                 <Carousel vertical autoplay className="alarmcarousel">
@@ -382,6 +388,7 @@ class overView extends Component {
                                         </h3>
                                     </div>
                                 </Carousel>
+
                             </div>
                         </div>
                     </Col>
@@ -391,12 +398,12 @@ class overView extends Component {
                                 <div className="titleechart timely">
                                     <span className="titlename">即时信息</span>
                                 </div>
-                                <div className="comp" style={{height:'100% - 60px)'}}>
+                                <div className="comp" style={{height:'calc(100% - 60px)'}}>
                                     <Carousel autoplay className="righttop">
                                         {this.state.callist.map((el,i)=>(
-                                            <div key={i} className="Rotation_chart">
-                                                <div >
-                                                    <div><img className="ccimg" src={el.picpath} alt="" /></div>
+                                            <div key={el.code} className="carouselitem">
+                                                <div className="Rotation_chart" style={{height:(parseInt(this.state.DHeight)*0.7-20)*0.5-76}}>
+                                                    <div style={{maxHeight:'calc(100% - 110px)'}} ><img src={el.picpath} alt="" /></div>
                                                     <div className="redcolor">
                                                         <span> {el.cname}</span> ,<span>{el.cameraname}</span>,
                                                         <span>{el.type==="alarm"?"报警":""} </span>
@@ -405,6 +412,7 @@ class overView extends Component {
                                                         <span>{el.time}</span>
                                                     </div>
                                                 </div>
+                                                
                                             </div>
                                         ))}
                                     </Carousel>

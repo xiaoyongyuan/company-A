@@ -110,6 +110,7 @@
     margin-left: 15px;
 }
 .righttop{
+    /* border: 1px solid red; */
     height: 100% !important;
     color: #fff;
 }
@@ -120,32 +121,23 @@
 .redcolor{
     width: 100%;
     height:10%;
-    text-align: center;
 }
 .Rotation_chart{
     width: 100%;
-    height:100%;
+    height:106%;
     display: flex;
     flex-direction:column;
     justify-content: space-between;
     align-items:center;/*垂直居中*/
-    justify-content: center;/*水平居中*/
-    margin-top:7px;
+    margin: 26px auto 2px;
+    overflow: hidden;
 }
-.comp .ant-carousel .slick-track {
-    text-align: center;
-    height: 100% !important;
-  }
 @media screen and (min-width:900px) and (max-width:1700px){
     .Rotation_chart>div:nth-of-type(1){
         width: 68%;
         height: auto;
     }
-    .ccimg{
-        width: 100%;
-        height:auto;
-        margin-bottom: 6px;
-    }
+  
 }
 
 @media screen and (min-width:1700px) {
@@ -153,24 +145,26 @@
         width: 75%;
         height:90%;
         margin: 0 auto;
+        margin: 2px auto;
     }
     .Rotation_chart>div:nth-of-type(2){
         width: 75%;
         height: 10%;
     }
-    .ccimg{
-        width: 100%;
-        height:auto;
-        margin-bottom: 10px;
-    }
 }
-
-.Rotation_chart>div:nth-of-type(2){
+.Rotation_chart>div:nth-of-type(1) img{
+    width: 100%;
+    height: auto;
+    /* min-height: 157px; */
+    /* border: 1px solid #ccc; */
+}
+ .Rotation_chart>div:nth-of-type(2){
     width: 75%;
-    height: 30px;
-    line-height: 30px;
+    height: 40px;
+    margin: 0 auto;
+    line-height:40px;
     text-align: center;
-}
+} 
 .equiptable{
     width: 90%;
     height: 100%;
@@ -570,4 +564,11 @@
 #ScollhiddenOut .scollhidden-inner {
     width: 100% !important;
     height: auto;
+}
+
+.overView .slick-list{
+        height: 100%;
+}
+.overView .slick-track,.overView .ant-carousel{
+    height: 100% !important;
 }
