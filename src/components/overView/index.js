@@ -85,7 +85,7 @@ class overView extends Component {
             if(res.success){
                 var mapJson={},mapValue=[],tootilp=[];
                 for(var a in res.lnglat) {
-                    mapValue.push({name:res.lnglat[a].name, value:res.lnglat[a].alarmcount});
+                    mapValue.push({code:res.lnglat[a].code,name:res.lnglat[a].name, value:res.lnglat[a].alarmcount});
                     var name=res.lnglat[a].name;
                     var value=res.lnglat[a].value;
                     mapJson[name]=value;
