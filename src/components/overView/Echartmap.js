@@ -30,6 +30,16 @@ class Echartmap extends Component {
         }
         
     }
+    onByModelClick = (e)=>{
+        console.log(e,'sssss');
+         if(e.componentType === "series"){
+            // window.location.href="#/app/Userhome/Alarmlist"
+         }
+    }
+
+    onClickByModel={
+        'click':this.onByModelClick
+    }
     shouldComponentUpdate(next,state){
         if(next.mapValue.length !==state.mapValue.length){
             this.setState({
@@ -43,139 +53,56 @@ class Echartmap extends Component {
         echarts.registerMap('xian', xianmap);
          var geoCoordMap=this.props.mapJson;
         var goData =this.props.mapValue;
-        console.log('_this',goData,geoCoordMap)
         var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
-        var convertData = function(name, data) {
-            var res = [];
-            for (var i = 0; i < data.length; i++) {
-                var fromCoord = geoCoordMap[name];
-                var toCoord = geoCoordMap[data[i].name];
-                if (fromCoord && toCoord) {
-                    res.push({
-                        //对换即可调整方向
-                        coords: [toCoord, fromCoord]
-                    });
+        function formtGCData(geoData, data, srcNam, dest) {
+            var tGeoDt = [];
+            if (dest) {
+                for (var i = 0, len = data.length; i < len; i++) {
+                    if (srcNam != data[i].name) {
+                        tGeoDt.push({
+                            coords: [geoData[srcNam], geoData[data[i].name]]
+                        });
+                    }
+                }
+            } else {
+                for (var i = 0, len = data.length; i < len; i++) {
+                    if (srcNam != data[i].name) {
+                        tGeoDt.push({
+                            coords: [geoData[data[i].name], geoData[srcNam]]
+                        });
+                    }
                 }
             }
-            return res;
-        };
-        var series = [];
-        [
-            ['西安文物局', goData],
-        ].forEach(function(item, i) {
-            series.push({
-                name: 'item[0]',
-                type: 'lines',
-                zlevel: 2,
-                //线特效配置
-                effect: {
-                    show: true,
-                    period: 6,
-                    trailLength: 0.1,
-                    symbol: planePath, //标记类型
-                    symbolSize: 10
-                },
-                lineStyle: {
-                    normal: {
-                        width: 1,
-                        opacity: 0.4,
-                        curveness: 0.2, //弧线角度
-                        color: '#FFEA93'
-                    }
-                },
-                data: convertData(item[0], item[1])
-            }, {  //终点
-                name: 'item[0]',
-                type: 'effectScatter',
-                coordinateSystem: 'geo',
-                effectType:"ripple", //涟漪特效
+            return tGeoDt;
+        }
+
+        function formtVData(geoData, data, srcNam) {
+            var tGeoDt = [];
+            for (var i = 0, len = data.length; i < len; i++) {
+                var tNam = data[i].name
+                if (srcNam != tNam) {
+                    tGeoDt.push({
+                        name: tNam,
+                        value: geoData[tNam]
+                    });
+                }
+
+            }
+            tGeoDt.push({
+                name: srcNam,
+                value: geoData[srcNam],
+                symbolSize: 8,
                 itemStyle: {
                     normal: {
-                        color: '#f4e925', //圈圈的颜色
-                        shadowBlur: 10,
-                        shadowColor: '#333'
+                        color: '#F29E2E',
+                        borderColor: '#F29E2E'
                     }
-                },
-                showEffectOn: 'render',
-                rippleEffect: {
-                    brushType: 'stroke',
-                    scale: 3, //设置缩放
-                    period: 2, //设置时间
-                },
-                zlevel: 0,
-                label: {
-                    normal: {
-                        formatter: '{b}',
-                        position: 'right',
-                        show: false
-                    },
-                    emphasis: {
-                        show: true,
-                        color: '#f4e925', //hover时字的颜色
-                    }
-                },
-                symbol: 'circle',
-                //圆点大小
-                symbolSize:10,
-                data: item[1].map(function(dataItem) {
-                    return {
-                        name: dataItem.name,
-                        value: geoCoordMap[dataItem.name]
-                    };
-                })
-
-            }, {//起点
-                name: 'item[0]',
-                type: 'effectScatter',
-                effect:{
-                    show:false
-                },
-                coordinateSystem: 'geo',
-                effectType:"ripple", //涟漪特效
-                itemStyle: {
-                    normal: {
-                        color: '#f4e925', //圈圈的颜色
-                        shadowBlur: 10,
-                        shadowColor: '#333'
-                    }
-                },
-                showEffectOn: 'render',
-                rippleEffect: {
-                    brushType: 'stroke',
-                    scale: 3, //设置缩放
-                    period: 2, //设置时间
-                },
-                zlevel: 0,
-                label: {
-                    normal: {
-                        formatter: '{b}',
-                        position: 'right',
-                        show: false
-                    },
-                    emphasis: {
-                        show: true,
-                        color: '#f4e925', //hover时字的颜色
-                    }
-                },
-                symbolSize:1 ,
-                symbol: 'circle',
-                data: [{
-                    name: item[0],
-                    value: geoCoordMap[item[0]]
-                }]
-
-            })
-
-        });
-        console.log('series',series)
+                }
+            });
+            return tGeoDt;
+        }
         let option={
             background:"#091e57",
-            tooltip:{
-                triggerOn: 'click',
-                trigger: 'item',
-                backgroundColor: "rgba(11,71,153,0.7)",
-                alwaysShowContent: true,
-            },
             geo: {
                 map: 'xian',
                 roam: true,
@@ -203,7 +130,75 @@ class Echartmap extends Component {
                     },
                 }
             },
-            series:series
+            series: [{
+                type: 'lines',
+                zlevel: 2,
+                effect: {
+                    show: true,
+                    period: 6,
+                    trailLength: 0.1,
+                    color: '#f4e925',
+                    symbol: planePath,
+                    symbolSize: 8
+                },
+                lineStyle: {
+                    normal: {
+                        color: '#f4e925',
+                        width: 1,
+                        opacity: 0.4,
+                        curveness: 0.2
+                    }
+                },
+                data: formtGCData(geoCoordMap, goData, '西安文物局')
+            },
+                {
+
+                    type: 'lines',
+                    zlevel: 2,
+                    effect: {
+                        show: true,
+                        period: 6,
+                        trailLength: 0.1,
+                        symbol: planePath, //标记类型
+                        symbolSize: 10
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 1,
+                            opacity: 0.4,
+                            curveness: 0.2, //弧线角度
+                            color: '#f4e925'
+                        }
+                    },
+                    data: formtGCData(geoCoordMap, goData, '西安文物局')
+                },
+                {
+
+                    type: 'effectScatter',
+                    coordinateSystem: 'geo',
+                    zlevel: 2,
+                    rippleEffect: {
+                        period: 4,
+                        scale: 2.5,
+                        brushType: 'stroke'
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'right',
+                            formatter: '{b}'
+                        }
+                    },
+                    symbolSize: 5,
+                    itemStyle: {
+                        normal: {
+                            color: '#f4e925',
+                            borderColor: 'gold'
+                        }
+                    },
+
+                    data: formtVData(geoCoordMap, goData, '西安文物局')
+                }]
         }
         return option
     }

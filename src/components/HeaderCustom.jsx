@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {post} from "../axios/tools";
 import "../style/publicStyle/publicStyle.css"
+import "../style/yal/css/overView.css";
 const { Header } = Layout;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -140,6 +141,11 @@ class HeaderCustom extends Component {
         return (
             <div style={{background:'#313653'}}>
             <Header className="custom-theme header" >
+                <div className="titletop">
+                    <div className="titlevalue">
+                        西安文物局
+                    </div>
+                </div>
                 {
                     responsive.data.isMobile ? (
                         <Popover content={<SiderCustom path={path} popoverHide={this.popoverHide} />} trigger="click" placement="bottomLeft" visible={this.state.visible} onVisibleChange={this.handleVisibleChange}>

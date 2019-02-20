@@ -294,7 +294,7 @@
     left:300px;
 }
 .titletop .titlevalue{
-    font-size: 20px;
+    font-size: 28px;
     text-align: center;
     line-height: 65px;
     height: 65px;
@@ -302,8 +302,8 @@
     margin: 0 auto;
     position: relative;
     font-family: chuangyi;
-    font-size: 28px;
     text-shadow: 0 0 10px #fff;
+    color:#fff;
 }
 .titletop .titlevalue:after,.titletop .titlevalue:before{
     position: absolute;

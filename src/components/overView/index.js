@@ -265,11 +265,6 @@ class overView extends Component {
         return (
             <div className="overView" style={{height:this.state.DHeight}}>
                 <Universebg />
-                <div className="titletop">
-                    <div className="titlevalue">
-                        西安文物局
-                    </div>
-                </div>
                 <Row gutter={24} className="warrper" >
                     <Col span={7} className="wcolum">
                         <div className="clunm">
