@@ -19,9 +19,8 @@ class Echartmap extends Component {
         this.setState({
             type:this.props.type
         })
-    }
+    };
     componentDidMount(){
-        const _this=this;
         if(this.state.type=='xianmap'){
             this.setState({
                 mapValue:this.props.mapValue,
@@ -30,22 +29,21 @@ class Echartmap extends Component {
             })
         }
         
-    }
+    };
     onByModelClick = (e)=>{
          if(e.componentType === "series"){
-             for(var i=0;i<this.state.mapValue.length;i++){
-                 if(e.name===this.state.mapValue[i].name){
-                     this.setState({
-                         code:this.state.mapValue[i].code
-                     })
-                 }
-             }
              if(e.name!=this.props.cnameMap){
-                 window.location.href="#/app/Userhome/Alarmlist?activecompcode="+this.state.code+"&activecomp="+e.name
+                 for(var i=0;i<this.state.mapValue.length;i++){
+                     if(e.name===this.state.mapValue[i].name){
+                        var code=this.state.mapValue[i].code;
+                     }
+                 }
+                 localStorage.setItem('activecompcode', code);
+                 localStorage.setItem('activecomp', e.name);
+                 window.location.href="#/app/Userhome/Alarmlist"
              }
          }
-    }
-
+    };
     onClickByModel={
         'click':this.onByModelClick
     }
@@ -57,7 +55,6 @@ class Echartmap extends Component {
             return true;
         }else return false;
     }
-
     xianmap=()=>{ //地图
         echarts.registerMap('xian', xianmap);
          var geoCoordMap=this.props.mapJson;
@@ -84,7 +81,6 @@ class Echartmap extends Component {
             }
             return tGeoDt;
         }
-
         function formtVData(geoData, data, srcNam) {
             var tGeoDt = [];
             for (var i = 0, len = data.length; i < len; i++) {
