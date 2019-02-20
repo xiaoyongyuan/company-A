@@ -41,7 +41,7 @@ class Echartmap extends Component {
                  }
              }
              if(e.name!=this.props.cnameMap){
-                 window.location.href="#/app/Userhome/Alarmlist?code="+this.state.code+"&name="+e.name
+                 window.location.href="#/app/Userhome/Alarmlist?activecompcode="+this.state.code+"&activecomp="+e.name
              }
          }
     }
