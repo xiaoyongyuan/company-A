@@ -25,15 +25,24 @@ class Echartmap extends Component {
         if(this.state.type=='xianmap'){
             this.setState({
                 mapValue:this.props.mapValue,
-                mapJson:this.props.mapJson
+                mapJson:this.props.mapJson,
+                cnameMap:this.props.cnameMap
             })
         }
         
     }
     onByModelClick = (e)=>{
-        console.log(e,'sssss');
          if(e.componentType === "series"){
-            // window.location.href="#/app/Userhome/Alarmlist"
+             for(var i=0;i<this.state.mapValue.length;i++){
+                 if(e.name===this.state.mapValue[i].name){
+                     this.setState({
+                         code:this.state.mapValue[i].code
+                     })
+                 }
+             }
+             if(e.name!=this.props.cnameMap){
+                 window.location.href="#/app/Userhome/Alarmlist?code="+this.state.code+"&name="+e.name
+             }
          }
     }
 
@@ -149,7 +158,7 @@ class Echartmap extends Component {
                         curveness: 0.2
                     }
                 },
-                data: formtGCData(geoCoordMap, goData, '西安文物局')
+                data: formtGCData(geoCoordMap, goData, this.props.cnameMap)
             },
                 {
 
@@ -170,7 +179,7 @@ class Echartmap extends Component {
                             color: '#f4e925'
                         }
                     },
-                    data: formtGCData(geoCoordMap, goData, '西安文物局')
+                    data: formtGCData(geoCoordMap, goData, this.props.cnameMap)
                 },
                 {
 
@@ -189,7 +198,7 @@ class Echartmap extends Component {
                             formatter: '{b}'
                         }
                     },
-                    symbolSize: 5,
+                    symbolSize: 8,
                     itemStyle: {
                         normal: {
                             color: '#f4e925',
@@ -197,7 +206,7 @@ class Echartmap extends Component {
                         }
                     },
 
-                    data: formtVData(geoCoordMap, goData, '西安文物局')
+                    data: formtVData(geoCoordMap, goData, this.props.cnameMap)
                 }]
         }
         return option

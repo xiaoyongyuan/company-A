@@ -40,6 +40,7 @@ class overView extends Component {
             alarmnumber:{},
             mapJson:{},
             mapValue:[],
+            cnameMap:"",
             tootilp:[],
         };
         this.saveRef = ref => {this.refDom = ref};
@@ -80,7 +81,6 @@ class overView extends Component {
     };
     //位置图
     locationMap =()=>{
-      // return;
         post({url:"/api/company/getone_special"},(res)=>{
             if(res.success){
                 var mapJson={},mapValue=[],tootilp=[];
@@ -92,6 +92,7 @@ class overView extends Component {
                     tootilp.push({name:res.lnglat[a].name,ecount:res.lnglat[a].ecount,alarmcount:res.lnglat[a].alarmcount});
                 }
                 this.setState({
+                    cnameMap:res.data.cname,
                     mapJson:mapJson,
                     mapValue:mapValue,
                     tootilp:tootilp
@@ -350,6 +351,7 @@ class overView extends Component {
                                                       mapJson={this.state.mapJson}
                                                       mapValue={this.state.mapValue}
                                                       tootilp={this.state.tootilp}
+                                                      cnameMap={this.state.cnameMap}
                              />
                         </div>
                         <div className="draw">
