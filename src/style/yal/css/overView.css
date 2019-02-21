@@ -337,16 +337,6 @@
     font-size: 14px;
 }
 
-
-
-
-
-
-
-
-
-
-
 .overView .echartmap{
     padding:20px;
 }
@@ -379,6 +369,7 @@
     .draw .alarmcarousel{
         position: relative;
         width: 20%;
+        height: 30px;
         margin: 0 auto;
         bottom:-6px;
     }
@@ -463,7 +454,7 @@
     }
     .draw .alarmover{
         position: absolute;
-        bottom: 17px;
+        bottom: 22px;
     }
     .draw .alarmcarousel{
         position: relative;
@@ -479,6 +470,7 @@
         font-size: 30px;
         margin-left: 20px;
         font-family: alarmNumer;
+        
     }
     .draw .ant-carousel .slick-slide .person {
         background-image: url("../img/ren.png") !important;
@@ -571,4 +563,10 @@
 }
 .overView .slick-track,.overView .ant-carousel{
     height: 100% !important;
+}
+
+
+.alarmover .ant-carousel .slick-slider .slick-list{
+    padding-top: 2px !important;
+    
 }

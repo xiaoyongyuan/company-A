@@ -36,7 +36,6 @@ class Alarmdetails extends React.Component{
   componentDidMount() {
     post({url:"/api/alarm/getone",data:Object.assign(this.state.faths,{passivecode:this.state.activecompcode})},(res)=>{
       console.log('******************res.data',res.data);
-       
       let data={
           src:res.data.picpath,
           field:res.data.field,
@@ -82,15 +81,15 @@ class Alarmdetails extends React.Component{
   	switch(this.state.data.type){
   		case 1:
   			text='确认';
-        color='rgb(93,203,154)'
+        color='#2A8E39'
   			break;
   		case 2:
   			text='忽略';
-        color='#444'
+        color='#00B5D0'
   			break;
   		case 3:
   			text='虚警';
-        color='rgb(251, 117, 117)'
+        color='#F22727 '
   			break;
       default:
         text='未处理';
@@ -227,12 +226,12 @@ class Alarmdetails extends React.Component{
             				<p><label>处理结果：</label><span style={{color:this.state.color}}>{this.state.typetext}</span></p>
             				{
                       !this.state.activecompcode
-                      ?<p><label>处理类型：</label> <Button style={{background:'#2A8E39',color:'#fff'}} onClick={()=>this.alarmdeal(1)}>确认</Button> <Button style={{background:'#F22727',color:'#fff'}}  onClick={()=>this.alarmdeal(3)}>虚警</Button> <Button  style={{background:'#00B5D0',color:'#fff'}} onClick={()=>this.alarmdeal(2)}>忽略</Button></p>
+                      ?<p><label>处理类型：</label> <Button style={{background:'#2A8E39',color:'#fff',outline:'none !import'}} onClick={()=>this.alarmdeal(1)}>确认</Button> <Button style={{background:'#F22727',color:'#fff'}}  onClick={()=>this.alarmdeal(3)}>虚警</Button> <Button  style={{background:'#00B5D0',color:'#fff'}} onClick={()=>this.alarmdeal(2)}>忽略</Button></p>
                       :''
                     }
                     {
                       !this.state.activecompcode
-                      ?<p><label>报警处理：</label> <Button onClick={()=>this.doCollection()}>收藏</Button> <Button type="primary" onClick={()=>this.delete()}>删除</Button> </p>
+                      ?<p><label>报警处理：</label> <Button style={{background:'#5063EE',color:'#fff'}} onClick={()=>this.doCollection()}>收藏</Button> <Button type="primary" onClick={()=>this.delete()}>删除</Button> </p>
                       :''
                     }
                     

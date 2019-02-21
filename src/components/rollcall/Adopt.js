@@ -121,6 +121,7 @@ class Adopt extends Component {
         });
     }
     handleSelectChange=(value,opt)=>{ //选择设备 onchange
+        console.log('value,opt',value,opt)
         this.setState({
             cid: value,
             index:opt.key,
