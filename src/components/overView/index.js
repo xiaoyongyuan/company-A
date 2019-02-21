@@ -31,6 +31,8 @@ class overView extends Component {
             deveicek:[],//设备
             callist:[],
             visible: false,
+            visibleImg:false,
+            visibleState:false,
             alarmVideo:[],
             carsalarm:{},//车报警数量
             fireCount:{},//火报警数量
@@ -51,11 +53,34 @@ class overView extends Component {
         })
 
     };
-    //即时信息model
-    informatinImg =(pathImg)=> {
+    equipmentModel =(equipmentCname,equipmentName,hearttime)=>{
         this.setState({
-            visible: true,
-            pathImg: pathImg
+            visibleState:true,
+            equipmentCname:equipmentCname,
+            equipmentName:equipmentName,
+            hearttime:hearttime
+        })
+    }
+    //设备状态model关闭
+    VideoCancelState =()=>{
+        this.setState({
+            visibleState:false,
+        })
+    }
+    //即时信息model打开
+    informatinImg =(pathImg,cname,cameraname,type,time)=> {
+        this.setState({
+            visibleImg: true,
+            pathImg: pathImg,
+            cname:cname,
+            cameraname:cameraname,
+            type:type,
+            time:time,
+        })
+    };
+    VideoCancelImg =()=>{
+        this.setState({
+            visibleImg:false
         })
     };
     //即时视频model
@@ -318,7 +343,7 @@ class overView extends Component {
                                                 <div className="scollhidden-inner">
                                                     {this.state.deveicek.map((el,i)=>(
                                                         <div className="equipment equipbody" key={'row'+i}>
-                                                            <Row className="lines">
+                                                            <Row className="lines" onClick={()=>this.equipmentModel(el.cname,el.name,el.hearttime)}>
                                                                 <Col className="gutter-row" xl={8}>
                                                                     {el.cname}
                                                                 </Col>
@@ -407,7 +432,7 @@ class overView extends Component {
                                         {this.state.callist.map((el,i)=>(
                                             <div key={el.code} className="carouselitem">
                                                 <div className="Rotation_chart" style={{height:(parseInt(this.state.DHeight)*0.7-20)*0.5-76}}>
-                                                    <div style={{maxHeight:'calc(100% - 110px)'}} ><img src={el.picpath} alt="" style={{ cursor:"pointer"}} onClick={()=>this.informatinImg(el.picpath)} /></div>
+                                                    <div style={{maxHeight:'calc(100% - 110px)'}} ><img src={el.picpath} alt="" style={{ cursor:"pointer"}} onClick={()=>this.informatinImg(el.picpath,el.cname,el.cameraname,el.type,el.time)} /></div>
                                                     <div className="redcolor">
                                                         <span> {el.cname}</span> ,<span>{el.cameraname}</span>,
                                                         <span>{el.type==="alarm"?"报警":""} </span>
@@ -502,7 +527,49 @@ class overView extends Component {
                         className="video"
                     >
                         <div className="shipin">
-                            <div className="shipin-context"><img src={this.state.pathImg} alt="" /></div>
+                            <div className="shipin-context">
+                                <img src={this.state.pathImg} alt="" />
+                            </div>
+                        </div>
+                    </Modal>
+                    <Modal
+                        width={900}
+                        visible={this.state.visibleImg}
+                        onCancel={this.VideoCancelImg}
+                        footer={null}
+                        className="video"
+                    >
+                        <div className="shipin">
+                            <div className="shipin-contextImg">
+                                <p>
+                                    <span> {this.state.cname}</span> ,<span>{this.state.cameraname}</span>,
+                                    <span>{this.state.type==="alarm"?"报警":""} </span>
+                                    <span>{this.state.type==="rollcall"?"点名报警":""}</span>
+                                    <span>{this.state.type==="patrol"?"巡更":""}</span>,
+                                    <span>{this.state.time}</span>
+                                </p>
+                                <img src={this.state.pathImg} alt="" />
+                            </div>
+                        </div>
+                    </Modal>
+                    <Modal
+                        width={400}
+                        visible={this.state.visibleState}
+                        onCancel={this.VideoCancelState}
+                        footer={null}
+                        className="equipment"
+                    >
+                        <div className="shipin">
+                            <div className="shipin-context">
+                                <p className="equipmentModel">
+                                    <p>单位：{this.state.equipmentCname}</p>
+                                    <p>设备：{this.state.equipmentName}</p>
+                                    <p>状态： {moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > this.state.hearttime &&
+                                    moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > this.state.hearttime
+                                        ? <span>离线</span>:<span>在线 </span>
+                                    }</p>
+                                </p>
+                            </div>
                         </div>
                     </Modal>
                 </Row>

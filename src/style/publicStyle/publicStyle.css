@@ -137,6 +137,7 @@
 }
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
     background-color: #272b42!important;   /* 菜单选中的颜色 */
+    color:#fff;
 }
 .ant-card-bordered {
     border: 1px solid #4C5784!important;

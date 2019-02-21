@@ -32,7 +32,6 @@ class SiderCustom extends Component {
         };
     };
     static onCollapse = (collapsed) => {
-        console.log(collapsed);
         return {
             collapsed,
             mode: collapsed ? 'vertical' : 'inline',

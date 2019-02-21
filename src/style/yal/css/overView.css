@@ -518,12 +518,31 @@
 }
 .shipin-context{
     position: relative;
-    padding: 30px;
+    padding: 35px;
+}
+.shipin-context img{
+    padding-top: 30px;
+}
+.shipin-contextImg{
+    position: relative;
+    padding: 15px 30px 30px 30px;
+}
+.shipin-contextImg img{
+    width: 100%;
+    height: 100%;
+}
+.shipin-contextImg p{
+    display:inline-block;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    margin-top: 30px;
+    color: red;
+    font-size: 16px;
 }
 .shipin-context img{
    width: 100%;
     height: 100%;
-    padding-top: 35px;
 }
 .shipin .shipin-close{
     width: 50px;
@@ -532,11 +551,15 @@
     left: 550px;
     background: red;
 }
-.video .ant-modal-content{
+.shipin-context .equipmentModel{
+    color:#fff;
+    margin-left: 20px;
+}
+.video .ant-modal-content,.equipment .ant-modal-content{
     background: rgba(0, 0, 0, 0)!important;
 }
 .video .ant-modal-close{
-    top: 46px!important;
+    top: 53px!important;
     right: 26px!important;
     color: #FFFFFF!important;
     background: url("../img/btnBack.png") no-repeat;
@@ -551,7 +574,22 @@
     bottom: 9px;
     right: 11px;
 }
-
+.equipment .ant-modal-close{
+    top: 33px!important;
+    right: 26px!important;
+    color: #FFFFFF!important;
+    background: url("../img/btnBack.png") no-repeat;
+    background-size: 100% 100%;
+}
+.equipment .ant-modal-close-x{
+    width: 50px!important;
+    height: 32px!important;
+}
+.equipment .anticon svg{
+    position: absolute;
+    bottom: 9px;
+    right: 11px;
+}
 
 #ScollhiddenOut .scollhidden-inner {
     width: 100% !important;
