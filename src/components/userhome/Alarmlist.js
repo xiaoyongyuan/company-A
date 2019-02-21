@@ -126,7 +126,6 @@ class Alarmlist extends React.Component{
     };
     //报警信息列表
     handleAlerm = (data={})=>{
-        
         post({url:'/api/alarm/getlist',data:Object.assign(data,{pageindex:this.state.page,pagesize:18,passivecode:this.state.activecompcode})},(res)=>{
             if(res.success){
                 this.setState({
@@ -160,7 +159,7 @@ class Alarmlist extends React.Component{
     };
     //设备select
     handleEquipment = ()=>{
-        post({url:"/api/camera/get_cameralist"},(res)=>{
+        post({url:"/api/camera/get_cameralist",data:{passivecode:this.state.activecompcode}},(res)=>{
             if(res.success){
                 this.setState({
                     equipment:res.data,
@@ -195,8 +194,7 @@ class Alarmlist extends React.Component{
                 })
         
     };
-    canCollection =(e)=>{ //只看收藏
-       
+    canCollection =(e)=>{ //只看收藏   
         e.preventDefault();
         if(this.state.propsid){
             this.setState({
@@ -338,6 +336,26 @@ class Alarmlist extends React.Component{
             }
         });
     }
+    atypeimg =(type,img)=>{
+      switch(type){
+        case 1:
+          return img;
+        default:
+         return nodata;
+      }
+    }
+    atypetext =(type) =>{
+      switch(type){
+        case 1:
+          return '围界入侵';
+        case 1:
+          return '围界入侵';
+        case 1:
+          return '围界入侵';
+        default:
+         return '未知类型：'+type;
+      }
+    }
     render(){
         const { getFieldDecorator } = this.props.form;
         return(
@@ -429,7 +447,7 @@ class Alarmlist extends React.Component{
                                             </div>
                                             <Col span={8}>
                                                 <div className="pliceImgyal" onClick={()=>this.alarmImg(v.code)}>
-                                                    <img src={v.pic_min} alt="" />
+                                                    <img src={this.atypeimg(v.atype,v.pic_min)} alt="" />
                                                 </div>
                                             </Col>
                                             <Col span={16} className="r_flex">
@@ -442,7 +460,7 @@ class Alarmlist extends React.Component{
                                                                         <p className="fontstyle">{v.name}</p>
                                                                     </Col>
                                                                     <Col span={9} push={4} style={{textAlign:'right' }}>
-                                                                        <p className="fontstyle time-col">{v.atype===1?"入侵检测":""}</p>
+                                                                        <p className="fontstyle time-col">{this.atypetext(v.atype)}</p>
                                                                     </Col>
                                                                 </Row>
                                                             </Col>

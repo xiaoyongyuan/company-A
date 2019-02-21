@@ -16,7 +16,7 @@ const { Header } = Layout;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 const Option = Select.Option;
-
+let vis=false;
 class HeaderCustom extends Component {
     state = {
         user: {},
@@ -41,15 +41,12 @@ class HeaderCustom extends Component {
         }
     };
     screenFull = () => { //全屏切换
-            screenfull.toggle();
-        // if (screenfull.enabled) {
-            // screenfull.request();
-        // }
+        screenfull.toggle();
+        this.props.toggle();
     };
     menuClick = e => {
         e.key === 'logout' && this.logout();
     };
-
     showModaldelete = () =>{ //退出
         this.setState({
             deleteshow: true,
@@ -140,7 +137,7 @@ class HeaderCustom extends Component {
         const { responsive, path } = this.props;
         return (
             <div style={{background:'#313653'}}>
-            <Header className="custom-theme header" >
+            <Header className="custom-theme header">
                 <div className="titletop">
                     <div className="titlevalue">
                         {this.props.user.cname}
@@ -156,14 +153,15 @@ class HeaderCustom extends Component {
                         ) : (
                             <Icon
                                 className="header__trigger custom-trigger"
-                                type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
+                                type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
                                 onClick={this.props.toggle}
                             />
                         )
                     }
                 </div>
                 <div style={{width:"28%",float:"right"}}>
-                    <div style={{ lineHeight: '63px', float: 'right',color:'#fff' }}>{this.props.user.realname},欢迎您</div>
+                    {/*当前查看公司*/}
+                    <div style={{ lineHeight: '63px', float: 'right',color:'#fff' }}></div>
                     <Menu
                         mode="horizontal"
                         style={{ lineHeight: '63px', float: 'right' }}
@@ -174,7 +172,7 @@ class HeaderCustom extends Component {
                         </Menu.Item>
                         <SubMenu style={{borderBottom:'2px solid #31365'}} title={<span className="avatar"><img src={this.props.user.utype==='1'?icon_user:icon_admin} alt="头像" /> </span>}>
                             <MenuItemGroup title="用户中心" style={{background:"rgba(255,255,255,0.5)"}}>
-                                {/* <Menu.Item key="setting:1">你好 - {this.props.user.realname}</Menu.Item> */}
+                                <Menu.Item key="setting:1">你好 - {this.props.user.realname}</Menu.Item>
                                 {this.props.user.activecount
                                     ?<Menu.Item key="setting:2" onClick={this.sitchcomp}>{this.state.activecname?this.state.activecname:this.props.user.cname} <Icon type="sync" /></Menu.Item>
                                     :''

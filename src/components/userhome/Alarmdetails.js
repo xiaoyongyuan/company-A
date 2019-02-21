@@ -172,8 +172,7 @@ class Alarmdetails extends React.Component{
   		}
   	})
   }
-  delete=()=>{ //删除报警
-  	post({url:'/api/alarm/delete',data:{code:this.state.code}},(res)=>{
+  delete=()=>{ //删除报警  	post({url:'/api/alarm/delete',data:{code:this.state.code}},(res)=>{
   		if(res){
         let data=this.state.data;
 				this.setState({

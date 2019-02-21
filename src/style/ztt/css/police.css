@@ -322,7 +322,7 @@
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
     color: white;
-    font-size: 24%;
+    font-size: 12px;
 }
 .loadding{
     width: 100%;
