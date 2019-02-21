@@ -8,7 +8,7 @@ class Userdeveice extends React.Component{
         this.state={
             portvalue:"",
             ipvalue:"",
-            code:"1000001",
+            code:"",
             data:{},
             edata:{},
             login:{},
@@ -73,7 +73,6 @@ class Userdeveice extends React.Component{
             message.warn('请填写完整！');
             return;
         }
-        post({url:"/api/camera/camerareset",data:data}, (res)=>{})
     }
  
     field=()=>{ //布防区域的个数 
@@ -90,9 +89,9 @@ class Userdeveice extends React.Component{
          return count;
     }
     status=()=>{ //报警类型 
-        if(this.state.edata.status==="stop"){
+        if(this.state.heartdata.status==="stop"){
             return "停止运行"
-        }else if(this.state.edata.status==="run"){
+        }else if(this.state.heartdata.status==="run"){
             return "运行中";
         }else{
             return "摄像头未连接";
@@ -101,9 +100,7 @@ class Userdeveice extends React.Component{
      atype=()=>{ //报警类型 
         if(this.state.data.atype===1){
             return "入侵报警"
-        }else{
-            return "";
-        }          
+        }         
     }
     isonline=()=>{ //当前状态 
         let time= this.state.heartdata.time;// 取到时间
@@ -162,7 +159,6 @@ class Userdeveice extends React.Component{
                            报警类型：
                         </Col>
                         <Col span={21} className="t_l">
-                            {/* 围界入侵 */}
                             {this.atype()}
                         </Col>
                     </Row>
