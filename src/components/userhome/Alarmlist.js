@@ -3,7 +3,7 @@ import { DatePicker, Row, Col, Select, Button, Modal, Pagination, Form, message,
 import "../../style/ztt/css/police.css";
 import "../../style/publicStyle/publicStyle.css";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
-import 'moment/locale/zh-cn';
+        import 'moment/locale/zh-cn';
 import {post} from "../../axios/tools";
 import Alarmdetails from "./Alarmdetails";
 import nodata from "../../style/imgs/nodata.png";
