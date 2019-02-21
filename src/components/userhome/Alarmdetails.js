@@ -35,7 +35,6 @@ class Alarmdetails extends React.Component{
   }
   componentDidMount() {
     post({url:"/api/alarm/getone",data:Object.assign(this.state.faths,{passivecode:this.state.activecompcode})},(res)=>{
-      console.log('******************res.data',res.data);
       let data={
           src:res.data.picpath,
           field:res.data.field,
@@ -174,10 +173,7 @@ class Alarmdetails extends React.Component{
   	})
   }
   delete=()=>{ //删除报警
-    console.log('******************code1', this.state.code);
-    
   	post({url:'/api/alarm/delete',data:{code:this.state.code}},(res)=>{
-      // console.log('******************delete',res);
   		if(res){
         let data=this.state.data;
 				this.setState({
@@ -187,9 +183,7 @@ class Alarmdetails extends React.Component{
   	})
   }
   doCollection=()=>{ //收藏报警
-    console.log('******************code2', this.state.code);
   	post({url:'/api/alarm/collection',data:{code:this.state.code}},(res)=>{
-      // console.log('******************collection',res);
   		if(res){
         let data=this.state.data;
 				this.setState({
