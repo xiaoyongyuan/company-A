@@ -126,8 +126,12 @@ class Alarmlist extends React.Component{
     };
     //报警信息列表
     handleAlerm = (data={})=>{
+        
         post({url:'/api/alarm/getlist',data:Object.assign(data,{pageindex:this.state.page,pagesize:18,passivecode:this.state.activecompcode})},(res)=>{
             if(res.success){
+                this.setState({
+                    displaysearch:true,
+                })
                 if(res.data.length===0){
                     this.setState({
                       nodatapic:false,
@@ -169,6 +173,9 @@ class Alarmlist extends React.Component{
     * 开始时间、结束时间、设备cid
     * */
     handleSubmit =(e)=>{
+        this.setState({
+            displaysearch:false,
+        })
         e.preventDefault();
         if(this.state.propsid){
             this.setState({
@@ -189,6 +196,7 @@ class Alarmlist extends React.Component{
         
     };
     canCollection =(e)=>{ //只看收藏
+       
         e.preventDefault();
         if(this.state.propsid){
             this.setState({
@@ -196,6 +204,7 @@ class Alarmlist extends React.Component{
                 })
         }
         this.setState({
+                    displaysearch:false,
                     page:1,
                     loadding:true,
                 },()=>{
@@ -408,10 +417,10 @@ class Alarmlist extends React.Component{
                      <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
                 </Row>}
                 
-                <Row style={{marginLeft:"10px",display:this.state.type===0?"none":"block"}}>
+                <Row style={{marginLeft:"10px",display:this.state.type===0?"none":"block",}}>
                     {
                         this.state.policeList.map((v,i)=>(
-                            <Col xm={11} sm={11} md={11} lg={11} xl={11} xxl={7} key={i} style={{margin:"0px 10px"}}>
+                            <Col xm={11} sm={11} md={11} lg={11} xl={11} xxl={7} key={i} style={{margin:"0px 10px",display:this.state.displaysearch=== true?" block":"none"}}>
                                 <div className="listmargintop">
                                     <div className={this.redgreenblue(v.status)} >
                                         <Row>

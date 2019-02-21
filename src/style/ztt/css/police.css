@@ -332,3 +332,13 @@
     color: #fefefe;
 }
 
+.flexright button:focus {
+    outline: none;
+    border-color: transparent;
+    box-shadow:none;
+}
+.flexright button:hover{  
+    outline: none;
+    border-color: transparent;
+    box-shadow:none;
+}
