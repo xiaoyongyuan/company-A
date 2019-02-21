@@ -315,12 +315,12 @@
     background-size:  100% 100%;
 }
 .titletop .titlevalue:after{
-    right: 0;
+    right:-30px;
     background-image: url("../img/titler.png");
     background-repeat: no-repeat;
 }
 .titletop .titlevalue:before{
-    left:0;
+    left:-30px;
     background-repeat: no-repeat;
     background-image: url("../img/titlel.png");
 }

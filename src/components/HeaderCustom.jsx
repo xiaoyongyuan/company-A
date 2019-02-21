@@ -16,7 +16,7 @@ const { Header } = Layout;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 const Option = Select.Option;
-
+let vis=false;
 class HeaderCustom extends Component {
     state = {
         user: {},
@@ -41,15 +41,12 @@ class HeaderCustom extends Component {
         }
     };
     screenFull = () => { //全屏切换
-            screenfull.toggle();
-        // if (screenfull.enabled) {
-            // screenfull.request();
-        // }
+        screenfull.toggle();
+        this.props.toggle();
     };
     menuClick = e => {
         e.key === 'logout' && this.logout();
     };
-
     showModaldelete = () =>{ //退出
         this.setState({
             deleteshow: true,
@@ -140,7 +137,7 @@ class HeaderCustom extends Component {
         const { responsive, path } = this.props;
         return (
             <div style={{background:'#313653'}}>
-            <Header className="custom-theme header" >
+            <Header className="custom-theme header">
                 <div className="titletop">
                     <div className="titlevalue">
                         {this.props.user.cname}
@@ -156,7 +153,7 @@ class HeaderCustom extends Component {
                         ) : (
                             <Icon
                                 className="header__trigger custom-trigger"
-                                type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
+                                type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
                                 onClick={this.props.toggle}
                             />
                         )

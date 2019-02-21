@@ -51,6 +51,13 @@ class overView extends Component {
         })
 
     };
+    //即时信息model
+    informatinImg =(pathImg)=> {
+        this.setState({
+            visible: true,
+            pathImg: pathImg
+        })
+    };
     //即时视频model
     instantVideo =(pathImg)=>{
         this.setState({
@@ -400,7 +407,7 @@ class overView extends Component {
                                         {this.state.callist.map((el,i)=>(
                                             <div key={el.code} className="carouselitem">
                                                 <div className="Rotation_chart" style={{height:(parseInt(this.state.DHeight)*0.7-20)*0.5-76}}>
-                                                    <div style={{maxHeight:'calc(100% - 110px)'}} ><img src={el.picpath} alt="" /></div>
+                                                    <div style={{maxHeight:'calc(100% - 110px)'}} ><img src={el.picpath} alt="" style={{ cursor:"pointer"}} onClick={()=>this.informatinImg(el.picpath)} /></div>
                                                     <div className="redcolor">
                                                         <span> {el.cname}</span> ,<span>{el.cameraname}</span>,
                                                         <span>{el.type==="alarm"?"报警":""} </span>
@@ -488,7 +495,7 @@ class overView extends Component {
                         </div>
                     </Col>
                     <Modal
-                        width={700}
+                        width={900}
                         visible={this.state.visible}
                         onCancel={this.VideoCancel}
                         footer={null}
