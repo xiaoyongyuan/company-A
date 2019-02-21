@@ -174,10 +174,8 @@ class Alarmdetails extends React.Component{
   	})
   }
   delete=()=>{ //删除报警
-    console.log('******************code1', this.state.code);
     
   	post({url:'/api/alarm/delete',data:{code:this.state.code}},(res)=>{
-      // console.log('******************delete',res);
   		if(res){
         let data=this.state.data;
 				this.setState({
@@ -187,9 +185,7 @@ class Alarmdetails extends React.Component{
   	})
   }
   doCollection=()=>{ //收藏报警
-    console.log('******************code2', this.state.code);
   	post({url:'/api/alarm/collection',data:{code:this.state.code}},(res)=>{
-      // console.log('******************collection',res);
   		if(res){
         let data=this.state.data;
 				this.setState({
