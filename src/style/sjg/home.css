@@ -345,7 +345,7 @@
 }
 
 .bell {
-    min-width: 60px;
+    min-width: 75px;
     height: 34px;
     color: red;
     position: absolute;
@@ -359,18 +359,23 @@
     padding: 4px 7px;
     border-right: none;
 }
-
+.bell .equipNumnber{
+    display: inline-block;
+    width: 70%;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
 .actionsBbottom {
     width: 100%;
-    height: 40px;
+    height: 48px;
     color: #ffffff;
 }
 
 .colCen {
-    line-height: 40px !important;
+    line-height: 40px;
     color: #ffffff;
 }
-
 .titcon p:nth-of-type(1) {
     height: 30px;
     line-height: 30px;
@@ -1015,18 +1020,15 @@
 }
 
 /*布防中*/
-.defence {
+.defenceEqui {
     color: #54CD66;
 }
-
-.defence:hover {
+.defenceEqui:hover {
     color: #43a952;
 }
 
 /*不在布防中*/
 .nodefence {
-    width: 60px;
-    display: inline-block;
     color: #AAAAAA;
 }
 
@@ -1160,4 +1162,7 @@
 
 .redcolor {
     color: red;
+}
+.sheding{
+    width: 100%;
 }
