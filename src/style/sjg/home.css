@@ -345,7 +345,7 @@
 }
 
 .bell {
-    min-width: 75px;
+    min-width: 65px;
     height: 34px;
     color: red;
     position: absolute;
@@ -361,10 +361,28 @@
 }
 .bell .equipNumnber{
     display: inline-block;
-    width: 70%;
+    width: 78%;
     overflow: hidden;
     text-overflow:ellipsis;
     white-space: nowrap;
+    position: absolute;
+    right: -8px;
+    padding-right: 10px;
+}
+.bellIcon{
+    position: absolute;
+    left: 30px;
+    top: 30px;
+}
+.settingIcon{
+    position: relative;
+    left: 10px;
+    top: 9px;
+}
+.sheding{
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 5px;
 }
 .actionsBbottom {
     width: 100%;
@@ -1022,6 +1040,9 @@
 /*布防中*/
 .defenceEqui {
     color: #54CD66;
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 8px;
 }
 .defenceEqui:hover {
     color: #43a952;
@@ -1030,13 +1051,20 @@
 /*不在布防中*/
 .nodefence {
     color: #AAAAAA;
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 8px;
 }
-
 /*未设置*/
 .setup {
     color: #5063EE;
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 8px;
 }
-
+.setup:hover{
+    color: #3f54e8;
+}
 .backImg {
     width: 100%;
     height: 120px;
@@ -1163,6 +1191,4 @@
 .redcolor {
     color: red;
 }
-.sheding{
-    width: 100%;
-}
+

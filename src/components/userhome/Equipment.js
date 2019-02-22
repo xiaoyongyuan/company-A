@@ -54,11 +54,11 @@ class Equipment extends React.Component{
  
     statework=(i)=>{ //布防转换     
         if(this.state.camera[i].work===2){
-            return (<span className="defenceEqui"><Icon type="clock-circle" /> 布防中</span>)
+            return (<span className="defenceEqui"><Icon type="clock-circle" className="settingIcon" /> 布防中</span>)
         }else if(this.state.camera[i].work===1){
-            return (<span className="nodefence coverflow" title="不在布防中"><Icon type="clock-circle" /> 不在布防中</span>)
+            return (<span className="nodefence coverflow" title="不在布防中"><Icon type="clock-circle" className="settingIcon" /> 不在布防中</span>)
         }else{
-            return (<span className="setup"><Icon type="clock-circle" /> 未设置</span>)
+            return (<span className="setup"><Icon type="clock-circle" className="settingIcon" /> 未设置</span>)
         }
     }
     field=(i)=>{ //布防区域的个数 
@@ -134,7 +134,7 @@ class Equipment extends React.Component{
                                                                       {this.statework(i)}
                                                                   </div>,
                                                                   <div className="colCen actionsBbottom ">
-                                                                      <span className="sheding"><Icon type="setting" /></span> <span className="sheding">设定</span>
+                                                                      <Icon type="setting" className="settingIcon"/><span className="sheding">设定</span>
                                                                   </div>
                                                               ]
                                                               :[
@@ -147,7 +147,7 @@ class Equipment extends React.Component{
                                                                       {this.statework(i)}
                                                                   </a>,
                                                                   <a href={"#/app/userhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
-                                                                      <span className="sheding"><Icon type="setting" /></span> <span className="sheding">设定</span>
+                                                                     <Icon type="setting" className="settingIcon" /><span className="sheding">设定</span>
                                                                   </a>
                                                               ]}
                                                 >
@@ -165,7 +165,7 @@ class Equipment extends React.Component{
                                                     </Row>
                                                     <div className="bell">
                                                         <a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"} style={{color:'#f00'}}>
-                                                            <Icon type="bell" /> <span className="equipNumnber">{this.state.camera[i].alarm}</span>
+                                                            <Icon type="bell" className="bellIcon" /><span className="equipNumnber" title={this.state.camera[i].alarm}>{this.state.camera[i].alarm}</span>
                                                         </a>
                                                     </div>
                                                 </Card>
