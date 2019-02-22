@@ -47,6 +47,7 @@ class Alarmlist extends React.Component{
             displayblue:'block',
             backColor:'',//背景颜色
             nodatapic:true,
+            ifclassion:false,
         };
     }
     componentWillMount() {
@@ -125,6 +126,9 @@ class Alarmlist extends React.Component{
         data.bdate=this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'';
         data.edate=this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'';
         data.cid=this.state.cid;
+        if(this.state.ifclassion){
+            data.ifdanger=1;
+        }
         this.setState({
             page:page
         },()=>{
@@ -199,25 +203,24 @@ class Alarmlist extends React.Component{
                 })
         
     };
+  
     canCollection =(e)=>{ //只看收藏   
         e.preventDefault();
-        if(this.state.propsid){
-            this.setState({
-                    propsid:'',
-                })
-        }
-
         this.setState({
                     displaysearch:false,
-                    page:1,
                     loadding:true,
+                    page:1,
+                    ifclassion:true,
                 },()=>{
-                    const data={
-                        ifdanger:1,
-                        cid:this.state.cid
-                    };
-                    this.handleAlerm(data);
+                    const dataCon={};
+                    dataCon.bdate=this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'';
+                    dataCon.edate=this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'';
+                    dataCon.cid=this.state.cid;
+                    dataCon.ifdanger=1;
+                  
+                    this.handleAlerm(dataCon);
                 })
+               
     };
     //搜索设备选中的值
     handleChange =(value)=>{
@@ -548,7 +551,7 @@ class Alarmlist extends React.Component{
                         onCancel={this.handleCancelAlarmImg}
                         footer={null}
                     >
-                        <Alarmdetails visible={this.state.alarmImgType} toson={this.state.toson} />
+                        <Alarmdetails visible={this.state.alarmImgType} toson={this.state.toson} closeAlarm={this.handleCancelAlarmImg} />
                     </Modal>
                 </div>
             </div>

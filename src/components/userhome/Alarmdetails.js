@@ -30,11 +30,12 @@ class Alarmdetails extends React.Component{
     this.setState({
       faths:this.props.toson,
       code:this.props.toson.code,
-      activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:''
+      activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:'',
     });
   }
   componentDidMount() {
     post({url:"/api/alarm/getone",data:Object.assign(this.state.faths,{passivecode:this.state.activecompcode})},(res)=>{
+     
       let data={
           src:res.data.picpath,
           field:res.data.field,
@@ -46,13 +47,14 @@ class Alarmdetails extends React.Component{
           tags:res.data.tags, 
           pic_width:res.data.pic_width, //报警宽
           pic_height:res.data.pic_height, //报警高  
-
+          
         }
         this.setState({
+          ifdanger:res.data.ifdanger,//是否收藏
           data:data,
           prev:res.data.last,
           next:res.data.next, 
-      },()=>{
+      },()=>{        
         this.draw();
         this.typetext()
       });
@@ -67,7 +69,7 @@ class Alarmdetails extends React.Component{
               vis=nextProps.visible;
               this.setState({
                   code:nextProps.toson.code,
-                  faths:nextProps.toson
+                  faths:nextProps.toson,
               }, () => {
                   this.componentDidMount()});
           }
@@ -178,33 +180,45 @@ class Alarmdetails extends React.Component{
         message.success('删除成功');
         let data=this.state.data;
 				this.setState({
-		  		data:data,
-		    })
+          data:data,
+		    },()=>{
+          this.props.closeAlarm();
+        });
   		}
     })
   }
-  doCollection=()=>{ //收藏报警
-  	post({url:'/api/alarm/update',data:{code:this.state.code,ifdanger:1,}},(res)=>{
-  		if(res.success){
-          message.success('收藏成功');
-          let data=this.state.data;
-          this.setState({
-            data:data,
-          })
-  		}                                                                                                                                
-  	})
+  doCollection=()=>{ 
+ 
+    if(this.state.ifdanger===1){
+      post({url:'/api/alarm/update',data:{code:this.state.code,ifdanger:0,}},(res)=>{
+        
+        if(res.success){
+         
+            message.success('已取消收藏 ');
+            let data=this.state.data;
+            this.setState({
+              data:data,
+              ifdanger:res.data[0].ifdanger,
+            })
+        }                                                                                                                                
+      })
+    }
+    else if(this.state.ifdanger===0) {
+     
+      post({url:'/api/alarm/update',data:{code:this.state.code,ifdanger:1,}},(res)=>{
+        if(res.success){
+          
+            message.success(' 收藏成功');
+            let data=this.state.data;
+            this.setState({
+              data:data,
+              ifdanger:res.data[0].ifdanger,
+            })
+        }                                                                                                                                
+      })
+    }
   }
-  delCollection=()=>{ //取消收藏报警
-  	post({url:'/api/alarm/update',data:{code:this.state.code,ifdanger:0,}},(res)=>{
-  		if(res.success){
-          message.success('已取消收藏');
-          let data=this.state.data;
-          this.setState({
-            data:data,
-          })
-  		}                                                                                                                                
-  	})
-  }
+
     
     render(){      
         return(
@@ -239,8 +253,9 @@ class Alarmdetails extends React.Component{
                     {
                       !this.state.activecompcode
                       ?<p><label>报警处理：</label>
-                      <Button style={{background:'#5063EE',color:'#fff'}} onClick={()=>this.doCollection()}>收藏</Button> 
-                      <Button style={{background:'#5063EE',color:'#fff'}} onClick={()=>this.delCollection()}>取消收藏</Button> 
+                      <Button style={{background:'#5063EE',color:'#fff'}} onClick={()=>this.doCollection()}>
+                      {this.state.ifdanger==1?'取消收藏':'收藏'}   
+                      </Button> 
                       <Button type="primary" onClick={()=>this.delete()}>删除</Button> 
                       </p>
                       :''
