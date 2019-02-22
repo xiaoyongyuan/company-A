@@ -2,7 +2,7 @@
  * 头部登录人信息
  */
 import React, { Component } from 'react';
-import { Menu, Icon, Layout, Popover,Modal, Select } from 'antd';
+import { Menu, Icon, Layout, Popover,Modal, Select, notification} from 'antd';
 import screenfull from 'screenfull';
 import icon_admin from '../style/imgs/icon_admin.png';
 import icon_user from '../style/imgs/icon_user.png';
@@ -29,7 +29,6 @@ class HeaderCustom extends Component {
         const _user = JSON.parse(localStorage.getItem('user'));
         const activecompcode = localStorage.getItem('activecompcode');
         const activecomp = localStorage.getItem('activecomp');
-
         if(!_user){
             this.props.history.push('/login');
         }else{
@@ -123,6 +122,8 @@ class HeaderCustom extends Component {
     logout = () => { //退出
         localStorage.removeItem('user');
         localStorage.removeItem('token');
+        localStorage.removeItem('activecompcode');
+        localStorage.removeItem('activecomp');
         this.props.history.push('/login')
     };
     popoverHide = () => {
@@ -133,10 +134,34 @@ class HeaderCustom extends Component {
     handleVisibleChange = (visible) => {
         this.setState({ visible });
     };
+    openNotification = () => { //报警消息提醒
+        notification.open({
+            key:'newalarm',
+            message: '信息',
+            description: (
+              <div>
+                  有新的报警信息
+              </div>
+          ),
+          icon: <Icon type="smile-circle" style={{ color: 'red' }} />,
+          duration: 1,
+          placement:'bottomRight'
+        });
+    };
     render() {
         const { responsive, path } = this.props;
+        const _this=this;
+        
         return (
             <div style={{background:'#313653'}}>
+            <Modal
+                title="消息提醒"
+                visible={this.state.visible}
+                onOk={this.handleOk}
+                onCancel={this.handleCancel}
+                okText="确认"
+                cancelText="取消"
+            />
             <Header className="custom-theme header">
                 <div className="titletop">
                     <div className="titlevalue">
