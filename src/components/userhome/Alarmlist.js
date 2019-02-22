@@ -59,6 +59,12 @@ class Alarmlist extends React.Component{
                 propsid:this.props.query.id,
             })
         }   
+        const data={};
+        if(this.state.propsid){
+            data.cid=this.state.propsid;
+            data.status=0
+        }
+        this.handleAlerm(data);
     }
     componentDidMount() {
         const data={};
@@ -72,7 +78,8 @@ class Alarmlist extends React.Component{
     handleCancelAlarmImg =()=>{
         this.setState({
             alarmImgType:false
-        })
+        });
+        this.handleAlerm();
     };
     //一键处理
     handleProcessing = ()=>{
@@ -172,9 +179,6 @@ class Alarmlist extends React.Component{
     * 开始时间、结束时间、设备cid
     * */
     handleSubmit =(e)=>{
-        this.setState({
-            displaysearch:false,
-        })
         e.preventDefault();
         if(this.state.propsid){
             this.setState({
@@ -182,6 +186,7 @@ class Alarmlist extends React.Component{
                 })
         }
         this.setState({
+                    displaysearch:false,
                     page:1,
                     loadding:true,
                 },()=>{
@@ -201,12 +206,14 @@ class Alarmlist extends React.Component{
                     propsid:'',
                 })
         }
+
         this.setState({
                     displaysearch:false,
                     page:1,
                     loadding:true,
                 },()=>{
                     const data={
+                        ifdanger:1,
                         cid:this.state.cid
                     };
                     this.handleAlerm(data);
