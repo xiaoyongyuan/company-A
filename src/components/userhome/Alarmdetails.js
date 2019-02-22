@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Switch, Icon } from 'antd';
+import {Button, Switch, Icon,message} from 'antd';
 import {post} from "../../axios/tools";
 import "../../style/ztt/css/police.css";
 const ButtonGroup = Button.Group;
@@ -173,23 +173,36 @@ class Alarmdetails extends React.Component{
   	})
   }
   delete=()=>{ //删除报警
-  	post({url:'/api/alarm/delete',data:{code:this.state.code}},(res)=>{
+  	post({url:'/api/alarm/update',data:{code:this.state.code,ifdel:1,}},(res)=>{
   		if(res){
+        message.success('删除成功');
         let data=this.state.data;
 				this.setState({
 		  		data:data,
 		    })
   		}
-  	})
+    })
   }
   doCollection=()=>{ //收藏报警
-  	post({url:'/api/alarm/collection',data:{code:this.state.code}},(res)=>{
-  		if(res){
-        let data=this.state.data;
-				this.setState({
-		  		data:data,
-		    })
-  		}
+  	post({url:'/api/alarm/update',data:{code:this.state.code,ifdanger:1,}},(res)=>{
+  		if(res.success){
+          message.success('收藏成功');
+          let data=this.state.data;
+          this.setState({
+            data:data,
+          })
+  		}                                                                                                                                
+  	})
+  }
+  delCollection=()=>{ //取消收藏报警
+  	post({url:'/api/alarm/update',data:{code:this.state.code,ifdanger:0,}},(res)=>{
+  		if(res.success){
+          message.success('已取消收藏');
+          let data=this.state.data;
+          this.setState({
+            data:data,
+          })
+  		}                                                                                                                                
   	})
   }
     
@@ -225,7 +238,11 @@ class Alarmdetails extends React.Component{
                     }
                     {
                       !this.state.activecompcode
-                      ?<p><label>报警处理：</label> <Button style={{background:'#5063EE',color:'#fff'}} onClick={()=>this.doCollection()}>收藏</Button> <Button type="primary" onClick={()=>this.delete()}>删除</Button> </p>
+                      ?<p><label>报警处理：</label>
+                      <Button style={{background:'#5063EE',color:'#fff'}} onClick={()=>this.doCollection()}>收藏</Button> 
+                      <Button style={{background:'#5063EE',color:'#fff'}} onClick={()=>this.delCollection()}>取消收藏</Button> 
+                      <Button type="primary" onClick={()=>this.delete()}>删除</Button> 
+                      </p>
                       :''
                     }
                     
