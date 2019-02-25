@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePicker, Row, Col, Select, Button, Modal, Pagination, Form, message,LocaleProvider,Spin } from "antd";
+import { DatePicker, Row, Col, Select, Button, Modal, Pagination, Form, message,LocaleProvider,Spin,Switch, Icon } from "antd";
 import "../../style/ztt/css/police.css";
 import "../../style/publicStyle/publicStyle.css";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
@@ -145,7 +145,11 @@ class Alarmlist extends React.Component{
                 if(res.data.length===0){
                     this.setState({
                       nodatapic:false,
-                  })
+                    })
+              }else{
+                this.setState({
+                    nodatapic:true ,
+                })
               }
                 if(res.data.length){
                     this.setState({
@@ -205,7 +209,10 @@ class Alarmlist extends React.Component{
     };
   
     canCollection =(e)=>{ //只看收藏   
-        e.preventDefault();
+        console.log(e);
+        // if(){
+
+        // }
         this.setState({
                     displaysearch:false,
                     loadding:true,
@@ -373,7 +380,7 @@ class Alarmlist extends React.Component{
                 <LocaleProvider locale={zh_CN}>
                     <Row style={{marginTop:"20px"}}>
                         <Form onSubmit={this.handleSubmit}>
-                            <Col xl={6} xxl={5} lg={10}>
+                            <Col xl={5} xxl={4} lg={9}>
                                 <Form.Item
                                     {...formItemLayout}
                                     label="日期"
@@ -392,7 +399,7 @@ class Alarmlist extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                            <Col xl={5} xxl={4} lg={10}>
+                            <Col xl={5} xxl={3} lg={10}>
                                 <Form.Item>
                                     {getFieldDecorator('range-picker2')(
                                         <DatePicker
@@ -408,7 +415,7 @@ class Alarmlist extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                            <Col xl={4} xxl={3} lg={8}>
+                            <Col xl={3} xxl={3} lg={8}>
                                 <Form.Item
                                     {...formItemLayout}
                                     label="设备"
@@ -426,6 +433,9 @@ class Alarmlist extends React.Component{
                                         </Select>
                                     )}
                                 </Form.Item>
+                            </Col>
+                            <Col xl={2} xxl={2} lg={6} className="lr">
+                                <Switch checkedChildren="查看全部" onChange={this.canCollection} unCheckedChildren="只看收藏" style={{background:"#2A8E39"}} />
                             </Col>
                             <Col xl={2} xxl={2} lg={6} className="mt">
                                 <Button type="primary" htmlType="submit" className="queryBtn">查询</Button>
@@ -448,7 +458,7 @@ class Alarmlist extends React.Component{
                 <Row style={{marginLeft:"10px",display:this.state.type===0?"none":"block",}}>
                     {
                         this.state.policeList.map((v,i)=>(
-                            <Col xm={11} sm={11} md={11} lg={11} xl={11} xxl={7} key={i} style={{margin:"0px 10px",display:this.state.displaysearch=== true?" block":"none"}}>
+                            <Col xm={11} sm={11} md={11} lg={11} xl={11} xxl={7} key={v.code} style={{margin:"0px 10px",display:this.state.displaysearch=== true?" block":"none"}}>
                                 <div className="listmargintop">
                                     <div className={this.redgreenblue(v.status)} >
                                         <Row>
