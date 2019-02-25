@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePicker, Row, Col, Select, Button, Modal, Pagination, Form, message,LocaleProvider,Spin } from "antd";
+import { DatePicker, Row, Col, Select, Button, Modal, Pagination, Form, message,LocaleProvider,Spin,Switch, Icon } from "antd";
 import "../../style/ztt/css/police.css";
 import "../../style/publicStyle/publicStyle.css";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
@@ -47,6 +47,7 @@ class Alarmlist extends React.Component{
             displayblue:'block',
             backColor:'',//背景颜色
             nodatapic:true,
+            ifclassion:false,
         };
     }
     componentWillMount() {
@@ -76,10 +77,16 @@ class Alarmlist extends React.Component{
         this.handleAlerm(data);//报警信息列表
     }
     handleCancelAlarmImg =()=>{
+          const data={
+            bdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
+            edate:this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
+            cid:this.state.cid,
+            ifdanger:this.state.ififdanger
+         };
         this.setState({
             alarmImgType:false
         });
-        this.handleAlerm();
+        this.handleAlerm(data);
     };
     //一键处理
     handleProcessing = ()=>{
@@ -125,6 +132,9 @@ class Alarmlist extends React.Component{
         data.bdate=this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'';
         data.edate=this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'';
         data.cid=this.state.cid;
+        if(this.state.ifclassion){
+            data.ifdanger=1;
+        }
         this.setState({
             page:page
         },()=>{
@@ -141,7 +151,11 @@ class Alarmlist extends React.Component{
                 if(res.data.length===0){
                     this.setState({
                       nodatapic:false,
-                  })
+                    })
+              }else{
+                this.setState({
+                    nodatapic:true ,
+                })
               }
                 if(res.data.length){
                     this.setState({
@@ -193,31 +207,26 @@ class Alarmlist extends React.Component{
                     const data={
                         bdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
                         edate:this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
-                        cid:this.state.cid
+                        cid:this.state.cid,
+                        ifdanger:this.state.ififdanger
                     };
                     this.handleAlerm(data);
                 })
         
     };
+  
     canCollection =(e)=>{ //只看收藏   
-        e.preventDefault();
-        if(this.state.propsid){
+        if(e){
             this.setState({
-                    propsid:'',
-                })
+                ififdanger:1,
+                ifclassion:true,
+            })
+        }else{
+            this.setState({
+                ififdanger:0,
+                ifclassion:false,
+            })
         }
-
-        this.setState({
-                    displaysearch:false,
-                    page:1,
-                    loadding:true,
-                },()=>{
-                    const data={
-                        ifdanger:1,
-                        cid:this.state.cid
-                    };
-                    this.handleAlerm(data);
-                })
     };
     //搜索设备选中的值
     handleChange =(value)=>{
@@ -370,7 +379,7 @@ class Alarmlist extends React.Component{
                 <LocaleProvider locale={zh_CN}>
                     <Row style={{marginTop:"20px"}}>
                         <Form onSubmit={this.handleSubmit}>
-                            <Col xl={6} xxl={5} lg={10}>
+                            <Col xl={5} xxl={4} lg={9}>
                                 <Form.Item
                                     {...formItemLayout}
                                     label="日期"
@@ -389,7 +398,7 @@ class Alarmlist extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                            <Col xl={5} xxl={4} lg={10}>
+                            <Col xl={5} xxl={3} lg={10}>
                                 <Form.Item>
                                     {getFieldDecorator('range-picker2')(
                                         <DatePicker
@@ -405,7 +414,7 @@ class Alarmlist extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                            <Col xl={4} xxl={3} lg={8}>
+                            <Col xl={3} xxl={3} lg={8}>
                                 <Form.Item
                                     {...formItemLayout}
                                     label="设备"
@@ -424,14 +433,17 @@ class Alarmlist extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
+                            <Col xl={2} xxl={2} lg={4} className="switch_lr"> 
+                                <div> 
+                                    <span>只看收藏&nbsp;:&nbsp;</span>
+                                    <Switch checkedChildren="关" onChange={this.canCollection} unCheckedChildren="开" style={{background:"#2A8E39"}} />
+                                </div>
+                            </Col>
                             <Col xl={2} xxl={2} lg={6} className="mt">
                                 <Button type="primary" htmlType="submit" className="queryBtn">查询</Button>
                             </Col>
                             <Col xl={2} xxl={2} lg={6} className="lr">
                                 <Button onClick={this.handleProcessing} className="processingBtn" disabled={this.state.activecompcode?true:false}>一键处理</Button>
-                            </Col>
-                            <Col xl={2} xxl={2} lg={6} className="lr">
-                                <Button onClick={this.canCollection} className="processingBtn">只看收藏</Button>
                             </Col>
                         </Form>
                     </Row>
@@ -445,7 +457,7 @@ class Alarmlist extends React.Component{
                 <Row style={{marginLeft:"10px",display:this.state.type===0?"none":"block",}}>
                     {
                         this.state.policeList.map((v,i)=>(
-                            <Col xm={11} sm={11} md={11} lg={11} xl={11} xxl={7} key={i} style={{margin:"0px 10px",display:this.state.displaysearch=== true?" block":"none"}}>
+                            <Col xm={11} sm={11} md={11} lg={11} xl={11} xxl={7} key={v.code} style={{margin:"0px 10px",display:this.state.displaysearch=== true?" block":"none"}}>
                                 <div className="listmargintop">
                                     <div className={this.redgreenblue(v.status)} >
                                         <Row>
@@ -548,7 +560,7 @@ class Alarmlist extends React.Component{
                         onCancel={this.handleCancelAlarmImg}
                         footer={null}
                     >
-                        <Alarmdetails visible={this.state.alarmImgType} toson={this.state.toson} />
+                        <Alarmdetails visible={this.state.alarmImgType} toson={this.state.toson} closeAlarm={this.handleCancelAlarmImg} />
                     </Modal>
                 </div>
             </div>
