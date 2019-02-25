@@ -188,6 +188,7 @@
 .equiptable .gutter-row{
     display: table-cell;
     vertical-align: middle;
+    cursor: pointer;
 }
 .equipbody .lines{
     width: 100%;

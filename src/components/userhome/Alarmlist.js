@@ -464,10 +464,10 @@ class Alarmlist extends React.Component{
                                                             <Col span={18}>
                                                                 <Row>
                                                                     <Col span={14} style={{marginLeft:'5px'}} push={1}>
-                                                                        <p className="fontstyle">{v.name}</p>
+                                                                        <p className="fontstyle time-col" title={v.name}>{v.name}</p>
                                                                     </Col>
-                                                                    <Col span={9} push={4} style={{textAlign:'right' }}>
-                                                                        <p className="fontstyle time-col">{this.atypetext(v.atype)}</p>
+                                                                    <Col span={9} push={4}>
+                                                                        <p className="fontstyle time-col typeUnknown">{this.atypetext(v.atype)}</p>
                                                                     </Col>
                                                                 </Row>
                                                             </Col>
