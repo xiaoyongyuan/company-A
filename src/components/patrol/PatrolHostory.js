@@ -48,17 +48,21 @@ class RollcallHostory extends Component{
                 })
         post({url:'/api/patrolresult/getlist_team',data:{passivecode:this.state.activecompcode}},(res)=>{
             if(res.success){
-                if(res.data.length===0){
-                      this.setState({
-                        nodatapic:false,
-                    })
-                }
                 this.setState({
                     list:res.data,
                     loading: false,
                     type:true,
                     loadtype: false,
                 })
+                if(res.data.length===0){
+                      this.setState({
+                        nodatapic:false,
+                    })
+                }else{
+                    this.setState({
+                        nodatapic:true,
+                    })
+                }
             }else{
                 this.setState({
                     type:false,

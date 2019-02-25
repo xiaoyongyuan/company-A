@@ -106,11 +106,6 @@ class RollcallRecord extends React.Component{
         }
         post({url:"/api/rollcalldetail/getlist",data:params},(res)=>{
             if(res.success){
-                this.setState({
-                    rollsetList:res.data,
-                    totalcount:res.totalcount,
-                    loading:false, //加载中的状态
-                });
                 if(res.data.length > 0){
                     this.setState({
                         ishide:false,
@@ -123,6 +118,11 @@ class RollcallRecord extends React.Component{
                         type:false
                     })
                 }
+                this.setState({
+                    rollsetList:res.data,
+                    totalcount:res.totalcount,
+                    loading:false, //加载中的状态
+                });
             }else{
                 this.setState({
                     loading:true
@@ -206,7 +206,7 @@ class RollcallRecord extends React.Component{
                     </div>
                 </LocaleProvider>
                 <Spin spinning={this.state.loading} size="large" className="spin" tip="Loading..." />
-                <div style={{marginTop:"70px",display:this.state.type?" none":"block"}}>
+                <div style={{marginTop:"70px",display:this.state.type?"none":"block"}}>
                     <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
                 </div>
                 <Row type="flex" justify="start">
