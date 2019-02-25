@@ -256,7 +256,7 @@ class Alarmdetails extends React.Component{
                       <Button style={{background:'#5063EE',color:'#fff'}} onClick={()=>this.doCollection()}>
                       {this.state.ifdanger==1?'取消收藏':'收藏'}   
                       </Button> 
-                      <Button type="primary" onClick={()=>this.delete()}>删除</Button> 
+                      <Button type="primary" style={{background:'#313653',color:'#fff'}} onClick={()=>this.delete()}>删除</Button> 
                       </p>
                       :''
                     }
