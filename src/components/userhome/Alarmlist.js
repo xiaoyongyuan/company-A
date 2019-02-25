@@ -77,10 +77,16 @@ class Alarmlist extends React.Component{
         this.handleAlerm(data);//报警信息列表
     }
     handleCancelAlarmImg =()=>{
+          const data={
+            bdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
+            edate:this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
+            cid:this.state.cid,
+            ifdanger:this.state.ififdanger
+         };
         this.setState({
             alarmImgType:false
         });
-        this.handleAlerm();
+        this.handleAlerm(data);
     };
     //一键处理
     handleProcessing = ()=>{
@@ -201,7 +207,8 @@ class Alarmlist extends React.Component{
                     const data={
                         bdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
                         edate:this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
-                        cid:this.state.cid
+                        cid:this.state.cid,
+                        ifdanger:this.state.ififdanger
                     };
                     this.handleAlerm(data);
                 })
@@ -209,25 +216,17 @@ class Alarmlist extends React.Component{
     };
   
     canCollection =(e)=>{ //只看收藏   
-        console.log(e);
-        // if(){
-
-        // }
-        this.setState({
-                    displaysearch:false,
-                    loadding:true,
-                    page:1,
-                    ifclassion:true,
-                },()=>{
-                    const dataCon={};
-                    dataCon.bdate=this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'';
-                    dataCon.edate=this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'';
-                    dataCon.cid=this.state.cid;
-                    dataCon.ifdanger=1;
-                  
-                    this.handleAlerm(dataCon);
-                })
-               
+        if(e){
+            this.setState({
+                ififdanger:1,
+                ifclassion:true,
+            })
+        }else{
+            this.setState({
+                ififdanger:0,
+                ifclassion:false,
+            })
+        }
     };
     //搜索设备选中的值
     handleChange =(value)=>{
@@ -434,17 +433,17 @@ class Alarmlist extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                            <Col xl={2} xxl={2} lg={6} className="lr">
-                                <Switch checkedChildren="查看全部" onChange={this.canCollection} unCheckedChildren="只看收藏" style={{background:"#2A8E39"}} />
+                            <Col xl={2} xxl={2} lg={4} className="switch_lr"> 
+                                <div> 
+                                    <span>只看收藏&nbsp;:&nbsp;</span>
+                                    <Switch checkedChildren="关" onChange={this.canCollection} unCheckedChildren="开" style={{background:"#2A8E39"}} />
+                                </div>
                             </Col>
                             <Col xl={2} xxl={2} lg={6} className="mt">
                                 <Button type="primary" htmlType="submit" className="queryBtn">查询</Button>
                             </Col>
                             <Col xl={2} xxl={2} lg={6} className="lr">
                                 <Button onClick={this.handleProcessing} className="processingBtn" disabled={this.state.activecompcode?true:false}>一键处理</Button>
-                            </Col>
-                            <Col xl={2} xxl={2} lg={6} className="lr">
-                                <Button onClick={this.canCollection} className="processingBtn">只看收藏</Button>
                             </Col>
                         </Form>
                     </Row>

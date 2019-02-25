@@ -605,6 +605,14 @@
 
 
 .alarmover .ant-carousel .slick-slider .slick-list{
-    padding-top: 2px !important;
-    
+    padding-top: 2px !important;  
 }
+/* 只看收藏 */
+.switch_lr{
+    color:#fff;
+}
+.switch_lr>div{
+   height: 40px;
+   line-height: 40px;
+}
+/* 只看收藏结束*/

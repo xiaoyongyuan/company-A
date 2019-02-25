@@ -188,12 +188,9 @@ class Alarmdetails extends React.Component{
     })
   }
   doCollection=()=>{ 
- 
     if(this.state.ifdanger===1){
       post({url:'/api/alarm/update',data:{code:this.state.code,ifdanger:0,}},(res)=>{
-        
         if(res.success){
-         
             message.success('已取消收藏 ');
             let data=this.state.data;
             this.setState({
@@ -204,7 +201,6 @@ class Alarmdetails extends React.Component{
       })
     }
     else if(this.state.ifdanger===0) {
-     
       post({url:'/api/alarm/update',data:{code:this.state.code,ifdanger:1,}},(res)=>{
         if(res.success){
           
