@@ -46,17 +46,20 @@ class RollcallHostory extends Component{
             })
         post({url:'/api/rollcalldetail/getlist_info_dayly',data:{passivecode:this.state.activecompcode}},(res)=>{
             if(res.success){
-                console.log('******************',res.data);
-                
-                    this.setState({
-                          list:res.data,
-                          loading: false,
-                          type:true,
-                    })
-            }else{
                 this.setState({
-                    type:false,
-              })
+                  list:res.data,
+                  loading: false,
+                });
+                if(res.data.length===0){
+                    this.setState({
+                        type:false
+                    })
+                }
+                if(res.data.length>0){
+                    this.setState({
+                        type:true,
+                    })
+                }
             }
         })
          var _this=this;
@@ -173,18 +176,15 @@ class RollcallHostory extends Component{
                             type:true,
                             loading:false,
                         })
-                       
                         if(res.data.length===0){
                             this.setState({
                                 loadtip:'  ',
                                 type:false,
-                                } )
+                            })
                         }
-                       
                 }else{
                     this.setState({
                         type:false,
-                       
                     })
                 }
             })

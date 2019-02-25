@@ -47,9 +47,6 @@ class RollcallHostory extends Component{
                 loadtip:false,
                 })
         post({url:'/api/patrolresult/getlist_team',data:{passivecode:this.state.activecompcode}},(res)=>{
-
-           
-
             if(res.success){
                 if(res.data.length===0){
                       this.setState({
@@ -315,7 +312,6 @@ class RollcallHostory extends Component{
                 <div style={{marginTop:"70px",display:this.state.type?" none":"block"}}>
                     <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
                 </div>
-                
                 <Spin spinning={this.state.loading} className="spin" size="large"tip="Loading..." />
                 <div className="timeline_ml" style={{display:this.state.type?"block":"none"}}>
                  <Timeline pending={this.state.loadtip}>
