@@ -34,7 +34,7 @@ class Alarmdetails extends React.Component{
     });
   }
   componentDidMount() {
-    post({url:"/api/alarm/getone",data:Object.assign(this.state.faths,{passivecode:this.state.activecompcode})},(res)=>{
+    post({url:"/api/alarm/getone",data:Object.assign(this.state.faths,{passivecode:this.state.activecompcode,ifdanger:this.state.ifdanger,})},(res)=>{
      
       let data={
           src:res.data.picpath,
@@ -111,13 +111,14 @@ class Alarmdetails extends React.Component{
   }
   looknew=(text)=>{ //查看上下一条
     let faths=this.state.faths;
+   
     faths.code=this.state[text];
   	this.setState({
   		field:true,
   		obj:true,
       faths:faths,
       code:this.state[text],
-      ifdanger:this.ifdanger
+      ifdanger:this.state.ifdanger
     },()=>{
     	this.componentDidMount()
     });
