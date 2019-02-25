@@ -117,61 +117,61 @@ class Equipment extends React.Component{
                     <div className="equipmentCard">
                         <Row className="paddRow" gutter={32}>
                             {
-                                    this.state.camera.map((el,i)=>{
-                                        return(
-                                            <Col key={i} xxl={{ span: 4}} xl={{ span:6}} lg={{ span: 6}} md={{span:6}} sm={{span:6}} xs={{span:6}} className="cardPdd ">
-                                                <Card className="boxShow"
-                                                      cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath?this.state.camera[i].picpath:nopic} width="100%" /></a>}
-                                                      actions={
-                                                          this.state.utype==='1' || this.state.activecompcode
-                                                              ?[
-                                                                  <div className="actionsBbottom">
-                                                                      <p>{this.field(i)}条
-                                                                      </p>
-                                                                      <p>布防区域 </p>
-                                                                  </div>,
-                                                                  <div className="actionsBbottom colCen ">
-                                                                      {this.statework(i)}
-                                                                  </div>,
-                                                                  <div className="colCen actionsBbottom ">
-                                                                      <Icon type="setting" className="settingIcon"/><span className="sheding">设定</span>
-                                                                  </div>
-                                                              ]
-                                                              :[
-                                                                  <a href={"#/app/companyhome/setarea?id="+el.code} className="actionsBbottom">
-                                                                      <p> {this.field(i)}条
-                                                                      </p>
-                                                                      <p>布防区域 </p>
-                                                                  </a>,
-                                                                  <a href={"#/app/companyhome/settime?id="+el.code} className="actionsBbottom colCen">
-                                                                      {this.statework(i)}
-                                                                  </a>,
-                                                                  <a href={"#/app/userhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
-                                                                     <Icon type="setting" className="settingIcon" /><span className="sheding">设定</span>
-                                                                  </a>
-                                                              ]}
-                                                >
-                                                    <Row className="paddRow">
-                                                        <Col xxl={{ span:24}} lg={{span:24}} >
-                                                            <div className="equipmentNumber">
-                                                                <div >{this.isonline(i)}</div>
-                                                                <div className="equipmentRight ">
-                                                                    <p className="coverflow" title={el.name}>{el.name}</p>
-                                                                    <p className="coverflow" title={el.eid}>{el.eid}</p>
-                                                                </div>
-                                                            </div>
-
-                                                        </Col>
-                                                    </Row>
-                                                    <div className="bell">
-                                                        <a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"} style={{color:'#f00'}}>
-                                                            <Icon type="bell" className="bellIcon" /><span className="equipNumnber" title={this.state.camera[i].alarm}>{this.state.camera[i].alarm}</span>
-                                                        </a>
+                                this.state.camera.map((el,i)=>{
+                                return(
+                                    <Col key={i} xxl={{ span: 4}} xl={{ span:6}} lg={{ span: 6}} md={{span:6}} sm={{span:6}} xs={{span:6}} className="cardPdd ">
+                                        <Card className="boxShow"
+                                              cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath?this.state.camera[i].picpath:nopic} width="100%" /></a>}
+                                              actions={
+                                                  this.state.utype==='1' || this.state.activecompcode
+                                                      ?[
+                                                          <div className="actionsBbottom">
+                                                              <p>{this.field(i)}条
+                                                              </p>
+                                                              <p>布防区域 </p>
+                                                          </div>,
+                                                          <div className="actionsBbottom colCen ">
+                                                              {this.statework(i)}
+                                                          </div>,
+                                                          <div className="colCen actionsBbottom ">
+                                                              <Icon type="setting" className="settingIcon"/><span className="sheding">设定</span>
+                                                          </div>
+                                                      ]
+                                                      :[
+                                                          <a href={"#/app/companyhome/setarea?id="+el.code} className="actionsBbottom">
+                                                              <p> {this.field(i)}条
+                                                              </p>
+                                                              <p>布防区域 </p>
+                                                          </a>,
+                                                          <a href={"#/app/companyhome/settime?id="+el.code} className="actionsBbottom colCen">
+                                                              {this.statework(i)}
+                                                          </a>,
+                                                          <a href={"#/app/userhome/Userdeveice?id="+el.code} className="colCen actionsBbottom ">
+                                                             <Icon type="setting" className="settingIcon" /><span className="sheding">设定</span>
+                                                          </a>
+                                                      ]}
+                                        >
+                                            <Row className="paddRow">
+                                                <Col xxl={{ span:24}} lg={{span:24}} >
+                                                    <div className="equipmentNumber">
+                                                        <div >{this.isonline(i)}</div>
+                                                        <div className="equipmentRight ">
+                                                            <p className="coverflow" title={el.name}>{el.name}</p>
+                                                            <p className="coverflow" title={el.eid}>{el.eid}</p>
+                                                        </div>
                                                     </div>
-                                                </Card>
-                                            </Col>
-                                        )
-                                    })
+
+                                                </Col>
+                                            </Row>
+                                            <div className="bell">
+                                                <a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"} style={{color:'#f00'}}>
+                                                    <Icon type="bell" className="bellIcon" /><span className="equipNumnber" title={this.state.camera[i].alarm}>{this.state.camera[i].alarm}</span>
+                                                </a>
+                                            </div>
+                                        </Card>
+                                    </Col>
+                                )
+                            })
                            }
                         </Row>
                     </div>

@@ -7,6 +7,7 @@ import "../../style/ztt/css/rollCall.css";
 import Button from "antd/es/button/button";
 import {post} from "../../axios/tools";
 import errs from "../../style/imgs/errs.png";
+import nodata from "../../style/imgs/nodata.png";
 const RangePicker = DatePicker.RangePicker;
 const Option = Select.Option;
 class RollcallRecord extends React.Component{
@@ -19,6 +20,7 @@ class RollcallRecord extends React.Component{
             page:1, //当前页数
             ishide:'',
             loading:true, //加载中的状态
+            type:true
         };
     }
     componentWillMount(){
@@ -104,20 +106,26 @@ class RollcallRecord extends React.Component{
         }
         post({url:"/api/rollcalldetail/getlist",data:params},(res)=>{
             if(res.success){
+                if(res.data.length > 0){
+                    this.setState({
+                        ishide:false,
+                        type:true
+                    })
+                }
+                if(res.data.length === 0){
+                    this.setState({
+                        ishide:true,
+                        type:false
+                    })
+                }
                 this.setState({
                     rollsetList:res.data,
                     totalcount:res.totalcount,
                     loading:false, //加载中的状态
-                })
-            }
-            if(res.data.length === 0){
+                });
+            }else{
                 this.setState({
-                    ishide:true
-                })
-            }
-            if(res.data.length > 0){
-                this.setState({
-                    ishide:false
+                    loading:true
                 })
             }
         });
@@ -198,6 +206,9 @@ class RollcallRecord extends React.Component{
                     </div>
                 </LocaleProvider>
                 <Spin spinning={this.state.loading} size="large" className="spin" tip="Loading..." />
+                <div style={{marginTop:"70px",display:this.state.type?"none":"block"}}>
+                    <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
+                </div>
                 <Row type="flex" justify="start">
                     {this.state.rollsetList.map((v,i)=>(
                         <Col className="rollcalllist" key={i} span={7} style={{marginTop:"30px",marginLeft:"30px"}}>

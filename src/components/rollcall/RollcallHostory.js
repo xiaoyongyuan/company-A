@@ -46,17 +46,20 @@ class RollcallHostory extends Component{
             })
         post({url:'/api/rollcalldetail/getlist_info_dayly',data:{passivecode:this.state.activecompcode}},(res)=>{
             if(res.success){
-                console.log('******************',res.data);
-                
+                if(res.data.length===0){
                     this.setState({
-                          list:res.data,
-                          loading: false,
-                          type:true,
+                        type:false
                     })
-            }else{
+                }
+                if(res.data.length>0){
+                    this.setState({
+                        type:true,
+                    })
+                }
                 this.setState({
-                    type:false,
-              })
+                  list:res.data,
+                  loading: false,
+                });
             }
         })
          var _this=this;
@@ -167,24 +170,25 @@ class RollcallHostory extends Component{
             }
             post({url:'/api/rollcalldetail/getlist_info_dayly',data:data},(res)=>{
                 if(res.success){
+                    if(res.data.length===0){
                         this.setState({
-                            isrequest: true,
-                            list:res.data,
-                            type:true,
-                            loading:false,
+                            loadtip:'  ',
+                            type:false,
                         })
-                       
-                        if(res.data.length===0){
-                            this.setState({
-                                loadtip:'  ',
-                                type:false,
-                                } )
-                        }
-                       
+                    }
+                    if(res.data.length>0){
+                        this.setState({
+                            type:true,
+                        })
+                    }
+                    this.setState({
+                        isrequest: true,
+                        list:res.data,
+                        loading:false,
+                    })
                 }else{
                     this.setState({
                         type:false,
-                       
                     })
                 }
             })
@@ -253,63 +257,59 @@ class RollcallHostory extends Component{
                 </div>
                 <div className="timeline_ml" style={{display:this.state.type?" block":"none"}}>
                  <Timeline pending={this.state.loadtip}>
-                         
-                        {
-                            this.state.list.length?this.state.list.map((item,j)=>{
-                                return (
+                    {
+                        this.state.list.map((item,j)=>{
+                            return (
 
-                                    <div key={j}> 
-                                    
-                                    <Timeline.Item color="#fff">
-                                        <p> {item.dayly} </p>
-                                         { 
-                                             item.info.map((el,i)=>{
-                                                return (
-                                                    <div key={i}>
-                                                        {/* <div className="times"> 第{i+1}次</div> */}
-                                                            <div className="line_detail">
-                                                                <div className="line_alerm">
-                                                                   <div>
-                                                                       {
-                                                                           el.alarm.length>0?
-                                                                               <div className="circle"><div /></div>
-                                                                               :
-                                                                               <div className="circlegreen"><div /></div>
-                                                                       }
-                                                                   </div>
-                                                                        <div className="m_l">
-                                                                            <div className="arr">{el.rollcalldate.slice(11,20)}</div>　 
-                                                                            {el.ifeveryday===0?"自动点名":"手动点名"}，
-                                                                            共点名 {el.totalcount}个对象，
-                                                                            {el.executing===0? <span />: <span> {el.executing} 正在点名，</span>}
-                                                                            {el.totalcount-el.executing-el.normal-el.fail===0? <span />: <span> {el.totalcount-el.executing-el.normal-el.fail} 个报警，</span>}
-                                                                            {el.normal===0? <span />: <span> {el.normal} 个正常，</span>}
-                                                                            {el.fail===0? <span />: <span> {el.fail} 失败，</span>}
-                                                                            <a href={"#/app/rollcall/rollcallrecord?taskid="+el.taskid+"&rollcalldate="+el.rollcalldate} className="underline">查看详情</a>
-                                                                        </div>
-                                                                </div>
-                                                                {
-                                                                el.alarm.map((num,n)=>{
-                                                                     return (
-                                                                                <div key={n} className="alarm_img" style={num.rpic?{display:'inlin-block'}:{display:'none'}} >
-                                                                                    <img src={num.rrpic?num.rrpic:err} alt="alarm_img" width="100%" onClick={()=>this.handlerollCallType(num.code)} />
-                                                                                </div> 
-                                                                            )
-                                                                    })
-                                                                }
+                                <div key={j}>
+
+                                <Timeline.Item color="#fff">
+                                    <p> {item.dayly} </p>
+                                     {
+                                         item.info.map((el,i)=>{
+                                            return (
+                                                <div key={i}>
+                                                    {/* <div className="times"> 第{i+1}次</div> */}
+                                                        <div className="line_detail">
+                                                            <div className="line_alerm">
+                                                               <div>
+                                                                   {
+                                                                       el.alarm.length>0?
+                                                                           <div className="circle"><div /></div>
+                                                                           :
+                                                                           <div className="circlegreen"><div /></div>
+                                                                   }
+                                                               </div>
+                                                                    <div className="m_l">
+                                                                        <div className="arr">{el.rollcalldate.slice(11,20)}</div>　
+                                                                        {el.ifeveryday===0?"自动点名":"手动点名"}，
+                                                                        共点名 {el.totalcount}个对象，
+                                                                        {el.executing===0? <span />: <span> {el.executing} 正在点名，</span>}
+                                                                        {el.totalcount-el.executing-el.normal-el.fail===0? <span />: <span> {el.totalcount-el.executing-el.normal-el.fail} 个报警，</span>}
+                                                                        {el.normal===0? <span />: <span> {el.normal} 个正常，</span>}
+                                                                        {el.fail===0? <span />: <span> {el.fail} 失败，</span>}
+                                                                        <a href={"#/app/rollcall/rollcallrecord?taskid="+el.taskid+"&rollcalldate="+el.rollcalldate} className="underline">查看详情</a>
+                                                                    </div>
                                                             </div>
-                                                    </div>
-                                                   )
-                                            })
-                                            }
-                                    </Timeline.Item>
-                                    </div>
-                                )
-                            })
-                            :<Row style={{marginTop:"70px"}}>
-                                <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
-                            </Row>
-                        } 
+                                                            {
+                                                            el.alarm.map((num,n)=>{
+                                                                 return (
+                                                                            <div key={n} className="alarm_img" style={num.rpic?{display:'inlin-block'}:{display:'none'}} >
+                                                                                <img src={num.rrpic?num.rrpic:err} alt="alarm_img" width="100%" onClick={()=>this.handlerollCallType(num.code)} />
+                                                                            </div>
+                                                                        )
+                                                                })
+                                                            }
+                                                        </div>
+                                                </div>
+                                               )
+                                        })
+                                        }
+                                </Timeline.Item>
+                                </div>
+                            )
+                        })
+                    }
                 </Timeline>
                 </div>
                  <Modal
