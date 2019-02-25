@@ -4,6 +4,7 @@ import ModalForm from './ModalForm.js';
 import {post} from "../../axios/tools";
 import '../../style/sjg/home.css';
 import '../../style/sjg/patrol.css';
+import nodata from "../../style/imgs/nodata.png";
 
 class PatrolPlan extends React.Component{
     constructor(props){
@@ -12,34 +13,44 @@ class PatrolPlan extends React.Component{
             visible:false,
             list:[],
             loading:true,
+            type:true
         };
     }
-
     componentDidMount() {
         this.requestdata()
     }
-    requestdata=(params={}) => {//取数据
+    requestdata=() => {//取数据
         post({url:"/api/patrol/getlist"}, (res)=>{
             if(res.success){
                 this.setState({
                     resdatd:res,
                     list: res.data,
                     loading: false,
-                },()=>{
-                })
+                });
+                if(res.data.length===0){
+                    this.setState({
+                        type:false
+                    });
+                }
+                if(res.data.length>0){
+                    this.setState({
+                        type:true
+                    });
+                }
+            }else{
+                this.setState({
+                    loading:true
+                });
             }
         })
-
-
-    }
+    };
     showModaldelete = (code,index) =>{ //删除弹层
         this.setState({
             deleteshow: true,
             delcode:code,
             delindex:index.i
         });
-    }
-
+    };
     deleteOk = () =>{//删除确认
         let code={
             code:this.state.delcode,
@@ -218,8 +229,10 @@ class PatrolPlan extends React.Component{
                       }
                 >
                     <Row>
-                        {/* <div> {this.state.list.length?<div />:<div className="textcenter"><Spin size="large" /></div>}</div> */}
                         <Spin spinning={this.state.loading} className="spin" size="large"tip="Loading..." />
+                        <div style={{marginTop:"70px",display:this.state.type?"none":"block"}}>
+                            <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
+                        </div>
                         {
                             this.state.list.map((item,i)=>{
                                 return(
