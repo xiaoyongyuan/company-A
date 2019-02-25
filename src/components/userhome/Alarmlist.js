@@ -436,7 +436,7 @@ class Alarmlist extends React.Component{
                             <Col xl={2} xxl={2} lg={4} className="switch_lr"> 
                                 <div> 
                                     <span>只看收藏&nbsp;:&nbsp;</span>
-                                    <Switch checkedChildren="关" onChange={this.canCollection} unCheckedChildren="开" style={{background:"#5063EE"}} />
+                                    <Switch checkedChildren="开" onChange={this.canCollection} unCheckedChildren="关" />
                                 </div>
                             </Col>
                             <Col xl={2} xxl={2} lg={6} className="mt">
