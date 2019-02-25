@@ -117,6 +117,7 @@ class Alarmlist extends React.Component{
             bdate:this.state.bdate.locale?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
             edate:this.state.edate.locale?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
             cid:this.state.cid,
+            ifdanger:this.state.ififdanger
         };
         this.setState({
             alarmImgType:true,
