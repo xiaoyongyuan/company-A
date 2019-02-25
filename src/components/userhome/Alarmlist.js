@@ -379,7 +379,7 @@ class Alarmlist extends React.Component{
                 <LocaleProvider locale={zh_CN}>
                     <Row style={{marginTop:"20px"}}>
                         <Form onSubmit={this.handleSubmit}>
-                            <Col xl={5} xxl={4} lg={9}>
+                            <Col xl={5} xxl={4} lg={8}>
                                 <Form.Item
                                     {...formItemLayout}
                                     label="日期"
@@ -398,7 +398,7 @@ class Alarmlist extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                            <Col xl={5} xxl={3} lg={10}>
+                            <Col xl={5} xxl={3} lg={8}>
                                 <Form.Item>
                                     {getFieldDecorator('range-picker2')(
                                         <DatePicker
@@ -436,7 +436,7 @@ class Alarmlist extends React.Component{
                             <Col xl={2} xxl={2} lg={4} className="switch_lr"> 
                                 <div> 
                                     <span>只看收藏&nbsp;:&nbsp;</span>
-                                    <Switch checkedChildren="关" onChange={this.canCollection} unCheckedChildren="开" style={{background:"#2A8E39"}} />
+                                    <Switch checkedChildren="开" onChange={this.canCollection} unCheckedChildren="关" />
                                 </div>
                             </Col>
                             <Col xl={2} xxl={2} lg={6} className="mt">
