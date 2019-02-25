@@ -47,7 +47,7 @@ class Alarmdetails extends React.Component{
           tags:res.data.tags, 
           pic_width:res.data.pic_width, //报警宽
           pic_height:res.data.pic_height, //报警高  
-          
+         
         }
         this.setState({
           ifdanger:res.data.ifdanger,//是否收藏
@@ -116,7 +116,8 @@ class Alarmdetails extends React.Component{
   		field:true,
   		obj:true,
       faths:faths,
-  		code:this.state[text]
+      code:this.state[text],
+      ifdanger:this.ifdanger
     },()=>{
     	this.componentDidMount()
     });
