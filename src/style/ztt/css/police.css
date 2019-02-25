@@ -342,3 +342,7 @@
     border-color: transparent;
     box-shadow:none;
 }
+.typeUnknown{
+    width: 140%;
+    display: inline-block;
+}
