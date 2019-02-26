@@ -30,11 +30,12 @@ class Alarmdetails extends React.Component{
     this.setState({
       faths:this.props.toson,
       code:this.props.toson.code,
+  
       activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:'',
     });
   }
   componentDidMount() {
-    post({url:"/api/alarm/getone",data:Object.assign(this.state.faths,{passivecode:this.state.activecompcode})},(res)=>{
+    post({url:"/api/alarm/getone",data:Object.assign(this.state.faths,{passivecode:this.state.activecompcode,})},(res)=>{
      
       let data={
           src:res.data.picpath,
@@ -47,10 +48,9 @@ class Alarmdetails extends React.Component{
           tags:res.data.tags, 
           pic_width:res.data.pic_width, //报警宽
           pic_height:res.data.pic_height, //报警高  
-         
+
         }
         this.setState({
-          ifdanger:res.data.ifdanger,//是否收藏
           data:data,
           prev:res.data.last,
           next:res.data.next, 
@@ -111,13 +111,14 @@ class Alarmdetails extends React.Component{
   }
   looknew=(text)=>{ //查看上下一条
     let faths=this.state.faths;
+   
     faths.code=this.state[text];
   	this.setState({
   		field:true,
   		obj:true,
       faths:faths,
       code:this.state[text],
-      ifdanger:this.ifdanger
+ 
     },()=>{
     	this.componentDidMount()
     });

@@ -30,7 +30,7 @@ class RollcallTask extends Component{
             pageindex:1, //当前页
             pageSize:9, //每页显示的数据
             duration:'',
-            loadding:true,
+       
         }
     }
     componentDidMount() {
@@ -88,6 +88,9 @@ class RollcallTask extends Component{
         })
     };
     rollcall=(rid,index)=>{ //手动点名
+        this.setState({
+            loading:false,
+        })	
     	post({url:"/api/rollcalltask/add_manualforAPP",data:{rid:rid}},(res)=>{
         if(res.success){
         	if(rid==='all'){ //全部点名
@@ -97,7 +100,7 @@ class RollcallTask extends Component{
                 let list=this.state.list;
                 list[index].scan=true;
         		this.setState({
-    	            loading:true,
+    	            loading:false,
     	            code:res.code,
                     list:list,
                     index:index,
@@ -110,7 +113,10 @@ class RollcallTask extends Component{
       })
     }
     rollcallresult =()=>{ //查询点名结果
-        
+        this.setState({
+            loading:false,
+         
+        }) 
     	const _this=this;
     	let inter=setInterval(function(){
             let list=_this.state.list;
