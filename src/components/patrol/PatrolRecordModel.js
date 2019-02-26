@@ -28,6 +28,7 @@ class PatrolRecordModel extends Component{
             par:this.props.par
         })
         post({url:"/api/patrolresult/getone",data:{code:this.state.code,passivecode:this.state.activecompcode}},(res)=>{
+            console.log(res.data);
             this.setState({
                 paList:res.data
             });

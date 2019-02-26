@@ -287,11 +287,13 @@ class Alarmlist extends React.Component{
     handleOkalarm = ()=>{
         if(this.state.handle!==undefined){
             post({url:"/api/alarm/handleall",data:{cid:this.state.handle}},(res)=>{
+                console.log(res,"一键处理");
                 if(res.success){
                     this.setState({
                         alarm:false
-                    })
-                    this.handleAlerm();
+                    },()=>{
+                        this.handleAlerm();
+                    });
                 }
             })
         }else{

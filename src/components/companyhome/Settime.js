@@ -92,6 +92,7 @@ class Setarea extends Component {
         })
     };
     add = (e) => {//新增
+        e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if(!err){
                 const data={

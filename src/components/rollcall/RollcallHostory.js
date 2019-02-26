@@ -16,6 +16,7 @@ const formItemLayout = {
         sm: { span: 16 },
     },
 };
+var activecompcode="";
 class RollcallHostory extends Component{
 	constructor(props){
         super(props);
@@ -35,7 +36,7 @@ class RollcallHostory extends Component{
         }
     }
     componentWillMount() {
-        const activecompcode=localStorage.getItem('activecompcode');
+        activecompcode=localStorage.getItem('activecompcode');
         this.setState({
             activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:''
         })   
@@ -198,6 +199,8 @@ class RollcallHostory extends Component{
         this.setState({
             rollCallType:true,
             code:index
+        },()=>{
+            console.log(this.state.code,"codecode");
         })
     };
     //model close
@@ -321,7 +324,6 @@ class RollcallHostory extends Component{
                  >
                     <RollcallRecordModel code={this.state.code} visible={this.state.rollCallType} rollcallhostory="1" />
                  </Modal>
-             {/* </Spin> */}
             </div>
         )
     }
