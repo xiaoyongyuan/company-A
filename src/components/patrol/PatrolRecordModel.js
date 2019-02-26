@@ -66,10 +66,11 @@ class PatrolRecordModel extends Component{
                    <Col span={4}>{this.state.paList.patrolname}</Col>
                    <Col span={6}>{this.state.paList.ptime}</Col>
                    <Col span={3}>{this.state.paList.cameraname}</Col>
-                   <Col span={7} offset={3}>{this.state.paList.pteam+' ('+this.state.paList.pbdate+':00:00 —— '+this.state.paList.pedate+':00:00)'}</Col>
+                   {
+                       this.state.paList.pteam?<Col span={10} offset={1}>{this.state.paList.pteam+' ('+this.state.paList.pbdate+':00 —— '+this.state.paList.pedate+':00)'}</Col>:""
+                   }
                </Row>
                <Row>
-                    {/* <Col span={24}><img src={this.state.paList.ppic} alt="nodata" width="100%" /></Col> */}
                     {this.state.itemStatus===0? <Col span={24}><img src={ing} alt="nodata" width="100%" /></Col>:''}
                     {this.state.itemStatus===1? <Col span={24}><img src={this.state.paList.ppic} alt="nodata" width="100%" /></Col>:''}
                     {this.state.paList.ppic&&this.state.par? <Col span={24}><img src={this.state.paList.ppic} alt="nodata" width="100%" /></Col>:''}

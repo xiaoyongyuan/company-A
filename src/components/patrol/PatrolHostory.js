@@ -45,9 +45,10 @@ class RollcallHostory extends Component{
     componentDidMount() {
             this.setState({
                 loadtip:false,
-                })
+            });
         post({url:'/api/patrolresult/getlist_team',data:{passivecode:this.state.activecompcode}},(res)=>{
             if(res.success){
+                console.log(res.data[17].pteam,res.data[17].pbdate,res.data[17].pedate,"ssss");
                 this.setState({
                     list:res.data,
                     loading: false,
@@ -316,7 +317,7 @@ class RollcallHostory extends Component{
                 <div style={{marginTop:"70px",display:this.state.type?" none":"block"}}>
                     <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
                 </div>
-                <Spin spinning={this.state.loading} className="spin" size="large"tip="Loading..." />
+                <Spin spinning={this.state.loading} className="spin" size="large" tip="Loading..." />
                 <div className="timeline_ml" style={{display:this.state.type?"block":"none"}}>
                  <Timeline pending={this.state.loadtip}>
                     {
@@ -325,8 +326,10 @@ class RollcallHostory extends Component{
                                 <div key={j}>    
                                 <Timeline.Item color={this.colorline(item.status)} >
                                     <div>
-                                    <div className="inlineb"> {item.pdate} </div> 
-                                    <div className={this.colorpic(item.status)}> {item.pteam}({item.pbdate}:00 —— {item.pedate}:00)</div>
+                                    <div className="inlineb"> {item.pdate} </div>
+                                    {
+                                        item.pteam?<div className={this.colorpic(item.status)}>{item.pteam}({item.pbdate}:00 —— {item.pedate}:00)</div>:""
+                                    }
                                     <span className="xun_detail">
                                         {item.totalcount===0? <span />: <span>该班次有 {item.totalcount}个巡更点</span>} {item.status===0? <span></span>:','}
                                         <span>

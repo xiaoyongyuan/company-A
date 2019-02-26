@@ -147,7 +147,7 @@ class PatrolRecord extends React.Component{
             key: 'pteam',
             render:(text,record)=>{
                 return(
-                        text+'('+record.pbdate+':00:00 —— '+record.pedate+':00:00 ) '
+                   text?text+'('+record.pbdate+':00 —— '+record.pedate+':00) ':""
                 )
             }
         },{
@@ -218,7 +218,6 @@ class PatrolRecord extends React.Component{
                             <Button
                                 className="queryBtn"
                                 htmlType="submit"
-
                             >
                                 查询
                             </Button>
