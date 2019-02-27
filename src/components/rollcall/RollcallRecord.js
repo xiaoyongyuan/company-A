@@ -103,7 +103,7 @@ class RollcallRecord extends React.Component{
             rname:this.state.calInput,
             rollcalldate:this.state.rollcalldate,
             taskid:this.state.taskid,
-        }
+        };
         post({url:"/api/rollcalldetail/getlist",data:params},(res)=>{
             if(res.success){
                 if(res.data.length > 0){
@@ -136,7 +136,8 @@ class RollcallRecord extends React.Component{
         });
     }
     //查询
-    handleSubmit =()=>{
+    handleSubmit =(e)=>{
+        e.preventDefault();
         this.setState({
             page:1,
             rollcalldate:'',

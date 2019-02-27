@@ -32,23 +32,21 @@ class RollcallHostory extends Component{
             //status  //0执行中//1已完成//2未完成
             type:true,//无数据图,
             loadtype:true,
-            activecompcode:'',
             nodatapic:true,
         }
     }
     componentWillMount() {
         const activecompcode=localStorage.getItem('activecompcode');
         this.setState({
-            activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:''
-        })   
+            activecompcode:activecompcode && activecompcode!=='undefined'?activecompcode:''
+        })
     }
     componentDidMount() {
-            this.setState({
-                loadtip:false,
-            });
+        this.setState({
+            loadtip:false,
+        });
         post({url:'/api/patrolresult/getlist_team',data:{passivecode:this.state.activecompcode}},(res)=>{
             if(res.success){
-                console.log(res.data[17].pteam,res.data[17].pbdate,res.data[17].pedate,"ssss");
                 this.setState({
                     list:res.data,
                     loading: false,
@@ -225,47 +223,29 @@ class RollcallHostory extends Component{
     };
     statepatarol =(e,item)=>{
        if(e===0){
-            return(
-                "patrolnone"
-            )
+            return "patrolnone";
        }else if(e===1){
-            return(
-                "patrolblock"
-            )
+            return "patrolblock";
        }else{
-        return(
-            "patrolblock"
-        )
+        return "patrolblock";
        }
     };
     colorline=(e)=>{
         if(e===0){
-             return(
-                 "#FFC125"
-             )
+            return "#FFC125";
         }else if(e===1){
-             return(
-                 "green"
-             )
+            return "green";
         }else{
-         return(
-             "red"
-         )
+         return "red";
         }
      };
      colorpic=(e)=>{
         if(e===0){
-             return(
-                 "yellowpic"
-             )
+             return "yellowpic";
         }else if(e===1){
-             return(
-                 "greenpic"
-             )
+             return "greenpic";
         }else{
-         return(
-             "redpic"
-         )
+         return "redpic";
         }
      };
      
