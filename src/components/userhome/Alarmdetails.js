@@ -25,18 +25,15 @@ class Alarmdetails extends React.Component{
       };
   }
   componentWillMount() {
-    const activecompcode=localStorage.getItem('activecompcode');
   	//此处拿到父页面参数
     this.setState({
       faths:this.props.toson,
       code:this.props.toson.code,
-  
-      activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:'',
+      activecompcode:this.props.activecompcode,
     });
   }
   componentDidMount() {
-    post({url:"/api/alarm/getone",data:Object.assign(this.state.faths,{passivecode:this.state.activecompcode,})},(res)=>{
-     
+    post({url:"/api/alarm/getone",data:Object.assign(this.state.faths,{passivecode:this.state.activecompcode})},(res)=>{
       let data={
           src:res.data.picpath,
           field:res.data.field,
@@ -70,6 +67,7 @@ class Alarmdetails extends React.Component{
               this.setState({
                   code:nextProps.toson.code,
                   faths:nextProps.toson,
+                  activecompcode:nextProps.activecompcode,
               }, () => {
                   this.componentDidMount()});
           }

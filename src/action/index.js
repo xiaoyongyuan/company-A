@@ -14,6 +14,12 @@ export const receiveData = (data, category) => ({
     data,
     category
 });
+
+export const changecomptype = (data,category) => ({ //切换公司
+    type: type.CHANGE_COMP,
+    data,
+    category
+});
 /**
  * 请求数据调用方法
  * @param funcName      请求接口的函数名
@@ -28,7 +34,7 @@ export const receiveData = (data, category) => ({
 export const fetchData = ({funcName, url, params, stateName}) => dispatch => {
     !stateName && (stateName = funcName); 
     dispatch(requestData(stateName));
-
+    
     axios.post('http://login.aokecloud.cn'+url,params).then(res => {
       if(res.data.success===1){
         dispatch(receiveData(res.data, stateName))
@@ -43,3 +49,8 @@ export const fetchData = ({funcName, url, params, stateName}) => dispatch => {
       message.warn('接口异常');
 	});
 };
+
+
+export const changeComp=(data)=> dispatch =>{ //切换公司
+  dispatch(changecomptype(data,'auth')); //第二个参数写死
+}

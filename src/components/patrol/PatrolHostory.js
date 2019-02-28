@@ -1,6 +1,8 @@
 import React, { Component} from 'react';
 import {Row,Col,Button,DatePicker,LocaleProvider,Timeline,Form,Spin,message,Modal} from "antd";
 import {post} from "../../axios/tools";
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
 import nodata from "../../style/imgs/nodata.png";
@@ -21,6 +23,7 @@ class RollcallHostory extends Component{
 	constructor(props){
         super(props);
         this.state={
+            activecompcode:props.auth.active.activecompanycode, //当前查看的公司
             pbdate:'',//检索的开始时间
             pedate:'',//检索的结束时间
             list:[],
@@ -34,12 +37,6 @@ class RollcallHostory extends Component{
             loadtype:true,
             nodatapic:true,
         }
-    }
-    componentWillMount() {
-        const activecompcode=localStorage.getItem('activecompcode');
-        this.setState({
-            activecompcode:activecompcode && activecompcode!=='undefined'?activecompcode:''
-        })
     }
     componentDidMount() {
         this.setState({
@@ -77,10 +74,6 @@ class RollcallHostory extends Component{
             var scrollbottom=scrollHeight-clientHeight;
             var scrollTopP=Math.ceil(scrollTop);
             var tom=scrollbottom-scrollTopP;
-            // console.log('******************scrollTop',scrollTop);
-            // console.log('******************scrollTopP',scrollTopP);
-            // console.log('******************scrollbottom',scrollbottom);
-            // console.log('******************scrollbottom-scrollTopP',tom);
             _this.setState({
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTopP
@@ -129,6 +122,19 @@ class RollcallHostory extends Component{
             }
         };
     }   
+    shouldComponentUpdate=(nextProps,nextState)=>{
+        if(nextProps.auth.active.activecompanycode != nextState.activecompcode){
+            this.setState({
+                activecompcode:nextProps.auth.active.activecompanycode,
+                loading:true,
+                list:[],
+                page:1,
+            },()=>{
+                this.componentDidMount()
+            }) 
+        }
+        return true;  
+    }
     backtop=()=>{ //返回顶部
         document.getElementById("scorll").scrollTop = 0; 
     };
@@ -366,4 +372,8 @@ class RollcallHostory extends Component{
     }
 }
 
-export default RollcallHostory= Form.create()(RollcallHostory);;
+const mapStateToProps = state => { 
+    const { auth } = state.httpData;
+    return {auth};
+};
+export default withRouter(connect(mapStateToProps)(RollcallHostory= Form.create()(RollcallHostory)));

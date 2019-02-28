@@ -5,8 +5,14 @@ import "../../style/publicStyle/publicStyle.css";
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
 import {post} from "../../axios/tools";
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Alarmdetails from "./Alarmdetails";
 import nodata from "../../style/imgs/nodata.png";
+import banditpic from "../../style/imgs/banditpic.png";
+import firepic from "../../style/imgs/firepic.png";
+
+
 import "../../style/ztt/img/plioce/iconfont.css";
 const Option = Select.Option;
 const formItemLayout = {
@@ -24,6 +30,7 @@ class Alarmlist extends React.Component{
     constructor(props){
         super(props);
         this.state={
+            activecompcode:props.auth.active.activecompanycode, //当前查看的公司
             type:[],
             visible: false,
             alarm:false,
@@ -51,10 +58,6 @@ class Alarmlist extends React.Component{
         };
     }
     componentWillMount() {
-        const activecompcode=localStorage.getItem('activecompcode');
-        this.setState({
-            activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:''
-        })
         if(this.props.query.id){
             this.setState({
                 propsid:this.props.query.id,
@@ -75,6 +78,25 @@ class Alarmlist extends React.Component{
         }
         this.handleEquipment();//设备select
         this.handleAlerm(data);//报警信息列表
+    }
+    shouldComponentUpdate=(nextProps,nextState)=>{
+        if(nextProps.auth.active.activecompanycode != nextState.activecompcode){
+            this.setState({
+                activecompcode:nextProps.auth.active.activecompanycode,
+                loadding:true,
+                policeList:[],
+                page:1,
+                bdate:'',
+                edate:'',
+                cid:"",
+                ifclassion:false,
+                ififdanger:0,
+                total:0,
+            },()=>{
+                this.componentDidMount()
+            }) 
+        }
+        return true;  
     }
     handleCancelAlarmImg =()=>{
           const data={
@@ -359,6 +381,12 @@ class Alarmlist extends React.Component{
       switch(type){
         case 1:
           return img;
+        case 110:
+          return banditpic;
+        case 119:
+          return firepic;
+        case 12:
+          return img;
         default:
          return nodata;
       }
@@ -367,10 +395,12 @@ class Alarmlist extends React.Component{
       switch(type){
         case 1:
           return '围界入侵';
-        case 1:
-          return '围界入侵';
-        case 1:
-          return '围界入侵';
+        case 110:
+          return '匪警';
+        case 119:
+          return '火警';
+        case 12:
+          return '整点打卡';
         default:
          return '未知类型：'+type;
       }
@@ -526,7 +556,7 @@ class Alarmlist extends React.Component{
                         ))
                     }
                 </Row>
-                <Pagination defaultCurrent={this.state.page} current={this.state.page} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} className="pageSize" style={{display:this.state.type===1?"block":"none"}} />
+                <Pagination hideOnSinglePage={true} defaultCurrent={this.state.page} current={this.state.page} total={this.state.totalcount} pageSize={this.state.pageSize} onChange={this.hanlePageSize} className="pageSize" style={{display:this.state.type===1?"block":"none"}} />
                 <Modal
                     title="播放视频"
                     visible={this.state.visible}
@@ -563,7 +593,7 @@ class Alarmlist extends React.Component{
                         onCancel={this.handleCancelAlarmImg}
                         footer={null}
                     >
-                        <Alarmdetails visible={this.state.alarmImgType} toson={this.state.toson} closeAlarm={this.handleCancelAlarmImg} />
+                        <Alarmdetails visible={this.state.alarmImgType} activecompcode={this.state.activecompcode} toson={this.state.toson} closeAlarm={this.handleCancelAlarmImg} />
                     </Modal>
                 </div>
             </div>
@@ -571,4 +601,8 @@ class Alarmlist extends React.Component{
     }
 }
 
-export default Alarmlist= Form.create()(Alarmlist);
+const mapStateToProps = state => { 
+    const { auth } = state.httpData;
+    return {auth};
+};
+export default withRouter(connect(mapStateToProps)(Alarmlist= Form.create()(Alarmlist)));

@@ -2,23 +2,20 @@ import React from 'react';
 import {Card,Row,Col,Icon,Spin} from 'antd';
 import '../../style/sjg/home.css';
 import {post} from "../../axios/tools";
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import nopic from "../../style/imgs/nopic.png";
 import nodata from "../../style/imgs/nodata.png";
 class Equipment extends React.Component{
     constructor(props){
         super(props);
         this.state={
+            activecompcode:props.auth.active.activecompanycode, //当前查看的公司
             camera:[],
             loading:true,
             type:1,
             nodatapic:true,
         };
-      }
-      componentWillMount(){
-        const activecompcode=localStorage.getItem('activecompcode');
-        this.setState({
-            activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:''
-        })
       }
     componentDidMount() {        
         post({url:'/api/camera/get_camerainfolist',data:{passivecode:this.state.activecompcode}},(res)=>{ //获取团队列表
@@ -50,6 +47,18 @@ class Equipment extends React.Component{
             }
         })
         
+    }
+    shouldComponentUpdate=(nextProps,nextState)=>{
+        if(nextProps.auth.active.activecompanycode != nextState.activecompcode){
+            this.setState({
+                activecompcode:nextProps.auth.active.activecompanycode,
+                loading:true,
+                camera:[]
+            },()=>{
+                this.componentDidMount()
+            }) 
+        }
+        return true;  
     }
  
     statework=(i)=>{ //布防转换     
@@ -179,4 +188,9 @@ class Equipment extends React.Component{
         )
     }
 }
-export default Equipment
+
+const mapStateToProps = state => { 
+    const { auth } = state.httpData;
+    return {auth};
+};
+export default withRouter(connect(mapStateToProps)(Equipment));

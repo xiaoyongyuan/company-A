@@ -48,7 +48,6 @@ class ModalForm extends Component {
                     if(nextProps.code===0){
                     }else{
                         post({url:"/api/patrol/getone",data:{code:nextProps.code} }, (res)=>{
-                            // console.log('******************',res.data.clist.toString().split(",").map(Number));
                             this.props.form.setFieldsValue({
                                 pteam: res.data.pteam,
                                 bdate: moment(`${res.data.pbdate}`, 'HH'),
@@ -65,9 +64,10 @@ class ModalForm extends Component {
 
     }
     requestdata=() => {//数据回填
-        if(this.state.code){
-            post({url:"/api/patrol/getone",data:{code:this.state.code} }, (res)=>{
-                    this.props.form.setFieldsValue({
+        const _this=this;
+        if(_this.state.code){
+            post({url:"/api/patrol/getone",data:{code:_this.state.code} }, (res)=>{
+                    _this.props.form.setFieldsValue({
                         pteam: res.data.pteam,
                         bdate: moment(`${res.data.pbdate}`, 'HH'),
                         edate: moment(`${res.data.pedate}`, 'HH'),
