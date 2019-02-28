@@ -1,17 +1,17 @@
-/**
- * 头部登录人信息
- */
 import React, { Component } from 'react';
-import { Menu, Icon, Layout, Popover,Modal, Select, notification} from 'antd';
+import { Menu, Icon, Layout, Popover,Modal, Select, notification,message} from 'antd';
 import screenfull from 'screenfull';
 import icon_admin from '../style/imgs/icon_admin.png';
 import icon_user from '../style/imgs/icon_user.png';
 import SiderCustom from './SiderCustom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 import {post} from "../axios/tools";
 import "../style/publicStyle/publicStyle.css"
 import "../style/yal/css/overView.css";
+import { changeComp,alarmMax } from '@/action'; //action->index按需取
+
 const { Header } = Layout;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -27,18 +27,26 @@ class HeaderCustom extends Component {
     };
     componentDidMount() {
         const _user = JSON.parse(localStorage.getItem('user'));
-        const activecompcode = localStorage.getItem('activecompcode');
-        const activecomp = localStorage.getItem('activecomp');
         if(!_user){
             this.props.history.push('/login');
         }else{
+            this.alarmlist();
+            const _this=this;
+            setInterval(function(){
+                _this.alarmlist(_this.state.alarmmax)
+            },5000)
             this.setState({
                 user: _user,
-                activecompanycode:activecompcode&&activecompcode!='undefined'?activecompcode:'',
-                activecname:activecomp,
             });
         }
     };
+    shouldComponentUpdate=(nextProps,nextState)=>{
+        console.log('shouldComponentUpdate',nextProps.auth.alarmmax,nextState.alarmmax)
+        if(nextState.alarmmax && nextProps.auth.alarmmax != nextState.alarmmax){
+            this.openNotification()
+        }
+        return true;  
+    }
     screenFull = () => { //全屏切换
         screenfull.toggle();
         this.props.toggle();
@@ -72,18 +80,32 @@ class HeaderCustom extends Component {
             sitchshow: false,
         });
     }
-    switchCancel=()=>{ //关闭切换公司弹层
-        this.setState({
-            sitchshow: false,
-        });
-    }
-    handleOnekey=(value)=>{ //选择公司
+    handleOnekey=(value)=>{ //切换公司-选择公司
         this.setState({
             activecode: value,
         });
     }
-    switchput=()=>{ //切换公司提交
+    callaction=(num)=>{  //调取action-报警数变化
+        const { alarmMax } = this.props;
+            alarmMax(num)
+    }
+    switchput=()=>{ //切换公司确认提交
         const _this=this;
+        if(this.state.activecode!='onself'&& this.state.complist){
+            const data={
+                activecomp:this.state.complist[this.state.activecode].passivename,
+                activecompanycode:this.state.complist[this.state.activecode].passivecode,  
+            }
+            const { changeComp } = this.props;
+            changeComp(data)
+            this.setState({
+                sitchshow: false
+            },()=>{
+                message.success('您已成功切换到'+data.activecomp)
+            })
+        }
+        return;
+        //将切换的公司存入localStorage中，已废弃
         if(this.state.activecode=='onself'){
             this.setState({
                 activecname:_this.state.cname,
@@ -94,7 +116,7 @@ class HeaderCustom extends Component {
                 localStorage.setItem('activecomp','');
                 window.location.reload();
             });
-        }else{
+        }else if(this.state.activecode=='onself'){
             this.setState({
                 activecname:this.state.complist[this.state.activecode].passivename,
                 activecompanycode:this.state.complist[this.state.activecode].passivecode,
@@ -134,13 +156,29 @@ class HeaderCustom extends Component {
     handleVisibleChange = (visible) => {
         this.setState({ visible });
     };
+    alarmlist=(code)=>{
+        console.log('接收的code',code)
+        post({url:"/api/alarm/getlist",data:{pagesize:1,passivecode:this.state.activecompcode}},(res)=>{
+            if(res.success&&res.data.length){
+                const num=res.data[0].code
+                    const { alarmMax,auth } = this.props;
+                    if(code != num ){
+                        this.setState({
+                            alarmmax: num
+                        })
+                        alarmMax(num);
+                    }
+            }
+        })
+    }
+
     openNotification = () => { //报警消息提醒
         notification.open({
             key:'newalarm',
             message: '信息',
             description: (
               <div>
-                  有新的报警信息
+                  您有新的报警信息
               </div>
           ),
           icon: <Icon type="smile-circle" style={{ color: 'red' }} />,
@@ -149,9 +187,8 @@ class HeaderCustom extends Component {
         });
     };
     render() {
-        const { responsive, path } = this.props;
-        const _this=this;
-        
+        const { responsive, path, auth } = this.props;
+        const _this=this;        
         return (
             <div style={{background:'#313653'}}>
             <Modal
@@ -169,7 +206,7 @@ class HeaderCustom extends Component {
                     </div>
                 </div>
 
-                <div style={{width:"20%",float:"left"}} className="leftIcon">
+                <div style={{width:"15%",float:"left"}} className="leftIcon">
                     {
                         responsive.data.isMobile ? (
                             <Popover content={<SiderCustom path={path} popoverHide={this.popoverHide} />} trigger="click" placement="bottomLeft" visible={this.state.visible} onVisibleChange={this.handleVisibleChange}>
@@ -186,7 +223,7 @@ class HeaderCustom extends Component {
                 </div>
                 <div style={{width:"28%",float:"right"}}>
                     {/*当前查看公司*/}
-                    <div style={{ lineHeight: '63px', float: 'right',color:'#fff' }}></div>
+                    <div style={{ lineHeight: '63px', float: 'right',color:'#fff' }}>当前单位：{auth.active.activecomp?auth.active.activecomp:this.props.user.cname}</div>
                     <Menu
                         mode="horizontal"
                         style={{ lineHeight: '63px', float: 'right' }}
@@ -199,7 +236,7 @@ class HeaderCustom extends Component {
                             <MenuItemGroup title="用户中心" style={{background:"rgba(255,255,255,0.5)"}}>
                                 <Menu.Item key="setting:1">你好 - {this.props.user.realname}</Menu.Item>
                                 {this.props.user.activecount
-                                    ?<Menu.Item key="setting:2" onClick={this.sitchcomp}>{this.state.activecname?this.state.activecname:this.props.user.cname} <Icon type="sync" /></Menu.Item>
+                                    ?<Menu.Item key="setting:2" onClick={this.sitchcomp}>{auth.active.activecomp?auth.active.activecomp:this.props.user.cname} <Icon type="sync" /></Menu.Item>
                                     :''
                                 }
                                 <Menu.Item key="logoutto" onClick={this.showModaldelete}><span>退出登录</span></Menu.Item>
@@ -229,7 +266,7 @@ class HeaderCustom extends Component {
                         <Option value={'onself'} key={'x'}>{this.props.user.cname}</Option>
                         {
                         this.state.complist.map((v,i)=>(
-                            <Option value={i} key={i}>{v.passivename}</Option>
+                            <Option value={i} key={v}>{v.passivename}</Option>
                         ))
                         }
                     </Select>
@@ -240,10 +277,14 @@ class HeaderCustom extends Component {
     }
 }
 
-const mapStateToProps = state => {  
-// const  {responsive}=state.httpData;
-    const { responsive = {data: {}} } = state.httpData;
-    return {responsive};
+const mapStateToProps = state => {
+    const { responsive = {data: {}} ,auth } = state.httpData;
+    return {responsive, auth};
 };
 
-export default withRouter(connect(mapStateToProps)(HeaderCustom));
+const mapDispatchToProps = dispatch => ({
+    changeComp: bindActionCreators(changeComp, dispatch),
+    alarmMax: bindActionCreators(alarmMax, dispatch)
+});
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(HeaderCustom));

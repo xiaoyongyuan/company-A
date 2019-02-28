@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Row,Col } from 'antd';
 import '../../style/ztt/css/Companyhome.css';
 import {post} from "../../axios/tools";
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Equipment from '../userhome/Equipment';
 import RollcallStatistics from "./RollcallStatistics";
 import PatrolStatistics from "./PatrolStatistics";
@@ -15,6 +17,7 @@ class Companyhome extends Component {
     constructor(props){
         super(props);
         this.state= {
+            activecompcode:props.auth.active.activecompanycode, //当前查看的公司
             mapJson: [],
             enterpriseTitle:[],
             cloudDate: '',
@@ -28,12 +31,6 @@ class Companyhome extends Component {
             echartsHeight:"250px",
         }
     }
-    componentWillMount(){
-        const activecompcode=localStorage.getItem('activecompcode');
-        this.setState({
-            activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:''
-        })
-    }
     componentDidMount(){
         //巡更计划
         this.patrolresul();
@@ -44,6 +41,17 @@ class Companyhome extends Component {
         this.setState({
             DHeight:document.documentElement.clientHeight-65+"px",
         })
+    }
+    shouldComponentUpdate=(nextProps,nextState)=>{
+        if(nextProps.auth.active.activecompanycode != nextState.activecompcode){
+            this.setState({
+                activecompcode:nextProps.auth.active.activecompanycode
+            },()=>{
+                this.componentDidMount()
+            }) 
+        }
+        return true;
+        
     }
     //总览
     companyHome =()=>{
@@ -100,9 +108,10 @@ class Companyhome extends Component {
         })
     };
     render() {
+        const {responsive,auth } = this.props;
         return (
             <div className="Companyhome gutter-example button-demo">
-                <div className="companyhome" >
+                <div className="companyhome">
                     <div className="boxHeight backBlock" >
                         <div className="backLitte boxShow " style={{width:'50%',margin:"16px"}}>
                             <div style={{padding:'50px 10px'}}>
@@ -166,4 +175,8 @@ class Companyhome extends Component {
     }
 }
 
-export default Companyhome;
+const mapStateToProps = state => { 
+    const { auth } = state.httpData;
+    return {auth};
+};
+export default withRouter(connect(mapStateToProps)(Companyhome));
