@@ -17,9 +17,29 @@ export const receiveData = (data, category) => ({
 
 export const changecomptype = (data,category) => ({ //切换公司
     type: type.CHANGE_COMP,
+    value:'active',
     data,
     category
 });
+export const alarmmax = (data,category) => ({ //获取最大报警数
+    type: type.ALARM_MAX,
+    value:'alarmmax',
+    data,
+    category
+});
+
+
+
+
+export const changeComp=(data)=> dispatch =>{ //切换公司
+  dispatch(changecomptype(data,'auth')); //第二个参数写死
+}
+
+export const alarmMax=(data)=> dispatch =>{ //切换公司
+  dispatch(alarmmax(data,'auth')); //第二个参数写死
+}
+
+
 /**
  * 请求数据调用方法
  * @param funcName      请求接口的函数名
@@ -51,6 +71,3 @@ export const fetchData = ({funcName, url, params, stateName}) => dispatch => {
 };
 
 
-export const changeComp=(data)=> dispatch =>{ //切换公司
-  dispatch(changecomptype(data,'auth')); //第二个参数写死
-}

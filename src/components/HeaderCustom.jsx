@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Menu, Icon, Layout, Popover,Modal, Select, notification} from 'antd';
+import { Menu, Icon, Layout, Popover,Modal, Select, notification,message} from 'antd';
 import screenfull from 'screenfull';
 import icon_admin from '../style/imgs/icon_admin.png';
 import icon_user from '../style/imgs/icon_user.png';
@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux';
 import {post} from "../axios/tools";
 import "../style/publicStyle/publicStyle.css"
 import "../style/yal/css/overView.css";
-import { changeComp } from '@/action'; //action->index按需取
+import { changeComp,alarmMax } from '@/action'; //action->index按需取
 
 const { Header } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -27,18 +27,26 @@ class HeaderCustom extends Component {
     };
     componentDidMount() {
         const _user = JSON.parse(localStorage.getItem('user'));
-        const activecompcode = localStorage.getItem('activecompcode');
-        const activecomp = localStorage.getItem('activecomp');
         if(!_user){
             this.props.history.push('/login');
         }else{
+            this.alarmlist();
+            const _this=this;
+            setInterval(function(){
+                _this.alarmlist(_this.state.alarmmax)
+            },5000)
             this.setState({
                 user: _user,
-                activecompanycode:activecompcode&&activecompcode!='undefined'?activecompcode:'',
-                activecname:activecomp,
             });
         }
     };
+    shouldComponentUpdate=(nextProps,nextState)=>{
+        console.log('shouldComponentUpdate',nextProps.auth.alarmmax,nextState.alarmmax)
+        if(nextState.alarmmax && nextProps.auth.alarmmax != nextState.alarmmax){
+            this.openNotification()
+        }
+        return true;  
+    }
     screenFull = () => { //全屏切换
         screenfull.toggle();
         this.props.toggle();
@@ -77,6 +85,10 @@ class HeaderCustom extends Component {
             activecode: value,
         });
     }
+    callaction=(num)=>{  //调取action-报警数变化
+        const { alarmMax } = this.props;
+            alarmMax(num)
+    }
     switchput=()=>{ //切换公司确认提交
         const _this=this;
         if(this.state.activecode!='onself'&& this.state.complist){
@@ -88,9 +100,12 @@ class HeaderCustom extends Component {
             changeComp(data)
             this.setState({
                 sitchshow: false
+            },()=>{
+                message.success('您已成功切换到'+data.activecomp)
             })
         }
         return;
+        //将切换的公司存入localStorage中，已废弃
         if(this.state.activecode=='onself'){
             this.setState({
                 activecname:_this.state.cname,
@@ -141,6 +156,21 @@ class HeaderCustom extends Component {
     handleVisibleChange = (visible) => {
         this.setState({ visible });
     };
+    alarmlist=(code)=>{
+        console.log('接收的code',code)
+        post({url:"/api/alarm/getlist",data:{pagesize:1,passivecode:this.state.activecompcode}},(res)=>{
+            if(res.success&&res.data.length){
+                const num=res.data[0].code
+                    const { alarmMax,auth } = this.props;
+                    if(code != num ){
+                        this.setState({
+                            alarmmax: num
+                        })
+                        alarmMax(num);
+                    }
+            }
+        })
+    }
 
     openNotification = () => { //报警消息提醒
         notification.open({
@@ -148,7 +178,7 @@ class HeaderCustom extends Component {
             message: '信息',
             description: (
               <div>
-                  有新的报警信息
+                  您有新的报警信息
               </div>
           ),
           icon: <Icon type="smile-circle" style={{ color: 'red' }} />,
@@ -158,20 +188,7 @@ class HeaderCustom extends Component {
     };
     render() {
         const { responsive, path, auth } = this.props;
-        const _this=this;
-        setInterval(function(){
-            if(_this.props.location.pathname !='/app/overView/index'||_this.props.location.pathname !='/login'){
-                const looknum=localStorage.getItem('maxalarm');
-                // post({url:'/api/sharinginfo/get_active'},function(res){
-                //     if(res.success){
-                //         if(looknum<res.num){
-                //             _this.openNotification()
-                //         }
-                //     }
-                // }) 
-            }
-        },5000)
-        
+        const _this=this;        
         return (
             <div style={{background:'#313653'}}>
             <Modal
@@ -189,7 +206,7 @@ class HeaderCustom extends Component {
                     </div>
                 </div>
 
-                <div style={{width:"20%",float:"left"}} className="leftIcon">
+                <div style={{width:"15%",float:"left"}} className="leftIcon">
                     {
                         responsive.data.isMobile ? (
                             <Popover content={<SiderCustom path={path} popoverHide={this.popoverHide} />} trigger="click" placement="bottomLeft" visible={this.state.visible} onVisibleChange={this.handleVisibleChange}>
@@ -206,7 +223,7 @@ class HeaderCustom extends Component {
                 </div>
                 <div style={{width:"28%",float:"right"}}>
                     {/*当前查看公司*/}
-                    <div style={{ lineHeight: '63px', float: 'right',color:'#fff' }}></div>
+                    <div style={{ lineHeight: '63px', float: 'right',color:'#fff' }}>当前单位：{auth.active.activecomp?auth.active.activecomp:this.props.user.cname}</div>
                     <Menu
                         mode="horizontal"
                         style={{ lineHeight: '63px', float: 'right' }}
@@ -267,6 +284,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     changeComp: bindActionCreators(changeComp, dispatch),
+    alarmMax: bindActionCreators(alarmMax, dispatch)
 });
 
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(HeaderCustom));

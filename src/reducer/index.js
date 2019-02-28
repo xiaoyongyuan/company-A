@@ -20,8 +20,9 @@ const httpData = (state, action) => {
                 [action.category]: handleData(state[action.category], action)
             };
         case type.CHANGE_COMP:
+        case type.ALARM_MAX:
             const data= state[action.category];
-            data.active=action.data;
+            data[action.value]=action.data;
             return  {[action.category]: data};
         default:
             return {...state};
