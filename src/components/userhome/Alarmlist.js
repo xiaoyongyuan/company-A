@@ -412,10 +412,10 @@ class Alarmlist extends React.Component{
                 <LocaleProvider locale={zh_CN}>
                     <Row style={{marginTop:"20px"}}>
                         <Form onSubmit={this.handleSubmit}>
-                            <Col xl={5} xxl={4} lg={8}>
+                            <Col xl={5} xxl={5} lg={8}>
                                 <Form.Item
                                     {...formItemLayout}
-                                    label="日期"
+                                    label="开始时间"
                                 >
                                     {getFieldDecorator('range-picker1')(
                                         <DatePicker
@@ -431,8 +431,11 @@ class Alarmlist extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                            <Col xl={5} xxl={3} lg={8}>
-                                <Form.Item>
+                            <Col xl={5} xxl={5} lg={5}>
+                                <Form.Item
+                                    {...formItemLayout}
+                                    label="结束时间"
+                                >
                                     {getFieldDecorator('range-picker2')(
                                         <DatePicker
                                             showTime={{format:"HH"}}
@@ -447,7 +450,7 @@ class Alarmlist extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                            <Col xl={3} xxl={3} lg={8}>
+                            <Col xl={4} xxl={4} lg={5}>
                                 <Form.Item
                                     {...formItemLayout}
                                     label="设备"
