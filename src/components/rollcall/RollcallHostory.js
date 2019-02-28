@@ -84,7 +84,7 @@ class RollcallHostory extends Component{
                 page:pag
                })
                if(_this.state.isrequest){ 
-                post({url:'/api/rollcalldetail/getlist_info_dayly',data:{pageindex:_this.state.page,passivecode:this.state.activecompcode}},(res)=>{
+                post({url:'/api/rollcalldetail/getlist_info_dayly',data:{pageindex:_this.state.page,passivecode:_this.state.activecompcode}},(res)=>{
                     if(res.data.length>0){
                             pag++;
                             const list=_this.state.list;
@@ -285,7 +285,7 @@ class RollcallHostory extends Component{
                                                                         {el.ifeveryday===0?"自动点名":"手动点名"}，
                                                                         共点名 {el.totalcount}个对象，
                                                                         {el.executing===0? <span />: <span> {el.executing} 正在点名，</span>}
-                                                                        {el.totalcount-el.executing-el.normal-el.fail===0? <span />: <span> {el.totalcount-el.executing-el.normal-el.fail} 个报警，</span>}
+                                                                        {el.totalcount-el.executing-el.normal-el.unhandle-el.rollcallalarm===0? '': <span> {el.totalcount-el.executing-el.normal-el.unhandle-el.rollcallalarm} 个报警，</span>}
                                                                         {el.normal===0? <span />: <span> {el.normal} 个正常，</span>}
                                                                         {el.fail===0? <span />: <span> {el.fail} 失败，</span>}
                                                                         <a href={"#/app/rollcall/rollcallrecord?taskid="+el.taskid+"&rollcalldate="+el.rollcalldate} className="underline">查看详情</a>
