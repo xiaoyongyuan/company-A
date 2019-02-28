@@ -9,7 +9,7 @@ import PatrolStatistics from "./PatrolStatistics";
 import baojing from "../../style/ztt/img/baojing.png";
 import cloud from "../../style/ztt/img/cloud.png";
 import nopic from "../../style/imgs/nopic.png";
-import Scenedata from '../companyhome/Scenedata';
+import Scenedata from "./Scenedata";
 
 class Companyhome extends Component {
     constructor(props){
@@ -25,7 +25,7 @@ class Companyhome extends Component {
             activelist:[], //共享设备
             passivelist:[], //查看我的用户
             scenegraph:nopic,
-            echartsHeight:"250px"
+            echartsHeight:"250px",
         }
     }
     componentWillMount(){
