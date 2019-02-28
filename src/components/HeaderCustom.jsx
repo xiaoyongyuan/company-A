@@ -1,6 +1,3 @@
-/**
- * 头部登录人信息
- */
 import React, { Component } from 'react';
 import { Menu, Icon, Layout, Popover,Modal, Select, notification} from 'antd';
 import screenfull from 'screenfull';
@@ -9,9 +6,12 @@ import icon_user from '../style/imgs/icon_user.png';
 import SiderCustom from './SiderCustom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 import {post} from "../axios/tools";
 import "../style/publicStyle/publicStyle.css"
 import "../style/yal/css/overView.css";
+import { changeComp } from '@/action'; //action->index按需取
+
 const { Header } = Layout;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -72,18 +72,25 @@ class HeaderCustom extends Component {
             sitchshow: false,
         });
     }
-    switchCancel=()=>{ //关闭切换公司弹层
-        this.setState({
-            sitchshow: false,
-        });
-    }
-    handleOnekey=(value)=>{ //选择公司
+    handleOnekey=(value)=>{ //切换公司-选择公司
         this.setState({
             activecode: value,
         });
     }
-    switchput=()=>{ //切换公司提交
+    switchput=()=>{ //切换公司确认提交
         const _this=this;
+        if(this.state.activecode!='onself'&& this.state.complist){
+            const data={
+                activecomp:this.state.complist[this.state.activecode].passivename,
+                activecompanycode:this.state.complist[this.state.activecode].passivecode,  
+            }
+            const { changeComp } = this.props;
+            changeComp(data)
+            this.setState({
+                sitchshow: false
+            })
+        }
+        return;
         if(this.state.activecode=='onself'){
             this.setState({
                 activecname:_this.state.cname,
@@ -94,7 +101,7 @@ class HeaderCustom extends Component {
                 localStorage.setItem('activecomp','');
                 window.location.reload();
             });
-        }else{
+        }else if(this.state.activecode=='onself'){
             this.setState({
                 activecname:this.state.complist[this.state.activecode].passivename,
                 activecompanycode:this.state.complist[this.state.activecode].passivecode,
@@ -134,6 +141,7 @@ class HeaderCustom extends Component {
     handleVisibleChange = (visible) => {
         this.setState({ visible });
     };
+
     openNotification = () => { //报警消息提醒
         notification.open({
             key:'newalarm',
@@ -149,8 +157,20 @@ class HeaderCustom extends Component {
         });
     };
     render() {
-        const { responsive, path } = this.props;
+        const { responsive, path, auth } = this.props;
         const _this=this;
+        setInterval(function(){
+            if(_this.props.location.pathname !='/app/overView/index'||_this.props.location.pathname !='/login'){
+                const looknum=localStorage.getItem('maxalarm');
+                // post({url:'/api/sharinginfo/get_active'},function(res){
+                //     if(res.success){
+                //         if(looknum<res.num){
+                //             _this.openNotification()
+                //         }
+                //     }
+                // }) 
+            }
+        },5000)
         
         return (
             <div style={{background:'#313653'}}>
@@ -199,7 +219,7 @@ class HeaderCustom extends Component {
                             <MenuItemGroup title="用户中心" style={{background:"rgba(255,255,255,0.5)"}}>
                                 <Menu.Item key="setting:1">你好 - {this.props.user.realname}</Menu.Item>
                                 {this.props.user.activecount
-                                    ?<Menu.Item key="setting:2" onClick={this.sitchcomp}>{this.state.activecname?this.state.activecname:this.props.user.cname} <Icon type="sync" /></Menu.Item>
+                                    ?<Menu.Item key="setting:2" onClick={this.sitchcomp}>{auth.active.activecomp?auth.active.activecomp:this.props.user.cname} <Icon type="sync" /></Menu.Item>
                                     :''
                                 }
                                 <Menu.Item key="logoutto" onClick={this.showModaldelete}><span>退出登录</span></Menu.Item>
@@ -229,7 +249,7 @@ class HeaderCustom extends Component {
                         <Option value={'onself'} key={'x'}>{this.props.user.cname}</Option>
                         {
                         this.state.complist.map((v,i)=>(
-                            <Option value={i} key={i}>{v.passivename}</Option>
+                            <Option value={i} key={v}>{v.passivename}</Option>
                         ))
                         }
                     </Select>
@@ -240,10 +260,13 @@ class HeaderCustom extends Component {
     }
 }
 
-const mapStateToProps = state => {  
-// const  {responsive}=state.httpData;
-    const { responsive = {data: {}} } = state.httpData;
-    return {responsive};
+const mapStateToProps = state => {
+    const { responsive = {data: {}} ,auth } = state.httpData;
+    return {responsive, auth};
 };
 
-export default withRouter(connect(mapStateToProps)(HeaderCustom));
+const mapDispatchToProps = dispatch => ({
+    changeComp: bindActionCreators(changeComp, dispatch),
+});
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(HeaderCustom));

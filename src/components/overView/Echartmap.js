@@ -2,6 +2,11 @@ import React, { Component , Fragment } from 'react';
 import ReactEcharts from 'echarts-for-react';
 import echarts from 'echarts';
 import xianmap from "../../style/ztt/map/xianmap";
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { changeComp } from '@/action'; //action->index按需取
+
 class Echartmap extends Component {
     constructor(props){
         super(props);
@@ -38,9 +43,13 @@ class Echartmap extends Component {
                         var code=this.state.mapValue[i].code;
                      }
                  }
-                 localStorage.setItem('activecompcode', code);
-                 localStorage.setItem('activecomp', e.name);
-                 window.location.href="#/app/Userhome/Alarmlist"
+                const data={
+                    activecomp:e.name,
+                    activecompanycode:code,  
+                }
+                const { changeComp } = this.props;
+                changeComp(data)
+                this.props.history.push('/app/Userhome/Alarmlist')
              }
          }
     };
@@ -223,5 +232,13 @@ class Echartmap extends Component {
         )
     }
 }
+const mapStateToProps = state => {
+    const { responsive = {data: {}} ,auth } = state.httpData;
+    return {responsive, auth};
+};
 
-export default Echartmap;
+const mapDispatchToProps = dispatch => ({
+    changeComp: bindActionCreators(changeComp, dispatch),
+});
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Echartmap));

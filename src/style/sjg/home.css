@@ -498,7 +498,9 @@
 .underline {
     text-decoration: underline;
 }
-
+.underline:hover{
+    text-decoration: underline;
+}
 .t_l input {
     border: 0;
     background: #F0F2F5;

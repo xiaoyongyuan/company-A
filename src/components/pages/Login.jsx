@@ -184,6 +184,9 @@ const mapStateToPorps = state => {
     const { auth } = state.httpData;
     return { auth };
 };
+
+
+
 const mapDispatchToProps = dispatch => ({
     fetchData: bindActionCreators(fetchData, dispatch),
     receiveData: bindActionCreators(receiveData, dispatch)

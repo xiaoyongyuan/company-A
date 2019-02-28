@@ -1,7 +1,7 @@
 export default {
     menus: [ 
         //企业用户
-        { key: '/app/overView/index', identi:['comptop'], title: '首页', icon: 'home', funct:'basic', component: 'Overview' },
+        { key: '/app/overView/index', identi:['comptop'], title: '大数据', icon: 'line-chart', funct:'basic', component: 'Overview' },
         // { key: '/app/companyhome/visual', identi:['comptop'], title: '首页', icon: 'home', funct:'basic', component: 'Datavisual' },
         { key: '/app/companyhome/index', identi:['comp','comptop'], title: '总览', icon: 'home', funct:'basic', component: 'Companyhome' },
         //个人用户总览

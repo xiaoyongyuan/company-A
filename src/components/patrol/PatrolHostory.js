@@ -1,6 +1,8 @@
 import React, { Component} from 'react';
 import {Row,Col,Button,DatePicker,LocaleProvider,Timeline,Form,Spin,message,Modal} from "antd";
 import {post} from "../../axios/tools";
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
 import nodata from "../../style/imgs/nodata.png";
@@ -21,6 +23,7 @@ class RollcallHostory extends Component{
 	constructor(props){
         super(props);
         this.state={
+            activecompcode:props.auth.active.activecompanycode, //当前查看的公司
             pbdate:'',//检索的开始时间
             pedate:'',//检索的结束时间
             list:[],
@@ -32,20 +35,13 @@ class RollcallHostory extends Component{
             //status  //0执行中//1已完成//2未完成
             type:true,//无数据图,
             loadtype:true,
-            activecompcode:'',
             nodatapic:true,
         }
     }
-    componentWillMount() {
-        const activecompcode=localStorage.getItem('activecompcode');
-        this.setState({
-            activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:''
-        })   
-    }
     componentDidMount() {
-            this.setState({
-                loadtip:false,
-                })
+        this.setState({
+            loadtip:false,
+        });
         post({url:'/api/patrolresult/getlist_team',data:{passivecode:this.state.activecompcode}},(res)=>{
             if(res.success){
                 this.setState({
@@ -78,10 +74,6 @@ class RollcallHostory extends Component{
             var scrollbottom=scrollHeight-clientHeight;
             var scrollTopP=Math.ceil(scrollTop);
             var tom=scrollbottom-scrollTopP;
-            // console.log('******************scrollTop',scrollTop);
-            // console.log('******************scrollTopP',scrollTopP);
-            // console.log('******************scrollbottom',scrollbottom);
-            // console.log('******************scrollbottom-scrollTopP',tom);
             _this.setState({
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTopP
@@ -130,6 +122,19 @@ class RollcallHostory extends Component{
             }
         };
     }   
+    shouldComponentUpdate=(nextProps,nextState)=>{
+        if(nextProps.auth.active.activecompanycode != nextState.activecompcode){
+            this.setState({
+                activecompcode:nextProps.auth.active.activecompanycode,
+                loading:true,
+                list:[],
+                page:1,
+            },()=>{
+                this.componentDidMount()
+            }) 
+        }
+        return true;  
+    }
     backtop=()=>{ //返回顶部
         document.getElementById("scorll").scrollTop = 0; 
     };
@@ -224,47 +229,29 @@ class RollcallHostory extends Component{
     };
     statepatarol =(e,item)=>{
        if(e===0){
-            return(
-                "patrolnone"
-            )
+            return "patrolnone";
        }else if(e===1){
-            return(
-                "patrolblock"
-            )
+            return "patrolblock";
        }else{
-        return(
-            "patrolblock"
-        )
+        return "patrolblock";
        }
     };
     colorline=(e)=>{
         if(e===0){
-             return(
-                 "#FFC125"
-             )
+            return "#FFC125";
         }else if(e===1){
-             return(
-                 "green"
-             )
+            return "green";
         }else{
-         return(
-             "red"
-         )
+         return "red";
         }
      };
      colorpic=(e)=>{
         if(e===0){
-             return(
-                 "yellowpic"
-             )
+             return "yellowpic";
         }else if(e===1){
-             return(
-                 "greenpic"
-             )
+             return "greenpic";
         }else{
-         return(
-             "redpic"
-         )
+         return "redpic";
         }
      };
      
@@ -316,7 +303,7 @@ class RollcallHostory extends Component{
                 <div style={{marginTop:"70px",display:this.state.type?" none":"block"}}>
                     <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
                 </div>
-                <Spin spinning={this.state.loading} className="spin" size="large"tip="Loading..." />
+                <Spin spinning={this.state.loading} className="spin" size="large" tip="Loading..." />
                 <div className="timeline_ml" style={{display:this.state.type?"block":"none"}}>
                  <Timeline pending={this.state.loadtip}>
                     {
@@ -325,11 +312,13 @@ class RollcallHostory extends Component{
                                 <div key={j}>    
                                 <Timeline.Item color={this.colorline(item.status)} >
                                     <div>
-                                    <div className="inlineb"> {item.pdate} </div> 
-                                    <div className={this.colorpic(item.status)}> {item.pteam}({item.pbdate}:00 —— {item.pedate}:00)</div>
+                                    <div className="inlineb"> {item.pdate} </div>
+                                    {
+                                        item.pteam?<div className={this.colorpic(item.status)}>{item.pteam}({item.pbdate}:00 —— {item.pedate}:00)</div>:""
+                                    }
                                     <span className="xun_detail">
                                         {item.totalcount===0? <span />: <span>该班次有 {item.totalcount}个巡更点</span>} {item.status===0? <span></span>:','}
-                                        <span style={{padding:"0 0 0 8px"}}>  
+                                        <span>
                                             {item.status===1?<span>
                                                {item.handle_true===0? <span />: <span>{item.handle_true}个巡更正常 ,</span>}
                                                {item.handle_false===0? <span />: <span>{item.handle_false}个巡更异常</span>}
@@ -383,4 +372,8 @@ class RollcallHostory extends Component{
     }
 }
 
-export default RollcallHostory= Form.create()(RollcallHostory);;
+const mapStateToProps = state => { 
+    const { auth } = state.httpData;
+    return {auth};
+};
+export default withRouter(connect(mapStateToProps)(RollcallHostory= Form.create()(RollcallHostory)));

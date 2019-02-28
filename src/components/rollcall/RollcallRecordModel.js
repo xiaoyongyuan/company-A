@@ -14,13 +14,16 @@ class RollcallRecordModel extends Component {
     }
 
     componentWillMount() {
+        const activecompcode=localStorage.getItem('activecompcode');
         this.setState({
-            code:this.props.code
+            code:this.props.code,
+            activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:''
         })
     }
 
     componentDidMount() {
-        post({url:"/api/rollcalldetail/getone",data:{code:this.state.code}},(res)=>{
+        post({url:"/api/rollcalldetail/getone",data:{code:this.state.code,passivecode:this.state.activecompcode}},(res)=>{
+            console.log(res.data);
             if(res.success){
                 this.setState({
                     rollset:res.data

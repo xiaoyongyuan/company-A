@@ -345,7 +345,7 @@ class RollcallTask extends Component{
                     okText="确认"
                     cancelText="取消"
                 >
-                    <Form layout="inline"className="setrollcalltask">
+                    <Form layout="inline" className="setrollcalltask">
                         <Form.Item
                             label="日点名次数"
                         >

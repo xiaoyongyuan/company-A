@@ -1,6 +1,8 @@
 import React, { Component} from 'react';
 import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,Modal,Spin,message} from "antd";
 import {post} from "../../axios/tools";
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import '../../style/sjg/home.css';
 import RollcallRecordModel from "./RollcallRecordModel";
@@ -16,10 +18,12 @@ const formItemLayout = {
         sm: { span: 16 },
     },
 };
+var activecompcode="";
 class RollcallHostory extends Component{
 	constructor(props){
         super(props);
         this.state={
+            activecompcode:props.auth.active.activecompanycode, //当前查看的公司
             bdate:'',//检索的开始时间
             edate:'',//检索的结束时间
             rollCallType:false,
@@ -34,12 +38,7 @@ class RollcallHostory extends Component{
             type:true,//无数据图
         }
     }
-    componentWillMount() {
-        const activecompcode=localStorage.getItem('activecompcode');
-        this.setState({
-            activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:''
-        })   
-    }
+
     componentDidMount() {
         this.setState({
             loadtip:false,
@@ -110,7 +109,20 @@ class RollcallHostory extends Component{
             
             }
         };
-    }     
+    }   
+    shouldComponentUpdate=(nextProps,nextState)=>{
+        if(nextProps.auth.active.activecompanycode != nextState.activecompcode){
+            this.setState({
+                activecompcode:nextProps.auth.active.activecompanycode,
+                loading:true,
+                list:[],
+                page:1,
+            },()=>{
+                this.componentDidMount()
+            }) 
+        }
+        return true;  
+    }  
     backtop=()=>{ //返回顶部
         document.getElementById("scorll").scrollTop = 0; 
     };
@@ -198,6 +210,8 @@ class RollcallHostory extends Component{
         this.setState({
             rollCallType:true,
             code:index
+        },()=>{
+            console.log(this.state.code,"codecode");
         })
     };
     //model close
@@ -321,10 +335,14 @@ class RollcallHostory extends Component{
                  >
                     <RollcallRecordModel code={this.state.code} visible={this.state.rollCallType} rollcallhostory="1" />
                  </Modal>
-             {/* </Spin> */}
             </div>
         )
     }
 }
 
-export default RollcallHostory= Form.create()(RollcallHostory);;
+const mapStateToProps = state => { 
+    const { auth } = state.httpData;
+    return {auth};
+};
+export default withRouter(connect(mapStateToProps)(RollcallHostory= Form.create()(RollcallHostory)));
+
