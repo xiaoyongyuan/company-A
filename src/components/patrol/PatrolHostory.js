@@ -78,8 +78,7 @@ class RollcallHostory extends Component{
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTopP
                })
-               
-            if(scrollbottom-scrollTopP===0){//滚动到底部了
+            if(scrollbottom-scrollTopP<=0){//滚动到底部了
                 if(pag===1){
                     _this.setState({
                         loadtip:"加载中...",

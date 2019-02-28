@@ -74,9 +74,7 @@ class RollcallHostory extends Component{
                 scrollTop:scrollTop
                },()=>{
                 }
-               )
-               console.log('scrollbottom-scrollTopP',scrollbottom-scrollTopP);
-               
+               )                         
             if(scrollbottom-scrollTopP<=0){//滚动到底部了
                
                _this.setState({
@@ -212,8 +210,6 @@ class RollcallHostory extends Component{
         this.setState({
             rollCallType:true,
             code:index
-        },()=>{
-            console.log(this.state.code,"codecode");
         })
     };
     //model close
