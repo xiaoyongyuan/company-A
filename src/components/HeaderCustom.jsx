@@ -30,11 +30,11 @@ class HeaderCustom extends Component {
         if(!_user){
             this.props.history.push('/login');
         }else{
-            this.alarmlist();
+            // this.alarmlist();
             const _this=this;
-            setInterval(function(){
-                _this.alarmlist(_this.state.alarmmax)
-            },5000)
+            // setInterval(function(){
+            //     _this.alarmlist(_this.state.alarmmax)
+            // },5000)
             this.setState({
                 user: _user,
             });
@@ -157,7 +157,6 @@ class HeaderCustom extends Component {
         this.setState({ visible });
     };
     alarmlist=(code)=>{
-        console.log('接收的code',code)
         post({url:"/api/alarm/getlist",data:{pagesize:1,passivecode:this.state.activecompcode}},(res)=>{
             if(res.success&&res.data.length){
                 const num=res.data[0].code
