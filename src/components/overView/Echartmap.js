@@ -137,10 +137,10 @@ class Echartmap extends Component {
                 itemStyle:{
                     normal:{
                         areaColor:"#091E57", //地图的背景
-                        borderColor:"#0EC8D5" //分界线的颜色
+                        borderColor:"#0EF1F4" //分界线的颜色
                     },
                     emphasis:{
-                        areaColor:"#091e57" //悬浮时的颜色
+                        areaColor:"#091E57" //悬浮时的颜色
                     },
                 }
             },
