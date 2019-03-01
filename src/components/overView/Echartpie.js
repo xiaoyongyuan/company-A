@@ -32,7 +32,7 @@ class Echartpie extends Component {
     }
     // 报警分析
     lookcomp=()=>{
-        let option = {
+        /*let option = {
             tooltip: {
                 backgroundColor: "rgba(11,71,153,0.7)",
             },
@@ -87,7 +87,7 @@ class Echartpie extends Component {
                 ]
             }]
         };
-        this.setState({option})
+        this.setState({option})*/
     }
     xianmap=()=>{ //地图
         //echarts.registerMap('china', china);

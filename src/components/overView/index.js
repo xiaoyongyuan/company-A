@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row,Col,Carousel,Modal} from 'antd';
+import {Row, Col, Carousel, Modal, Icon} from 'antd';
 import '../../style/yal/css/overView.css';
 import {post} from "../../axios/tools";
 import Echartline from "./Echartline";
@@ -53,14 +53,27 @@ class overView extends Component {
         })
 
     };
-    equipmentModel =(equipmentCname,equipmentName,hearttime)=>{
-        this.setState({
-            visibleState:true,
-            equipmentCname:equipmentCname,
-            equipmentName:equipmentName,
-            hearttime:hearttime
+    //点击查看设备信息
+    equipmentModel =(code)=>{
+        post({url:"/api/camera/getone",data:{code:code}},(res)=>{
+            if(res.success){
+                for(var i in res.data.field){
+                    var count=i;
+                }
+                this.setState({
+                    visibleState:true,
+                    equipmentCname:res.data.cname,
+                    equipment:res.data.name,
+                    lastHeartbeat:res.heartdata.time,
+                    temperature:res.heartdata.temp,
+                    location:res.data.location,
+                    equsector:count,
+                    picpath:res.data.picpath,
+                    defence:res.data.work
+                });
+            }
         })
-    }
+    };
     //设备状态model关闭
     VideoCancelState =()=>{
         this.setState({
@@ -265,7 +278,30 @@ class overView extends Component {
                 }
             }
         })
+    };
+    statework=()=>{ //布防转换
+        if(this.state.defence===2){
+            return "布防中";
+        }else if(this.state.defence===1){
+            return "不在布防中";
+        }else{
+            return "未设置";
+        }
     }
+    isonline=()=>{ //当前状态
+        let time= this.state.lastHeartbeat;// 取到时间
+        let yijingtime=new Date(time); //取到时间转换
+        let timq=yijingtime.getTime(yijingtime) // 取到时间戳
+        let myDate=new Date();// 当前时间
+        let timc=myDate.getTime(myDate) // 当前时间戳
+        if(time){
+            if(timc-timq>60000){
+                return "离线";
+            }else{
+                return "在线";
+            }
+        }
+    };
     componentDidMount() {
         window.onresize = () => {
             this.setState({
@@ -305,16 +341,27 @@ class overView extends Component {
                                 <div className="titleechart">
                                     <span className="titlename">报警分析</span>
                                 </div>
-                                <div className="comp">
-                                    <Echartpie type="lookcomp" winhe={(parseInt(this.state.DHeight)*0.7-20)*0.5-50}
-                                               cars={this.state.cars}
-                                               fire={this.state.fire}
-                                               patrol={this.state.patrol}
-                                               person={this.state.person}
-                                               rollcall={this.state.rollcall}
-                                               countalar={this.state.countalar}
-                                               alarmAnalysisName={this.state.alarmAnalysisName}
-                                    />
+                                <div className="comp callPolice">
+                                    <div className="policeNumber">
+                                        <div className="policeBox">
+                                           <div className="policeTitle"><div className="person-police"></div><div className="police-font">人报警</div></div>
+                                            <div className="policeBody"><span className="policeSum personColor">{this.state.person}</span><span>次</span></div>
+                                        </div>
+                                        <div className="policeBox">
+                                            <div className="policeTitle"><div className="car-police"></div><div className="police-font">车报警</div></div>
+                                            <div className="policeBody"><span className="policeSum carColor">{this.state.cars}</span><span>次</span></div>
+                                        </div>
+                                    </div>
+                                    <div className="policeNumber">
+                                        <div className="policeBox">
+                                            <div className="policeTitle"><div className="patrol-police"></div><div className="police-font">巡更报警</div></div>
+                                            <div className="policeBody"><span className="policeSum patrolColor">{this.state.patrol}</span><span>次</span></div>
+                                        </div>
+                                        <div className="policeBox">
+                                            <div className="policeTitle"><div className="call-police"></div><div className="police-font">点名报警</div></div>
+                                            <div className="policeBody"><span className="policeSum callColor">{this.state.rollcall}</span><span>次</span></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -343,7 +390,7 @@ class overView extends Component {
                                                 <div className="scollhidden-inner">
                                                     {this.state.deveicek.map((el,i)=>(
                                                         <div className="equipment equipbody" key={'row'+i}>
-                                                            <Row className="lines" onClick={()=>this.equipmentModel(el.cname,el.name,el.hearttime)}>
+                                                            <Row className="lines" onClick={()=>this.equipmentModel(el.code)}>
                                                                 <Col className="gutter-row" xl={8}>
                                                                     {el.cname}
                                                                 </Col>
@@ -553,7 +600,7 @@ class overView extends Component {
                         </div>
                     </Modal>
                     <Modal
-                        width={400}
+                        width={450}
                         visible={this.state.visibleState}
                         onCancel={this.VideoCancelState}
                         footer={null}
@@ -561,14 +608,20 @@ class overView extends Component {
                     >
                         <div className="shipin">
                             <div className="shipin-context">
-                                <p className="equipmentModel">
+                                <div className="equipmentModel">
                                     <p>单位：{this.state.equipmentCname}</p>
-                                    <p>设备：{this.state.equipmentName}</p>
-                                    <p>状态： {moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > this.state.hearttime &&
-                                    moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > this.state.hearttime
-                                        ? <span>离线</span>:<span>在线 </span>
-                                    }</p>
-                                </p>
+                                    <p>设备：{this.state.equipment}</p>
+                                    <p>状态： {this.isonline()}</p>
+                                    <p>所在位置：{this.state.location} </p>
+                                    <p>型号：S01 </p>
+                                    <p>有效防区：{this.state.equsector}个 </p>
+                                    <p>当前布防： {this.statework()} </p>
+                                    <p>上次心跳：{this.state.lastHeartbeat} </p>
+                                    <p>设备温度：{this.state.temperature}℃ </p>
+                                    <div className="alarmImg"><span className="imgEqu">最后报警图片：</span>
+                                        {this.state.picpath?<span className="picpath"><img src={this.state.picpath} alt=""/></span>:"无"}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </Modal>

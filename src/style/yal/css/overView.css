@@ -555,6 +555,7 @@
 .shipin-context .equipmentModel{
     color:#fff;
     margin-left: 20px;
+    margin-top: 20px;
 }
 .video .ant-modal-content,.equipment .ant-modal-content{
     background: rgba(0, 0, 0, 0)!important;
@@ -616,4 +617,94 @@
    height: 40px;
    line-height: 40px;
 }
-/* 只看收藏结束*/
+.policeNumber{
+    width: 100%;
+    height: 46%;
+    display: flex;
+    flex-direction: row;
+}
+.policeBox{
+    width: 90%;
+    height: 90%;
+    margin: 4%;
+    background: url("../../yal/img/police.png") no-repeat;
+    background-size: 100% 100%;
+}
+.policeTitle{
+    width: 100%;
+    height:30%;
+    margin: 3% 2%;
+}
+.person-police{
+    width: 15%;
+    height: 90%;
+    float: left;
+    background: url("../../yal/img/personPolice.png") no-repeat;
+    background-size: 100% 100%;
+}
+.car-police{
+    width: 15%;
+    height: 90%;
+    float: left;
+    background: url("../../yal/img/carpolice.png") no-repeat;
+    background-size: 100% 100%;
+}
+.call-police{
+    width: 14%;
+    height: 82%;
+    float: left;
+    background: url("../../yal/img/callPolice.png") no-repeat;
+    background-size: 100% 100%;
+}
+.patrol-police{
+    width: 16%;
+    height: 100%;
+    float: left;
+    background: url("../../yal/img/patrolPolice.png") no-repeat;
+    background-size: 100% 100%;
+}
+.police-font{
+    width: 60%;
+    height: 100%;
+    margin-left: 17%;
+}
+.policeBody{
+    width: 100%;
+}
+.policeSum{
+    font-size: 25px;
+    font-family: alarmNumer;
+    display: inline-block;
+    margin: 0 7%;
+    font-weight: bolder;
+}
+.personColor{
+    color: #FC3173;
+}
+.carColor{
+    color: #2BD682;
+}
+.patrolColor{
+    color: #CE4311;
+}
+.callColor{
+    color: #5E63ED;
+}
+.alarmImg{
+    width: 100%;
+}
+.imgEqu{
+    display: inline-block;
+    width: 34%;
+    float: left;
+}
+.picpath{
+    display: inline-block;
+    width: 40%;
+    height: 20%;
+    margin-top: -30px;
+}
+.picpath img{
+    width: 100%;
+    height: 100%;
+}
