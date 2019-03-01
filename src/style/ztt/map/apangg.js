@@ -1,4 +1,4 @@
-var scenemap={
+var mingqscene={
   "type": "FeatureCollection",
   "features": [
     {
@@ -153,4 +153,4 @@ var scenemap={
     }
   ]
 }
-export default scenemap;
+export default mingqscene;

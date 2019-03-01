@@ -12,7 +12,7 @@ import baojing from "../../style/ztt/img/baojing.png";
 import cloud from "../../style/ztt/img/cloud.png";
 import nopic from "../../style/imgs/nopic.png";
 import Scenedata from "./Scenedata";
-import { Map,Marker } from 'react-amap';
+// import { Map,Marker } from 'react-amap';
 
 class Companyhome extends Component {
     constructor(props){

@@ -133,7 +133,8 @@ class Alarmlist extends React.Component{
         });
     };
     //查看报警详情
-    alarmImg =(code)=>{
+    alarmImg =(atype,code)=>{
+        if(atype ==1 || atype ==12 ){
         const toson={
             code:code,
             bdate:this.state.bdate.locale?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
@@ -143,8 +144,9 @@ class Alarmlist extends React.Component{
         };
         this.setState({
             alarmImgType:true,
-            toson:toson
+            toson
         })
+        }
     }
     hanlePageSize = (page) => { //翻页
         const data={};
@@ -501,7 +503,7 @@ class Alarmlist extends React.Component{
                                                 <span className="xuanzhuan">{this.handleState(v.status)}</span>
                                             </div>
                                             <Col span={8}>
-                                                <div className="pliceImgyal" onClick={()=>this.alarmImg(v.code)}>
+                                                <div className="pliceImgyal" onClick={()=>this.alarmImg(v.atype,v.code)}>
                                                     <img src={this.atypeimg(v.atype,v.pic_min)} alt="" />
                                                 </div>
                                             </Col>
