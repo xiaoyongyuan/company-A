@@ -435,11 +435,11 @@ class overView extends Component {
                         </div>
                         <div className="draw">
                             <div className="untreated alarmtitle">
-                                报警数
+                                总报警数
                             </div>
                             <div className="alarmover " style={{width:'100%'}}>
                                 <div className="alarmcarousel tol">
-                                    {this.state.countalar}
+                                    {this.state.countalar<1000000? this.state.countalar: <span> {(this.state.countalar/1000000).toFixed(2)}<span style={{fontSize:'20PX'}}>&nbsp;百万</span></span>}
                                 </div>
 
                             </div>

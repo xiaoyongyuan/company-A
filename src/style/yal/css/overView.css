@@ -455,7 +455,7 @@
     }
     .draw .alarmover{
         position: absolute;
-        bottom: 22px;
+        bottom: 14px;
     }
     .draw .alarmcarousel{
         position: relative;
@@ -711,5 +711,7 @@
 .tol{
    width:100%;
    text-align:center;
+   font-family: alarmNumer;
+   font-size: 30px;
    color:#fff;
 }
