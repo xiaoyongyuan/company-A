@@ -22,6 +22,7 @@ class Alarmdetails extends React.Component{
       	prev:'', //上一条数据code
       	next:'', //下一条数据code
       	code:'', //当前数据的code
+        videoopen:false //视频开关
       };
   }
   componentWillMount() {
@@ -45,7 +46,8 @@ class Alarmdetails extends React.Component{
           tags:res.data.tags, 
           pic_width:res.data.pic_width, //报警宽
           pic_height:res.data.pic_height, //报警高  
-
+          videopath:res.data.videopath, //视频地址
+          videoopen:false,
         }
         this.setState({
           data:data,
@@ -104,7 +106,7 @@ class Alarmdetails extends React.Component{
   	this.setState({
         [text]: checked,
     },()=>{
-    	this.draw()
+      if(text != 'videoopen') this.draw()
     });	
   }
   looknew=(text)=>{ //查看上下一条
@@ -219,17 +221,22 @@ class Alarmdetails extends React.Component{
             <div className="alarmDetails">
             	<div className="alarmflex">
             		<div className="flexleft">
-            			<canvas id="canvasobj" width="604px" height="476px" style={{backgroundImage:'url('+this.state.data.src+')',backgroundSize:"100% 100%"}} />
-            			<div style={{textAlign:'center'}}>
-            				<ButtonGroup>
-      							  <Button type="primary" onClick={()=>this.looknew('prev')} disabled={this.state.prev?false:true}>
-      								<Icon type="left" />上一条
-      							  </Button>
-      							  <Button type="primary" onClick={()=>this.looknew('next')} disabled={this.state.next?false:true}>
-      								下一条<Icon type="right" />
-      							  </Button>
-      							</ButtonGroup> 
-            			</div>
+                  <div className="picleft" style={{display:this.state.videoopen?'none':'block'}}>
+              			<canvas id="canvasobj" width="604px" height="476px" style={{backgroundImage:'url('+this.state.data.src+')',backgroundSize:"100% 100%"}} />
+              			<div style={{textAlign:'center'}}>
+              				<ButtonGroup>
+        							  <Button type="primary" onClick={()=>this.looknew('prev')} disabled={this.state.prev?false:true}>
+        								<Icon type="left" />上一条
+        							  </Button>
+        							  <Button type="primary" onClick={()=>this.looknew('next')} disabled={this.state.next?false:true}>
+        								下一条<Icon type="right" />
+        							  </Button>
+        							</ButtonGroup> 
+              			</div>
+                  </div>
+                  <div className="picleft" style={{display:this.state.videoopen?'block':'none',width:'604px',height:'513px'}}>
+                      <video src={this.state.data.videopath} autoplay="autoplay" controls="controls" width="600px"></video>
+                  </div>
             		</div>	
             		<div className="flexright">
             				<h4><b>{this.state.data.name}</b></h4>
@@ -254,7 +261,9 @@ class Alarmdetails extends React.Component{
                       </p>
                       :''
                     }
-                    
+                    {this.state.data.videopath
+                        ?<p><label>查看视频: <Switch size="small" checked={this.state.videoopen} onChange={(checked)=>this.onChange(checked,'videoopen')} /></label></p>
+                    :''}
             		</div>
             	</div>
             </div>
