@@ -203,11 +203,6 @@ class Scenedata extends Component {
     onClickByModel={
         'click':this.onByModelClick
     }
-
-
-
-
-
     render() {
         const _this=this;
         return (

@@ -12,6 +12,7 @@ import baojing from "../../style/ztt/img/baojing.png";
 import cloud from "../../style/ztt/img/cloud.png";
 import nopic from "../../style/imgs/nopic.png";
 import Scenedata from "./Scenedata";
+import { Map,Marker } from 'react-amap';
 
 class Companyhome extends Component {
     constructor(props){
@@ -29,6 +30,15 @@ class Companyhome extends Component {
             passivelist:[], //查看我的用户
             scenegraph:nopic,
             echartsHeight:"250px",
+          /*  mapZoom: 13, //地图缩放等级 （zoom）
+            //https://lbs.amap.com/api/javascript-api/guide/abc/prepare这里有介绍key怎么申请
+            mapKey: '。。。。。。。。',//Key就不贴出来了奥
+            status: {
+                zoomEnable: false,
+                dragEnable: false,
+            },
+            mapCenter:[116.292329, 39.946996],//地图中心点
+            mapMake :[116.273961, 39.946338],//marker标记点*/
         }
     }
     componentDidMount(){
@@ -108,6 +118,7 @@ class Companyhome extends Component {
         })
     };
     render() {
+        let {mapCenter, mapMake, mapZoom, mapKey, status} = this.state;
         const {responsive,auth } = this.props;
         return (
             <div className="Companyhome gutter-example button-demo">
@@ -115,6 +126,12 @@ class Companyhome extends Component {
                     <div className="boxHeight backBlock" >
                         <div className="backLitte boxShow " style={{width:'50%',margin:"16px"}}>
                             <div style={{padding:'50px 10px'}}>
+                              {/*  <div id="app" style={{width:"500px",height:"500px"}}>
+                                    <Map amapkey={mapKey} center={mapCenter} zoom={mapZoom} status={status}>
+                                        marker标记点创建必有参数 （position中心点）
+                                        <Marker position={mapMake}/>
+                                    </Map>
+                                </div>*/}
                                 <Scenedata type="maps" />
                             </div>
                         </div>
