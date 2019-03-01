@@ -196,7 +196,7 @@ class Scenedata extends Component {
     }
     onByModelClick = (e)=>{
         if(e.componentType === "series"){
-            window.location.href="#/app/companyhome/companyscene?code="+this.props.codeID
+            // window.location.href="#/app/companyhome/companyscene?code="+this.props.codeID
         }
     }
 

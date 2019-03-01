@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Row, Col, Button,Icon, message} from 'antd';
+import {Form, Row, Col, Button,Icon, message, Modal, Input} from 'antd';
 import '../../style/sjg/home.css';
 import {post} from "../../axios/tools";
 class Userdeveice extends React.Component{
@@ -14,6 +14,9 @@ class Userdeveice extends React.Component{
             login:{},
             heartdata:{},
             workingtime:[],
+            visible:false,//弹窗
+            changelat:'',//修改的纬度
+            changelng:'',//修改的经度
         };
     }
     componentDidMount() {             
@@ -139,6 +142,37 @@ class Userdeveice extends React.Component{
             return 'reecolor';
         }
     }
+    locationedit=()=>{
+        this.setState({
+            visible:true,
+            changelat:this.state.lat,
+            changelng:this.state.lng,
+        });
+    }
+    changeCoord(e,coord){ //修改经纬度
+        this.setState({
+            [coord]:e.target.value
+        });
+    }
+    modalOk=()=>{ //修改坐标提交
+        if(!this.state.changelat || !this.state.changelng ) return;
+        post({url:"/api/camera/update",data:{code:this.props.query.id,lat:this.state.changelat,lng:this.state.changelng}}, (res)=>{
+            if(res.success){
+                this.setState({
+                    lat:this.state.changelat,
+                    lng:this.state.changelng,
+                    visible:false
+                },()=>{
+                    message.success('修改成功！');
+                })
+            }
+        })
+    }
+    handleCancel=()=>{
+        this.setState({
+            visible:false
+        })
+    }
 
     render(){
         const _this=this;
@@ -216,7 +250,14 @@ class Userdeveice extends React.Component{
                         </Col>
                     </Row>
                     <p><Icon type="video-camera" /> 摄像头信息</p>
-                    
+                    <Row className="equ_row">
+                        <Col span={3} className="t_r">
+                           坐标：
+                        </Col>
+                        <Col span={8} className="t_l">
+                           {this.state.data.lng},{this.state.data.lat} <span onClick={this.locationedit} style={{color:'#5063ee',cursor:'point'}}>修改</span>          
+                        </Col>
+                    </Row>
                     <Row className="equ_row">
                         <Col span={3} className="t_r">
                            设备状态：
@@ -290,15 +331,25 @@ class Userdeveice extends React.Component{
                             />      
                         </Col>
                     </Row>
-                    <Row className="equ_row">
-                           
-                            <Col span={21} offset={3} className="t_l">
-                            <Button className="queryBtn lg" onClick={this.updata}> 提交 </Button>
-                            </Col>
-                        </Row>
-                    
+                    <Row className="equ_row">    
+                        <Col span={21} offset={3} className="t_l">
+                        <Button className="queryBtn lg" onClick={this.updata}> 提交 </Button>
+                        </Col>
+                    </Row>
                 </div>
+                <Modal
+                    title='修改'
+                    visible={this.state.visible}
+                    onOk={this.modalOk}
+                    onCancel={this.handleCancel}
+                >
+                    <Row>
+                       <label>经度：</label><Input defaultValue={this.state.changelng} onChange={(e)=>this.changeCoord(e,'changelng')} />
+                       <label>纬度：</label><Input defaultValue={this.state.changelat} onChange={(e)=>this.changeCoord(e,'changelat')}  /> 
+                    </Row>
+                </Modal>
             </div>
+
         )
     }
 }
