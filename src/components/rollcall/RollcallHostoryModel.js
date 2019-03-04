@@ -19,22 +19,16 @@ class RollcallHostoryModel extends Component {
         });
     }
     componentWillReceiveProps(nextProps){
-        if( nextProps.visible !== vis){
-            console.log(nextProps.visible,"nextProps.visible");
+        if( nextProps.visible !== vis){        
             vis=nextProps.visible;
-            if(nextProps.visible){
-                console.log(vis,"vis");
+            if(nextProps.visible){             
                 this.setState({
                     code:nextProps.code
                 }, () => {
-                    console.log('*******code', nextProps.code);
                     post({url:'/api/rollcalldetail/getone',data:{code:nextProps.code}},(res)=>{
                         if(res.success){
-                             console.log('******************1', res.data);
                                 this.setState({
                                        list:res.data
-                                },()=>{
-                                    console.log('this.state.list', this.state.list.rname);
                                 })
                         }
                     })
@@ -48,11 +42,8 @@ class RollcallHostoryModel extends Component {
         if(this.state.code){
             post({url:'/api/rollcalldetail/getone',data:{code:this.state.code}},(res)=>{
                 if(res.success){
-                     console.log('******************1', res.data);
                         this.setState({
                                list:res.data
-                        },()=>{
-                            console.log('this.state.list', this.state.list.rname);
                         })
                 }
             })
