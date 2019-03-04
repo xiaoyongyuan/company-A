@@ -62,7 +62,7 @@
 }
 
 .equiptable .equipment{
-    height: 25%;  
+    height: 15%;
     color:#fff;
     padding-bottom: 1em;
     text-align: center; 
@@ -70,12 +70,13 @@
 .equiphead .lines{ 
     width: 100%;
     display: table;
-    height: 100%; 
+    height: 76%;
     line-height: 2.5;
-    background: -webkit-linear-gradient(left, rgba(30,110,212,.3) ,rgba(30,110,212,1)); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(right, rgba(30,110,212,.3) ,rgba(30,110,212,1)); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(right, rgba(30,110,212,.3) ,rgba(30,110,212,1)); /* Firefox 3.6 - 15 */
-    background: linear-gradient(to right, rgba(30,110,212,.3) ,rgba(30,110,212,1)); /* 标准的语法（必须放在最后） */
+    margin-top: 12px;
+    background: -webkit-linear-gradient(left, rgba(10,104,228,.3) ,rgba(10,104,228,1)); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, rgba(10,104,228,.3) ,rgba(10,104,228,1)); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, rgba(10,104,228,.3) ,rgba(10,104,228,1)); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, rgba(10,104,228,.3) ,rgba(10,104,228,1)); /* 标准的语法（必须放在最后） */
 }
 .equiptable .gutter-row{
     display: table-cell;
@@ -86,10 +87,10 @@
     display: table;
     height: 100%; 
     line-height: 2.5;
-    background: -webkit-linear-gradient(left, rgba(30,110,212,.1) ,rgba(30,110,212,.5)); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(right, rgba(30,110,212,.1) ,rgba(30,110,212,.5)); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(right, rgba(30,110,212,.1) ,rgba(30,110,212,.5)); /* Firefox 3.6 - 15 */
-    background: linear-gradient(to right, rgba(30,110,212,.1) ,rgba(30,110,212,.5)); /* 标准的语法（必须放在最后） */ 
+    background: -webkit-linear-gradient(left, rgba(10,104,228,.3) ,rgba(10,104,228,1)); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, rgba(10,104,228,.3) ,rgba(10,104,228,1)); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, rgba(10,104,228,.3) ,rgba(10,104,228,1)); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, rgba(10,104,228,.3) ,rgba(10,104,228,1)); /* 标准的语法（必须放在最后） */
 }
 
 .wcolummap{

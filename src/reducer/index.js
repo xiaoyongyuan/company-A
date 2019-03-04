@@ -24,6 +24,11 @@ const httpData = (state, action) => {
             const data= state[action.category];
             data[action.value]=action.data;
             return  {[action.category]: data};
+        case type.CLEAR_ANTD:
+            const auth= state[action.category];
+            auth.data={};
+            auth.active={};
+            return  {[action.category]: auth};
         default:
             return {...state};
     }

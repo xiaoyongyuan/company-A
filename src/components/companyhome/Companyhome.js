@@ -11,6 +11,7 @@ import PatrolStatistics from "./PatrolStatistics";
 import baojing from "../../style/ztt/img/baojing.png";
 import cloud from "../../style/ztt/img/cloud.png";
 import nopic from "../../style/imgs/nopic.png";
+import nodata from "../../style/imgs/nodata.png";
 import Scenedata from "./Scenedata";
 // import { Map,Marker } from 'react-amap';
 
@@ -18,7 +19,7 @@ class Companyhome extends Component {
     constructor(props){
         super(props);
         this.state= {
-            activecompcode:props.auth.active.activecompanycode, //当前查看的公司
+            activecompcode:props.auth&props.auth.active?props.auth.active.activecompanycode:'', //当前查看的公司
             mapJson: [],
             enterpriseTitle:[],
             cloudDate: '',
@@ -28,7 +29,7 @@ class Companyhome extends Component {
             alarmcount:[],
             activelist:[], //共享设备
             passivelist:[], //查看我的用户
-            scenegraph:nopic,
+            scenegraph:'',
             echartsHeight:"250px",
           /*  mapZoom: 13, //地图缩放等级 （zoom）
             //https://lbs.amap.com/api/javascript-api/guide/abc/prepare这里有介绍key怎么申请
@@ -61,27 +62,28 @@ class Companyhome extends Component {
             }) 
         }
         return true;
-        
     }
     //总览
     companyHome =()=>{
         post({url:'/api/company/getone',data:{passivecode:this.state.activecompcode}},(res)=>{
             if(res.success){
+
                 let mapJson=[{
                     name:res.data.cname,
                     value:[res.data.clng,res.data.clat]
-                }];
-                this.setState({
-                    activelist:res.activelist, //共享用户
-                    passivelist:res.passivelist, //查看我的用户
-                    enterpriseTitle:res.data.cname,
-                    myEquipment:res.camera,
-                    mapJson:mapJson,
-                    code:res.data.code,
-                    alarmcount:res.alarmcount,
-                    cloudDate:res.data.cloudvaliddate,
-                    scenegraph:res.data.scenegraph?res.data.scenegraph:nopic, //场景图
-                });
+                    }];
+                    this.setState({
+                        activelist:res.activelist, //共享用户
+                        passivelist:res.passivelist, //查看我的用户
+                        enterpriseTitle:res.data.cname,
+                        myEquipment:res.camera,
+                        mapJson:mapJson,
+                        code:res.data.code,
+                        alarmcount:res.alarmcount,
+                        cloudDate:res.data.cloudvaliddate,
+                        scenegraph:res.data.scenegraph, //场景图
+                    });
+                
             }
         })
     };
@@ -125,14 +127,18 @@ class Companyhome extends Component {
                 <div className="companyhome">
                     <div className="boxHeight backBlock" >
                         <div className="backLitte boxShow " style={{width:'50%',margin:"16px"}}>
-                            <div style={{padding:'50px 10px'}}>
+                            <div style={{padding:'50px 10px', height:'100%'}}>
                               {/*  <div id="app" style={{width:"500px",height:"500px"}}>
                                     <Map amapkey={mapKey} center={mapCenter} zoom={mapZoom} status={status}>
                                         marker标记点创建必有参数 （position中心点）
                                         <Marker position={mapMake}/>
                                     </Map>
                                 </div>*/}
-                                <Scenedata type="maps" />
+                                {this.state.scenegraph
+                                    ?<Scenedata style={{height:"100%"}} type="maps" cameracorrd={this.state.myEquipment} scenegraph={this.state.scenegraph} />
+                                    :<div style={{margin:'30px auto',width:'200px'}}><img src={nodata} style={{width:'100%'}}/></div>
+                                }
+                                
                             </div>
                         </div>
                         <div className="topRightContext">

@@ -294,13 +294,15 @@ class RollcallHostory extends Component{
                                                                </div>
                                                                     <div className="m_l">
                                                                         <div className="arr">{el.rollcalldate.slice(11,20)}</div>　
-                                                                        {el.ifeveryday===0?"自动点名":"手动点名"}，
-                                                                        共点名 {el.totalcount}个对象，
-                                                                        {el.executing===0? <span />: <span> {el.executing} 正在点名，</span>}
-                                                                        {el.totalcount-el.executing-el.normal-el.unhandle-el.rollcallalarm===0? '': <span> {el.totalcount-el.executing-el.normal-el.unhandle-el.rollcallalarm} 个报警，</span>}
-                                                                        {el.normal===0? <span />: <span> {el.normal} 个正常，</span>}
-                                                                        {el.fail===0? <span />: <span> {el.fail} 失败，</span>}
-                                                                        <a href={"#/app/rollcall/rollcallrecord?taskid="+el.taskid+"&rollcalldate="+el.rollcalldate} className="underline">查看详情</a>
+                                                                        <span>
+                                                                            {el.ifeveryday===0?"自动点名":"手动点名"}，
+                                                                            共点名 {el.totalcount}个对象，
+                                                                        </span>
+                                                                        {el.executing?<span>{el.executing}个正在点名，</span>: ''}
+                                                                        {el.rollcallalarm?<span>{el.rollcallalarm}个报警，</span>: ''}
+                                                                        {el.normal?<span>{el.normal}个正常，</span>: ''}
+                                                                        {el.totalcount-el.executing-el.normal-el.rollcallalarm?<span>{el.totalcount-el.executing-el.normal-el.rollcallalarm}个失败，</span>: ''}
+                                                                        <a href={"#/app/rollcall/rollcallrecord?taskid="+el.taskid+"&rollcalldate="+el.rollcalldate} className="underline">查看详情</a>                                                                        
                                                                     </div>
                                                             </div>
                                                             {
