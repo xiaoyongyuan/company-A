@@ -27,7 +27,10 @@ export const alarmmax = (data,category) => ({ //获取最大报警数
     data,
     category
 });
-
+export const clearauth = (category) => ({ //获取最大报警数
+    type: type.CLEAR_ANTD,
+    category
+});
 
 
 
@@ -37,6 +40,9 @@ export const changeComp=(data)=> dispatch =>{ //切换公司
 
 export const alarmMax=(data)=> dispatch =>{ //切换公司
   dispatch(alarmmax(data,'auth')); //第二个参数写死
+}
+export const clearAuth=()=> dispatch =>{ //退出
+  dispatch(clearauth('auth')); //第二个参数写死
 }
 
 

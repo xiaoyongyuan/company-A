@@ -149,7 +149,8 @@ class RollcallTask extends Component{
     	},2000)
     };
     //点名查询
-    selectopt =()=>{
+    selectopt =(e)=>{
+        e.preventDefault()
         this.setState({
             rname:this.state.realname,
             cameraname:this.state.account,

@@ -30,7 +30,7 @@ class Alarmlist extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            activecompcode:props.auth.active.activecompanycode, //当前查看的公司
+            activecompcode:props.auth.active?props.auth.active.activecompanycode:'', //当前查看的公司
             type:[],
             visible: false,
             alarm:false,
@@ -63,14 +63,9 @@ class Alarmlist extends React.Component{
                 propsid:this.props.query.id,
             })
         }   
-        const data={};
-        if(this.state.propsid){
-            data.cid=this.state.propsid;
-            data.status=0
-        }
-        this.handleAlerm(data);
     }
     componentDidMount() {
+        console.log(3)
         const data={};
         if(this.state.propsid){
             data.cid=this.state.propsid;
@@ -93,6 +88,7 @@ class Alarmlist extends React.Component{
                 ififdanger:0,
                 total:0,
             },()=>{
+                console.log(2)
                 this.componentDidMount()
             }) 
         }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactEcharts from 'echarts-for-react';
 import echarts from 'echarts';
 import apg from "../../style/ztt/map/1000020.json";
-import mqwl from "../../style/ztt/map/1000022.json";
+import mqwl from "../../style/ztt/map/1000021.json";
 
 import axios from 'axios';
 
@@ -23,7 +23,6 @@ class Scenedata extends Component {
     }
 
     componentDidMount(){
-        // this[this.state.type]()
         
     }
     maps=(scenegraph,cameracorrd)=>{ //地图
@@ -76,7 +75,7 @@ class Scenedata extends Component {
                     type: 'scatter',
                     coordinateSystem: 'geo',
                     data: cameralist,
-                    symbolSize: 18, //圈圈大小
+                    symbolSize: 10, //圈圈大小
                     label: {
                         normal: {
                             formatter: '{b}',
@@ -97,10 +96,7 @@ class Scenedata extends Component {
         }
         return option;
     }
-    shouldComponentUpdate(nextProps,nextstate){
-        console.log('nextProps',nextProps)
-        return true;
-    }
+
     onByModelClick = (e)=>{
         if(e.componentType === "series"){
             // window.location.href="#/app/companyhome/companyscene?code="+this.props.codeID
@@ -112,14 +108,13 @@ class Scenedata extends Component {
     }
     render() {
         const _this=this;
-        console.log('this.props.scenegraph',this.props.scenegraph)
         return (
             <div>
                 {this.props.scenegraph
                     ?<ReactEcharts
                 option={this.maps(this.props.scenegraph,this.props.cameracorrd)}
                 onEvents={this.onClickByModel}
-                style={{height:'450px'}}
+                style={{height:'600px'}}
             />
             :''}
             </div>

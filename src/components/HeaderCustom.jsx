@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux';
 import {post} from "../axios/tools";
 import "../style/publicStyle/publicStyle.css"
 import "../style/yal/css/overView.css";
-import { changeComp,alarmMax } from '@/action'; //action->index按需取
+import { changeComp,alarmMax,clearAuth } from '@/action'; //action->index按需取
 
 const { Header } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -41,7 +41,6 @@ class HeaderCustom extends Component {
         }
     };
     shouldComponentUpdate=(nextProps,nextState)=>{
-        console.log('shouldComponentUpdate',nextProps.auth.alarmmax,nextState.alarmmax)
         if(nextState.alarmmax && nextProps.auth.alarmmax != nextState.alarmmax){
             this.openNotification()
         }
@@ -90,20 +89,30 @@ class HeaderCustom extends Component {
             alarmMax(num)
     }
     switchput=()=>{ //切换公司确认提交
-        const _this=this;
+        const _this=this,auth=this.props.auth;
+        var data={},activecomp='';
         if(this.state.activecode!='onself'&& this.state.complist){
-            const data={
+            data={
                 activecomp:this.state.complist[this.state.activecode].passivename,
                 activecompanycode:this.state.complist[this.state.activecode].passivecode,  
             }
-            const { changeComp } = this.props;
-            changeComp(data)
-            this.setState({
-                sitchshow: false
-            },()=>{
-                message.success('您已成功切换到'+data.activecomp)
-            })
+            activecomp=data.activecomp;
+
+            
+        }else if(this.state.activecode='onself'){
+            data={
+                activecomp:'',
+                activecompanycode:'',  
+            }
+            activecomp=auth.data.cname;
         }
+        const { changeComp } = this.props;
+        changeComp(data)
+        this.setState({
+            sitchshow: false
+        },()=>{
+            message.success('您已成功切换到'+activecomp)
+        })
         return;
         //将切换的公司存入localStorage中，已废弃
         if(this.state.activecode=='onself'){
@@ -130,10 +139,10 @@ class HeaderCustom extends Component {
         
     }
     deleteOk = () =>{//确认退出
+        const { clearAuth } = this.props;
+            clearAuth()
         localStorage.removeItem('user');
         localStorage.removeItem('token');
-        localStorage.removeItem('activecompcode');
-        localStorage.removeItem('activecomp');
         this.props.history.push('/login')
     };
     deleteCancel = () =>{//取消退出
@@ -144,8 +153,6 @@ class HeaderCustom extends Component {
     logout = () => { //退出
         localStorage.removeItem('user');
         localStorage.removeItem('token');
-        localStorage.removeItem('activecompcode');
-        localStorage.removeItem('activecomp');
         this.props.history.push('/login')
     };
     popoverHide = () => {
@@ -222,7 +229,7 @@ class HeaderCustom extends Component {
                 </div>
                 <div style={{width:"28%",float:"right"}}>
                     {/*当前查看公司*/}
-                    <div style={{ lineHeight: '63px', float: 'right',color:'#fff' }}>当前单位：{auth.active.activecomp?auth.active.activecomp:this.props.user.cname}</div>
+                    <div style={{ lineHeight: '63px', float: 'right',color:'#fff' }}>当前单位：{auth.active&&auth.active.activecomp?auth.active.activecomp:this.props.user.cname}</div>
                     <Menu
                         mode="horizontal"
                         style={{ lineHeight: '63px', float: 'right' }}
@@ -235,7 +242,7 @@ class HeaderCustom extends Component {
                             <MenuItemGroup title="用户中心" style={{background:"rgba(255,255,255,0.5)"}}>
                                 <Menu.Item key="setting:1">你好 - {this.props.user.realname}</Menu.Item>
                                 {this.props.user.activecount
-                                    ?<Menu.Item key="setting:2" onClick={this.sitchcomp}>{auth.active.activecomp?auth.active.activecomp:this.props.user.cname} <Icon type="sync" /></Menu.Item>
+                                    ?<Menu.Item key="setting:2" onClick={this.sitchcomp}>{auth.active&&auth.active.activecomp?auth.active.activecomp:this.props.user.cname} <Icon type="sync" /></Menu.Item>
                                     :''
                                 }
                                 <Menu.Item key="logoutto" onClick={this.showModaldelete}><span>退出登录</span></Menu.Item>
@@ -283,7 +290,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     changeComp: bindActionCreators(changeComp, dispatch),
-    alarmMax: bindActionCreators(alarmMax, dispatch)
+    alarmMax: bindActionCreators(alarmMax, dispatch),
+    clearAuth:bindActionCreators(clearAuth, dispatch)
+
 });
 
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(HeaderCustom));

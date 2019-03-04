@@ -49,7 +49,7 @@ class Echartmap extends Component {
                 }
                 const { changeComp } = this.props;
                 changeComp(data)
-                this.props.history.push('/app/Userhome/Alarmlist')
+                this.props.history.push('/app/companyhome/index')
              }
          }
     };

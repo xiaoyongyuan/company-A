@@ -255,7 +255,7 @@ class Userdeveice extends React.Component{
                            坐标：
                         </Col>
                         <Col span={8} className="t_l">
-                           {this.state.data.lng},{this.state.data.lat} <span onClick={this.locationedit} style={{color:'#5063ee',cursor:'point'}}>修改</span>          
+                           {this.state.data.lng},{this.state.data.lat} <span onClick={this.locationedit} style={{color:'#5063ee',cursor:'pointer'}}>修改</span>          
                         </Col>
                     </Row>
                     <Row className="equ_row">
