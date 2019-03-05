@@ -426,8 +426,7 @@
         position: relative;
         width: 28%;
         margin: 0 auto;
-
-        bottom:5px;
+        bottom:-4px;
     }
     .draw .ant-carousel .slick-slide h3 {
         background-repeat: no-repeat;
@@ -461,7 +460,6 @@
         position: relative;
         width: 28%;
         margin: 0 auto;
-        bottom:7px;
     }
     .draw .ant-carousel .slick-slide h3 {
         background-repeat: no-repeat;
@@ -577,7 +575,7 @@
     right: 11px;
 }
 .equipment .ant-modal-close{
-    top: 33px!important;
+    top: 48px!important;
     right: 26px!important;
     color: #FFFFFF!important;
     background: url("../img/btnBack.png") no-repeat;
