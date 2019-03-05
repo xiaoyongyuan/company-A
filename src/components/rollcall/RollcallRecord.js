@@ -151,6 +151,30 @@ class RollcallRecord extends React.Component{
         },()=>{this.handleRollCallList()}
         )
     };
+    rfinaltype=(rfinal)=>{
+        switch(rfinal){
+            case -2:
+                return '点名失败';
+            case -1:
+                return '执行中';
+            case 1:
+                return '正常';
+            case 2:
+                return '对象存在状态异常';
+        }
+    }
+    rfinalColor=(rfinal)=>{
+        switch(rfinal){
+            case -2:
+                return '#797975';
+            case -1:
+                return '#797975';
+            case 1:
+                return 'green';
+            case 2:
+                return 'red';
+        }
+    }
     render(){
         const { getFieldDecorator } = this.props.form;
         return(
@@ -226,7 +250,7 @@ class RollcallRecord extends React.Component{
                                 </Row>
                                 <Row className="rollCall">
                                     <Col className="overflow">
-                                        {v.rfinal===1?<span style={{color:'#54CD66'}}>正常</span>:<span style={{color:'red'}}>对象存在状态异常</span>}
+                                        <span style={{color:this.rfinalColor(v.rfinal)}}>{this.rfinaltype(v.rfinal)}</span>
                                     </Col>
                                 </Row>
                             </Col>

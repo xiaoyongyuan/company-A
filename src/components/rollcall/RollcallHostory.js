@@ -23,7 +23,7 @@ class RollcallHostory extends Component{
 	constructor(props){
         super(props);
         this.state={
-            activecompcode:props.auth.active.activecompanycode, //当前查看的公司
+            activecompcode:props.auth.active?props.auth.active.activecompanycode:'', //当前查看的公司
             bdate:'',//检索的开始时间
             edate:'',//检索的结束时间
             rollCallType:false,
@@ -298,11 +298,10 @@ class RollcallHostory extends Component{
                                                                             {el.ifeveryday===0?"自动点名":"手动点名"}，
                                                                             共点名 {el.totalcount}个对象，
                                                                         </span>
-                                                                        {el.executing?<span>{el.executing}个正在点名，</span>: ''}
-                                                                        {el.rollcallalarm?<span>{el.rollcallalarm}个报警，</span>: ''}
-                                                                        {el.normal?<span>{el.normal}个正常，</span>: ''}
-                                                                        {el.totalcount-el.executing-el.normal-el.rollcallalarm?<span>{el.totalcount-el.executing-el.normal-el.rollcallalarm}个失败，</span>: ''}
-                                                                        <a href={"#/app/rollcall/rollcallrecord?taskid="+el.taskid+"&rollcalldate="+el.rollcalldate} className="underline">查看详情</a>                                                                        
+                                                                        {el.executing?<span>{el.executing}个正在点名.</span>: ''}
+                                                                        {el.rollcallalarm?<span>{el.rollcallalarm}个报警.</span>: ''}
+                                                                        {el.normal?<span>{el.normal}个正常.</span>: ''}
+                                                                        {el.totalcount-el.executing-el.normal-el.rollcallalarm?<span>{el.totalcount-el.executing-el.normal-el.rollcallalarm}个失败.</span>: ''}                                                                       
                                                                     </div>
                                                             </div>
                                                             {
@@ -333,7 +332,7 @@ class RollcallHostory extends Component{
                     onCancel={this.handlerollClose}
                     footer={null}
                  >
-                    <RollcallRecordModel code={this.state.code} visible={this.state.rollCallType} rollcallhostory="1" />
+                    <RollcallRecordModel activecompcode={this.state.activecompcode} code={this.state.code} visible={this.state.rollCallType} rollcallhostory="1" />
                  </Modal>
             </div>
         )

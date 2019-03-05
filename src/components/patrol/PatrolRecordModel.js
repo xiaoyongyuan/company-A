@@ -12,26 +12,28 @@ class PatrolRecordModel extends Component{
             status:[]
         }
     }
-    componentWillMount() {
-      const activecompcode=localStorage.getItem('activecompcode');
-        this.setState({
+    componentDidMount() {
+      this.setState({
             code:this.props.code,
             itemStatus:this.props.itemStatus,
             rollcallhostory:this.props.rollcallhostory,
-            activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:''
-            
+            activecompcode:this.props.activecompcode
+        },()=>{
+          this.requestData()
         })
     }
-    componentDidMount() {
+    requestData() {
         this.setState({
             itemStatus:this.props.itemStatus,
             par:this.props.par
         })
         post({url:"/api/patrolresult/getone",data:{code:this.state.code,passivecode:this.state.activecompcode}},(res)=>{
-            console.log(res.data);
+          if(res.success){
             this.setState({
                 paList:res.data
             });
+          }
+            
         })
 
     }
@@ -42,8 +44,9 @@ class PatrolRecordModel extends Component{
                 vis=nextProps.visible;
                 this.setState({
                     code:nextProps.code,
+                    activecompcode:nextProps.activecompcode
                 },()=>{
-                    this.componentDidMount()
+                    this.requestData()
                 });
             }
         }

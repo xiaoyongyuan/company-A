@@ -22,10 +22,8 @@ class Scenedata extends Component {
         })
     }
 
-    componentDidMount(){
-        
-    }
     maps=(scenegraph,cameracorrd)=>{ //地图
+        console.log('传递过来的值',scenegraph)
         const cameralist=[];
           cameracorrd.map((el,i)=>{
             if(el.lat && el.lng){
@@ -34,8 +32,10 @@ class Scenedata extends Component {
             })  
         
         if(scenegraph.indexOf('1000020')>0){
+            console.log('1000020')
             echarts.registerMap('xiant', apg);
         }else{
+            console.log('1000021')
             echarts.registerMap('xiant', mqwl);
         }
         
@@ -75,7 +75,7 @@ class Scenedata extends Component {
                     type: 'scatter',
                     coordinateSystem: 'geo',
                     data: cameralist,
-                    symbolSize: 10, //圈圈大小
+                    symbolSize: 15, //圈圈大小
                     label: {
                         normal: {
                             formatter: '{b}',

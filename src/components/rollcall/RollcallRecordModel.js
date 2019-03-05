@@ -9,39 +9,88 @@ class RollcallRecordModel extends Component {
     constructor(props){
         super(props);
         this.state={
-            rollset:{}
+            rollset:{},
         };
     }
-
-    componentWillMount() {
-        const activecompcode=localStorage.getItem('activecompcode');
+    componentDidMount() {
         this.setState({
             code:this.props.code,
-            activecompcode:activecompcode && activecompcode !='undefined'?activecompcode:''
-        })
-    }
-
-    componentDidMount() {
-        post({url:"/api/rollcalldetail/getone",data:{code:this.state.code,passivecode:this.state.activecompcode}},(res)=>{
-            console.log(res.data);
-            if(res.success){
-                this.setState({
-                    rollset:res.data
-                })
-            }
-        })
-    }
+            activecompcode:this.props.activecompcode
+        },()=>{
+            this.requestData()
+        })  
+    }   
     componentWillReceiveProps(nextProps){
         if( nextProps.visible !== vis){
             vis=nextProps.visible;
             if(nextProps.visible){
                 vis=nextProps.visible;
                 this.setState({
-                    code:nextProps.code
+                    code:nextProps.code,
+                    activecompcode:nextProps.activecompcode
                 }, () => {
-                    this.componentDidMount()});
+                    this.requestData()});
             }
         }         
+    }
+    requestData(){
+        post({url:"/api/rollcalldetail/getone",data:{code:this.state.code,passivecode:this.state.activecompcode}},(res)=>{
+            if(res.success){
+                if(!res.data.rrpic) res.data.rrpic=err;
+                this.setState({
+                    rollset:res.data
+                },()=>{
+                    this.draw()
+                })
+            }
+        })
+    }
+    draw = ()=>{ //画报警对象
+        let ele = document.getElementById("canvasobj");
+        let area = ele.getContext("2d");
+        area.clearRect(0,0,604,476);//清除之前的绘图
+        area.lineWidth=1;
+        const rfinalzone=this.state.rollset.rfinalzone;
+        const datafield=rfinalzone?JSON.parse(this.state.rollset.rfinalzone):[];
+        if(datafield.length){
+          const xi=604/704, yi=476/576;
+          let areafield = ele.getContext("2d"); 
+          area.lineWidth=1;  
+          const x=604/this.state.rollset.rwidth, y=476/this.state.rollset.rheight;
+          datafield.map((el,i)=>{
+            area.strokeStyle='#ff0';
+            area.beginPath();
+            area.rect(parseInt(el.x*x),parseInt(el.y*y),parseInt(el.w*x),parseInt(el.h*y));
+            area.stroke();
+            area.closePath();
+          }) 
+        }
+    }
+    rfinaltype=()=>{
+        const rfinal=this.state.rollset.rfinal;
+        switch(rfinal){
+            case -2:
+                return '点名失败';
+            case -1:
+                return '执行中';
+            case 1:
+                return '正常';
+            case 2:
+                return '对象存在状态异常';
+        }
+    }
+    rfinalColor=()=>{
+        const rfinal=this.state.rollset.rfinal;
+        switch(rfinal){
+            case -2:
+                return '#797975';
+            case -1:
+                return '#797975';
+            case 1:
+                return '#54CD66';
+            case 2:
+                return 'red';
+        }
     }
     normal =(status)=>{
         if(status===0){
@@ -56,19 +105,20 @@ class RollcallRecordModel extends Component {
             <div className="rollcallRecordModel">
                 <Row><Col span={24} className="rollcallModelTitle fontSizeModel">{this.state.rollset.cameraname} - {this.state.rollset.rname}</Col></Row>
                 <Row className="rollcallModel">
-                    <Col span={24}>
-                        <img src={this.state.rollset.rrpic?this.state.rollset.rrpic:err} alt="" width="100%" />
+                    <Col span={24} style={{textAlign:"center"}}>
+                        <canvas id="canvasobj" width="604px" height="476px" style={{backgroundImage:'url('+this.state.rollset.rrpic+')',backgroundSize:"100% 100%"}} />
                     </Col>
                 </Row>
                 <Row className="rollcallModel">
                     <Col span={8} className="rollcallModelTitle">{this.state.rollset.resultdate}</Col>
                     <Col span={8} className="rollcallModelTitle">{this.state.rollset.ifeveryday===0?"自动点名":"手动点名"}</Col>
                     <Col span={8} className={this.normal(this.state.rollset.rfinal)}>
-                        {this.state.rollset.rfinal===1?<span style={{color:'green'}}>正常</span>:<span style={{color:'red'}}>报警</span>}
+                        <span style={{color:this.rfinalColor()}}>{this.rfinaltype()}</span>
                     </Col>
                 </Row>
             </div>
         )
     }
 }
-export default RollcallRecordModel
+
+export default RollcallRecordModel;
