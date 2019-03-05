@@ -92,7 +92,6 @@ class RollcallHostory extends Component{
                 })
                 
                if(_this.state.isrequest){ 
-                
                 post({url:'/api/patrolresult/getlist_team',data:{pageindex:_this.state.page,passivecode:_this.state.activecompcode}},(res)=>{
                     if(res.data.length>0){
                         const list=_this.state.list;
@@ -102,8 +101,6 @@ class RollcallHostory extends Component{
                              loading: false,
                              loadtip:"加载中...",
                         } )
-                       
-                        
                     }else{
                         if(res.data.length===0){
                             message.success('没有更多了');
@@ -111,7 +108,6 @@ class RollcallHostory extends Component{
                                 isrequest: false,
                                 loadtip:false,
                                 } )
-                            //return "RollcallHostory .timeline_ml .anticon svg";
                         }
                         
                     }
@@ -220,6 +216,7 @@ class RollcallHostory extends Component{
             })
     };
     handlerollCallType =(index,e)=>{
+        if(!e) return;
         this.setState({
             rollCallType:true,
             code:index,
@@ -300,7 +297,7 @@ class RollcallHostory extends Component{
                     </Row>
                 </LocaleProvider>
                 <div style={{marginTop:"70px",display:this.state.type?" none":"block"}}>
-                    <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
+                    <div style={{width:"100%",textAlign:"center"}}><img src={nodata} alt="" /></div>
                 </div>
                 <Spin spinning={this.state.loading} className="spin" size="large" tip="Loading..." />
                 <div className="timeline_ml" style={{display:this.state.type?"block":"none"}}>
@@ -364,7 +361,7 @@ class RollcallHostory extends Component{
                         onCancel={this.handlerollClose}
                         footer={null}
                   >
-                    <PatrolRecordModel visible={this.state.rollCallType} code={this.state.code} itemStatus={this.state.itemStatus} />
+                    <PatrolRecordModel activecompcode={this.state.activecompcode} visible={this.state.rollCallType} code={this.state.code} itemStatus={this.state.itemStatus} />
                  </Modal>
             </div>
         )
