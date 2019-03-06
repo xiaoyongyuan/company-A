@@ -4,6 +4,7 @@ import '../../style/yal/css/overView.css';
 import {post} from "../../axios/tools";
 import Echartline from "./Echartline";
 import Echartpie from "./Echartpie";
+import nodata from "../../style/imgs/nodata.png";
 import Echartmap from "./Echartmap";
 import Universebg from "./Universebg";
 import moment from "moment";
@@ -229,9 +230,9 @@ class overView extends Component {
     dynamic =()=>{//设备近况
         var ScollOut=document.getElementById("ScollhiddenOut");
         var bl = 5;
-        setInterval(
+       setInterval(
             document.getElementById("ScollhiddenOut").onscroll=function() {
-                bl=bl+1.2;
+                bl=bl+1.0;
                 var scrollHeight = ScollOut.scrollHeight;//div里内容的高度
                 var scrollTop =ScollOut.scrollTop;//0-18
                 var clientHeight = ScollOut.clientHeight;//div内里框框的高度
@@ -301,6 +302,19 @@ class overView extends Component {
                 return "在线";
             }
         }
+    };
+    //设备状态
+    heartHandle=(lastalarm,hearttime)=>{
+      const days=new Date().getTime();//当前时间的时间戳
+      const oldHear=new Date(hearttime).getTime();//心跳时间的时间戳
+      const oldLast=new Date(hearttime).getTime();//最后一次时间的时间戳
+      if(lastalarm!==null || hearttime!==""){
+          if((days-oldLast)>60000 || (days-oldHear)>60000){
+              return "离线";
+          }else{
+              return "在线";
+          }
+      }
     };
     componentDidMount() {
         window.onresize = () => {
@@ -386,11 +400,11 @@ class overView extends Component {
                                             </Row>
                                         </div>
                                         <div className="scollhidden">
-                                            <div className="scollhidden-out" id="ScollhiddenOut">
+                                            <div className="scollhidden-out" id="ScollhiddenOut" >
                                                 <div className="scollhidden-inner">
                                                     {this.state.deveicek.map((el,i)=>(
                                                         <div className="equipment equipbody" key={'row'+i}>
-                                                            <Row className="lines" onClick={()=>this.equipmentModel(el.code)}>
+                                                            <Row className="lines" onClick={()=>this.equipmentModel(el.code)} >
                                                                 <Col className="gutter-row" xl={8}>
                                                                     {el.cname}
                                                                 </Col>
@@ -398,12 +412,7 @@ class overView extends Component {
                                                                     {el.name}
                                                                 </Col>
                                                                 <Col className="gutter-row" xl={8}>
-                                                                    <div>
-                                                                        {moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime &&
-                                                                        moment().subtract('minutes',5).format('YYYY-MM-DD HH:mm:ss') > el.hearttime
-                                                                            ? <div>&nbsp; 离线</div>:<div>&nbsp; 在线 </div>
-                                                                        }
-                                                                    </div>
+                                                                    {this.heartHandle(el.lastalarm,el.herattime)}
                                                                 </Col>
                                                             </Row>
 
@@ -452,23 +461,25 @@ class overView extends Component {
                                     <span className="titlename">即时信息</span>
                                 </div>
                                 <div className="comp" style={{height:'calc(100% - 60px)'}}>
-                                    <Carousel autoplay className="righttop">
-                                        {this.state.callist.map((el,i)=>(
-                                            <div key={el.code} className="carouselitem">
-                                                <div className="Rotation_chart" style={{height:(parseInt(this.state.DHeight)*0.7-20)*0.5-76}}>
+                                    {
+                                        this.state.callist?<div className="instantInfor"><div className="instant"><img src={nodata} alt=""/></div></div>:
+                                            <Carousel autoplay className="righttop">
+                                                {this.state.callist.map((el,i)=>(
+                                                    <div key={el.code} className="carouselitem">
+                                                    <div className="Rotation_chart" style={{height:(parseInt(this.state.DHeight)*0.7-20)*0.5-76}}>
                                                     <div style={{maxHeight:'calc(100% - 110px)'}} ><img src={el.picpath} alt="" style={{ cursor:"pointer"}} onClick={()=>this.informatinImg(el.picpath,el.cname,el.cameraname,el.type,el.time)} /></div>
                                                     <div className="redcolor">
-                                                        <span> {el.cname}</span> ,<span>{el.cameraname}</span>,
-                                                        <span>{el.type==="alarm"?"报警":""} </span>
-                                                        <span>{el.type==="rollcall"?"点名报警":""}</span>
-                                                        <span>{el.type==="patrol"?"巡更":""}</span>,
-                                                        <span>{el.time}</span>
+                                                    <span> {el.cname}</span> ,<span>{el.cameraname}</span>,
+                                                    <span>{el.type==="alarm"?"报警":""} </span>
+                                                    <span>{el.type==="rollcall"?"点名报警":""}</span>
+                                                    <span>{el.type==="patrol"?"巡更":""}</span>,
+                                                    <span>{el.time}</span>
                                                     </div>
-                                                </div>
-                                                
-                                            </div>
-                                        ))}
-                                    </Carousel>
+                                                    </div>
+                                                    </div>
+                                                    ))}
+                                                    </Carousel>
+                                                }
                                 </div>
                             </div>
                         </div>

@@ -713,3 +713,16 @@
    font-size: 30px;
    color:#fff;
 }
+.instantInfor{
+    width: 100%;
+    height: 100%;
+}
+.instant{
+   width: 40%;
+   height: 60%;
+   margin: 0 auto;
+}
+.instantInfor img{
+    width: 100%;
+    height: 100%;
+}
