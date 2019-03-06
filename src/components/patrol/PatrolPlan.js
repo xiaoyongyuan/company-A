@@ -13,7 +13,8 @@ class PatrolPlan extends React.Component{
             visible:false,
             list:[],
             loading:true,
-            type:true
+            type:true,
+            nodataType:false,
         };
     }
     componentDidMount() {
@@ -26,6 +27,7 @@ class PatrolPlan extends React.Component{
                     resdatd:res,
                     list: res.data,
                     loading: false,
+                    nodataType: true,
                 });
                 if(res.data.length===0){
                     this.setState({
@@ -230,7 +232,7 @@ class PatrolPlan extends React.Component{
                 >
                     <Row>
                         <Spin spinning={this.state.loading} className="spin" size="large"tip="Loading..." />
-                        <div style={{marginTop:"70px",display:this.state.type?"none":"block"}}>
+                        <div style={{marginTop:"70px",display:this.state.nodataType?"none":"block"}}>
                             <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
                         </div>
                         {

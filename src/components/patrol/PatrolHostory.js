@@ -73,7 +73,6 @@ class RollcallHostory extends Component{
             var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度
             var scrollbottom=scrollHeight-clientHeight;
             var scrollTopP=Math.ceil(scrollTop);
-            var tom=scrollbottom-scrollTopP;
             _this.setState({
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTopP

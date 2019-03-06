@@ -594,6 +594,7 @@
         justify-content: center; /*水平居中*/
         width: 14%;
         height: 100px;
+        padding: 0 2%;
     }
 }
 
@@ -622,7 +623,7 @@
         justify-content: center; /*水平居中*/
         width: 20%;
         height: 100px;
-
+        padding: 0 5%;
     }
 
     .del {
@@ -632,6 +633,7 @@
         justify-content: center; /*水平居中*/
         width: 20%;
         height: 100px;
+        padding: 0 2%;
     }
 }
 

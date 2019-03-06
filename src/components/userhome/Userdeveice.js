@@ -27,6 +27,8 @@ class Userdeveice extends React.Component{
         post({url:"/api/camera/getone",data:{code:this.props.query.id}}, (res)=>{
             if(res.success){
                 this.setState({
+                    changelng:res.data.lat,
+                    changelat:res.data.lng,
                     data:res.data, 
                     edata:res.edata, 
                     login:res.login,
@@ -42,7 +44,6 @@ class Userdeveice extends React.Component{
         })
     }
     onChangeip=(e)=> {//ip  input 修改ip
-        console.log(e.target.value);
         this.setState({
             ipvalue:e.target.value,
         });
@@ -145,8 +146,8 @@ class Userdeveice extends React.Component{
     locationedit=()=>{
         this.setState({
             visible:true,
-            changelat:this.state.lat,
-            changelng:this.state.lng,
+            changelat:this.state.changelat,
+            changelng:this.state.changelng,
         });
     }
     changeCoord(e,coord){ //修改经纬度
@@ -255,7 +256,7 @@ class Userdeveice extends React.Component{
                            坐标：
                         </Col>
                         <Col span={8} className="t_l">
-                           {this.state.data.lng},{this.state.data.lat} <span onClick={this.locationedit} style={{color:'#5063ee',cursor:'pointer'}}>修改</span>          
+                           {this.state.changelat},{this.state.changelng} <span onClick={this.locationedit} style={{color:'#5063ee',cursor:'pointer'}}>修改</span>          
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -333,7 +334,7 @@ class Userdeveice extends React.Component{
                     </Row>
                     <Row className="equ_row">    
                         <Col span={21} offset={3} className="t_l">
-                        <Button className="queryBtn lg" onClick={this.updata}> 提交 </Button>
+                        <Button className="queryBtn lg" onClick={this.updata}> 提交  {this.state.changelng} ,,{this.state.changelat}</Button>
                         </Col>
                     </Row>
                 </div>
@@ -342,10 +343,12 @@ class Userdeveice extends React.Component{
                     visible={this.state.visible}
                     onOk={this.modalOk}
                     onCancel={this.handleCancel}
+                    okText="确认"
+                    cancelText="取消"
                 >
                     <Row>
                        <label>经度：</label><Input defaultValue={this.state.changelng} onChange={(e)=>this.changeCoord(e,'changelng')} />
-                       <label>纬度：</label><Input defaultValue={this.state.changelat} onChange={(e)=>this.changeCoord(e,'changelat')}  /> 
+                       <label>纬度：</label><Input defaultValue={this.state.changelat} onChange={(e)=>this.changeCoord(e,'changelat')} /> 
                     </Row>
                 </Modal>
             </div>
