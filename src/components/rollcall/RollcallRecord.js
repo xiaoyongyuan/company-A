@@ -162,20 +162,19 @@ class RollcallRecord extends React.Component{
     handleMenuClick = (e)=>{//查询
         e.preventDefault();
         this.setState({
-            iftype:true,
             ifer:true,
             page:1,
             rollcalldate:'',
             taskid:'',
             loading:true, //加载中的状态
-            hou:true,
+            iftype:true,//判断是否传查询条件
+            hou:true,//第二次判断是否传查询条件
         },()=>{this.handleRollCallList()})
     }
-    
     hanlePageSize = (page) => { //翻页
         this.setState({
             page:page,
-            iftype:false,
+            iftype:false,//判断是否传查询条件
         },()=>{this.handleRollCallList()}
         )
     };
