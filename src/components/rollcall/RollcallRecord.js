@@ -20,7 +20,10 @@ class RollcallRecord extends React.Component{
             page:1, //当前页数
             ishide:'',
             loading:true, //加载中的状态
-            type:true
+            type:true,
+            iftype:true,
+            ifer:false,
+            hou:false,
         };
     }
     componentWillMount(){
@@ -41,6 +44,7 @@ class RollcallRecord extends React.Component{
     };
     //日期
     onChange = (date, dateString)=> {
+
         if(dateString[0] === "" && dateString[1] === ""){
             this.setState({
                 bdate:dateString[0],
@@ -54,6 +58,7 @@ class RollcallRecord extends React.Component{
             });
             
         }
+     
     }
     //model open
     handlerollCallType =(code)=>{//打开弹层
@@ -94,16 +99,40 @@ class RollcallRecord extends React.Component{
     };
     //点名列表
     handleRollCallList =()=>{
-        let params={
-            pagesize:12,
-            pageindex:this.state.page,
-            bdate:this.state.bdate,
-            edate:this.state.edate,
-            cid:this.state.cid,
-            rname:this.state.calInput,
-            rollcalldate:this.state.rollcalldate,
-            taskid:this.state.taskid,
-        };
+        if(this.state.iftype==true){
+            var params={
+                pagesize:12,
+                pageindex:this.state.page,
+                bdate:this.state.bdate,
+                edate:this.state.edate,
+                cid:this.state.cid,
+                rname:this.state.calInput,
+                rollcalldate:this.state.rollcalldate,
+                taskid:this.state.taskid,
+            };
+           
+        }
+        if(this.state.iftype==false&& this.state.ifer==true){
+            var params={
+                bdate:this.state.bdate,
+                edate:this.state.edate,
+                pagesize:12,
+                pageindex:this.state.page,
+                cid:this.state.cid,
+                rname:this.state.calInput,
+                rollcalldate:this.state.rollcalldate,
+                taskid:this.state.taskid,
+            };
+        }
+        if(this.state.iftype==false&& this.state.ifer==false){
+            var params={
+                pagesize:12,
+                pageindex:this.state.page,
+                rname:this.state.calInput,
+                taskid:this.state.taskid,
+            };
+        }
+        
         post({url:"/api/rollcalldetail/getlist",data:params},(res)=>{
             if(res.success){
                 if(res.data.length > 0){
@@ -130,24 +159,23 @@ class RollcallRecord extends React.Component{
             }
         });
     };
-    handleMenuClick = ()=>{
-        this.setState({
-            page:1
-        });
-    }
-    //查询
-    handleSubmit =(e)=>{
+    handleMenuClick = (e)=>{//查询
         e.preventDefault();
         this.setState({
+            iftype:true,
+            ifer:true,
             page:1,
             rollcalldate:'',
             taskid:'',
             loading:true, //加载中的状态
+            hou:true,
         },()=>{this.handleRollCallList()})
-    };
+    }
+    
     hanlePageSize = (page) => { //翻页
         this.setState({
-            page:page
+            page:page,
+            iftype:false,
         },()=>{this.handleRollCallList()}
         )
     };
@@ -230,7 +258,7 @@ class RollcallRecord extends React.Component{
                         </Form>
                     </div>
                 </LocaleProvider>
-                <Spin spinning={this.state.loading} size="large" className="spin" tip="Loading..." />
+                <Spin spinning={this.state.loading} size="large" className="spin" tip="加载中..." />
                 <div style={{marginTop:"70px",display:this.state.type?"none":"block"}}>
                     <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
                 </div>
@@ -263,7 +291,7 @@ class RollcallRecord extends React.Component{
                     total={this.state.totalcount}
                     onChange={this.hanlePageSize}
                     className="pageSize"
-                    hideOnSinglePage={this.state.ishide}
+                    hideOnSinglePage={true}  //1页时不能有分页
                 />
                 <Modal
                 width={700}
