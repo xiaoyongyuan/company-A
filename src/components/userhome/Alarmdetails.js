@@ -47,11 +47,12 @@ class Alarmdetails extends React.Component{
           pic_width:res.data.pic_width, //报警宽
           pic_height:res.data.pic_height, //报警高  
           videopath:res.data.videopath, //视频地址
-        }
+        };
         this.setState({
           data:data,
           prev:res.data.last,
-          next:res.data.next, 
+          next:res.data.next,
+          ifdanger:res.data.ifdanger,
           videoopen:false,
       },()=>{        
         this.draw();
@@ -99,7 +100,7 @@ class Alarmdetails extends React.Component{
   	}
   	this.setState({
   		typetext:text,
-      color:color,
+        color:color,
   	})
   }
   onChange=(checked,text)=>{ //控制显示围界与对象
@@ -115,14 +116,12 @@ class Alarmdetails extends React.Component{
   }
   looknew=(text)=>{ //查看上下一条
     let faths=this.state.faths;
-   
     faths.code=this.state[text];
   	this.setState({
   		field:true,
   		obj:true,
-      faths:faths,
-      code:this.state[text],
- 
+        faths:faths,
+        code:this.state[text],
     },()=>{
     	this.componentDidMount()
     });
@@ -183,24 +182,23 @@ class Alarmdetails extends React.Component{
   delete=()=>{ //删除报警
   	post({url:'/api/alarm/update',data:{code:this.state.code,ifdel:1,}},(res)=>{
   		if(res){
-        message.success('删除成功');
-        let data=this.state.data;
-				this.setState({
-          data:data,
-		    },()=>{
-          this.props.closeAlarm();
-        });
+            message.success('删除成功');
+            let data=this.state.data;
+			this.setState({data},()=>{
+                this.props.closeAlarm();
+            });
   		}
     })
   }
-  doCollection=()=>{ 
+  doCollection=()=>{
+	    console.log(this.state.ifdanger,"this.state.ifdanger")
     if(this.state.ifdanger===1){
       post({url:'/api/alarm/update',data:{code:this.state.code,ifdanger:0,}},(res)=>{
         if(res.success){
             message.success('已取消收藏 ');
             let data=this.state.data;
             this.setState({
-              data:data,
+              data,
               ifdanger:res.data[0].ifdanger,
             })
         }                                                                                                                                
