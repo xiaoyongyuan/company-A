@@ -105,7 +105,7 @@ class Equipment extends React.Component{
 
         return(
                 <div className="equipment">
-                    <Spin size="large" tip="Loading......" spinning={this.state.loading} className="loadding" />
+                    <Spin size="large" tip="加载中......" spinning={this.state.loading} className="loadding" />
                     {this.state.nodatapic?"":
                     <Row style={{display:this.state.type===0?"block":"none",paddingTop:"40px"}}>
                         <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
