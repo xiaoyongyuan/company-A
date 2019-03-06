@@ -92,8 +92,14 @@ class Setarea extends Component {
         })
     };
     add = (e) => {//新增
+        console.log('**values("HH")',e);
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
+            console.log('11111111111111',values.bdate.format("HH"));
+
+            if(values.bdate.format("HH")==null&&values.edate.format("HH")==null){
+                message.success('请选择时间');
+             }
             if(!err){
                 const data={
                     starttime:values.bdate.format("HH"),
@@ -102,21 +108,8 @@ class Setarea extends Component {
                     cwstatus:1,
                     cid:this.state.cid,
                 }
-                if(values.bdate.format("HH")==="00"&&values.edate.format("HH")==="00"){
+                if(values.bdate.format("HH")==="00"&&values.edate.format("HH")==="00"||values.bdate.format("HH")<values.edate.format("HH")){
                  post({url:"/api/workingtime/add",data:data}, (res)=>{
-                    if(res.success){
-                        data.code=res.code;
-                        const list=this.state.list;
-                        list.unshift(data);
-                        this.setState({
-                            list:list,
-                        })
-                        message.success('新增成功');
-                    }
-                    
-                })
-              }else if(values.bdate.format("HH")<values.edate.format("HH")){
-                post({url:"/api/workingtime/add",data:data}, (res)=>{
                     if(res.success){
                         data.code=res.code;
                         const list=this.state.list;
@@ -223,7 +216,6 @@ class Setarea extends Component {
             if(times === '00'){
                 hours.splice(times,24-times);
             }else{
-                console.log(times,parseInt(times),parseInt(times)+1)
                 hours.splice(parseInt(times)+1,24-times);
             }
             return hours;
@@ -236,7 +228,7 @@ class Setarea extends Component {
                         <Form layout="inline" onSubmit={this.add}>
                             <FormItem label="开始时间">
                                 {getFieldDecorator('bdate', {
-                                    rules: [{ required: true, message: '请选择时间!' }],
+                                    rules: [{ required: true, message: '请选择开始时间!' }],
                                 })(
                                     <TimePicker onChange={onChange_time1} placeholder="开始时间" defaultOpenValue={moment('00', format)}
                                                 format={format} 
@@ -245,7 +237,7 @@ class Setarea extends Component {
                             </FormItem>
                             <FormItem label="结束时间">
                                 {getFieldDecorator('edate', {
-                                    rules: [{ required: true, message: '请选择时间!' }],
+                                    rules: [{ required: true, message: '请选择结束时间!' }],
                                 })(
                                     <TimePicker onChange={onChange_time2} placeholder="结束时间"
                                                 disabledHours={disabledHours}
