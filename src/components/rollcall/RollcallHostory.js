@@ -263,7 +263,7 @@ class RollcallHostory extends Component{
                         </Form>
                     </Row>
                 </LocaleProvider>
-                  <Spin spinning={this.state.loading} size="large" className="spin" tip="Loading..." />
+                  <Spin spinning={this.state.loading} size="large" className="spin" tip="加载中..." />
                 <div style={{marginTop:"70px",display:this.state.type?" none":"block"}}>
                     <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
                 </div>

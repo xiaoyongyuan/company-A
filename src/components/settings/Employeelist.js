@@ -239,7 +239,7 @@ class Adminteam extends Component {
                             <Button style={this.state.utype?{display:"inline-block"}:{display:"none"}} onClick={this.showModal} className="queryBtn">新增</Button>
                         </Col>
                     </Row>
-                    <Spin spinning={this.state.loading} className="spin" size="large"tip="Loading..." />
+                    <Spin spinning={this.state.loading} className="spin" size="large"tip="加载中..." />
                     <Row>
                         <Col style={{ minHeight:'600px' }}>
                             <div>

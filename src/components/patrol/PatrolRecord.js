@@ -224,7 +224,7 @@ class PatrolRecord extends React.Component{
                         </Form.Item>
                     </Form>
                 </Row>
-                <Spin spinning={this.state.loading} className="spin" size="large"tip="Loading..." />
+                <Spin spinning={this.state.loading} className="spin" size="large"tip="加载中..." />
 
                 <Row className="patrolTop">
                     <Col span={23}>
