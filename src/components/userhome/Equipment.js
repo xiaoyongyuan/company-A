@@ -96,24 +96,11 @@ class Equipment extends React.Component{
                 return(<div className="onLine onLineBack">在线</div>)
             }
         }else{
-           return(<div className="onLine onLineBack">在线</div>)
+           return(<div className="onLine onLineBack">离线</div>)
         }
             
    }
-    isonlinebg=(i)=>{ //是否在线背景色  
-        if(this.state.camera[i].heart.time){
-            var time= this.state.camera[i].heart.time.toString();// 取到时间
-        }
-        let yijingtime=new Date(time); //取到时间转换
-        let timq=yijingtime.getTime(yijingtime) // 取到时间戳
-        let myDate=new Date();// 当前时间
-        let timc=myDate.getTime(myDate) // 当前时间戳
-        if(timc-timq>60000){
-            return "onLine offLineBack";
-        }else{
-            return "onLine onLineBack";
-        }          
-    };
+
     render(){
 
         return(
