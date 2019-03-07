@@ -347,8 +347,8 @@ class Userdeveice extends React.Component{
                     cancelText="取消"
                 >
                     <Row>
-                       <label>经度：</label><Input defaultValue={this.state.changelng} onChange={(e)=>this.changeCoord(e,'changelng')} />
-                       <label>纬度：</label><Input defaultValue={this.state.changelat} onChange={(e)=>this.changeCoord(e,'changelat')} /> 
+                       <label>经度：</label><Input defaultValue={this.state.changelng} />
+                       <label>纬度：</label><Input defaultValue={this.state.changelat} /> 
                     </Row>
                 </Modal>
             </div>
