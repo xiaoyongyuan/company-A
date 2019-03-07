@@ -94,7 +94,7 @@ class Setarea extends Component {
     add = (e) => {//新增
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            if(values.bdate.format("HH")==null&&values.edate.format("HH")==null){
+            if(values.bdate.format("HH")==null||values.edate.format("HH")==null){
                 message.success('请选择时间');
              }
             if(!err){
