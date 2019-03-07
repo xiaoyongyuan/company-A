@@ -231,7 +231,7 @@ class PatrolPlan extends React.Component{
                       }
                 >
                     <Row>
-                        <Spin spinning={this.state.loading} className="spin" size="large"tip="Loading..." />
+                        <Spin spinning={this.state.loading} className="spin" size="large"tip="加载中..." />
                         <div style={{marginTop:"70px",display:this.state.nodataType?"none":"block"}}>
                             <div style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></div>
                         </div>

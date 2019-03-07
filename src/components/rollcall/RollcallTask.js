@@ -304,7 +304,7 @@ class RollcallTask extends Component{
                     </Col>
                 </Row>
                 {/* <Spin size="large" spinning={this.state.loadding} tip="Loading..." className="loadding" /> */}
-                <Spin spinning={this.state.loading} size="large" className="spin" tip="Loading..." />
+                <Spin spinning={this.state.loading} size="large" className="spin" tip="记载中..." />
 
                 <div className="flexbox">
                     {!this.state.list.length?<div style={{width:"100%",textAlign:"center",marginTop:'80px'}}><div className="backImg"><img src={nodata} alt="" /></div></div>:this.state.list.map((el,i)=>(

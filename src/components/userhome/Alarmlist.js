@@ -55,6 +55,7 @@ class Alarmlist extends React.Component{
             backColor:'',//背景颜色
             nodatapic:true,
             ifclassion:false,
+            queryBtn:true
         };
     }
     componentWillMount() {
@@ -65,7 +66,6 @@ class Alarmlist extends React.Component{
         }   
     }
     componentDidMount() {
-        console.log(3)
         const data={};
         if(this.state.propsid){
             data.cid=this.state.propsid;
@@ -88,7 +88,6 @@ class Alarmlist extends React.Component{
                 ififdanger:0,
                 total:0,
             },()=>{
-                console.log(2)
                 this.componentDidMount()
             }) 
         }
@@ -100,7 +99,7 @@ class Alarmlist extends React.Component{
             edate:this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
             cid:this.state.cid,
             ifdanger:this.state.ififdanger
-         };
+           };
         this.setState({
             alarmImgType:false
         });
@@ -110,11 +109,6 @@ class Alarmlist extends React.Component{
     handleProcessing = ()=>{
         this.setState({
             alarm:true
-        });
-    };
-    handleCamera = ()=>{
-        this.setState({
-            visible: true,
         });
     };
     //摄像头
@@ -131,17 +125,19 @@ class Alarmlist extends React.Component{
     //查看报警详情
     alarmImg =(atype,code)=>{
         if(atype ==1 || atype ==12 ){
-        const toson={
-            code:code,
-            bdate:this.state.bdate.locale?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
-            edate:this.state.edate.locale?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
-            cid:this.state.cid,
-            ifdanger:this.state.ififdanger
-        };
+            if(this.state.bdate!==null && this.state.edate!==null){
+                var toson={
+                    code:code,
+                    bdate:this.state.bdate.locale?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
+                    edate:this.state.edate.locale?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
+                    cid:this.state.cid,
+                    ifdanger:this.state.ififdanger
+                };
+            }
         this.setState({
             alarmImgType:true,
             toson
-        })
+           })
         }
     }
     hanlePageSize = (page) => { //翻页
@@ -157,7 +153,8 @@ class Alarmlist extends React.Component{
             data.ifdanger=1;
         }
         this.setState({
-            page:page
+            page:page,
+            queryBtn:false
         },()=>{
             this.handleAlerm(data)
         })
@@ -217,25 +214,23 @@ class Alarmlist extends React.Component{
         e.preventDefault();
         if(this.state.propsid){
             this.setState({
-                    propsid:'',
-                })
+                propsid:'',
+            });
         }
         this.setState({
-                    displaysearch:false,
-                    page:1,
-                    loadding:true,
-                },()=>{
-                    const data={
-                        bdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
-                        edate:this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
-                        cid:this.state.cid,
-                        ifdanger:this.state.ififdanger
-                    };
-                    this.handleAlerm(data);
-                })
-        
+            displaysearch:false,
+            page:1,
+            loadding:true,
+            queryBtn:true
+        });
+        var data={
+            bdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
+            edate:this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
+            cid:this.state.cid,
+            ifdanger:this.state.ififdanger
+        };
+        this.handleAlerm(data);
     };
-  
     canCollection =(e)=>{ //只看收藏   
         if(e){
             this.setState({
@@ -308,13 +303,15 @@ class Alarmlist extends React.Component{
     handleOkalarm = ()=>{
         if(this.state.handle!==undefined){
             post({url:"/api/alarm/handleall",data:{cid:this.state.handle}},(res)=>{
-                console.log(res,"一键处理");
                 if(res.success){
+                    message.success('处理成功');
                     this.setState({
                         alarm:false
                     },()=>{
                         this.handleAlerm();
                     });
+                }else{
+                    message.error('处理失败');
                 }
             })
         }else{
@@ -369,9 +366,7 @@ class Alarmlist extends React.Component{
             if(res.success){
                 const policeList=this.state.policeList;
                 policeList[index].status=type;
-                this.setState({
-                    policeList:policeList
-                })
+                this.setState(policeList);
             }
         });
     }
@@ -482,7 +477,7 @@ class Alarmlist extends React.Component{
                         </Form>
                     </Row>
                 </LocaleProvider>
-                <Spin size="large" spinning={this.state.loadding} tip="Loading..." className="loadding" />
+                <Spin size="large" spinning={this.state.loadding} tip="加载中..." className="loadding" />
                 {this.state.nodatapic?"":
                 <Row style={{marginTop:"70px",}}>
                      <Col style={{width:"100%",textAlign:"center"}}><div className="backImg"><img src={nodata} alt="" /></div></Col>
