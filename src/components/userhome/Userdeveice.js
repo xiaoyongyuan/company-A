@@ -27,8 +27,10 @@ class Userdeveice extends React.Component{
         post({url:"/api/camera/getone",data:{code:this.props.query.id}}, (res)=>{
             if(res.success){
                 this.setState({
-                    changelng:res.data.lat,
-                    changelat:res.data.lng,
+                    changelng:res.data.lng,
+                    changelat:res.data.lat,
+                    lng:res.data.lng,
+                    lat:res.data.lat,
                     data:res.data, 
                     edata:res.edata, 
                     login:res.login,
@@ -146,8 +148,8 @@ class Userdeveice extends React.Component{
     locationedit=()=>{
         this.setState({
             visible:true,
-            changelat:this.state.changelat,
-            changelng:this.state.changelng,
+            // changelat:this.state.changelat,
+            // changelng:this.state.changelng,
         });
     }
     changeCoord(e,coord){ //修改经纬度
@@ -256,7 +258,7 @@ class Userdeveice extends React.Component{
                            坐标：
                         </Col>
                         <Col span={8} className="t_l">
-                           {this.state.changelat},{this.state.changelng} <span onClick={this.locationedit} style={{color:'#5063ee',cursor:'pointer'}}>修改</span>          
+                         {this.state.lng} , {this.state.lat} <span onClick={this.locationedit} style={{color:'#5063ee',cursor:'pointer'}}>  修改</span>          
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -334,7 +336,7 @@ class Userdeveice extends React.Component{
                     </Row>
                     <Row className="equ_row">    
                         <Col span={21} offset={3} className="t_l">
-                        <Button className="queryBtn lg" onClick={this.updata}> 提交  {this.state.changelng} ,,{this.state.changelat}</Button>
+                        <Button className="queryBtn lg" onClick={this.updata}> 提交 </Button>
                         </Col>
                     </Row>
                 </div>
