@@ -17,21 +17,14 @@ class PatrolRecord extends React.Component{
             equipment:[],//设备
             page:1, //当前页
             loading:true,
+            cid:"", //检索选中的设备
         }
     }
     componentDidMount() {
         this.patrolList();
         this.handlePatrol();
     }
-    //日期
-    onChangeDate = (dates, dateStrings)=> {
-        this.setState({
-            // bdate:moment(dateStrings[0]).format("YYYY-MM-DD HH:mm:ss"),
-            // edate:moment(dateStrings[1]).format("YYYY-MM-DD HH:mm:ss")
-            bdate:dateStrings[0],
-            edate:dateStrings[1]
-        });
-    };
+ 
     patrolStatus =(item)=>{
         this.setState({
             patrolImg:true,
@@ -45,12 +38,8 @@ class PatrolRecord extends React.Component{
         });
         this.patrolList();
     };
-    //select设备
-    patrolChange =(value)=>{
-        this.setState({
-            cid:value
-        });
-    };
+
+  
     //通过 不通过
     patrolAdopt = (item,type,index)=>{
         post({url:"/api/patrolresult/patrolconfirm",data:{code:item,phandle:type}},(res)=>{
@@ -61,7 +50,6 @@ class PatrolRecord extends React.Component{
             });
         });
     };
-
     //巡更列表信息
     patrolList =()=>{
         const params={
@@ -71,7 +59,6 @@ class PatrolRecord extends React.Component{
             bdate:this.state.bdate,
             edate:this.state.edate,
             cid:this.state.cid
-
         }
         post({url:"/api/patrolresult/getlist",data:params},(res)=>{
             if(res.success){
@@ -96,13 +83,18 @@ class PatrolRecord extends React.Component{
     //查询
     handlePatrolSelect =(e)=>{
        e.preventDefault();
+       this.props.form.validateFields((err, values) => {
+                this.setState({
+                    pagesize:18,
+                    pageindex:this.state.page,
+                    bdate:values.range_picker1?values.range_picker1[0].format("YYYY-MM-DD HH:00:00"):"",
+                    edate:values.range_picker1?values.range_picker1[1].format("YYYY-MM-DD HH:00:00"):"",
+                    cid:values.cid,
+                })
+        })
         this.setState({
-            bdate:this.state.bdate,
-            edate:this.state.edate,
-            cid:this.state.cid,
             page:1,
-            loading: true,
-
+            loadding:true,
         },()=>{
             this.patrolList()
         })
@@ -113,9 +105,7 @@ class PatrolRecord extends React.Component{
         },()=>{
             this.patrolList()
         })
-
     }
-    
     render(){
         const { getFieldDecorator } = this.props.form;
         const haveborder = true;
@@ -188,7 +178,7 @@ class PatrolRecord extends React.Component{
                                 <Form.Item
                                 label="日期"
                                 >
-                                {getFieldDecorator('range-picker1')(
+                                {getFieldDecorator('range_picker1')(
                                     <RangePicker
                                         ranges={{ Today: [moment(), moment()], 'This Month': [moment().startOf('month'), moment().endOf('month')] }}
                                         format="YYYY/MM/DD HH:mm:ss"
@@ -201,7 +191,7 @@ class PatrolRecord extends React.Component{
                             <Form.Item
                                 label="设备"
                             >
-                                {getFieldDecorator('residence',{
+                                {getFieldDecorator('cid',{
                                     initialValue:""
                                 } )(
                                     <Select style={{ width: 120 }} onChange={this.patrolChange}>
