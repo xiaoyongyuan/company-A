@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import {Row, Col, Button, DatePicker, LocaleProvider, Timeline , Form,Modal,Spin,message} from "antd";
+import {Row, Button, DatePicker, LocaleProvider, Timeline , Form,Modal,Spin,message} from "antd";
 import {post} from "../../axios/tools";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -8,17 +8,7 @@ import '../../style/sjg/home.css';
 import RollcallRecordModel from "./RollcallRecordModel";
 import nodata from "../../style/imgs/nodata.png";
 import err from "../../style/imgs/err.png";
-const formItemLayout = {
-    labelCol: {
-        xs: { span: 24 },
-        sm: { span: 4 },
-    },
-    wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
-    },
-};
-var activecompcode="";
+const RangePicker = DatePicker.RangePicker;
 class RollcallHostory extends Component{
 	constructor(props){
         super(props);
@@ -126,36 +116,16 @@ class RollcallHostory extends Component{
     backtop=()=>{ //返回顶部
         document.getElementById("scorll").scrollTop = 0; 
     };
-   //开始时间
-   onChange1 =(dateString1)=> {
-        this.onChangeDate('startValue',dateString1);
-        this.setState({
-            bdate:dateString1
-        })
-    };
-    //结束时间
-    onChange2 =(dateString2)=> {
-        this.onChangeDate("endValue",dateString2);
-        this.setState({
-            edate:dateString2
-        })
-    };
-    //禁止的开始时间
-    disabledStartDate = (startValue) => {
-        const endValue = this.state.endValue;
-        if (!startValue || !endValue) {
-            return false;
-        }
-        return startValue.valueOf() > endValue.valueOf();
-    };
-    //禁止的结束时间
-    disabledEndDate = (endValue) => {
-        const startValue = this.state.startValue;
-        if (!endValue || !startValue) {
-            return false;
-        }
-        return endValue.valueOf() <= startValue.valueOf();
-    };
+ 
+    //日期
+    onChange = (date, dateString)=> {
+      console.log('*****',dateString[0],dateString[1]);
+      this.setState({
+                bdate:dateString[0]+' 00:00:00',
+                edate:dateString[1]+' 23:59:59'
+            });
+    }
+ 
     onChangeDate = (field, value) => {
         this.setState({
             [field]: value,
@@ -176,8 +146,8 @@ class RollcallHostory extends Component{
                 list:[]
             })
             const data={
-                daylybdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD'):'',
-                daylyedate:this.state.edate?this.state.edate.format('YYYY-MM-DD'):'',
+                daylybdate:this.state.bdate?this.state.bdate:'',
+                daylyedate:this.state.edate?this.state.edate:'',
                 passivecode:this.state.activecompcode,
             }
             post({url:'/api/rollcalldetail/getlist_info_dayly',data:data},(res)=>{
@@ -225,41 +195,19 @@ class RollcallHostory extends Component{
               <Button className="backtop butBg" onClick={this.backtop} style={this.state.scrollTop>20?{display:'block'}:{display:'none'}}>返回顶部</Button>
                 <LocaleProvider locale={zh_CN}>
                     <Row className="sear_mtop Patrol_ml">
-                        <Form onSubmit={this.handleSubmit}>
-                            <Col xl={5} xxl={4} lg={6}>
-                                <Form.Item
-                                    {...formItemLayout}
-                                    label="日期"
-                                >
+                        <Form onSubmit={this.handleSubmit} layout="inline">
+                            
+                            <Form.Item
+                                label="日期"
+                            >
                                 {getFieldDecorator('range-picker1')(
-                                    <DatePicker
-                                        format="YYYY-MM-DD"
-                                        placeholder="开始日期"
-                                        setFieldsValue={this.state.bdate}
-                                        onChange={this.onChange1}
-                                        disabledDate={this.disabledStartDate}
-                                        onOpenChange={this.handleStartOpenChange}
+                                    <RangePicker onChange={this.onChange}
+                                                 // showTime
+                                                 format="YYYY-MM-DD"
                                     />
                                 )}
                             </Form.Item>
-                            </Col>
-                            <Col xl={4} xxl={3} lg={7}>
-                                <Form.Item>
-                                    {getFieldDecorator('range-picker2')(
-                                        <DatePicker
-                                            format="YYYY-MM-DD"
-                                            placeholder="结束日期"
-                                            setFieldsValue={this.state.edate}
-                                            onChange={this.onChange2}
-                                            disabledDate={this.disabledEndDate}
-                                            onOpenChange={this.handleEndOpenChange}
-                                        />
-                                    )}
-                                </Form.Item>
-                            </Col>
-                            <Col xl={3} xxl={2} lg={2} className="msch">
                                 <Button className="queryBtn" htmlType="submit">查询</Button>
-                            </Col>
                         </Form>
                     </Row>
                 </LocaleProvider>
