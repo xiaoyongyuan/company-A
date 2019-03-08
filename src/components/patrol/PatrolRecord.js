@@ -181,13 +181,14 @@ class PatrolRecord extends React.Component{
                                 {getFieldDecorator('range_picker1')(
                                     <RangePicker
                                         ranges={{ Today: [moment(), moment()], 'This Month': [moment().startOf('month'), moment().endOf('month')] }}
-                                        format="YYYY/MM/DD HH:mm:ss"
+                                        format="YYYY/MM/DD"
                                         showTime
                                         placeholder={['开始时间', '结束时间']}
                                         onChange={this.onChangeDate}
                                     />
                                 )}
                             </Form.Item>
+                            
                             <Form.Item
                                 label="设备"
                             >
