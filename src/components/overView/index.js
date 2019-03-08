@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import {Row, Col, Carousel, Modal, Icon} from 'antd';
+import {Row, Col, Carousel, Modal} from 'antd';
 import '../../style/yal/css/overView.css';
 import {post} from "../../axios/tools";
 import Echartline from "./Echartline";
-import Echartpie from "./Echartpie";
 import nodata from "../../style/imgs/nodata.png";
 import Echartmap from "./Echartmap";
 import Universebg from "./Universebg";

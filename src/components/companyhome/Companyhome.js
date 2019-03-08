@@ -120,8 +120,6 @@ class Companyhome extends Component {
         })
     };
     render() {
-        let {mapCenter, mapMake, mapZoom, mapKey, status} = this.state;
-        const {responsive,auth } = this.props;
         return (
             <div className="Companyhome gutter-example button-demo">
                 <div className="companyhome">
@@ -136,7 +134,7 @@ class Companyhome extends Component {
                                 </div>*/}
                                 {this.state.scenegraph
                                     ?<Scenedata style={{height:"100%"}} type="maps" cameracorrd={this.state.myEquipment} scenegraph={this.state.scenegraph} />
-                                    :<div style={{margin:'30px auto',width:'200px'}}><img src={nodata} style={{width:'100%'}}/></div>
+                                    :<div style={{margin:'30px auto',width:'200px'}}><img src={nodata} style={{width:'100%',height:"160px"}}/></div>
                                 }
                                 
                             </div>
