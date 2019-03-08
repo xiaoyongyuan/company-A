@@ -128,7 +128,6 @@ class RollcallRecord extends React.Component{
             var params={
                 pagesize:12,
                 pageindex:this.state.page,
-                rname:this.state.calInput,
                 taskid:this.state.taskid,
             };
         }
