@@ -9,16 +9,8 @@ import nodata from "../../style/imgs/nodata.png";
 import ing from "../../style/imgs/ing.png";
 import unsucc from "../../style/imgs/unsucc.png";
 import PatrolRecordModel from "./PatrolRecordModel";
-const formItemLayout = {
-    labelCol: {
-        xs: { span: 24 },
-        sm: { span:5},
-    },
-    wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
-    },
-};
+const RangePicker = DatePicker.RangePicker;
+
 class RollcallHostory extends Component{
 	constructor(props){
         super(props);
@@ -133,19 +125,13 @@ class RollcallHostory extends Component{
         document.getElementById("scorll").scrollTop = 0; 
     };
     //开始时间
-    onChange1 =(dateString1)=> {
-        this.onChangeDate('startValue',dateString1);
-        this.setState({
-            pbdate:dateString1
-        })
-    };
-    //结束时间
-    onChange2 =(dateString2)=> {
-        this.onChangeDate("endValue",dateString2);
-        this.setState({
-            pedate:dateString2
-        })
-    };
+   //日期
+   onChange = (date, dateString)=> {
+    this.setState({
+              bdate:dateString[0]+' 00:00:00',
+              edate:dateString[1]+' 23:59:59'
+          });
+  }
 
     //禁止的开始时间
     disabledStartDate = (startValue) => {
@@ -189,8 +175,8 @@ class RollcallHostory extends Component{
             list:[],
         })
             const data={
-                startdate :this.state.pbdate?this.state.pbdate.format('YYYY-MM-DD'):'',
-                enddate :this.state.pedate?this.state.pedate.format('YYYY-MM-DD'):'',
+                startdate:this.state.bdate?this.state.bdate:'',
+                enddate:this.state.edate?this.state.edate:'',
                 passivecode:this.state.activecompcode,
             }
             post({url:'/api/patrolresult/getlist_team',data:data},(res)=>{
@@ -256,42 +242,19 @@ class RollcallHostory extends Component{
             <div className="PatrolHostory scrollable-container" id="scorll" >  
               <Button onClick={this.backtop} className="backtop butBg" style={this.state.scrollTop>20?{display:'block'}:{display:'none'}}>返回顶部</Button>
                 <LocaleProvider locale={zh_CN}>
-                    <Row className="sear_mtop Patrol_ml">
-                        <Form onSubmit={this.handleSubmit}>
-                            <Col xl={5} xxl={4} lg={6}>
-                                <Form.Item
-                                    {...formItemLayout}
-                                    label="日期"
-                                >
+                    <Row className="sear_mtop Patrol_ml" style={{marginBottom:'30px',marginLeft:'20px'}}>
+                        <Form onSubmit={this.handleSubmit} layout="inline">
+                            <Form.Item
+                                label="日期"
+                            >
                                 {getFieldDecorator('range-picker1')(
-                                    <DatePicker
-                                        format="YYYY-MM-DD"
-                                        placeholder="开始日期"
-                                        setFieldsValue={this.state.pbdate}
-                                        onChange={this.onChange1}
-                                        disabledDate={this.disabledStartDate}
-                                        onOpenChange={this.handleStartOpenChange}
+                                    <RangePicker onChange={this.onChange}
+                                                 // showTime
+                                                 format="YYYY-MM-DD"
                                     />
                                 )}
                             </Form.Item>
-                            </Col>
-                            <Col xl={4} xxl={3} lg={4}>
-                                <Form.Item>
-                                    {getFieldDecorator('range-picker2')(
-                                        <DatePicker
-                                            format="YYYY-MM-DD"
-                                            placeholder="结束日期"
-                                            setFieldsValue={this.state.pedate}
-                                            onChange={this.onChange2}
-                                            disabledDate={this.disabledEndDate}
-                                            onOpenChange={this.handleEndOpenChange}
-                                        />
-                                    )}
-                                </Form.Item>
-                            </Col>
-                            <Col xl={1} xxl={1} lg={1} className="msch">
-                                <Button className="queryBtn" htmlType="submit">查询</Button>
-                            </Col>
+                            <Button className="queryBtn" htmlType="submit">查询</Button>
                         </Form>
                     </Row>
                 </LocaleProvider>

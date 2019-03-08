@@ -116,16 +116,13 @@ class RollcallHostory extends Component{
     backtop=()=>{ //返回顶部
         document.getElementById("scorll").scrollTop = 0; 
     };
- 
     //日期
     onChange = (date, dateString)=> {
-      console.log('*****',dateString[0],dateString[1]);
       this.setState({
                 bdate:dateString[0]+' 00:00:00',
                 edate:dateString[1]+' 23:59:59'
             });
     }
- 
     onChangeDate = (field, value) => {
         this.setState({
             [field]: value,
@@ -194,7 +191,7 @@ class RollcallHostory extends Component{
             <div className="RollcallHostory scrollable-container" id="scorll" >  
               <Button className="backtop butBg" onClick={this.backtop} style={this.state.scrollTop>20?{display:'block'}:{display:'none'}}>返回顶部</Button>
                 <LocaleProvider locale={zh_CN}>
-                    <Row className="sear_mtop Patrol_ml">
+                    <Row className="sear_mtop Patrol_ml"style={{marginBottom:'30px',marginLeft:'20px'}}>
                         <Form onSubmit={this.handleSubmit} layout="inline">
                             
                             <Form.Item
