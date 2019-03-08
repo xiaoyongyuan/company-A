@@ -179,72 +179,73 @@ class PatrolRecord extends React.Component{
                 )
             }
         }];
-        return(       
-            <div className="PatrolRecord">
-                <Row className="patrolTop">
-                    <Form layout="inline" onSubmit={this.handlePatrolSelect} className="rangeForm">
-                        <LocaleProvider locale={zh_CN}>
-                            <Form.Item
-                            label="日期"
-                            >
-                            {getFieldDecorator('range-picker1')(
-                                <RangePicker
-                                    ranges={{ Today: [moment(), moment()], 'This Month': [moment().startOf('month'), moment().endOf('month')] }}
-                                    format="YYYY/MM/DD HH:mm:ss"
-                                    showTime
-                                    placeholder={['开始时间', '结束时间']}
-                                    onChange={this.onChangeDate}
-                                />
-                            )}
-                        </Form.Item>
-                        </LocaleProvider>
-                        <Form.Item
-                            label="设备"
-                        >
-                            {getFieldDecorator('residence',{
-                                initialValue:""
-                            } )(
-                                <Select style={{ width: 120 }} onChange={this.patrolChange}>
-                                    <Option value="" >所有</Option>
-                                    {
-                                        this.state.equipment.map((v,i)=>(
-                                            <Option value={v.code} key={i}>{v.name}</Option>
-                                        ))
-                                    }
-                                </Select>
-                            )}
-                        </Form.Item>
-                        <Form.Item>
-                            <Button
-                                className="queryBtn"
-                                htmlType="submit"
-                            >
-                                查询
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                </Row>
-                <Spin spinning={this.state.loading} className="spin" size="large"tip="加载中..." />
+        return(
+            <LocaleProvider locale={zh_CN}>
+                <div className="PatrolRecord">
+                    <Row className="patrolTop">
+                        <Form layout="inline" onSubmit={this.handlePatrolSelect} className="rangeForm">
 
-                <Row className="patrolTop">
-                    <Col span={23}>
-                        <Table dataSource={this.state.dataSource} columns={columns} 
-                         pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
-                         bordered={haveborder}
-                        />
-                    </Col>
-                    <Modal
-                        width={700}
-                        title="巡更记录详情"
-                        visible={this.state.patrolImg}
-                        onOk={this.patrolOk}
-                        onCancel={this.patrolCancel}
-                        footer={null}
-                    >
-                    <PatrolRecordModel visible={this.state.patrolImg} code={this.state.patrolImgStatus} par={1} />
-                    </Modal>
-                </Row>
-            </div>
+                                <Form.Item
+                                label="日期"
+                                >
+                                {getFieldDecorator('range-picker1')(
+                                    <RangePicker
+                                        ranges={{ Today: [moment(), moment()], 'This Month': [moment().startOf('month'), moment().endOf('month')] }}
+                                        format="YYYY/MM/DD HH:mm:ss"
+                                        showTime
+                                        placeholder={['开始时间', '结束时间']}
+                                        onChange={this.onChangeDate}
+                                    />
+                                )}
+                            </Form.Item>
+                            <Form.Item
+                                label="设备"
+                            >
+                                {getFieldDecorator('residence',{
+                                    initialValue:""
+                                } )(
+                                    <Select style={{ width: 120 }} onChange={this.patrolChange}>
+                                        <Option value="" >所有</Option>
+                                        {
+                                            this.state.equipment.map((v,i)=>(
+                                                <Option value={v.code} key={i}>{v.name}</Option>
+                                            ))
+                                        }
+                                    </Select>
+                                )}
+                            </Form.Item>
+                            <Form.Item>
+                                <Button
+                                    className="queryBtn"
+                                    htmlType="submit"
+                                >
+                                    查询
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                    </Row>
+                    <Spin spinning={this.state.loading} className="spin" size="large"tip="加载中..." />
+
+                    <Row className="patrolTop">
+                        <Col span={23}>
+                            <Table dataSource={this.state.dataSource} columns={columns}
+                             pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
+                             bordered={haveborder}
+                            />
+                        </Col>
+                        <Modal
+                            width={700}
+                            title="巡更记录详情"
+                            visible={this.state.patrolImg}
+                            onOk={this.patrolOk}
+                            onCancel={this.patrolCancel}
+                            footer={null}
+                        >
+                        <PatrolRecordModel visible={this.state.patrolImg} code={this.state.patrolImgStatus} par={1} />
+                        </Modal>
+                    </Row>
+                </div>
+            </LocaleProvider>
         )
     }
 }

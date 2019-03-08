@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../../style/sjg/home.css';
-import {Form,Table, Row, Col, Button,Radio, Modal,TimePicker,message} from 'antd';
+import zh_CN from 'antd/lib/locale-provider/zh_CN';
+import {Form,Table, Row, Col, Button,Radio, Modal,TimePicker,message,LocaleProvider } from 'antd';
 import moment from 'moment';
 import {post} from "../../axios/tools";
 const RadioGroup = Radio.Group;
@@ -218,6 +219,7 @@ class Setarea extends Component {
             return hours;
         }
         return (
+            <LocaleProvider locale={zh_CN}>
             <div className="padding20 Settime">
                 {/* <BreadcrumbCustom first="场景" second="布防时间" /> */}
                 <Row style={{marginBottom:'20px'}}>
@@ -265,6 +267,7 @@ class Setarea extends Component {
                     <p>确认删除吗？</p>
                 </Modal>
             </div>
+            </LocaleProvider>
         )
     }
 }
