@@ -66,7 +66,7 @@ class RollcallTask extends Component{
         });
         post({url:"/api/rollcalltask/add",data:{rollcallnum:this.state.everynum}},(res)=>{
             if(res.success){
-                message.info(res);
+                message.success(res);
             }
         });
     };

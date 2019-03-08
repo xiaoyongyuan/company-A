@@ -89,16 +89,10 @@ class Alarmlist extends React.Component{
         return true;  
     }
     handleCancelAlarmImg =()=>{
-          const data={
-            bdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
-            edate:this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
-            cid:this.state.cid,
-            ifdanger:this.state.ififdanger
-           };
         this.setState({
             alarmImgType:false
         });
-        this.handleAlerm(data);
+        this.handleAlerm();
     };
     //一键处理
     handleProcessing = ()=>{
@@ -123,10 +117,10 @@ class Alarmlist extends React.Component{
             if(this.state.bdate!==null && this.state.edate!==null){
                 var toson={
                     code:code,
-                    bdate:this.state.bdate.locale?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
-                    edate:this.state.edate.locale?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
+                    bdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
+                    edate:this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
                     cid:this.state.cid,
-                    ifdanger:this.state.ififdanger
+                    ifdanger:this.state.ifdanger
                 };
             }
         this.setState({

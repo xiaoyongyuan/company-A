@@ -1,9 +1,10 @@
 import React, { Component} from 'react';
 import ModalForm from './ModalForm.js';
-import {Form, Input, Row, Col, Button, Modal, Table, Spin, message} from 'antd';
+import zh_CN from 'antd/lib/locale-provider/zh_CN';
+import 'moment/locale/zh-cn';
+import {Form, Input, Row, Col, Button, Modal, Table, Spin, message,LocaleProvider } from 'antd';
 import {post} from "../../axios/tools";
 import "../../style/publicStyle/publicStyle.css";
-
 const FormItem = Form.Item;
 const usertype=JSON.parse(localStorage.getItem('user'));
 class Adminteam extends Component {
@@ -203,6 +204,7 @@ class Adminteam extends Component {
             }
         ];
         return (
+            <LocaleProvider locale={zh_CN}>
             <div className="warrper" style={{margin:'20px 10px',minHeight:'600px' }}>
                 <div className="shange">
                     <Row className="row-query" style={{ marginBottom:'30px' }}>
@@ -272,6 +274,7 @@ class Adminteam extends Component {
                     <p>确认删除吗？</p>
                 </Modal>
             </div>
+            </LocaleProvider>
         )
     }
 }
