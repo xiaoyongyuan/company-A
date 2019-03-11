@@ -83,7 +83,10 @@ class RollcallHostory extends Component{
                 })
                 
                if(_this.state.isrequest){ 
-                post({url:'/api/patrolresult/getlist_team',data:{pageindex:_this.state.page,passivecode:_this.state.activecompcode}},(res)=>{
+                post({url:'/api/patrolresult/getlist_team',data:{pageindex:_this.state.page,
+                    startdate:_this.state.bdate?_this.state.bdate:'',
+                    enddate:_this.state.edate?_this.state.edate:'',
+                    passivecode:_this.state.activecompcode}},(res)=>{
                     if(res.data.length>0){
                         const list=_this.state.list;
                         const alist = list.concat(res.data);
