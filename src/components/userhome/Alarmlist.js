@@ -190,8 +190,8 @@ class Alarmlist extends React.Component{
         e.preventDefault();
         this.props.form.validateFields((err,values)=>{
             this.setState({
-                bdate:values.date?values.date[0].format("YYYY-MM-DD HH:00:00"):"",
-                edate:values.date?values.date[1].format("YYYY-MM-DD HH:00:00"):"",
+                bdate:values.date && values.date.length?values.date[0].format("YYYY-MM-DD HH:00:00"):"",
+                edate:values.date && values.date.length?values.date[1].format("YYYY-MM-DD HH:00:00"):"",
                 ifdanger:values.ifdanger?1:0,
                 cid:values.cid,
                 status:'',
