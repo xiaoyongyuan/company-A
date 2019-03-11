@@ -148,28 +148,31 @@ class Userdeveice extends React.Component{
     locationedit=()=>{
         this.setState({
             visible:true,
-            // changelat:this.state.changelat,
-            // changelng:this.state.changelng,
         });
     }
     changeCoord(e,coord){ //修改经纬度
         this.setState({
-            [coord]:e.target.value
+            [coord]:e.target.value,
         });
     }
     modalOk=()=>{ //修改坐标提交
         if(!this.state.changelat || !this.state.changelng ) return;
-        post({url:"/api/camera/update",data:{code:this.props.query.id,lat:this.state.changelat,lng:this.state.changelng}}, (res)=>{
-            if(res.success){
-                this.setState({
-                    lat:this.state.changelat,
-                    lng:this.state.changelng,
-                    visible:false
-                },()=>{
-                    message.success('修改成功！');
-                })
-            }
-        })
+        const reg =/^\d+(\.\d+)?$/;
+        if ( reg.test(this.state.changelat)&&reg.test(this.state.changelng) ) {
+            post({url:"/api/camera/update",data:{code:this.props.query.id,lat:this.state.changelat,lng:this.state.changelng}}, (res)=>{
+                if(res.success){
+                    this.setState({
+                        lat:this.state.changelat,
+                        lng:this.state.changelng,
+                        visible:false
+                    },()=>{
+                            message.success('修改成功！');
+                    })
+                }
+            })
+        }else{
+            message.error('只能输入数字和小数');
+        }
     }
     handleCancel=()=>{
         this.setState({
