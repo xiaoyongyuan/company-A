@@ -14,17 +14,6 @@ import firepic from "../../style/imgs/firepic.png";
 import "../../style/ztt/img/plioce/iconfont.css";
 const Option = Select.Option;
 const { RangePicker } = DatePicker ;
-const formItemLayout = {
-    labelCol: {
-        xs: { span: 24 },
-        sm: { span: 5 },
-        xxl:{ span: 6}
-    },
-    wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
-    },
-};
 class Alarmlist extends React.Component{
     constructor(props){
         super(props);
@@ -162,7 +151,7 @@ class Alarmlist extends React.Component{
                     nodatapic:true ,
                 })
               }
-                if(res.data.length){
+                if(res.data.length || res.data.length===0){
                     this.setState({
                         policeList:res.data,
                         type:1,
@@ -200,13 +189,13 @@ class Alarmlist extends React.Component{
     handleSubmit =(e)=>{
         e.preventDefault();
         this.props.form.validateFields((err,values)=>{
-           this.setState({
-               bdate:values.date.length?values.date[0].format("YYYY-MM-DD HH:00:00"):"",
-               edate:values.date.length?values.date[1].format("YYYY-MM-DD HH:00:00"):"",
-               ifdanger:values.ifdanger?1:0,
-               cid:values.cid,
-               status:'',
-           });
+            this.setState({
+                bdate:values.date?values.date[0].format("YYYY-MM-DD HH:00:00"):"",
+                edate:values.date?values.date[1].format("YYYY-MM-DD HH:00:00"):"",
+                ifdanger:values.ifdanger?1:0,
+                cid:values.cid,
+                status:'',
+            });
         });
 
         this.setState({
