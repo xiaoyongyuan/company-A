@@ -117,8 +117,8 @@ class Alarmlist extends React.Component{
             if(this.state.bdate!==null && this.state.edate!==null){
                 var toson={
                     code:code,
-                    bdate:this.state.bdate?this.state.bdate.format('YYYY-MM-DD HH:00:00'):'',
-                    edate:this.state.edate?this.state.edate.format('YYYY-MM-DD HH:00:00'):'',
+                    bdate:this.state.bdate,
+                    edate:this.state.edate,
                     cid:this.state.cid,
                     ifdanger:this.state.ifdanger
                 };
@@ -148,8 +148,6 @@ class Alarmlist extends React.Component{
             pagesize:18,
             passivecode:this.state.activecompcode
         };
-        console.log(this.state.cid,"list传参");
-        console.log(this.state.ifdanger,"ifdanger");
         post({url:'/api/alarm/getlist',data:data},(res)=>{
             if(res.success){
                 this.setState({
@@ -202,10 +200,9 @@ class Alarmlist extends React.Component{
     handleSubmit =(e)=>{
         e.preventDefault();
         this.props.form.validateFields((err,values)=>{
-            console.log(values.cid,"formcid");
            this.setState({
-               bdate:values.date?values.date[0].format("YYYY-MM-DD HH:00:00"):"",
-               edate:values.date?values.date[1].format("YYYY-MM-DD HH:00:00"):"",
+               bdate:values.date.length?values.date[0].format("YYYY-MM-DD HH:00:00"):"",
+               edate:values.date.length?values.date[1].format("YYYY-MM-DD HH:00:00"):"",
                ifdanger:values.ifdanger?1:0,
                cid:values.cid,
                status:'',
