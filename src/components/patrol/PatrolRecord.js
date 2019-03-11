@@ -87,8 +87,8 @@ class PatrolRecord extends React.Component{
                 this.setState({
                     pagesize:18,
                     pageindex:this.state.page,
-                    bdate:values.range_picker1?values.range_picker1[0].format("YYYY-MM-DD HH:00:00"):"",
-                    edate:values.range_picker1?values.range_picker1[1].format("YYYY-MM-DD HH:00:00"):"",
+                    bdate:values.range_picker1.length?values.range_picker1[0].format("YYYY-MM-DD"):"",
+                    edate:values.range_picker1.length?values.range_picker1[1].format("YYYY-MM-DD"):"",
                     cid:values.cid,
                 })
         })
@@ -179,13 +179,7 @@ class PatrolRecord extends React.Component{
                                 label="日期"
                                 >
                                 {getFieldDecorator('range_picker1')(
-                                    <RangePicker
-                                        ranges={{ Today: [moment(), moment()], 'This Month': [moment().startOf('month'), moment().endOf('month')] }}
-                                        format="YYYY/MM/DD"
-                                        showTime
-                                        placeholder={['开始时间', '结束时间']}
-                                        onChange={this.onChangeDate}
-                                    />
+                                    <RangePicker placeholder={['开始时间', '结束时间']} />
                                 )}
                             </Form.Item>
                             
@@ -195,11 +189,11 @@ class PatrolRecord extends React.Component{
                                 {getFieldDecorator('cid',{
                                     initialValue:""
                                 } )(
-                                    <Select style={{ width: 120 }} onChange={this.patrolChange}>
+                                    <Select style={{ width: 120 }}>
                                         <Option value="" >所有</Option>
                                         {
                                             this.state.equipment.map((v,i)=>(
-                                                <Option value={v.code} key={i}>{v.name}</Option>
+                                                <Option value={v.code} key={v.code}>{v.name}</Option>
                                             ))
                                         }
                                     </Select>
