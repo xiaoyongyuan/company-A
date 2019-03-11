@@ -37,7 +37,7 @@ class Adminteam extends Component {
             }
         })
     }
-    changePage=(page,pageSize)=>{ //分页  页码改变的回调，参数是改变后的页码及每页条数
+    changePage=(page)=>{ //分页  页码改变的回调，参数是改变后的页码及每页条数
         this.setState({
             page: page,
         },()=>{
@@ -45,13 +45,6 @@ class Adminteam extends Component {
         })
 
     }
-    showModalEdit= (code,index) => { //查看
-        this.setState({
-            visible: true,
-            type:code,
-            index:index,
-        });
-    };
     showModal = (e) => { //新增弹窗
         e.preventDefault();
         this.setState({
@@ -69,7 +62,6 @@ class Adminteam extends Component {
                         realname:values.realname,
                         account:values.account,
                         emailaddress:values.emailaddress,
-                        // utype:1
                     }
                     post({url:"/api/companyuser/add",data:data}, (res)=>{
                         if(res.success){
@@ -87,7 +79,6 @@ class Adminteam extends Component {
                             },()=>{
                                 this.requestdata();
                                 this.props.form.setFieldsValue({
-                                    // console.log("132444444",values);
                                     "account":'',
                                     "realname":''
                                 })
@@ -120,7 +111,7 @@ class Adminteam extends Component {
     deleteOk = () =>{
         const data={
             code:this.state.code,
-        }
+        };
         const list=this.state.list;
         list.splice(this.state.index,1);
         post({url:"/api/companyuser/del",data:data}, (res)=>{
@@ -142,7 +133,6 @@ class Adminteam extends Component {
     selectopt = (e) => { //检索search
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            console.log("values",values);
             if(!err){
                 this.setState({
                     page:1,
@@ -189,16 +179,12 @@ class Adminteam extends Component {
                 key: 'code',
                 dataIndex: 'code',
                 render: (text,record,index) => {
-                    if(usertype.utype === "0"){
-                        if(record.utype){
-                            return(
-                                <div>
-                                    {/* <Button onClick={()=>_this.showModalEdit(text,record,index)}>查看</Button>
-                                <span className="ant-divider" /> */}
-                                    <Button style={this.state.utype?{display:"inline-block"}:{display:"none"}} onClick={()=>_this.showModaldelete(text,index)} className="deleteBtn">删除</Button>
-                                </div>
-                            )
-                        }
+                    if(record.utype){
+                        return(
+                            <div>
+                                <Button style={this.state.utype === "0"?{display:"block"}:{display:"none"}} onClick={()=>_this.showModaldelete(text,index)} className="deleteBtn">删除</Button>
+                            </div>
+                        )
                     }
                 }
             }
@@ -238,7 +224,7 @@ class Adminteam extends Component {
                             </Form>
                         </Col>
                         <Col span={2} style={{textAlign:'right' }}>
-                            <Button style={this.state.utype?{display:"inline-block"}:{display:"none"}} onClick={this.showModal} className="queryBtn">新增</Button>
+                            <Button style={this.state.utype === "0"?{display:"block"}:{display:"none"}} onClick={this.showModal} className="queryBtn">新增</Button>
                         </Col>
                     </Row>
                     <Spin spinning={this.state.loading} className="spin" size="large"tip="加载中..." />
