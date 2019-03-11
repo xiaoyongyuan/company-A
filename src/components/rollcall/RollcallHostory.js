@@ -73,7 +73,10 @@ class RollcallHostory extends Component{
                 page:pag
                })
                if(_this.state.isrequest){ 
-                post({url:'/api/rollcalldetail/getlist_info_dayly',data:{pageindex:_this.state.page,passivecode:_this.state.activecompcode}},(res)=>{
+                post({url:'/api/rollcalldetail/getlist_info_dayly',data:{pageindex:_this.state.page,
+                    daylybdate:_this.state.bdate?_this.state.bdate:'',
+                    daylyedate:_this.state.edate?_this.state.edate:'',
+                    passivecode:_this.state.activecompcode}},(res)=>{
                     if(res.data.length>0){
                             pag++;
                             const list=_this.state.list;
