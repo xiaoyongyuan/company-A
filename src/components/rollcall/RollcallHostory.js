@@ -26,39 +26,41 @@ class RollcallHostory extends Component{
             scrollTop:Number,
             loadtip:"加载中...",//下拉刷新时的提示文字
             type:true,//无数据图
+            sou:false,
         }
     }
-
     componentDidMount() {
         this.setState({
             loadtip:false,
-            })
-        post({url:'/api/rollcalldetail/getlist_info_dayly',data:{passivecode:this.state.activecompcode}},(res)=>{
-            if(res.success){
-                if(res.data.length===0){
-                    this.setState({
-                        type:false
-                    })
-                }
-                if(res.data.length>0){
-                    this.setState({
-                        type:true,
-                    })
-                }
-                this.setState({
-                  list:res.data,
-                  loading: false,
-                });
-            }
         })
-         var _this=this;
+        this.rolList();
+        this.scollbottom();
+    }   
+    shouldComponentUpdate=(nextProps,nextState)=>{
+        if(nextProps.auth.active.activecompanycode != nextState.activecompcode){
+            this.setState({
+                activecompcode:nextProps.auth.active.activecompanycode,
+                loading:true,
+                list:[],
+                page:1,
+            },()=>{
+                this.componentDidMount()
+            }) 
+        }
+        return true;  
+    }  
+    scollbottom=()=>{
+        var _this=this;
         let pag=2;
         document.getElementById("scorll").onscroll=function() {
             var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
             var scrollTop = document.getElementById("scorll").scrollTop;//0-18
             var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度
             var scrollbottom=scrollHeight-clientHeight;
-            var scrollTopP=Math.ceil(scrollTop);
+            var scrollTopP=Math.floor(scrollTop);
+            console.log('scrollbottom',scrollbottom,scrollTop,scrollHeight,clientHeight);
+            console.log('scrollbottom-scrollTopP',scrollbottom-scrollTopP);
+            
             _this.setState({
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTop
@@ -73,10 +75,13 @@ class RollcallHostory extends Component{
                 page:pag
                })
                if(_this.state.isrequest){ 
-                post({url:'/api/rollcalldetail/getlist_info_dayly',data:{pageindex:_this.state.page,
+                post({url:'/api/rollcalldetail/getlist_info_dayly',
+                data:{
+                    pageindex:_this.state.page,
                     daylybdate:_this.state.bdate?_this.state.bdate:'',
                     daylyedate:_this.state.edate?_this.state.edate:'',
-                    passivecode:_this.state.activecompcode}},(res)=>{
+                    passivecode:_this.state.activecompcode}
+                },(res)=>{
                     if(res.data.length>0){
                             pag++;
                             const list=_this.state.list;
@@ -102,53 +107,20 @@ class RollcallHostory extends Component{
             
             }
         };
-    }   
-    shouldComponentUpdate=(nextProps,nextState)=>{
-        if(nextProps.auth.active.activecompanycode != nextState.activecompcode){
-            this.setState({
-                activecompcode:nextProps.auth.active.activecompanycode,
-                loading:true,
-                list:[],
-                page:1,
-            },()=>{
-                this.componentDidMount()
-            }) 
-        }
-        return true;  
-    }  
-    backtop=()=>{ //返回顶部
-        document.getElementById("scorll").scrollTop = 0; 
-    };
-    //日期
-    onChange = (date, dateString)=> {
-      this.setState({
-                bdate:dateString[0]+' 00:00:00',
-                edate:dateString[1]+' 23:59:59'
-            });
     }
-    onChangeDate = (field, value) => {
-        this.setState({
-            [field]: value,
-        });
-    };
-    handleStartOpenChange = (open) => {
-        if (!open) {
-            this.setState({ endOpen: true });
-        }
-    };
-    handleEndOpenChange = (open) => {
-        this.setState({ endOpen: open });
-    };
     handleSubmit =(e)=>{
+        let pag=1
         e.preventDefault();
             this.setState({
                 loading:true,
-                list:[]
+                list:[],
+                sou:true,
             })
             const data={
                 daylybdate:this.state.bdate?this.state.bdate:'',
                 daylyedate:this.state.edate?this.state.edate:'',
                 passivecode:this.state.activecompcode,
+                pageindex:pag,
             }
             post({url:'/api/rollcalldetail/getlist_info_dayly',data:data},(res)=>{
                 if(res.success){
@@ -174,7 +146,53 @@ class RollcallHostory extends Component{
                     })
                 }
             })
+        this.scollbottom();
+
     };
+ rolList =()=>{
+        post({url:'/api/rollcalldetail/getlist_info_dayly',data:{passivecode:this.state.activecompcode}},(res)=>{
+            if(res.success){
+                if(res.data.length===0){
+                    this.setState({
+                        type:false
+                    })
+                }
+                if(res.data.length>0){
+                    this.setState({
+                        type:true,
+                    })
+                }
+                this.setState({
+                  list:res.data,
+                  loading: false,
+                });
+            }
+        })
+    };
+    backtop=()=>{ //返回顶部
+        document.getElementById("scorll").scrollTop = 0; 
+    };
+    //日期
+    onChange = (date, dateString)=> {
+      this.setState({
+                bdate:dateString[0],
+                edate:dateString[1]
+            });
+    }
+    onChangeDate = (field, value) => {
+        this.setState({
+            [field]: value,
+        });
+    };
+    handleStartOpenChange = (open) => {
+        if (!open) {
+            this.setState({ endOpen: true });
+        }
+    };
+    handleEndOpenChange = (open) => {
+        this.setState({ endOpen: open });
+    };
+
     //model open
     handlerollCallType =(index)=>{
         this.setState({
