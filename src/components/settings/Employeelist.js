@@ -234,7 +234,7 @@ class Adminteam extends Component {
                                 <Table columns={columns}
                                        dataSource={this.state.list}
                                        bordered={isbordered}
-                                       pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage}}
+                                       pagination={{defaultPageSize:10,current:this.state.page, total:this.state.total,onChange:this.changePage,hideOnSinglePage:true}}
                                 />
                             </div>
                         </Col>
