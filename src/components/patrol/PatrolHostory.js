@@ -50,6 +50,35 @@ class RollcallHostory extends Component{
         }
         return true;  
     }
+    scolrequest=()=>{
+        let pag=2;
+        post({url:'/api/patrolresult/getlist_team',data:{pageindex:this.state.page,
+            startdate:this.state.bdate?this.state.bdate:'',
+            enddate:this.state.edate?this.state.edate:'',
+            passivecode:this.state.activecompcode}},(res)=>{
+            if(res.data.length>0){
+                const list=this.state.list;
+                const alist = list.concat(res.data);
+                this.setState({
+                     list: alist,
+                     loading: false,
+                     loadtip:"加载中...",
+                } )
+            }else{
+                if(res.data.length===0){
+                    message.success('没有更多了');
+                    this.setState({
+                        isrequest: false,
+                        loadtip:false,
+                        } )
+                }
+                
+            }
+        })
+
+        
+    }
+
 scollbottom=()=>{
     var _this=this;
     let pag=1;
@@ -77,29 +106,7 @@ scollbottom=()=>{
             })
             
            if(_this.state.isrequest){ 
-            post({url:'/api/patrolresult/getlist_team',data:{pageindex:_this.state.page,
-                startdate:_this.state.bdate?_this.state.bdate:'',
-                enddate:_this.state.edate?_this.state.edate:'',
-                passivecode:_this.state.activecompcode}},(res)=>{
-                if(res.data.length>0){
-                    const list=_this.state.list;
-                    const alist = list.concat(res.data);
-                    _this.setState({
-                         list: alist,
-                         loading: false,
-                         loadtip:"加载中...",
-                    } )
-                }else{
-                    if(res.data.length===0){
-                        message.success('没有更多了');
-                        _this.setState({
-                            isrequest: false,
-                            loadtip:false,
-                            } )
-                    }
-                    
-                }
-            })
+            _this.scolrequest()
          }
         }else if(scrollbottom-scrollTopP<0){
             if(pag===1){
@@ -115,29 +122,7 @@ scollbottom=()=>{
             })
             
            if(_this.state.isrequest){ 
-            post({url:'/api/patrolresult/getlist_team',data:{pageindex:_this.state.page,
-                startdate:_this.state.bdate?_this.state.bdate:'',
-                enddate:_this.state.edate?_this.state.edate:'',
-                passivecode:_this.state.activecompcode}},(res)=>{
-                if(res.data.length>0){
-                    const list=_this.state.list;
-                    const alist = list.concat(res.data);
-                    _this.setState({
-                         list: alist,
-                         loading: false,
-                         loadtip:"加载中...",
-                    } )
-                }else{
-                    if(res.data.length===0){
-                        message.success('没有更多了');
-                        _this.setState({
-                            isrequest: false,
-                            loadtip:false,
-                            } )
-                    }
-                    
-                }
-            })
+            _this.scolrequest()
          }
         }
     };
