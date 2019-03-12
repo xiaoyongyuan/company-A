@@ -8,6 +8,7 @@ import '../../style/sjg/home.css';
 import RollcallRecordModel from "./RollcallRecordModel";
 import nodata from "../../style/imgs/nodata.png";
 import err from "../../style/imgs/err.png";
+import moment from "moment";
 const RangePicker = DatePicker.RangePicker;
 class RollcallHostory extends Component{
 	constructor(props){
@@ -48,7 +49,13 @@ class RollcallHostory extends Component{
             }) 
         }
         return true;  
-    }  
+    } 
+    scolrequest=()=>{
+
+
+        
+    }
+    
     scollbottom=()=>{
         var _this=this;
         let pag=2;
@@ -58,17 +65,14 @@ class RollcallHostory extends Component{
             var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度
             var scrollbottom=scrollHeight-clientHeight;
             var scrollTopP=Math.floor(scrollTop);
-            console.log('scrollbottom',scrollbottom,scrollTop,scrollHeight,clientHeight);
-            console.log('scrollbottom-scrollTopP',scrollbottom-scrollTopP);
-            
+           
             _this.setState({
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTop
                },()=>{
                 }
                )                         
-            if(scrollbottom-scrollTopP<=0){//滚动到底部了
-               
+            if(scrollbottom-scrollTopP==0){//滚动到底部了
                _this.setState({
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTop,
@@ -99,12 +103,10 @@ class RollcallHostory extends Component{
                                 loadtip:false,
                                 } )
                         }
-                        
                     }
-                   
                 })
              }
-            
+              
             }else if(scrollbottom-scrollTopP<0){
                 _this.setState({
                     scrollbottom:scrollbottom,
@@ -142,7 +144,7 @@ class RollcallHostory extends Component{
                     })
                  }
             }
-        };
+        }
     }
     handleSubmit =(e)=>{
         let pag=1
@@ -158,11 +160,13 @@ class RollcallHostory extends Component{
                 passivecode:this.state.activecompcode,
                 pageindex:pag,
             }
+            this.setState({
+                isrequest: true,
+            })
             post({url:'/api/rollcalldetail/getlist_info_dayly',data:data},(res)=>{
                 if(res.success){
                     if(res.data.length===0){
                         this.setState({
-                            loadtip:'  ',
                             type:false,
                         })
                     }
@@ -183,7 +187,6 @@ class RollcallHostory extends Component{
                 }
             })
         this.scollbottom();
-
     };
  rolList =()=>{
         post({url:'/api/rollcalldetail/getlist_info_dayly',data:{passivecode:this.state.activecompcode}},(res)=>{
@@ -202,6 +205,10 @@ class RollcallHostory extends Component{
                   list:res.data,
                   loading: false,
                 });
+            }else{
+                this.setState({
+                    type:false,
+                })
             }
         })
     };
@@ -242,7 +249,11 @@ class RollcallHostory extends Component{
             rollCallType:false
         })
     };
+    disabledDate = (current) => {
+        return current < moment().startOf('day') || current > moment().add(6, 'day') ;
+    };
     render(){
+       
         const { getFieldDecorator } = this.props.form;
         return(       
             <div className="RollcallHostory scrollable-container" id="scorll" >  
@@ -256,7 +267,7 @@ class RollcallHostory extends Component{
                             >
                                 {getFieldDecorator('range-picker1')(
                                     <RangePicker onChange={this.onChange}
-                                                 // showTime
+                                                 disabledDate={this.disabledDate}
                                                  format="YYYY-MM-DD"
                                     />
                                 )}
