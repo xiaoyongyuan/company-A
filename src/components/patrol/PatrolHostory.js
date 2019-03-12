@@ -92,6 +92,7 @@ scollbottom=()=>{
             scrollbottom:scrollbottom,
             scrollTop:scrollTopP
            })
+        return ;
         if(scrollbottom-scrollTopP==0){//滚动到底部了
             if(pag===1){
                 _this.setState({

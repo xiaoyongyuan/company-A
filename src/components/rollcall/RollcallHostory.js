@@ -65,7 +65,8 @@ class RollcallHostory extends Component{
                 scrollTop:scrollTop
                },()=>{
                 }
-               )                         
+               )  
+            return ;                       
             if(scrollbottom-scrollTopP==0){//滚动到底部了
                 console.log('第一次');
                _this.setState({
