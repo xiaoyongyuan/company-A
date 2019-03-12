@@ -69,7 +69,7 @@ class RollcallHostory extends Component{
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTopP
                })
-            if(scrollbottom-scrollTopP<=0){//滚动到底部了
+            if(scrollbottom-scrollTopP==0){//滚动到底部了
                 if(pag===1){
                     _this.setState({
                         loadtip:"加载中...",
@@ -107,7 +107,45 @@ class RollcallHostory extends Component{
                     }
                 })
              }
-            
+            return;
+            }else if(scrollbottom-scrollTopP<0){
+                if(pag===1){
+                    _this.setState({
+                        loadtip:"加载中...",
+                   } )
+                }
+                pag++;
+                _this.setState({
+                    scrollbottom:scrollbottom,
+                    scrollTop:scrollTop,
+                    page:pag
+                })
+                
+               if(_this.state.isrequest){ 
+                post({url:'/api/patrolresult/getlist_team',data:{pageindex:_this.state.page,
+                    startdate:_this.state.bdate?_this.state.bdate:'',
+                    enddate:_this.state.edate?_this.state.edate:'',
+                    passivecode:_this.state.activecompcode}},(res)=>{
+                    if(res.data.length>0){
+                        const list=_this.state.list;
+                        const alist = list.concat(res.data);
+                        _this.setState({
+                             list: alist,
+                             loading: false,
+                             loadtip:"加载中...",
+                        } )
+                    }else{
+                        if(res.data.length===0){
+                            message.success('没有更多了');
+                            _this.setState({
+                                isrequest: false,
+                                loadtip:false,
+                                } )
+                        }
+                        
+                    }
+                })
+             }
             }
         };
     }   

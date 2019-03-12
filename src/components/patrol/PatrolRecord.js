@@ -19,6 +19,7 @@ class PatrolRecord extends React.Component{
             loading:true,
             cid:"", //检索选中的设备
         }
+        
     }
     componentDidMount() {
         this.patrolList();
