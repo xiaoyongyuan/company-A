@@ -270,7 +270,7 @@ scollbottom=()=>{
         }
      };
      disabledDate = (current) => {
-        return current < moment().startOf('day') || current > moment().add(6, 'day') ;
+        return current > moment().endOf('day') ;
     };
     render(){
         const { getFieldDecorator } = this.props.form;

@@ -245,7 +245,8 @@ class RollcallHostory extends Component{
         })
     };
     disabledDate = (current) => {
-        return current < moment().startOf('day') || current > moment().add(6, 'day') ;
+        // return current > moment().startOf('day') || current > moment().subtract(-1, 'day') ;
+        return current > moment().endOf('day');
     };
     render(){
        
