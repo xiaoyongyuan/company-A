@@ -144,20 +144,20 @@ class RollcallHostory extends Component{
     handleSubmit =(e)=>{
         let pag=1
         e.preventDefault();
-            this.setState({
-                loading:true,
-                list:[],
-                sou:true,
-            })
             const data={
                 daylybdate:this.state.bdate?this.state.bdate:'',
                 daylyedate:this.state.edate?this.state.edate:'',
                 passivecode:this.state.activecompcode,
                 pageindex:pag,
             }
-            this.setState({
-                isrequest: true,
-            })
+            var oldTimestart = (new Date(this.state.bdate)).getTime()/1000;
+            var oldTimeend = (new Date(this.state.edate)).getTime()/1000;
+            if(oldTimeend-oldTimestart<=604800){
+                this.setState({
+                    loading:true,
+                    list:[],
+                    sou:true,
+                })
             post({url:'/api/rollcalldetail/getlist_info_dayly',data:data},(res)=>{
                 if(res.success){
                     if(res.data.length===0){
@@ -181,6 +181,9 @@ class RollcallHostory extends Component{
                     })
                 }
             })
+        }else{
+            message.error('请选择七天以内的时间');
+        }
         this.scollbottom();
     };
  rolList =()=>{

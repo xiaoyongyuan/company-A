@@ -160,8 +160,8 @@ scollbottom=()=>{
    //日期
    onChange = (date, dateString)=> {
     this.setState({
-              bdate:dateString[0]+' 00:00:00',
-              edate:dateString[1]+' 23:59:59'
+              bdate:dateString[0],
+              edate:dateString[1]
           });
   }
 
@@ -203,16 +203,20 @@ scollbottom=()=>{
     handleSubmit =(e)=>{
         e.preventDefault();
         let pag=1
-        this.setState({
-            loading:true,
-            list:[],
-        })
             const data={
                 startdate:this.state.bdate?this.state.bdate:'',
                 enddate:this.state.edate?this.state.edate:'',
                 passivecode:this.state.activecompcode,
             }
-            post({url:'/api/patrolresult/getlist_team',data:data},(res)=>{
+            var oldTimestart = (new Date(this.state.bdate)).getTime()/1000;
+            var oldTimeend = (new Date(this.state.edate)).getTime()/1000;
+            if(oldTimeend-oldTimestart<=604800){
+                this.setState({
+                    loading:true,
+                    list:[],
+                })
+
+              post({url:'/api/patrolresult/getlist_team',data:data},(res)=>{
                 if(res.success){
                         this.setState({
                             loading:false,
@@ -232,7 +236,10 @@ scollbottom=()=>{
                     })
                 }
             })
-            this.scollbottom();
+        }else{
+            message.error('请选择七天以内的时间');
+        }
+       this.scollbottom();
     };
     handlerollCallType =(index,e)=>{
         if(!e) return;
