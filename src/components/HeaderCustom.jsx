@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Menu, Icon, Layout, Popover,Modal, Select, notification,message} from 'antd';
 import screenfull from 'screenfull';
+// import GoEasy from '../utils/goeasy';
 import icon_admin from '../style/imgs/icon_admin.png';
 import icon_user from '../style/imgs/icon_user.png';
 import SiderCustom from './SiderCustom';
@@ -30,6 +31,22 @@ class HeaderCustom extends Component {
         if(!_user){
             this.props.history.push('/login');
         }else{
+            //goeasy消息推送
+             // eslint-disable-next-line
+            // var goEasy = new GoEasy({
+            //     appkey: "BC-f8cc95fa01994d4683de1bafffe9c9ac",
+            //     onConnected: function () {
+            //         alert("成功连接GoEasy。");
+            //     },
+            //     onDisconnected: function () {
+            //         alert("与GoEasy连接断开。");
+            //     },
+            //     onConnectFailed: function (error) {
+            //         alert("与GoEasy连接失败，错误编码："+error.code+"错误信息："+error.content);
+            //     }
+            // });
+
+
             // this.alarmlist();
             const _this=this;
             // setInterval(function(){
@@ -89,6 +106,9 @@ class HeaderCustom extends Component {
             alarmMax(num)
     }
     switchput=()=>{ //切换公司确认提交
+
+
+
         const _this=this,auth=this.props.auth;
         var data={},activecomp='';
         if(this.state.activecode!='onself'&& this.state.complist){
@@ -193,6 +213,10 @@ class HeaderCustom extends Component {
         });
     };
     render() {
+
+
+
+
         const { responsive, path, auth } = this.props;
         const _this=this;        
         return (
@@ -229,7 +253,7 @@ class HeaderCustom extends Component {
                 </div>
                 <div style={{width:"28%",float:"right"}}>
                     {/*当前查看公司*/}
-                    <div style={{ lineHeight: '63px', float: 'right',color:'#fff' }}>当前单位：{auth.active&&auth.active.activecomp?auth.active.activecomp:this.props.user.cname}</div>
+                    <div style={{ lineHeight: '63px', float: 'right',color:'#fff' }}>当前单位：{auth&&auth.active&&auth.active.activecomp?auth.active.activecomp:this.props.user.cname}</div>
                     <Menu
                         mode="horizontal"
                         style={{ lineHeight: '63px', float: 'right' }}
