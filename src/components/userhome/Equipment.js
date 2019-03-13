@@ -10,7 +10,7 @@ class Equipment extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            activecompcode:props.auth.active.activecompanycode, //当前查看的公司
+            activecompcode:props.auth&&props.auth.active?props.auth.active.activecompanycode:'', //当前查看的公司
             camera:[],
             loading:true,
             type:1,

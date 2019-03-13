@@ -318,7 +318,7 @@ class Alarmlist extends React.Component{
                 <LocaleProvider locale={zh_CN}>
                     <Row style={{marginTop:"20px",marginLeft:"20px"}}>
                         <Form onSubmit={this.handleSubmit} layout="inline" className="formIndex">
-                            <Col xl={11} xxl={6}>
+                            <Col xl={11} xxl={8}>
                                 <Form.Item label="日期" >
                                     {getFieldDecorator('date')(
                                         <RangePicker
@@ -329,7 +329,7 @@ class Alarmlist extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                            <Col xl={5} xxl={3}>
+                            <Col xl={5} xxl={4}>
                                 <Form.Item label="设备" >
                                     {getFieldDecorator('cid',{
                                         initialValue:"",
@@ -345,7 +345,7 @@ class Alarmlist extends React.Component{
                                     )}
                                 </Form.Item>
                             </Col>
-                            <Col xl={4} xxl={2} className="switch_lr">
+                            <Col xl={4} xxl={3} className="switch_lr">
                                 <Form.Item label="只看收藏" >
                                     {getFieldDecorator('ifdanger')(
                                         <Switch checkedChildren="开"  unCheckedChildren="关" />

@@ -19,7 +19,7 @@ class Companyhome extends Component {
     constructor(props){
         super(props);
         this.state= {
-            activecompcode:props.auth&props.auth.active?props.auth.active.activecompanycode:'', //当前查看的公司
+            activecompcode:props.auth&&props.auth.active?props.auth.active.activecompanycode:'', //当前查看的公司
             mapJson: [],
             enterpriseTitle:[],
             cloudDate: '',
