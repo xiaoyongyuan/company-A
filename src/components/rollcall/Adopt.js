@@ -121,7 +121,6 @@ class Adopt extends Component {
         });
     }
     handleSelectChange=(value,opt)=>{ //选择设备 onchange
-        console.log('value,opt',value,opt)
         this.setState({
             cid: value,
             index:opt.key,
@@ -134,17 +133,16 @@ class Adopt extends Component {
             message.warn('请绘制点名区域！');
             return;
         }
+        const _this=this;
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                const _this=this;
-                post({url:"/api/rollcall/add",data:Object.assign(values,{rzone:JSON.stringify(this.state.present)})},(res)=>{ //拿到名下的设备
+                post({url:"/api/rollcall/add",data:{...values,rzone:JSON.stringify(_this.state.present)}},(res)=>{ //拿到名下的设备
                    if(res.success){
                        message.success('设置成功，请等待审核',2,function(){
                         _this.props.history.go(-1);
                        });
-                   }
-                })
-                
+                    }
+                })              
             }
         });
     };
