@@ -8,6 +8,7 @@ import '../../style/sjg/home.css';
 import RollcallRecordModel from "./RollcallRecordModel";
 import nodata from "../../style/imgs/nodata.png";
 import err from "../../style/imgs/err.png";
+import moment from "moment";
 const RangePicker = DatePicker.RangePicker;
 class RollcallHostory extends Component{
 	constructor(props){
@@ -26,57 +27,61 @@ class RollcallHostory extends Component{
             scrollTop:Number,
             loadtip:"加载中...",//下拉刷新时的提示文字
             type:true,//无数据图
+            sou:false,
         }
     }
-
     componentDidMount() {
         this.setState({
             loadtip:false,
-            })
-        post({url:'/api/rollcalldetail/getlist_info_dayly',data:{passivecode:this.state.activecompcode}},(res)=>{
-            if(res.success){
-                if(res.data.length===0){
-                    this.setState({
-                        type:false
-                    })
-                }
-                if(res.data.length>0){
-                    this.setState({
-                        type:true,
-                    })
-                }
-                this.setState({
-                  list:res.data,
-                  loading: false,
-                });
-            }
         })
-         var _this=this;
+        this.rolList();
+        this.scollbottom();
+    }   
+    shouldComponentUpdate=(nextProps,nextState)=>{
+        if(nextProps.auth.active.activecompanycode != nextState.activecompcode){
+            this.setState({
+                activecompcode:nextProps.auth.active.activecompanycode,
+                loading:true,
+                list:[],
+                page:1,
+            },()=>{
+                this.componentDidMount()
+            }) 
+        }
+        return true;  
+    } 
+    scollbottom=()=>{
+        var _this=this;
         let pag=2;
         document.getElementById("scorll").onscroll=function() {
             var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
             var scrollTop = document.getElementById("scorll").scrollTop;//0-18
             var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度
             var scrollbottom=scrollHeight-clientHeight;
-            var scrollTopP=Math.ceil(scrollTop);
+            var scrollTopP=Math.floor(scrollTop);
+           
             _this.setState({
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTop
                },()=>{
                 }
-               )                         
-            if(scrollbottom-scrollTopP<=0){//滚动到底部了
-               
+               )  
+            return ;                       
+            if(scrollbottom-scrollTopP==0){//滚动到底部了
+                console.log('第一次');
                _this.setState({
                 scrollbottom:scrollbottom,
                 scrollTop:scrollTop,
                 page:pag
                })
                if(_this.state.isrequest){ 
-                post({url:'/api/rollcalldetail/getlist_info_dayly',data:{pageindex:_this.state.page,
+                post({url:'/api/rollcalldetail/getlist_info_dayly',
+                data:{
+                    pageindex:_this.state.page,
                     daylybdate:_this.state.bdate?_this.state.bdate:'',
                     daylyedate:_this.state.edate?_this.state.edate:'',
-                    passivecode:_this.state.activecompcode}},(res)=>{
+                    passivecode:_this.state.activecompcode}
+                },(res)=>{
                     if(res.data.length>0){
                             pag++;
                             const list=_this.state.list;
@@ -94,67 +99,70 @@ class RollcallHostory extends Component{
                                 loadtip:false,
                                 } )
                         }
-                        
                     }
-                   
                 })
              }
-            
+              
+            }else if(scrollbottom-scrollTopP<0){
+                _this.setState({
+                    scrollbottom:scrollbottom,
+                    scrollTop:scrollTop,
+                    page:pag
+                   })
+                   if(_this.state.isrequest){ 
+                    post({url:'/api/rollcalldetail/getlist_info_dayly',
+                    data:{
+                        pageindex:_this.state.page,
+                        daylybdate:_this.state.bdate?_this.state.bdate:'',
+                        daylyedate:_this.state.edate?_this.state.edate:'',
+                        passivecode:_this.state.activecompcode}
+                    },(res)=>{
+                        if(res.data.length>0){
+                                pag++;
+                                const list=_this.state.list;
+                                const alist = list.concat(res.data);
+                                _this.setState({
+                                     list: alist,
+                                     loading: false,
+                                     loadtip:"加载中...",
+                                } )
+                        }else{
+                            if(res.data.length===0){
+                                message.success('没有更多了');
+                                _this.setState({
+                                    isrequest: false,
+                                    loadtip:false,
+                                    } )
+                            }
+                            
+                        }
+                       
+                    })
+                 }
             }
-        };
-    }   
-    shouldComponentUpdate=(nextProps,nextState)=>{
-        if(nextProps.auth.active.activecompanycode != nextState.activecompcode){
-            this.setState({
-                activecompcode:nextProps.auth.active.activecompanycode,
-                loading:true,
-                list:[],
-                page:1,
-            },()=>{
-                this.componentDidMount()
-            }) 
         }
-        return true;  
-    }  
-    backtop=()=>{ //返回顶部
-        document.getElementById("scorll").scrollTop = 0; 
-    };
-    //日期
-    onChange = (date, dateString)=> {
-      this.setState({
-                bdate:dateString[0]+' 00:00:00',
-                edate:dateString[1]+' 23:59:59'
-            });
     }
-    onChangeDate = (field, value) => {
-        this.setState({
-            [field]: value,
-        });
-    };
-    handleStartOpenChange = (open) => {
-        if (!open) {
-            this.setState({ endOpen: true });
-        }
-    };
-    handleEndOpenChange = (open) => {
-        this.setState({ endOpen: open });
-    };
     handleSubmit =(e)=>{
+        let pag=1
         e.preventDefault();
-            this.setState({
-                loading:true,
-                list:[]
-            })
             const data={
                 daylybdate:this.state.bdate?this.state.bdate:'',
                 daylyedate:this.state.edate?this.state.edate:'',
                 passivecode:this.state.activecompcode,
+                pageindex:pag,
             }
+            var oldTimestart = (new Date(this.state.bdate)).getTime()/1000;
+            var oldTimeend = (new Date(this.state.edate)).getTime()/1000;
+            if(oldTimeend-oldTimestart<=604800){
+                this.setState({
+                    loading:true,
+                    list:[],
+                    sou:true,
+                })
             post({url:'/api/rollcalldetail/getlist_info_dayly',data:data},(res)=>{
                 if(res.success){
                     if(res.data.length===0){
                         this.setState({
-                            loadtip:'  ',
                             type:false,
                         })
                     }
@@ -174,7 +182,59 @@ class RollcallHostory extends Component{
                     })
                 }
             })
+        }else{
+            message.error('请选择七天以内的时间');
+        }
+        this.scollbottom();
     };
+ rolList =()=>{
+        post({url:'/api/rollcalldetail/getlist_info_dayly',data:{passivecode:this.state.activecompcode}},(res)=>{
+            if(res.success){
+                if(res.data.length===0){
+                    this.setState({
+                        type:false
+                    })
+                }
+                if(res.data.length>0){
+                    this.setState({
+                        type:true,
+                    })
+                }
+                this.setState({
+                  list:res.data,
+                  loading: false,
+                });
+            }else{
+                this.setState({
+                    type:false,
+                })
+            }
+        })
+    };
+    backtop=()=>{ //返回顶部
+        document.getElementById("scorll").scrollTop = 0; 
+    };
+    //日期
+    onChange = (date, dateString)=> {
+      this.setState({
+                bdate:dateString[0],
+                edate:dateString[1]
+            });
+    }
+    onChangeDate = (field, value) => {
+        this.setState({
+            [field]: value,
+        });
+    };
+    handleStartOpenChange = (open) => {
+        if (!open) {
+            this.setState({ endOpen: true });
+        }
+    };
+    handleEndOpenChange = (open) => {
+        this.setState({ endOpen: open });
+    };
+
     //model open
     handlerollCallType =(index)=>{
         this.setState({
@@ -188,7 +248,12 @@ class RollcallHostory extends Component{
             rollCallType:false
         })
     };
+    disabledDate = (current) => {
+        // return current > moment().startOf('day') || current > moment().subtract(-1, 'day') ;
+        return current > moment().endOf('day');
+    };
     render(){
+       
         const { getFieldDecorator } = this.props.form;
         return(       
             <div className="RollcallHostory scrollable-container" id="scorll" >  
@@ -202,7 +267,7 @@ class RollcallHostory extends Component{
                             >
                                 {getFieldDecorator('range-picker1')(
                                     <RangePicker onChange={this.onChange}
-                                                 // showTime
+                                                 disabledDate={this.disabledDate}
                                                  format="YYYY-MM-DD"
                                     />
                                 )}

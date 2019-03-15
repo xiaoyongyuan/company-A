@@ -9,8 +9,8 @@ import nodata from "../../style/imgs/nodata.png";
 import ing from "../../style/imgs/ing.png";
 import unsucc from "../../style/imgs/unsucc.png";
 import PatrolRecordModel from "./PatrolRecordModel";
+import moment from "moment";
 const RangePicker = DatePicker.RangePicker;
-
 class RollcallHostory extends Component{
 	constructor(props){
         super(props);
@@ -34,6 +34,102 @@ class RollcallHostory extends Component{
         this.setState({
             loadtip:false,
         });
+        this.porlist();
+        this.scollbottom();
+    }   
+    shouldComponentUpdate=(nextProps,nextState)=>{
+        if(nextProps.auth.active.activecompanycode != nextState.activecompcode){
+            this.setState({
+                activecompcode:nextProps.auth.active.activecompanycode,
+                loading:true,
+                list:[],
+                page:1,
+            },()=>{
+                this.componentDidMount()
+            }) 
+        }
+        return true;  
+    }
+    scolrequest=()=>{
+        let pag=2;
+        post({url:'/api/patrolresult/getlist_team',data:{pageindex:this.state.page,
+            startdate:this.state.bdate?this.state.bdate:'',
+            enddate:this.state.edate?this.state.edate:'',
+            passivecode:this.state.activecompcode}},(res)=>{
+            if(res.data.length>0){
+                const list=this.state.list;
+                const alist = list.concat(res.data);
+                this.setState({
+                     list: alist,
+                     loading: false,
+                     loadtip:"加载中...",
+                } )
+            }else{
+                if(res.data.length===0){
+                    message.success('没有更多了');
+                    this.setState({
+                        isrequest: false,
+                        loadtip:false,
+                        } )
+                }
+                
+            }
+        })
+
+        
+    }
+
+scollbottom=()=>{
+    var _this=this;
+    let pag=1;
+    document.getElementById("scorll").onscroll=function() {
+        var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
+        var scrollTop = document.getElementById("scorll").scrollTop;
+        var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度
+        var scrollbottom=scrollHeight-clientHeight;
+        var scrollTopP=Math.ceil(scrollTop);
+        _this.setState({
+            scrollbottom:scrollbottom,
+            scrollTop:scrollTopP
+           })
+        return ;
+        if(scrollbottom-scrollTopP==0){//滚动到底部了
+            if(pag===1){
+                _this.setState({
+                    loadtip:"加载中...",
+               } )
+            }
+            pag++;
+            _this.setState({
+                scrollbottom:scrollbottom,
+                scrollTop:scrollTop,
+                page:pag
+            })
+            
+           if(_this.state.isrequest){ 
+            _this.scolrequest()
+         }
+        }else if(scrollbottom-scrollTopP<0){
+            if(pag===1){
+                _this.setState({
+                    loadtip:"加载中...",
+               } )
+            }
+            pag++;
+            _this.setState({
+                scrollbottom:scrollbottom,
+                scrollTop:scrollTop,
+                page:pag
+            })
+            
+           if(_this.state.isrequest){ 
+            _this.scolrequest()
+         }
+        }
+    };
+}
+
+    porlist=()=>{
         post({url:'/api/patrolresult/getlist_team',data:{passivecode:this.state.activecompcode}},(res)=>{
             if(res.success){
                 this.setState({
@@ -57,72 +153,6 @@ class RollcallHostory extends Component{
                 })
             }
         })
-        var _this=this;
-        let pag=1;
-        document.getElementById("scorll").onscroll=function() {
-            var scrollHeight = document.getElementById("scorll").scrollHeight;//div里内容的高度
-            var scrollTop = document.getElementById("scorll").scrollTop;
-            var clientHeight = document.getElementById("scorll").clientHeight;//div内里框框的高度
-            var scrollbottom=scrollHeight-clientHeight;
-            var scrollTopP=Math.ceil(scrollTop);
-            _this.setState({
-                scrollbottom:scrollbottom,
-                scrollTop:scrollTopP
-               })
-            if(scrollbottom-scrollTopP<=0){//滚动到底部了
-                if(pag===1){
-                    _this.setState({
-                        loadtip:"加载中...",
-                   } )
-                }
-                pag++;
-                _this.setState({
-                    scrollbottom:scrollbottom,
-                    scrollTop:scrollTop,
-                    page:pag
-                })
-                
-               if(_this.state.isrequest){ 
-                post({url:'/api/patrolresult/getlist_team',data:{pageindex:_this.state.page,
-                    startdate:_this.state.bdate?_this.state.bdate:'',
-                    enddate:_this.state.edate?_this.state.edate:'',
-                    passivecode:_this.state.activecompcode}},(res)=>{
-                    if(res.data.length>0){
-                        const list=_this.state.list;
-                        const alist = list.concat(res.data);
-                        _this.setState({
-                             list: alist,
-                             loading: false,
-                             loadtip:"加载中...",
-                        } )
-                    }else{
-                        if(res.data.length===0){
-                            message.success('没有更多了');
-                            _this.setState({
-                                isrequest: false,
-                                loadtip:false,
-                                } )
-                        }
-                        
-                    }
-                })
-             }
-            
-            }
-        };
-    }   
-    shouldComponentUpdate=(nextProps,nextState)=>{
-        if(nextProps.auth.active.activecompanycode != nextState.activecompcode){
-            this.setState({
-                activecompcode:nextProps.auth.active.activecompanycode,
-                loading:true,
-                list:[],
-                page:1,
-            },()=>{
-                this.componentDidMount()
-            }) 
-        }
-        return true;  
     }
     backtop=()=>{ //返回顶部
         document.getElementById("scorll").scrollTop = 0; 
@@ -131,8 +161,8 @@ class RollcallHostory extends Component{
    //日期
    onChange = (date, dateString)=> {
     this.setState({
-              bdate:dateString[0]+' 00:00:00',
-              edate:dateString[1]+' 23:59:59'
+              bdate:dateString[0],
+              edate:dateString[1]
           });
   }
 
@@ -173,16 +203,21 @@ class RollcallHostory extends Component{
     };
     handleSubmit =(e)=>{
         e.preventDefault();
-        this.setState({
-            loading:true,
-            list:[],
-        })
+        let pag=1
             const data={
                 startdate:this.state.bdate?this.state.bdate:'',
                 enddate:this.state.edate?this.state.edate:'',
                 passivecode:this.state.activecompcode,
             }
-            post({url:'/api/patrolresult/getlist_team',data:data},(res)=>{
+            var oldTimestart = (new Date(this.state.bdate)).getTime()/1000;
+            var oldTimeend = (new Date(this.state.edate)).getTime()/1000;
+            if(oldTimeend-oldTimestart<=604800){
+                this.setState({
+                    loading:true,
+                    list:[],
+                })
+
+              post({url:'/api/patrolresult/getlist_team',data:data},(res)=>{
                 if(res.success){
                         this.setState({
                             loading:false,
@@ -202,6 +237,10 @@ class RollcallHostory extends Component{
                     })
                 }
             })
+        }else{
+            message.error('请选择七天以内的时间');
+        }
+       this.scollbottom();
     };
     handlerollCallType =(index,e)=>{
         if(!e) return;
@@ -238,7 +277,9 @@ class RollcallHostory extends Component{
          return "redpic";
         }
      };
-     
+     disabledDate = (current) => {
+        return current > moment().endOf('day') ;
+    };
     render(){
         const { getFieldDecorator } = this.props.form;
         return(       
@@ -252,7 +293,7 @@ class RollcallHostory extends Component{
                             >
                                 {getFieldDecorator('range-picker1')(
                                     <RangePicker onChange={this.onChange}
-                                                 // showTime
+                                                 disabledDate={this.disabledDate}
                                                  format="YYYY-MM-DD"
                                     />
                                 )}
