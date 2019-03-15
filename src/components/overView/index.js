@@ -461,23 +461,23 @@ class overView extends Component {
                                 </div>
                                 <div className="comp" style={{height:'calc(100% - 60px)'}}>
                                     {
-                                        this.state.callist?<div className="instantInfor"><div className="instant"><img src={nodata} alt=""/></div></div>:
-                                            <Carousel autoplay className="righttop">
-                                                {this.state.callist.map((el,i)=>(
-                                                    <div key={el.code} className="carouselitem">
+                                        this.state.callist? <Carousel autoplay className="righttop">
+                                            {this.state.callist.map((el,i)=>(
+                                                <div key={el.code} className="carouselitem">
                                                     <div className="Rotation_chart" style={{height:(parseInt(this.state.DHeight)*0.7-20)*0.5-76}}>
-                                                    <div style={{maxHeight:'calc(100% - 110px)'}} ><img src={el.picpath} alt="" style={{ cursor:"pointer"}} onClick={()=>this.informatinImg(el.picpath,el.cname,el.cameraname,el.type,el.time)} /></div>
-                                                    <div className="redcolor">
-                                                    <span> {el.cname}</span> ,<span>{el.cameraname}</span>,
-                                                    <span>{el.type==="alarm"?"报警":""} </span>
-                                                    <span>{el.type==="rollcall"?"点名报警":""}</span>
-                                                    <span>{el.type==="patrol"?"巡更":""}</span>,
-                                                    <span>{el.time}</span>
+                                                        <div style={{maxHeight:'calc(100% - 110px)'}} ><img src={el.picpath} alt="" style={{ cursor:"pointer"}} onClick={()=>this.informatinImg(el.picpath,el.cname,el.cameraname,el.type,el.time)} /></div>
+                                                        <div className="redcolor">
+                                                            <span> {el.cname}</span> ,<span>{el.cameraname}</span>,
+                                                            <span>{el.type==="alarm"?"报警":""} </span>
+                                                            <span>{el.type==="rollcall"?"点名报警":""}</span>
+                                                            <span>{el.type==="patrol"?"巡更":""}</span>,
+                                                            <span>{el.time}</span>
+                                                        </div>
                                                     </div>
-                                                    </div>
-                                                    </div>
-                                                    ))}
-                                                    </Carousel>
+                                                </div>
+                                            ))}
+                                        </Carousel>:<div className="instantInfor"><div className="instant"><img src={nodata} alt=""/></div></div>
+
                                                 }
                                 </div>
                             </div>
