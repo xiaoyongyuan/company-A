@@ -307,7 +307,7 @@ class overView extends Component {
       const days=new Date().getTime();//当前时间的时间戳
       const oldHear=new Date(hearttime).getTime();//心跳时间的时间戳
       const oldLast=new Date(hearttime).getTime();//最后一次时间的时间戳
-      if(lastalarm!==null || hearttime!==""){
+      if(lastalarm&&lastalarm !='null' || hearttime){
           if((days-oldLast)>60000 || (days-oldHear)>60000){
               return "离线";
           }else{
@@ -402,8 +402,8 @@ class overView extends Component {
                                             <div className="scollhidden-out" id="ScollhiddenOut" >
                                                 <div className="scollhidden-inner">
                                                     {this.state.deveicek.map((el,i)=>(
-                                                        <div className="equipment equipbody" key={'row'+i}>
-                                                            <Row className="lines" onClick={()=>this.equipmentModel(el.code)} >
+                                                        <div className="equipment equipbody" key={'row'+i} onClick={()=>this.equipmentModel(el.code)}>
+                                                            <Row className="lines"  >
                                                                 <Col className="gutter-row" xl={8}>
                                                                     {el.cname}
                                                                 </Col>
