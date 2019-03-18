@@ -530,7 +530,7 @@ class overView extends Component {
                                         this.state.alarmVideo.map((v,i)=>(
                                             i<2
                                             ?<div className="compVideo" key={i} onClick={()=>this.instantVideo(v.videopath)}>
-                                                <video src={v.videopath} autoplay="autoplay" controls="controls"></video>
+                                                <video src={v.videopath} autoplay="autoplay" />
                                             </div> 
                                             :''                                             
                                         ))
@@ -566,7 +566,7 @@ class overView extends Component {
                     >
                         <div className="shipin">
                             <div className="shipin-context">
-                                <img src={this.state.pathImg} alt="" />
+                                <video src={this.state.pathImg} autoPlay="autoplay" controls="controls" style={{width:"100%",padding:"40px 0"}} />
                             </div>
                         </div>
                     </Modal>

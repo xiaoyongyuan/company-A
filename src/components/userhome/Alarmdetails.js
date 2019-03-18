@@ -108,7 +108,7 @@ class Alarmdetails extends React.Component{
         [text]: checked,
     },()=>{this.draw()
     });	
-  }
+  };
   onChangeVideo=()=>{ // 查看视频切换
     this.setState({
         videoopen: !this.state.videoopen,
@@ -226,7 +226,7 @@ class Alarmdetails extends React.Component{
                   <div className="picleft">
               			<canvas id="canvasobj" width="604px" height="476px" style={{backgroundImage:'url('+this.state.data.src+')',backgroundSize:"100% 100%",display:this.state.videoopen?'none':'block'}} />
               			<div style={{display:this.state.videoopen?'block':'none',width:'604px',height:'513px'}}>
-                      <video src={this.state.data.videopath} autoplay="autoplay" controls="controls" width="600px"></video>
+                      <video src={this.state.data.videopath} autoplay="autoplay" controls="controls" width="600px" />
                     </div>
                     
                   </div>

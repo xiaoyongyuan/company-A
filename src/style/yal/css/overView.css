@@ -88,19 +88,19 @@
     width: 97%;
     display: flex;
     flex-direction: row;
-    margin: 5% 1%;
+    margin: 2% 1%;
 }
 .compCountVideo .compVideo{
-    margin: 0 1%;
-    width: 50%;
-    height: 70%;
+    margin: 0 5%;
+    width: 44%;
+    height: 30%;
     background: url("../../yal/img/video.png") no-repeat;
     background-size: 100% 100%;
     cursor: pointer;
 }
 .compCountVideo .compVideo video{
     width: 91%;
-    height: 90%;
+    height: 100%;
     margin: 4% 5%;
 }
 .compCountVideo .compVideoRight{
