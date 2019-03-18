@@ -98,7 +98,7 @@
     background-size: 100% 100%;
     cursor: pointer;
 }
-.compCountVideo .compVideo img{
+.compCountVideo .compVideo video{
     width: 91%;
     height: 90%;
     margin: 4% 5%;
