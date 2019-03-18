@@ -321,7 +321,7 @@ class RollcallHostory extends Component{
                                                             el.alarm.map((num,n)=>{
                                                                  return (
                                                                             <div key={n} className="alarm_img" style={num.rpic?{display:'inlin-block'}:{display:'none'}} >
-                                                                                <img src={num.rrpic?num.rrpic:err} alt="alarm_img" width="100%" onClick={()=>this.handlerollCallType(num.code)} />
+                                                                                <img src={num.rrpic?num.rrpic:err} alt="alarm_img" width="100%" style={num.rfinal==2?{border:"1px solid #f00"}:{border:'none'}}  onClick={()=>this.handlerollCallType(num.code)} />
                                                                             </div>
                                                                         )
                                                                 })

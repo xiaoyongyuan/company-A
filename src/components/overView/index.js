@@ -528,7 +528,11 @@ class overView extends Component {
                                 <div className="compCountVideo">
                                     {
                                         this.state.alarmVideo.map((v,i)=>(
-                                            <div className="compVideo" key={i} onClick={()=>this.instantVideo(v.picpath)}><img src={v.picpath} alt="" /></div>
+                                            i<2
+                                            ?<div className="compVideo" key={i} onClick={()=>this.instantVideo(v.picpath)}>
+                                                <video src={v.videopath} autoplay="autoplay" controls="controls"></video>
+                                            </div> 
+                                            :''                                             
                                         ))
                                     }
                                 </div>
