@@ -186,20 +186,17 @@ class overView extends Component {
                 var rollX=[];
                 var rollName=[];
                 var afang=[];
-                var ming=[];
                 for(var a in res.data){
                     rollName.push(res.data[a].cname);
-                    console.log(a,"sss");
                     for(var b in res.data[a].rollcall){
                         rollX.push(moment(res.data[a].rollcall[b].pdate).format("MM.DD"));
                         afang.push(res.data[a].rollcall[b].totalcount);
-                        console.log(res.data[a].rollcall[b].totalcount,"number");
                     }
                 }
                 this.setState({
                     rollArrX:rollX.reverse().slice(0,7),
                     rollName:rollName,
-                    afang:afang.slice(0,7).reverse(),
+                    afang:afang.slice(0,7),
                     ming:afang.slice(7,14),
                 });
             }
@@ -333,10 +330,13 @@ class overView extends Component {
         //报警次数
         this.alarmList();
         //设备近况
-        setInterval(this.deveicek(),10000);
+        setInterval(()=>this.deveicek(),60000);
+        this.deveicek();
         //设备轮播
-        setInterval(this.cal(),60000);
+        setInterval(()=>this.cal(),60000);
+        this.cal();
         //报警视频
+        setInterval(()=>this.alarmVideo(),60000);
         this.alarmVideo();
         //位置图
         this.locationMap();
