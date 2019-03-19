@@ -332,13 +332,11 @@ class overView extends Component {
         //报警次数
         this.alarmList();
         //设备近况
-        setInterval(()=>this.deveicek(),60000);
+        setInterval(()=>this.timer(),60000);
         this.deveicek();
         //设备轮播
-        setInterval(()=>this.cal(),60000);
         this.cal();
         //报警视频
-        setInterval(()=>this.alarmVideo(),60000);
         this.alarmVideo();
         //位置图
         this.locationMap();
@@ -347,6 +345,11 @@ class overView extends Component {
         //报警分析
         this.alarmAnalysis();
     }
+    timer=()=>{
+        this.deveicek();
+        this.cal();
+        this.alarmVideo();
+    };
     render() {
         const _this=this;
         return (
