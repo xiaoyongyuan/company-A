@@ -193,11 +193,13 @@ class overView extends Component {
                         afang.push(res.data[a].rollcall[b].totalcount);
                     }
                 }
+                var fanle=[];
+                fanle=afang.reverse();
                 this.setState({
                     rollArrX:rollX.reverse().slice(0,7),
                     rollName:rollName,
-                    afang:afang.slice(0,7),
-                    ming:afang.slice(7,14),
+                    afang:fanle.slice(7,14),
+                    ming:fanle.slice(0,7),
                 });
             }
         })
