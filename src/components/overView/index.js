@@ -186,17 +186,20 @@ class overView extends Component {
                 var rollX=[];
                 var rollName=[];
                 var afang=[];
+                var ming=[];
                 for(var a in res.data){
                     rollName.push(res.data[a].cname);
+                    console.log(a,"sss");
                     for(var b in res.data[a].rollcall){
                         rollX.push(moment(res.data[a].rollcall[b].pdate).format("MM.DD"));
-                        afang.push(res.data[a].rollcall[b].totalcount)
+                        afang.push(res.data[a].rollcall[b].totalcount);
+                        console.log(res.data[a].rollcall[b].totalcount,"number");
                     }
                 }
                 this.setState({
                     rollArrX:rollX.reverse().slice(0,7),
                     rollName:rollName,
-                    afang:afang.reverse().slice(0,7),
+                    afang:afang.slice(0,7).reverse(),
                     ming:afang.slice(7,14),
                 });
             }
