@@ -174,8 +174,7 @@ class RollcallRecord extends React.Component{
         this.setState({
             page:page,
             iftype:false,//判断是否传查询条件
-        },()=>{this.handleRollCallList()}
-        )
+        },()=>{this.handleRollCallList()})
     };
     rfinaltype=(rfinal)=>{
         switch(rfinal){
