@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Menu, Icon, Layout, Popover,Modal, Select, notification,message} from 'antd';
 import screenfull from 'screenfull';
-// import GoEasy from '../utils/goeasy';
+import GoEasy from '../utils/goeasy';
 import icon_admin from '../style/imgs/icon_admin.png';
 import icon_user from '../style/imgs/icon_user.png';
 import SiderCustom from './SiderCustom';
@@ -18,6 +18,20 @@ const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 const Option = Select.Option;
 let vis=false;
+//goeasy消息推送
+// eslint-disable-next-line
+const goEasy = new GoEasy({
+    appkey: "BC-f8cc95fa01994d4683de1bafffe9c9ac",
+    onConnected: function () {
+        console.log("成功连接GoEasy。");
+    },
+    onDisconnected: function () {
+        console.log("与GoEasy连接断开。");
+    },
+    onConnectFailed: function (error) {
+        console.log("与GoEasy连接失败，错误编码："+error.code+"错误信息："+error.content);
+    }
+});
 class HeaderCustom extends Component {
     state = {
         user: {},
@@ -31,32 +45,30 @@ class HeaderCustom extends Component {
         if(!_user){
             this.props.history.push('/login');
         }else{
-            //goeasy消息推送
-             // eslint-disable-next-line
-            // var goEasy = new GoEasy({
-            //     appkey: "BC-f8cc95fa01994d4683de1bafffe9c9ac",
-            //     onConnected: function () {
-            //         alert("成功连接GoEasy。");
-            //     },
-            //     onDisconnected: function () {
-            //         alert("与GoEasy连接断开。");
-            //     },
-            //     onConnectFailed: function (error) {
-            //         alert("与GoEasy连接失败，错误编码："+error.code+"错误信息："+error.content);
-            //     }
-            // });
+            
+            
+            this.goEasyinit('17792542304')
 
-
-            // this.alarmlist();
-            const _this=this;
-            // setInterval(function(){
-            //     _this.alarmlist(_this.state.alarmmax)
-            // },5000)
             this.setState({
                 user: _user,
             });
         }
     };
+    goEasyinit(uid){ //goeasy消息
+        goEasy.subscribe({
+            channel:uid,
+            onMessage: function (message) {
+                console.log('messagemessage',message)
+                        },
+            onSuccess: function () {
+                    console.log("Channel订阅成功。");
+
+                       },
+            onFailed: function (error) {
+                    console.log("Channel订阅失败, 错误编码：" + error.code + " 错误信息：" + error.content)
+                    }
+        });
+    }
     shouldComponentUpdate=(nextProps,nextState)=>{
         if(nextState.alarmmax && nextProps.auth.alarmmax != nextState.alarmmax){
             this.openNotification()
@@ -106,9 +118,6 @@ class HeaderCustom extends Component {
             alarmMax(num)
     }
     switchput=()=>{ //切换公司确认提交
-
-
-
         const _this=this,auth=this.props.auth;
         var data={},activecomp='';
         if(this.state.activecode!='onself'&& this.state.complist){
@@ -183,20 +192,6 @@ class HeaderCustom extends Component {
     handleVisibleChange = (visible) => {
         this.setState({ visible });
     };
-    alarmlist=(code)=>{
-        post({url:"/api/alarm/getlist",data:{pagesize:1,passivecode:this.state.activecompcode}},(res)=>{
-            if(res.success&&res.data.length){
-                const num=res.data[0].code
-                    const { alarmMax,auth } = this.props;
-                    if(code != num ){
-                        this.setState({
-                            alarmmax: num
-                        })
-                        alarmMax(num);
-                    }
-            }
-        })
-    }
 
     openNotification = () => { //报警消息提醒
         notification.open({

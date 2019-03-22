@@ -23,7 +23,6 @@ class ModalForm extends Component {
     }
     componentWillReceiveProps(nextProps){
         if( nextProps.visible !== vis){
-            vis=nextProps.visible;
             if(nextProps.visible){
                 vis=nextProps.visible;
                 this.setState({

@@ -40,5 +40,3 @@ export default ({ menus, ...props }) => (
         )}
     </Menu>
 );
-
-// 权限验证

@@ -3,15 +3,16 @@
  */
 import axios from 'axios';
 import { message } from 'antd';
+
+
 /**
  * 公用get请求
  * @param url       接口地址
  * @param msg       接口异常提示
  * @param headers   接口所需header配置
  */
-const Httpurl='http://api.aokecloud.cn';
-const qrcodeurl='http://login.aokecloud.cn'
-
+const Httpurl=window.g.url;
+const qrcodeurl=window.g.loginurl;
 
 /**
  * 公用post请求

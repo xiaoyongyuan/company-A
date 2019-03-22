@@ -23,14 +23,12 @@ class Scenedata extends Component {
     }
 
     maps=(scenegraph,cameracorrd)=>{ //地图
-        console.log('传递过来的值',scenegraph)
         const cameralist=[];
           cameracorrd.map((el,i)=>{
             if(el.lat && el.lng){
                     cameralist.push({value:[el.lng,el.lat],name:el.name})
                 }
             })  
-        
         if(scenegraph.indexOf('1000020')>0){
             console.log('1000020')
             echarts.registerMap('xiant', apg);
