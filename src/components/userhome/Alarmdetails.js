@@ -31,6 +31,9 @@ class Alarmdetails extends React.Component{
       faths:this.props.toson,
       code:this.props.toson.code,
       activecompcode:this.props.activecompcode,
+      alarmType:this.props.toson.atype
+    },()=>{
+        console.log(this.state.alarmType,"alarmType");
     });
   }
   componentDidMount() {
@@ -71,6 +74,7 @@ class Alarmdetails extends React.Component{
                   code:nextProps.toson.code,
                   faths:nextProps.toson,
                   activecompcode:nextProps.activecompcode,
+                  alarmType:nextProps.toson.atype
               }, () => {
                   this.componentDidMount()});
           }
@@ -191,7 +195,6 @@ class Alarmdetails extends React.Component{
     })
   }
   doCollection=()=>{
-	    console.log(this.state.ifdanger,"this.state.ifdanger")
     if(this.state.ifdanger===1){
       post({url:'/api/alarm/update',data:{code:this.state.code,ifdanger:0,}},(res)=>{
         if(res.success){
@@ -252,11 +255,10 @@ class Alarmdetails extends React.Component{
             				<p><label>围界信息: <Switch size="small" checked={this.state.field} onChange={(checked)=>this.onChange(checked,'field')} /></label></p>
             				<p><label>报警信息: <Switch size="small" checked={this.state.obj} onChange={(checked)=>this.onChange(checked,'obj')} /></label></p>
             				<p><label>报警时间：<span>{this.state.data.atime}</span></label></p>
-                    {/*<p><label>报警结果：<TextArea rows={3} /></label></p>*/}
-            				<p><label>处理结果：</label><span style={{color:this.state.color}}>{this.state.typetext}</span></p>
+            				<p style={{display:this.state.alarmType===12?"none":"block"}}><label>处理结果：</label><span style={{color:this.state.color}}>{this.state.typetext}</span></p>
             				{
                       !this.state.activecompcode
-                      ?<p><label>处理类型：</label> <Button style={{background:'#2A8E39',color:'#fff',outline:'none !import'}} onClick={()=>this.alarmdeal(1)}>确认</Button> <Button style={{background:'#F22727',color:'#fff'}}  onClick={()=>this.alarmdeal(3)}>虚警</Button> <Button  style={{background:'#00B5D0',color:'#fff'}} onClick={()=>this.alarmdeal(2)}>忽略</Button></p>
+                      ?<p style={{display:this.state.alarmType===12?"none":"block"}}><label>处理类型：</label> <Button style={{background:'#2A8E39',color:'#fff',outline:'none !import'}} onClick={()=>this.alarmdeal(1)}>确认</Button> <Button style={{background:'#F22727',color:'#fff'}}  onClick={()=>this.alarmdeal(3)}>虚警</Button> <Button  style={{background:'#00B5D0',color:'#fff'}} onClick={()=>this.alarmdeal(2)}>忽略</Button></p>
                       :''
                     }
                     {

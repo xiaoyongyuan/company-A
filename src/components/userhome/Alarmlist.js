@@ -43,7 +43,7 @@ class Alarmlist extends React.Component{
             backColor:'',//背景颜色
             nodatapic:true,
             ifclassion:false,
-            queryBtn:true
+            queryBtn:true,
         };
     }
     componentWillMount() {
@@ -109,7 +109,8 @@ class Alarmlist extends React.Component{
                     bdate:this.state.bdate,
                     edate:this.state.edate,
                     cid:this.state.cid,
-                    ifdanger:this.state.ifdanger
+                    ifdanger:this.state.ifdanger,
+                    atype:atype
                 };
             }
         this.setState({
@@ -296,7 +297,7 @@ class Alarmlist extends React.Component{
         default:
          return nodata;
       }
-    }
+    };
     atypetext =(type) =>{
       switch(type){
         case 1:
@@ -310,7 +311,7 @@ class Alarmlist extends React.Component{
         default:
          return '未知类型：'+type;
       }
-    }
+    };
     render(){
         const { getFieldDecorator } = this.props.form;
         return(
@@ -374,8 +375,8 @@ class Alarmlist extends React.Component{
                                 <div className="listmargintop">
                                     <div className={this.redgreenblue(v.status)} >
                                         <Row>
-                                            <div className={this.sanjiaose(v.status)} >
-                                                <span className="xuanzhuan">{this.handleState(v.status)}</span>
+                                            <div className={this.sanjiaose(v.status)} style={{display:v.atype==12?"none":"block"}}>
+                                                <span className="xuanzhuan" >{this.handleState(v.status)}</span>
                                             </div>
                                             <Col span={8}>
                                                 <div className="pliceImgyal" onClick={()=>this.alarmImg(v.atype,v.code)}>
@@ -401,14 +402,14 @@ class Alarmlist extends React.Component{
                                                             <Col span={13} push={1}>
                                                                 <p className="time-col fontstyle fontstyletime">{v.atime}</p>
                                                             </Col>
-                                                            <Col span={9} push={1} style={{marginLeft:'13px'}}>
-                                                                <p className="fontstyle time-col">报警对象：{v.tags===""?"无":v.tags}</p>
+                                                            <Col span={9} push={1} style={{marginLeft:'13px'}} >
+                                                                <p className="fontstyle time-col" style={{display:v.atype==12?"none":"block"}}>报警对象：{v.tags===""?"无":v.tags}</p>
                                                             </Col>
                                                         </Row>
                                                     </Col>
                                                 </Row>
 
-                                                <Row className="sure-row" type="flex" align="bottom">
+                                                <Row className="sure-row" type="flex" align="bottom" style={{display:v.atype==12?"none":"block"}}>
                                                     <Col span={8} >
                                                         <div className="sure-col-l" onClick={()=>this.changeredgreenblue(1,i,v.code)}>
                                                             <div className="circle-sure" />
