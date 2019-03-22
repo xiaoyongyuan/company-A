@@ -9,7 +9,7 @@ export default {
         //设备
         { key: '/app/Userhome/Equipment', identi:['comp','comptop','user'], title: '设备', icon: 'video-camera', funct:'basic', component: 'Equipment' },
         //报警
-        { key: '/app/Userhome/Alarmlist', identi:['comp','comptop','user'], title: '报警', icon: 'alert', funct:'basic', component: 'Alarmlist' },
+        { key: '/app/Userhome/Alarmlist', identi:['comp','comptop','user'], title: '报警', dot:'true', icon: 'alert', funct:'basic', component: 'Alarmlist' },
         {
             key: '/app/patrol', title: '巡更' , identi:['comp','comptop','patrol'], funct:'patrol', icon: 'environment',
             subs: [
@@ -51,13 +51,15 @@ export default {
         { key: '/app/userhome/Alarmdetails', title: '报警详情', component: 'Alarmdetails'},
         { key: '/app/rollcall/adoptlook', title: '点名对象详情', component: 'AdoptLook'},
         { key: '/app/userhome/Userdeveice', title: '设备详情', component: 'Userdeveice'},
-            {
-        key: '/subs4', title: '页面', icon: 'switcher',
-        subs: [
-            { key: '/login', title: '登录' },
-            { key: '/404', title: '404' },
-        ],
+        {
+            key: '/subs4', title: '页面', icon: 'switcher',
+            subs: [
+                { key: '/login', title: '登录' },
+                { key: '/404', title: '404' },
+            ],
         },
+        { key: '/loginnew', title: '登录', component: 'loginnew'},
+
     ]
 }
 
