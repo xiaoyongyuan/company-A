@@ -58,7 +58,7 @@ export default {
                 { key: '/404', title: '404' },
             ],
         },
-        { key: '/loginnew', title: '登录', component: 'loginnew'},
+        { key: '/aloginnew', title: '登录', component: 'loginnew'},
 
     ]
 }

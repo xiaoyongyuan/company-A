@@ -5,6 +5,8 @@
 import Loadable from 'react-loadable';
 import Loading from './widget/Loading';
 
+import loginnew from './pages/loginnew';
+
 //大数据
 import Datavisual from './companyhome/visual';
 import Overview from './overView/index';
@@ -54,8 +56,8 @@ const WysiwygBundle = Loadable({ // 按需加载富文本配置
 });
 
 export default {
-	Datavisual, Overview,
-    WysiwygBundle
+	Datavisual, Overview,loginnew
+    , WysiwygBundle
     , Companyhome, Companyscene, Companydeveice, Calling, Connent, Deveicedet, Settime, Setarea
     , Alarmdetails, Alarmlist, Equipment, Userhome, Userdeveice
     , Employeelist, Loglist
