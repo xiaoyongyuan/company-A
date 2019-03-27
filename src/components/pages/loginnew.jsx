@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Icon, Input, Button, Row, Col, Typography, Divider } from "antd";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { fetchData, receiveData } from "@/action"; //action->index按需取
+import { fetchData, receiveData } from "@/action";
 import { qrcode } from "../../axios/tools";
 import QRCode from "qrcode.react";
 import "../../style/jhy/css/login.css";

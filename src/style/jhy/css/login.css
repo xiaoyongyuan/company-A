@@ -42,6 +42,8 @@
 .layerpic3 {
   position: absolute;
   animation: rightrotate 5s infinite alternate;
+  transform-origin: center;
+
   z-index: 1;
   max-width: 100%;
 
@@ -57,6 +59,8 @@
 .layerpic2 {
   position: absolute;
   animation: leftrotate 5s infinite alternate;
+  transform-origin: center;
+
   z-index: 10;
   max-width: 100%;
 
@@ -72,6 +76,7 @@
 .layerpic {
   position: absolute;
   animation: rightrotate 5s infinite alternate;
+  transform-origin: center;
   z-index: 100;
   max-width: 100%;
 }
@@ -253,5 +258,4 @@
   padding-left: 44px;
   font-size: 22px;
   border: 1px solid #2ecde3 !important;
-  color: red !important;
 }
