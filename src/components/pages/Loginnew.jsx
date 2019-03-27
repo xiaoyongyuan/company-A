@@ -226,87 +226,81 @@ class Loginnew extends React.Component {
               </div>
 
               <div className="lgwrapper">
-                <Row>
-                  <Form
-                    onSubmit={this.handleSubmit}
-                    className="lgform"
+                <Form
+                  onSubmit={this.handleSubmit}
+                  className="lgform"
+                  style={{
+                    display: this.state.typeState ? "none" : "block"
+                  }}
+                >
+                  <Form.Item>
+                    {getFieldDecorator("account", {
+                      rules: [
+                        {
+                          required: true,
+                          message: "请输入用户名(手机号)!"
+                        },
+                        {
+                          pattern: new RegExp(/^1(3|4|5|6|7|8|9)\d{9}$/, "g"),
+                          message: "请输入正确的手机号！"
+                        }
+                      ]
+                    })(
+                      <Input
+                        prefix={
+                          <Icon
+                            type="user"
+                            style={{
+                              color: "#5cadb9",
+                              fontSize: 26,
+                              marginRight: "10px"
+                            }}
+                          />
+                        }
+                        className="usersInput"
+                        placeholder="请输入用户名"
+                      />
+                    )}
+                  </Form.Item>
+                  <Form.Item style={{ marginTop: "36px" }}>
+                    {getFieldDecorator("password", {
+                      rules: [
+                        {
+                          required: true,
+                          message: "请输入密码!"
+                        }
+                      ]
+                    })(
+                      <Input
+                        prefix={
+                          <Icon
+                            type="lock"
+                            style={{ color: "#5cadb9", fontSize: 26 }}
+                          />
+                        }
+                        type="password"
+                        className="usersInput"
+                        placeholder="请输入密码"
+                        style={{ fontSize: "26px" }}
+                      />
+                    )}
+                  </Form.Item>
+                  <Form.Item
                     style={{
-                      display: this.state.typeState ? "none" : "block"
+                      textAlign: "center",
+                      marginTop: "30px"
                     }}
                   >
-                    <Form.Item>
-                      {getFieldDecorator("account", {
-                        rules: [
-                          {
-                            required: true,
-                            message: "请输入用户名(手机号)!"
-                          },
-                          {
-                            pattern: new RegExp(/^1(3|4|5|6|7|8|9)\d{9}$/, "g"),
-                            message: "请输入正确的手机号！"
-                          }
-                        ]
-                      })(
-                        <Input
-                          prefix={
-                            <Icon
-                              type="user"
-                              style={{
-                                color: "#5cadb9",
-                                fontSize: 26,
-                                marginRight: "10px"
-                              }}
-                            />
-                          }
-                          className="usersInput"
-                          placeholder="请输入用户名"
-                          // style={{
-                          //   paddingLeft: "44px",
-                          //   fontSize: "22px"
-                          // }}
-                        />
-                      )}
-                    </Form.Item>
-                    <Form.Item style={{ marginTop: "40px" }}>
-                      {getFieldDecorator("password", {
-                        rules: [
-                          {
-                            required: true,
-                            message: "请输入密码!"
-                          }
-                        ]
-                      })(
-                        <Input
-                          prefix={
-                            <Icon
-                              type="lock"
-                              style={{ color: "#5cadb9", fontSize: 26 }}
-                            />
-                          }
-                          type="password"
-                          className="usersInput"
-                          placeholder="请输入密码"
-                          style={{ fontSize: "26px" }}
-                        />
-                      )}
-                    </Form.Item>
-                    <Form.Item
-                      style={{
-                        textAlign: "center",
-                        marginTop: "40px"
-                      }}
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      className="lgbutton"
+                      style={{ width: "150px", height: "50px" }}
                     >
-                      <Button
-                        type="primary"
-                        htmlType="submit"
-                        className="lgbutton"
-                        style={{ width: "150px", height: "50px" }}
-                      >
-                        登录
-                      </Button>
-                    </Form.Item>
-                  </Form>
-                </Row>
+                      登录
+                    </Button>
+                  </Form.Item>
+                </Form>
               </div>
             </Col>
           </div>

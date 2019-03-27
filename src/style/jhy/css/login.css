@@ -35,8 +35,8 @@
   position: relative;
   display: flex !important;
   justify-content: center;
-  max-width: 340px;
-  max-height: 350px;
+  /* max-width: 340px;
+  max-height: 350px; */
 }
 
 .layerpic3 {
@@ -45,13 +45,13 @@
   transform-origin: center;
 
   z-index: 1;
-  max-width: 100%;
+  /* max-width: 100%; */
 
 }
 
 .layerpic3 img {
-  max-width: 340px;
-  max-height: 350px;
+  /* max-width: 340px;
+  max-height: 350px; */
 
 
 }
@@ -62,13 +62,13 @@
   transform-origin: center;
 
   z-index: 10;
-  max-width: 100%;
+  /* max-width: 100%; */
 
 }
 
 .layerpic2 img {
-  max-width: 340px;
-  max-height: 350px;
+  /* max-width: 340px;
+  max-height: 350px; */
 
 
 }
@@ -78,11 +78,11 @@
   animation: rightrotate 5s infinite alternate;
   transform-origin: center;
   z-index: 100;
-  max-width: 100%;
+  /* max-width: 100%; */
 }
 
 .layerpic img {
-  max-width: 340px;
+  /* max-width: 340px; */
 }
 
 @keyframes leftrotate {
@@ -134,7 +134,7 @@
   color: #fff;
   position: absolute;
   z-index: 113;
-  margin-top: 40%;
+  margin-top: 38%;
 }
 
 .turntitle p {
@@ -241,6 +241,8 @@
 
 .lgwrapper {
   width: 60%;
+  position: relative;
+  bottom: 30px;
 }
 
 
@@ -254,8 +256,12 @@
 
 .lgform .ant-input-affix-wrapper .ant-input:not(:first-child) {
   height: 50px !important;
-  color: #fff;
+  color: #1c7588;
   padding-left: 44px;
   font-size: 22px;
   border: 1px solid #2ecde3 !important;
+}
+
+.lgform .ant-form-explain {
+  margin-bottom: -22px;
 }
