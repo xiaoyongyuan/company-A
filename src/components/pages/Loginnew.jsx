@@ -184,7 +184,7 @@ class Loginnew extends React.Component {
                 <div className="login-title">{this.state.loginTitle}</div>
                 <div
                   className={
-                    "pwdBtn iconfont login-qrcode" +
+                    " iconfont login-qrcode" +
                     (this.state.typeState ? " icon-diannao " : " icon-erweima")
                   }
                   onClick={this.handlerImg}
