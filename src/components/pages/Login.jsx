@@ -1,11 +1,12 @@
 import React from "react";
-import { Form, Icon, Input, Button, Row, Col, Typography, Divider } from "antd";
+import { Form, Icon, Input, Button} from "antd";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchData, receiveData } from "@/action"; //action->index按需取
 import { qrcode } from "../../axios/tools";
 import QRCode from "qrcode.react";
 import "../../style/jhy/css/login.css";
+import "../../style/jhy/icon/iconfont.css";
 import ditupic from "../../style/jhy/imgs/ditu.jpg";
 import logopic from "../../style/jhy/imgs/logo.png";
 import layerpic from "../../style/jhy/imgs/layer.png";
