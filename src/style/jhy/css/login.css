@@ -140,8 +140,8 @@ img {
 }
 
 .turntitle {
-  position: relative;
-  top: 5%;
+  position: absolute;
+  margin-top: 5%;
   font-size: 40px;
   color: #fff;
   z-index: 20;
@@ -288,19 +288,24 @@ img {
   .logcont {
     margin-top: 3%;
   }
+
   .logo {
     margin-top: 40px;
     margin-left: 60px;
   }
+
   .acrossturn {
     top: 5%;
   }
+
   .lgwrapper {
     margin-bottom: 30px;
   }
+
   .snapline {
     top: 26%;
   }
+
   .codewrap {
     margin-top: 53px;
   }
