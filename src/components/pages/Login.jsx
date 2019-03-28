@@ -1,18 +1,22 @@
-/**
- * Created by hao.cheng on 2017/4/16.
- */
 import React from "react";
-import { Form, Icon, Input, Button, Checkbox } from "antd";
+import { Form, Icon, Input, Button, Row, Col, Typography, Divider } from "antd";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchData, receiveData } from "@/action"; //action->index按需取
-import bg from "../../style/imgs/bg.jpg";
-import "../../style/ztt/img/icon/iconfont.css";
 import { qrcode } from "../../axios/tools";
 import QRCode from "qrcode.react";
-const FormItem = Form.Item;
+import "../../style/jhy/css/login.css";
+import ditupic from "../../style/jhy/imgs/ditu.jpg";
+import logopic from "../../style/jhy/imgs/logo.png";
+import layerpic from "../../style/jhy/imgs/layer.png";
+import layerpic2 from "../../style/jhy/imgs/layer2.png";
+import layerpic3 from "../../style/jhy/imgs/layer3.png";
+import snapline from "../../style/jhy/imgs/snapline.png";
+import formborder from "../../style/jhy/imgs/formborder.png";
+
 var count = 0;
 let qrcodeSet = undefined; //控制二维码请求结果定时器
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -20,10 +24,9 @@ class Login extends React.Component {
       typeState: 0, //控制扫码登录和密码登录
       qrcodeStatus: 0, //控制二维码失效页面
       qrcode: "",
-      loginTitle: "密码登录"
+      loginTitle: "用户登录"
     };
   }
-
   componentWillMount() {
     const { receiveData } = this.props;
     receiveData(null, "auth");
@@ -122,7 +125,6 @@ class Login extends React.Component {
   };
   handleSubmit = e => {
     e.preventDefault();
-    //在从此处登录，并记录下来
     this.props.form.validateFields((err, values) => {
       if (!err) {
         //获取到的表单的值values
@@ -139,99 +141,164 @@ class Login extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <div className="login" style={{ backgroundImage: "url(" + bg + ")" }}>
-        <div className="login-form">
-          <div className="login-top">
-            <div className="login-form1">
-              <div className="master-login-title">{this.state.loginTitle}</div>
-              <div
-                className={
-                  "pwdBtn iconfont" +
-                  (this.state.typeState ? " icon-diannao " : " icon-erweima")
-                }
-                onClick={this.handlerImg}
-              />
-            </div>
+      <div
+        className="loginnew"
+        style={{
+          backgroundImage: `url('${ditupic}')`
+        }}
+      >
+        <div className="topbar">
+          <div className="logo">
+            <img src={logopic} alt="" />
+            系统
           </div>
-          <div className="qrcode">
-            <div
-              className="login-code"
-              style={{ display: this.state.typeState ? "block" : "none" }}
-            >
-              <QRCode size={150} value={this.state.qrcode} />
+        </div>
+        <div className="logcont ">
+          <div className="wrapper clearfix">
+            <div className="acrossturn clearfix">
+              <div className="layerpic3">
+                <img src={layerpic3} />
+              </div>
+              <div className="layerpic2">
+                <img src={layerpic2} />
+              </div>
+              <div className="layerpic">
+                <img src={layerpic} />
+              </div>
+              <div className="turntitle">
+                <p>智能视频</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;联网预警</p>
+              </div>
+            </div>
+            <div className="snapline">
+              <img src={snapline} />
             </div>
             <div
-              className="qrcodeModel"
-              style={{ display: this.state.qrcodeStatus ? "block" : "none" }}
+              style={{
+                background: `url('${formborder}')  no-repeat center/100% 100%`
+              }}
+              className="loginform clearfix"
             >
-              <p className="qrcodeModelFont">二维码已失效</p>
-              <Button
-                type="primary"
-                className="btn"
-                onClick={this.handleQrcoderequest}
-              >
-                刷新二维码
-              </Button>
-            </div>
-          </div>
-          <Form
-            onSubmit={this.handleSubmit}
-            style={{
-              display: this.state.typeState ? "none" : "block",
-              maxWidth: "300px"
-            }}
-          >
-            <FormItem>
-              {getFieldDecorator("account", {
-                rules: [
-                  { required: true, message: "请输入用户名(手机号)!" },
-                  {
-                    pattern: new RegExp(/^1(3|4|5|6|7|8|9)\d{9}$/, "g"),
-                    message: "请输入正确的手机号！"
+              <div className="login-top">
+                <div className="login-title">{this.state.loginTitle}</div>
+                <div
+                  className={
+                    "pwdBtn iconfont login-qrcode" +
+                    (this.state.typeState ? " icon-diannao " : " icon-erweima")
                   }
-                ]
-              })(
-                <Input
-                  prefix={<Icon type="user" style={{ fontSize: 13 }} />}
-                  placeholder="请输入用户名"
-                  className="usersInput"
+                  onClick={this.handlerImg}
                 />
-              )}
-            </FormItem>
-            <FormItem>
-              {getFieldDecorator("password", {
-                rules: [{ required: true, message: "请输入密码!" }]
-              })(
-                <Input
-                  prefix={<Icon type="lock" style={{ fontSize: 13 }} />}
-                  type="password"
-                  placeholder="请输入密码"
-                  className="usersInput"
-                />
-              )}
-            </FormItem>
-            <FormItem>
-              {getFieldDecorator("remember", {
-                valuePropName: "checked",
-                initialValue: true
-              })(<Checkbox>记住我</Checkbox>)}
-              <span
-                className="login-form-forgot"
-                href=""
-                style={{ float: "right" }}
-              >
-                忘记密码
-              </span>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-                style={{ width: "100%" }}
-              >
-                登录
-              </Button>
-            </FormItem>
-          </Form>
+              </div>
+              <div className="qrcode">
+                <div
+                  className="codewrap"
+                  style={{
+                    display: this.state.typeState ? "block" : "none"
+                  }}
+                >
+                  <QRCode
+                    size={160}
+                    value={this.state.qrcode}
+                    className="QRCode"
+                  />
+                </div>
+                <div
+                  className="unefficacycodewrap"
+                  style={{
+                    display: this.state.qrcodeStatus ? "block" : "none"
+                  }}
+                >
+                  <div className="unefficacycodewrap2">
+                    <p className="unefficacy-title">二维码已失效</p>
+                    <Button
+                      className="freshcode"
+                      onClick={this.handleQrcoderequest}
+                    >
+                      刷新二维码
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="lgwrapper">
+                <Form
+                  onSubmit={this.handleSubmit}
+                  className="lgform"
+                  style={{
+                    display: this.state.typeState ? "none" : "block"
+                  }}
+                >
+                  <Form.Item>
+                    {getFieldDecorator("account", {
+                      rules: [
+                        {
+                          required: true,
+                          message: "请输入用户名(手机号)!"
+                        },
+                        {
+                          pattern: new RegExp(/^1(3|4|5|6|7|8|9)\d{9}$/, "g"),
+                          message: "请输入正确的手机号！"
+                        }
+                      ]
+                    })(
+                      <Input
+                        prefix={
+                          <Icon
+                            type="user"
+                            style={{
+                              color: "#5cadb9",
+                              fontSize: 26,
+                              marginRight: "10px"
+                            }}
+                          />
+                        }
+                        className="usersInput"
+                        placeholder="请输入用户名"
+                      />
+                    )}
+                  </Form.Item>
+                  <Form.Item style={{ marginTop: "36px" }}>
+                    {getFieldDecorator("password", {
+                      rules: [
+                        {
+                          required: true,
+                          message: "请输入密码!"
+                        }
+                      ]
+                    })(
+                      <Input
+                        prefix={
+                          <Icon
+                            type="lock"
+                            style={{ color: "#5cadb9", fontSize: 26 }}
+                          />
+                        }
+                        type="password"
+                        className="usersInput"
+                        placeholder="请输入密码"
+                        style={{ fontSize: "26px" }}
+                      />
+                    )}
+                  </Form.Item>
+                  <Form.Item
+                    style={{
+                      textAlign: "center",
+                      marginTop: "30px"
+                    }}
+                  >
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      className="lgbutton"
+                      style={{ width: "150px", height: "50px" }}
+                    >
+                      登录
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -252,6 +319,3 @@ export default connect(
   mapStateToPorps,
   mapDispatchToProps
 )(Form.create()(Login));
-
-//第一个参数输入值，第二个输出。
-//使用context取值
