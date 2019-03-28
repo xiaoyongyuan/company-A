@@ -140,7 +140,6 @@ class Loginnew extends React.Component {
   };
   render() {
     const { getFieldDecorator } = this.props.form;
-    const scheigth = window.screen.availHeight * 0.5;
     return (
       <div
         className="loginnew"
@@ -148,15 +147,15 @@ class Loginnew extends React.Component {
           backgroundImage: `url('${ditupic}')`
         }}
       >
-        <Row className="topbar">
-          <Col className="logo">
+        <div className="topbar">
+          <div className="logo">
             <img src={logopic} alt="" />
             系统
-          </Col>
-        </Row>
-        <Row className="logcont">
-          <div className="wrapper">
-            <Col span={7} className="acrossturn">
+          </div>
+        </div>
+        <div className="logcont ">
+          <div className="wrapper clearfix">
+            <div className="acrossturn clearfix">
               <div className="layerpic3">
                 <img src={layerpic3} />
               </div>
@@ -170,19 +169,15 @@ class Loginnew extends React.Component {
                 <p>智能视频</p>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;联网预警</p>
               </div>
-            </Col>
-            <Col span={6}>
-              <div className="snapline">
-                <img src={snapline} />
-              </div>
-            </Col>
-            <Col
-              span={11}
+            </div>
+            <div className="snapline">
+              <img src={snapline} />
+            </div>
+            <div
               style={{
-                background:
-                  'url("' + formborder + '")  no-repeat center/100% 100%'
+                background: `url('${formborder}')  no-repeat center/100% 100%`
               }}
-              className="loginform"
+              className="loginform clearfix"
             >
               <div className="login-top">
                 <div className="login-title">{this.state.loginTitle}</div>
@@ -302,9 +297,9 @@ class Loginnew extends React.Component {
                   </Form.Item>
                 </Form>
               </div>
-            </Col>
+            </div>
           </div>
-        </Row>
+        </div>
       </div>
     );
   }
