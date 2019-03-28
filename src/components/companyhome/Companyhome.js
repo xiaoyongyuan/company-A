@@ -31,15 +31,7 @@ class Companyhome extends Component {
             passivelist:[], //查看我的用户
             scenegraph:'',
             echartsHeight:"250px",
-          /*  mapZoom: 13, //地图缩放等级 （zoom）
-            //https://lbs.amap.com/api/javascript-api/guide/abc/prepare这里有介绍key怎么申请
-            mapKey: '。。。。。。。。',//Key就不贴出来了奥
-            status: {
-                zoomEnable: false,
-                dragEnable: false,
-            },
-            mapCenter:[116.292329, 39.946996],//地图中心点
-            mapMake :[116.273961, 39.946338],//marker标记点*/
+
         }
     }
     componentDidMount(){

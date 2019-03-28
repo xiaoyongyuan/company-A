@@ -117,7 +117,7 @@ class Equipment extends React.Component{
                                 return(
                                     <Col key={i} xxl={{ span: 4}} xl={{ span:6}} lg={{ span: 6}} md={{span:6}} sm={{span:6}} xs={{span:6}} className="cardPdd ">
                                         <Card className="boxShow"
-                                              cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath?this.state.camera[i].picpath:nopic} width="100%" /></a>}
+                                              cover={<a href={"#/app/userhome/Alarmlist?id="+el.code+"&type=0"}><img alt="example" src={this.state.camera[i].picpath?this.state.camera[i].picpath:nopic} width="100%" height="150px" /></a>}
                                               actions={
                                                   this.state.utype==='1' || this.state.activecompcode
                                                       ?[

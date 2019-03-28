@@ -5,7 +5,6 @@
 import Loadable from "react-loadable";
 import Loading from "./widget/Loading";
 
-import loginnew from "./pages/Loginnew";
 
 //大数据
 import Datavisual from "./companyhome/visual";
@@ -57,7 +56,6 @@ const WysiwygBundle = Loadable({
 export default {
   Datavisual,
   Overview,
-  loginnew,
   WysiwygBundle,
   Companyhome,
   Companyscene,
