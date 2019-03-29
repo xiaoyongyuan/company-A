@@ -5,6 +5,12 @@
 .ant-spin{
     color: #ffffff!important;
 }
+.alarmDetails .ant-spin-dot i{
+    background: #000!important;
+}
+.alarmDetails .ant-spin{
+    color: #000!important;
+}
 /*表格*/
 .ant-table-thead > tr > th {
     background: #394269!important;

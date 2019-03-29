@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Switch, Icon,message} from 'antd';
+import {Button, Switch, Icon,message,Spin } from 'antd';
 import {post} from "../../axios/tools";
 import "../../style/ztt/css/police.css";
 const ButtonGroup = Button.Group;
@@ -22,7 +22,8 @@ class Alarmdetails extends React.Component{
       	prev:'', //上一条数据code
       	next:'', //下一条数据code
       	code:'', //当前数据的code
-        videoopen:false //视频开关
+        videoopen:false, //视频开关
+        loadding:true,
       };
   }
   componentWillMount() {
@@ -37,6 +38,9 @@ class Alarmdetails extends React.Component{
     });
   }
   componentDidMount() {
+    this.setState({
+      loadding:true,
+    })
     post({url:"/api/alarm/getone",data:Object.assign(this.state.faths,{passivecode:this.state.activecompcode})},(res)=>{
       let data={
           src:res.data.picpath,
@@ -57,6 +61,7 @@ class Alarmdetails extends React.Component{
           next:res.data.next,
           ifdanger:res.data.ifdanger,
           videoopen:false,
+          loadding:false,
       },()=>{        
         this.draw();
         this.typetext()
@@ -224,6 +229,7 @@ class Alarmdetails extends React.Component{
     render(){      
         return(
             <div className="alarmDetails">
+              <Spin size="large" spinning={this.state.loadding} tip="加载中..." className="loadding">
             	<div className="alarmflex">
             		<div className="flexleft">
                   <div className="picleft">
@@ -258,7 +264,7 @@ class Alarmdetails extends React.Component{
             				<p style={{display:this.state.alarmType===12?"none":"block"}}><label>处理结果：</label><span style={{color:this.state.color}}>{this.state.typetext}</span></p>
             				{
                       !this.state.activecompcode
-                      ?<p style={{display:this.state.alarmType===12?"none":"block"}}><label>处理类型：</label><Button style={{background:'#2A8E39',color:'#fff',outline:'none !import'}} onClick={()=>this.alarmdeal(1)}>确认</Button><Button style={{background:'#F22727',color:'#fff'}}  onClick={()=>this.alarmdeal(3)}>虚警</Button><Button style={{background:'#00B5D0',color:'#fff'}} onClick={()=>this.alarmdeal(2)}>忽略</Button></p>
+                      ?<p style={{display:this.state.alarmType===12?"none":"block"}}><label>处理类型：</label><Button style={{background:'#2A8E39',color:'#fff',outline:'none !import'}} onClick={()=>this.alarmdeal(1)}>确认</Button><Button style={{background:'#F22727',color:'#fff'}} onClick={()=>this.alarmdeal(3)}>虚警</Button><Button style={{background:'#00B5D0',color:'#fff'}} onClick={()=>this.alarmdeal(2)}>忽略</Button></p>
                       :''
                     }
                     {
@@ -273,6 +279,7 @@ class Alarmdetails extends React.Component{
                     }
             		</div>
             	</div>
+              </Spin>
             </div>
         )
     }

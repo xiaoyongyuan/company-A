@@ -79,7 +79,8 @@ class Alarmlist extends React.Component{
     }
     handleCancelAlarmImg =()=>{
         this.setState({
-            alarmImgType:false
+            alarmImgType:false,
+            loadding:false,
         });
         this.handleAlerm();
     };
