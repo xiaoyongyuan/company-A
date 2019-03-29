@@ -258,7 +258,7 @@ class Alarmdetails extends React.Component{
             				<p style={{display:this.state.alarmType===12?"none":"block"}}><label>处理结果：</label><span style={{color:this.state.color}}>{this.state.typetext}</span></p>
             				{
                       !this.state.activecompcode
-                      ?<p style={{display:this.state.alarmType===12?"none":"block"}}><label>处理类型：</label> <Button style={{background:'#2A8E39',color:'#fff',outline:'none !import'}} onClick={()=>this.alarmdeal(1)}>确认</Button> <Button style={{background:'#F22727',color:'#fff'}}  onClick={()=>this.alarmdeal(3)}>虚警</Button> <Button  style={{background:'#00B5D0',color:'#fff'}} onClick={()=>this.alarmdeal(2)}>忽略</Button></p>
+                      ?<p style={{display:this.state.alarmType===12?"none":"block"}}><label>处理类型：</label><Button style={{background:'#2A8E39',color:'#fff',outline:'none !import'}} onClick={()=>this.alarmdeal(1)}>确认</Button><Button style={{background:'#F22727',color:'#fff'}}  onClick={()=>this.alarmdeal(3)}>虚警</Button><Button style={{background:'#00B5D0',color:'#fff'}} onClick={()=>this.alarmdeal(2)}>忽略</Button></p>
                       :''
                     }
                     {
