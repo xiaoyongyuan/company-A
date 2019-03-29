@@ -137,8 +137,9 @@ img {
 }
 
 .turntitle {
-  margin-top: 10%;
-  font-size: 40px;
+  position: absolute;
+  margin-top: 5%;
+  font-size: 36px;
   color: #fff;
   z-index: 20;
 }
@@ -253,6 +254,7 @@ img {
   position: relative;
 }
 
+
 .lgbutton {
   background: #1c7588 !important;
   color: #fff !important;
@@ -262,14 +264,49 @@ img {
 
 .lgform .ant-input-affix-wrapper .ant-input:not(:first-child) {
   height: 50px !important;
-  color: #1c7588;
+  color: #9df5ff !important;
   padding-left: 44px;
-  font-size: 22px;
+  font-size: 18px;
   border: 1px solid #2ecde3 !important;
+  background: #164451 !important;
 }
 
+/* input {
+  outline: none
+}
+
+input:focus {
+  outline: none;
+} */
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #9df5ff !important;
+}
+
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #9df5ff !important;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #9df5ff !important;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #9df5ff !important;
+}
+
+
+
 .lgform .ant-form-explain {
-  /* margin-bottom: -20px; */
+  margin-bottom: -20px;
 }
 
 @media screen and (max-width: 1281px) {
