@@ -1192,4 +1192,16 @@
 .redcolor {
     color: red;
 }
+.startTime .ant-select-selection{
+    width: 120px;
+    background: #3C466E;
+    display: inline-block;
+    border-radius: 4px;
+}
+.startTime .ant-select-selection__placeholder{
+    color: #74EAF6;
+}
+.startTime .ant-select-selection-selected-value{
+    color:#8097CC;
+}
 
