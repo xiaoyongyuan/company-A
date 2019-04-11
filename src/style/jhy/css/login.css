@@ -341,3 +341,11 @@ textarea:-ms-input-placeholder {
     margin-top: 53px;
   }
 }
+
+.copyright {
+  position: absolute;
+  left: 44%;
+  bottom: 10px;
+  font-size: 12px;
+  color: #fff;
+}
