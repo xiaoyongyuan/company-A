@@ -2,6 +2,8 @@
  * http通用工具函数
  */
 import axios from 'axios';
+import jsonP from 'jsonp';
+
 import { message } from 'antd';
 
 
@@ -62,4 +64,19 @@ export const qrcode = async({url, msg = '接口异常',data={}},callback) =>{
     }).catch(err => {
       message.warn(msg);
     });
+}
+
+export const crossjsonP = async({url, msg = '接口异常',data={}},callback) =>{
+  return new Promise((resolve,reject)=>{
+    console.log('response',url)
+    jsonP(url,function(err,response){
+      console.log('response',response)
+      if(response){
+        resolve(response);
+      }else{
+        reject(null)
+      }
+    })
+  })
+    
 }

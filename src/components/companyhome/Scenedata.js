@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import ReactEcharts from 'echarts-for-react';
 import echarts from 'echarts';
-import apg from "../../style/ztt/map/1000020.json";
-import mqwl from "../../style/ztt/map/1000021.json";
-
-import axios from 'axios';
+import {crossjsonP} from "../../axios/tools";
 
 
 class Scenedata extends Component {
@@ -18,24 +15,22 @@ class Scenedata extends Component {
     componentWillMount(){
         this.setState({
             type:this.props.type,
-
         })
     }
 
     maps=(scenegraph,cameracorrd)=>{ //地图
+        console.log(scenegraph,'scenegraph')
+        crossjsonP({url:scenegraph}).then((res)=>{
+            if(res){
+               echarts.registerMap('xiant', res); 
+            } 
+        })
         const cameralist=[];
           cameracorrd.map((el,i)=>{
             if(el.lat && el.lng){
                     cameralist.push({value:[el.lng,el.lat],name:el.name})
                 }
             })  
-        if(scenegraph.indexOf('1000020')>0){
-            console.log('1000020')
-            echarts.registerMap('xiant', apg);
-        }else{
-            console.log('1000021')
-            echarts.registerMap('xiant', mqwl);
-        }
         
         let option={
             background:"#091e57",
