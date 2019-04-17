@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Icon, Input, Button} from "antd";
+import { Form, Icon, Input, Button } from "antd";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchData, receiveData } from "@/action"; //action->index按需取
@@ -301,6 +301,7 @@ class Login extends React.Component {
             </div>
           </div>
         </div>
+        <div className="copyright">陕ICP备18019072号-1</div>
       </div>
     );
   }

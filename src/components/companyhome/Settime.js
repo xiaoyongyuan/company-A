@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../../style/sjg/home.css';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
-import {Form,Table, Row, Col, Button,Radio, Modal,TimePicker,message,LocaleProvider } from 'antd';
+import {Form,Table, Row, Col, Button,Radio, Modal,Select,message,LocaleProvider } from 'antd';
 import moment from 'moment';
 import {post} from "../../axios/tools";
 const RadioGroup = Radio.Group;
@@ -13,7 +13,8 @@ class Setarea extends Component {
             status: 1,
             form: false,
             checkedList:"weekday",
-            cid:''
+            cid:'',
+            disabledStyle:false
         }
     }
     componentWillMount=()=>{
@@ -76,7 +77,7 @@ class Setarea extends Component {
             code:code
         }
         const list=this.state.list;
-        list[index].cwstatus=stype
+        list[index].cwstatus=stype;
         post({url:"/api/workingtime/update",data:data}, (res)=>{
             if(res.success){
                 this.setState({
@@ -95,18 +96,18 @@ class Setarea extends Component {
     add = (e) => {//新增
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            if(values.bdate.format("HH")==null||values.edate.format("HH")==null){
+            if(values.bdate===null||values.edate===null){
                 message.success('请选择时间');
              }
             if(!err){
                 const data={
-                    starttime:values.bdate.format("HH"),
-                    endtime:values.edate.format("HH"),
+                    starttime:values.bdate,
+                    endtime:values.edate,
                     wtype:this.state.checkedList,
                     cwstatus:1,
                     cid:this.state.cid,
-                }
-                if(values.bdate.format("HH")==="00"&&values.edate.format("HH")==="00"||values.bdate.format("HH")<values.edate.format("HH")){
+                };
+                if(values.bdate<values.edate){
                  post({url:"/api/workingtime/add",data:data}, (res)=>{
                     if(res.success){
                         data.code=res.code;
@@ -114,14 +115,13 @@ class Setarea extends Component {
                         list.unshift(data);
                         this.setState({
                             list:list,
-                        })
+                        });
                         message.success('新增成功');
                     }
                     
                 })
               }else{
                 message.warning('开始时间不能大于结束时间');
-
              }
             }
             this.props.form.resetFields();
@@ -187,37 +187,6 @@ class Setarea extends Component {
                     </span>
                 ),
             }];
-        let times=moment(this.state.timeList).format("HH");
-        function onChange_time1(time, timeString) {
-             _this.setState({
-                timeList:time,
-                timeString:timeString
-            });
-
-        }
-        function onChange_time2(time, timeString) {
-            // _this.setState({
-            //     timeList2:time,
-            //     timeString:timeString
-            // });
-        }
-        function newArray(start, end) {
-            let result = [];
-            for (let i = start; i < end; i++) {
-                result.push(i);
-            }
-            return result;
-        }
-
-        function disabledHours() {
-            let hours = newArray(0, 60);
-            if(times === '00'){
-                hours.splice(times,24-times);
-            }else{
-                hours.splice(parseInt(times)+1,24-times);
-            }
-            return hours;
-        }
         return (
             <LocaleProvider locale={zh_CN}>
             <div className="padding20 Settime">
@@ -229,20 +198,69 @@ class Setarea extends Component {
                                 {getFieldDecorator('bdate', {
                                     rules: [{ required: true, message: '请选择开始时间!' }],
                                 })(
-                                    <TimePicker onChange={onChange_time1} placeholder="开始时间" defaultOpenValue={moment('00', format)}
-                                                format={format} 
-                                    />
+                                    <Select className="startTime" placeholder="开始时间">
+                                        <option value="00">00</option>
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03" >03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                    </Select>
+
                                 )}
                             </FormItem>
                             <FormItem label="结束时间">
                                 {getFieldDecorator('edate', {
                                     rules: [{ required: true, message: '请选择结束时间!' }],
                                 })(
-                                    <TimePicker onChange={onChange_time2} placeholder="结束时间"
-                                                disabledHours={disabledHours}
-                                                format={format} 
-                                    />
+                                    <Select className="startTime" placeholder="结束时间">
+                                        <option value="00" >00</option>
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                    </Select>
                                 )}
+
                             </FormItem>
                             <FormItem label="">
                                 <RadioGroup onChange={this.onChange_radio} value={this.state.checkedList}>
