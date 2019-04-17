@@ -12,6 +12,7 @@ import nodata from "../../style/imgs/nodata.png";
 import banditpic from "../../style/imgs/banditpic.png";
 import firepic from "../../style/imgs/firepic.png";
 import "../../style/ztt/img/plioce/iconfont.css";
+import moment from "moment";
 const Option = Select.Option;
 const { RangePicker } = DatePicker ;
 class Alarmlist extends React.Component{
@@ -129,6 +130,8 @@ class Alarmlist extends React.Component{
     };
     //报警信息列表
     handleAlerm = ()=>{
+    
+
         const data={
             bdate:this.state.bdate,
             edate:this.state.edate,
@@ -188,25 +191,54 @@ class Alarmlist extends React.Component{
     * 检索
     * 开始时间、结束时间、设备cid
     * */
+   onChange = (date, dateString)=> {
+    this.setState({
+              bdate:dateString[0],
+              edate:dateString[1]
+          });
+  }
     handleSubmit =(e)=>{
+        var oldTimestart = (new Date(this.state.bdate)).getTime()/1000;
+        var oldTimeend = (new Date(this.state.edate)).getTime()/1000;
         e.preventDefault();
         this.props.form.validateFields((err,values)=>{
-            this.setState({
-                bdate:values.date && values.date.length?values.date[0].format("YYYY-MM-DD HH:00:00"):"",
-                edate:values.date && values.date.length?values.date[1].format("YYYY-MM-DD HH:00:00"):"",
-                ifdanger:values.ifdanger?1:0,
-                cid:values.cid,
-                status:'',
-            });
+            if(values.date && values.date.length){
+               
+                if(oldTimeend-oldTimestart<=604800){
+                    this.props.form.validateFields((err,values)=>{
+                        this.setState({
+                            bdate:values.date && values.date.length?values.date[0].format("YYYY-MM-DD HH:00:00"):"",
+                            edate:values.date && values.date.length?values.date[1].format("YYYY-MM-DD HH:00:00"):"",
+                        });
+                    });    
+                    this.setState({
+                        ifdanger:values.ifdanger?1:0,
+                        cid:values.cid,
+                        status:'',
+                        displaysearch:false,
+                        page:1,
+                        loadding:true,
+                    },()=>{
+                        this.handleAlerm();
+                    });      
+                }else{
+                    message.error('请选择七天以内的时间');
+                }
+            }else{
+                this.setState({
+                    ifdanger:values.ifdanger?1:0,
+                    cid:values.cid,
+                    status:'',
+                    displaysearch:false,
+                    page:1,
+                    loadding:true,
+                },()=>{
+                    this.handleAlerm();
+                });   
+            }
         });
 
-        this.setState({
-            displaysearch:false,
-            page:1,
-            loadding:true,
-        },()=>{
-            this.handleAlerm();
-        });
+      
     };
     //一键处理
     handleOnekey =(value)=>{
@@ -313,6 +345,10 @@ class Alarmlist extends React.Component{
          return '未知类型：'+type;
       }
     };
+    disabledDate = (current) => {
+         return current > moment().endOf('day');
+    };
+
     render(){
         const { getFieldDecorator } = this.props.form;
         return(
@@ -324,9 +360,11 @@ class Alarmlist extends React.Component{
                                 <Form.Item label="日期" >
                                     {getFieldDecorator('date')(
                                         <RangePicker
+                                            onChange={this.onChange}
                                             showTime={{ format: 'HH:00:00' }}
                                             format="YYYY-MM-DD HH:00:00"
                                             placeholder={['开始时间', '结束时间']}
+                                            disabledDate={this.disabledDate}
                                         />
                                     )}
                                 </Form.Item>
