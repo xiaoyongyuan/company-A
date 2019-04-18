@@ -9,19 +9,19 @@
   position: absolute;
   width: 10px;
   height: 10px;
-  z-index: 5;
+  z-index: 10;
 }
 
 .centerContext {
-  width: 96%;
-  height: 96%;
+  width: 100%;
+  height: 100%;
   cursor: move;
 
 }
 
-#preview {
+/* #preview {
   cursor: move;
-}
+} */
 
 .upBtn {
   height: 5px;

@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 import "../../style/jhy/css/defendarea.css";
-const blue = "#5063ee";
-const red = "#ED2F2F";
+// const blue = "#5063ee";
+// const red = "#ED2F2F";
 class Sechild extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      topLeftPoint: [],
+      topRightPoint: [],
+      bottLeftPoint: [],
+      bottRightPoint: []
+    };
   }
   componentDidMount() {
     function $(id) {
@@ -81,7 +86,7 @@ class Sechild extends Component {
 
       onDragDown(e, "se", _this);
     };
-    var onPreviewDown = function(e) {
+    var onCenterContextDown = function(e) {
       var _this = this;
       onDragDown(e, "move", _this);
     };
@@ -93,30 +98,30 @@ class Sechild extends Component {
       document.body.style.cursor = location + "_resize";
       switch (operateType) {
         case "e":
-          var add_length = clickX - location.x;
-          clickX = location.x;
-          var length = parseInt(preview.style.width) - add_length;
-          preview.style.width = length + "px";
-          break;
-        case "s":
-          var add_length = clickY - location.y;
-          clickY = location.y;
-          var length = parseInt(preview.style.height) - add_length;
-          preview.style.height = length + "px";
-          break;
-        case "w":
-          var add_length = clickX - location.x;
+          var add_length = location.x - clickX;
           clickX = location.x;
           var length = parseInt(preview.style.width) + add_length;
           preview.style.width = length + "px";
-          preview.style.left = clickX + "px";
           break;
-        case "n":
-          var add_length = clickY - location.y;
+        case "s":
+          var add_length = location.y - clickY;
           clickY = location.y;
           var length = parseInt(preview.style.height) + add_length;
           preview.style.height = length + "px";
-          preview.style.top = clickY + "px";
+          break;
+        case "w":
+          var add_length = location.x - clickX;
+          clickX = location.x;
+          var length = parseInt(preview.style.width) - add_length;
+          preview.style.width = length + "px";
+          preview.style.left = add_length + preview.offsetLeft + "px";
+          break;
+        case "n":
+          var add_length = location.y - clickY;
+          clickY = location.y;
+          var length = parseInt(preview.style.height) - add_length;
+          preview.style.height = length + "px";
+          preview.style.top = add_length + preview.offsetTop + "px";
           break;
         case "move":
           var add_lengthX = location.x - clickX; //鼠标移动的距离
@@ -125,6 +130,17 @@ class Sechild extends Component {
           var preDistanceY = add_lengthY + preTop;
           preview.style.top = preDistanceY + "px";
           preview.style.left = preDistanceX + "px";
+          if (
+            preview.style.top < 0 ||
+            preview.style.right < 0 ||
+            preview.style.bottom < 0 ||
+            preview.style.left < 0
+          ) {
+            preview.style.top = 0;
+            preview.style.right = 0;
+            preview.style.bottom = 0;
+            preview.style.left = 0;
+          }
           break;
       }
     };
@@ -178,9 +194,23 @@ class Sechild extends Component {
     $("upRightBtn").onmousedown = onUpRightBtnDown;
     $("downLeftBtn").onmousedown = onDownLeftBtnDown;
     $("downRightBtn").onmousedown = onDownRightBtnDown;
-    $("preview").onmousedown = onPreviewDown;
+    $("centerContext").onmousedown = onCenterContextDown;
     document.onmousemove = onDragMove;
     document.onmouseup = onDragUp;
+  }
+  componentDidUpdate() {
+    var preview = document.getElementById("preview");
+    // console.log(
+    //   preview.getComputedStyle,
+    //   preview.getBoundingClientRect,
+    //   "shujuduixiang"
+    // );
+    // var positObj = preview.get
+    // this.setState({
+
+    // },()=>{
+    //     console.log(topLeftPoint, topRightPoint, bottLeftPoint, bottRightPoint,'suoyuouzuobiao')
+    // })
   }
   render() {
     return (
@@ -206,6 +236,7 @@ class Sechild extends Component {
         <div className="downRightBtn" id="downRightBtn" />
         <div className="centerLeftBtn" id="centerLeftBtn" />
         <div className="centerRightBtn" id="centerRightBtn" />
+        <div className="centerContext" id="centerContext" />
       </div>
     );
   }
