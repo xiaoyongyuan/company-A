@@ -14,6 +14,7 @@
     width: 50%;
     height: 50%;
     background: #323A5D;
+    box-sizing: border-box;
 }
 .topRightContext{
     display: flex;
