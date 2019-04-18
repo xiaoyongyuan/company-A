@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Row, Col, Button, Modal } from "antd";
 import "../../style/lff/home.css";
 import { post } from "../../axios/tools";
-import Sechild from './Sechild'
+import Sechild from "./Sechild";
 const blue = "#5063ee";
 const red = "#ED2F2F";
 class Setarea extends Component {
@@ -284,8 +284,8 @@ class Setarea extends Component {
 
   render() {
     return (
-      <div className="Setarea">
-      <Sechild/>
+      <div className="Setarea" style={{ position: "relative" }}>
+        <Sechild />
         <div className="Setarea_cont">
           <Row>
             <Col xl={{ span: 24 }} xxl={{ span: 24 }}>

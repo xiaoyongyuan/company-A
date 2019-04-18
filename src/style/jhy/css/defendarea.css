@@ -1,70 +1,76 @@
 .upBtn,
-    .downBtn,
-    .upLeftBtn,
-    .upRightBtn,
-    .downLeftBtn,
-    .downRightBtn,
-    .centerLeftBtn,
-    .centerRightBtn {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      z-index: 5;
-    }
-.centercontext{
-  width: 100%;
-  height: 100%;
+.downBtn,
+.upLeftBtn,
+.upRightBtn,
+.downLeftBtn,
+.downRightBtn,
+.centerLeftBtn,
+.centerRightBtn {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  z-index: 5;
+}
+
+.centerContext {
+  width: 96%;
+  height: 96%;
   cursor: move;
 
 }
-    .upBtn {
-      height: 5px;
-      width: calc(100% - 10px);
-      top: 0;
-      cursor: n-resize;
-    }
 
-    .downBtn {
-      height: 5px;
-      width: calc(100% - 10px);
-      bottom: 0;
-      cursor: s-resize;
-    }
+#preview {
+  cursor: move;
+}
 
-    .upLeftBtn {
-      top: -5px;
-      left: -5px;
-      cursor: nw-resize;
-    }
+.upBtn {
+  height: 5px;
+  width: calc(100% - 10px);
+  top: 0;
+  cursor: n-resize;
+}
 
-    .upRightBtn {
-      top: -5px;
-      right: -5px;
-      cursor: ne-resize;
-    }
+.downBtn {
+  height: 5px;
+  width: calc(100% - 10px);
+  bottom: 0;
+  cursor: s-resize;
+}
 
-    .downLeftBtn {
-      bottom: -5px;
-      left: -5px;
-      cursor: sw-resize;
-    }
+.upLeftBtn {
+  top: -5px;
+  left: -5px;
+  cursor: nw-resize;
+}
 
-    .downRightBtn {
-      bottom: -5px;
-      right: -5px;
-      cursor: se-resize;
-    }
+.upRightBtn {
+  top: -5px;
+  right: -5px;
+  cursor: ne-resize;
+}
 
-    .centerLeftBtn {
-      width: 5px;
-      height: calc(100% - 10px);
-      left: 0;
-      cursor: w-resize;
-    }
+.downLeftBtn {
+  bottom: -5px;
+  left: -5px;
+  cursor: sw-resize;
+}
 
-    .centerRightBtn {
-      width: 5px;
-      height: calc(100% - 10px);
-      right: 0;
-      cursor: e-resize;
-    }
+.downRightBtn {
+  bottom: -5px;
+  right: -5px;
+  cursor: se-resize;
+}
+
+.centerLeftBtn {
+  width: 5px;
+  height: calc(100% - 10px);
+  left: 0;
+  cursor: w-resize;
+}
+
+.centerRightBtn {
+  width: 5px;
+  height: calc(100% - 10px);
+  right: 0;
+  cursor: e-resize;
+}
