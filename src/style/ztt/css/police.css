@@ -194,7 +194,7 @@
 .sure-row{
     font-size: 13px;
     cursor: pointer;
-    margin-top: 8px;
+    /* margin-top: 8px; */
 }
 .sure-col-l{
     width: 100%;
@@ -303,6 +303,7 @@
     flex-direction: column;
     flex-wrap:wrap;
     justify-content:space-between;
+    height: 123px;
 }
 .time-col{
     overflow: hidden;
