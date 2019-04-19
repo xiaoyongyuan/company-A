@@ -8,6 +8,7 @@ class objShow extends Component {
                 {w: 39, x: 49, h: 219, y: 73, tag: 2},
                 {w: 79, x: 59, h: 219, y: 273, tag: 3},
                 {w: 39, x: 249, h: 219, y: 173, tag: 1},
+                {w: 139, x: 349, h: 219, y: 173, tag: 4},
             ]
         };
     }
@@ -25,12 +26,15 @@ class objShow extends Component {
                 return "动物";
             case 3:
                 return "树";
+            case 4:
+                return "摩托车";
         }
     }
     myCanvas=()=>{
         var c=document.getElementById("myCanvas");
         var ctx=c.getContext("2d");
-        ctx.strokeStyle = "blue";
+        ctx.strokeStyle = "#ECEC00";
+        ctx.lineWidth="2";
         const filed=this.state.filed;
         filed.map((v)=>{
             ctx.beginPath();
@@ -41,16 +45,17 @@ class objShow extends Component {
     fontCanvas=()=>{
         var c=document.getElementById("fontCanvas");
         var ctx=c.getContext("2d");
-        ctx.font="15px 宋体";
-        ctx.strokeStyle = "#13A013";
+        ctx.font="15px 楷体";
+        ctx.fillStyle = 'rgba(20,20,36,0.5)';
+        ctx.strokeStyle = "#fff";
         const filed=this.state.filed;
-        filed.map((v,i)=>{
+        filed.map((v)=>{
             ctx.beginPath();
-            ctx.rect(v.x,v.y-20,0,20);
+            ctx.fillRect(v.x,v.y-20,this.handleType(v.tag).length*20,20);
             ctx.stroke();
         });
         filed.map((v)=>{
-            ctx.strokeText(this.handleType(v.tag),v.x+5,v.y-5);
+            ctx.strokeText(this.handleType(v.tag),v.x+3,v.y-5);
         })
     };
     render() {
