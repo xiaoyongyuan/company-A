@@ -29,13 +29,14 @@ class objShow extends Component {
             case 4:
                 return "摩托车";
         }
-    }
+    };
     myCanvas=()=>{
         var c=document.getElementById("myCanvas");
         var ctx=c.getContext("2d");
         ctx.strokeStyle = "#ECEC00";
         ctx.lineWidth="2";
         const filed=this.state.filed;
+        //绘制围界
         filed.map((v)=>{
             ctx.beginPath();
             ctx.rect(v.x,v.y,v.w,v.h);
@@ -45,18 +46,32 @@ class objShow extends Component {
     fontCanvas=()=>{
         var c=document.getElementById("fontCanvas");
         var ctx=c.getContext("2d");
-        ctx.font="15px 楷体";
+        ctx.font="16px 楷体";
         ctx.fillStyle = 'rgba(20,20,36,0.5)';
         ctx.strokeStyle = "#fff";
         const filed=this.state.filed;
+        //绘制字体的画布
         filed.map((v)=>{
             ctx.beginPath();
-            ctx.fillRect(v.x,v.y-20,this.handleType(v.tag).length*20,20);
+            ctx.fillRect(v.x,v.y-22,this.handleType(v.tag).length*16+10,22);
             ctx.stroke();
         });
+        //绘制字体
         filed.map((v)=>{
-            ctx.strokeText(this.handleType(v.tag),v.x+3,v.y-5);
-        })
+            ctx.strokeText(this.handleType(v.tag),v.x+4,v.y-6);
+        });
+        //绘制三角形
+        filed.map((v)=>{
+            let typeLen=this.handleType(v.tag).length*16+10;
+            ctx.fillStyle = 'rgba(20,20,36,0.5)';
+            ctx.beginPath();
+            ctx.moveTo(v.x+typeLen, v.y-22);
+            ctx.lineTo(v.x+typeLen, v.y);
+            ctx.lineTo(v.x+typeLen+8, v.y);
+            ctx.closePath();
+            ctx.fill();
+        });
+
     };
     render() {
         let objShow={
@@ -64,8 +79,6 @@ class objShow extends Component {
         };
         let labelStyle={
             position: "absolute",
-            top:0,
-            left:0,
         };
         return (
            <div style={objShow}>
