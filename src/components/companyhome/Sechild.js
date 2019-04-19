@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import "../../style/jhy/css/defendarea.css";
-// const blue = "#5063ee";
-// const red = "#ED2F2F";
 class Sechild extends Component {
   constructor(props) {
     super(props);
@@ -102,12 +100,26 @@ class Sechild extends Component {
           clickX = location.x;
           var length = parseInt(preview.style.width) + add_length;
           preview.style.width = length + "px";
+          if (
+            parseInt(preview.style.width) + parseInt(preview.offsetLeft) >
+            704
+          ) {
+            onDragUp();
+            preview.style.left = 703 - parseInt(preview.style.width) + "px";
+          }
           break;
         case "s":
           var add_length = location.y - clickY;
           clickY = location.y;
           var length = parseInt(preview.style.height) + add_length;
           preview.style.height = length + "px";
+          if (
+            parseInt(preview.style.height) + parseInt(preview.offsetTop) >
+            574
+          ) {
+            onDragUp();
+            preview.style.top = 573 - parseInt(preview.style.height) + "px";
+          }
           break;
         case "w":
           var add_length = location.x - clickX;
@@ -115,6 +127,10 @@ class Sechild extends Component {
           var length = parseInt(preview.style.width) - add_length;
           preview.style.width = length + "px";
           preview.style.left = add_length + preview.offsetLeft + "px";
+          if (parseInt(preview.offsetLeft) < 0) {
+            onDragUp();
+            preview.style.left = "1px";
+          }
           break;
         case "n":
           var add_length = location.y - clickY;
@@ -122,6 +138,10 @@ class Sechild extends Component {
           var length = parseInt(preview.style.height) - add_length;
           preview.style.height = length + "px";
           preview.style.top = add_length + preview.offsetTop + "px";
+          if (parseInt(preview.offsetTop) < 0) {
+            onDragUp();
+            preview.style.top = "1px";
+          }
           break;
         case "move":
           var add_lengthX = location.x - clickX; //鼠标移动的距离
@@ -130,17 +150,24 @@ class Sechild extends Component {
           var preDistanceY = add_lengthY + preTop;
           preview.style.top = preDistanceY + "px";
           preview.style.left = preDistanceX + "px";
-          if (
-            preview.style.top < 0 ||
-            preview.style.right < 0 ||
-            preview.style.bottom < 0 ||
-            preview.style.left < 0
-          ) {
+          var comput = getComputedStyle(preview);
+          if (preview.offsetTop < 0) {
             preview.style.top = 0;
-            preview.style.right = 0;
-            preview.style.bottom = 0;
+          }
+          if (preview.offsetLeft < 0) {
             preview.style.left = 0;
           }
+          var totalw = parseInt(preview.offsetLeft) + parseInt(comput.width);
+          var totalh = parseInt(preview.offsetTop) + parseInt(comput.height);
+          if (totalw > 704) {
+            var finalleft = 704 - parseInt(comput.width);
+            preview.style.left = `${finalleft}px`;
+          }
+          if (totalh > 574) {
+            var finaltop = 574 - parseInt(comput.height);
+            preview.style.top = `${finaltop}px`;
+          }
+
           break;
       }
     };
@@ -198,33 +225,22 @@ class Sechild extends Component {
     document.onmousemove = onDragMove;
     document.onmouseup = onDragUp;
   }
-  componentDidUpdate() {
-    var preview = document.getElementById("preview");
-    // console.log(
-    //   preview.getComputedStyle,
-    //   preview.getBoundingClientRect,
-    //   "shujuduixiang"
-    // );
-    // var positObj = preview.get
-    // this.setState({
-
-    // },()=>{
-    //     console.log(topLeftPoint, topRightPoint, bottLeftPoint, bottRightPoint,'suoyuouzuobiao')
-    // })
-  }
   render() {
+    const bordcolor = this.props.color ? this.props.color : "green";
+    const defleft = this.props.left + "px" ? this.props.left : "200px";
+    const deftop = this.props.top + "px" ? this.props.top : "100px";
     return (
       <div
         id="preview"
         style={{
           width: "200px",
-          minWidth: "80px",
+          minWidth: "20px",
           height: "200px",
-          minHeight: "40px",
-          border: "1px solid gray",
+          minHeight: "20px",
+          border: `1px solid ${bordcolor}`,
           position: "absolute",
-          left: "200px",
-          top: "100px",
+          left: defleft,
+          top: deftop,
           zIndex: "10000"
         }}
       >
