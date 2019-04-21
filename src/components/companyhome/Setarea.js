@@ -17,7 +17,11 @@ class Setarea extends Component {
       subbtn1: "确认添加防区一",
       subbtn2: "确认添加防区二",
       opebtn1: "添加防区一",
-      opebtn2: "添加防区二"
+      opebtn2: "添加防区二",
+      opedisable1: false,
+      opedisable2: false,
+      subdisable1: true,
+      subdisable2: true
     };
     this.submit = this.submit.bind(this);
     this.handOperation = this.handOperation.bind(this);
@@ -27,7 +31,11 @@ class Setarea extends Component {
       cid: this.props.query.id
     });
   };
+  componentDidUpdate() {
+    this.renderDefence();
+  }
   componentDidMount() {
+    console.log(document.getElementById("add1").attributes);
     //摄像头详情
     post({ url: "/api/camera/getone", data: { code: this.state.cid } }, res => {
       if (res) {
@@ -37,7 +45,6 @@ class Setarea extends Component {
         if (field) {
           areatwo = field[1] ? JSON.parse(field[1]) : [];
           areatwo = field[2] ? JSON.parse(field[2]) : [];
-          console.log(areatwo);
         }
         this.setState(
           {
@@ -67,6 +74,7 @@ class Setarea extends Component {
     if (this.state.areatwo.length) {
       let areatwo = this.state.areatwo[0];
       console.log(areatwo[0][0]);
+
       return (
         <Sechild
           color={red}
@@ -79,92 +87,219 @@ class Setarea extends Component {
   handOperation(id) {
     switch (id) {
       case 1: {
-        if (this.state.opebtn1 === "添加防区一") {
-          this.setState(
-            {
-              opebtn1: "删除防区一"
-            },
-            () => {
-              this.state.subbtn1 = "确认删除防区一";
-            }
-          );
-        }
-        // document.getElementById("add1").onclick = null;
+        this.setState(
+          {
+            opebtn1: "删除防区一",
+            opedisable1: true,
+            subdisable1: false,
+            opedisable2: true,
+            subdisable2: true,
+            subbtn1: "确认添加防区一"
+          },
+          () => {}
+        );
+        break;
       }
       case 2: {
-        if (this.state.opebtn2 === "添加防区二") {
-          this.setState(
-            {
-              opebtn2: "删除防区二"
-            },
-            () => {
-              this.state.subbtn2 = "确认删除防区二";
-            }
-          );
-        }
+        this.setState(
+          {
+            opebtn2: "删除防区二",
+            opedisable1: true,
+            subdisable1: true,
+            opedisable2: true,
+            subdisable2: false,
+            subbtn2: "确认添加防区二"
+          },
+          () => {}
+        );
+        break;
       }
       default:
         return;
     }
   }
   submit(index) {
+    var defenceState = [];
+    if (this.defence) {
+      defenceState = this.defence.state;
+    }
     switch (index) {
       case 1: {
+        if (this.state.subbtn1 === "确认添加防区一") {
+          this.setState(
+            {
+              opebtn1: "添加防区一",
+              opedisable1: true,
+              opedisable2: false,
+              subdisable1: false,
+              subdisable2: true,
+              subbtn1: "确认删除防区一",
+              present: [
+                defenceState.topLeftPoint,
+                defenceState.topRightPoint,
+                defenceState.bottLeftPoint,
+                defenceState.bottRightPoint
+              ]
+            },
+            () => {
+              this.state.areaone = this.state.present;
+              console.log(this.state.areaone, "this.state.areaone");
+            }
+          );
+          post(
+            {
+              url: "/api/camera/fieldadd",
+              data: {
+                key: 1,
+                field: JSON.stringify([this.state.present]),
+                code: this.state.cid
+              }
+            },
+            res => {
+              if (res) {
+                this.setState(
+                  {
+                    areaone: [this.state.present],
+                    present: []
+                  },
+                  () => {
+                    console.log(
+                      this.state.areaone,
+                      this.state.present,
+                      "添加一返回"
+                    );
+                  }
+                );
+              }
+            }
+          );
+          break;
+        }
         if (this.state.subbtn1 === "确认删除防区一") {
-          console.log("dianjiale");
-          console.log(this.defence, "this");
-          // const decomstyle = getComputedStyle(this.defence);
-          // console.log(window.getComputedStyle(this.defence), "decomstyle");
-          // post({ url: '/api/camera/fieldadd', data: { key: 1, field: JSON.stringify([this.state.present]), code: this.state.cid } }, (res) => {
-          //   if (res) {
-          //     this.setState({
-          //       areaone: [this.state.present],
-          //       present: [],
-          //       subbtn1: '删除防区一'
-
-          //     }, () => {
-          //     });
-
-          //   }
-          // })
-        } else if (this.state.subbtn1 === "删除防区一") {
-          // post({ url: '/api/camera/fielddel', data: { key: 1, code: this.state.cid } }, (res) => {
-          //   if (res) {
-          //     this.setState({
-          //       areaone: [],
-          //       subbtn1:'添加防区一'
-          //     }, () => {
-          //     });
-          //   }
-          // })
-        } else {
-          return;
+          this.setState(
+            {
+              opebtn1: "添加防区一",
+              opedisable1: false,
+              subdisable1: true,
+              opedisable2: false,
+              subdisable2: true,
+              subbtn1: "确认添加防区一"
+            },
+            () => {}
+          );
+          post(
+            {
+              url: "/api/camera/fielddel",
+              data: { key: 1, code: this.state.cid }
+            },
+            res => {
+              if (res) {
+                this.setState(
+                  {
+                    areaone: [],
+                    present: []
+                  },
+                  () => {
+                    console.log(
+                      this.state.areaone,
+                      this.state.present,
+                      "删除一返回"
+                    );
+                  }
+                );
+              }
+            }
+          );
+          break;
         }
       }
       case 2: {
-        if (this.state.subbtn2 === "添加防区二") {
-          // post({ url: '/api/camera/fieldadd', data: { key: 2, field: JSON.stringify([this.state.present]), code: this.state.cid } }, (res) => {
-          //   if (res) {
-          //     this.setState({
-          //       areatwo: [this.state.present],
-          //       present: [],
-          //       subbtn1: '删除防区二'
-          //     }, () => {
-          //     });
-          //   }
-          // })
-        } else if (this.state.subbtn2 === "删除防区二") {
-          // post({ url: '/api/camera/fielddel', data: { key: 2, code: this.state.cid } }, (res) => {
-          //   if (res) {
-          //     this.setState({
-          //       areatwo: [],
-          //       subbtn2: '添加防区二'
-          //     }, () => {
-          //     });
-          //   }
-          // })
-        } else {
-          return;
+        if (this.state.subbtn2 === "确认添加防区二") {
+          this.setState(
+            {
+              opebtn2: "添加防区二",
+              opedisable1: false,
+              subdisable1: true,
+              opedisable2: true,
+              subdisable2: false,
+              subbtn2: "确认删除防区二",
+              present: [
+                defenceState.topLeftPoint,
+                defenceState.topRightPoint,
+                defenceState.bottLeftPoint,
+                defenceState.bottRightPoint
+              ]
+            },
+            () => {
+              this.state.areatwo = this.state.present;
+              console.log(this.state.areatwo, "this.state.areatwo");
+            }
+          );
+          post(
+            {
+              url: "/api/camera/fieldadd",
+              data: {
+                key: 2,
+                field: JSON.stringify([this.state.present]),
+                code: this.state.cid
+              }
+            },
+            res => {
+              if (res) {
+                this.setState(
+                  {
+                    areatwo: [this.state.present],
+                    present: []
+                  },
+                  () => {
+                    console.log(
+                      this.state.areatwo,
+                      this.state.present,
+                      "添加二返回"
+                    );
+                  }
+                );
+              }
+            }
+          );
+          break;
+        }
+        if (this.state.subbtn2 === "确认删除防区二") {
+          this.setState(
+            {
+              opebtn1: "删除防区二",
+              opedisable1: false,
+              subdisable1: true,
+              opedisable2: false,
+              subdisable2: true,
+              subbtn2: "确认添加防区二"
+            },
+            () => {}
+          );
+          post(
+            {
+              url: "/api/camera/fielddel",
+              data: { key: 2, code: this.state.cid }
+            },
+            res => {
+              if (res) {
+                this.setState(
+                  {
+                    areatwo: [],
+                    present: []
+                  },
+                  () => {
+                    console.log(
+                      this.state.areatwo,
+                      this.state.present,
+                      "删除二返回"
+                    );
+                  }
+                );
+              }
+            }
+          );
+          break;
         }
       }
       default:
@@ -178,7 +313,7 @@ class Setarea extends Component {
         <div className="toparea clearfix">
           <div
             className="photo "
-            style={{ background: `url('${this.state.src}') center/100% 100%` }}
+            style={{ background: `url('${this.state.src}') center/cover` }}
           >
             {this.state.areaone.length !== 0 &&
             this.state.areatwo.length !== 0 ? (
@@ -198,15 +333,16 @@ class Setarea extends Component {
               className="queryBtn"
               id="add1"
               onClick={() => this.handOperation(1)}
-              disabled={false}
+              disabled={this.state.opedisable1}
             >
-              {this.state.subbtn1 === "确认添加防区一" && "添加防区一"}
+              添加防区一
             </Button>
             <Button
               type="primary"
               className="queryBtn"
               id="sub1"
               onClick={() => this.submit(1)}
+              disabled={this.state.subdisable1}
             >
               {this.state.subbtn1 === "确认添加防区一"
                 ? "确认添加防区一"
@@ -218,13 +354,15 @@ class Setarea extends Component {
               type="primary"
               className="queryBtn"
               onClick={() => this.handOperation(2)}
+              disabled={this.state.opedisable2}
               id="add2"
             >
-              {this.state.subbtn2 === "确认添加防区二" && "添加防区二"}
+              添加防区二
             </Button>
             <Button
               type="primary"
               className="queryBtn"
+              disabled={this.state.subdisable2}
               onClick={() => this.submit(2)}
               id="sub2"
             >
@@ -238,8 +376,8 @@ class Setarea extends Component {
           <p>
             围界设定方法：
             <br />
-            请在左侧图片处鼠标单击绘制防区，防区均为四边形，
-            每个设备最多可设置两处防区。防区绘制完成后请点击“新增”按钮生效。
+            单击添加防区后根据需求鼠标拖动缩放防区大小或移动防区位置，
+            每个设备最多可设置两处防区。防区绘制完成后请点击“确定添加”按钮生效。
           </p>
         </div>
         <Modal

@@ -4,13 +4,14 @@ class Sechild extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      topLeftPoint: [],
-      topRightPoint: [],
-      bottLeftPoint: [],
-      bottRightPoint: []
+      topLeftPoint: [0, 0],
+      topRightPoint: [200, 0],
+      bottLeftPoint: [0, 200],
+      bottRightPoint: [200, 200]
     };
   }
   componentDidMount() {
+    window.Sechild = this;
     function $(id) {
       return document.getElementById(id);
     }
@@ -31,6 +32,27 @@ class Sechild extends Component {
     var clickY = 0; // 保留上次的Y轴位置
     var preLeft = 0; //保留处理对象的坐标
     var preTop = 0; //保留处理对象的坐标
+    preview = $("preview");
+    var comstyle = window.getComputedStyle(preview);
+
+    window.Sechild.setState(
+      {
+        topLeftPoint: [parseInt(comstyle.left), parseInt(comstyle.top)],
+        topRightPoint: [
+          parseInt(comstyle.left) + parseInt(comstyle.width),
+          parseInt(comstyle.top)
+        ],
+        bottLeftPoint: [
+          parseInt(comstyle.left),
+          parseInt(comstyle.top) + parseInt(comstyle.height)
+        ],
+        bottRightPoint: [
+          parseInt(comstyle.left) + parseInt(comstyle.width),
+          parseInt(comstyle.top) + parseInt(comstyle.height)
+        ]
+      },
+      () => {}
+    );
     // 鼠标点击
     var onDragDown = function(e, type, _this) {
       e = getEvent(e);
@@ -94,6 +116,7 @@ class Sechild extends Component {
     };
     var move = function(operateType, location, preview) {
       document.body.style.cursor = location + "_resize";
+      const comstyle = window.getComputedStyle(preview);
       switch (operateType) {
         case "e":
           var add_length = location.x - clickX;
@@ -107,6 +130,24 @@ class Sechild extends Component {
             onDragUp();
             preview.style.left = 703 - parseInt(preview.style.width) + "px";
           }
+          window.Sechild.setState(
+            {
+              topLeftPoint: [parseInt(comstyle.left), parseInt(comstyle.top)],
+              topRightPoint: [
+                parseInt(comstyle.left) + parseInt(comstyle.width),
+                parseInt(comstyle.top)
+              ],
+              bottLeftPoint: [
+                parseInt(comstyle.left),
+                parseInt(comstyle.top) + parseInt(comstyle.height)
+              ],
+              bottRightPoint: [
+                parseInt(comstyle.left) + parseInt(comstyle.width),
+                parseInt(comstyle.top) + parseInt(comstyle.height)
+              ]
+            },
+            () => {}
+          );
           break;
         case "s":
           var add_length = location.y - clickY;
@@ -120,6 +161,24 @@ class Sechild extends Component {
             onDragUp();
             preview.style.top = 573 - parseInt(preview.style.height) + "px";
           }
+          window.Sechild.setState(
+            {
+              topLeftPoint: [parseInt(comstyle.left), parseInt(comstyle.top)],
+              topRightPoint: [
+                parseInt(comstyle.left) + parseInt(comstyle.width),
+                parseInt(comstyle.top)
+              ],
+              bottLeftPoint: [
+                parseInt(comstyle.left),
+                parseInt(comstyle.top) + parseInt(comstyle.height)
+              ],
+              bottRightPoint: [
+                parseInt(comstyle.left) + parseInt(comstyle.width),
+                parseInt(comstyle.top) + parseInt(comstyle.height)
+              ]
+            },
+            () => {}
+          );
           break;
         case "w":
           var add_length = location.x - clickX;
@@ -131,6 +190,24 @@ class Sechild extends Component {
             onDragUp();
             preview.style.left = "1px";
           }
+          window.Sechild.setState(
+            {
+              topLeftPoint: [parseInt(comstyle.left), parseInt(comstyle.top)],
+              topRightPoint: [
+                parseInt(comstyle.left) + parseInt(comstyle.width),
+                parseInt(comstyle.top)
+              ],
+              bottLeftPoint: [
+                parseInt(comstyle.left),
+                parseInt(comstyle.top) + parseInt(comstyle.height)
+              ],
+              bottRightPoint: [
+                parseInt(comstyle.left) + parseInt(comstyle.width),
+                parseInt(comstyle.top) + parseInt(comstyle.height)
+              ]
+            },
+            () => {}
+          );
           break;
         case "n":
           var add_length = location.y - clickY;
@@ -142,6 +219,24 @@ class Sechild extends Component {
             onDragUp();
             preview.style.top = "1px";
           }
+          window.Sechild.setState(
+            {
+              topLeftPoint: [parseInt(comstyle.left), parseInt(comstyle.top)],
+              topRightPoint: [
+                parseInt(comstyle.left) + parseInt(comstyle.width),
+                parseInt(comstyle.top)
+              ],
+              bottLeftPoint: [
+                parseInt(comstyle.left),
+                parseInt(comstyle.top) + parseInt(comstyle.height)
+              ],
+              bottRightPoint: [
+                parseInt(comstyle.left) + parseInt(comstyle.width),
+                parseInt(comstyle.top) + parseInt(comstyle.height)
+              ]
+            },
+            () => {}
+          );
           break;
         case "move":
           var add_lengthX = location.x - clickX; //鼠标移动的距离
@@ -167,7 +262,24 @@ class Sechild extends Component {
             var finaltop = 574 - parseInt(comput.height);
             preview.style.top = `${finaltop}px`;
           }
-
+          window.Sechild.setState(
+            {
+              topLeftPoint: [parseInt(comstyle.left), parseInt(comstyle.top)],
+              topRightPoint: [
+                parseInt(comstyle.left) + parseInt(comstyle.width),
+                parseInt(comstyle.top)
+              ],
+              bottLeftPoint: [
+                parseInt(comstyle.left),
+                parseInt(comstyle.top) + parseInt(comstyle.height)
+              ],
+              bottRightPoint: [
+                parseInt(comstyle.left) + parseInt(comstyle.width),
+                parseInt(comstyle.top) + parseInt(comstyle.height)
+              ]
+            },
+            () => {}
+          );
           break;
       }
     };
@@ -209,6 +321,7 @@ class Sechild extends Component {
           case "move":
             move("move", location, preview);
             break;
+          default:
         }
       }
       return false;
