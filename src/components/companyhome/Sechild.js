@@ -7,7 +7,9 @@ class Sechild extends Component {
       topLeftPoint: [0, 0],
       topRightPoint: [200, 0],
       bottLeftPoint: [0, 200],
-      bottRightPoint: [200, 200]
+      bottRightPoint: [200, 200],
+      width: "",
+      height: ""
     };
   }
   componentDidMount() {
@@ -49,7 +51,9 @@ class Sechild extends Component {
         bottRightPoint: [
           parseInt(comstyle.left) + parseInt(comstyle.width),
           parseInt(comstyle.top) + parseInt(comstyle.height)
-        ]
+        ],
+        width: "200px",
+        height: "200px"
       },
       () => {}
     );
@@ -144,7 +148,9 @@ class Sechild extends Component {
               bottRightPoint: [
                 parseInt(comstyle.left) + parseInt(comstyle.width),
                 parseInt(comstyle.top) + parseInt(comstyle.height)
-              ]
+              ],
+              width: parseInt(comstyle.width),
+              height: parseInt(comstyle.height)
             },
             () => {}
           );
@@ -175,7 +181,9 @@ class Sechild extends Component {
               bottRightPoint: [
                 parseInt(comstyle.left) + parseInt(comstyle.width),
                 parseInt(comstyle.top) + parseInt(comstyle.height)
-              ]
+              ],
+              width: parseInt(comstyle.width),
+              height: parseInt(comstyle.height)
             },
             () => {}
           );
@@ -204,7 +212,9 @@ class Sechild extends Component {
               bottRightPoint: [
                 parseInt(comstyle.left) + parseInt(comstyle.width),
                 parseInt(comstyle.top) + parseInt(comstyle.height)
-              ]
+              ],
+              width: parseInt(comstyle.width),
+              height: parseInt(comstyle.height)
             },
             () => {}
           );
@@ -233,7 +243,9 @@ class Sechild extends Component {
               bottRightPoint: [
                 parseInt(comstyle.left) + parseInt(comstyle.width),
                 parseInt(comstyle.top) + parseInt(comstyle.height)
-              ]
+              ],
+              width: parseInt(comstyle.width),
+              height: parseInt(comstyle.height)
             },
             () => {}
           );
@@ -276,7 +288,9 @@ class Sechild extends Component {
               bottRightPoint: [
                 parseInt(comstyle.left) + parseInt(comstyle.width),
                 parseInt(comstyle.top) + parseInt(comstyle.height)
-              ]
+              ],
+              width: parseInt(comstyle.width),
+              height: parseInt(comstyle.height)
             },
             () => {}
           );
@@ -340,15 +354,17 @@ class Sechild extends Component {
   }
   render() {
     const bordcolor = this.props.color ? this.props.color : "green";
-    const defleft = this.props.left + "px" ? this.props.left : "200px";
-    const deftop = this.props.top + "px" ? this.props.top : "100px";
+    const defleft = this.props.left ? this.props.left + "px" : "200px";
+    const deftop = this.props.top ? this.props.top + "px" : "100px";
+    const defwidth = this.props.width ? this.props.width + "px" : "200px";
+    const defheight = this.props.height ? this.props.height + "px" : "200px";
     return (
       <div
         id="preview"
         style={{
-          width: "200px",
+          width: defwidth,
           minWidth: "20px",
-          height: "200px",
+          height: defheight,
           minHeight: "20px",
           border: `1px solid ${bordcolor}`,
           position: "absolute",

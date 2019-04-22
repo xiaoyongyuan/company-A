@@ -21,7 +21,9 @@ class Setarea extends Component {
       opedisable1: false,
       opedisable2: false,
       subdisable1: true,
-      subdisable2: true
+      subdisable2: true,
+      defwidth: "",
+      defheight: ""
     };
     this.submit = this.submit.bind(this);
     this.handOperation = this.handOperation.bind(this);
@@ -40,7 +42,7 @@ class Setarea extends Component {
           areaone = [],
           areatwo = [];
         if (field) {
-          areatwo = field[1] ? JSON.parse(field[1]) : [];
+          areaone = field[1] ? JSON.parse(field[1]) : [];
           areatwo = field[2] ? JSON.parse(field[2]) : [];
         }
         this.setState(
@@ -58,6 +60,23 @@ class Setarea extends Component {
   }
   componentDidUpdate() {
     this.renderDefence();
+    if (this.confirmdef1) {
+      console.log(this.confirmdef1, "mmmmmmmmmmmmmmmmmmmmm");
+      this.confirmdef1.onMousemove = () => {
+        alert(1);
+      };
+      // window.addEventListener("mousemove", event => {
+      //   event.cancelBubble = true;
+
+      //   event.returnValue = false;
+
+      //   return false;
+      // });
+    }
+
+    if (this.confirmdef2) {
+      // this.confirmdef2.addEventListener
+    }
   }
   renderDefence = () => {
     if (this.state.areaone.length) {
@@ -71,6 +90,8 @@ class Setarea extends Component {
             color={blue}
             left={parseInt(areaone[0][0])}
             top={parseInt(areaone[0][1])}
+            width={parseInt(this.state.defwidth)}
+            height={parseInt(this.state.defheight)}
           />
         );
       }
@@ -86,33 +107,39 @@ class Setarea extends Component {
             color={red}
             left={parseInt(areatwo[0][0])}
             top={parseInt(areatwo[0][1])}
+            width={parseInt(this.state.defwidth)}
+            height={parseInt(this.state.defheight)}
+            style={{ zIndex: "1015" }}
           />
         );
       }
     }
-    // if (this.state.areaone.length && this.state.areatwo.length) {
-    //   let areaone = this.state.areaone[0];
+    if (this.state.areaone.length && this.state.areatwo.length) {
+      let areaone = this.state.areaone[0];
 
-    //   let areatwo = this.state.areatwo[0];
-    //   console.log(areaone, areatwo, "第91hang");
-    //   if (areaone.length && areatwo.length) {
-    //     return (
-    //       <Fragment>
-    //         <Sechild
-    //           color={blue}
-    //           left={parseInt(areaone[0][0])}
-    //           top={parseInt(areaone[0][1])}
-    //         />
-    //         <Sechild
-    //           color={red}
-    //           left={parseInt(areatwo[0][0])}
-    //           top={parseInt(areatwo[0][1])}
-    //           style={{ zIndex: "1010" }}
-    //         />
-    //       </Fragment>
-    //     );
-    //   }
-    // }
+      let areatwo = this.state.areatwo[0];
+      if (areaone.length && areatwo.length) {
+        return (
+          <Fragment>
+            <Sechild
+              color={blue}
+              left={parseInt(areaone[0][0])}
+              top={parseInt(areaone[0][1])}
+              width={parseInt(this.state.defwidth)}
+              height={parseInt(this.state.defheight)}
+            />
+            <Sechild
+              color={red}
+              left={parseInt(areatwo[0][0])}
+              top={parseInt(areatwo[0][1])}
+              style={{ zIndex: "1020" }}
+              width={parseInt(this.state.defwidth)}
+              height={parseInt(this.state.defheight)}
+            />
+          </Fragment>
+        );
+      }
+    }
   };
   handOperation(id) {
     switch (id) {
@@ -176,7 +203,9 @@ class Setarea extends Component {
                 defenceState.topRightPoint,
                 defenceState.bottLeftPoint,
                 defenceState.bottRightPoint
-              ]
+              ],
+              defwidth: defenceState.width,
+              defheight: defenceState.height
             },
             () => {
               this.state.areaone = this.state.present;
@@ -210,11 +239,12 @@ class Setarea extends Component {
               }
             }
           );
-          //          if (this.confirmdef1) {
-          //            this.confirmdef1.addEventListener("mousemove", function(ev) {
-          //              return;
-          //            });
-          //          }
+          if (this.confirmdef1) {
+            console.log(this.confirmdef1.childNodes, "66666666666666");
+            this.confirmdef1.onMousemove = function() {
+              console.log("移动了");
+            };
+          }
           break;
         }
         if (this.state.subbtn1 === "确认删除防区一") {
@@ -252,6 +282,13 @@ class Setarea extends Component {
               }
             }
           );
+          if (this.state.subbtn2 === "确认删除防区二") {
+            this.setState({
+              opedisable1: false,
+              opedisable2: true,
+              subdisable2: false
+            });
+          }
           break;
         }
       }
@@ -275,7 +312,9 @@ class Setarea extends Component {
                 defenceState.topRightPoint,
                 defenceState.bottLeftPoint,
                 defenceState.bottRightPoint
-              ]
+              ],
+              defwidth: defenceState.width,
+              defheight: defenceState.height
             },
             () => {
               this.state.areatwo = this.state.present;
@@ -310,11 +349,12 @@ class Setarea extends Component {
               }
             }
           );
-          //          if (this.confirmdef2) {
-          //            this.confirmdef2.addEventListener("mousemove", function() {
-          //              return;
-          //            });
-          //          }
+          if (this.state.subbtn1 === "确认删除防区一") {
+            this.setState({
+              subdisable1: false,
+              opedisable1: true
+            });
+          }
           break;
         }
         if (this.state.subbtn2 === "确认删除防区二") {
@@ -331,7 +371,7 @@ class Setarea extends Component {
           );
           if (this.state.subbtn1 === "确认添加防区一") {
             this.setState({
-              subdisable1: false
+              subdisable1: true
             });
           }
           post(
