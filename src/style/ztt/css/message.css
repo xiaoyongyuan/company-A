@@ -1,0 +1,70 @@
+.Messages{
+    width: 90%;
+    padding: 20px 20px;
+}
+.Messages .ant-tabs-tab,.ant-tabs-tabpane{
+    color: #fff;
+}
+.Messages .messages-top{
+   border: 1px solid #8e8888;
+   border-radius: 4px;
+}
+.Messages .ant-tabs-bar {
+    border-bottom: 1px solid #686e8a;
+}
+.Messages .ant-collapse > .ant-collapse-item{
+    border-bottom: 1px solid #646169;
+}
+.Messages .ant-collapse > .ant-collapse-item > .ant-collapse-header{
+    background: #323A5D;
+    color: #fff!important;
+}
+.Messages .ant-collapse-content {
+    color: #f7f4f4;
+    background-color: #323A5D;
+    border-top: 1px solid #323A5D;
+}
+.Messages .ant-collapse{
+    border: 1px solid #323A5D;
+}
+.Messages .messTime{
+    display: flex;
+}
+.Messages .messAll{
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+}
+.Messages .mesICon{
+    width: 3rem;
+    height: 3rem;
+}
+.Messages .mesICon img{
+    width:100%;
+    height:100%;
+}
+.Messages .messData{
+    width: 12%;
+}
+.Messages .messFont span:nth-child(1){
+    font-size: 16px;
+    display: block;
+    margin: 0 10px -3px 15px;
+}
+.Messages .messFont span:nth-child(2){
+    display: block;
+    margin: 10px 10px -3px 15px;
+}
+.Messages .ant-badge-dot{
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 100%;
+    background: #f5222d;
+    box-shadow: 0 0 0 1px #fff;
+}
+.Messages .panelText{
+    margin-left: 20px;
+}
+.Messages .ant-tabs-ink-bar{
+    background-color: #5E98F7;
+}
