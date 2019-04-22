@@ -32,6 +32,7 @@ export default {
             subs: [
                 { key: '/app/settings/employeelist', identi:['comp','comptop','user'], title: '用户管理', funct:'basic', component: 'Employeelist'}, 
                 { key: '/app/settings/objShow', identi:['comp','comptop','user'], title: '报警对象展示', funct:'basic', component: 'objShow'}, 
+                { key: '/app/settings/messages', identi:['comp','comptop','user'], title: '消息查看', funct:'basic', component: 'Messages'}, 
                 
                 // { key: '/app/settings/loglist', identi:['comp','comptop','user'], title: '日志', funct:'basic', component: 'Loglist'},             
             ],

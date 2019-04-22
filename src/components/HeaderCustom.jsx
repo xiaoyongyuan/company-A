@@ -47,7 +47,7 @@ class HeaderCustom extends Component {
         }else{
             
             
-            this.goEasyinit('17792542304')
+            //this.goEasyinit('17792542304')
 
             this.setState({
                 user: _user,
@@ -55,6 +55,7 @@ class HeaderCustom extends Component {
         }
     };
     goEasyinit(uid){ //goeasy消息
+
         goEasy.subscribe({
             channel:uid,
             onMessage: function (message) {
