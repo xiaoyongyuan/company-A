@@ -27,10 +27,13 @@ import Equipment from "./userhome/Equipment";
 import Userhome from "./userhome/Userhome";
 import Userdeveice from "./userhome/Userdeveice"; //设备信息
 
+
 //系统管理
 import Loglist from "./settings/Loglist";
 import Employeelist from "./settings/Employeelist";
 import objShow from "./settings/objShow"; //报警对象展示，测试页面
+import Messages from "./settings/Messages";
+
 
 //巡更
 import PatrolPlan from "./patrol/PatrolPlan";
@@ -83,5 +86,6 @@ export default {
   RollcallHostory,
   AdoptLook,
   Live,
-  objShow
+  objShow,
+  Messages,
 };
