@@ -109,6 +109,7 @@ class Setarea extends Component {
             top={parseInt(areatwo[0][1])}
             width={parseInt(this.state.defwidth)}
             height={parseInt(this.state.defheight)}
+            style={{ zIndex: "1015" }}
           />
         );
       }
@@ -131,7 +132,7 @@ class Setarea extends Component {
               color={red}
               left={parseInt(areatwo[0][0])}
               top={parseInt(areatwo[0][1])}
-              style={{ zIndex: "1010" }}
+              style={{ zIndex: "1020" }}
               width={parseInt(this.state.defwidth)}
               height={parseInt(this.state.defheight)}
             />
@@ -238,7 +239,12 @@ class Setarea extends Component {
               }
             }
           );
-
+          if (this.confirmdef1) {
+            console.log(this.confirmdef1.childNodes, "66666666666666");
+            this.confirmdef1.onMousemove = function() {
+              console.log("移动了");
+            };
+          }
           break;
         }
         if (this.state.subbtn1 === "确认删除防区一") {
