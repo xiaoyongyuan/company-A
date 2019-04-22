@@ -67,6 +67,9 @@ class Setarea extends Component {
       if (areaone.length) {
         return (
           <Sechild
+            ref={confirmdef1 => {
+              this.confirmdef1 = confirmdef1;
+            }}
             color={blue}
             left={parseInt(areaone[0][0])}
             top={parseInt(areaone[0][1])}
@@ -80,6 +83,9 @@ class Setarea extends Component {
       if (areatwo.length) {
         return (
           <Sechild
+            ref={confirmdef2 => {
+              this.confirmdef2 = confirmdef2;
+            }}
             color={red}
             left={parseInt(areatwo[0][0])}
             top={parseInt(areatwo[0][1])}
@@ -87,29 +93,29 @@ class Setarea extends Component {
         );
       }
     }
-    if (this.state.areaone.length && this.state.areatwo.length) {
-      let areaone = this.state.areaone[0];
+    // if (this.state.areaone.length && this.state.areatwo.length) {
+    //   let areaone = this.state.areaone[0];
 
-      let areatwo = this.state.areatwo[0];
-      console.log(areaone, areatwo, "第91hang");
-      if (areaone.length && areatwo.length) {
-        return (
-          <Fragment>
-            <Sechild
-              color={blue}
-              left={parseInt(areaone[0][0])}
-              top={parseInt(areaone[0][1])}
-            />
-            <Sechild
-              color={red}
-              left={parseInt(areatwo[0][0])}
-              top={parseInt(areatwo[0][1])}
-              style={{ zIndex: "1010" }}
-            />
-          </Fragment>
-        );
-      }
-    }
+    //   let areatwo = this.state.areatwo[0];
+    //   console.log(areaone, areatwo, "第91hang");
+    //   if (areaone.length && areatwo.length) {
+    //     return (
+    //       <Fragment>
+    //         <Sechild
+    //           color={blue}
+    //           left={parseInt(areaone[0][0])}
+    //           top={parseInt(areaone[0][1])}
+    //         />
+    //         <Sechild
+    //           color={red}
+    //           left={parseInt(areatwo[0][0])}
+    //           top={parseInt(areatwo[0][1])}
+    //           style={{ zIndex: "1010" }}
+    //         />
+    //       </Fragment>
+    //     );
+    //   }
+    // }
   };
   handOperation(id) {
     switch (id) {
@@ -128,6 +134,10 @@ class Setarea extends Component {
         break;
       }
       case 2: {
+        // if(this.state.areaone.length!==0){
+        //   localStorage.setItem('S_areaone', this.state.areaone);
+        //   this.setState({areaone:[]})
+        // }
         this.setState(
           {
             opebtn2: "删除防区二",
@@ -203,6 +213,11 @@ class Setarea extends Component {
               }
             }
           );
+//          if (this.confirmdef1) {
+//            this.confirmdef1.addEventListener("mousemove", function(ev) {
+//              return;
+//            });
+//          }
           break;
         }
         if (this.state.subbtn1 === "确认删除防区一") {
@@ -245,6 +260,11 @@ class Setarea extends Component {
       }
       case 2: {
         if (this.state.subbtn2 === "确认添加防区二") {
+          // if (localStorage.getItem('S_areaone')!==''){
+          //   this.setState({
+          //     areaone: localStorage.getItem('S_areaone')
+          //   })
+          // }
           this.setState(
             {
               opebtn2: "添加防区二",
@@ -279,6 +299,7 @@ class Setarea extends Component {
                 this.setState(
                   {
                     areatwo: [this.state.present],
+
                     present: []
                   },
                   () => {
@@ -292,6 +313,11 @@ class Setarea extends Component {
               }
             }
           );
+//          if (this.confirmdef2) {
+//            this.confirmdef2.addEventListener("mousemove", function() {
+//              return;
+//            });
+//          }
           break;
         }
         if (this.state.subbtn2 === "确认删除防区二") {
