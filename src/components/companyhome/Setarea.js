@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Row, Col, Button, Modal } from "antd";
+import ReactDom from "react-dom";
 import "../../style/jhy/css/setarea.css";
 import { post } from "../../axios/tools";
 import Sechild from "./Sechild";
@@ -61,21 +62,24 @@ class Setarea extends Component {
   componentDidUpdate() {
     this.renderDefence();
     if (this.confirmdef1) {
-      console.log(this.confirmdef1, "mmmmmmmmmmmmmmmmmmmmm");
-      this.confirmdef1.onMousemove = () => {
-        alert(1);
-      };
-      // window.addEventListener("mousemove", event => {
-      //   event.cancelBubble = true;
-
-      //   event.returnValue = false;
-
-      //   return false;
+      // console.log(this.confirmdef1, "mmmmmmmmmmmmmmmmmmmmm");
+      // this.confirmdef1.addEventListener("mousemove", event => {
+      //   return;
       // });
+      ReactDom.findDOMNode(this.confirmdef1).getElementsByClassName(
+        "centerContext"
+      )[0].onmousemove = function(ev) {
+        // alert(7);
+        ev.stopPropagation();
+        ev.cancelBubble = true;
+        ev.preventDefault();
+        ev.returnValue = false;
+        // ev.nativeEvent.stopImmediatePropagation();
+        return false;
+      };
     }
 
     if (this.confirmdef2) {
-      // this.confirmdef2.addEventListener
     }
   }
   renderDefence = () => {
@@ -239,12 +243,7 @@ class Setarea extends Component {
               }
             }
           );
-          if (this.confirmdef1) {
-            console.log(this.confirmdef1.childNodes, "66666666666666");
-            this.confirmdef1.onMousemove = function() {
-              console.log("移动了");
-            };
-          }
+
           break;
         }
         if (this.state.subbtn1 === "确认删除防区一") {
