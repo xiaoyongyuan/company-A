@@ -252,6 +252,13 @@ class Setarea extends Component {
               }
             }
           );
+          if (this.state.subbtn2 === "确认删除防区二") {
+            this.setState({
+              opedisable1: false,
+              opedisable2: true,
+              subdisable2: false
+            });
+          }
           break;
         }
       }
@@ -315,6 +322,12 @@ class Setarea extends Component {
           //              return;
           //            });
           //          }
+          if (this.state.subbtn1 === "确认删除防区一") {
+            this.setState({
+              subdisable1: false,
+              opedisable1: true
+            });
+          }
           break;
         }
         if (this.state.subbtn2 === "确认删除防区二") {
@@ -331,7 +344,7 @@ class Setarea extends Component {
           );
           if (this.state.subbtn1 === "确认添加防区一") {
             this.setState({
-              subdisable1: false
+              subdisable1: true
             });
           }
           post(
