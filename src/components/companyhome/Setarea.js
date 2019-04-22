@@ -33,7 +33,6 @@ class Setarea extends Component {
   };
 
   componentDidMount() {
-    console.log(document.getElementById("add1").attributes);
     //摄像头详情
     post({ url: "/api/camera/getone", data: { code: this.state.cid } }, res => {
       if (res) {
@@ -63,7 +62,6 @@ class Setarea extends Component {
   renderDefence = () => {
     if (this.state.areaone.length) {
       let areaone = this.state.areaone[0];
-      console.log(areaone, "第66hang");
       if (areaone.length) {
         return (
           <Sechild
@@ -79,7 +77,6 @@ class Setarea extends Component {
     }
     if (this.state.areatwo.length) {
       let areatwo = this.state.areatwo[0];
-      console.log(areatwo, "第八十hang");
       if (areatwo.length) {
         return (
           <Sechild
@@ -213,11 +210,11 @@ class Setarea extends Component {
               }
             }
           );
-//          if (this.confirmdef1) {
-//            this.confirmdef1.addEventListener("mousemove", function(ev) {
-//              return;
-//            });
-//          }
+          //          if (this.confirmdef1) {
+          //            this.confirmdef1.addEventListener("mousemove", function(ev) {
+          //              return;
+          //            });
+          //          }
           break;
         }
         if (this.state.subbtn1 === "确认删除防区一") {
@@ -313,11 +310,11 @@ class Setarea extends Component {
               }
             }
           );
-//          if (this.confirmdef2) {
-//            this.confirmdef2.addEventListener("mousemove", function() {
-//              return;
-//            });
-//          }
+          //          if (this.confirmdef2) {
+          //            this.confirmdef2.addEventListener("mousemove", function() {
+          //              return;
+          //            });
+          //          }
           break;
         }
         if (this.state.subbtn2 === "确认删除防区二") {
@@ -369,7 +366,6 @@ class Setarea extends Component {
   }
 
   render() {
-    console.log(this.state.opebtn1, this.state.opebtn2, "342hang");
     return (
       <div className="setarea ">
         <div className="toparea clearfix">
