@@ -62,24 +62,21 @@ class Setarea extends Component {
   componentDidUpdate() {
     this.renderDefence();
     if (this.confirmdef1) {
-      // console.log(this.confirmdef1, "mmmmmmmmmmmmmmmmmmmmm");
-      // this.confirmdef1.addEventListener("mousemove", event => {
-      //   return;
-      // });
       ReactDom.findDOMNode(this.confirmdef1).getElementsByClassName(
         "centerContext"
-      )[0].onmousemove = function(ev) {
-        // alert(7);
+      )[0].style.cursor = "point";
+      document.body.onmousemove = function(ev) {
         ev.stopPropagation();
-        ev.cancelBubble = true;
-        ev.preventDefault();
-        ev.returnValue = false;
-        // ev.nativeEvent.stopImmediatePropagation();
-        return false;
       };
     }
 
     if (this.confirmdef2) {
+      ReactDom.findDOMNode(this.confirmdef2).getElementsByClassName(
+        "centerContext"
+      )[0].style.cursor = "point";
+      document.body.onmousemove = function(ev) {
+        ev.stopPropagation();
+      };
     }
   }
   renderDefence = () => {
