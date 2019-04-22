@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Row, Col, Button, Modal } from "antd";
 import "../../style/jhy/css/setarea.css";
 import { post } from "../../axios/tools";
@@ -31,9 +31,7 @@ class Setarea extends Component {
       cid: this.props.query.id
     });
   };
-  componentDidUpdate() {
-    this.renderDefence();
-  }
+
   componentDidMount() {
     console.log(document.getElementById("add1").attributes);
     //摄像头详情
@@ -59,29 +57,58 @@ class Setarea extends Component {
       }
     });
   }
+  componentDidUpdate() {
+    this.renderDefence();
+  }
   renderDefence = () => {
     if (this.state.areaone.length) {
       let areaone = this.state.areaone[0];
-      console.log(areaone[0][0]);
-      return (
-        <Sechild
-          color={blue}
-          left={parseInt(areaone[0][0])}
-          top={parseInt(areaone[0][1])}
-        />
-      );
+      console.log(areaone, "第66hang");
+      if (areaone.length) {
+        return (
+          <Sechild
+            color={blue}
+            left={parseInt(areaone[0][0])}
+            top={parseInt(areaone[0][1])}
+          />
+        );
+      }
     }
     if (this.state.areatwo.length) {
       let areatwo = this.state.areatwo[0];
-      console.log(areatwo[0][0]);
+      console.log(areatwo, "第八十hang");
+      if (areatwo.length) {
+        return (
+          <Sechild
+            color={red}
+            left={parseInt(areatwo[0][0])}
+            top={parseInt(areatwo[0][1])}
+          />
+        );
+      }
+    }
+    if (this.state.areaone.length && this.state.areatwo.length) {
+      let areaone = this.state.areaone[0];
 
-      return (
-        <Sechild
-          color={red}
-          left={parseInt(areatwo[0][0])}
-          top={parseInt(areatwo[0][1])}
-        />
-      );
+      let areatwo = this.state.areatwo[0];
+      console.log(areaone, areatwo, "第91hang");
+      if (areaone.length && areatwo.length) {
+        return (
+          <Fragment>
+            <Sechild
+              color={blue}
+              left={parseInt(areaone[0][0])}
+              top={parseInt(areaone[0][1])}
+            />
+            <Sechild
+              color={red}
+              left={parseInt(areatwo[0][0])}
+              top={parseInt(areatwo[0][1])}
+              style={{ zIndex: "1010" }}
+            />
+          </Fragment>
+        );
+      }
     }
   };
   handOperation(id) {
@@ -112,6 +139,9 @@ class Setarea extends Component {
           },
           () => {}
         );
+        if (this.state.subbtn1 === "确认删除防区一") {
+          this.setState({ subdisable1: true });
+        }
         break;
       }
       default:
@@ -267,7 +297,7 @@ class Setarea extends Component {
         if (this.state.subbtn2 === "确认删除防区二") {
           this.setState(
             {
-              opebtn1: "删除防区二",
+              opebtn2: "添加防区二",
               opedisable1: false,
               subdisable1: true,
               opedisable2: false,
@@ -276,6 +306,11 @@ class Setarea extends Component {
             },
             () => {}
           );
+          if (this.state.subbtn1 === "确认添加防区一") {
+            this.setState({
+              subdisable1: false
+            });
+          }
           post(
             {
               url: "/api/camera/fielddel",
@@ -308,6 +343,7 @@ class Setarea extends Component {
   }
 
   render() {
+    console.log(this.state.opebtn1, this.state.opebtn2, "342hang");
     return (
       <div className="setarea ">
         <div className="toparea clearfix">
@@ -315,11 +351,11 @@ class Setarea extends Component {
             className="photo "
             style={{ background: `url('${this.state.src}') center/cover` }}
           >
-            {this.state.areaone.length !== 0 &&
-            this.state.areatwo.length !== 0 ? (
-              this.renderDefence()
-            ) : this.state.opebtn1 === "删除防区一" ||
-              this.state.opebtn2 === "删除防区二" ? (
+            {(this.state.areaone.length !== 0 ||
+              this.state.areatwo.length !== 0) &&
+              this.renderDefence()}
+            {this.state.opebtn1 === "删除防区一" ||
+            this.state.opebtn2 === "删除防区二" ? (
               <Sechild
                 ref={defence => {
                   this.defence = defence;

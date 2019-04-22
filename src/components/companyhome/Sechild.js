@@ -354,7 +354,7 @@ class Sechild extends Component {
           position: "absolute",
           left: defleft,
           top: deftop,
-          zIndex: "10000"
+          zIndex: "1000"
         }}
       >
         <div className="upBtn" id="upBtn" />
