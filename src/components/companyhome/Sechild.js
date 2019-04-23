@@ -12,6 +12,16 @@ class Sechild extends Component {
       height: ""
     };
   }
+  componentWillReceiveProps(props) {
+    if (props !== this.props) {
+      console.log(props);
+      console.log("gaimianle ");
+    }
+
+    // document.body.addEventListener("mousemove", function(ev) {
+    //   return;
+    // });
+  }
   componentDidMount() {
     window.Sechild = this;
     function $(id) {
@@ -352,6 +362,7 @@ class Sechild extends Component {
     document.onmousemove = onDragMove;
     document.onmouseup = onDragUp;
   }
+
   render() {
     const bordcolor = this.props.color ? this.props.color : "green";
     const defleft = this.props.left ? this.props.left + "px" : "200px";
