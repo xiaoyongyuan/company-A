@@ -24,7 +24,8 @@ class Setarea extends Component {
       subdisable1: true,
       subdisable2: true,
       defwidth: "",
-      defheight: ""
+      defheight: "",
+      iscancle: false
     };
     this.submit = this.submit.bind(this);
     this.handOperation = this.handOperation.bind(this);
@@ -62,27 +63,24 @@ class Setarea extends Component {
   componentDidUpdate() {
     this.renderDefence();
     if (this.confirmdef1) {
-      // console.log(this.confirmdef1, "mmmmmmmmmmmmmmmmmmmmm");
-      // this.confirmdef1.addEventListener("mousemove", event => {
-      //   return;
-      // });
-      ReactDom.findDOMNode(this.confirmdef1).getElementsByClassName(
-        "centerContext"
-      )[0].onmousemove = function(ev) {
-        // alert(7);
+      document.onmousemove = function(ev) {
         ev.stopPropagation();
-        ev.cancelBubble = true;
-        ev.preventDefault();
-        ev.returnValue = false;
-        // ev.nativeEvent.stopImmediatePropagation();
-        return false;
       };
     }
 
     if (this.confirmdef2) {
+      document.body.onmousemove = function(ev) {
+        ev.stopPropagation();
+      };
     }
   }
   renderDefence = () => {
+    const locone = localStorage.getItem("areaone");
+    const loctwo = localStorage.getItem("areatwo");
+    console.log(locone, loctwo, "本地数据");
+    if (locone !== null && loctwo !== null) {
+      console.log("!!!!!!!!!!!!!lainggefangqu!!!!!!!!!!!!");
+    }
     if (this.state.areaone.length) {
       let areaone = this.state.areaone[0];
       if (areaone.length) {
@@ -118,32 +116,32 @@ class Setarea extends Component {
         );
       }
     }
-    if (this.state.areaone.length && this.state.areatwo.length) {
-      let areaone = this.state.areaone[0];
+    // if (this.state.areaone.length && this.state.areatwo.length) {
+    //   let areaone = this.state.areaone[0];
 
-      let areatwo = this.state.areatwo[0];
-      if (areaone.length && areatwo.length) {
-        return (
-          <Fragment>
-            <Sechild
-              color={blue}
-              left={parseInt(areaone[0][0])}
-              top={parseInt(areaone[0][1])}
-              width={parseInt(this.state.defwidth)}
-              height={parseInt(this.state.defheight)}
-            />
-            <Sechild
-              color={red}
-              left={parseInt(areatwo[0][0])}
-              top={parseInt(areatwo[0][1])}
-              style={{ zIndex: "1020" }}
-              width={parseInt(this.state.defwidth)}
-              height={parseInt(this.state.defheight)}
-            />
-          </Fragment>
-        );
-      }
-    }
+    //   let areatwo = this.state.areatwo[0];
+    //   if (areaone.length && areatwo.length) {
+    //     return (
+    //       <Fragment>
+    //         <Sechild
+    //           color={blue}
+    //           left={parseInt(areaone[0][0])}
+    //           top={parseInt(areaone[0][1])}
+    //           width={parseInt(this.state.defwidth)}
+    //           height={parseInt(this.state.defheight)}
+    //         />
+    //         <Sechild
+    //           color={red}
+    //           left={parseInt(areatwo[0][0])}
+    //           top={parseInt(areatwo[0][1])}
+    //           style={{ zIndex: "1020" }}
+    //           width={parseInt(this.state.defwidth)}
+    //           height={parseInt(this.state.defheight)}
+    //         />
+    //       </Fragment>
+    //     );
+    //   }
+    // }
   };
   handOperation(id) {
     switch (id) {
@@ -159,13 +157,33 @@ class Setarea extends Component {
           },
           () => {}
         );
+        if (this.state.areatwo.length) {
+          let areatwo = this.state.areatwo[0];
+          localStorage.setItem("loctwo", areatwo);
+          // if (localStorage.getItem("locone") !== "") {
+          //   localStorage.setItem("locone", "");
+          // }
+          if (areatwo.length) {
+            this.setState({
+              areatwo: []
+            });
+          }
+        }
         break;
       }
       case 2: {
-        // if(this.state.areaone.length!==0){
-        //   localStorage.setItem('S_areaone', this.state.areaone);
-        //   this.setState({areaone:[]})
-        // }
+        if (this.state.areaone.length) {
+          let areaone = this.state.areaone[0];
+          localStorage.setItem("locone", areaone);
+          // if (localStorage.getItem("loctwo") !== "") {
+          //   localStorage.setItem("loctwo", "");
+          // }
+          if (areaone.length) {
+            this.setState({
+              areaone: []
+            });
+          }
+        }
         this.setState(
           {
             opebtn2: "删除防区二",
@@ -213,6 +231,8 @@ class Setarea extends Component {
             },
             () => {
               this.state.areaone = this.state.present;
+              localStorage.setItem("locone", this.state.present);
+
               console.log(this.state.areaone, "this.state.areaone");
             }
           );
@@ -227,6 +247,7 @@ class Setarea extends Component {
             },
             res => {
               if (res) {
+                console.log(res, "添加一后台返回");
                 this.setState(
                   {
                     areaone: [this.state.present],
@@ -247,6 +268,8 @@ class Setarea extends Component {
           break;
         }
         if (this.state.subbtn1 === "确认删除防区一") {
+          localStorage.setItem("locone", "");
+
           this.setState(
             {
               opebtn1: "添加防区一",
@@ -265,6 +288,8 @@ class Setarea extends Component {
             },
             res => {
               if (res) {
+                console.log(res, "删除一后台返回");
+
                 this.setState(
                   {
                     areaone: [],
@@ -293,11 +318,6 @@ class Setarea extends Component {
       }
       case 2: {
         if (this.state.subbtn2 === "确认添加防区二") {
-          // if (localStorage.getItem('S_areaone')!==''){
-          //   this.setState({
-          //     areaone: localStorage.getItem('S_areaone')
-          //   })
-          // }
           this.setState(
             {
               opebtn2: "添加防区二",
@@ -317,6 +337,8 @@ class Setarea extends Component {
             },
             () => {
               this.state.areatwo = this.state.present;
+              localStorage.setItem("loctwo", this.state.present);
+
               console.log(this.state.areatwo, "this.state.areatwo");
             }
           );
@@ -331,6 +353,8 @@ class Setarea extends Component {
             },
             res => {
               if (res) {
+                console.log(res, "添加二后台返回");
+
                 this.setState(
                   {
                     areatwo: [this.state.present],
@@ -357,6 +381,7 @@ class Setarea extends Component {
           break;
         }
         if (this.state.subbtn2 === "确认删除防区二") {
+          localStorage.setItem("loctwo", "");
           this.setState(
             {
               opebtn2: "添加防区二",
@@ -380,6 +405,8 @@ class Setarea extends Component {
             },
             res => {
               if (res) {
+                console.log(res, "删除二后台返回");
+
                 this.setState(
                   {
                     areatwo: [],
