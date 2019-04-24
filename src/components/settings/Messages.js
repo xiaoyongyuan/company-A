@@ -56,7 +56,7 @@ class Messages extends Component {
         })
     };
     //折叠面板
-    callbackCollapse=(keyCollapse,type,key)=> {
+    callbackCollapse=(key)=> {
         if(key){
             post({url:"/api/alarminfo/getone",data:{code:key,atype:this.state.atypeTab,searchtype:this.state.sreachTab}},(res)=>{
                 if(res.success){
@@ -172,6 +172,11 @@ class Messages extends Component {
             </div>
             )
     };
+    handleNodata=()=>{
+        return(
+            <div className="nodatas" style={{display:this.state.listsMess.length?"none":"block"}}><img src={nodata} /></div>
+        )
+    };
     render() {
         return (
            <div className="Messages">
@@ -179,8 +184,8 @@ class Messages extends Component {
                    <Tabs defaultActiveKey="1" onChange={this.callbackTab}>
                        <TabPane tab="全部" key="1">
                            <Spin size="large" spinning={this.state.loading}>
-                               <Collapse onChange={(key)=>this.callbackCollapse("全部",1,key)} accordion>
-                                   {this.state.listsMess.length?this.state.listsMess.map((v,i)=>(
+                               <Collapse onChange={this.callbackCollapse} accordion>
+                                   {this.state.listsMess.map((v,i)=>(
                                            <Panel header={
                                                <div className="messTime">
                                                    <div className="messAll">
@@ -198,16 +203,17 @@ class Messages extends Component {
                                            >
                                              {this.panelText()}
                                            </Panel>
-                                       )):<div className="nodatas"><img src={nodata} /></div>
+                                       ))
                                    }
                                </Collapse>
+                               {this.handleNodata()}
                                {this.pagination()}
                            </Spin>
                        </TabPane>
                        <TabPane tab="异动" key="2">
                            <Spin size="large" spinning={this.state.loading}>
-                               <Collapse onChange={(key)=>this.callbackCollapse("异动",2,key)} accordion>
-                                   {this.state.listsMess.length?this.state.listsMess.map((v)=>(
+                               <Collapse onChange={this.callbackCollapse} accordion>
+                                   {this.state.listsMess.map((v)=>(
                                        <Panel header={
                                            <div className="messTime">
                                                <div className="messAll">
@@ -225,16 +231,17 @@ class Messages extends Component {
                                        >
                                            {this.panelText()}
                                        </Panel>
-                                   )):<div className="nodatas"><img src={nodata} /></div>
+                                   ))
                                    }
                                </Collapse>
                            </Spin>
+                           {this.handleNodata()}
                            {this.pagination()}
                        </TabPane>
                        <TabPane tab="整点打卡" key="12">
                            <Spin size="large" spinning={this.state.loading}>
-                               <Collapse onChange={(key)=>this.callbackCollapse("整点打卡",12,key)} accordion>
-                                   {this.state.listsMess.length?this.state.listsMess.map((v)=>(
+                               <Collapse onChange={this.callbackCollapse} accordion>
+                                   {this.state.listsMess.map((v)=>(
                                        <Panel header={
                                            <div className="messTime">
                                                <div className="messAll">
@@ -252,16 +259,17 @@ class Messages extends Component {
                                        >
                                            {this.panelText()}
                                        </Panel>
-                                   )):<div className="nodatas"><img src={nodata} /></div>
+                                   ))
                                    }
                                </Collapse>
                            </Spin>
+                           {this.handleNodata()}
                            {this.pagination()}
                        </TabPane>
                        <TabPane tab="值守报表" key="7008">
                            <Spin size="large" spinning={this.state.loading}>
-                               <Collapse onChange={(key)=>this.callbackCollapse("值守报表",7008,key)} accordion>
-                                   {this.state.listsMess.length?this.state.listsMess.map((v)=>(
+                               <Collapse onChange={this.callbackCollapse} accordion>
+                                   {this.state.listsMess.map((v)=>(
                                        <Panel header={
                                            <div className="messTime">
                                                <div className="messAll">
@@ -279,16 +287,17 @@ class Messages extends Component {
                                        >
                                            {this.panelText()}
                                        </Panel>
-                                   )):<div className="nodatas"><img src={nodata} /></div>
+                                   ))
                                    }
                                </Collapse>
                            </Spin>
+                           {this.handleNodata()}
                            {this.pagination()}
                        </TabPane>
                        <TabPane tab="其他" key="5">
                            <Spin size="large" spinning={this.state.loading}>
-                               <Collapse onChange={(key)=>this.callbackCollapse("值守报表",7008,key)} accordion>
-                                   {this.state.listsMess.length?this.state.listsMess.map((v)=>(
+                               <Collapse onChange={this.callbackCollapse} accordion>
+                                   {this.state.listsMess.map((v)=>(
                                        <Panel header={
                                            <div className="messTime">
                                                <div className="messAll">
@@ -306,10 +315,11 @@ class Messages extends Component {
                                        >
                                            {this.panelText()}
                                        </Panel>
-                                   )):<div className="nodatas"><img src={nodata} /></div>
+                                   ))
                                    }
                                </Collapse>
                            </Spin>
+                           {this.handleNodata()}
                            {this.pagination()}
                        </TabPane>
                    </Tabs>
