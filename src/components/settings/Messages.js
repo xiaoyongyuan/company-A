@@ -8,7 +8,6 @@ import ot from "../../style/ztt/img/message/ot.png";
 import move_time from "../../style/ztt/img/message/move_time.png";
 import user_move from "../../style/ztt/img/message/user_move.png";
 import nodata from "../../style/imgs/nodata.png";
-import nopic from "../../style/imgs/nopic.png";
 import {post} from "../../axios/tools";
 const TabPane = Tabs.TabPane;
 const Panel = Collapse.Panel;
