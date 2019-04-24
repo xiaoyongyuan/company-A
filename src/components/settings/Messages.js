@@ -120,7 +120,7 @@ class Messages extends Component {
         if(atype===12){
             return "整点打卡";
         }else if(atype===7004){
-            return "布防时间异动";
+            return "布防方式设置异动";
         }else if(atype===7006){
             return "账户异动";
         }else if(atype===7007 || atype===7005 || atype===7002 || atype===7001 || atype===7003){
@@ -165,10 +165,7 @@ class Messages extends Component {
     panelText=()=>{
         return(
             <div className="panelText">
-                {
-                    this.state.pic_min?<img src={this.state.pic_min} alt="" onClick={()=>this.hanldImg(this.state.pic_min)} />:
-                        <img src={nopic} alt="" />
-                }
+                <img src={this.state.pic_min} alt="" onClick={()=>this.hanldImg(this.state.pic_min)} style={{display:this.state.pic_min?"block":"none"}} />
                 <p>{this.state.memoGet}</p>
             </div>
             )
@@ -298,6 +295,7 @@ class Messages extends Component {
                                                    </Badge>
                                                    <div className="messFont">
                                                        <span>其他</span>
+                                                       <span>{v.memo}</span>
                                                    </div>
                                                </div>
                                                <div className="messData">{v.atime}</div>
