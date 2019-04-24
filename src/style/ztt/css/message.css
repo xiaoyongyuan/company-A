@@ -12,6 +12,9 @@
 .Messages .ant-tabs-bar {
     border-bottom: 1px solid #686e8a;
 }
+.Messages .ant-tabs-nav-scroll{
+    background-color: #424d7b;
+}
 .Messages .ant-collapse > .ant-collapse-item{
     border-bottom: 1px solid #3d4569;
 }

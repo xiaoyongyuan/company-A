@@ -8,6 +8,7 @@ import ot from "../../style/ztt/img/message/ot.png";
 import move_time from "../../style/ztt/img/message/move_time.png";
 import user_move from "../../style/ztt/img/message/user_move.png";
 import nodata from "../../style/imgs/nodata.png";
+import nopic from "../../style/imgs/nopic.png";
 import {post} from "../../axios/tools";
 const TabPane = Tabs.TabPane;
 const Panel = Collapse.Panel;
@@ -56,26 +57,23 @@ class Messages extends Component {
     };
     //折叠面板
     callbackCollapse=(keyCollapse,type,key)=> {
-        post({url:"/api/alarminfo/getone",data:{code:key,atype:this.state.atypeTab,searchtype:this.state.sreachTab}},(res)=>{
-            if(res.success){
-                this.setState({
-                    pic_min:res.data.pic_min,
-                    name:res.data.name,
-                    memoGet:res.data.memo,
-                },()=>{
-                     post({url:"/api/alarminfo/update",data:{code:res.data.code,status:res.data.status}},(res)=>{
-                         if(res.success){
-                             let status=res.data.status;
-                             this.setState({
-                                 status:1
-                             },()=>{
-                                 this.getListMess();
-                             })
-                         }
-                     });
-                })
-            }
-        });
+        if(key){
+            post({url:"/api/alarminfo/getone",data:{code:key,atype:this.state.atypeTab,searchtype:this.state.sreachTab}},(res)=>{
+                if(res.success){
+                    this.setState({
+                        pic_min:res.data.pic_min,
+                        name:res.data.name,
+                        memoGet:res.data.memo,
+                    },()=>{
+                          post({url:"/api/alarminfo/update",data:{code:res.data.code,status:1}},(res)=>{
+                              if(res.success){
+                                  this.getListMess();
+                              }
+                          });
+                    })
+                }
+            });
+        }
     };
     //标签页
     callbackTab=(key)=>{
@@ -167,11 +165,14 @@ class Messages extends Component {
     panelText=()=>{
         return(
             <div className="panelText">
-                <img src={this.state.pic_min} alt="" onClick={()=>this.hanldImg(this.state.pic_min)} style={{display:this.state.pic_min?"block":"none"}} />
+                {
+                    this.state.pic_min?<img src={this.state.pic_min} alt="" onClick={()=>this.hanldImg(this.state.pic_min)} />:
+                        <img src={nopic} alt="" />
+                }
                 <p>{this.state.memoGet}</p>
             </div>
             )
-    }
+    };
     render() {
         return (
            <div className="Messages">
@@ -180,7 +181,7 @@ class Messages extends Component {
                        <TabPane tab="全部" key="1">
                            <Spin size="large" spinning={this.state.loading}>
                                <Collapse onChange={(key)=>this.callbackCollapse("全部",1,key)} accordion>
-                                   {this.state.listsMess.length?this.state.listsMess.map((v)=>(
+                                   {this.state.listsMess.length?this.state.listsMess.map((v,i)=>(
                                            <Panel header={
                                                <div className="messTime">
                                                    <div className="messAll">
