@@ -5,12 +5,18 @@
 .Messages .ant-tabs-tab,.ant-tabs-tabpane{
     color: #fff;
 }
+.Messages .ant-tabs-tab:hover{
+    color: #5E98F7!important;
+}
 .Messages .messages-top{
-   border: 1px solid #8e8888;
+   border: 1px solid #3d4569;
    border-radius: 4px;
 }
 .Messages .ant-tabs-bar {
     border-bottom: 1px solid #686e8a;
+}
+.Messages .ant-tabs-nav-scroll{
+    background-color: #424d7b;
 }
 .Messages .ant-collapse > .ant-collapse-item{
     border-bottom: 1px solid #3d4569;
@@ -55,6 +61,8 @@
 .Messages .messFont span:nth-child(2){
     display: block;
     margin: 10px 10px -3px 15px;
+    color:#b9b5b5;
+    font-size: 14px;
 }
 .Messages .ant-badge-dot{
     width: 0.6rem;
@@ -64,11 +72,11 @@
     box-shadow: 0 0 0 1px #fff;
 }
 .Messages .panelText{
-    width: 40%;
+    width: 100%;
     margin-left: 90px;
 }
 .Messages .panelText img{
-    width: 50%;
+    width: 18%;
 }
 .modelImg .ant-modal-body img{
     width: 100%;

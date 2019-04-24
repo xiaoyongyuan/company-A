@@ -7,6 +7,9 @@ import rep from "../../style/ztt/img/message/rep.png";
 import ot from "../../style/ztt/img/message/ot.png";
 import move_time from "../../style/ztt/img/message/move_time.png";
 import user_move from "../../style/ztt/img/message/user_move.png";
+import untying from "../../style/ztt/img/message/untying.png";
+import binding from "../../style/ztt/img/message/binding.png";
+import camera from "../../style/ztt/img/message/camera.png";
 import nodata from "../../style/imgs/nodata.png";
 import {post} from "../../axios/tools";
 const TabPane = Tabs.TabPane;
@@ -55,27 +58,26 @@ class Messages extends Component {
         })
     };
     //折叠面板
-    callbackCollapse=(keyCollapse,type,key)=> {
-        post({url:"/api/alarminfo/getone",data:{code:key,atype:this.state.atypeTab,searchtype:this.state.sreachTab}},(res)=>{
-            if(res.success){
-                this.setState({
-                    pic_min:res.data.pic_min,
-                    name:res.data.name,
-                    memoGet:res.data.memo,
-                },()=>{
-                     post({url:"/api/alarminfo/update",data:{code:res.data.code,status:res.data.status}},(res)=>{
-                         if(res.success){
-                             let status=res.data.status;
-                             this.setState({
-                                 status:1
-                             },()=>{
-                                 this.getListMess();
-                             })
-                         }
-                     });
-                })
-            }
-        });
+    callbackCollapse=(key)=> {
+        if(key){
+            post({url:"/api/alarminfo/getone",data:{code:key,atype:this.state.atypeTab,searchtype:this.state.sreachTab}},(res)=>{
+                if(res.success){
+                    this.setState({
+                        pic_min:res.data.pic_min,
+                        name:res.data.name,
+                        memoGet:res.data.memo,
+                    },()=>{
+                        if(res.data.status===0){
+                            post({url:"/api/alarminfo/update",data:{code:res.data.code,status:1}},(res)=>{
+                                if(res.success){
+                                    this.getListMess();
+                                }
+                            });
+                        }
+                    })
+                }
+            });
+        }
     };
     //标签页
     callbackTab=(key)=>{
@@ -122,12 +124,16 @@ class Messages extends Component {
         if(atype===12){
             return "整点打卡";
         }else if(atype===7004){
-            return "布防时间异动";
+            return "布防方式设置异动";
         }else if(atype===7006){
             return "账户异动";
-        }else if(atype===7007 || atype===7005 || atype===7002 || atype===7001 || atype===7003){
-            return "防区异动";
-        }else if(atype===7008){
+        }else if(atype===7007 || atype===7005){
+            return "设备操作异动";
+        }else if(atype===7001 || atype===7003){
+            return "防区时间异动";
+        }else if(atype===7002){
+            return "摄像头绑定操作";
+        } else if(atype===7008){
             return "值守报表";
         } else{
             return "其他";
@@ -138,11 +144,17 @@ class Messages extends Component {
         if(atype===12){
             return colck;
         }else if(atype===7004){
-            return move_time;
+            return replay_move;
         }else if(atype===7006){
             return user_move;
-        }else if(atype===7007 || atype===7005 || atype===7002 || atype===7001 || atype===7003){
-            return replay_move;
+        }else if(atype===7007){
+            return binding;
+        }else if(atype===7005){
+            return untying;
+        }else if(atype===7001 || atype===7003){
+            return move_time;
+        }else if(atype===7002){
+            return camera;
         }else if(atype===7008){
             return rep;
         }else{
@@ -171,7 +183,12 @@ class Messages extends Component {
                 <p>{this.state.memoGet}</p>
             </div>
             )
-    }
+    };
+    handleNodata=()=>{
+        return(
+            <div className="nodatas" style={{display:this.state.listsMess.length?"none":"block"}}><img src={nodata} /></div>
+        )
+    };
     render() {
         return (
            <div className="Messages">
@@ -179,8 +196,8 @@ class Messages extends Component {
                    <Tabs defaultActiveKey="1" onChange={this.callbackTab}>
                        <TabPane tab="全部" key="1">
                            <Spin size="large" spinning={this.state.loading}>
-                               <Collapse onChange={(key)=>this.callbackCollapse("全部",1,key)} accordion>
-                                   {this.state.listsMess.length?this.state.listsMess.map((v)=>(
+                               <Collapse onChange={this.callbackCollapse} accordion>
+                                   {this.state.listsMess.map((v,i)=>(
                                            <Panel header={
                                                <div className="messTime">
                                                    <div className="messAll">
@@ -198,16 +215,17 @@ class Messages extends Component {
                                            >
                                              {this.panelText()}
                                            </Panel>
-                                       )):<div className="nodatas"><img src={nodata} /></div>
+                                       ))
                                    }
                                </Collapse>
+                               {this.handleNodata()}
                                {this.pagination()}
                            </Spin>
                        </TabPane>
                        <TabPane tab="异动" key="2">
                            <Spin size="large" spinning={this.state.loading}>
-                               <Collapse onChange={(key)=>this.callbackCollapse("异动",2,key)} accordion>
-                                   {this.state.listsMess.length?this.state.listsMess.map((v)=>(
+                               <Collapse onChange={this.callbackCollapse} accordion>
+                                   {this.state.listsMess.map((v)=>(
                                        <Panel header={
                                            <div className="messTime">
                                                <div className="messAll">
@@ -225,16 +243,17 @@ class Messages extends Component {
                                        >
                                            {this.panelText()}
                                        </Panel>
-                                   )):<div className="nodatas"><img src={nodata} /></div>
+                                   ))
                                    }
                                </Collapse>
                            </Spin>
+                           {this.handleNodata()}
                            {this.pagination()}
                        </TabPane>
                        <TabPane tab="整点打卡" key="12">
                            <Spin size="large" spinning={this.state.loading}>
-                               <Collapse onChange={(key)=>this.callbackCollapse("整点打卡",12,key)} accordion>
-                                   {this.state.listsMess.length?this.state.listsMess.map((v)=>(
+                               <Collapse onChange={this.callbackCollapse} accordion>
+                                   {this.state.listsMess.map((v)=>(
                                        <Panel header={
                                            <div className="messTime">
                                                <div className="messAll">
@@ -252,16 +271,17 @@ class Messages extends Component {
                                        >
                                            {this.panelText()}
                                        </Panel>
-                                   )):<div className="nodatas"><img src={nodata} /></div>
+                                   ))
                                    }
                                </Collapse>
                            </Spin>
+                           {this.handleNodata()}
                            {this.pagination()}
                        </TabPane>
                        <TabPane tab="值守报表" key="7008">
                            <Spin size="large" spinning={this.state.loading}>
-                               <Collapse onChange={(key)=>this.callbackCollapse("值守报表",7008,key)} accordion>
-                                   {this.state.listsMess.length?this.state.listsMess.map((v)=>(
+                               <Collapse onChange={this.callbackCollapse} accordion>
+                                   {this.state.listsMess.map((v)=>(
                                        <Panel header={
                                            <div className="messTime">
                                                <div className="messAll">
@@ -279,16 +299,17 @@ class Messages extends Component {
                                        >
                                            {this.panelText()}
                                        </Panel>
-                                   )):<div className="nodatas"><img src={nodata} /></div>
+                                   ))
                                    }
                                </Collapse>
                            </Spin>
+                           {this.handleNodata()}
                            {this.pagination()}
                        </TabPane>
                        <TabPane tab="其他" key="5">
                            <Spin size="large" spinning={this.state.loading}>
-                               <Collapse onChange={(key)=>this.callbackCollapse("值守报表",7008,key)} accordion>
-                                   {this.state.listsMess.length?this.state.listsMess.map((v)=>(
+                               <Collapse onChange={this.callbackCollapse} accordion>
+                                   {this.state.listsMess.map((v)=>(
                                        <Panel header={
                                            <div className="messTime">
                                                <div className="messAll">
@@ -297,6 +318,7 @@ class Messages extends Component {
                                                    </Badge>
                                                    <div className="messFont">
                                                        <span>其他</span>
+                                                       <span>{v.memo}</span>
                                                    </div>
                                                </div>
                                                <div className="messData">{v.atime}</div>
@@ -305,10 +327,11 @@ class Messages extends Component {
                                        >
                                            {this.panelText()}
                                        </Panel>
-                                   )):<div className="nodatas"><img src={nodata} /></div>
+                                   ))
                                    }
                                </Collapse>
                            </Spin>
+                           {this.handleNodata()}
                            {this.pagination()}
                        </TabPane>
                    </Tabs>
