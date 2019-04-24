@@ -7,6 +7,9 @@ import rep from "../../style/ztt/img/message/rep.png";
 import ot from "../../style/ztt/img/message/ot.png";
 import move_time from "../../style/ztt/img/message/move_time.png";
 import user_move from "../../style/ztt/img/message/user_move.png";
+import untying from "../../style/ztt/img/message/untying.png";
+import binding from "../../style/ztt/img/message/binding.png";
+import camera from "../../style/ztt/img/message/camera.png";
 import nodata from "../../style/imgs/nodata.png";
 import {post} from "../../axios/tools";
 const TabPane = Tabs.TabPane;
@@ -164,12 +167,14 @@ class Messages extends Component {
             return replay_move;
         }else if(atype===7006){
             return user_move;
-        }else if(atype===7007 || atype===7005){
-            return user_move;
+        }else if(atype===7007){
+            return binding;
+        }else if(atype===7005){
+            return untying;
         }else if(atype===7001 || atype===7003){
             return move_time;
         }else if(atype===7002){
-            return replay_move;
+            return camera;
         }else if(atype===7008){
             return rep;
         }else{
