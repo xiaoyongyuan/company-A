@@ -61,6 +61,8 @@
 .Messages .messFont span:nth-child(2){
     display: block;
     margin: 10px 10px -3px 15px;
+    color:#b9b5b5;
+    font-size: 14px;
 }
 .Messages .ant-badge-dot{
     width: 0.6rem;
@@ -70,11 +72,11 @@
     box-shadow: 0 0 0 1px #fff;
 }
 .Messages .panelText{
-    width: 40%;
+    width: 100%;
     margin-left: 90px;
 }
 .Messages .panelText img{
-    width: 50%;
+    width: 18%;
 }
 .modelImg .ant-modal-body img{
     width: 100%;
