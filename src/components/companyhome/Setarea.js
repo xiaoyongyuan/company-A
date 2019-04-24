@@ -44,6 +44,7 @@ class Setarea extends Component {
           areaone = [],
           areatwo = [];
         if (field) {
+          console.log(field, "初始化获取的防区作用域");
           areaone = field[1] ? JSON.parse(field[1]) : [];
           areatwo = field[2] ? JSON.parse(field[2]) : [];
         }
@@ -61,6 +62,9 @@ class Setarea extends Component {
     });
   }
   componentDidUpdate() {
+    post({ url: "/api/camera/getone", data: { code: this.state.cid } }, res => {
+      console.log("1111111111111", res.data);
+    });
     this.renderDefence();
     if (this.confirmdef1) {
       document.onmousemove = function(ev) {
@@ -221,10 +225,10 @@ class Setarea extends Component {
               subdisable2: true,
               subbtn1: "确认删除防区一",
               present: [
-                defenceState.topLeftPoint,
-                defenceState.topRightPoint,
-                defenceState.bottLeftPoint,
-                defenceState.bottRightPoint
+                [defenceState.topLeftPoint],
+                [defenceState.topRightPoint],
+                [defenceState.bottLeftPoint],
+                [defenceState.bottRightPoint]
               ],
               defwidth: defenceState.width,
               defheight: defenceState.height
@@ -241,7 +245,7 @@ class Setarea extends Component {
               url: "/api/camera/fieldadd",
               data: {
                 key: 1,
-                field: JSON.stringify([this.state.present]),
+                field: this.state.present,
                 code: this.state.cid
               }
             },

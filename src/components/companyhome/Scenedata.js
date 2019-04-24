@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import ReactEcharts from "echarts-for-react";
 import echarts from "echarts";
-import { crossjsonP } from "../../axios/tools";
+// import { crossjsonP } from "../../axios/tools";
+import { post } from "../../axios/tools";
 
 class Scenedata extends Component {
   constructor(props) {
@@ -12,26 +13,29 @@ class Scenedata extends Component {
     };
   }
   componentWillMount() {
+    console.log(this.props.code, "code");
+
     this.setState({
       type: this.props.type
     });
   }
 
   maps = (scenegraph, cameracorrd) => {
-    //地图
-    // console.log(scenegraph, "scenegraph");
-    // http://api.aokecloud.cn/upload/scenegraph/1000020.json
-    // crossjsonP({url:scenegraph}).then((res)=>{
-    //     if(res){
-    //        echarts.registerMap('xiant', res);
-    //     }
-    // })
-    crossjsonP({ url: scenegraph }, res => {
-      console.log("++++++++++++==================______________", res);
-      if (res) {
-        echarts.registerMap("xiant", res);
+    // crossjsonP({ url: scenegraph }, res => {
+    //   console.log("++++++++++++==================______________", res);
+    //   if (res) {
+    //     echarts.registerMap("xiant", res);
+    //   }
+    // });
+    post(
+      {
+        url: "/api/company/get_scenegraph",
+        data: { code: this.props.code }
+      },
+      res => {
+        console.log(res, "==================================");
       }
-    });
+    );
     const cameralist = [];
     cameracorrd.map((el, i) => {
       if (el.lat && el.lng) {

@@ -155,6 +155,7 @@ class Companyhome extends Component {
                     type="maps"
                     cameracorrd={this.state.myEquipment}
                     scenegraph={this.state.scenegraph}
+                    code={this.state.code}
                   />
                 ) : (
                   <div style={{ margin: "30px auto", width: "200px" }}>
