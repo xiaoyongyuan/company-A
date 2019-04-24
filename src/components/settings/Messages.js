@@ -119,26 +119,6 @@ class Messages extends Component {
             this.getListMess();
         });
     };
-    //消息列表内容
-    hanleMemo=(atype)=>{
-        if(atype===12){
-            return "整点打卡消息通知";
-        }else if(atype===7004){
-            return "布防方式设置异动消息通知";
-        }else if(atype===7006){
-            return "账户异动消息通知";
-        }else if(atype===7007 || atype===7005){
-            return "设备操作异动消息通知";
-        }else if(atype===7001 || atype===7003){
-            return "防区时间异动消息通知";
-        }else if(atype===7002){
-            return "摄像头绑定操作消息通知";
-        } else if(atype===7008){
-            return "值守报表消息通知";
-        } else{
-            return "其他消息通知";
-        }
-    };
      //类型
      messAtype=(atype)=>{
         if(atype===12){
@@ -226,7 +206,7 @@ class Messages extends Component {
                                                        </Badge>
                                                        <div className="messFont">
                                                            <span>{this.messAtype(v.atype)}</span>
-                                                           <span>{this.hanleMemo(v.atype)}</span>
+                                                           <span>{v.memo}</span>
                                                        </div>
                                                    </div>
                                                    <div className="messData">{v.atime}</div>
