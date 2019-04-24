@@ -65,11 +65,13 @@ class Messages extends Component {
                         name:res.data.name,
                         memoGet:res.data.memo,
                     },()=>{
-                          post({url:"/api/alarminfo/update",data:{code:res.data.code,status:1}},(res)=>{
-                              if(res.success){
-                                  this.getListMess();
-                              }
-                          });
+                        if(res.data.status===0){
+                            post({url:"/api/alarminfo/update",data:{code:res.data.code,status:1}},(res)=>{
+                                if(res.success){
+                                    this.getListMess();
+                                }
+                            });
+                        }
                     })
                 }
             });
