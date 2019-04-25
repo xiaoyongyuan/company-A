@@ -372,6 +372,7 @@ class Sechild extends Component {
     return (
       <div
         id="preview"
+        className="preview"
         style={{
           width: defwidth,
           minWidth: "20px",

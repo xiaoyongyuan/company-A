@@ -4,6 +4,7 @@ import ReactDom from "react-dom";
 import "../../style/jhy/css/setarea.css";
 import { post } from "../../axios/tools";
 import Sechild from "./Sechild";
+import { notDeepEqual } from "assert";
 const blue = "#5063ee";
 const red = "#ED2F2F";
 class Setarea extends Component {
@@ -44,6 +45,7 @@ class Setarea extends Component {
           areaone = [],
           areatwo = [];
         if (field) {
+          console.log(field, "初始化获取的防区作用域");
           areaone = field[1] ? JSON.parse(field[1]) : [];
           areatwo = field[2] ? JSON.parse(field[2]) : [];
         }
@@ -55,23 +57,61 @@ class Setarea extends Component {
           },
           () => {
             this.renderDefence(); //绘制防区
+            if (this.state.areaone.length && this.state.areatwo.length) {
+              let areaone = this.state.areaone[0];
+              let areatwo = this.state.areatwo[0];
+              if (areaone.length && areatwo.length) {
+                this.setState({
+                  opebtn1: "添加防区一",
+                  opebtn2: "添加防区二",
+                  opedisable1: true,
+                  opedisable2: true,
+                  subdisable1: false,
+                  subdisable2: false,
+                  subbtn1: "确认删除防区一",
+                  subbtn2: "确认删除防区二"
+                });
+              }
+            } else if (this.state.areaone.length) {
+              let areaone = this.state.areaone[0];
+              if (areaone.length) {
+                this.setState({
+                  opebtn1: "添加防区一",
+                  opedisable1: true,
+                  subdisable1: false,
+                  subbtn1: "确认删除防区一"
+                });
+              }
+            } else if (this.state.areatwo.length) {
+              let areatwo = this.state.areatwo[0];
+              if (areatwo.length) {
+                this.setState({
+                  opebtn2: "添加防区二",
+                  opedisable2: true,
+                  subdisable2: false,
+                  subbtn2: "确认删除防区二"
+                });
+              }
+            }
           }
         );
       }
     });
   }
   componentDidUpdate() {
+    post({ url: "/api/camera/getone", data: { code: this.state.cid } }, res => {
+      console.log("组件update防区作用域", res.data.field);
+    });
     this.renderDefence();
-    if (this.confirmdef1) {
-      document.onmousemove = function(ev) {
-        ev.stopPropagation();
-      };
-    }
-
-    if (this.confirmdef2) {
-      document.body.onmousemove = function(ev) {
-        ev.stopPropagation();
-      };
+    if (
+      this.state.opebtn1 !== "删除防区一" ||
+      this.state.opebtn2 !== "删除防区二"
+    ) {
+      if (this.confirmdef1 || this.confirmdef2) {
+        document.onmousemove = function(ev) {
+          ev.stopPropagation();
+        };
+      }
     }
   }
   renderDefence = () => {
@@ -81,7 +121,36 @@ class Setarea extends Component {
     if (locone !== null && loctwo !== null) {
       console.log("!!!!!!!!!!!!!lainggefangqu!!!!!!!!!!!!");
     }
-    if (this.state.areaone.length) {
+    if (this.state.areaone.length && this.state.areatwo.length) {
+      let areaone = this.state.areaone[0];
+      let areatwo = this.state.areatwo[0];
+      if (areaone.length && areatwo.length) {
+        return (
+          <Fragment>
+            <Sechild
+              ref={confirmdef1 => {
+                this.confirmdef1 = confirmdef1;
+              }}
+              color={blue}
+              left={parseInt(areaone[0][0])}
+              top={parseInt(areaone[0][1])}
+              width={parseInt(this.state.defwidth)}
+              height={parseInt(this.state.defheight)}
+            />
+            <Sechild
+              ref={confirmdef2 => {
+                this.confirmdef2 = confirmdef2;
+              }}
+              color={red}
+              left={parseInt(areatwo[0][0])}
+              top={parseInt(areatwo[0][1])}
+              width={parseInt(this.state.defwidth)}
+              height={parseInt(this.state.defheight)}
+            />
+          </Fragment>
+        );
+      }
+    } else if (this.state.areaone.length) {
       let areaone = this.state.areaone[0];
       if (areaone.length) {
         return (
@@ -97,8 +166,7 @@ class Setarea extends Component {
           />
         );
       }
-    }
-    if (this.state.areatwo.length) {
+    } else if (this.state.areatwo.length) {
       let areatwo = this.state.areatwo[0];
       if (areatwo.length) {
         return (
@@ -111,37 +179,12 @@ class Setarea extends Component {
             top={parseInt(areatwo[0][1])}
             width={parseInt(this.state.defwidth)}
             height={parseInt(this.state.defheight)}
-            style={{ zIndex: "1015" }}
           />
         );
       }
+    } else {
+      return null;
     }
-    // if (this.state.areaone.length && this.state.areatwo.length) {
-    //   let areaone = this.state.areaone[0];
-
-    //   let areatwo = this.state.areatwo[0];
-    //   if (areaone.length && areatwo.length) {
-    //     return (
-    //       <Fragment>
-    //         <Sechild
-    //           color={blue}
-    //           left={parseInt(areaone[0][0])}
-    //           top={parseInt(areaone[0][1])}
-    //           width={parseInt(this.state.defwidth)}
-    //           height={parseInt(this.state.defheight)}
-    //         />
-    //         <Sechild
-    //           color={red}
-    //           left={parseInt(areatwo[0][0])}
-    //           top={parseInt(areatwo[0][1])}
-    //           style={{ zIndex: "1020" }}
-    //           width={parseInt(this.state.defwidth)}
-    //           height={parseInt(this.state.defheight)}
-    //         />
-    //       </Fragment>
-    //     );
-    //   }
-    // }
   };
   handOperation(id) {
     switch (id) {
@@ -169,6 +212,7 @@ class Setarea extends Component {
             });
           }
         }
+
         break;
       }
       case 2: {
@@ -234,34 +278,35 @@ class Setarea extends Component {
               localStorage.setItem("locone", this.state.present);
 
               console.log(this.state.areaone, "this.state.areaone");
-            }
-          );
-          post(
-            {
-              url: "/api/camera/fieldadd",
-              data: {
-                key: 1,
-                field: JSON.stringify([this.state.present]),
-                code: this.state.cid
-              }
-            },
-            res => {
-              if (res) {
-                console.log(res, "添加一后台返回");
-                this.setState(
-                  {
-                    areaone: [this.state.present],
-                    present: []
-                  },
-                  () => {
-                    console.log(
-                      this.state.areaone,
-                      this.state.present,
-                      "添加一返回"
+              post(
+                {
+                  url: "/api/camera/fieldadd",
+                  data: {
+                    key: 1,
+                    field: JSON.stringify([this.state.present]),
+                    code: this.state.cid
+                  }
+                },
+                res => {
+                  if (res) {
+                    console.log(res, "添加一后台返回");
+                    this.setState(
+                      {
+                        areaone: [this.state.present],
+                        present: []
+                      },
+                      () => {
+                        console.log(
+                          this.state.areaone,
+                          this.state.present,
+                          "添加一返回"
+                        );
+                        this.renderDefence();
+                      }
                     );
                   }
-                );
-              }
+                }
+              );
             }
           );
 
@@ -273,8 +318,8 @@ class Setarea extends Component {
           this.setState(
             {
               opebtn1: "添加防区一",
-              opedisable1: false,
-              subdisable1: true,
+              opedisable1: true,
+              subdisable1: false,
               opedisable2: false,
               subdisable2: true,
               subbtn1: "确认添加防区一"
@@ -340,38 +385,40 @@ class Setarea extends Component {
               localStorage.setItem("loctwo", this.state.present);
 
               console.log(this.state.areatwo, "this.state.areatwo");
-            }
-          );
-          post(
-            {
-              url: "/api/camera/fieldadd",
-              data: {
-                key: 2,
-                field: JSON.stringify([this.state.present]),
-                code: this.state.cid
-              }
-            },
-            res => {
-              if (res) {
-                console.log(res, "添加二后台返回");
+              post(
+                {
+                  url: "/api/camera/fieldadd",
+                  data: {
+                    key: 2,
+                    field: JSON.stringify([this.state.present]),
+                    code: this.state.cid
+                  }
+                },
+                res => {
+                  if (res) {
+                    console.log(res, "添加二后台返回");
 
-                this.setState(
-                  {
-                    areatwo: [this.state.present],
+                    this.setState(
+                      {
+                        areatwo: [this.state.present],
 
-                    present: []
-                  },
-                  () => {
-                    console.log(
-                      this.state.areatwo,
-                      this.state.present,
-                      "添加二返回"
+                        present: []
+                      },
+                      () => {
+                        console.log(
+                          this.state.areatwo,
+                          this.state.present,
+                          "添加二返回"
+                        );
+                        this.renderDefence();
+                      }
                     );
                   }
-                );
-              }
+                }
+              );
             }
           );
+
           if (this.state.subbtn1 === "确认删除防区一") {
             this.setState({
               subdisable1: false,
