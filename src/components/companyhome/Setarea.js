@@ -304,7 +304,7 @@ class Setarea extends Component {
                     url: "/api/camera/fieldadd",
                     data: {
                       key: 2,
-                      field: JSON.stringify([this.state.areatwo]),
+                      field: JSON.stringify(this.state.areatwo),
                       code: this.state.cid
                     }
                   },
@@ -343,8 +343,8 @@ class Setarea extends Component {
               present: [
                 defenceState.topLeftPoint,
                 defenceState.topRightPoint,
-                defenceState.bottLeftPoint,
-                defenceState.bottRightPoint
+                defenceState.bottRightPoint,
+                defenceState.bottLeftPoint
               ],
               defwidth: defenceState.width,
               defheight: defenceState.height
@@ -459,7 +459,7 @@ class Setarea extends Component {
                     url: "/api/camera/fieldadd",
                     data: {
                       key: 1,
-                      field: JSON.stringify([this.state.areaone]),
+                      field: JSON.stringify(this.state.areaone),
                       code: this.state.cid
                     }
                   },
@@ -497,8 +497,8 @@ class Setarea extends Component {
               present: [
                 defenceState.topLeftPoint,
                 defenceState.topRightPoint,
-                defenceState.bottLeftPoint,
-                defenceState.bottRightPoint
+                defenceState.bottRightPoint,
+                defenceState.bottLeftPoint
               ],
               defwidth: defenceState.width,
               defheight: defenceState.height
