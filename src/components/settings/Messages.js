@@ -10,6 +10,8 @@ import user_move from "../../style/ztt/img/message/user_move.png";
 import untying from "../../style/ztt/img/message/untying.png";
 import binding from "../../style/ztt/img/message/binding.png";
 import camera from "../../style/ztt/img/message/camera.png";
+import equipment from "../../style/ztt/img/message/equipment.png";
+import renew from "../../style/ztt/img/message/renew.png";
 import nodata from "../../style/imgs/nodata.png";
 import {post} from "../../axios/tools";
 const TabPane = Tabs.TabPane;
@@ -32,8 +34,9 @@ class Messages extends Component {
         let params={
             pagesize:10,
             pageindex: this.state.page,
-            atype:this.state.atypeTab,
-            searchtype:this.state.sreachTab
+            atype:this.state.atypeTab,//整点打卡  值守报表
+            searchtype:this.state.sreachTab,//异动
+            others:this.state.others//其他
           };
         post({url:"/api/alarminfo/getlist",data:params},(res)=>{
             if(res.success){
@@ -60,13 +63,20 @@ class Messages extends Component {
     //折叠面板
     callbackCollapse=(key)=> {
         if(key){
-            post({url:"/api/alarminfo/getone",data:{code:key,atype:this.state.atypeTab,searchtype:this.state.sreachTab}},(res)=>{
+            let datas={
+                code:key,
+                atype:this.state.atypeTab,//整点打卡  值守报表
+                searchtype:this.state.sreachTab,//异动
+                others:this.state.others//其他
+            };
+            post({url:"/api/alarminfo/getone",data:datas},(res)=>{
                 if(res.success){
                     this.setState({
                         pic_min:res.data.pic_min,
                         name:res.data.name,
                         memoGet:res.data.memo,
                     },()=>{
+                        //消息查看
                         if(res.data.status===0){
                             post({url:"/api/alarminfo/update",data:{code:res.data.code,status:1}},(res)=>{
                                 if(res.success){
@@ -85,6 +95,7 @@ class Messages extends Component {
             this.setState({
                 atypeTab:"",
                 sreachTab:"",
+                others:"",
                 loading:true,
                 page:1
             },()=>{
@@ -94,6 +105,17 @@ class Messages extends Component {
             this.setState({
                 sreachTab:1,
                 atypeTab:"",
+                others:"",
+                loading:true,
+                page:1
+            },()=>{
+                this.getListMess();
+            })
+        }else if(key==5){
+            this.setState({
+                sreachTab:"",
+                atypeTab:"",
+                others:1,
                 loading:true,
                 page:1
             },()=>{
@@ -103,6 +125,7 @@ class Messages extends Component {
             this.setState({
                 atypeTab:key,
                 sreachTab:"",
+                others:"",
                 loading:true,
                 page:1
             },()=>{
@@ -127,14 +150,20 @@ class Messages extends Component {
             return "布防方式设置异动";
         }else if(atype===7006){
             return "账户异动";
-        }else if(atype===7007 || atype===7005){
-            return "设备操作异动";
+        }else if(atype===7007){
+            return "设备绑定";
+        } else if(atype===7005){
+            return "设备解绑";
         }else if(atype===7001 || atype===7003){
             return "防区时间异动";
         }else if(atype===7002){
             return "摄像头绑定操作";
         } else if(atype===7008){
             return "值守报表";
+        } else if(atype===8001){
+            return "设备过期";
+        }else if(atype===8002){
+            return "设备续费恢复使用";
         } else{
             return "其他";
         }
@@ -157,6 +186,10 @@ class Messages extends Component {
             return camera;
         }else if(atype===7008){
             return rep;
+        }else if(atype===8001){
+            return equipment;
+        }else if(atype===8002){
+            return renew;
         }else{
             return ot;
         }
@@ -184,6 +217,7 @@ class Messages extends Component {
             </div>
             )
     };
+    //无数据nodata图片
     handleNodata=()=>{
         return(
             <div className="nodatas" style={{display:this.state.listsMess.length?"none":"block"}}><img src={nodata} /></div>
@@ -314,10 +348,10 @@ class Messages extends Component {
                                            <div className="messTime">
                                                <div className="messAll">
                                                    <Badge dot style={{display:v.status===1?"none":"block"}}>
-                                                       <div className="mesICon"><img src={ot} alt="" /></div>
+                                                       <div className="mesICon"><img src={this.hanldImgIcon(v.atype)} alt="" /></div>
                                                    </Badge>
                                                    <div className="messFont">
-                                                       <span>其他</span>
+                                                       <span>{this.messAtype(v.atype)}</span>
                                                        <span>{v.memo}</span>
                                                    </div>
                                                </div>
