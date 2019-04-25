@@ -171,7 +171,7 @@ class Userdeveice extends React.Component{
                 }
             })
         }else{
-            message.error('只能输入数字和小数');
+            message.error('只能输入整数或者小数');
         }
     }
     handleCancel=()=>{
@@ -353,7 +353,7 @@ class Userdeveice extends React.Component{
                 >
                     <Row>
                        <label>经度：</label><Input defaultValue={this.state.changelng} onChange={(e)=>this.changeCoord(e,'changelng')} />
-                       <label>纬度：</label><Input defaultValue={this.state.changelat} onChange={(e)=>this.changeCoord(e,'changelat')} /> 
+                       <label>纬度：</label><Input defaultValue={this.state.changelat} onChange={(e)=>this.changeCoord(e,'changelat')} />
                     </Row>
                 </Modal>
             </div>
