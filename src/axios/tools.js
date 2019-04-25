@@ -88,32 +88,35 @@ export const qrcode = async (
     });
 };
 
-// export const crossjsonP = async({url, msg = '接口异常',data={}},callback) =>{
-//   return new Promise((resolve,reject)=>{
-//     console.log('response',url)
-//     jsonP(url,function(err,response){
-//       console.log('response',response)
-//       if(response){
-//         resolve(response);
-//       }else{
-//         reject(null)
-//       }
-//     })
-//   })
-// }
+export const crossjsonP = async({url, msg = '接口异常',data={}},callback) =>{
+  return new Promise((resolve,reject)=>{
+    console.log('response',url)
+    jsonP(url,{param:'successCallback'},function(err,response){
+      console.log('response',response)
+      if(response){
+        resolve(response);
+      }else{
+        reject(null)
+      }
+    })
+  })
+}
 
 //使用别人封装的jsonp
-export const crossjsonP = async (
-  { url, msg = "jsonp接口异常", data = {} },
-  callback
-) => {
-  axiosPro
-    .jsonp(url)
-    .then(function(res) {
-      return callback(res.features);
-    })
-    .catch(function(error) {
-      // console.log(error);
-      message.warn(msg);
-    });
-};
+// export const crossjsonP = async (
+//   { url, msg = "jsonp接口异常", data = {} },
+//   callback
+// ) => {
+//   axiosPro
+//     .jsonp(url)
+//     .then(function(res) {
+//       console.log('获得数据',res)
+
+//       return callback(res);
+//     })
+//     .catch(function(error) {
+//       console.log('yichang')
+//       // console.log(error);
+//       message.warn(msg);
+//     });
+// };

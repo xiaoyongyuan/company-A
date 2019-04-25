@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import ReactEcharts from "echarts-for-react";
 import echarts from "echarts";
-// import { crossjsonP } from "../../axios/tools";
+import apg from "../../style/ztt/map/1000020.json";
+import mqwl from "../../style/ztt/map/1000021.json";
 import { post } from "../../axios/tools";
 
 class Scenedata extends Component {
@@ -19,88 +20,82 @@ class Scenedata extends Component {
   }
 
   maps = (scenegraph, cameracorrd) => {
-    // crossjsonP({ url: scenegraph }, res => {
-    //   console.log("++++++++++++==================______________", res);
-    //   if (res) {
-    //     echarts.registerMap("xiant", res);
-    //   }
-    // });
-    post(
-      {
-        url: "/api/company/get_scenegraph",
-        data: { code: this.props.code }
-      },
-      res => {
-        console.log(res, "==================================");
-      }
-    );
-    const cameralist = [];
-    cameracorrd.map((el, i) => {
-      if (el.lat && el.lng) {
-        cameralist.push({
-          value: [el.lng, el.lat],
-          name: el.name
-        });
-      }
-    });
-
-    let option = {
-      background: "#091e57",
+    const cameralist=[];
+    cameracorrd.map((el,i)=>{
+      if(el.lat && el.lng){
+              cameralist.push({value:[el.lng,el.lat],name:el.name})
+          }
+      })  
+  
+  if(scenegraph.indexOf('1000020')>0){
+      console.log('1000020')
+      echarts.registerMap('xiant', apg);
+  }else{
+      console.log('1000021')
+      echarts.registerMap('xiant', mqwl);
+  }
+  let option={
+      background:"#091e57",
       geo: {
-        map: "xiant",
-        roam: true,
-        aspectScale: 0.8, //长宽比
-        zoom: 1.2, //当前视角的缩放比例
-        //取消鼠标移入地图上的文字
-        label: {
-          emphasis: {
-            show: false
-          }
-        },
-        itemStyle: {
-          normal: {
-            //         	color: '#ddd',
-            borderColor: "rgba(147, 235, 248, 1)",
-            borderWidth: 1,
-            areaColor: "#35425F",
-            shadowColor: "rgba(128, 217, 248, 1)",
-            // shadowColor: 'rgba(255, 255, 255, 1)',
-            shadowOffsetX: -2,
-            shadowOffsetY: 2,
-            shadowBlur: 10
-          },
-          emphasis: {
-            areaColor: "#35425F" //悬浮时的颜色
-          }
-        }
-      },
-      series: [
-        {
-          name: "light",
-          type: "scatter",
-          coordinateSystem: "geo",
-          data: cameralist,
-          symbolSize: 15, //圈圈大小
+          map: 'xiant',
+          roam: true,
+          aspectScale:.8, //长宽比 
+          zoom:1.2, //当前视角的缩放比例
+          //取消鼠标移入地图上的文字
           label: {
-            normal: {
-              formatter: "{b}",
-              position: "right",
-              show: false //字体显示
-            },
-            emphasis: {
-              show: false
-            }
+              emphasis: {
+                  show: false
+              }
           },
           itemStyle: {
-            normal: {
-              color: "#f4258e"
-            }
+              normal: {
+                  //          color: '#ddd',
+                  borderColor: 'rgba(147, 235, 248, 1)',
+                  borderWidth: 1,
+                  areaColor: "#35425F",
+                  shadowColor: 'rgba(128, 217, 248, 1)',
+                  // shadowColor: 'rgba(255, 255, 255, 1)',
+                  shadowOffsetX: -2,
+                  shadowOffsetY: 2,
+                  shadowBlur: 10
+              },
+              emphasis:{
+                  areaColor:"#35425F" //悬浮时的颜色
+              },
           }
-        }
+      },
+      series:[
+          {
+              name: 'light',
+              type: 'scatter',
+              coordinateSystem: 'geo',
+              data: cameralist,
+              symbolSize: 15, //圈圈大小
+              label: {
+                  normal: {
+                      formatter: '{b}',
+                      position: 'right',
+                      show: false  //字体显示
+                  },
+                  emphasis: {
+                      show: false
+                  }
+              },
+              itemStyle: {
+                  normal: {
+                      color: '#f4258e'
+                  }
+              }
+          }
       ]
-    };
-    return option;
-  };
+  }
+  return option;
+
+
+
+
+
+};
 
   onByModelClick = e => {
     if (e.componentType === "series") {
@@ -115,14 +110,14 @@ class Scenedata extends Component {
     const _this = this;
     return (
       <div>
-        {this.props.scenegraph ? (
+        {this.props.scenegraph&& this.props.code != this.state.code ? (
           <ReactEcharts
             option={this.maps(this.props.scenegraph, this.props.cameracorrd)}
             onEvents={this.onClickByModel}
             style={{ height: "600px" }}
           />
         ) : (
-          ""
+          null
         )}
       </div>
     );
