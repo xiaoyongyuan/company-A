@@ -37,7 +37,7 @@ export default {
                 // { key: '/app/settings/loglist', identi:['comp','comptop','user'], title: '日志', funct:'basic', component: 'Loglist'},             
             ],
         },
-        // { key: '/app/live/index', identi:['comp','comptop','user'], title: '直播', icon: 'camera', funct:'basic', component: 'Live' },
+        { key: '/app/live/index', identi:['comp','comptop','user'], title: '直播', icon: 'camera', funct:'basic', component: 'Live' },
 
     ],
     // 非菜单相关路由
