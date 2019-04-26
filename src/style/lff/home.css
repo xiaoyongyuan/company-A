@@ -1,14 +1,15 @@
-.photo {
-  width: 53%;
-  float: left;
+.Setarea .photo {
+  position: relative;
 }
 
-.optbtn {
-  padding-top: 20%;
-  float: left;
+.Setarea .optbtn {
+  position: absolute;
+  top: 235px;
+  left: 704px;
 }
 
 .areaexplain {
+  padding: 10px 0;
   color: #fff;
-  font-size: 12px;
+  line-height: 2em;
 }

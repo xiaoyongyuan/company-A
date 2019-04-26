@@ -294,28 +294,28 @@ class Setarea extends Component {
                   onClick={this.clickgetcorrd}
                   onMouseMove={this.drawmove}
                 />
-              </div>
-              <div className="optbtn">
-                <Row>
-                  <Button
-                    type="primary"
-                    className="queryBtn"
-                    onClick={() => this.submitok(1)}
-                  >
-                    {this.state.areaone.length ? "删除防区一" : "新增防区一"}
-                  </Button>
-                </Row>
-                <br />
-                <br />
-                <Row>
-                  <Button
-                    type="primary"
-                    className="deleteBtn"
-                    onClick={() => this.submitok()}
-                  >
-                    {this.state.areatwo.length ? "删除防区二" : "新增防区二"}
-                  </Button>
-                </Row>
+                <div className="optbtn">
+                  <Row>
+                    <Button
+                      type="primary"
+                      className="queryBtn"
+                      onClick={() => this.submitok(1)}
+                    >
+                      {this.state.areaone.length ? "删除防区一" : "新增防区一"}
+                    </Button>
+                  </Row>
+                  <br />
+                  <br />
+                  <Row>
+                    <Button
+                      type="primary"
+                      className="deleteBtn"
+                      onClick={() => this.submitok()}
+                    >
+                      {this.state.areatwo.length ? "删除防区二" : "新增防区二"}
+                    </Button>
+                  </Row>
+                </div>
               </div>
             </Col>
           </Row>
