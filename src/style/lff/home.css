@@ -1,3 +1,10 @@
+.Setarea .Setarea_cont {
+  margin: 20px;
+  padding: 20px;
+  background: #2b3355;
+  height: 100%;
+}
+
 .Setarea .photo {
   position: relative;
 }
