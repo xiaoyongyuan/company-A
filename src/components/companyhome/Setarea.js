@@ -404,6 +404,12 @@ class Setarea extends Component {
               subdisable2: false
             });
           }
+          if (this.state.subbtn1 === "确认添加防区一") {
+            this.setState({
+              opedisable1: true,
+              subdisable1: false
+            });
+          }
           break;
         }
       }
