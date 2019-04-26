@@ -183,7 +183,7 @@ img {
 }
 
 .login-title {
-  color: #1f7689;
+  color: #fff;
   font-size: 28px;
   border-bottom: 2px solid rgba(38, 169, 190, 0.8);
   padding: 72px 0 43px;
@@ -202,7 +202,7 @@ img {
 
 .login-qrcode.iconfont {
   font-size: 50px;
-  color: #1f7689;
+  color: #2ecde3;
 }
 
 .codewrap {
@@ -268,7 +268,7 @@ img {
   padding-left: 44px;
   font-size: 18px;
   border: 1px solid #2ecde3 !important;
-  background: #164451 !important;
+  background: #2a738d !important;
 }
 
 /* input {
