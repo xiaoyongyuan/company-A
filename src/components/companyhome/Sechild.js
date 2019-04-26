@@ -12,16 +12,6 @@ class Sechild extends Component {
       height: ""
     };
   }
-  componentWillReceiveProps(props) {
-    if (props !== this.props) {
-      console.log(props);
-      console.log("gaimianle ");
-    }
-
-    // document.body.addEventListener("mousemove", function(ev) {
-    //   return;
-    // });
-  }
   componentDidMount() {
     window.Sechild = this;
     function $(id) {
@@ -374,6 +364,7 @@ class Sechild extends Component {
         id="preview"
         className="preview"
         style={{
+          background: "transprent",
           width: defwidth,
           minWidth: "20px",
           height: defheight,

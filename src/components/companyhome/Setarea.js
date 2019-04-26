@@ -38,7 +38,6 @@ class Setarea extends Component {
   };
 
   componentDidMount() {
-    //摄像头详情
     post({ url: "/api/camera/getone", data: { code: this.state.cid } }, res => {
       if (res) {
         let field = res.data.field,
@@ -102,7 +101,6 @@ class Setarea extends Component {
     post({ url: "/api/camera/getone", data: { code: this.state.cid } }, res => {
       console.log("组件update防区作用域", res.data.field);
     });
-    this.renderDefence();
     if (
       this.state.opebtn1 !== "删除防区一" ||
       this.state.opebtn2 !== "删除防区二"
@@ -118,9 +116,6 @@ class Setarea extends Component {
     const locone = localStorage.getItem("locone");
     const loctwo = localStorage.getItem("loctwo");
     console.log(locone, loctwo, "本地数据");
-    if (locone !== null && loctwo !== null) {
-      console.log("!!!!!!!!!!!!!lainggefangqu!!!!!!!!!!!!");
-    }
     if (this.state.areaone.length && this.state.areatwo.length) {
       let areaone = this.state.areaone[0];
       let areatwo = this.state.areatwo[0];
@@ -144,6 +139,7 @@ class Setarea extends Component {
                   ? parseInt(this.state.defheight)
                   : parseInt(areaone[3][1] - areaone[0][1])
               }
+              style={{ zIndex: "1010" }}
             />
             <Sechild
               ref={confirmdef2 => {
@@ -162,6 +158,7 @@ class Setarea extends Component {
                   ? parseInt(this.state.defheight)
                   : parseInt(areatwo[3][1] - areatwo[0][1])
               }
+              style={{ zIndex: "1020" }}
             />
           </Fragment>
         );
@@ -287,50 +284,16 @@ class Setarea extends Component {
           const loctwo = localStorage.getItem("loctwo");
           if (loctwo) {
             const loctwolist = loctwo.split(",");
-            this.setState(
-              {
-                areatwo: [
-                  [
-                    [loctwolist[0], loctwolist[1]],
-                    [loctwolist[2], loctwolist[3]],
-                    [loctwolist[4], loctwolist[5]],
-                    [loctwolist[6], loctwolist[7]]
-                  ]
+            this.setState({
+              areatwo: [
+                [
+                  [loctwolist[0], loctwolist[1]],
+                  [loctwolist[2], loctwolist[3]],
+                  [loctwolist[4], loctwolist[5]],
+                  [loctwolist[6], loctwolist[7]]
                 ]
-              },
-              () => {
-                post(
-                  {
-                    url: "/api/camera/fieldadd",
-                    data: {
-                      key: 2,
-                      field: JSON.stringify(this.state.areatwo),
-                      code: this.state.cid
-                    }
-                  },
-                  res => {
-                    if (res) {
-                      console.log(res, "bendi添加二后台返回");
-
-                      this.setState(
-                        {
-                          areatwo: [this.state.areatwo]
-                        },
-                        () => {
-                          console.log(
-                            this.state.areatwo,
-                            this.state.present,
-                            "bendi添加二返回"
-                          );
-                          this.renderDefence();
-                        }
-                      );
-                    }
-                  }
-                );
-                console.log("通过local传递的areatwo", this.state.areatwo);
-              }
-            );
+              ]
+            });
           }
           this.setState(
             {
@@ -385,11 +348,17 @@ class Setarea extends Component {
               );
             }
           );
+          if (this.state.subbtn2 === "确认删除防区二") {
+            this.setState({
+              opedisable2: true,
+              subdisable2: false
+            });
+          }
 
           break;
         }
         if (this.state.subbtn1 === "确认删除防区一") {
-          localStorage.setItem("loctwo", "");
+          localStorage.setItem("locone", "");
 
           this.setState(
             {
@@ -422,6 +391,7 @@ class Setarea extends Component {
                       this.state.present,
                       "删除一返回"
                     );
+                    this.renderDefence();
                   }
                 );
               }
@@ -442,49 +412,16 @@ class Setarea extends Component {
           const locone = localStorage.getItem("locone");
           if (locone) {
             const loconelist = locone.split(",");
-            this.setState(
-              {
-                areaone: [
-                  [
-                    [loconelist[0], loconelist[1]],
-                    [loconelist[2], loconelist[3]],
-                    [loconelist[4], loconelist[5]],
-                    [loconelist[6], loconelist[7]]
-                  ]
+            this.setState({
+              areaone: [
+                [
+                  [loconelist[0], loconelist[1]],
+                  [loconelist[2], loconelist[3]],
+                  [loconelist[4], loconelist[5]],
+                  [loconelist[6], loconelist[7]]
                 ]
-              },
-              () => {
-                post(
-                  {
-                    url: "/api/camera/fieldadd",
-                    data: {
-                      key: 1,
-                      field: JSON.stringify(this.state.areaone),
-                      code: this.state.cid
-                    }
-                  },
-                  res => {
-                    if (res) {
-                      console.log(res, "bendi添加一后台返回");
-                      this.setState(
-                        {
-                          areaone: [this.state.areaone]
-                        },
-                        () => {
-                          console.log(
-                            this.state.areaone,
-                            this.state.present,
-                            "bendi添加一返回"
-                          );
-                          this.renderDefence();
-                        }
-                      );
-                    }
-                  }
-                );
-                console.log("通过local传递的areaone", this.state.areaone);
-              }
-            );
+              ]
+            });
           }
           this.setState(
             {
@@ -551,7 +488,7 @@ class Setarea extends Component {
           break;
         }
         if (this.state.subbtn2 === "确认删除防区二") {
-          localStorage.setItem("locone", "");
+          localStorage.setItem("loctwo", "");
           this.setState(
             {
               opebtn2: "添加防区二",
@@ -595,6 +532,7 @@ class Setarea extends Component {
                       this.state.present,
                       "删除二返回"
                     );
+                    this.renderDefence();
                   }
                 );
               }
