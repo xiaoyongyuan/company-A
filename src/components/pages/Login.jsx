@@ -7,7 +7,6 @@ import { qrcode } from "../../axios/tools";
 import QRCode from "qrcode.react";
 import "../../style/jhy/css/login.css";
 import "../../style/jhy/icon/iconfont.css";
-import ditupic from "../../style/jhy/imgs/ditu.png";
 import logopic from "../../style/jhy/imgs/logo.png";
 import layerpic from "../../style/jhy/imgs/layer.png";
 import layerpic2 from "../../style/jhy/imgs/layer2.png";
@@ -145,7 +144,7 @@ class Login extends React.Component {
       <div
         className="loginnew"
         style={{
-          backgroundImage: `url('${ditupic}')`
+            background:"#313653"
         }}
       >
         <div className="topbar">
