@@ -40,16 +40,17 @@ img {
 
 .wrapper {
   max-width: 1200px;
+  height: 420px;
   margin: 0 auto;
   position: relative;
   box-sizing: border-box;
 }
 
 .acrossturn {
-  width: 28.333%;
+  width: 360px;
+  height: 360px;
   position: absolute;
   top: 10%;
-  height: 71.4%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -349,11 +350,13 @@ textarea:-ms-input-placeholder {
   font-size: 12px;
   color: #fff;
 }
-input:-webkit-autofill , textarea:-webkit-autofill, select:-webkit-autofill {
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
   -webkit-text-fill-color: #ededed !important;
-  -webkit-box-shadow: 0 0 0px 1000px transparent  inset !important;
-  background-color:transparent;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  background-color: transparent;
   background-image: none;
   transition: background-color 50000s ease-in-out 0s;
 }
-
