@@ -7,12 +7,15 @@
 .setarea {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
-.toparea {
-  height: 86%;
-  width: 100%;
+.setarea .setarea_cont {
+  margin: 20px;
+  padding: 20px;
+  background: #2b3355;
 }
+
 
 .photo {
   position: relative;
@@ -23,7 +26,7 @@
 
 .optbtn {
   padding-top: 20%;
-  width: 40%;
+  width: 30%;
   height: 100%;
   float: left;
   padding-left: 20px;

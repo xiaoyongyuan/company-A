@@ -295,6 +295,8 @@ class Sechild extends Component {
             () => {}
           );
           break;
+        default:
+          return;
       }
     };
     var onDragMove = function(e) {
@@ -366,9 +368,7 @@ class Sechild extends Component {
         style={{
           background: "transprent",
           width: defwidth,
-          minWidth: "20px",
           height: defheight,
-          minHeight: "20px",
           border: `1px solid ${bordcolor}`,
           position: "absolute",
           left: defleft,
