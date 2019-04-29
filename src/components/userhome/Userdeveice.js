@@ -2,12 +2,12 @@ import React from 'react';
 import {Form, Row, Col, Button,Icon, message, Modal, Input} from 'antd';
 import '../../style/sjg/home.css';
 import {post} from "../../axios/tools";
+import CascaderModule from '../common/CascaderModule';
+
 class Userdeveice extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            portvalue:"",
-            ipvalue:"",
             code:"",
             data:{},
             edata:{},
@@ -17,6 +17,11 @@ class Userdeveice extends React.Component{
             visible:false,//弹窗
             changelat:'',//修改的纬度
             changelng:'',//修改的经度
+            camerauser:'', //用户名
+            camerapasswd:'', //密码
+            portvalue:"", //端口号
+            ipvalue:"", //设备IP
+
         };
     }
     componentDidMount() {             
@@ -179,7 +184,39 @@ class Userdeveice extends React.Component{
             visible:false
         })
     }
-
+    setstateComm=(label,value=true)=>{
+        this.setState({
+            [label]:value
+        })
+    }
+    addreditOk=()=>{
+        const va= this.child.formref()
+        if(!va.zonecode || !this.state.addrdetail) return message.error('请填写完整！');
+        post({url:"/api/camera/update",data:{code:this.props.query.id,location:va.zonename+','+this.state.addrdetail,village_id:va.zonecode}}, (res)=>{
+            if(res.success){
+                var statedata=this.state.data;
+                statedata.village_id=va.zonecode;
+                statedata.location=va.zonename+','+this.state.addrdetail;
+                this.setState({
+                    data:statedata,
+                    addrdetail:'',
+                    addreditSwitch:false
+                },()=>{
+                    message.success('修改成功！');
+                })
+            }
+        })
+    }
+    addreditCancel=()=>{
+        this.setState({
+            addreditSwitch:false,
+            addrdetail:''
+        })
+        
+    }
+    onRef = (ref) => {
+      this.child = ref
+    }
     render(){
         const _this=this;
         return(     
@@ -207,7 +244,7 @@ class Userdeveice extends React.Component{
                            所在位置：
                         </Col>
                         <Col span={21} className="t_l">
-                        {this.state.data.location}
+                        {this.state.data.location}   <span onClick={()=>this.setstateComm('addreditSwitch')} style={{color:'#5063ee',cursor:'pointer'}}>编辑</span>
                         </Col>
                     </Row>
                     <Row className="equ_row">
@@ -301,8 +338,8 @@ class Userdeveice extends React.Component{
                             用户名：
                         </Col>
                         <Col span={21} className="t_l">
-                              <input className="padd_left" type="text"value={this.state.camerauser} id="ip"
-                              onChange={(e)=>this.onChangeuser(e)}
+                              <input className="padd_left" type="text" value={this.state.camerauser} id="ip"
+                              onChange={(event)=>this.onChangeuser(event)}
                               /> 
                         </Col>
                     </Row>
@@ -311,7 +348,7 @@ class Userdeveice extends React.Component{
                            密码：
                         </Col>
                         <Col span={21} className="t_l">
-                            <input className="padd_left" type="text"value={this.state.camerapasswd}
+                            <input className="padd_left" type="text" value={this.state.camerapasswd}
                              onChange={(e)=>this.onChangepwd(e)}
                              id="port"
                             />      
@@ -354,6 +391,20 @@ class Userdeveice extends React.Component{
                     <Row>
                        <label>经度：</label><Input defaultValue={this.state.changelng} onChange={(e)=>this.changeCoord(e,'changelng')} />
                        <label>纬度：</label><Input defaultValue={this.state.changelat} onChange={(e)=>this.changeCoord(e,'changelat')} />
+                    </Row>
+                </Modal>
+                <Modal
+                    title='编辑当前位置'
+                    visible={this.state.addreditSwitch}
+                    onOk={this.addreditOk}
+                    onCancel={this.addreditCancel}
+                    okText="确认"
+                    cancelText="取消"
+                >
+                    <Row>
+                        <label>区域：</label><CascaderModule onRef={this.onRef} style={{width:'100%'}} /> 
+                        <label>详细地址：</label><Input onChange={(e)=>this.changeCoord(e,'addrdetail')} />
+                        
                     </Row>
                 </Modal>
             </div>
