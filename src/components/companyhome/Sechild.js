@@ -119,7 +119,7 @@ class Sechild extends Component {
       obj = null;
     };
     var move = function(operateType, location, preview) {
-      document.body.style.cursor = location + "_resize";
+      document.body.style.cursor = operateType + "_resize";
       const comstyle = window.getComputedStyle(preview);
       switch (operateType) {
         case "e":
@@ -127,6 +127,7 @@ class Sechild extends Component {
           clickX = location.x;
           var length = parseInt(preview.style.width) + add_length;
           preview.style.width = length + "px";
+
           if (
             parseInt(preview.style.width) + parseInt(preview.offsetLeft) >
             704
@@ -196,7 +197,7 @@ class Sechild extends Component {
           preview.style.left = add_length + preview.offsetLeft + "px";
           if (parseInt(preview.offsetLeft) < 0) {
             onDragUp();
-            preview.style.left = "0";
+            preview.style.left = 0;
           }
           window.Sechild.setState(
             {
@@ -227,7 +228,7 @@ class Sechild extends Component {
           preview.style.top = add_length + preview.offsetTop + "px";
           if (parseInt(preview.offsetTop) < 0) {
             onDragUp();
-            preview.style.top = "0";
+            preview.style.top = 0;
           }
           window.Sechild.setState(
             {
@@ -351,6 +352,7 @@ class Sechild extends Component {
     $("downLeftBtn").onmousedown = onDownLeftBtnDown;
     $("downRightBtn").onmousedown = onDownRightBtnDown;
     $("centerContext").onmousedown = onCenterContextDown;
+
     document.onmousemove = onDragMove;
     document.onmouseup = onDragUp;
   }
@@ -373,8 +375,6 @@ class Sechild extends Component {
           position: "absolute",
           left: defleft,
           top: deftop,
-          minHeight: "50px",
-          minWidth: "50px",
           zIndex: "1000",
           boxSizing: "border-box"
         }}
