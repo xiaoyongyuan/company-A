@@ -109,8 +109,21 @@ class Userdeveice extends React.Component{
         }          
      }
      atype=()=>{ //报警类型 
+        switch(this.state.data.atype){
+            case 1:
+             return "入侵报警";
+            case 110:
+              return '匪警';
+            case 119:
+              return '火警';
+            case 12:
+              return '整点打卡';
+            default:
+             return '未知类型 '+this.state.data.atype;
+
+        }
         if(this.state.data.atype===1){
-            return "入侵报警"
+            return 
         }         
     }
     isonline=()=>{ //当前状态 
@@ -249,6 +262,14 @@ class Userdeveice extends React.Component{
                     </Row>
                     <Row className="equ_row">
                         <Col span={3} className="t_r">
+                           坐标：
+                        </Col>
+                        <Col span={8} className="t_l">
+                         {this.state.lng} , {this.state.lat} <span onClick={this.locationedit} style={{color:'#5063ee',cursor:'pointer'}}>  修改</span>          
+                        </Col>
+                    </Row>
+                    <Row className="equ_row">
+                        <Col span={3} className="t_r">
                            最后报警时间：
                         </Col>
                         <Col span={21} className="t_l">
@@ -292,15 +313,7 @@ class Userdeveice extends React.Component{
                            <span className={this.tempbg()}> {this.state.heartdata.temp}℃ </span> 
                         </Col>
                     </Row>
-                    <p><Icon type="video-camera" /> 摄像头信息</p>
-                    <Row className="equ_row">
-                        <Col span={3} className="t_r">
-                           坐标：
-                        </Col>
-                        <Col span={8} className="t_l">
-                         {this.state.lng} , {this.state.lat} <span onClick={this.locationedit} style={{color:'#5063ee',cursor:'pointer'}}>  修改</span>          
-                        </Col>
-                    </Row>
+                    <p><Icon type="video-camera" /> 摄像头信息</p>                    
                     <Row className="equ_row">
                         <Col span={3} className="t_r">
                            设备状态：
