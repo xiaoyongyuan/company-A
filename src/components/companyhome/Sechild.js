@@ -8,8 +8,8 @@ class Sechild extends Component {
       topRightPoint: [200, 0],
       bottLeftPoint: [0, 200],
       bottRightPoint: [200, 200],
-      width: "",
-      height: ""
+      width: 200,
+      height: 200
     };
   }
   componentDidMount() {
@@ -52,8 +52,8 @@ class Sechild extends Component {
           parseInt(comstyle.left) + parseInt(comstyle.width),
           parseInt(comstyle.top) + parseInt(comstyle.height)
         ],
-        width: "200px",
-        height: "200px"
+        width: 200,
+        height: 200
       },
       () => {}
     );
@@ -132,7 +132,7 @@ class Sechild extends Component {
             704
           ) {
             onDragUp();
-            preview.style.left = 703 - parseInt(preview.style.width) + "px";
+            preview.style.left = 704 - parseInt(preview.style.width) + "px";
           }
           window.Sechild.setState(
             {
@@ -162,10 +162,10 @@ class Sechild extends Component {
           preview.style.height = length + "px";
           if (
             parseInt(preview.style.height) + parseInt(preview.offsetTop) >
-            574
+            576
           ) {
             onDragUp();
-            preview.style.top = 573 - parseInt(preview.style.height) + "px";
+            preview.style.top = 576 - parseInt(preview.style.height) + "px";
           }
           window.Sechild.setState(
             {
@@ -196,7 +196,7 @@ class Sechild extends Component {
           preview.style.left = add_length + preview.offsetLeft + "px";
           if (parseInt(preview.offsetLeft) < 0) {
             onDragUp();
-            preview.style.left = "1px";
+            preview.style.left = "0";
           }
           window.Sechild.setState(
             {
@@ -227,7 +227,7 @@ class Sechild extends Component {
           preview.style.top = add_length + preview.offsetTop + "px";
           if (parseInt(preview.offsetTop) < 0) {
             onDragUp();
-            preview.style.top = "1px";
+            preview.style.top = "0";
           }
           window.Sechild.setState(
             {
@@ -270,8 +270,8 @@ class Sechild extends Component {
             var finalleft = 704 - parseInt(comput.width);
             preview.style.left = `${finalleft}px`;
           }
-          if (totalh > 574) {
-            var finaltop = 574 - parseInt(comput.height);
+          if (totalh > 576) {
+            var finaltop = 576 - parseInt(comput.height);
             preview.style.top = `${finaltop}px`;
           }
           window.Sechild.setState(
@@ -373,7 +373,10 @@ class Sechild extends Component {
           position: "absolute",
           left: defleft,
           top: deftop,
-          zIndex: "1000"
+          minHeight: "50px",
+          minWidth: "50px",
+          zIndex: "1000",
+          boxSizing: "border-box"
         }}
       >
         <div className="upBtn" id="upBtn" />

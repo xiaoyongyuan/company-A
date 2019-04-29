@@ -24,7 +24,7 @@ class Setarea extends Component {
       subdisable1: true,
       subdisable2: true,
       iscancle: false,
-      defwidgth: "",
+      defwidth: "",
       defheight: ""
     };
     this.submit = this.submit.bind(this);
@@ -151,8 +151,8 @@ class Setarea extends Component {
             left={parseInt(areaone[0][0])}
             top={parseInt(areaone[0][1])}
             width={
-              this.state.defwidgth
-                ? this.state.defwidgth
+              this.state.defwidth
+                ? this.state.defwidth
                 : parseInt(areaone[1][0] - areaone[0][0])
             }
             height={
@@ -175,8 +175,8 @@ class Setarea extends Component {
             left={parseInt(areatwo[0][0])}
             top={parseInt(areatwo[0][1])}
             width={
-              this.state.defwidgth
-                ? this.state.defwidgth
+              this.state.defwidth
+                ? this.state.defwidth
                 : parseInt(areatwo[1][0] - areatwo[0][0])
             }
             height={
@@ -273,7 +273,7 @@ class Setarea extends Component {
                 defenceState.bottRightPoint,
                 defenceState.bottLeftPoint
               ],
-              defwidgth: defenceState.width,
+              defwidth: defenceState.width,
               defheight: defenceState.height
             },
             () => {
@@ -356,7 +356,7 @@ class Setarea extends Component {
                 defenceState.bottRightPoint,
                 defenceState.bottLeftPoint
               ],
-              defwidgth: defenceState.width,
+              defwidth: defenceState.width,
               defheight: defenceState.height
             },
             () => {

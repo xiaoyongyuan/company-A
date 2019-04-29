@@ -34,26 +34,26 @@
 }
 
 .upLeftBtn {
-  top: -5px;
-  left: -5px;
+  top: 0;
+  left: 0;
   cursor: nw-resize;
 }
 
 .upRightBtn {
-  top: -5px;
-  right: -5px;
+  top: 0;
+  right: 0;
   cursor: ne-resize;
 }
 
 .downLeftBtn {
-  bottom: -5px;
-  left: -5px;
+  bottom: 0;
+  left: 0;
   cursor: sw-resize;
 }
 
 .downRightBtn {
-  bottom: -5px;
-  right: -5px;
+  bottom: 0;
+  right: 0;
   cursor: se-resize;
 }
 
