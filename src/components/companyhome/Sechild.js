@@ -196,10 +196,11 @@ class Sechild extends Component {
           var add_length = location.x - clickX;
           clickX = location.x;
           var length = parseInt(preview.style.width) - add_length;
-          if (parseInt(preview.offsetLeft) >= 0) {
+          if (parseInt(preview.offsetLeft) > 0) {
             preview.style.width = length + "px";
             preview.style.left = add_length + preview.offsetLeft + "px";
           } else {
+            preview.style.left = 0;
             onDragUp();
           }
           if (parseInt(preview.style.width) < 50) {
@@ -230,10 +231,11 @@ class Sechild extends Component {
           var add_length = location.y - clickY;
           clickY = location.y;
           var length = parseInt(preview.style.height) - add_length;
-          if (parseInt(preview.offsetTop) >= 0) {
+          if (parseInt(preview.offsetTop) > 0) {
             preview.style.height = length + "px";
             preview.style.top = add_length + preview.offsetTop + "px";
           } else {
+            preview.style.top = 0;
             onDragUp();
           }
           if (parseInt(preview.style.height) < 50) {
