@@ -202,6 +202,9 @@ class Sechild extends Component {
           } else {
             onDragUp();
           }
+          if (parseInt(preview.style.width) < 50) {
+            onDragUp();
+          }
           window.Sechild.setState(
             {
               topLeftPoint: [parseInt(comstyle.left), parseInt(comstyle.top)],
@@ -231,6 +234,9 @@ class Sechild extends Component {
             preview.style.height = length + "px";
             preview.style.top = add_length + preview.offsetTop + "px";
           } else {
+            onDragUp();
+          }
+          if (parseInt(preview.style.height) < 50) {
             onDragUp();
           }
           window.Sechild.setState(
@@ -379,8 +385,8 @@ class Sechild extends Component {
           left: defleft,
           top: deftop,
           zIndex: "1000",
-          // minWidth: "50px",
-          // minHeight: "50px",
+          minWidth: "50px",
+          minHeight: "50px",
           boxSizing: "border-box"
         }}
       >
