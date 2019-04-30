@@ -126,13 +126,14 @@ class Sechild extends Component {
           var add_length = location.x - clickX;
           clickX = location.x;
           var length = parseInt(preview.style.width) + add_length;
-          preview.style.width = length + "px";
-
           if (
-            parseInt(preview.style.width) + parseInt(preview.offsetLeft) >
+            parseInt(preview.style.width) + parseInt(preview.offsetLeft) <=
             704
           ) {
+            preview.style.width = length + "px";
+          } else {
             onDragUp();
+            preview.style.width = 704 - parseInt(preview.offsetLeft) + "px";
             preview.style.left = 704 - parseInt(preview.style.width) + "px";
           }
           window.Sechild.setState(
@@ -160,13 +161,15 @@ class Sechild extends Component {
           var add_length = location.y - clickY;
           clickY = location.y;
           var length = parseInt(preview.style.height) + add_length;
-          preview.style.height = length + "px";
           if (
-            parseInt(preview.style.height) + parseInt(preview.offsetTop) >
+            parseInt(preview.style.height) + parseInt(preview.offsetTop) <=
             576
           ) {
+            preview.style.height = length + "px";
+          } else {
             onDragUp();
             preview.style.top = 576 - parseInt(preview.style.height) + "px";
+            preview.style.height = 576 - parseInt(preview.offsetTop) + "px";
           }
           window.Sechild.setState(
             {
@@ -193,11 +196,11 @@ class Sechild extends Component {
           var add_length = location.x - clickX;
           clickX = location.x;
           var length = parseInt(preview.style.width) - add_length;
-          preview.style.width = length + "px";
-          preview.style.left = add_length + preview.offsetLeft + "px";
-          if (parseInt(preview.offsetLeft) < 0) {
+          if (parseInt(preview.offsetLeft) >= 0) {
+            preview.style.width = length + "px";
+            preview.style.left = add_length + preview.offsetLeft + "px";
+          } else {
             onDragUp();
-            preview.style.left = 0;
           }
           window.Sechild.setState(
             {
@@ -224,11 +227,11 @@ class Sechild extends Component {
           var add_length = location.y - clickY;
           clickY = location.y;
           var length = parseInt(preview.style.height) - add_length;
-          preview.style.height = length + "px";
-          preview.style.top = add_length + preview.offsetTop + "px";
-          if (parseInt(preview.offsetTop) < 0) {
+          if (parseInt(preview.offsetTop) >= 0) {
+            preview.style.height = length + "px";
+            preview.style.top = add_length + preview.offsetTop + "px";
+          } else {
             onDragUp();
-            preview.style.top = 0;
           }
           window.Sechild.setState(
             {
@@ -376,6 +379,8 @@ class Sechild extends Component {
           left: defleft,
           top: deftop,
           zIndex: "1000",
+          // minWidth: "50px",
+          // minHeight: "50px",
           boxSizing: "border-box"
         }}
       >
