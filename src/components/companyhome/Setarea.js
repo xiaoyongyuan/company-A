@@ -4,8 +4,7 @@ import "../../style/jhy/css/setarea.css";
 import { post } from "../../axios/tools";
 const blue = "#5063ee";
 const red = "#ED2F2F";
-var clickX = 0; // 保留上次的X轴位置
-var clickY = 0; // 保留上次的Y轴位置
+
 class Setarea extends Component {
   constructor(props) {
     super(props);
@@ -68,7 +67,26 @@ class Setarea extends Component {
     //   area.closePath();
     // }
   }
+  getarrX = arr => {
+    let arrX = [];
+    arr.map((item, i) => {
+      arrX.push(item[0]);
+    });
+    return arrX;
+  };
+  getarrY = arr => {
+    let arrY = [];
+    arr.map((item, i) => {
+      arrY.push(item[1]);
+    });
+    return arrY;
+  };
+  getMaxX = arr => Math.max(...arr);
 
+  getMinX = arr => Math.min(...arr);
+  getMaxY = arr => Math.max(...arr);
+
+  getMinY = arr => Math.min(...arr);
   draw = () => {
     //绘制区域
     let item = this.state.present;
@@ -114,24 +132,73 @@ class Setarea extends Component {
     //   }
     // });
     this.boundarydraw();
-    const getEvent = e => {
-      return e || window.event;
-    };
-
-    const getLocation = e => {
-      return {
-        x: e.x || e.clientX,
-        y: e.y || e.clientY
-      };
-    };
-    // var onDragUp = function() {
-    //   document.body.style.cursor = "auto";
-    // };
-
-    document.ondblclick = e => {
-      getLocation(getEvent(e));
-      console.log(getLocation(getEvent(e)), "==================");
-    };
+    var clickX = 0; // 保留上次的X轴位置
+    var clickY = 0; // 保留上次的Y轴位置
+    const _this = this;
+    document
+      .querySelector("#cavcontainer")
+      .addEventListener("mousedown", function(e = window.event) {
+        console.log(_this.state.areaone);
+        console.log(
+          _this.getMaxX(_this.getarrX(_this.state.areaone)),
+          "xzuida"
+        );
+        console.log(
+          _this.getMinX(_this.getarrX(_this.state.areaone)),
+          "xzuixiao"
+        );
+        console.log(
+          _this.getMaxY(_this.getarrY(_this.state.areaone)),
+          "yzuida"
+        );
+        console.log(
+          _this.getMinY(_this.getarrY(_this.state.areaone)),
+          "xzuixiao"
+        );
+        console.log(e.offsetX, e.offsetY, "坐标offset");
+        clickX = e.offsetX;
+        clickY = e.offsetY;
+        document
+          .querySelector("#cavcontainer")
+          .addEventListener("mousemove", function(e) {
+            if (
+              _this.getMinX(_this.getarrX(_this.state.areaone)) < e.offsetX &&
+              e.offsetX < _this.getMaxX(_this.getarrX(_this.state.areaone)) &&
+              _this.getMinY(_this.getarrY(_this.state.areaone)) < e.offsetY &&
+              e.offsetY < _this.getMaxY(_this.getarrY(_this.state.areaone))
+            ) {
+              console.log("zailimian");
+              var addX = e.offsetX - clickX; //鼠标移动的距离
+              var addY = e.offsetY - clickY;
+              clickX = e.offsetX;
+              clickY = e.offsetY;
+              console.log(addX, addY, "增加的");
+              _this.setState(
+                state => {
+                  console.log(state.areaone, "chishi");
+                  return {
+                    areaone: [
+                      [state.areaone[0][0] + addX, state.areaone[0][1] + addY],
+                      [state.areaone[1][0] + addX, state.areaone[1][1] + addY],
+                      [state.areaone[2][0] + addX, state.areaone[2][1] + addY],
+                      [state.areaone[3][0] + addX, state.areaone[3][1] + addY],
+                      [state.areaone[4][0] + addX, state.areaone[4][1] + addY]
+                    ]
+                  };
+                },
+                () => {
+                  console.log(_this.state.areaone);
+                  _this.boundarydraw();
+                }
+              );
+              document
+                .querySelector("#cavcontainer")
+                .addEventListener("mouseup", function() {
+                  return false;
+                });
+            }
+          });
+      });
   }
 
   // getcoord = coords => {
@@ -143,23 +210,14 @@ class Setarea extends Component {
   //   let pre = [x, y];
   //   return pre;
   // };
-
   render() {
     return (
       <div className="setarea">
         <div className="topcont clearfix">
-          <div
-            className="cavwrap"
-            style={{
-              width: "704px",
-              height: "576px",
-              float: "left",
-              boxSizing: "border-box"
-            }}
-          >
+          <div className="cavwrap">
             <canvas
-              width="100%"
-              height="100%"
+              width="704px"
+              height="576px"
               id="cavcontainer"
               style={{
                 // backgroundImage: "url(" + this.state.src + ")",
