@@ -4,7 +4,7 @@ import "../../style/jhy/css/setarea.css";
 import { post } from "../../axios/tools";
 const blue = "#5063ee";
 const red = "#ED2F2F";
-
+const maskcol = "rgba(255, 255, 255, 0.3)";
 class Setarea extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +29,8 @@ class Setarea extends Component {
     if (this.state.areaone.length > 0) {
       let areaone = this.state.areaone;
       area.strokeStyle = blue;
-      area.lineWidth = 3;
+      area.fillStyle = maskcol;
+      area.lineWidth = 2;
       area.beginPath();
       area.moveTo(areaone[0][0], areaone[0][1]);
       area.lineTo(areaone[1][0], areaone[1][1]);
@@ -37,7 +38,13 @@ class Setarea extends Component {
       area.lineTo(areaone[3][0], areaone[3][1]);
       area.lineTo(areaone[4][0], areaone[4][1]);
       area.lineTo(areaone[0][0], areaone[0][1]);
-      area.stroke();
+      area.fill();
+      areaone.map(val => {
+        area.beginPath();
+        area.fillStyle = "rgba(128, 100, 162, 0.7)";
+        area.arc(val[0], val[1], 5, 0, Math.PI * 2, false);
+        area.fill();
+      });
       // if (this.state.areatwo.length > 0) {
       //   let areatwo = this.state.areatwo;
       //   area.strokeStyle = red;
@@ -94,7 +101,8 @@ class Setarea extends Component {
     let area = ele.getContext("2d");
     area.clearRect(0, 0, 704, 576);
     area.strokeStyle = "#ff0";
-    area.lineWidth = 3;
+    area.fillStyle = maskcol;
+    area.lineWidth = 2;
     area.beginPath();
     area.moveTo(item[0][0], item[0][1]);
     item.map((elx, i) => {
@@ -161,11 +169,42 @@ class Setarea extends Component {
         document
           .querySelector("#cavcontainer")
           .addEventListener("mousemove", function movefun(e) {
+            _this.getarrX(_this.state.areaone).map((x, xi) => {
+              if (x - 5 < e.offsetX && e.offsetX < x + 5) {
+                _this.getarrY(_this.state.areaone).map((y, yi) => {
+                  if (y - 5 < e.offsetY && e.offsetY < y + 5) {
+                    var addX = e.offsetX - clickX; //鼠标移动的距离
+                    var addY = e.offsetY - clickY;
+                    clickX = e.offsetX;
+                    clickY = e.offsetY;
+                    if (xi === yi) {
+                      console.log(
+                        "在角点处=================================================================="
+                      );
+                      _this.setState(() => {
+                        _this.state.areaone[xi] = [
+                          _this.state.areaone[xi][0] + addX,
+                          _this.state.areaone[xi][1] + addY
+                        ];
+                        _this.boundarydraw();
+                      });
+                    } else {
+                      console.log(
+                        "不在交点处+++++++++++++++++++++++++++++++++++++++++++"
+                      );
+                    }
+                  }
+                });
+              }
+            });
             if (
-              _this.getMinX(_this.getarrX(_this.state.areaone)) < e.offsetX &&
-              e.offsetX < _this.getMaxX(_this.getarrX(_this.state.areaone)) &&
-              _this.getMinY(_this.getarrY(_this.state.areaone)) < e.offsetY &&
-              e.offsetY < _this.getMaxY(_this.getarrY(_this.state.areaone))
+              _this.getMinX(_this.getarrX(_this.state.areaone)) + 5 <
+                e.offsetX &&
+              e.offsetX <
+                _this.getMaxX(_this.getarrX(_this.state.areaone)) - 5 &&
+              _this.getMinY(_this.getarrY(_this.state.areaone)) + 5 <
+                e.offsetY &&
+              e.offsetY < _this.getMaxY(_this.getarrY(_this.state.areaone)) - 5
             ) {
               console.log("zailimian");
               var addX = e.offsetX - clickX; //鼠标移动的距离
@@ -187,26 +226,16 @@ class Setarea extends Component {
                   };
                 },
                 () => {
-                  console.log(_this.state.areaone);
                   _this.boundarydraw();
-                  if (
-                    _this.getMinX(_this.getarrX(_this.state.areaone)) < 0 ||
-                    _this.getMaxX(_this.getarrX(_this.state.areaone)) > 704 ||
-                    _this.getMinY(_this.getarrY(_this.state.areaone)) < 0 ||
-                    _this.getMaxY(_this.getarrY(_this.state.areaone)) > 576
-                  ) {
-                    document
-                      .querySelector("#cavcontainer")
-                      .removeEventListener("mousemove", movefun);
-                  }
                 }
               );
             }
+
             if (
-              _this.getMinX(_this.getarrX(_this.state.areaone)) < 0 ||
-              _this.getMaxX(_this.getarrX(_this.state.areaone)) > 704 ||
-              _this.getMinY(_this.getarrY(_this.state.areaone)) < 0 ||
-              _this.getMaxY(_this.getarrY(_this.state.areaone)) > 576
+              _this.getMinX(_this.getarrX(_this.state.areaone)) < 5 ||
+              _this.getMaxX(_this.getarrX(_this.state.areaone)) > 699 ||
+              _this.getMinY(_this.getarrY(_this.state.areaone)) < 5 ||
+              _this.getMaxY(_this.getarrY(_this.state.areaone)) > 571
             ) {
               document
                 .querySelector("#cavcontainer")
