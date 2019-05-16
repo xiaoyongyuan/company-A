@@ -160,7 +160,7 @@ class Setarea extends Component {
         clickY = e.offsetY;
         document
           .querySelector("#cavcontainer")
-          .addEventListener("mousemove", function(e) {
+          .addEventListener("mousemove", function movefun(e) {
             if (
               _this.getMinX(_this.getarrX(_this.state.areaone)) < e.offsetX &&
               e.offsetX < _this.getMaxX(_this.getarrX(_this.state.areaone)) &&
@@ -189,27 +189,40 @@ class Setarea extends Component {
                 () => {
                   console.log(_this.state.areaone);
                   _this.boundarydraw();
+                  if (
+                    _this.getMinX(_this.getarrX(_this.state.areaone)) < 0 ||
+                    _this.getMaxX(_this.getarrX(_this.state.areaone)) > 704 ||
+                    _this.getMinY(_this.getarrY(_this.state.areaone)) < 0 ||
+                    _this.getMaxY(_this.getarrY(_this.state.areaone)) > 576
+                  ) {
+                    document
+                      .querySelector("#cavcontainer")
+                      .removeEventListener("mousemove", movefun);
+                  }
                 }
               );
+            }
+            if (
+              _this.getMinX(_this.getarrX(_this.state.areaone)) < 0 ||
+              _this.getMaxX(_this.getarrX(_this.state.areaone)) > 704 ||
+              _this.getMinY(_this.getarrY(_this.state.areaone)) < 0 ||
+              _this.getMaxY(_this.getarrY(_this.state.areaone)) > 576
+            ) {
               document
                 .querySelector("#cavcontainer")
-                .addEventListener("mouseup", function() {
-                  return false;
-                });
+                .removeEventListener("mousemove", movefun);
             }
+            document
+              .querySelector("#cavcontainer")
+              .addEventListener("mouseup", function(e) {
+                document
+                  .querySelector("#cavcontainer")
+                  .removeEventListener("mousemove", movefun);
+              });
           });
       });
   }
 
-  // getcoord = coords => {
-  //   //获取坐标
-  //   let ele = document.getElementById("time_graph_canvas");
-  //   let canvsclent = ele.getBoundingClientRect();
-  //   let x = coords.clientX - canvsclent.left * (ele.width / canvsclent.width);
-  //   let y = coords.clientY - canvsclent.top * (ele.height / canvsclent.height);
-  //   let pre = [x, y];
-  //   return pre;
-  // };
   render() {
     return (
       <div className="setarea">
