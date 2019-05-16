@@ -13,9 +13,11 @@ class Setarea extends Component {
       clicknum: 0,
       present: [],
       areaone: [[400, 100], [600, 300], [600, 500], [200, 500], [200, 300]], //防区一
-      areatwo: [], //防区二
+      areatwo: [[200, 200], [300, 500], [300, 600], [400, 600], [500, 200]], //防区二
       deleteshow: false
     };
+    this.handleSub = this.handleSub.bind(this);
+    this.handleDel = this.handleDel.bind(this);
   }
   componentWillMount = () => {
     this.setState({
@@ -38,41 +40,57 @@ class Setarea extends Component {
       area.lineTo(areaone[3][0], areaone[3][1]);
       area.lineTo(areaone[4][0], areaone[4][1]);
       area.lineTo(areaone[0][0], areaone[0][1]);
+      area.closePath();
       area.fill();
+      area.stroke();
       areaone.map(val => {
         area.beginPath();
         area.fillStyle = "rgba(128, 100, 162, 0.7)";
         area.arc(val[0], val[1], 5, 0, Math.PI * 2, false);
         area.fill();
       });
-      // if (this.state.areatwo.length > 0) {
-      //   let areatwo = this.state.areatwo;
-      //   area.strokeStyle = red;
-      //   area.beginPath();
-      //   area.moveTo(areatwo[0][0], areatwo[0][1]);
-      //   area.lineTo(areatwo[1][0], areatwo[1][1]);
-      //   area.lineTo(areatwo[2][0], areatwo[2][1]);
-      //   area.lineTo(areatwo[3][0], areatwo[3][1]);
-      //   area.lineTo(areatwo[4][0], areatwo[4][1]);
-      //   area.lineTo(areatwo[0][0], areatwo[0][1]);
-      //   area.stroke();
-      //   area.closePath();
-      // }
+      if (this.state.areatwo.length > 0) {
+        let areatwo = this.state.areatwo;
+        area.fillStyle = maskcol;
+        area.strokeStyle = red;
+        area.lineWidth = 2;
+        area.beginPath();
+        area.moveTo(areatwo[0][0], areatwo[0][1]);
+        area.lineTo(areatwo[1][0], areatwo[1][1]);
+        area.lineTo(areatwo[2][0], areatwo[2][1]);
+        area.lineTo(areatwo[3][0], areatwo[3][1]);
+        area.lineTo(areatwo[4][0], areatwo[4][1]);
+        area.lineTo(areatwo[0][0], areatwo[0][1]);
+        area.fill();
+        area.stroke();
+        areatwo.map(val => {
+          area.beginPath();
+          area.fillStyle = "rgba(128, 100, 162, 0.7)";
+          area.arc(val[0], val[1], 5, 0, Math.PI * 2, false);
+          area.fill();
+        });
+      }
+    } else if (this.state.areatwo.length > 0) {
+      let areatwo = this.state.areatwo;
+      area.strokeStyle = red;
+      area.fillStyle = maskcol;
+      area.lineWidth = 2;
+      area.beginPath();
+      area.moveTo(areatwo[0][0], areatwo[0][1]);
+      area.lineTo(areatwo[1][0], areatwo[1][1]);
+      area.lineTo(areatwo[2][0], areatwo[2][1]);
+      area.lineTo(areatwo[3][0], areatwo[3][1]);
+      area.lineTo(areatwo[4][0], areatwo[4][1]);
+      area.lineTo(areatwo[0][0], areatwo[0][1]);
+      area.fill();
+      area.stroke();
+      areatwo.map(val => {
+        area.beginPath();
+        area.fillStyle = "rgba(128, 100, 162, 0.7)";
+        area.arc(val[0], val[1], 5, 0, Math.PI * 2, false);
+        area.fill();
+      });
     }
-    // else if (this.state.areatwo.length > 0) {
-    //   let areatwo = this.state.areatwo;
-    //   area.strokeStyle = red;
-    //   area.lineWidth = 3;
-    //   area.beginPath();
-    //   area.moveTo(areatwo[0][0], areatwo[0][1]);
-    //   area.lineTo(areatwo[1][0], areatwo[1][1]);
-    //   area.lineTo(areatwo[2][0], areatwo[2][1]);
-    //   area.lineTo(areatwo[3][0], areatwo[3][1]);
-    //   area.lineTo(areatwo[4][0], areatwo[4][1]);
-    //   area.lineTo(areatwo[0][0], areatwo[0][1]);
-    //   area.stroke();
-    //   area.closePath();
-    // }
   }
   getarrX = arr => {
     let arrX = [];
@@ -169,44 +187,98 @@ class Setarea extends Component {
         document
           .querySelector("#cavcontainer")
           .addEventListener("mousemove", function movefun(e) {
-            _this.getarrX(_this.state.areaone).map((x, xi) => {
-              if (x - 5 < e.offsetX && e.offsetX < x + 5) {
-                _this.getarrY(_this.state.areaone).map((y, yi) => {
-                  if (y - 5 < e.offsetY && e.offsetY < y + 5) {
-                    var addX = e.offsetX - clickX; //鼠标移动的距离
-                    var addY = e.offsetY - clickY;
-                    clickX = e.offsetX;
-                    clickY = e.offsetY;
-                    if (xi === yi) {
-                      console.log(
-                        "在角点处=================================================================="
-                      );
-                      _this.setState(() => {
-                        _this.state.areaone[xi] = [
-                          _this.state.areaone[xi][0] + addX,
-                          _this.state.areaone[xi][1] + addY
-                        ];
-                        _this.boundarydraw();
-                      });
-                    } else {
-                      console.log(
-                        "不在交点处+++++++++++++++++++++++++++++++++++++++++++"
-                      );
-                    }
-                  }
-                });
-              }
-            });
             if (
-              _this.getMinX(_this.getarrX(_this.state.areaone)) + 5 <
-                e.offsetX &&
-              e.offsetX <
-                _this.getMaxX(_this.getarrX(_this.state.areaone)) - 5 &&
-              _this.getMinY(_this.getarrY(_this.state.areaone)) + 5 <
-                e.offsetY &&
-              e.offsetY < _this.getMaxY(_this.getarrY(_this.state.areaone)) - 5
+              _this.state.areaone[0][0] - 5 < e.offsetX &&
+              e.offsetX < _this.state.areaone[0][0] + 5 &&
+              _this.state.areaone[0][1] - 5 < e.offsetY &&
+              e.offsetY < _this.state.areaone[0][1] + 5
             ) {
-              console.log("zailimian");
+              var addX = e.offsetX - clickX; //鼠标移动的距离
+              var addY = e.offsetY - clickY;
+              clickX = e.offsetX;
+              clickY = e.offsetY;
+              _this.setState(() => {
+                _this.state.areaone[0] = [
+                  _this.state.areaone[0][0] + addX,
+                  _this.state.areaone[0][1] + addY
+                ];
+                _this.boundarydraw();
+              });
+            } else if (
+              _this.state.areaone[1][0] - 5 < e.offsetX &&
+              e.offsetX < _this.state.areaone[1][0] + 5 &&
+              _this.state.areaone[1][1] - 5 < e.offsetY &&
+              e.offsetY < _this.state.areaone[1][1] + 5
+            ) {
+              var addX = e.offsetX - clickX; //鼠标移动的距离
+              var addY = e.offsetY - clickY;
+              clickX = e.offsetX;
+              clickY = e.offsetY;
+              _this.setState(() => {
+                _this.state.areaone[1] = [
+                  _this.state.areaone[1][0] + addX,
+                  _this.state.areaone[1][1] + addY
+                ];
+                _this.boundarydraw();
+              });
+            } else if (
+              _this.state.areaone[2][0] - 5 < e.offsetX &&
+              e.offsetX < _this.state.areaone[2][0] + 5 &&
+              _this.state.areaone[2][1] - 5 < e.offsetY &&
+              e.offsetY < _this.state.areaone[2][1] + 5
+            ) {
+              var addX = e.offsetX - clickX; //鼠标移动的距离
+              var addY = e.offsetY - clickY;
+              clickX = e.offsetX;
+              clickY = e.offsetY;
+              _this.setState(() => {
+                _this.state.areaone[2] = [
+                  _this.state.areaone[2][0] + addX,
+                  _this.state.areaone[2][1] + addY
+                ];
+                _this.boundarydraw();
+              });
+            } else if (
+              _this.state.areaone[3][0] - 5 < e.offsetX &&
+              e.offsetX < _this.state.areaone[3][0] + 5 &&
+              _this.state.areaone[3][1] - 5 < e.offsetY &&
+              e.offsetY < _this.state.areaone[3][1] + 5
+            ) {
+              var addX = e.offsetX - clickX; //鼠标移动的距离
+              var addY = e.offsetY - clickY;
+              clickX = e.offsetX;
+              clickY = e.offsetY;
+              _this.setState(() => {
+                _this.state.areaone[3] = [
+                  _this.state.areaone[3][0] + addX,
+                  _this.state.areaone[3][1] + addY
+                ];
+                _this.boundarydraw();
+              });
+            } else if (
+              _this.state.areaone[4][0] - 5 < e.offsetX &&
+              e.offsetX < _this.state.areaone[4][0] + 5 &&
+              _this.state.areaone[4][1] - 5 < e.offsetY &&
+              e.offsetY < _this.state.areaone[4][1] + 5
+            ) {
+              var addX = e.offsetX - clickX; //鼠标移动的距离
+              var addY = e.offsetY - clickY;
+              clickX = e.offsetX;
+              clickY = e.offsetY;
+              _this.setState(() => {
+                _this.state.areaone[4] = [
+                  _this.state.areaone[4][0] + addX,
+                  _this.state.areaone[4][1] + addY
+                ];
+                _this.boundarydraw();
+              });
+            } else if (
+              _this.getMinX(_this.getarrX(_this.state.areaone)) < e.offsetX &&
+              e.offsetX < _this.getMaxX(_this.getarrX(_this.state.areaone)) &&
+              _this.getMinY(_this.getarrY(_this.state.areaone)) < e.offsetY &&
+              e.offsetY < _this.getMaxY(_this.getarrY(_this.state.areaone))
+            ) {
+              console.log("zailimian,且不在5个点上");
               var addX = e.offsetX - clickX; //鼠标移动的距离
               var addY = e.offsetY - clickY;
               clickX = e.offsetX;
@@ -251,7 +323,16 @@ class Setarea extends Component {
           });
       });
   }
-
+  handleSub(subn) {
+    if (subn === 1) {
+    } else {
+    }
+  }
+  handleDel(deln) {
+    if (deln === 1) {
+    } else {
+    }
+  }
   render() {
     return (
       <div className="setarea">
@@ -270,13 +351,35 @@ class Setarea extends Component {
           </div>
 
           <div className="optbtn">
-            <Button type="primary" className="operbtn1">
-              按钮1
+            <Button
+              type="primary"
+              className="subtn1"
+              onClick={this.handleSub(1)}
+            >
+              确认防区一
+            </Button>
+            <Button
+              type="primary"
+              className="deltn1"
+              onClick={this.handleDel(1)}
+            >
+              删除防区一
             </Button>
             <br />
             <br />
-            <Button type="primary" className="operbtn2">
-              按钮2
+            <Button
+              type="primary"
+              className="subtn2"
+              onClick={this.handleSub(1)}
+            >
+              确认防区二
+            </Button>
+            <Button
+              type="primary"
+              className="deltn2"
+              onClick={this.handleDel(2)}
+            >
+              删除防区二
             </Button>
           </div>
         </div>
