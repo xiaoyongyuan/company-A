@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card,Row,Col,Icon,Spin} from 'antd';
+import {Card,Row,Col,Icon,Spin,message} from 'antd';
 import '../../style/sjg/home.css';
 import {post} from "../../axios/tools";
 import { connect } from 'react-redux';
@@ -33,6 +33,19 @@ class Equipment extends React.Component{
                         camera:res.camera, //摄像头信息
                         type:1
                     })
+                    var datas=new Date().getTime();
+                    res.camera.map((v)=>{
+                        if(v.heart.time){
+                            if(datas-new Date(v.heart.time).getTime()>60000){
+                                this.setState({liveIcon:false})
+                            }else{
+                                this.setState({liveIcon:true})
+                            }
+                        }else{
+                            this.setState({liveIcon:false})
+                        }
+                    })
+
                 }else{
                     this.setState({
                         loading:false,
@@ -82,7 +95,7 @@ class Equipment extends React.Component{
             count++;
         }
         return count;
-    }
+    };
     isonline=(i)=>{ //是否在线
         if(this.state.camera[i]&&this.state.camera[i].heart.time){
             let time= this.state.camera[i].heart.time.toString();// 取到时间
@@ -95,10 +108,10 @@ class Equipment extends React.Component{
             }else{
                 return(<div className="onLine onLineBack">在线</div>)
             }
+
         }else{
            return(<div className="onLine onLineBack">离线</div>)
         }
-            
    }
 
     render(){
@@ -116,7 +129,7 @@ class Equipment extends React.Component{
                                 this.state.camera.map((el,i)=>{
                                 return(
                                     <Col key={i} xxl={{ span: 4}} xl={{ span:6}} lg={{ span: 6}} md={{span:6}} sm={{span:6}} xs={{span:6}} className="cardPdd ">
-                                        <a href={"#/app/live/index?id="+el.eid}><Icon type="play-circle" style={{color:"#fff",fontSize:"35px",position:" absolute",left:"60%",top:"30%",zIndex:10}} /></a>
+                                        <a href={"#/app/live/index?id="+el.eid} style={{display:this.state.liveIcon?"block":"none"}}><Icon type="play-circle" style={{color:"#fff",fontSize:"35px",position:" absolute",left:"60%",top:"30%",zIndex:10}} /></a>
                                         <Card className="boxShow"
                                               cover={<img alt="example" src={this.state.camera[i].picpath?this.state.camera[i].picpath:nopic} width="100%" height="140px" />}
                                               actions={
