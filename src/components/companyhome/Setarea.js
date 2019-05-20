@@ -4,20 +4,29 @@ import "../../style/jhy/css/setarea.css";
 import { post } from "../../axios/tools";
 const blue = "#5063ee";
 const red = "#ED2F2F";
-const maskcol = "rgba(255, 255, 255, 0.3)";
+const maskcol = "rgba(204, 204, 204, 0.3)";
 class Setarea extends Component {
   constructor(props) {
     super(props);
     this.state = {
       src: "",
+      cid: "",
       clicknum: 0,
-      present: [],
-      areaone: [[400, 100], [600, 300], [600, 500], [200, 500], [200, 300]], //防区一
-      areatwo: [[200, 200], [300, 500], [300, 600], [400, 600], [500, 200]], //防区二
-      deleteshow: false
+      presentlast: [],
+      initarea: [[152, 188], [352, 188], [552, 188], [552, 388], [152, 388]],
+      areaone: [], //防区一
+      areatwo: [],
+      subbtn1: "确认添加防区一",
+      subbtn2: "确认添加防区二",
+      opebtn1: "添加防区一",
+      opebtn2: "添加防区二",
+      opedisable1: false,
+      opedisable2: false,
+      subdisable1: true,
+      subdisable2: true
     };
-    this.handleSub = this.handleSub.bind(this);
-    this.handleDel = this.handleDel.bind(this);
+    this.submit = this.submit.bind(this);
+    this.handOperation = this.handOperation.bind(this);
   }
   componentWillMount = () => {
     this.setState({
@@ -35,18 +44,20 @@ class Setarea extends Component {
       area.lineWidth = 2;
       area.beginPath();
       area.moveTo(areaone[0][0], areaone[0][1]);
-      area.lineTo(areaone[1][0], areaone[1][1]);
-      area.lineTo(areaone[2][0], areaone[2][1]);
-      area.lineTo(areaone[3][0], areaone[3][1]);
-      area.lineTo(areaone[4][0], areaone[4][1]);
-      area.lineTo(areaone[0][0], areaone[0][1]);
-      area.closePath();
-      area.fill();
+      areaone.map((elx, i) => {
+        if (i > 0) {
+          area.lineTo(areaone[i][0], areaone[i][1]);
+          if (i === 4) {
+            area.lineTo(areaone[0][0], areaone[0][1]);
+          }
+        }
+      });
       area.stroke();
+      area.fill();
       areaone.map(val => {
         area.beginPath();
         area.fillStyle = "rgba(128, 100, 162, 0.7)";
-        area.arc(val[0], val[1], 5, 0, Math.PI * 2, false);
+        area.arc(val[0], val[1], 5, 0, 2 * Math.PI);
         area.fill();
       });
       if (this.state.areatwo.length > 0) {
@@ -56,17 +67,20 @@ class Setarea extends Component {
         area.lineWidth = 2;
         area.beginPath();
         area.moveTo(areatwo[0][0], areatwo[0][1]);
-        area.lineTo(areatwo[1][0], areatwo[1][1]);
-        area.lineTo(areatwo[2][0], areatwo[2][1]);
-        area.lineTo(areatwo[3][0], areatwo[3][1]);
-        area.lineTo(areatwo[4][0], areatwo[4][1]);
-        area.lineTo(areatwo[0][0], areatwo[0][1]);
-        area.fill();
+        areatwo.map((elx, i) => {
+          if (i > 0) {
+            area.lineTo(areatwo[i][0], areatwo[i][1]);
+            if (i === 4) {
+              area.lineTo(areatwo[0][0], areatwo[0][1]);
+            }
+          }
+        });
         area.stroke();
+        area.fill();
         areatwo.map(val => {
           area.beginPath();
           area.fillStyle = "rgba(128, 100, 162, 0.7)";
-          area.arc(val[0], val[1], 5, 0, Math.PI * 2, false);
+          area.arc(val[0], val[1], 5, 0, 2 * Math.PI);
           area.fill();
         });
       }
@@ -77,21 +91,25 @@ class Setarea extends Component {
       area.lineWidth = 2;
       area.beginPath();
       area.moveTo(areatwo[0][0], areatwo[0][1]);
-      area.lineTo(areatwo[1][0], areatwo[1][1]);
-      area.lineTo(areatwo[2][0], areatwo[2][1]);
-      area.lineTo(areatwo[3][0], areatwo[3][1]);
-      area.lineTo(areatwo[4][0], areatwo[4][1]);
-      area.lineTo(areatwo[0][0], areatwo[0][1]);
-      area.fill();
+      areatwo.map((elx, i) => {
+        if (i > 0) {
+          area.lineTo(areatwo[i][0], areatwo[i][1]);
+          if (i === 4) {
+            area.lineTo(areatwo[0][0], areatwo[0][1]);
+          }
+        }
+      });
       area.stroke();
+      area.fill();
       areatwo.map(val => {
         area.beginPath();
         area.fillStyle = "rgba(128, 100, 162, 0.7)";
-        area.arc(val[0], val[1], 5, 0, Math.PI * 2, false);
+        area.arc(val[0], val[1], 5, 0, 2 * Math.PI);
         area.fill();
       });
     }
   }
+
   getarrX = arr => {
     let arrX = [];
     arr.map((item, i) => {
@@ -114,7 +132,7 @@ class Setarea extends Component {
   getMinY = arr => Math.min(...arr);
   draw = () => {
     //绘制区域
-    let item = this.state.present;
+    let item = this.state.initarea;
     let ele = document.getElementById("cavcontainer");
     let area = ele.getContext("2d");
     area.clearRect(0, 0, 704, 576);
@@ -129,58 +147,24 @@ class Setarea extends Component {
         if (i === 4) {
           area.lineTo(item[0][0], item[0][1]);
         }
-        area.stroke();
       }
     });
+    area.stroke();
+    area.fill();
+    item.map(val => {
+      area.beginPath();
+      area.fillStyle = "rgba(128, 100, 162, 0.7)";
+      area.arc(val[0], val[1], 5, 0, 2 * Math.PI);
+      area.fill();
+    });
   };
-  componentDidMount() {
-    //摄像头详情
-    // post({ url: "/api/camera/getone", data: { code: this.state.cid } }, res => {
-    //   if (res) {
-    //     //     let field = res.data.field,
-    //     //       areaone = [],
-    //     //       areatwo = [];
-    //     //     if (field) {
-    //     //       areaone = field[1] ? JSON.parse(field[1]) : [];
-    //     //       areatwo = field[2] ? JSON.parse(field[2]) : [];
-    //     //     }
-    //     this.setState(
-    //       {
-    //         //         areaone: areaone,
-    //         //         areatwo: areatwo,
-    //         src: res.data.fieldpath
-    //       },
-    //       () => {
-    //         console.log(res.data.fieldpath);
-    //         this.boundarydraw();
-    //       }
-    //     );
-    //   }
-    // });
-    this.boundarydraw();
+  handlepoly = initarea => {
     var clickX = 0; // 保留上次的X轴位置
     var clickY = 0; // 保留上次的Y轴位置
     const _this = this;
     document
       .querySelector("#cavcontainer")
       .addEventListener("mousedown", function(e = window.event) {
-        console.log(_this.state.areaone);
-        console.log(
-          _this.getMaxX(_this.getarrX(_this.state.areaone)),
-          "xzuida"
-        );
-        console.log(
-          _this.getMinX(_this.getarrX(_this.state.areaone)),
-          "xzuixiao"
-        );
-        console.log(
-          _this.getMaxY(_this.getarrY(_this.state.areaone)),
-          "yzuida"
-        );
-        console.log(
-          _this.getMinY(_this.getarrY(_this.state.areaone)),
-          "xzuixiao"
-        );
         console.log(e.offsetX, e.offsetY, "坐标offset");
         clickX = e.offsetX;
         clickY = e.offsetY;
@@ -188,126 +172,147 @@ class Setarea extends Component {
           .querySelector("#cavcontainer")
           .addEventListener("mousemove", function movefun(e) {
             if (
-              _this.state.areaone[0][0] - 5 < e.offsetX &&
-              e.offsetX < _this.state.areaone[0][0] + 5 &&
-              _this.state.areaone[0][1] - 5 < e.offsetY &&
-              e.offsetY < _this.state.areaone[0][1] + 5
+              initarea[0][0] - 5 < e.offsetX &&
+              e.offsetX < initarea[0][0] + 5 &&
+              initarea[0][1] - 5 < e.offsetY &&
+              e.offsetY < initarea[0][1] + 5
             ) {
+              console.log("在第11111111111个点");
               var addX = e.offsetX - clickX; //鼠标移动的距离
               var addY = e.offsetY - clickY;
               clickX = e.offsetX;
               clickY = e.offsetY;
               _this.setState(() => {
-                _this.state.areaone[0] = [
-                  _this.state.areaone[0][0] + addX,
-                  _this.state.areaone[0][1] + addY
+                _this.state.initarea[0] = [
+                  _this.state.initarea[0][0] + addX,
+                  _this.state.initarea[0][1] + addY
                 ];
-                _this.boundarydraw();
+                _this.draw();
               });
-            } else if (
-              _this.state.areaone[1][0] - 5 < e.offsetX &&
-              e.offsetX < _this.state.areaone[1][0] + 5 &&
-              _this.state.areaone[1][1] - 5 < e.offsetY &&
-              e.offsetY < _this.state.areaone[1][1] + 5
+            }
+            if (
+              initarea[1][0] - 5 < e.offsetX &&
+              e.offsetX < initarea[1][0] + 5 &&
+              initarea[1][1] - 5 < e.offsetY &&
+              e.offsetY < initarea[1][1] + 5
             ) {
+              console.log("在第2222222222222222222222个点");
               var addX = e.offsetX - clickX; //鼠标移动的距离
               var addY = e.offsetY - clickY;
               clickX = e.offsetX;
               clickY = e.offsetY;
               _this.setState(() => {
-                _this.state.areaone[1] = [
-                  _this.state.areaone[1][0] + addX,
-                  _this.state.areaone[1][1] + addY
+                _this.state.initarea[1] = [
+                  _this.state.initarea[1][0] + addX,
+                  _this.state.initarea[1][1] + addY
                 ];
-                _this.boundarydraw();
+                _this.draw();
               });
-            } else if (
-              _this.state.areaone[2][0] - 5 < e.offsetX &&
-              e.offsetX < _this.state.areaone[2][0] + 5 &&
-              _this.state.areaone[2][1] - 5 < e.offsetY &&
-              e.offsetY < _this.state.areaone[2][1] + 5
+            }
+            if (
+              initarea[2][0] - 5 < e.offsetX &&
+              e.offsetX < initarea[2][0] + 5 &&
+              initarea[2][1] - 5 < e.offsetY &&
+              e.offsetY < initarea[2][1] + 5
             ) {
+              console.log("在第333333333333333个点");
               var addX = e.offsetX - clickX; //鼠标移动的距离
               var addY = e.offsetY - clickY;
               clickX = e.offsetX;
               clickY = e.offsetY;
               _this.setState(() => {
-                _this.state.areaone[2] = [
-                  _this.state.areaone[2][0] + addX,
-                  _this.state.areaone[2][1] + addY
+                _this.state.initarea[2] = [
+                  _this.state.initarea[2][0] + addX,
+                  _this.state.initarea[2][1] + addY
                 ];
-                _this.boundarydraw();
+                _this.draw();
               });
-            } else if (
-              _this.state.areaone[3][0] - 5 < e.offsetX &&
-              e.offsetX < _this.state.areaone[3][0] + 5 &&
-              _this.state.areaone[3][1] - 5 < e.offsetY &&
-              e.offsetY < _this.state.areaone[3][1] + 5
+            }
+            if (
+              initarea[3][0] - 5 < e.offsetX &&
+              e.offsetX < initarea[3][0] + 5 &&
+              initarea[3][1] - 5 < e.offsetY &&
+              e.offsetY < initarea[3][1] + 5
             ) {
+              console.log("在第44444444个点");
               var addX = e.offsetX - clickX; //鼠标移动的距离
               var addY = e.offsetY - clickY;
               clickX = e.offsetX;
               clickY = e.offsetY;
               _this.setState(() => {
-                _this.state.areaone[3] = [
-                  _this.state.areaone[3][0] + addX,
-                  _this.state.areaone[3][1] + addY
+                _this.state.initarea[3] = [
+                  _this.state.initarea[3][0] + addX,
+                  _this.state.initarea[3][1] + addY
                 ];
-                _this.boundarydraw();
+                _this.draw();
               });
-            } else if (
-              _this.state.areaone[4][0] - 5 < e.offsetX &&
-              e.offsetX < _this.state.areaone[4][0] + 5 &&
-              _this.state.areaone[4][1] - 5 < e.offsetY &&
-              e.offsetY < _this.state.areaone[4][1] + 5
+            }
+            if (
+              initarea[4][0] - 5 < e.offsetX &&
+              e.offsetX < initarea[4][0] + 5 &&
+              initarea[4][1] - 5 < e.offsetY &&
+              e.offsetY < initarea[4][1] + 5
             ) {
+              console.log("在第5555555555个点");
               var addX = e.offsetX - clickX; //鼠标移动的距离
               var addY = e.offsetY - clickY;
               clickX = e.offsetX;
               clickY = e.offsetY;
               _this.setState(() => {
-                _this.state.areaone[4] = [
-                  _this.state.areaone[4][0] + addX,
-                  _this.state.areaone[4][1] + addY
+                _this.state.initarea[4] = [
+                  _this.state.initarea[4][0] + addX,
+                  _this.state.initarea[4][1] + addY
                 ];
-                _this.boundarydraw();
+                _this.draw();
               });
-            } else if (
-              _this.getMinX(_this.getarrX(_this.state.areaone)) < e.offsetX &&
-              e.offsetX < _this.getMaxX(_this.getarrX(_this.state.areaone)) &&
-              _this.getMinY(_this.getarrY(_this.state.areaone)) < e.offsetY &&
-              e.offsetY < _this.getMaxY(_this.getarrY(_this.state.areaone))
+            }
+
+            if (
+              _this.getMinX(_this.getarrX(initarea)) + 5 < e.offsetX &&
+              e.offsetX < _this.getMaxX(_this.getarrX(initarea)) - 5 &&
+              _this.getMinY(_this.getarrY(initarea)) + 5 < e.offsetY &&
+              e.offsetY < _this.getMaxY(_this.getarrY(initarea)) - 5
             ) {
-              console.log("zailimian,且不在5个点上");
               var addX = e.offsetX - clickX; //鼠标移动的距离
               var addY = e.offsetY - clickY;
               clickX = e.offsetX;
               clickY = e.offsetY;
-              console.log(addX, addY, "增加的");
+              console.log(addX, addY, "zailimian,且不在5个点上增加的");
               _this.setState(
                 state => {
-                  console.log(state.areaone, "chishi");
+                  console.log(state.initarea, "chishi");
                   return {
-                    areaone: [
-                      [state.areaone[0][0] + addX, state.areaone[0][1] + addY],
-                      [state.areaone[1][0] + addX, state.areaone[1][1] + addY],
-                      [state.areaone[2][0] + addX, state.areaone[2][1] + addY],
-                      [state.areaone[3][0] + addX, state.areaone[3][1] + addY],
-                      [state.areaone[4][0] + addX, state.areaone[4][1] + addY]
+                    initarea: [
+                      [
+                        state.initarea[0][0] + addX,
+                        state.initarea[0][1] + addY
+                      ],
+                      [
+                        state.initarea[1][0] + addX,
+                        state.initarea[1][1] + addY
+                      ],
+                      [
+                        state.initarea[2][0] + addX,
+                        state.initarea[2][1] + addY
+                      ],
+                      [
+                        state.initarea[3][0] + addX,
+                        state.initarea[3][1] + addY
+                      ],
+                      [state.initarea[4][0] + addX, state.initarea[4][1] + addY]
                     ]
                   };
                 },
                 () => {
-                  _this.boundarydraw();
+                  _this.draw();
                 }
               );
             }
-
             if (
-              _this.getMinX(_this.getarrX(_this.state.areaone)) < 5 ||
-              _this.getMaxX(_this.getarrX(_this.state.areaone)) > 699 ||
-              _this.getMinY(_this.getarrY(_this.state.areaone)) < 5 ||
-              _this.getMaxY(_this.getarrY(_this.state.areaone)) > 571
+              _this.getMinX(_this.getarrX(initarea)) <= 5 ||
+              _this.getMaxX(_this.getarrX(initarea)) >= 699 ||
+              _this.getMinY(_this.getarrY(initarea)) <= 5 ||
+              _this.getMaxY(_this.getarrY(initarea)) >= 571
             ) {
               document
                 .querySelector("#cavcontainer")
@@ -322,15 +327,274 @@ class Setarea extends Component {
               });
           });
       });
+  };
+  handleClear = () => {
+    let ele = document.getElementById("cavcontainer");
+    let area = ele.getContext("2d");
+    area.clearRect(0, 0, 704, 576);
+  };
+  componentDidMount() {
+    // 摄像头详情;
+    // post({ url: "/api/camera/getone", data: { code: this.state.cid } }, res => {
+    //   if (res) {
+    //     console.log(res, "返回");
+    // let field = res.data.field,
+    //   areaone = [],
+    //   areatwo = [];
+    // if (field) {
+    //   areaone = field[1] ? JSON.parse(field[1]) : [];
+    //   areatwo = field[2] ? JSON.parse(field[2]) : [];
+    // }
+    // this.setState(
+    //   {
+    //     areaone: areaone,
+    //     areatwo: areatwo,
+    //     src: res.data.fieldpath
+    //   },
+    //   () => {
+    //     console.log(res.data.fieldpath, "后台初始防区");
+    // this.boundarydraw();
+    //   }
+    // );
+    // }
+    // });
   }
-  handleSub(subn) {
-    if (subn === 1) {
-    } else {
+  handOperation(id) {
+    switch (id) {
+      case 1: {
+        if (this.state.opebtn1 === "添加防区一") {
+          this.draw();
+          this.handlepoly(this.state.initarea);
+          this.setState({
+            opebtn1: "取消防区一",
+            opedisable1: false,
+            subdisable1: false,
+            opedisable2: true,
+            subdisable2: true,
+            subbtn1: "确认添加防区一"
+          });
+          if (this.state.areatwo.length > 0) {
+            let areatwo = this.state.areatwo;
+            this.setState(
+              {
+                areatwo: [],
+                presentlast: areatwo
+              },
+              () => {}
+            );
+          }
+          if (this.state.subbtn2 === "确认删除防区二") {
+            this.setState({ subdisable2: true });
+          }
+        } else if (this.state.opebtn1 === "取消防区一") {
+          this.handleClear();
+          this.setState({
+            opebtn1: "添加防区一"
+          });
+          if (this.state.subbtn1 === "确认添加防区一") {
+            this.setState({ subdisable1: true });
+          }
+          if (this.state.subbtn2 === "确认添加防区二") {
+            this.setState({ opedisable2: false });
+          }
+        }
+        break;
+      }
+      case 2: {
+        if (this.state.opebtn2 === "添加防区二") {
+          this.draw();
+          this.handlepoly(this.state.initarea);
+
+          if (this.state.areaone.length > 0) {
+            let areaone = this.state.areaone;
+            this.setState(
+              {
+                areaone: [],
+                presentlast: [areaone]
+              },
+              () => {}
+            );
+          }
+          this.setState(
+            {
+              opebtn2: "取消防区二",
+              opedisable1: true,
+              subdisable1: true,
+              opedisable2: false,
+              subdisable2: false,
+              subbtn2: "确认添加防区二"
+            },
+            () => {}
+          );
+          if (this.state.subbtn1 === "确认删除防区一") {
+            this.setState({ subdisable1: true });
+          }
+        } else if (this.state.opebtn2 === "取消防区二") {
+          this.handleClear();
+          this.setState({
+            opebtn2: "添加防区二"
+          });
+          if (this.state.optbtn1 === "添加防区一") {
+            this.setState({ optdisable1: false });
+          }
+          if (this.state.subbtn1 === "确认删除防区一") {
+            this.setState({ subdisable1: false });
+          }
+          if (this.state.subbtn2 === "确认添加防区二") {
+            this.setState({ subdisable2: true });
+          }
+        }
+
+        break;
+      }
+      default:
+        return;
     }
   }
-  handleDel(deln) {
-    if (deln === 1) {
-    } else {
+  submit(index) {
+    var defenceState = [];
+    if (this.defence) {
+      defenceState = this.defence.state;
+    }
+    switch (index) {
+      case 1: {
+        if (this.state.subbtn1 === "确认添加防区一") {
+          this.setState(
+            {
+              opebtn1: "添加防区一",
+              opedisable1: true,
+              subdisable1: false,
+              opedisable2: false,
+              subbtn1: "确认删除防区一"
+            },
+            () => {
+              this.state.areaone = this.state.initarea;
+              if (this.state.presentlast.length > 0) {
+                this.state.areatwo = this.state.presentlast;
+                this.state.presentlast = [];
+              }
+              this.boundarydraw();
+              this.forceUpdate();
+
+              // post(
+              //   {
+              //     url: "/api/camera/fieldadd",
+              //     data: {
+              //       key: 1,
+              //       field: JSON.stringify(this.state.initarea),
+              //       code: this.state.cid
+              //     }
+              //   }
+            }
+          );
+          if (this.state.subbtn2 === "确认删除防区二") {
+            this.setState({
+              opedisable2: true,
+              subdisable2: false
+            });
+          }
+          this.boundarydraw();
+
+          break;
+        } else if (this.state.subbtn1 === "确认删除防区一") {
+          this.setState(
+            {
+              areaone: [],
+              opebtn1: "添加防区一",
+              opedisable1: false,
+              subdisable1: true,
+              subbtn1: "确认添加防区一"
+            },
+            () => {
+              this.boundarydraw();
+            }
+          );
+
+          // post(
+          //   {
+          //     url: "/api/camera/fielddel",
+          //     data: { key: 1, code: this.state.cid }
+          //   },
+          //   res => {}
+          // );
+          if (this.state.optbtn2 === "添加防区二") {
+            this.setState({
+              opedisable2: true
+            });
+          }
+          this.boundarydraw();
+
+          break;
+        }
+      }
+      case 2: {
+        if (this.state.subbtn2 === "确认添加防区二") {
+          this.setState(
+            {
+              opebtn2: "添加防区二",
+              opedisable1: false,
+              opedisable2: true,
+              subdisable2: false,
+              subbtn2: "确认删除防区二"
+            },
+            () => {
+              this.state.areatwo = this.state.initarea;
+              if (this.state.presentlast.length > 0) {
+                this.state.areaone = this.state.presentlast;
+                this.state.presentlast = [];
+              }
+
+              this.boundarydraw();
+              this.forceUpdate();
+
+              // post(
+              //   {
+              //     url: "/api/camera/fieldadd",
+              //     data: {
+              //       key: 2,
+              //       field: JSON.stringify([this.state.present]),
+              //       code: this.state.cid
+              //     }
+              //   }
+            }
+          );
+          if (this.state.subbtn1 === "确认删除防区一") {
+            this.setState({
+              opedisable1: true,
+              subdisable1: false
+            });
+          }
+          this.boundarydraw();
+
+          break;
+        } else if (this.state.subbtn2 === "确认删除防区二") {
+          this.setState(
+            {
+              areatwo: [],
+              present: [],
+              opebtn2: "添加防区二",
+              opedisable2: false,
+              subdisable2: true,
+              subbtn2: "确认添加防区二"
+            },
+            () => {
+              this.boundarydraw();
+            }
+          );
+          // post(
+          //   {
+          //     url: "/api/camera/fielddel",
+          //     data: { key: 2, code: this.state.cid }
+          //   },
+          //   res => {}
+          // );
+          this.boundarydraw();
+
+          break;
+        }
+      }
+      default:
+        return;
     }
   }
   render() {
@@ -353,33 +617,49 @@ class Setarea extends Component {
           <div className="optbtn">
             <Button
               type="primary"
-              className="subtn1"
-              onClick={this.handleSub(1)}
+              className="queryBtn"
+              id="add1"
+              onClick={() => this.handOperation(1)}
+              disabled={this.state.opedisable1}
             >
-              确认防区一
+              {this.state.opebtn1 === "添加防区一"
+                ? "添加防区一"
+                : "取消添加防区一"}
             </Button>
             <Button
               type="primary"
-              className="deltn1"
-              onClick={this.handleDel(1)}
+              className="queryBtn"
+              id="sub1"
+              onClick={() => this.submit(1)}
+              disabled={this.state.subdisable1}
             >
-              删除防区一
+              {this.state.subbtn1 === "确认添加防区一"
+                ? "确认添加防区一"
+                : "确认删除防区一"}
             </Button>
             <br />
             <br />
             <Button
               type="primary"
-              className="subtn2"
-              onClick={this.handleSub(1)}
+              className="queryBtn"
+              onClick={() => this.handOperation(2)}
+              disabled={this.state.opedisable2}
+              id="add2"
             >
-              确认防区二
+              {this.state.opebtn2 === "添加防区二"
+                ? "添加防区二"
+                : "取消添加防区二"}
             </Button>
             <Button
               type="primary"
-              className="deltn2"
-              onClick={this.handleDel(2)}
+              className="queryBtn"
+              disabled={this.state.subdisable2}
+              onClick={() => this.submit(2)}
+              id="sub2"
             >
-              删除防区二
+              {this.state.subbtn2 === "确认添加防区二"
+                ? "确认添加防区二"
+                : "确认删除防区二"}
             </Button>
           </div>
         </div>
@@ -387,8 +667,8 @@ class Setarea extends Component {
           <p>
             围界设定方法：
             <br />
-            请在左侧图片处鼠标单击绘制防区，防区均为四边形，
-            每个设备最多可设置两处防区。防区绘制完成后请点击“新增”按钮生效。
+            单击添加防区后根据需求鼠标拖动缩放防区大小或移动防区位置，
+            每个设备最多可设置两处防区。防区绘制完成后请点击“确定添加”按钮生效。
           </p>
         </div>
       </div>
