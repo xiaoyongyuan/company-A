@@ -57,7 +57,7 @@ class Setarea extends Component {
       areaone.map(val => {
         area.beginPath();
         area.fillStyle = "rgba(128, 100, 162, 0.7)";
-        area.arc(val[0], val[1], 5, 0, 2 * Math.PI);
+        area.arc(val[0], val[1], 10, 0, 2 * Math.PI);
         area.fill();
       });
       if (this.state.areatwo.length > 0) {
@@ -80,7 +80,7 @@ class Setarea extends Component {
         areatwo.map(val => {
           area.beginPath();
           area.fillStyle = "rgba(128, 100, 162, 0.7)";
-          area.arc(val[0], val[1], 5, 0, 2 * Math.PI);
+          area.arc(val[0], val[1], 10, 0, 2 * Math.PI);
           area.fill();
         });
       }
@@ -104,7 +104,7 @@ class Setarea extends Component {
       areatwo.map(val => {
         area.beginPath();
         area.fillStyle = "rgba(128, 100, 162, 0.7)";
-        area.arc(val[0], val[1], 5, 0, 2 * Math.PI);
+        area.arc(val[0], val[1], 10, 0, 2 * Math.PI);
         area.fill();
       });
     }
@@ -154,7 +154,7 @@ class Setarea extends Component {
     item.map(val => {
       area.beginPath();
       area.fillStyle = "rgba(128, 100, 162, 0.7)";
-      area.arc(val[0], val[1], 5, 0, 2 * Math.PI);
+      area.arc(val[0], val[1], 10, 0, 2 * Math.PI);
       area.fill();
     });
   };
@@ -172,10 +172,10 @@ class Setarea extends Component {
           .querySelector("#cavcontainer")
           .addEventListener("mousemove", function movefun(e) {
             if (
-              initarea[0][0] - 5 < e.offsetX &&
-              e.offsetX < initarea[0][0] + 5 &&
-              initarea[0][1] - 5 < e.offsetY &&
-              e.offsetY < initarea[0][1] + 5
+              initarea[0][0] - 10 < e.offsetX &&
+              e.offsetX < initarea[0][0] + 10 &&
+              initarea[0][1] - 10 < e.offsetY &&
+              e.offsetY < initarea[0][1] + 10
             ) {
               console.log("在第11111111111个点");
               var addX = e.offsetX - clickX; //鼠标移动的距离
@@ -189,12 +189,11 @@ class Setarea extends Component {
                 ];
                 _this.draw();
               });
-            }
-            if (
-              initarea[1][0] - 5 < e.offsetX &&
-              e.offsetX < initarea[1][0] + 5 &&
-              initarea[1][1] - 5 < e.offsetY &&
-              e.offsetY < initarea[1][1] + 5
+            } else if (
+              initarea[1][0] - 10 < e.offsetX &&
+              e.offsetX < initarea[1][0] + 10 &&
+              initarea[1][1] - 10 < e.offsetY &&
+              e.offsetY < initarea[1][1] + 10
             ) {
               console.log("在第2222222222222222222222个点");
               var addX = e.offsetX - clickX; //鼠标移动的距离
@@ -208,12 +207,11 @@ class Setarea extends Component {
                 ];
                 _this.draw();
               });
-            }
-            if (
-              initarea[2][0] - 5 < e.offsetX &&
-              e.offsetX < initarea[2][0] + 5 &&
-              initarea[2][1] - 5 < e.offsetY &&
-              e.offsetY < initarea[2][1] + 5
+            } else if (
+              initarea[2][0] - 10 < e.offsetX &&
+              e.offsetX < initarea[2][0] + 10 &&
+              initarea[2][1] - 10 < e.offsetY &&
+              e.offsetY < initarea[2][1] + 10
             ) {
               console.log("在第333333333333333个点");
               var addX = e.offsetX - clickX; //鼠标移动的距离
@@ -227,12 +225,11 @@ class Setarea extends Component {
                 ];
                 _this.draw();
               });
-            }
-            if (
-              initarea[3][0] - 5 < e.offsetX &&
-              e.offsetX < initarea[3][0] + 5 &&
-              initarea[3][1] - 5 < e.offsetY &&
-              e.offsetY < initarea[3][1] + 5
+            } else if (
+              initarea[3][0] - 10 < e.offsetX &&
+              e.offsetX < initarea[3][0] + 10 &&
+              initarea[3][1] - 10 < e.offsetY &&
+              e.offsetY < initarea[3][1] + 10
             ) {
               console.log("在第44444444个点");
               var addX = e.offsetX - clickX; //鼠标移动的距离
@@ -246,12 +243,11 @@ class Setarea extends Component {
                 ];
                 _this.draw();
               });
-            }
-            if (
-              initarea[4][0] - 5 < e.offsetX &&
-              e.offsetX < initarea[4][0] + 5 &&
-              initarea[4][1] - 5 < e.offsetY &&
-              e.offsetY < initarea[4][1] + 5
+            } else if (
+              initarea[4][0] - 10 < e.offsetX &&
+              e.offsetX < initarea[4][0] + 10 &&
+              initarea[4][1] - 10 < e.offsetY &&
+              e.offsetY < initarea[4][1] + 10
             ) {
               console.log("在第5555555555个点");
               var addX = e.offsetX - clickX; //鼠标移动的距离
@@ -267,52 +263,52 @@ class Setarea extends Component {
               });
             }
 
+            // if (
+            //   _this.getMinX(_this.getarrX(initarea)) + 10 < e.offsetX &&
+            //   e.offsetX < _this.getMaxX(_this.getarrX(initarea)) - 10 &&
+            //   _this.getMinY(_this.getarrY(initarea)) + 10 < e.offsetY &&
+            //   e.offsetY < _this.getMaxY(_this.getarrY(initarea)) - 10
+            // ) {
+            //   var addX = e.offsetX - clickX; //鼠标移动的距离
+            //   var addY = e.offsetY - clickY;
+            //   clickX = e.offsetX;
+            //   clickY = e.offsetY;
+            //   console.log(addX, addY, "zailimian,且不在5个点上增加的");
+            //   _this.setState(
+            //     state => {
+            //       console.log(state.initarea, "chishi");
+            //       return {
+            //         initarea: [
+            //           [
+            //             state.initarea[0][0] + addX,
+            //             state.initarea[0][1] + addY
+            //           ],
+            //           [
+            //             state.initarea[1][0] + addX,
+            //             state.initarea[1][1] + addY
+            //           ],
+            //           [
+            //             state.initarea[2][0] + addX,
+            //             state.initarea[2][1] + addY
+            //           ],
+            //           [
+            //             state.initarea[3][0] + addX,
+            //             state.initarea[3][1] + addY
+            //           ],
+            //           [state.initarea[4][0] + addX, state.initarea[4][1] + addY]
+            //         ]
+            //       };
+            //     },
+            //     () => {
+            //       _this.draw();
+            //     }
+            //   );
+            // }
             if (
-              _this.getMinX(_this.getarrX(initarea)) + 5 < e.offsetX &&
-              e.offsetX < _this.getMaxX(_this.getarrX(initarea)) - 5 &&
-              _this.getMinY(_this.getarrY(initarea)) + 5 < e.offsetY &&
-              e.offsetY < _this.getMaxY(_this.getarrY(initarea)) - 5
-            ) {
-              var addX = e.offsetX - clickX; //鼠标移动的距离
-              var addY = e.offsetY - clickY;
-              clickX = e.offsetX;
-              clickY = e.offsetY;
-              console.log(addX, addY, "zailimian,且不在5个点上增加的");
-              _this.setState(
-                state => {
-                  console.log(state.initarea, "chishi");
-                  return {
-                    initarea: [
-                      [
-                        state.initarea[0][0] + addX,
-                        state.initarea[0][1] + addY
-                      ],
-                      [
-                        state.initarea[1][0] + addX,
-                        state.initarea[1][1] + addY
-                      ],
-                      [
-                        state.initarea[2][0] + addX,
-                        state.initarea[2][1] + addY
-                      ],
-                      [
-                        state.initarea[3][0] + addX,
-                        state.initarea[3][1] + addY
-                      ],
-                      [state.initarea[4][0] + addX, state.initarea[4][1] + addY]
-                    ]
-                  };
-                },
-                () => {
-                  _this.draw();
-                }
-              );
-            }
-            if (
-              _this.getMinX(_this.getarrX(initarea)) <= 5 ||
-              _this.getMaxX(_this.getarrX(initarea)) >= 699 ||
-              _this.getMinY(_this.getarrY(initarea)) <= 5 ||
-              _this.getMaxY(_this.getarrY(initarea)) >= 571
+              _this.getMinX(_this.getarrX(initarea)) < 10 ||
+              _this.getMaxX(_this.getarrX(initarea)) > 694 ||
+              _this.getMinY(_this.getarrY(initarea)) < 10 ||
+              _this.getMaxY(_this.getarrY(initarea)) > 566
             ) {
               document
                 .querySelector("#cavcontainer")
