@@ -47,7 +47,6 @@ class App extends Component {
         });
     };
     render() {
-
         const { auth, responsive } = this.props;
         return (
             <Layout>
