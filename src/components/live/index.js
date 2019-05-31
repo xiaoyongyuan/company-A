@@ -102,7 +102,7 @@ export default class Live extends React.Component {
                             this.handlePullFlow();
                         }
                     }else if(res.data.taskstatus===1){
-                        return true
+                        message.success(res.data.taskmemo);
                     }
                 }
             })
