@@ -90,7 +90,6 @@ export default class Live extends React.Component {
     };
     //判断是否能直播
     handlePullFlow=()=>{
-        console.log(flashVis);
         if(this.state.taskId){
             post({url:"/api/smptask/getone",data:{code:this.state.taskId,apptype:1}},(res)=>{
                 if(res.success){
