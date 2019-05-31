@@ -5,6 +5,7 @@ import {post} from "../../axios/tools";
 import flash from "../../style/ztt/img/flash.png";
 import {message} from 'antd';
 var ActiveXObject=window.ActiveXObject;
+var flashVis=0;//直播开关
 export default class Live extends React.Component {
     constructor(props){
         super(props);
@@ -22,6 +23,7 @@ export default class Live extends React.Component {
 
 
     componentDidMount() {
+        //判断浏览器是否有flash插件
         var isIE=false;
         if(window.ActiveXObject){
             isIE=true;
@@ -79,7 +81,6 @@ export default class Live extends React.Component {
                     this.setState({
                         //任务id
                         taskId:res.data,
-                        oldTime:new Date().getTime()
                     },()=>{
                         this.handlePullFlow();
                     })
@@ -93,27 +94,25 @@ export default class Live extends React.Component {
             post({url:"/api/smptask/getone",data:{code:this.state.taskId,apptype:1}},(res)=>{
                 if(res.success){
                     if(res.data.taskstatus===0){
-                        this.flashVis=setInterval(()=>this.handlePullFlow(),1000);
-                        this.setState({
-                            newTime:new Date().getTime()
-                        },()=>{
-                           if(this.state.newTime-this.state.oldTime>30000){
-                               clearInterval(this.flashVis);
-                               message.warning("直播失败!");
-                           }
-                        });
-                    }else{
-                        return true;
+                        flashVis++;
+                        if(flashVis>=200){
+                            message.warning("直播失败!");
+                            return false;
+                        }else{
+                            this.handlePullFlow();
+                        }
+                    }else if(res.data.taskstatus===1){
+                        return true
                     }
                 }
             })
         }
     };
   componentWillUnmount() {
+      clearInterval(flashVis);
         if (this.player) {
           this.player.dispose();
         }
-      clearInterval(this.flashVis);
       //关闭
       if(this.state.taskId){
           post({url:"/api/equipment/get_directclose",data:{eid:this.props.query.id}},(res)=>{
