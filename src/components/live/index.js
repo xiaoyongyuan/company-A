@@ -90,6 +90,7 @@ export default class Live extends React.Component {
     };
     //判断是否能直播
     handlePullFlow=()=>{
+        console.log(flashVis);
         if(this.state.taskId){
             post({url:"/api/smptask/getone",data:{code:this.state.taskId,apptype:1}},(res)=>{
                 if(res.success){
@@ -97,11 +98,13 @@ export default class Live extends React.Component {
                         flashVis++;
                         if(flashVis>=200){
                             message.warning("直播失败!");
+                            flashVis=0;
                             return false;
                         }else{
                             this.handlePullFlow();
                         }
                     }else if(res.data.taskstatus===1){
+                        flashVis=0;
                         message.success(res.data.taskmemo);
                     }
                 }
