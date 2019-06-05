@@ -96,26 +96,31 @@ class Equipment extends React.Component{
         }
         return count;
     };
+    momenttime = bdate => { //判断时间是否在一分钟内
+      if (!bdate) return false;
+      if (new Date().getTime() - new Date(bdate).getTime() > 60000) {
+        return false;
+      } else {
+        return true;
+      }
+    };
     isonline=(i)=>{ //是否在线
-        if(this.state.camera[i]&&this.state.camera[i].heart.time){
-            let time= this.state.camera[i].heart.time.toString();// 取到时间
-            let yijingtime=new Date(time); //取到时间转换
-            let timq=yijingtime.getTime(yijingtime) // 取到时间戳
-            let myDate=new Date();// 当前时间
-            let timc=myDate.getTime(myDate) // 当前时间戳
-            if(timc-timq>60000){
-                return(<div className="onLine offLineBack">离线</div>)
-            }else{
-                return(<div className="onLine onLineBack">在线</div>)
-            }
 
-        }else{
-           return(<div className="onLine onLineBack">离线</div>)
-        }
+      if(this.state.camera[i]&&this.state.camera[i].heart){
+        let hearttime= this.state.camera[i].heart.time;
+        let lasttime= this.state.camera[i].lasttime;
+
+        if (!this.momenttime(lasttime) && !this.momenttime(hearttime)) {
+          return(<div className="onLine offLineBack">离线</div>)
+        }else return(<div className="onLine onLineBack">在线</div>)
+
+      }else{
+        return(<div className="onLine offLineBack">离线</div>)
+      }    
+
    }
 
     render(){
-
         return(
                 <div className="equipment">
                     <Spin size="large" tip="加载中......" spinning={this.state.loading} className="loadding" />
