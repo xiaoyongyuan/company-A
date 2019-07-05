@@ -121,13 +121,13 @@ export default {
           funct: "basic",
           component: "Employeelist"
         },
-        {
+       /* {
           key: "/app/settings/objShow",
           identi: ["comp", "comptop", "user"],
           title: "报警对象展示",
           funct: "basic",
           component: "objShow"
-        },
+        },*/
         {
           key: "/app/settings/messages",
           identi: ["comp", "comptop", "user"],
